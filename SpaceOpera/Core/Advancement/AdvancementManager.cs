@@ -1,97 +1,93 @@
+using Cardamom.Trackers;
 using SpaceOpera.Core.Advanceable;
 using SpaceOpera.Core.Economics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpaceOpera.Core.Advancement
 {
     class AdvancementManager : ITickable
     {
-        private readonly HashSet<IAdvancement> _ResearchedAdvancements = new HashSet<IAdvancement>();
+        private readonly HashSet<IAdvancement> _researchedAdvancements = new();
 
-        private readonly Dictionary<IAdvancement, Pool> _AdvancementProgress = new Dictionary<IAdvancement, Pool>();
-        private readonly List<AdvancementSlot> _AdvancementSlots = 
-            new List<AdvancementSlot>()
+        private readonly Dictionary<IAdvancement, Pool> _advancementProgress = new();
+        private readonly List<AdvancementSlot> _advancementSlots = 
+            new()
             {
                 new AdvancementSlot(0),
                 new AdvancementSlot(1),
                 new AdvancementSlot(2)
             };
 
-        private readonly MultiQuantity<IMaterial> _BacklogProgress = new MultiQuantity<IMaterial>();
+        private readonly MultiQuantity<IMaterial> _backlogProgress = new();
 
         public IEnumerable<IAdvancement> GetResearchedAdvancements()
         {
-            return _ResearchedAdvancements;
+            return _researchedAdvancements;
         }
 
-        public void Research(IAdvancement Advancement)
+        public void Research(IAdvancement advancement)
         {
-            _ResearchedAdvancements.Add(Advancement);
+            _researchedAdvancements.Add(advancement);
         }
 
-        public bool HasPrerequisiteResearch(IResearchable Researchable)
+        public bool HasPrerequisiteResearch(IAdvancement advancement)
         {
-            return Researchable.Prerequisites == null
-                || Researchable.Prerequisites.Count() == 0 
-                || Researchable.Prerequisites.All(_ResearchedAdvancements.Contains);
+            return advancement.Prerequisites == null
+                || advancement.Prerequisites.Count() == 0 
+                || advancement.Prerequisites.All(_researchedAdvancements.Contains);
         }
 
         public void AddResearch(IMaterial Material, float Quantity)
         {
-            _BacklogProgress.Add(Material, Quantity);
+            _backlogProgress.Add(Material, Quantity);
         }
 
-        public Pool GetResearchProgress(IAdvancement Advancement)
+        public Pool GetResearchProgress(IAdvancement advancement)
         {
-            return GetOrCreateProgress(Advancement);
+            return GetOrCreateProgress(advancement);
         }
 
         public IEnumerable<AdvancementSlot> GetAdvancementSlots()
         {
-            return _AdvancementSlots;
+            return _advancementSlots;
         }
 
         public void Tick()
         {
             Dictionary<IMaterial, int> counts = 
-                _AdvancementSlots
-                .Where(x => x.Advancement != null)
-                .GroupBy(x => x.Advancement.Type.Research)
-                .ToDictionary(x => x.Key, x => x.Count());
-            foreach (var advancement in _AdvancementSlots)
+                _advancementSlots
+                    .Where(x => x.Advancement != null)
+                    .GroupBy(x => x.Advancement?.Type!.Research!)
+                    .ToDictionary(x => x.Key, x => x.Count());
+            foreach (var advancement in _advancementSlots)
             {
                 if (advancement.Advancement == null)
                 {
                     continue;
                 }
-                var material = advancement.Advancement.Type.Research;
-               AddProgress(advancement.Advancement, _BacklogProgress[material] / counts[material]);
+                var material = advancement.Advancement?.Type!.Research!;
+                AddProgress(advancement.Advancement!, _backlogProgress[material] / counts[material]);
             }
 
-            _BacklogProgress.Clear();
+            _backlogProgress.Clear();
         }
 
-        public void AddProgress(IAdvancement Advancement, float Progress)
+        public void AddProgress(IAdvancement advancement, float progress)
         {
-            var progress = GetOrCreateProgress(Advancement);
-            progress.ChangeAmount(Progress);
-            if (progress.IsFull())
+            var pool = GetOrCreateProgress(advancement);
+            pool.Change(progress);
+            if (pool.IsFull())
             {
-                _ResearchedAdvancements.Add(Advancement);
+                _researchedAdvancements.Add(advancement);
             }
         }
 
-        private Pool GetOrCreateProgress(IAdvancement Advancement)
+        private Pool GetOrCreateProgress(IAdvancement advancement)
         {
-            _AdvancementProgress.TryGetValue(Advancement, out Pool progress);
+            _advancementProgress.TryGetValue(advancement, out Pool progress);
             if (progress == null)
             {
-                progress = new Pool(Advancement.Cost);
-                _AdvancementProgress.Add(Advancement, progress);
+                progress = new Pool(advancement.Cost);
+                _advancementProgress.Add(advancement, progress);
             }
             return progress;
         }

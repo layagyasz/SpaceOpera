@@ -88,21 +88,21 @@ namespace SpaceOpera.Core.Politics.Generator
                 generators,
                 new List<ComponentTagName>()
                 {
-                    new ComponentTagName(new EnumSet<ComponentTag>(ComponentTag.LIGHT), "light"),
-                    new ComponentTagName(new EnumSet<ComponentTag>(ComponentTag.MEDIUM), ""),
-                    new ComponentTagName(new EnumSet<ComponentTag>(ComponentTag.HEAVY), "heavy"),
+                    new ComponentTagName(new EnumSet<ComponentTag>(ComponentTag.Light), "light"),
+                    new ComponentTagName(new EnumSet<ComponentTag>(ComponentTag.Medium), ""),
+                    new ComponentTagName(new EnumSet<ComponentTag>(ComponentTag.Heavy), "heavy"),
 
-                    new ComponentTagName(new EnumSet<ComponentTag>(ComponentTag.BATTLESHIP), "battleship"),
-                    new ComponentTagName(new EnumSet<ComponentTag>(ComponentTag.CARRIER), "carrier"),
-                    new ComponentTagName(new EnumSet<ComponentTag>(ComponentTag.CRUISER), "cruiser"),
-                    new ComponentTagName(new EnumSet<ComponentTag>(ComponentTag.DESTROYER), "destroyer"),
-                    new ComponentTagName(new EnumSet<ComponentTag>(ComponentTag.ESCORT), "escort"),
-                    new ComponentTagName(new EnumSet<ComponentTag>(ComponentTag.FREIGHTER), "freighter"),
-                    new ComponentTagName(new EnumSet<ComponentTag>(ComponentTag.FRIGATE), "frigate"),
-                    new ComponentTagName(new EnumSet<ComponentTag>(ComponentTag.PATROL), "patrol"),
-                    new ComponentTagName(new EnumSet<ComponentTag>(ComponentTag.TRANSPORT), "transport"),
+                    new ComponentTagName(new EnumSet<ComponentTag>(ComponentTag.Battleship), "battleship"),
+                    new ComponentTagName(new EnumSet<ComponentTag>(ComponentTag.Carrier), "carrier"),
+                    new ComponentTagName(new EnumSet<ComponentTag>(ComponentTag.Cruiser), "cruiser"),
+                    new ComponentTagName(new EnumSet<ComponentTag>(ComponentTag.Destroyer), "destroyer"),
+                    new ComponentTagName(new EnumSet<ComponentTag>(ComponentTag.Escort), "escort"),
+                    new ComponentTagName(new EnumSet<ComponentTag>(ComponentTag.Freighter), "freighter"),
+                    new ComponentTagName(new EnumSet<ComponentTag>(ComponentTag.Frigate), "frigate"),
+                    new ComponentTagName(new EnumSet<ComponentTag>(ComponentTag.Patrol), "patrol"),
+                    new ComponentTagName(new EnumSet<ComponentTag>(ComponentTag.Transport), "transport"),
 
-                    new ComponentTagName(new EnumSet<ComponentTag>(ComponentTag.INFANTRY), "infantry")
+                    new ComponentTagName(new EnumSet<ComponentTag>(ComponentTag.Infantry), "infantry")
                 });
         }
     }

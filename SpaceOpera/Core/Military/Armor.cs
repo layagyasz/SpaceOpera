@@ -23,9 +23,9 @@ namespace SpaceOpera.Core.Military
         public static Armor FromComponent(IComponent Component)
         {
             return new Armor(
-                Component.GetAttribute(ComponentAttribute.ARMOR_THICKNESS),
-                Component.GetAttribute(ComponentAttribute.ARMOR_PROTECTION), 
-                Component.GetAttribute(ComponentAttribute.ARMOR_COVERAGE));
+                Component.GetAttribute(ComponentAttribute.ArmorThickness),
+                Component.GetAttribute(ComponentAttribute.ArmorProtection), 
+                Component.GetAttribute(ComponentAttribute.ArmorCoverage));
         }
 
         public static Armor Combine(IEnumerable<Armor> Armors)

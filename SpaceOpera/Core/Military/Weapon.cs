@@ -29,10 +29,10 @@ namespace SpaceOpera.Core.Military
         {
             return new Weapon(
                 Component.Name,
-                new UnitIntervalValue(Component.GetAttribute(ComponentAttribute.WEAPON_ACCURACY)), 
-                new UnitIntervalValue(Component.GetAttribute(ComponentAttribute.WEAPON_TRACKING)), 
+                new UnitIntervalValue(Component.GetAttribute(ComponentAttribute.WeaponAccuracy)), 
+                new UnitIntervalValue(Component.GetAttribute(ComponentAttribute.WeaponTracking)), 
                 Damage.FromComponent(Component),
-                Component.GetAttribute(ComponentAttribute.WEAPON_PENETRATION));
+                Component.GetAttribute(ComponentAttribute.WeaponPenetration));
         }
 
         public override string ToString()

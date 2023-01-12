@@ -1,13 +1,6 @@
-using SpaceOpera.Core.Economics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace SpaceOpera.Core.Designs
 {
-    class Design
+    public class Design
     {
         public DesignConfiguration Configuration { get; }
         public List<ComponentTag> Tags { get; }

@@ -1,32 +1,28 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Cardamom.Collections;
 
 namespace SpaceOpera.Core.Designs
 {
-    class AutoDesigner
+    public class AutoDesigner
     {
-        private readonly EnumMap<ComponentType, DesignTemplate> _Templates;
+        private readonly EnumMap<ComponentType, DesignTemplate> _templates;
 
-        public AutoDesigner(IEnumerable<DesignTemplate> Templates)
+        public AutoDesigner(IEnumerable<DesignTemplate> templates)
         {
-            _Templates = Templates.ToEnumMap(x => x.Type, x => x);
+            _templates = templates.ToEnumMap(x => x.Type, x => x);
         }
 
         public List<ComponentType> GetDesignOrder()
         {
             var nodes = new MultiMap<ComponentType, ComponentType>();
             var open = new Queue<ComponentType>();
-            foreach (var template in  _Templates)
+            foreach (var template in  _templates)
             {
                 var parents =
                     template.Value.Segments
                         .SelectMany(x => x.ConfigurationOptions)
                         .SelectMany(x => x.Slots)
                         .SelectMany(x => x.Type)
-                        .Where(x => _Templates.ContainsKey(x))
+                        .Where(x => _templates.ContainsKey(x))
                         .ToHashSet();
                 if (parents.Count == 0)
                 {
@@ -58,49 +54,50 @@ namespace SpaceOpera.Core.Designs
         }
 
         public DesignConfiguration CreateSeries(
-            AutoDesignerParameters Parameters, IEnumerable<IComponent> AvailableComponents, Random Random)
+            AutoDesignerParameters parameters, IEnumerable<IComponent> availableComponents, Random random)
         {
-            var template = _Templates[Parameters.Type];
+            var template = _templates[parameters.Type];
             return new DesignConfiguration(
-                template, template.Segments.Select(x => DesignSegment(x, Parameters, AvailableComponents, Random)));
+                template, template.Segments.Select(x => DesignSegment(x, parameters, availableComponents, random)));
         }
 
-        public DesignConfiguration ContinueSeries(DesignSeries Series, IEnumerable<IComponent> AvailableComponents, Random Random)
+        public DesignConfiguration ContinueSeries(
+            DesignSeries series, IEnumerable<IComponent> availableComponents, Random random)
         {
             return DesignWithSegmentConfigurations(
-                Series.GetDesignTemplate(), Series.GetSegmentConfiguration(), AvailableComponents, Random);
+                series.GetDesignTemplate(), series.GetSegmentConfiguration(), availableComponents, random);
         }
 
         private Segment DesignSegment(
-            SegmentTemplate Template, 
-            AutoDesignerParameters Parameters, 
-            IEnumerable<IComponent> AvailableComponents,
+            SegmentTemplate template, 
+            AutoDesignerParameters parameters, 
+            IEnumerable<IComponent> availableComponents,
             Random Random)
         {
             return
-                Template.ConfigurationOptions
-                    .Select(x => DesignSegmentWithConfiguration(Template, x, Parameters, AvailableComponents, Random))
-                    .ArgMaxRandomlySelecting(Parameters.GetFitness, Random);
+                template.ConfigurationOptions
+                    .Select(x => DesignSegmentWithConfiguration(template, x, parameters, availableComponents, Random))
+                    .ArgMaxRandomlySelecting(parameters.GetFitness, Random);
         }
 
         private Segment DesignSegmentWithConfiguration(
-            SegmentTemplate Template,
-            SegmentConfiguration Configuration,
-            AutoDesignerParameters Parameters,
-            IEnumerable<IComponent> AvailableComponents, 
+            SegmentTemplate template,
+            SegmentConfiguration configuration,
+            AutoDesignerParameters parameters,
+            IEnumerable<IComponent> availableComponents, 
             Random Random)
         {
             var components = new MultiMap<DesignSlot, IComponent>();
-            foreach (var slot in Configuration.Slots)
+            foreach (var slot in configuration.Slots)
             {
                 components.Add(
                     slot, 
                     Enumerable.Repeat(
-                        AvailableComponents
-                            .Where(x => x.FitsSlot(slot)).ArgMaxRandomlySelecting(Parameters.GetFitness, Random),
+                        availableComponents
+                            .Where(x => x.FitsSlot(slot)).ArgMaxRandomlySelecting(parameters.GetFitness, Random),
                         slot.Count));
             }
-            return new Segment(Template, Configuration, components);
+            return new Segment(template, configuration, components);
         }
 
         private DesignConfiguration DesignWithSegmentConfigurations(

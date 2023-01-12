@@ -17,9 +17,9 @@ namespace SpaceOpera.Core.Economics
             : base(Name, Slot, Components, Tags)
         {
             this.Mass = ComputeMass();
-            this.Size = GetAttribute(ComponentAttribute.SIZE);
+            this.Size = GetAttribute(ComponentAttribute.Size);
             this.Type = GetMaterialType(Slot.Type);
-            this.ProductionCost = GetAttribute(ComponentAttribute.PRODUCTION_COST);
+            this.ProductionCost = GetAttribute(ComponentAttribute.ProductionCost);
         }
 
         private double ComputeMass()
@@ -31,8 +31,8 @@ namespace SpaceOpera.Core.Economics
         {
             switch (ComponentType)
             {
-                case ComponentType.BATTALION_TEMPLATE:
-                case ComponentType.DIVISION_TEMPLATE:
+                case ComponentType.BattalionTemplate:
+                case ComponentType.DivisionTemplate:
                     return MaterialType.NONE;
                 default:
                     return MaterialType.MATERIAL_DISCRETE;

@@ -1,30 +1,23 @@
-using SpaceOpera.Core.Designs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace SpaceOpera.Core.Designs
 {
-    class ComponentClassifier
+    public class ComponentClassifier
     {
         public List<ComponentTypeClassifier> Classifiers { get; }
 
-        public ComponentClassifier(IEnumerable<ComponentTypeClassifier> Classifiers)
+        public ComponentClassifier(IEnumerable<ComponentTypeClassifier> classifiers)
         {
-            this.Classifiers = Classifiers.ToList();
+            Classifiers = classifiers.ToList();
         }
 
-        public IEnumerable<ComponentTag> Classify(DesignConfiguration Design)
+        public IEnumerable<ComponentTag> Classify(DesignConfiguration design)
         {
-            var classifier = Classifiers.FirstOrDefault(x => x.Supports(Design));
+            var classifier = Classifiers.FirstOrDefault(x => x.Supports(design));
             if (classifier == null)
             {
-                return Design.GetTags();
+                return design.GetTags();
             }
-            var tags = classifier.GetTags(Design);
-            return classifier.ReduceTags(Design.GetTags()).Concat(tags);
+            var tags = classifier.GetTags(design);
+            return classifier.ReduceTags(design.GetTags()).Concat(tags);
         }
     }
 }

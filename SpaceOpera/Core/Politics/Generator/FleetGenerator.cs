@@ -20,7 +20,7 @@ namespace SpaceOpera.Core.Politics.Generator
 
             var shipDesigns = 
                 World.GetDesignsFor(Faction)
-                    .Where(x => x.Configuration.Template.Type == ComponentType.SHIP)
+                    .Where(x => x.Configuration.Template.Type == ComponentType.Ship)
                     .SelectMany(x => x.Components)
                     .Cast<Unit>()
                     .ToArray();

@@ -1,45 +1,33 @@
+using Cardamom.Collections;
+using Cardamom.Trackers;
 using SpaceOpera.Core.Advancement;
 using SpaceOpera.Core.Economics;
-using SpaceOpera.JsonConverters;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+using SpaceOpera.Core.Military;
 
 namespace SpaceOpera.Core.Designs
 {
-    class ComponentBase : IComponent
+    public class ComponentBase : IComponent
     {
-        public string Key { get; set; }
-        public string Name { get; set; }
+        public string Key { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
         public ComponentSlot Slot { get; set; }
         public List<ComponentTag> Tags { get; set; }
+        public EnumMap<MaterialReference, MultiQuantity<IMaterial>> ReferenceMaterial { get; set; } = new();
+        public Dictionary<MaterialReference, Modifier> ReferenceMaterialCost { get; set; } = new();
+        public Dictionary<IMaterial, Modifier> MaterialCost { get; set; } = new();
+        public EnumMap<ComponentAttribute, Modifier> Attributes { get; set; } = new();
+        public EnumMap<DamageType, Modifier> Damage { get; set; } = new();
 
-        [JsonConverter(typeof(EnumMapJsonConverter<MaterialReference, MultiQuantity<IMaterial>>))]
-        public EnumMap<MaterialReference, MultiQuantity<IMaterial>> ReferenceMaterial { get; set; }
-        public Dictionary<MaterialReference, Modifier> ReferenceMaterialCost { get; set; }
-        [JsonConverter(typeof(DictionaryJsonConverter<IMaterial, Modifier>))]
-        public Dictionary<IMaterial, Modifier> MaterialCost { get; set; }
+        public EnumMap<DamageType, Modifier> DamageResist { get; set; } = new();
+        public List<IAdvancement> Prerequisites { get; set; } = new();
 
-        [JsonConverter(typeof(EnumMapJsonConverter<ComponentAttribute, Modifier>))]
-        public EnumMap<ComponentAttribute, Modifier> Attributes { get; set; }
-
-        [JsonConverter(typeof(EnumMapJsonConverter<DamageType, Modifier>))]
-        public EnumMap<DamageType, Modifier> Damage { get; set; }
-
-        [JsonConverter(typeof(EnumMapJsonConverter<DamageType, Modifier>))]
-        public EnumMap<DamageType, Modifier> DamageResist { get; set; }
-        public List<IAdvancement> Prerequisites { get; set; }
-
-        public float GetAttribute(ComponentAttribute Attribute)
+        public float GetAttribute(ComponentAttribute attribute)
         {
             if (Attributes == null)
             {
                 return 0;
             }
-            return Attributes[Attribute].GetTotal();
+            return Attributes[attribute].GetTotal();
         }
 
         public EnumMap<DamageType, float> GetDamage()
@@ -52,19 +40,16 @@ namespace SpaceOpera.Core.Designs
             return TotalModifiers(DamageResist);
         }
 
-        public bool FitsSlot(DesignSlot Slot)
+        public bool FitsSlot(DesignSlot slot)
         {
-            return Slot.Type.Contains(this.Slot.Type)
-                && (this.Slot.Size == ComponentSize.NONE
-                || Slot.Size.Count == 0
-                || Slot.Size.Contains(this.Slot.Size));
+            return slot.Type.Contains(Slot.Type)
+                && (Slot.Size == ComponentSize.None || slot.Size.Count == 0 || slot.Size.Contains(Slot.Size));
         }
 
-        private static EnumMap<TKey, float> TotalModifiers<TKey>(EnumMap<TKey, Modifier> Map)
-            where TKey : struct, IConvertible
+        private static EnumMap<TKey, float> TotalModifiers<TKey>(EnumMap<TKey, Modifier> map) where TKey : Enum
         {
             EnumMap<TKey, float> values = new EnumMap<TKey, float>();
-            foreach (var entry in Map)
+            foreach (var entry in map)
             {
                 values[entry.Key] = entry.Value.GetTotal();
             }

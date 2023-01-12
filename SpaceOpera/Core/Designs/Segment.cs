@@ -1,29 +1,25 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Cardamom.Collections;
 
 namespace SpaceOpera.Core.Designs
 {
-    class Segment
+    public class Segment
     {
         public SegmentTemplate Template { get; }
         public SegmentConfiguration Configuration { get; private set; }
 
-        private readonly MultiMap<DesignSlot, IComponent> _Components;
+        private readonly MultiMap<DesignSlot, IComponent> _components;
 
         public Segment(
-            SegmentTemplate Template, SegmentConfiguration Configuration, MultiMap<DesignSlot, IComponent> Components)
+            SegmentTemplate template, SegmentConfiguration configuration, MultiMap<DesignSlot, IComponent> components)
         {
-            this.Template = Template;
-            this.Configuration = Configuration;
-            _Components = new MultiMap<DesignSlot, IComponent>(Components);
+            Template = template;
+            Configuration = configuration;
+            _components = new MultiMap<DesignSlot, IComponent>(components);
         }
 
         public MultiMap<DesignSlot, IComponent> GetComponents()
         {
-            var result = new MultiMap<DesignSlot, IComponent>(_Components);
+            var result = new MultiMap<DesignSlot, IComponent>(_components);
             if (Configuration.IntrinsicComponent != null)
             {
                 result.Add(new DesignSlot(), Configuration.IntrinsicComponent);
@@ -37,7 +33,7 @@ namespace SpaceOpera.Core.Designs
             {
                 return false;
             }
-            foreach (var slot in _Components)
+            foreach (var slot in _components)
             {
                 if (slot.Key.Count != slot.Value.Count())
                 {

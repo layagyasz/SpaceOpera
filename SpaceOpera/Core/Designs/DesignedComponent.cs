@@ -1,9 +1,7 @@
+using Cardamom.Collections;
+using Cardamom.Trackers;
 using SpaceOpera.Core.Economics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SpaceOpera.Core.Military;
 
 namespace SpaceOpera.Core.Designs
 {
@@ -12,17 +10,17 @@ namespace SpaceOpera.Core.Designs
         public List<ComponentAndSlot> Components { get; }
 
         public DesignedComponent(
-            string Name, ComponentSlot Slot, IEnumerable<ComponentAndSlot> Components, IEnumerable<ComponentTag> Tags)
+            string name, ComponentSlot slot, IEnumerable<ComponentAndSlot> components, IEnumerable<ComponentTag> tags)
         {
-            this.Name = Name;
-            this.Slot = Slot;
-            this.Tags = Tags.ToList();
+            Name = name;
+            Slot = slot;
+            Tags = tags.ToList();
 
-            this.Components = Components.ToList();
-            this.Attributes = ComputeAttributes(Components);
-            this.MaterialCost = ComputeMaterialCosts(GetAttribute(ComponentAttribute.MATERIAL_COST), Components);
-            this.Damage = ComputeDamage(GetAttribute(ComponentAttribute.WEAPON_DAMAGE), Components);
-            this.DamageResist = ComputeDamageResist(GetAttribute(ComponentAttribute.DAMAGE_RESIST), Components);
+            Components = components.ToList();
+            Attributes = ComputeAttributes(components);
+            MaterialCost = ComputeMaterialCosts(GetAttribute(ComponentAttribute.MaterialCost), components);
+            Damage = ComputeDamage(GetAttribute(ComponentAttribute.WeaponDamage), components);
+            DamageResist = ComputeDamageResist(GetAttribute(ComponentAttribute.DamageResist), components);
         }
 
         public MultiQuantity<IMaterial> GetMaterialCost()
@@ -122,12 +120,11 @@ namespace SpaceOpera.Core.Designs
         }
 
         private static EnumMap<TKey, Modifier> CombineModifiers<TKey>(
-            float Modifier, IEnumerable<EnumMap<TKey, Modifier>> Maps)
-            where TKey : struct, IConvertible
+            float modifier, IEnumerable<EnumMap<TKey, Modifier>> maps) where TKey : Enum
         {
             EnumMap<TKey, Modifier> values = new EnumMap<TKey, Modifier>();
 
-            foreach (var map in Maps)
+            foreach (var map in maps)
             {
                 if (map == null)
                 {
@@ -141,7 +138,7 @@ namespace SpaceOpera.Core.Designs
 
             foreach (var entry in values)
             {
-                values[entry.Key] = Modifier * entry.Value.Combine();
+                values[entry.Key] = modifier * entry.Value.Combine();
             }
 
             return values;

@@ -102,20 +102,20 @@ namespace SpaceOpera.Core.Politics
         {
             switch (Type)
             {
-                case ComponentType.SHIP:
+                case ComponentType.Ship:
                     return NameType.SHIP;
-                case ComponentType.INFANTRY:
+                case ComponentType.Infantry:
                     return NameType.INFANTRY;
-                case ComponentType.BATTALION_TEMPLATE:
+                case ComponentType.BattalionTemplate:
                     return NameType.BATTALION_TEMPLATE;
-                case ComponentType.DIVISION_TEMPLATE:
+                case ComponentType.DivisionTemplate:
                     return NameType.DIVISION_TEMPLATE;
-                case ComponentType.SHIP_WEAPON:
-                case ComponentType.SHIP_POINT_DEFENSE:
-                case ComponentType.SHIP_MISSLE:
-                case ComponentType.PERSONAL_WEAPON:
+                case ComponentType.ShipWeapon:
+                case ComponentType.ShipPointDefense:
+                case ComponentType.ShipMissile:
+                case ComponentType.PersonalWeapon:
                     return NameType.WEAPON;
-                case ComponentType.SHIP_SHIELD:
+                case ComponentType.ShipShield:
                     return NameType.SHIELD;
                 default:
                     throw new ArgumentException();

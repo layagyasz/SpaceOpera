@@ -1,45 +1,39 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace SpaceOpera.Core.Designs
 {
-    enum ComponentAttribute
+    public enum ComponentAttribute
     {
         // Generic
-        DAMAGE_RESIST,
-        SIZE,
-        PRODUCTION_COST,
-        MATERIAL_COST,
-        DURABILITY,
-        HITPOINTS,
-        THREAT,
-        COMMAND,
-        DETECTION,
-        EVASION,
-        MANEUVER,
-        SPEED,
+        DamageResist,
+        Size,
+        ProductionCost,
+        MaterialCost,
+        Durability,
+        Hitpoints,
+        Threat,
+        Command,
+        Detection,
+        Evasion,
+        Maneuver,
+        Speed,
 
         // Armor
-        ARMOR_PROTECTION,
-        ARMOR_THICKNESS,
-        ARMOR_COVERAGE,
+        ArmorProtection,
+        ArmorThickness,
+        ArmorCoverage,
 
         // Shield
-        SHIELD_ABSORPTION,
-        SHIELD_CAPACITY,
-        SHIELD_RECHARGE,
+        ShieldAbsorption,
+        ShieldCapacity,
+        ShieldRecharge,
 
         // Weapon
-        WEAPON_DAMAGE,
-        WEAPON_ACCURACY,
-        WEAPON_TRACKING,
-        WEAPON_PENETRATION,
+        WeaponDamage,
+        WeaponAccuracy,
+        WeaponTracking,
+        WeaponPenetration,
            
         // Ship
-        CARGO_SPACE,
-        HANGAR_SPACE
+        CargoSpace,
+        HangarSpace
     }
 }

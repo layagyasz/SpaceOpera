@@ -1,15 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace SpaceOpera.Core
 {
-    struct Modifier
+    public struct Modifier
     {
-        public static Modifier ONE = new Modifier() { Constant = 1 };
-        public static Modifier ZERO = new Modifier();
+        public static readonly Modifier One = new Modifier() { Constant = 1 };
+        public static readonly Modifier Zero = new Modifier();
 
         public float Constant { get; set; }
         public float Bonus { get; set; }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SpaceOpera.Core.Battle
+namespace SpaceOpera.Core.Military
 {
     class UnitGrouping
     {
@@ -59,8 +59,8 @@ namespace SpaceOpera.Core.Battle
 
         private static int ToCasualtyNumber(double Damage, Unit Target, Random Random)
         {
-            double damage = (1 / Target.Hitpoints) * Damage;
-            int additional = Random.NextDouble() < (Math.Floor(damage) - damage) ? 1 : 0;
+            double damage = 1 / Target.Hitpoints * Damage;
+            int additional = Random.NextDouble() < Math.Floor(damage) - damage ? 1 : 0;
             return (int)Math.Floor(damage) + additional;
         }
 

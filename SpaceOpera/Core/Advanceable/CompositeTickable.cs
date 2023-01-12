@@ -1,28 +1,22 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace SpaceOpera.Core.Advanceable
 {
     class CompositeTickable : ITickable, IEnumerable<ITickable>
     {
-        private readonly List<ITickable> _Tickables;
+        private readonly List<ITickable> _tickables;
 
         public CompositeTickable()
         {
-            _Tickables = new List<ITickable>();
+            _tickables = new List<ITickable>();
         }
 
-        public CompositeTickable(IEnumerable<ITickable> Tickables)
+        public CompositeTickable(IEnumerable<ITickable> tickables)
         {
-            _Tickables = Tickables.ToList();
+            _tickables = tickables.ToList();
         }
 
         public IEnumerator<ITickable> GetEnumerator()
         {
-            return _Tickables.GetEnumerator();
+            return _tickables.GetEnumerator();
         }
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
@@ -30,14 +24,14 @@ namespace SpaceOpera.Core.Advanceable
             return GetEnumerator();
         }
 
-        public void Add(ITickable Tickable)
+        public void Add(ITickable tickable)
         {
-            _Tickables.Add(Tickable);
+            _tickables.Add(tickable);
         }
 
         public void Tick()
         {
-            _Tickables.ForEach(x => x.Tick());
+            _tickables.ForEach(x => x.Tick());
         }
     }
 }

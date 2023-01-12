@@ -60,12 +60,12 @@ namespace SpaceOpera.Core.Designs
         {
             switch (Slot.Type)
             {
-                case ComponentType.INFANTRY:
-                case ComponentType.SHIP:
+                case ComponentType.Infantry:
+                case ComponentType.Ship:
                     return new Unit(Name, Slot, Components, Tags);
-                case ComponentType.BATTALION_TEMPLATE:
+                case ComponentType.BattalionTemplate:
                     return new BattalionTemplate(Name, Slot, Components, Tags);
-                case ComponentType.DIVISION_TEMPLATE:
+                case ComponentType.DivisionTemplate:
                     return new DivisionTemplate(Name, Slot, Components, Tags);
                 default:
                     return new DesignedComponent(Name, Slot, Components, Tags);

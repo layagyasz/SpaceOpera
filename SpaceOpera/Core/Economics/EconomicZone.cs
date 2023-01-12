@@ -1,48 +1,44 @@
+using Cardamom.Trackers;
 using SpaceOpera.Core.Advanceable;
 using SpaceOpera.Core.Politics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpaceOpera.Core.Economics
 {
-    class EconomicZone : ProjectHub, ITickable
+    public class EconomicZone : ProjectHub, ITickable
     {
         public Faction Owner { get; }
         public uint Population { get; protected set; }
 
-        private readonly Dictionary<object, EconomicSubzone> _Subzones = new Dictionary<object, EconomicSubzone>();
-        private readonly MultiQuantity<IMaterial> _Inventory = new MultiQuantity<IMaterial>();
-        private readonly MultiCount<ActualizedRecipe> _Production = new MultiCount<ActualizedRecipe>();
+        private readonly Dictionary<object, EconomicSubzone> _subzones = new();
+        private readonly MultiQuantity<IMaterial> _inventory = new();
+        private readonly MultiCount<ActualizedRecipe> _production = new ();
 
-        protected EconomicZone(Faction Owner)
+        protected EconomicZone(Faction owner)
         {
-            this.Owner = Owner;
+            this.Owner = owner;
         }
 
-        public void Add(MultiQuantity<IMaterial> Materials)
+        public void Add(MultiQuantity<IMaterial> materials)
         {
-            _Inventory.Add(Materials);
+            _inventory.Add(materials);
         }
 
-        public void AddSubzone(object Key, EconomicSubzone Subzone)
+        public void AddSubzone(object key, EconomicSubzone subzone)
         {
-            _Subzones.Add(Key, Subzone);
+            _subzones.Add(key, subzone);
         }
 
-        public void AdjustProduction(MultiCount<ActualizedRecipe> Allocation)
+        public void AdjustProduction(MultiCount<ActualizedRecipe> allocation)
         {
-            _Production.Add(Allocation);
+            _production.Add(allocation);
         }
 
 
-        public bool Contains(MultiQuantity<IMaterial> Materials)
+        public bool Contains(MultiQuantity<IMaterial> materials)
         {
-            foreach (var material in Materials)
+            foreach (var material in materials)
             {
-                if (_Inventory[material.Key] < material.Value)
+                if (_inventory[material.Key] < material.Value)
                 {
                     return false;
                 }
@@ -50,61 +46,61 @@ namespace SpaceOpera.Core.Economics
             return true;
         }
 
-        public float GetInventoryQuantity(IMaterial Material)
+        public float GetInventoryQuantity(IMaterial material)
         {
-            return _Inventory[Material];
+            return _inventory[material];
         }
 
-        public EconomicSubzone GetSubzone(object Key)
+        public EconomicSubzone GetSubzone(object key)
         {
-            _Subzones.TryGetValue(Key, out EconomicSubzone subzone);
+            _subzones.TryGetValue(key, out EconomicSubzone subzone);
             return subzone;
         }
 
         public IEnumerable<EconomicSubzone> GetSubzones()
         {
-            return _Subzones.Values;
+            return _subzones.Values;
         }
 
         public MultiQuantity<IMaterial> GetInventory()
         {
-            return _Inventory.Copy();
+            return _inventory.Copy();
         }
 
-        public void Remove(MultiQuantity<IMaterial> Materials)
+        public void Remove(MultiQuantity<IMaterial> materials)
         {
-            foreach (var material in Materials)
+            foreach (var material in materials)
             {
-                _Inventory.Add(material.Key, -material.Value);
+                _inventory.Add(material.Key, -material.Value);
             }
         }
 
-        public float Spend(MultiQuantity<IMaterial> UnitCost, float MaxUnits)
+        public float Spend(MultiQuantity<IMaterial> unitCost, float maxUnits)
         {
-            foreach (var cost in UnitCost)
+            foreach (var cost in unitCost)
             {
-                MaxUnits = Math.Min(_Inventory.Get(cost.Key) / cost.Value, MaxUnits);
+                maxUnits = Math.Min(_inventory.Get(cost.Key) / cost.Value, maxUnits);
             }
-            foreach (var cost in UnitCost)
+            foreach (var cost in unitCost)
             {
-                _Inventory.Add(cost.Key, MaxUnits * cost.Value);
+                _inventory.Add(cost.Key, maxUnits * cost.Value);
             }
-            return MaxUnits;
+            return maxUnits;
         }
 
         public void Tick()
         {
-            foreach (var production in _Production)
+            foreach (var production in _production)
             {
                 foreach (var transform in production.Key.Transformation)
                 {
                     var total = transform.Value * production.Value * production.Key.BaseRecipe.Structure.MaxWorkers;
                     switch (transform.Key.Type)
                     {
-                        case MaterialType.MATERIAL_CONTINUOUS:
-                            _Inventory.Add(transform.Key, total);
+                        case MaterialType.MaterialContinuous:
+                            _inventory.Add(transform.Key, total);
                             break;
-                        case MaterialType.RESEARCH:
+                        case MaterialType.Research:
                             Owner.AddResearch(transform.Key, total);
                             break;
                         default:

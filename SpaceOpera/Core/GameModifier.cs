@@ -31,9 +31,9 @@ namespace SpaceOpera.Core
                     .SelectMany(x => x.Modifiers)
                     .Where(x => x.Type == Type)
                     .Select(x => x.Modifier)
-                    .Aggregate(Modifier.ZERO, (x, y) => x + y);
+                    .Aggregate(Modifier.Zero, (x, y) => x + y);
             }
-            return Modifier.ZERO;
+            return Modifier.Zero;
         }
 
         private static Dictionary<TKey, Modifier> Aggregate<TKey, TValue>(

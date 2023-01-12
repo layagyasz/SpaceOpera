@@ -1,30 +1,24 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace SpaceOpera.Core.Advanceable
 {
     class CycleTickable : ITickable
     {
         public int CycleLength { get; }
 
-        private ITickable _Tickable;
-        private int _Progress;
+        private ITickable _tickable;
+        private int _progress;
 
-        public CycleTickable(ITickable Tickable, int CycleLength)
+        public CycleTickable(ITickable tickable, int cycleLength)
         {
-            this.CycleLength = CycleLength;
-            _Tickable = Tickable;
+            CycleLength = cycleLength;
+            _tickable = tickable;
         }
 
         public void Tick()
         {
-            if (_Progress++ == CycleLength)
+            if (_progress++ == CycleLength)
             {
-                _Progress = 0;
-                _Tickable.Tick();
+                _progress = 0;
+                _tickable.Tick();
             }
         }
     }

@@ -18,14 +18,14 @@ namespace SpaceOpera.Core.Economics.Generator
         {
             this.Biome = Biome;
             this.PopulationMultiplier = 
-                (Modifier.ONE + GameModifier.AggregatePopulationGeneration(Biome.Modifiers)).GetTotal();
+                (Modifier.One + GameModifier.AggregatePopulationGeneration(Biome.Modifiers)).GetTotal();
 
             var modifiers = GameModifier.AggregateResourceGeneration(Biome.Modifiers);
             _ResourceSamplers = new MultiQuantity<ResourceSampler>();
             foreach (var sampler in ResourceSamplers)
             {
                 modifiers.TryGetValue(sampler.Resource, out Modifier modifier);
-                var total = (Modifier.ONE + modifier).GetTotal();
+                var total = (Modifier.One + modifier).GetTotal();
                 if (total > 0)
                 {
                     _ResourceSamplers.Add(sampler, total);
