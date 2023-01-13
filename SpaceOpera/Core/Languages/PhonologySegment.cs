@@ -1,38 +1,35 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Cardamom.Collections;
+using Cardamom.Trackers;
 
 namespace SpaceOpera.Core.Languages
 {
-    class PhonologySegment
+    public class PhonologySegment
     {
-        private static readonly Phoneme TERMINAL = new Phoneme();
+        private static readonly Phoneme s_Terminal = new();
 
         public double Entropy { get; }
 
-        private readonly Dictionary<Phoneme, WeightedVector<Phoneme>> _AllowedSequences;
+        private readonly Dictionary<Phoneme, WeightedVector<Phoneme>> _allowedSequences;
 
-        public PhonologySegment(Dictionary<Phoneme, WeightedVector<Phoneme>> AllowedSequences)
+        public PhonologySegment(Dictionary<Phoneme, WeightedVector<Phoneme>> allowedSequences)
         {
-            _AllowedSequences = AllowedSequences;
+            _allowedSequences = allowedSequences;
             Entropy = GetEntropy();
         }
 
-        public IEnumerable<Phoneme> GenerateSegment(Random Random, bool RequireNonVoid)
+        public IEnumerable<Phoneme> GenerateSegment(Random random, bool requireNonVoid)
         {
-            var current = TERMINAL;
+            var current = s_Terminal;
             bool nonVoid = false;
             while (true)
             {
-                var next = _AllowedSequences[current][Random.NextDouble()];
-                if (next != TERMINAL)
+                var next = _allowedSequences[current].Get(random.NextSingle());
+                if (next != s_Terminal)
                 {
                     nonVoid = true;
                     yield return next;
                 }
-                else if (nonVoid || !RequireNonVoid)
+                else if (nonVoid || !requireNonVoid)
                 {
                     yield break;
                 }
@@ -46,46 +43,45 @@ namespace SpaceOpera.Core.Languages
                 "[PhonologySegment]\n{0}", 
                 string.Join(
                     "\n", 
-                    _AllowedSequences.Select(
+                    _allowedSequences.Select(
                         x => string.Format("{0} => {1}", x.Key, string.Join(",", x.Value.Select(y => y.Key))))));
         }
 
         private double GetEntropy()
         {
-            return Math.Log(_AllowedSequences.Sum(x => x.Value.Count)) / Math.Log(2);
+            return Math.Log(_allowedSequences.Sum(x => x.Value.Count)) / Math.Log(2);
         }
 
         public class Builder
         {
-            private readonly MultiMap<Phoneme, Frequent<Phoneme>> _AllowedSequences =
-                new MultiMap<Phoneme, Frequent<Phoneme>>();
+            private readonly MultiMap<Phoneme, Frequent<Phoneme>> _allowedSequences = new();
 
             public Builder AddPhonemes(
-                IEnumerable<Frequent<Phoneme>> Phonemes, float TerminalFrequency, bool AllowEmpty)
+                IEnumerable<Frequent<Phoneme>> phonemes, float terminalFrequency, bool allowEmpty)
             {
-                var phonemes = Phonemes.ToList();
-                phonemes.Add(new Frequent<Phoneme>(TERMINAL, TerminalFrequency));
+                var p = phonemes.ToList();
+                p.Add(new(s_Terminal, terminalFrequency));
 
-                foreach (var phoneme in phonemes)
+                foreach (var phoneme in p)
                 {
-                    _AllowedSequences.Add(phoneme.Value, phonemes);
+                    _allowedSequences.Add(phoneme.Value!, p);
                 }
-                if (!AllowEmpty)
+                if (!allowEmpty)
                 {
-                    _AllowedSequences.RemoveAll(TERMINAL, x => x.Value == TERMINAL);
+                    _allowedSequences.RemoveAll(s_Terminal, x => x.Value == s_Terminal);
                 }
 
                 return this;
             }
 
-            public Builder AddExclusion(PhonemeRange Left, PhonemeRange Right)
+            public Builder AddExclusion(PhonemeRange left, PhonemeRange right)
             {
-                foreach (var entry in _AllowedSequences)
+                foreach (var entry in _allowedSequences)
                 {
-                    if (entry.Key != TERMINAL && Left.Contains(entry.Key.Range))
+                    if (entry.Key != s_Terminal && left.Contains(entry.Key.Range))
                     {
-                        _AllowedSequences.RemoveAll(
-                            entry.Key, x => x.Value != TERMINAL && Right.Contains(x.Value.Range));
+                        _allowedSequences.RemoveAll(
+                            entry.Key, x => x.Value != s_Terminal && right.Contains(x.Value!.Range));
                     }
                 }
 
@@ -95,12 +91,12 @@ namespace SpaceOpera.Core.Languages
             public PhonologySegment Build()
             {
                 var dict = new Dictionary<Phoneme, WeightedVector<Phoneme>>();
-                foreach (var entry in _AllowedSequences)
+                foreach (var entry in _allowedSequences)
                 {
                     var options = new WeightedVector<Phoneme>();
                     foreach (var value in entry.Value)
                     {
-                        options.Add(value.Frequency, value.Value);
+                        options.Add(value.Value, value.Frequency);
                     }
                     dict.Add(entry.Key, options);
                 }

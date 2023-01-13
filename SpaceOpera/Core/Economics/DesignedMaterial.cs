@@ -1,41 +1,38 @@
 using SpaceOpera.Core.Designs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace SpaceOpera.Core.Economics
 {
-    class DesignedMaterial : DesignedComponent, IMaterial
+    public class DesignedMaterial : DesignedComponent, IMaterial
     {
-        public double Mass { get; }
-        public double Size { get; }
+        public float Mass { get; }
+        public float Size { get; }
         public MaterialType Type { get; }
         public float ProductionCost { get; }
 
         public DesignedMaterial(
-            string Name, ComponentSlot Slot, IEnumerable<ComponentAndSlot> Components, IEnumerable<ComponentTag> Tags)
-            : base(Name, Slot, Components, Tags)
+            string name, ComponentSlot slot, IEnumerable<ComponentAndSlot> components, IEnumerable<ComponentTag> tags)
+            : base(name, slot, components, tags)
         {
-            this.Mass = ComputeMass();
-            this.Size = GetAttribute(ComponentAttribute.Size);
-            this.Type = GetMaterialType(Slot.Type);
-            this.ProductionCost = GetAttribute(ComponentAttribute.ProductionCost);
+            Mass = ComputeMass();
+            Size = GetAttribute(ComponentAttribute.Size);
+            Type = GetMaterialType(slot.Type);
+            ProductionCost = GetAttribute(ComponentAttribute.ProductionCost);
         }
 
-        private double ComputeMass()
+        private float ComputeMass()
         {
             return MaterialCost.Sum(x => x.Key.Mass * x.Value.GetTotal());
         }
 
-        private static MaterialType GetMaterialType(ComponentType ComponentType)
+        private static MaterialType GetMaterialType(ComponentType componentType)
         {
-            switch (ComponentType)
+            switch (componentType)
             {
                 case ComponentType.BattalionTemplate:
                 case ComponentType.DivisionTemplate:
-                    return MaterialType.NONE;
+                    return MaterialType.Unknown;
                 default:
-                    return MaterialType.MATERIAL_DISCRETE;
+                    return MaterialType.MaterialDiscrete;
             }
         }
     }

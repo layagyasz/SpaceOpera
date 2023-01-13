@@ -1,33 +1,28 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace SpaceOpera.Core.Languages
 {
     [JsonConverter(typeof(JsonStringEnumConverter))]
-    enum PhonemePosition
+    public enum PhonemePosition
     {
-        NONE,
-        ANY,
+        None,
+        Any,
 
-        BILABIAL,
-        LABIODENTAL,
-        DENTAL,
-        ALVEOLAR,
-        POSTALVEOLAR,
-        RETROFLEX,
-        PALATAL,
-        VELAR,
-        UVULAR,
-        PHARYNGEAL,
-        GLOTTAL,
-        LABIOVELAR,
+        Bilabial,
+        Labiodental,
+        Dental,
+        Alveolar,
+        Postalveolar,
+        Retroflex,
+        Palatal,
+        Velar,
+        Uvular,
+        Pharyngeal,
+        Glottal,
+        Labiovelar,
 
-        FRONT,
-        CENTRAL,
-        BACK
+        Front,
+        Central,
+        Back
     }
 }

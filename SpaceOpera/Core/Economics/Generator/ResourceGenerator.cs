@@ -1,86 +1,79 @@
+using Cardamom.Randoms;
 using SpaceOpera.Core.Universe;
-using SpaceOpera.JsonConverters;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace SpaceOpera.Core.Economics.Generator
 {
-    class ResourceGenerator
+    public class ResourceGenerator
     {
-        private readonly Sampler _PopulationSampler;
-        private readonly float _GasNodeDensity;
-        private readonly List<ResourceSampler> _ResourceSamplers;
-        private readonly Dictionary<Biome, BiomeResourceGenerator> _ResourceGeneratorsByBiome =
-            new Dictionary<Biome, BiomeResourceGenerator>();
+        private readonly ISampler _populationSampler;
+        private readonly float _gasNodeDensity;
+        private readonly List<ResourceSampler> _resourceSamplers;
+        private readonly Dictionary<Biome, BiomeResourceGenerator> _resourceGeneratorsByBiome = new();
 
         public ResourceGenerator(
-            Sampler PopulationSampler,
-            float GasNodeDensity, 
-            IEnumerable<ResourceSampler> ResourceSamplers)
+            ISampler populationSampler,
+            float gasNodeDensity, 
+            IEnumerable<ResourceSampler> resourceSamplers)
         {
-            _PopulationSampler = PopulationSampler;
-            _GasNodeDensity = GasNodeDensity;
-            _ResourceSamplers = ResourceSamplers.ToList();
+            _populationSampler = populationSampler;
+            _gasNodeDensity = gasNodeDensity;
+            _resourceSamplers = resourceSamplers.ToList();
         }
 
-        public void Generate(World World, Random Random)
+        public void Generate(World world, Random random)
         {
-            foreach (var system in World.Galaxy.Systems)
+            foreach (var system in world.Galaxy.Systems)
             {
                 foreach (var stellarBody in system.Orbiters)
                 {
-                    Generate(stellarBody, Random);
+                    Generate(stellarBody, random);
                 }
             }
         }
 
-        private void Generate(StellarBody StellarBody, Random Random)
+        private void Generate(StellarBody stellarBody, Random random)
         {
-            foreach (var region in StellarBody.Regions)
+            foreach (var region in stellarBody.Regions)
             {
                 var resourceNodes = new List<ResourceNode>();
                 resourceNodes.AddRange(
-                    Generate(region.DominantBiome, Random)
+                    Generate(region.DominantBiome, random)
                     .Select(x => new ResourceNode(x.Resource, region.SubRegions.Count * x.Size)));
-                foreach (var atmosphereNode in StellarBody.Atmosphere.GetQuantities())
+                foreach (var atmosphereNode in stellarBody.Atmosphere.GetQuantities())
                 {
                     resourceNodes.Add(
                         new ResourceNode(
                             atmosphereNode.Value, 
                             (int)Math.Min(
                                 region.StructureNodes,
-                                _GasNodeDensity * region.StructureNodes * atmosphereNode.Amount)));
+                                _gasNodeDensity * region.StructureNodes * atmosphereNode.Amount)));
                 }
                 region.AddResources(resourceNodes);
                 if (region.Sovereign != null)
                 {
                     region.AddPopulation(
-                        (uint)(GetPopulationMultiplier(region.DominantBiome) * _PopulationSampler.Sample(Random)));
+                        (uint)(GetPopulationMultiplier(region.DominantBiome) * _populationSampler.Generate(random)));
                 }
             }
         }
 
-        private IEnumerable<ResourceNode> Generate(Biome Biome, Random Random)
+        private IEnumerable<ResourceNode> Generate(Biome biome, Random random)
         {
-            return GetOrCreateGenerator(Biome).Generate(Random);
+            return GetOrCreateGenerator(biome).Generate(random);
         }
 
-        private double GetPopulationMultiplier(Biome Biome)
+        private double GetPopulationMultiplier(Biome biome)
         {
-            return GetOrCreateGenerator(Biome).PopulationMultiplier;
+            return GetOrCreateGenerator(biome).PopulationMultiplier;
         }
 
-        private BiomeResourceGenerator GetOrCreateGenerator(Biome Biome)
+        private BiomeResourceGenerator GetOrCreateGenerator(Biome biome)
         {
-            _ResourceGeneratorsByBiome.TryGetValue(Biome, out BiomeResourceGenerator generator);
+            _resourceGeneratorsByBiome.TryGetValue(biome, out var generator);
             if (generator == null)
             {
-                generator = new BiomeResourceGenerator(Biome, _ResourceSamplers);
-                _ResourceGeneratorsByBiome.Add(Biome, generator);
+                generator = new BiomeResourceGenerator(biome, _resourceSamplers);
+                _resourceGeneratorsByBiome.Add(biome, generator);
             }
             return generator;
         }

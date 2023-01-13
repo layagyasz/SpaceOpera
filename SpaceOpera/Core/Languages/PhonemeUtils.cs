@@ -1,12 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace SpaceOpera.Core.Languages
 {
-    static class PhonemeUtils
+    public static class PhonemeUtils
     {
         private readonly static float I = 100;
 
@@ -88,7 +82,7 @@ namespace SpaceOpera.Core.Languages
 
         public static bool Contains(PhonemePosition Outer, PhonemePosition Inner)
         {
-            if (Outer == PhonemePosition.ANY || Inner == PhonemePosition.ANY || Inner == PhonemePosition.NONE)
+            if (Outer == PhonemePosition.Any || Inner == PhonemePosition.Any || Inner == PhonemePosition.None)
             {
                 return true;
             }
@@ -97,7 +91,7 @@ namespace SpaceOpera.Core.Languages
 
         public static bool Contains(PhonemeType Outer, PhonemeType Inner)
         {
-            if (Outer == PhonemeType.ANY || Inner == PhonemeType.ANY || Inner == PhonemeType.NONE)
+            if (Outer == PhonemeType.Any || Inner == PhonemeType.Any || Inner == PhonemeType.None)
             {
                 return true;
             }
@@ -106,7 +100,7 @@ namespace SpaceOpera.Core.Languages
 
         public static bool Contains(PhonemeVoice Outer, PhonemeVoice Inner)
         {
-            if (Outer == PhonemeVoice.ANY || Inner == PhonemeVoice.ANY || Inner == PhonemeVoice.NONE)
+            if (Outer == PhonemeVoice.Any || Inner == PhonemeVoice.Any || Inner == PhonemeVoice.None)
             {
                 return true;
             }

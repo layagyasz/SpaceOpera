@@ -1,9 +1,13 @@
-﻿namespace SpaceOpera.Core.Economics
+﻿using System.Text.Json.Serialization;
+
+namespace SpaceOpera.Core.Economics
 {
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum MaterialType
     {
-        None,
+        Unknown,
         MaterialContinuous,
+        MaterialDiscrete,
         Research
     }
 }

@@ -1,26 +1,20 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace SpaceOpera.Core.Languages
 {
-    class Orthography
+    public class Orthography
     {
         public List<OrthographyMatcher> OrthographyMatchers { get; }
 
-        public Orthography(IEnumerable<OrthographyMatcher> OrthographyMatchers)
+        public Orthography(IEnumerable<OrthographyMatcher> orthographyMatchers)
         {
-            this.OrthographyMatchers = OrthographyMatchers.ToList();
+            OrthographyMatchers = orthographyMatchers.ToList();
         }
 
-        public IEnumerable<string> Transcribe(List<Phoneme> Phonemes, Random Random)
+        public IEnumerable<string> Transcribe(List<Phoneme> phonemes, Random random)
         {
-            foreach (var phoneme in Phonemes)
+            foreach (var phoneme in phonemes)
             {
                 var options = OrthographyMatchers.Where(x => x.Matches(phoneme)).ToList();
-                yield return options[Random.Next(0, options.Count)].Symbol;
+                yield return options[random.Next(0, options.Count)].Symbol;
             }
         }
 

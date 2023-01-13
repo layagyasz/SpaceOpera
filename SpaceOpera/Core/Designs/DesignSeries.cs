@@ -2,7 +2,7 @@ namespace SpaceOpera.Core.Designs
 {
     public class DesignSeries
     {
-        public string Name { get; private set; }
+        public string Name { get; private set; } = string.Empty;
 
         private List<DesignConfiguration> _Designs = new List<DesignConfiguration>();
 

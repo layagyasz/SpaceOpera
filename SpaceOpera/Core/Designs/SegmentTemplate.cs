@@ -2,6 +2,6 @@
 {
     public class SegmentTemplate
     {
-        public List<SegmentConfiguration> ConfigurationOptions { get; set; }
+        public List<SegmentConfiguration> ConfigurationOptions { get; set; } = new();
     }
 }

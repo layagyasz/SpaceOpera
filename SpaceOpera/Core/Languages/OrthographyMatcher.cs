@@ -1,20 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace SpaceOpera.Core.Languages
 {
-    class OrthographyMatcher
+    public class OrthographyMatcher
     {
         public Phoneme Pattern { get; }
         public string Symbol { get; }
 
-        public OrthographyMatcher(Phoneme Pattern, string Symbol)
+        public OrthographyMatcher(Phoneme pattern, string symbol)
         {
-            this.Pattern = Pattern;
-            this.Symbol = Symbol;
+            Pattern = pattern;
+            Symbol = symbol;
         }
 
         public bool Matches(Phoneme Phoneme)

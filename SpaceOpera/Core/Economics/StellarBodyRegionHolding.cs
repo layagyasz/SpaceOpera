@@ -1,12 +1,4 @@
-using SpaceOpera.Core.Economics;
-using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Universe;
-using SpaceOpera.View;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpaceOpera.Core.Economics
 {
@@ -14,10 +6,10 @@ namespace SpaceOpera.Core.Economics
     {
         public StellarBodyRegion Region { get; }
 
-        public StellarBodyRegionHolding(StellarBodyHolding Parent, StellarBodyRegion Region)
-            : base(Parent)
+        public StellarBodyRegionHolding(StellarBodyHolding parent, StellarBodyRegion region)
+            : base(parent)
         {
-            this.Region = Region;
+            Region = region;
         }
     }
 }

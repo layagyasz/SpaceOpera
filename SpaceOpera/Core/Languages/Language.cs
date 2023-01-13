@@ -1,42 +1,37 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Cardamom.Randoms;
 
 namespace SpaceOpera.Core.Languages
 {
-    class Language
+    public class Language
     {
-        public Phonetics Phonetics { get; }
-        public Orthography Orthography { get; }
-        public Phonology Phonology { get; }
-        public Sampler WordLengthSampler { get; }
+        public Phonetics? Phonetics { get; }
+        public Orthography? Orthography { get; }
+        public Phonology? Phonology { get; }
+        public ISampler WordLengthSampler { get; }
 
-        public Language(Phonetics Phonetics, Orthography Orthography, Phonology Phonology)
+        public Language(Phonetics phonetics, Orthography orthography, Phonology phonology)
         {
-            this.Phonetics = Phonetics;
-            this.Orthography = Orthography;
-            this.Phonology = Phonology;
-            this.WordLengthSampler =
-                new Sampler(Sampler.SamplerType.NORMAL, 32 / Phonology.Entropy, 8 / Phonology.Entropy);
+            Phonetics = phonetics;
+            Orthography = orthography;
+            Phonology = phonology;
+            WordLengthSampler = new UniformSampler(32 / phonology.Entropy, 40 / phonology.Entropy);
         }
 
-        public string GenerateLetter(Random Random)
+        public string GenerateLetter(Random random)
         {
-            return Orthography.Transcribe(
-                Phonology.GenerateSyllable(Random, false, out bool voidOffset), Random).First();
+            return Orthography!.Transcribe(
+                Phonology!.GenerateSyllable(random, false, out bool _), random).First();
         }
 
-        public string GenerateWord(Random Random)
+        public string GenerateWord(Random random)
         {
             var phonemes = new List<Phoneme>();
             bool requireOnset = false;
-            for (int i=0; i<Math.Max(1, Math.Round(WordLengthSampler.Sample(Random))); ++i)
+            for (int i=0; i<Math.Max(1, Math.Round(WordLengthSampler!.Generate(random))); ++i)
             {
-                phonemes.AddRange(Phonology.GenerateSyllable(Random, requireOnset, out bool voidOffset));
+                phonemes.AddRange(Phonology!.GenerateSyllable(random, requireOnset, out bool _));
             }
-            return string.Join("", Orthography.Transcribe(phonemes, Random));
+            return string.Join("", Orthography!.Transcribe(phonemes, random));
         }
 
         public override string ToString()

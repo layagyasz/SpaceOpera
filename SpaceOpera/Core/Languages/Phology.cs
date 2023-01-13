@@ -1,35 +1,31 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Cardamom.Trackers;
 
 namespace SpaceOpera.Core.Languages
 {
-    class Phonology
+    public class Phonology
     {
         public double Entropy { get; }
 
-        private readonly PhonologySegment _Onset;
-        private readonly PhonologySegment _Nucleus;
-        private readonly PhonologySegment _Offset;
+        private readonly PhonologySegment _onset;
+        private readonly PhonologySegment _nucleus;
+        private readonly PhonologySegment _offset;
 
-        public Phonology(PhonologySegment Onset, PhonologySegment Nucleus, PhonologySegment Offset)
+        public Phonology(PhonologySegment onset, PhonologySegment nucleus, PhonologySegment offset)
         {
-            _Onset = Onset;
-            _Nucleus = Nucleus;
-            _Offset = Offset;
+            _onset = onset;
+            _nucleus = nucleus;
+            _offset = offset;
 
             Entropy = GetEntropy();
         }
 
-        public List<Phoneme> GenerateSyllable(Random Random, bool RequireOnset, out bool VoidOffset)
+        public List<Phoneme> GenerateSyllable(Random random, bool requireOnset, out bool voidOffset)
         {
-            var onset = _Onset.GenerateSegment(Random, RequireOnset).ToList();
-            var nucleus = _Nucleus.GenerateSegment(Random, false).ToList();
-            var offset = _Offset.GenerateSegment(Random, false).ToList();
+            var onset = _onset.GenerateSegment(random, requireOnset).ToList();
+            var nucleus = _nucleus.GenerateSegment(random, false).ToList();
+            var offset = _offset.GenerateSegment(random, false).ToList();
 
-            VoidOffset = offset.Count == 0;
+            voidOffset = offset.Count == 0;
 
             onset.AddRange(nucleus);
             onset.AddRange(offset);
@@ -38,50 +34,50 @@ namespace SpaceOpera.Core.Languages
 
         public override string ToString()
         {
-            return string.Format("[Phology]\n[Onset]\n{0}\n[Nucleus]\n{1}\n[Offset]\n{2}", _Onset, _Nucleus, _Offset);
+            return string.Format("[Phology]\n[Onset]\n{0}\n[Nucleus]\n{1}\n[Offset]\n{2}", _onset, _nucleus, _offset);
         }
 
         private double GetEntropy()
         {
-            return _Onset.Entropy + _Nucleus.Entropy + _Offset.Entropy;
+            return _onset.Entropy + _nucleus.Entropy + _offset.Entropy;
         }
 
         public class Builder
         {
-            private readonly PhonologySegment.Builder _Onset;
-            private readonly PhonologySegment.Builder _Nucleus;
-            private readonly PhonologySegment.Builder _Offset;
+            private readonly PhonologySegment.Builder _onset;
+            private readonly PhonologySegment.Builder _nucleus;
+            private readonly PhonologySegment.Builder _offset;
 
-            public Builder(IEnumerable<Frequent<Phoneme>> Phonemes)
+            public Builder(IEnumerable<Frequent<Phoneme>> phonemes)
             {
-                var consonants = Phonemes.Where(x => x.Value.Range.Classes.Contains(PhonemeClass.CONSONANT)).ToList();
-                var vowels = Phonemes.Where(x => x.Value.Range.Classes.Contains(PhonemeClass.VOWEL)).ToList();
+                var consonants = phonemes.Where(x => x.Value!.Range.Classes.Contains(PhonemeClass.Consonant)).ToList();
+                var vowels = phonemes.Where(x => x.Value!.Range.Classes.Contains(PhonemeClass.Vowel)).ToList();
                 var consonantWeight = consonants.Sum(x => x.Frequency);
                 var vowelWeight = vowels.Sum(x => x.Frequency);
 
-                _Onset = new PhonologySegment.Builder().AddPhonemes(consonants, vowelWeight, true);
-                _Nucleus = new PhonologySegment.Builder().AddPhonemes(vowels, consonantWeight, false);
-                _Offset = new PhonologySegment.Builder().AddPhonemes(consonants, vowelWeight, true);
+                _onset = new PhonologySegment.Builder().AddPhonemes(consonants, vowelWeight, true);
+                _nucleus = new PhonologySegment.Builder().AddPhonemes(vowels, consonantWeight, false);
+                _offset = new PhonologySegment.Builder().AddPhonemes(consonants, vowelWeight, true);
             }
 
             public void AddOnsetExclusion(PhonemeRange Left, PhonemeRange Right)
             {
-                _Onset.AddExclusion(Left, Right);
+                _onset.AddExclusion(Left, Right);
             }
 
             public void AddNucleusExclusion(PhonemeRange Left, PhonemeRange Right)
             {
-                _Nucleus.AddExclusion(Left, Right);
+                _nucleus.AddExclusion(Left, Right);
             }
 
             public void AddOffsetExclusion(PhonemeRange Left, PhonemeRange Right)
             {
-                _Offset.AddExclusion(Left, Right);
+                _offset.AddExclusion(Left, Right);
             }
 
             public Phonology Build()
             {
-                return new Phonology(_Onset.Build(), _Nucleus.Build(), _Offset.Build());
+                return new Phonology(_onset.Build(), _nucleus.Build(), _offset.Build());
             }
         }
     }

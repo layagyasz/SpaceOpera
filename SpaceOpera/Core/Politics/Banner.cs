@@ -1,27 +1,22 @@
-using SFML.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using OpenTK.Mathematics;
 
 namespace SpaceOpera.Core.Politics
 {
-    class Banner
+    public class Banner
     {
         public uint Symbol { get; }
         public uint Background { get; }
-        public Color PrimaryColor { get; }
-        public Color SecondaryColor { get; }
-        public Color SymbolColor { get; }
+        public Color4 PrimaryColor { get; }
+        public Color4 SecondaryColor { get; }
+        public Color4 SymbolColor { get; }
 
-        public Banner(uint Symbol, uint Background, Color PrimaryColor, Color SecondaryColor, Color SymbolColor)
+        public Banner(uint symbol, uint background, Color4 primaryColor, Color4 secondaryColor, Color4 symbolColor)
         {
-            this.Symbol = Symbol;
-            this.Background = Background;
-            this.PrimaryColor = PrimaryColor;
-            this.SecondaryColor = SecondaryColor;
-            this.SymbolColor = SymbolColor;
+            Symbol = symbol;
+            Background = background;
+            PrimaryColor = primaryColor;
+            SecondaryColor = secondaryColor;
+            SymbolColor = symbolColor;
         }
     }
 }

@@ -1,18 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Cardamom.Trackers;
 
 namespace SpaceOpera.Core.Languages
 {
-    class Phonetics
+    public class Phonetics
     {
         public List<Frequent<Phoneme>> Phonemes { get; }
 
-        public Phonetics(IEnumerable<Frequent<Phoneme>> Phonemes)
+        public Phonetics(IEnumerable<Frequent<Phoneme>> phonemes)
         {
-            this.Phonemes = Phonemes.ToList();
+            Phonemes = phonemes.ToList();
         }
 
         public override string ToString()

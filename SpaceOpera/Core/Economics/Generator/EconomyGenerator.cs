@@ -1,40 +1,36 @@
-﻿using Cardamom.Utilities;
+﻿using Cardamom.Randoms;
+using Cardamom.Trackers;
 using SpaceOpera.Core.Universe;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpaceOpera.Core.Economics.Generator
 {
-    class EconomyGenerator
+    public class EconomyGenerator
     {
-        public Sampler PopulationSampler { get; set; }
+        public ISampler? PopulationSampler { get; set; }
         public float GasNodeDensity { get; set; }
         public float GasNodeEfficiency { get; set; }
-        public List<ResourceSampler> ResourceSamplers { get; set; }
+        public List<ResourceSampler> ResourceSamplers { get; set; } = new();
 
-        public void Generate(World World, Random Random)
+        public void Generate(World world, Random random)
         {
             var resources = 
-                new ResourceGenerator(PopulationSampler, GasNodeDensity, ResourceSamplers);
-            resources.Generate(World, Random);
+                new ResourceGenerator(PopulationSampler!, GasNodeDensity, ResourceSamplers);
+            resources.Generate(world, random);
 
-            foreach (var region in World.Galaxy.Systems.SelectMany(x => x.Orbiters).SelectMany(x => x.Regions))
+            foreach (var region in world.Galaxy.Systems.SelectMany(x => x.Orbiters).SelectMany(x => x.Regions))
             {
                 if (region.Sovereign != null)
                 {
-                    World.Economy.CreateSovereignHolding(region.Sovereign, region);
+                    world.Economy.CreateSovereignHolding(region.Sovereign, region);
                 }
             }
 
             var totalSinks = new MultiQuantity<IMaterial>();
-            foreach (var region in World.Galaxy.Systems.SelectMany(x => x.Orbiters).SelectMany(x => x.Regions))
+            foreach (var region in world.Galaxy.Systems.SelectMany(x => x.Orbiters).SelectMany(x => x.Regions))
             {
                 if (region.Sovereign != null)
                 {
-                    foreach (var sink in World.Economy.MaterialSink.PopulationSink)
+                    foreach (var sink in world.Economy.MaterialSink.PopulationSink)
                     {
                         totalSinks.Add(region.Population * sink.Materials);
                     }
@@ -44,7 +40,7 @@ namespace SpaceOpera.Core.Economics.Generator
             var recipes = new MultiQuantity<Recipe>();
             foreach (var material in totalSinks.GetQuantities())
             {
-                var materialRecipes = material.Amount * World.EconomyGraph.GetRequiredRecipes(material.Value);
+                var materialRecipes = material.Value * world.EconomyGraph.GetRequiredRecipes(material.Key);
                 recipes.Add(materialRecipes);
                 var buildMaterials =
                     materialRecipes
@@ -56,53 +52,52 @@ namespace SpaceOpera.Core.Economics.Generator
                         .ToMultiQuantity(x => x.Key, x => x.Sum(y => y.Value));
                 foreach (var buildMaterial in buildMaterials.GetQuantities())
                 {
-                    recipes.Add(buildMaterial.Amount * World.EconomyGraph.GetRequiredRecipes(buildMaterial.Value));
+                    recipes.Add(buildMaterial.Amount * world.EconomyGraph.GetRequiredRecipes(buildMaterial.Value));
                 }
             }
 
             foreach (var recipe in recipes.GetQuantities())
             {
-                var output = recipe.Value.Transformation.First(x => x.Value > 0);
+                var output = recipe.Key.Transformation.First(x => x.Value > 0);
                 var sink =
-                    World.Economy.MaterialSink.PopulationSink.FirstOrDefault(
+                    world.Economy.MaterialSink.PopulationSink.FirstOrDefault(
                         x => x.Materials.ContainsKey(output.Key));
                 // Recipe produces a sink material.
                 if (sink != null)
                 {
-                    PopulateSinkRecipe(recipe.Value, output.Key, recipe.Amount, sink, World);
+                    PopulateSinkRecipe(recipe.Value, output.Key, recipe.Value, sink, world);
                 }
                 // Distribute remaining production randomly among top regions.
             }
         }
 
-        private float PopulateSinkRecipe(
-            Recipe Recipe, IMaterial Output, float RecipeAmount, SingleMaterialSink Sink, World World)
+        private float PopulateSinkRecipe(Recipe recipe, IMaterial output, SingleMaterialSink sink, World world)
         {
             float distributed = 0;
-            float sinkAmount = Sink.Materials[Output];
-            foreach (var stellarBody in World.Galaxy.Systems.SelectMany(x => x.Orbiters))
+            float sinkAmount = sink.Materials[output];
+            foreach (var stellarBody in world.Galaxy.Systems.SelectMany(x => x.Orbiters))
             {
                 var totalNeeded =
                     sinkAmount * stellarBody.Regions.Sum(x => x.Population)
-                    / (Recipe.Coefficient * Recipe.Transformation[Output] * Recipe.Structure.MaxWorkers);
+                    / (recipe.Coefficient * recipe.Transformation[output] * recipe.Structure!.MaxWorkers);
                 var totalAvailable = 
                     stellarBody.Regions
                         .Where(x => x.Sovereign != null)
-                        .Sum(x => GetAvailableResourceNodes(x, Recipe.BoundResourceNode));
+                        .Sum(x => GetAvailableResourceNodes(x, recipe.BoundResourceNode));
                 var ratio = Math.Min(1, totalNeeded / totalAvailable);
 
                 foreach (var region in stellarBody.Regions)
                 {
                     if (region.Sovereign != null)
                     {
-                        var holding = World.Economy.GetHolding(region.Sovereign, region);
-                        var nodes = ratio * GetAvailableResourceNodes(region, Recipe.BoundResourceNode);
+                        var holding = world.Economy.GetHolding(region.Sovereign, region);
+                        var nodes = ratio * GetAvailableResourceNodes(region, recipe.BoundResourceNode);
                         int numStructures = (int)(distributed + nodes) - (int)(distributed);
                         if (nodes > 0)
                         {
-                            holding.AddStructures(new Count<Structure>(Recipe.Structure, numStructures));
-                            holding.AdjustProduction(new MultiCount<Recipe> { { Recipe, numStructures } });
-                            distributed += nodes * Recipe.Structure.MaxWorkers;
+                            holding.AddStructures(new Count<Structure>(recipe.Structure, numStructures));
+                            holding.AdjustProduction(new MultiCount<Recipe> { { recipe, numStructures } });
+                            distributed += nodes * recipe.Structure.MaxWorkers;
                         }
                     }
                 }
@@ -111,11 +106,11 @@ namespace SpaceOpera.Core.Economics.Generator
             return distributed;
         }
 
-        private long GetAvailableResourceNodes(StellarBodyRegion Region, IMaterial Resource)
+        private long GetAvailableResourceNodes(StellarBodyRegion region, IMaterial? resource)
         {
             int resourceNodes = 
-                Resource == null ? int.MaxValue : Region.Resources.Sum(x => x.Resource == Resource ? x.Size : 0);
-            return Math.Min(resourceNodes, Region.StructureNodes);
+                resource == null ? int.MaxValue : region.Resources.Sum(x => x.Resource == resource ? x.Size : 0);
+            return Math.Min(resourceNodes, region.StructureNodes);
         }
     }
 }

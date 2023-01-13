@@ -1,23 +1,20 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Cardamom.Randoms;
+using Cardamom.Trackers;
 
 namespace SpaceOpera.Core.Languages.Generator
 {
-    class PhoneticsGenerator
+    public class PhoneticsGenerator
     {
-        private static readonly Sampler FREQUENCY_DROPOFF = new Sampler(Sampler.SamplerType.NORMAL, 0.8, 0.1);
+        private static readonly ISampler s_FrequencyDropoff = new NormalSampler(0.8f, 0.9f);
 
-        public List<Phoneme> Phonemes { get; set; }
-        public IndependentSelector<PhonemeRange> Exclusions { get; set; }
+        public List<Phoneme> Phonemes { get; set; } = new();
+        public IndependentSelector<PhonemeRange>? Exclusions { get; set; }
 
-        public Phonetics Generate(Random Random)
+        public Phonetics Generate(Random random)
         {
             var exlcusions = new List<PhonemeRange>();
 
-            foreach (var newRange in Exclusions.Select(Random))
+            foreach (var newRange in Exclusions.Select(random))
             {
                 exlcusions.Add(newRange);
             }
@@ -31,7 +28,7 @@ namespace SpaceOpera.Core.Languages.Generator
                 }
             }
 
-            var consonants = phonemes.Count(x => x.Range.Classes.Contains(PhonemeClass.CONSONANT));
+            var consonants = phonemes.Count(x => x.Range.Classes.Contains(PhonemeClass.Consonant));
             var consonantVowelRatio = 0.8f * consonants / (phonemes.Count - consonants);
             var phonemeRanks = new double[phonemes.Count];
             var phonemesArray = phonemes.ToArray();
@@ -39,8 +36,8 @@ namespace SpaceOpera.Core.Languages.Generator
             {
                 phonemeRanks[i] = 
                     Math.Pow(
-                        Random.NextDouble(), 
-                        phonemesArray[i].Range.Classes.Contains(PhonemeClass.VOWEL) 
+                        random.NextDouble(), 
+                        phonemesArray[i].Range.Classes.Contains(PhonemeClass.Vowel) 
                             ? consonantVowelRatio : 1 / consonantVowelRatio);
             }
             Array.Sort(phonemeRanks, phonemesArray);
@@ -50,7 +47,7 @@ namespace SpaceOpera.Core.Languages.Generator
             foreach (var phoneme in phonemesArray)
             {
                 frequenices.Add(new Frequent<Phoneme>(phoneme, (float)frequency));
-                frequency *= Math.Min(1.0, FREQUENCY_DROPOFF.Sample(Random));
+                frequency *= Math.Min(1.0, s_FrequencyDropoff.Generate(random));
             }
 
             return new Phonetics(frequenices);

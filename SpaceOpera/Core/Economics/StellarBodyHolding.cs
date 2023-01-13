@@ -1,13 +1,6 @@
-using SpaceOpera.Core.Advanceable;
-using SpaceOpera.Core.Economics;
 using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Universe;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpaceOpera.Core.Economics
 {
@@ -15,27 +8,27 @@ namespace SpaceOpera.Core.Economics
     {
         public StellarBody StellarBody { get; }
 
-        private readonly List<Division> _Divisions = new List<Division>();
+        private readonly List<Division> _divisions = new();
 
-        public StellarBodyHolding(Faction Owner, StellarBody StellarBody)
-            : base(Owner)
+        public StellarBodyHolding(Faction owner, StellarBody stellarBody)
+            : base(owner)
         {
-            this.StellarBody = StellarBody;
+            this.StellarBody = stellarBody;
         }
 
         public List<Division> GetDivisions()
         {
-            return _Divisions.ToList();
+            return _divisions.ToList();
         }
 
-        public void AddDivision(Division Division)
+        public void AddDivision(Division division)
         {
-            _Divisions.Add(Division);
+            _divisions.Add(division);
         }
 
-        public void RemoveDivision(Division Division)
+        public void RemoveDivision(Division division)
         {
-            _Divisions.Remove(Division);
+            _divisions.Remove(division);
         }
     }
 }

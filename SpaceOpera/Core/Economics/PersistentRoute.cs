@@ -1,9 +1,5 @@
+using Cardamom.Trackers;
 using SpaceOpera.Core.Advanceable;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpaceOpera.Core.Economics
 {
@@ -14,6 +10,18 @@ namespace SpaceOpera.Core.Economics
 
         public EconomicZone RightZone { get; set; }
         public MultiQuantity<IMaterial> RightMaterials { get; }
+
+        public PersistentRoute(
+            EconomicZone leftZone, 
+            MultiQuantity<IMaterial> leftMaterials,
+            EconomicZone rightZone, 
+            MultiQuantity<IMaterial> rightMaterials)
+        {
+            LeftZone = leftZone;
+            LeftMaterials = leftMaterials;
+            RightZone = rightZone;
+            RightMaterials = rightMaterials;
+        }
 
         public void Tick()
         {

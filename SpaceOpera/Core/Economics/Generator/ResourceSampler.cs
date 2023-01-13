@@ -1,67 +1,61 @@
 using MathNet.Numerics.Distributions;
-using SpaceOpera.Core.Economics;
-using SpaceOpera.Core.Universe;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace SpaceOpera.Core.Economics.Generator
 {
-    class ResourceSampler
+    public class ResourceSampler
     {
-        private static readonly double CLUMPING_CONSTANT = .05;
+        private static readonly double s_ClumpingConstant = .05;
 
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public enum ResourceSamplerType
         {
-            CLUMPED,
-            DISPERSED,
-            UBIQUITOUS
+            Clumped,
+            Dispersed,
+            Ubiquitous
         }
 
-        public IMaterial Resource { get; set; }
-        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public IMaterial? Resource { get; set; }
+        
         public ResourceSamplerType SamplerType { get; set; }
         public float NodeDensityCoefficient { get; set; }
 
-        public bool Appears(Random Random)
+        public bool Appears(Random random)
         {
-            if (SamplerType == ResourceSamplerType.CLUMPED)
+            if (SamplerType == ResourceSamplerType.Clumped)
             {
-                return Random.NextDouble() < Clumping();
+                return random.NextDouble() < Clumping();
             }
             return true;
         }
 
-        public ResourceNode Generate(float Scale, Random Random)
+        public ResourceNode Generate(float scale, Random random)
         {
             double x;
             switch (SamplerType)
             {
-                case ResourceSamplerType.CLUMPED:
-                    x = Pareto.Sample(Random, .5 * NodeDensityCoefficient / Clumping(), 2);
+                case ResourceSamplerType.Clumped:
+                    x = Pareto.Sample(random, .5 * NodeDensityCoefficient / Clumping(), 2);
                     break;
-                case ResourceSamplerType.DISPERSED:
-                    x = Normal.Sample(Random, NodeDensityCoefficient, .25 * NodeDensityCoefficient);
+                case ResourceSamplerType.Dispersed:
+                    x = Normal.Sample(random, NodeDensityCoefficient, .25 * NodeDensityCoefficient);
                     break;
-                case ResourceSamplerType.UBIQUITOUS:
+                case ResourceSamplerType.Ubiquitous:
                 default:
                     x = 0;
                     break;
             }
-            x *= Scale;
+            x *= scale;
             return new ResourceNode(
                 Resource,
-                (int)x + Bernoulli.Sample(Random, x - (int)Math.Floor(x)));
+                (int)x + Bernoulli.Sample(random, x - (int)Math.Floor(x)));
         }
 
         private double Clumping()
         {
-            if (SamplerType == ResourceSamplerType.CLUMPED)
+            if (SamplerType == ResourceSamplerType.Clumped)
             {
-                return CLUMPING_CONSTANT;
+                return s_ClumpingConstant;
             }
             return 1;
         }

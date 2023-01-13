@@ -1,26 +1,13 @@
-using SpaceOpera.JsonConverters;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+using Cardamom.Collections;
 
 namespace SpaceOpera.Core.Languages
 {
-    class PhonemeRange
+    public class PhonemeRange
     {
-        [JsonConverter(typeof(EnumSetJsonConverter<PhonemeClass>))]
-        public EnumSet<PhonemeClass> Classes { get; set; }
-
-        [JsonConverter(typeof(EnumSetJsonConverter<PhonemeVoice>))]
-        public EnumSet<PhonemeVoice> Voices { get; set; }
-
-        [JsonConverter(typeof(EnumSetJsonConverter<PhonemeType>))]
-        public EnumSet<PhonemeType> Types { get; set; }
-
-        [JsonConverter(typeof(EnumSetJsonConverter<PhonemePosition>))]
-        public EnumSet<PhonemePosition> Positions { get; set; }
+        public EnumSet<PhonemeClass> Classes { get; set; } = new();
+        public EnumSet<PhonemeVoice> Voices { get; set; } = new();
+        public EnumSet<PhonemeType> Types { get; set; } = new();
+        public EnumSet<PhonemePosition> Positions { get; set; } = new();
 
         public static PhonemeRange CreateEmpty()
         {
@@ -33,30 +20,30 @@ namespace SpaceOpera.Core.Languages
             };
         }
 
-        public PhonemeRange Union(PhonemeRange Other)
+        public PhonemeRange Union(PhonemeRange other)
         {
             return new PhonemeRange() {
-                Classes = new EnumSet<PhonemeClass>(Classes.Union(Other.Classes)),
-                Voices = new EnumSet<PhonemeVoice>(Voices.Union(Other.Voices)),
-                Types = new EnumSet<PhonemeType>(Types.Union(Other.Types)),
-                Positions = new EnumSet<PhonemePosition>(Positions.Union(Other.Positions))
+                Classes = new EnumSet<PhonemeClass>(Classes.Union(other.Classes)),
+                Voices = new EnumSet<PhonemeVoice>(Voices.Union(other.Voices)),
+                Types = new EnumSet<PhonemeType>(Types.Union(other.Types)),
+                Positions = new EnumSet<PhonemePosition>(Positions.Union(other.Positions))
             };
         }
 
-        public bool Contains(PhonemeRange Range)
+        public bool Contains(PhonemeRange range)
         {
-            return Classes.Any(x => Range.Classes.Any(y => PhonemeUtils.Contains(x, y)))
-                && Voices.Any(x => Range.Voices.Any(y => PhonemeUtils.Contains(x, y)))
-                && Types.Any(x => Range.Types.Any(y => PhonemeUtils.Contains(x, y)))
-                && Positions.Any(x => Range.Positions.Any(y => PhonemeUtils.Contains(x, y)));
+            return Classes.Any(x => range.Classes.Any(y => PhonemeUtils.Contains(x, y)))
+                && Voices.Any(x => range.Voices.Any(y => PhonemeUtils.Contains(x, y)))
+                && Types.Any(x => range.Types.Any(y => PhonemeUtils.Contains(x, y)))
+                && Positions.Any(x => range.Positions.Any(y => PhonemeUtils.Contains(x, y)));
         }
 
-        public float Distance(PhonemeRange Other)
+        public float Distance(PhonemeRange other)
         {
-            return Classes.Min(x => Other.Classes.Min(y => PhonemeUtils.Distance(x, y)))
-                + Voices.Min(x => Other.Voices.Min(y => PhonemeUtils.Distance(x, y)))
-                + Types.Min(x => Other.Types.Min(y => PhonemeUtils.Distance(x, y)))
-                + Positions.Min(x => Other.Positions.Min(y => PhonemeUtils.Distance(x, y)));
+            return Classes.Min(x => other.Classes.Min(y => PhonemeUtils.Distance(x, y)))
+                + Voices.Min(x => other.Voices.Min(y => PhonemeUtils.Distance(x, y)))
+                + Types.Min(x => other.Types.Min(y => PhonemeUtils.Distance(x, y)))
+                + Positions.Min(x => other.Positions.Min(y => PhonemeUtils.Distance(x, y)));
         }
     }
 }

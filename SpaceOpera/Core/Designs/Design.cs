@@ -1,3 +1,5 @@
+using SpaceOpera.Core.Economics;
+
 namespace SpaceOpera.Core.Designs
 {
     public class Design

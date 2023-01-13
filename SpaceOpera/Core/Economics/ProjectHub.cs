@@ -1,28 +1,22 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace SpaceOpera.Core.Economics
 {
-    abstract class ProjectHub
+    public abstract class ProjectHub
     {
-        private readonly List<IProject> _Projects = new List<IProject>();
+        private readonly List<IProject> _projects = new();
 
-        public void AddProject(IProject Project)
+        public void AddProject(IProject project)
         {
-            _Projects.Add(Project);
+            _projects.Add(project);
         }
 
-        public void RemoveProject(IProject Project)
+        public void RemoveProject(IProject project)
         {
-            _Projects.Remove(Project);
+            _projects.Remove(project);
         }
 
         public IEnumerable<T> GetProjects<T>()
         {
-            return _Projects.Where(x => x is T).Cast<T>();
+            return _projects.Where(x => x is T).Cast<T>();
         }
     }
 }

@@ -4,7 +4,7 @@ using SpaceOpera.Core.Economics;
 
 namespace SpaceOpera.Core.Advancement
 {
-    class AdvancementManager : ITickable
+    public class AdvancementManager : ITickable
     {
         private readonly HashSet<IAdvancement> _researchedAdvancements = new();
 

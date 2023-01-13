@@ -1,22 +1,18 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Cardamom.Trackers;
 
 namespace SpaceOpera.Core.Languages.Generator
 {
-    class IndependentSelector<T>
+    public class IndependentSelector<T>
     {
-        public List<Frequent<DependentSelector<T>>> IndependentOptions { get; set; }
+        public List<Frequent<DependentSelector<T>>> IndependentOptions { get; set; } = new();
 
-        public IEnumerable<T> Select(Random Random)
+        public IEnumerable<T> Select(Random random)
         {
             foreach (var option in IndependentOptions)
             {
-                if (Random.NextDouble() < option.Frequency)
+                if (random.NextDouble() < option.Frequency)
                 {
-                    yield return option.Value.Select(Random);
+                    yield return option.Value!.Select(random);
                 }
             }
         }

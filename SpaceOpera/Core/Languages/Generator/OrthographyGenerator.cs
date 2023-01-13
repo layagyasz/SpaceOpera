@@ -1,13 +1,8 @@
-using Cardamom.Utilities.StableMatching;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Cardamom.Trackers;
 
 namespace SpaceOpera.Core.Languages.Generator
 {
-    class OrthographyGenerator
+    public class OrthographyGenerator
     {
         private class Wrapper<T>
         {
@@ -19,8 +14,8 @@ namespace SpaceOpera.Core.Languages.Generator
             }
         }
 
-        public List<OrthographySymbol> Symbols { get; set; }
-        public List<Frequent<OrthographySymbolModifier>> SymbolModifiers { get; set; }
+        public List<OrthographySymbol> Symbols { get; set; } = new();
+        public List<Frequent<OrthographySymbolModifier>> SymbolModifiers { get; set; } = new();
 
         public Orthography Generate(Phonetics Phonetics, Random Random)
         {

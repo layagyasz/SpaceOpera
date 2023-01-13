@@ -1,35 +1,31 @@
+using Cardamom;
 using SpaceOpera.Core.Economics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpaceOpera.Core
 {
-    class GameModifier : IKeyed
+    public class GameModifier : IKeyed
     {
-        public string Key { get; set; }
-        public string Name { get; set; }
-        public List<SingleGameModifier> Modifiers { get; set; }
+        public string Key { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
+        public List<SingleGameModifier> Modifiers { get; set; } = new();
 
-        public static Modifier AggregatePopulationGeneration(IEnumerable<GameModifier> Modifiers)
+        public static Modifier AggregatePopulationGeneration(IEnumerable<GameModifier> modifiers)
         {
-            return Aggregate(Modifiers, ModifierType.POPULATION_GENERATION);
+            return Aggregate(modifiers, ModifierType.PopulationGeneration);
         }
 
-        public static Dictionary<IMaterial, Modifier> AggregateResourceGeneration(IEnumerable<GameModifier> Modifiers)
+        public static Dictionary<IMaterial, Modifier> AggregateResourceGeneration(IEnumerable<GameModifier> modifiers)
         {
-            return Aggregate<IMaterial, Modifier>(Modifiers, ModifierType.RESOURCE_GENERATION, x => x.Material);
+            return Aggregate<IMaterial, Modifier>(modifiers, ModifierType.ResourceGeneration, x => x.Material!);
         }
 
-        private static Modifier Aggregate(IEnumerable<GameModifier> Modifiers, ModifierType Type)
+        private static Modifier Aggregate(IEnumerable<GameModifier> modifiers, ModifierType type)
         {
-            if (Modifiers != null)
+            if (modifiers != null)
             {
-                return Modifiers
+                return modifiers
                     .SelectMany(x => x.Modifiers)
-                    .Where(x => x.Type == Type)
+                    .Where(x => x.Type == type)
                     .Select(x => x.Modifier)
                     .Aggregate(Modifier.Zero, (x, y) => x + y);
             }
@@ -37,14 +33,15 @@ namespace SpaceOpera.Core
         }
 
         private static Dictionary<TKey, Modifier> Aggregate<TKey, TValue>(
-            IEnumerable<GameModifier> Modifiers, ModifierType Type, Func<SingleGameModifier, TKey> KeyFn)
+            IEnumerable<GameModifier> modifiers, ModifierType type, Func<SingleGameModifier, TKey> keyFn) 
+            where TKey: notnull
         {
             var result = new Dictionary<TKey, Modifier>();
-            if (Modifiers != null)
+            if (modifiers != null)
             {
-                foreach (var modifier in Modifiers.SelectMany(x => x.Modifiers).Where(x => x.Type == Type))
+                foreach (var modifier in modifiers.SelectMany(x => x.Modifiers).Where(x => x.Type == type))
                 {
-                    var key = KeyFn(modifier);
+                    var key = keyFn(modifier);
                     if (result.ContainsKey(key))
                     {
                         result[key] += modifier.Modifier;

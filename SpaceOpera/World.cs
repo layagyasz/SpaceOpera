@@ -9,15 +9,10 @@ using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Universe;
 using SpaceOpera.View;
 using SpaceOpera.View.StellarBodyViews;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpaceOpera
 {
-    class World
+    public class World
     {
         public GameData GameData { get; }
         public IconFactory IconFactory { get; }

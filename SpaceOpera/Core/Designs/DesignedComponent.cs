@@ -5,7 +5,7 @@ using SpaceOpera.Core.Military;
 
 namespace SpaceOpera.Core.Designs
 {
-    class DesignedComponent : ComponentBase
+    public class DesignedComponent : ComponentBase
     {
         public List<ComponentAndSlot> Components { get; }
 
@@ -34,11 +34,11 @@ namespace SpaceOpera.Core.Designs
         }
 
         protected virtual Dictionary<IMaterial, Modifier> ComputeMaterialCosts(
-            float Modifier, IEnumerable<ComponentAndSlot> Components)
+            float modifier, IEnumerable<ComponentAndSlot> components)
         {
             Dictionary<MaterialReference, MultiQuantity<IMaterial>> referenceMaterials =
                 new Dictionary<MaterialReference, MultiQuantity<IMaterial>>();
-            foreach (var component in Components.Select(x => x.Component))
+            foreach (var component in components.Select(x => x.Component))
             {
                 if (component.ReferenceMaterial != null)
                 {
@@ -50,7 +50,7 @@ namespace SpaceOpera.Core.Designs
             }
 
             Dictionary<IMaterial, Modifier> materials = new Dictionary<IMaterial, Modifier>();
-            foreach (var component in Components)
+            foreach (var component in components)
             {
                 if (component.Component.ReferenceMaterialCost != null)
                 {
@@ -84,38 +84,38 @@ namespace SpaceOpera.Core.Designs
             Dictionary<IMaterial, Modifier> finalCost = new Dictionary<IMaterial, Modifier>();
             foreach (var material in materials)
             {
-                finalCost.Add(material.Key, Modifier * material.Value.Combine());
+                finalCost.Add(material.Key, modifier * material.Value.Combine());
             }
             return finalCost;
         }
 
         private static EnumMap<ComponentAttribute, Modifier> ComputeAttributes(
-            IEnumerable<ComponentAndSlot> Components)
+            IEnumerable<ComponentAndSlot> components)
         {
-            return CombineModifiers<ComponentAttribute>(1, Components.Select(x => x.Component.Attributes));
+            return CombineModifiers<ComponentAttribute>(1, components.Select(x => x.Component.Attributes));
         }
 
         private static EnumMap<DamageType, Modifier> ComputeDamage(
-            float Modifier, IEnumerable<ComponentAndSlot> Components)
+            float modifier, IEnumerable<ComponentAndSlot> components)
         {
-            return CombineModifiers<DamageType>(Modifier, Components.Select(x => x.Component.Damage));
+            return CombineModifiers<DamageType>(modifier, components.Select(x => x.Component.Damage));
         }
 
         private static EnumMap<DamageType, Modifier> ComputeDamageResist(
-            float Modifier, IEnumerable<ComponentAndSlot> Components)
+            float modifier, IEnumerable<ComponentAndSlot> components)
         {
-            return CombineModifiers<DamageType>(Modifier, Components.Select(x =>  x.Component.DamageResist));
+            return CombineModifiers<DamageType>(modifier, components.Select(x =>  x.Component.DamageResist));
         }
 
-        private static void AddCost(Dictionary<IMaterial, Modifier> Materials, IMaterial Material, Modifier Modifier)
+        private static void AddCost(Dictionary<IMaterial, Modifier> materials, IMaterial material, Modifier modifier)
         {
-            if (Materials.ContainsKey(Material))
+            if (materials.ContainsKey(material))
             {
-                Materials[Material] += Modifier;
+                materials[material] += modifier;
             }
             else
             {
-                Materials.Add(Material, Modifier);
+                materials.Add(material, modifier);
             }
         }
 

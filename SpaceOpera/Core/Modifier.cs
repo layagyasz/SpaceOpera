@@ -2,8 +2,8 @@ namespace SpaceOpera.Core
 {
     public struct Modifier
     {
-        public static readonly Modifier One = new Modifier() { Constant = 1 };
-        public static readonly Modifier Zero = new Modifier();
+        public static readonly Modifier One = new() { Constant = 1 };
+        public static readonly Modifier Zero = new();
 
         public float Constant { get; set; }
         public float Bonus { get; set; }
