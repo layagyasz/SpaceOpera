@@ -27,6 +27,13 @@ namespace SpaceOpera.Core.Designs
             return result;
         }
 
+        public IEnumerable<ComponentTag> GetTags()
+        {
+            return Enumerable.Concat(
+                Configuration.IntrinsicComponent?.Tags ?? Enumerable.Empty<ComponentTag>(),
+                _components.SelectMany(x => x.Value.Select(x => x.Tags)));
+        }
+
         public bool Validate()
         {
             if (!Template.ConfigurationOptions.Contains(Configuration))

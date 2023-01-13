@@ -1,13 +1,8 @@
 using SpaceOpera.Core.Designs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpaceOpera.Core.Military
 {
-    class Weapon
+    public class Weapon
     {
         public string Name { get; }
         public UnitIntervalValue Accuracy { get; }

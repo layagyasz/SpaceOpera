@@ -1,34 +1,26 @@
-using Adansonia;
 using SpaceOpera.Core.Military.Actions;
 using SpaceOpera.Core.Military.Routines;
-using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Universe;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static SpaceOpera.Core.Military.SpaceOperaContext;
 
 namespace SpaceOpera.Core.Military
 {
-    class FleetDriver
+    public class FleetDriver
     {
-        public EventHandler<EventArgs> OnOrderUpdated { get; set; }
+        public EventHandler<EventArgs>? OnOrderUpdated { get; set; }
 
         public Fleet Fleet { get; }
-        public IAction Action { get; private set; }
         public FleetAssignment Assignment { get; private set; }
-        private HashSet<INavigable> _ActiveRegion { get; set; } = new HashSet<INavigable>();
+        private HashSet<INavigable> _ActiveRegion { get; set; } = new();
 
-        private ISupplierNode<IAction, FleetContext> _Ai;
-        private IAction _Action;
+        private ISupplierNode<IAction, FleetContext> _ai;
+        private IAction? _action;
 
-        public FleetDriver(Fleet Fleet)
+        public FleetDriver(Fleet fleet)
         {
-            this.Fleet = Fleet;
+            Fleet = fleet;
 
-            _Ai = FleetRoutine.Create();
+            _ai = FleetRoutine.Create();
         }
 
         public IEnumerable<INavigable> GetActiveRegion()
@@ -36,31 +28,31 @@ namespace SpaceOpera.Core.Military
             return _ActiveRegion;
         }
 
-        public void SetAssignment(FleetAssignment Action)
+        public void SetAssignment(FleetAssignment action)
         {
-            this.Assignment = Action;
+            Assignment = action;
             OnOrderUpdated?.Invoke(this, EventArgs.Empty);
         }
 
-        public void SetActiveRegion(IEnumerable<INavigable> ActiveRegion)
+        public void SetActiveRegion(IEnumerable<INavigable> activeRegion)
         {
-            _ActiveRegion = new HashSet<INavigable>(ActiveRegion);
+            _ActiveRegion = new HashSet<INavigable>(activeRegion);
             OnOrderUpdated?.Invoke(this, EventArgs.Empty);
         }
 
-        public void Tick(SpaceOperaContext Context)
+        public void Tick(SpaceOperaContext context)
         {
             Fleet.Cohere();
-            var newAction = _Ai.Execute(Context.ForFleet(this)).Result;
-            if (newAction == null || _Action == null || !newAction.Equivalent(_Action))
+            var newAction = _ai.Execute(context.ForFleet(this)).Result;
+            if (newAction == null || _action == null || !newAction.Equivalent(_action))
             {
-                _Action = newAction;
+                _action = newAction;
             }
-            if (_Action != null)
+            if (_action != null)
             {
-                Console.WriteLine("{0} : {1}", Fleet.Name, _Action);
+                Console.WriteLine("{0} : {1}", Fleet.Name, _action);
             }
-            _Action?.Progress(Fleet, Context.World);
+            _action?.Progress(Fleet, context.World);
         }
     }
 }

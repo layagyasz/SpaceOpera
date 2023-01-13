@@ -1,65 +1,59 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace SpaceOpera.Core.Military.Battles
 {
-    class Battle
+    public class Battle
     {
-        private readonly BattleReport.Builder _Report = new BattleReport.Builder();
-        private readonly BattleSide _Offense = new BattleSide();
-        private readonly BattleSide _Defense = new BattleSide();
+        private readonly BattleReport.Builder _report = new();
+        private readonly BattleSide _offense = new();
+        private readonly BattleSide _defense = new();
 
-        public void Add(IFormation Formation, BattleSideType Side)
+        public void Add(IFormation formation, BattleSideType side)
         {
-            switch (Side)
+            switch (side)
             {
-                case BattleSideType.OFFENSE:
-                    lock (_Offense)
+                case BattleSideType.Offense:
+                    lock (_offense)
                     {
-                        _Offense.Add(Formation);
+                        _offense.Add(formation);
                     }
                     break;
-                case BattleSideType.DEFENSE:
-                    lock (_Defense)
+                case BattleSideType.Defense:
+                    lock (_defense)
                     {
-                        _Defense.Add(Formation);
+                        _defense.Add(formation);
                     }
                     break;
                 default:
-                    throw new ArgumentException();
+                    throw new ArgumentException("Unsupported BattleSideType");
             }
 
-            var factionReport = _Report.GetBuilderFor(Formation.Faction);
-            foreach (var group in Formation.Composition)
+            var factionReport = _report.GetBuilderFor(formation.Faction);
+            foreach (var group in formation.Composition)
             {
                 factionReport.GetBuilderFor(group.Unit).Add(group.Count);
             }
         }
 
-        public BattleSideType GetBattleSide(IFormation Formation)
+        public BattleSideType GetBattleSide(IFormation formation)
         {
-            if (_Offense.Formations.Contains(Formation))
+            if (_offense.Formations.Contains(formation))
             {
-                return BattleSideType.OFFENSE;
+                return BattleSideType.Offense;
             }
-            if (_Defense.Formations.Contains(Formation))
+            if (_defense.Formations.Contains(formation))
             {
-                return BattleSideType.DEFENSE;
+                return BattleSideType.Defense;
             }
-            return BattleSideType.NONE;
+            return BattleSideType.None;
         }
 
-        public IEnumerable<IFormation> GetFormations(BattleSideType Type)
+        public IEnumerable<IFormation> GetFormations(BattleSideType type)
         {
-            switch (Type)
+            switch (type)
             {
-                case BattleSideType.OFFENSE:
-                    return _Offense.Formations;
-                case BattleSideType.DEFENSE:
-                    return _Defense.Formations;
+                case BattleSideType.Offense:
+                    return _offense.Formations;
+                case BattleSideType.Defense:
+                    return _defense.Formations;
                 default:
                     throw new ArgumentException();
             }
@@ -67,23 +61,23 @@ namespace SpaceOpera.Core.Military.Battles
 
         public BattleReport GetReport()
         {
-            return _Report.Build();
+            return _report.Build();
         }
 
-        public void Remove(IFormation Formation, BattleSideType Side)
+        public void Remove(IFormation formation, BattleSideType side)
         {
-            switch (Side)
+            switch (side)
             {
-                case BattleSideType.OFFENSE:
-                    lock (_Offense)
+                case BattleSideType.Offense:
+                    lock (_offense)
                     {
-                        _Offense.Remove(Formation);
+                        _offense.Remove(formation);
                     }
                     return;
-                case BattleSideType.DEFENSE:
-                    lock (_Defense)
+                case BattleSideType.Defense:
+                    lock (_defense)
                     {
-                        _Defense.Remove(Formation);
+                        _defense.Remove(formation);
                     }
                     return;
                 default:
@@ -91,16 +85,16 @@ namespace SpaceOpera.Core.Military.Battles
             }
         }
 
-        public void Tick(Random Random)
+        public void Tick(Random random)
         {
-            lock (_Offense)
+            lock (_offense)
             {
-                lock (_Defense)
+                lock (_defense)
                 {
-                    var defenses = _Defense.GetAttacks(_Offense, Random);
-                    var attacks = _Offense.GetAttacks(_Defense, Random);
-                    _Defense.Damage(attacks, _Report);
-                    _Offense.Damage(defenses, _Report);
+                    var defenses = _defense.GetAttacks(_offense, random);
+                    var attacks = _offense.GetAttacks(_defense, random);
+                    _defense.Damage(attacks, _report);
+                    _offense.Damage(defenses, _report);
                 }
             }
         }

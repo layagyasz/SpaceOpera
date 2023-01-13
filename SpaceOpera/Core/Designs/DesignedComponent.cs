@@ -49,7 +49,7 @@ namespace SpaceOpera.Core.Designs
                 }
             }
 
-            Dictionary<IMaterial, Modifier> materials = new Dictionary<IMaterial, Modifier>();
+            Dictionary<IMaterial, Modifier> materials = new();
             foreach (var component in components)
             {
                 if (component.Component.ReferenceMaterialCost != null)
@@ -92,19 +92,19 @@ namespace SpaceOpera.Core.Designs
         private static EnumMap<ComponentAttribute, Modifier> ComputeAttributes(
             IEnumerable<ComponentAndSlot> components)
         {
-            return CombineModifiers<ComponentAttribute>(1, components.Select(x => x.Component.Attributes));
+            return CombineModifiers(1, components.Select(x => x.Component.Attributes));
         }
 
         private static EnumMap<DamageType, Modifier> ComputeDamage(
             float modifier, IEnumerable<ComponentAndSlot> components)
         {
-            return CombineModifiers<DamageType>(modifier, components.Select(x => x.Component.Damage));
+            return CombineModifiers(modifier, components.Select(x => x.Component.Damage));
         }
 
         private static EnumMap<DamageType, Modifier> ComputeDamageResist(
             float modifier, IEnumerable<ComponentAndSlot> components)
         {
-            return CombineModifiers<DamageType>(modifier, components.Select(x =>  x.Component.DamageResist));
+            return CombineModifiers(modifier, components.Select(x =>  x.Component.DamageResist));
         }
 
         private static void AddCost(Dictionary<IMaterial, Modifier> materials, IMaterial material, Modifier modifier)
@@ -122,7 +122,7 @@ namespace SpaceOpera.Core.Designs
         private static EnumMap<TKey, Modifier> CombineModifiers<TKey>(
             float modifier, IEnumerable<EnumMap<TKey, Modifier>> maps) where TKey : Enum
         {
-            EnumMap<TKey, Modifier> values = new EnumMap<TKey, Modifier>();
+            EnumMap<TKey, Modifier> values = new();
 
             foreach (var map in maps)
             {

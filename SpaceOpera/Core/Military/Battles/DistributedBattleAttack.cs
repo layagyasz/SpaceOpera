@@ -1,54 +1,48 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace SpaceOpera.Core.Military.Battles
 {
-    class DistributedBattleAttack
+    public class DistributedBattleAttack
     {
-        private static readonly float BASE_MULTIPLIER = 0.25f;
+        private static readonly float s_BaseMultiplier = 0.25f;
 
         public BattleAttack Attack { get; }
 
         public float Effort { get; }
 
-        private DistributedBattleAttack(BattleAttack Attack, float Effort)
+        private DistributedBattleAttack(BattleAttack attack, float effort)
         {
-            this.Attack = Attack;
-            this.Effort = Effort;
+            Attack = attack;
+            Effort = effort;
         }
 
-        public static DistributedBattleAttack Create(BattleAttack Attack, float Effort)
+        public static DistributedBattleAttack Create(BattleAttack attack, float effort)
         {
-            return new DistributedBattleAttack(Attack, Effort);
+            return new DistributedBattleAttack(attack, effort);
         }
 
-        public static List<DistributedBattleAttack> Generate(IEnumerable<BattleAttack> Potentials, Random Random)
+        public static List<DistributedBattleAttack> Generate(IEnumerable<BattleAttack> potentials, Random random)
         {
             double[] dirichlet =
                 Dirichlet.GetDistribution(
-                    Random, 
-                    Potentials.Select(
+                    random, 
+                    potentials.Select(
                         x => (double)x.Target.Count * x.Target.Unit.Threat * x.ComputePotential().GetTotal())
                     .ToArray());
-            return Potentials.Zip(dirichlet, (x, y) => DistributedBattleAttack.Create(x, (float)y)).ToList();
+            return potentials.Zip(dirichlet, (x, y) => Create(x, (float)y)).ToList();
         }
 
         public Damage ComputeRaw()
         {
-            return BASE_MULTIPLIER * Effort * Attack.Attacker.Count * Attack.ComputeRaw();
+            return s_BaseMultiplier * Effort * Attack.Attacker.Count * Attack.ComputeRaw();
         }
 
         public Damage ComputeOnTarget()
         {
-            return BASE_MULTIPLIER * Effort * Attack.Attacker.Count * Attack.ComputeOnTarget();
+            return s_BaseMultiplier * Effort * Attack.Attacker.Count * Attack.ComputeOnTarget();
         }
 
         public Damage ComputeFinal(float Adjustment)
         {
-            return BASE_MULTIPLIER * Effort * Attack.Attacker.Count * Attack.ComputeFinal(Adjustment);
+            return s_BaseMultiplier * Effort * Attack.Attacker.Count * Attack.ComputeFinal(Adjustment);
         }
 
         public override string ToString()

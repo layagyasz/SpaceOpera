@@ -1,42 +1,37 @@
 using SpaceOpera.Core.Universe;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpaceOpera.Core.Military.Actions
 {
-    class MoveAction : IAction
+    public class MoveAction : IAction
     {
-        public ActionStatus Status { get; private set; } = ActionStatus.IN_PROGRESS;
+        public ActionStatus Status { get; private set; } = ActionStatus.InProgress;
         public NavigationMap.Movement Movement { get; }
 
-        private double _Progress;
+        private double _progress;
 
-        public MoveAction(NavigationMap.Movement Movement)
+        public MoveAction(NavigationMap.Movement movement)
         {
-            this.Movement = Movement;
+            Movement = movement;
         }
 
-        public bool Equivalent(IAction Action)
+        public bool Equivalent(IAction action)
         {
-            if (Action is MoveAction other)
+            if (action is MoveAction other)
             {
                 return other.Movement.Destination == Movement.Destination;
             }
             return false;
         }
 
-        public void Progress(IFormation Formation, World World)
+        public void Progress(IFormation formation, World world)
         {
-            _Progress += Formation.GetSpeed(Movement.Type);
-            if (_Progress >= Movement.Distance)
+            _progress += formation.GetSpeed(Movement.Type);
+            if (_progress >= Movement.Distance)
             {
-                Formation.SetPosition(Movement.Destination);
-                Status = ActionStatus.DONE;
+                formation.SetPosition(Movement.Destination);
+                Status = ActionStatus.Done;
             }
-            Status = ActionStatus.IN_PROGRESS;
+            Status = ActionStatus.InProgress;
         }
 
         public override string ToString()
@@ -45,7 +40,7 @@ namespace SpaceOpera.Core.Military.Actions
                 "[MoveAction: Origin={0}, Destination={1}, Progress={2}/{3}",
                 Movement.Origin.Name,
                 Movement.Destination.Name,
-                _Progress,
+                _progress,
                 Movement.Distance);
         }
     }

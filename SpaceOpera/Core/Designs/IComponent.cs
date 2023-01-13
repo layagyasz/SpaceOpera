@@ -23,5 +23,6 @@ namespace SpaceOpera.Core.Designs
 
         bool FitsSlot(DesignSlot slot);
         float GetAttribute(ComponentAttribute attribute);
+        EnumMap<DamageType, float> GetDamage();
     }
 }

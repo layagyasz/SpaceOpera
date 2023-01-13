@@ -1,39 +1,34 @@
 using SpaceOpera.Core.Designs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpaceOpera.Core.Military
 {
-    class Armor
+    public class Armor
     {
         public float Thickness { get; }
         public float Protection { get; }
         public float Coverage { get; }
 
-        public Armor(float Thickness, float Protection, float Coverage)
+        public Armor(float thickness, float protection, float coverage)
         {
-            this.Thickness = Thickness;
-            this.Protection = Protection;
-            this.Coverage = Coverage;
+            this.Thickness = thickness;
+            this.Protection = protection;
+            this.Coverage = coverage;
         }
 
-        public static Armor FromComponent(IComponent Component)
+        public static Armor FromComponent(IComponent component)
         {
             return new Armor(
-                Component.GetAttribute(ComponentAttribute.ArmorThickness),
-                Component.GetAttribute(ComponentAttribute.ArmorProtection), 
-                Component.GetAttribute(ComponentAttribute.ArmorCoverage));
+                component.GetAttribute(ComponentAttribute.ArmorThickness),
+                component.GetAttribute(ComponentAttribute.ArmorProtection), 
+                component.GetAttribute(ComponentAttribute.ArmorCoverage));
         }
 
-        public static Armor Combine(IEnumerable<Armor> Armors)
+        public static Armor Combine(IEnumerable<Armor> armors)
         {
             return new Armor(
-                Armors.Select(x => x.Thickness).DefaultIfEmpty(0).Sum(),
-                Armors.Select(x => x.Protection).DefaultIfEmpty(0).Sum(), 
-                Armors.Select(x => x.Coverage).DefaultIfEmpty(0).Sum());
+                armors.Select(x => x.Thickness).DefaultIfEmpty(0).Sum(),
+                armors.Select(x => x.Protection).DefaultIfEmpty(0).Sum(), 
+                armors.Select(x => x.Coverage).DefaultIfEmpty(0).Sum());
         }
     }
 }

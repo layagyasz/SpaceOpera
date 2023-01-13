@@ -1,34 +1,30 @@
+using Cardamom.Collections;
 using SpaceOpera.Core.Designs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpaceOpera.Core.Military
 {
-    class Damage
+    public class Damage
     {
         public EnumMap<DamageType, float> Amount { get; }
 
         public Damage()
         {
-            this.Amount = new EnumMap<DamageType, float>();
+            Amount = new();
         }
 
-        public Damage(EnumMap<DamageType, float> Amount)
+        public Damage(EnumMap<DamageType, float> amount)
         {
-            this.Amount = Amount;
+            Amount = amount;
         }
 
-        public static Damage FromComponent(IComponent Component)
+        public static Damage FromComponent(IComponent component)
         {
-            return new Damage(Component.GetDamage());
+            return new Damage(component.GetDamage());
         }
 
-        public Damage Cap(float Maximum)
+        public Damage Cap(float maximum)
         {
-            var r = Maximum / GetTotal();
+            var r = maximum / GetTotal();
             return r < 1 ? r * this : this;
         }
 
@@ -37,27 +33,27 @@ namespace SpaceOpera.Core.Military
             return Amount.Sum(x => x.Value);
         }
 
-        public static Damage operator +(Damage Left, Damage Right)
+        public static Damage operator +(Damage left, Damage right)
         {
             var newDamage = new EnumMap<DamageType, float>();
             foreach (var type in Enum.GetValues(typeof(DamageType)))
             {
-                newDamage.Add((DamageType)type, Left.Amount[(DamageType)type] + Right.Amount[(DamageType)type]);
+                newDamage.Add((DamageType)type, left.Amount[(DamageType)type] + right.Amount[(DamageType)type]);
             }
             return new Damage(newDamage);
         }
 
-        public static Damage operator -(Damage Damage, float Reduction)
+        public static Damage operator -(Damage damage, float reduction)
         {
-            return (1 - Reduction / Damage.GetTotal()) * Damage;
+            return (1 - reduction / damage.GetTotal()) * damage;
         }
 
-        public static Damage operator *(float Scale, Damage Damage)
+        public static Damage operator *(float scale, Damage damage)
         {
             var newDamage = new EnumMap<DamageType, float>();
-            foreach (var damage in Damage.Amount)
+            foreach (var d in damage.Amount)
             {
-                newDamage.Add(damage.Key, Scale * damage.Value);
+                newDamage.Add(d.Key, scale * d.Value);
             }
             return new Damage(newDamage);
         }

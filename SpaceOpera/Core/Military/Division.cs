@@ -1,23 +1,19 @@
+using Cardamom.Trackers;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Universe;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpaceOpera.Core.Military
 {
-    class Division : BaseFormation
+    public class Division : BaseFormation
     {
         public DivisionTemplate Template { get; }
-        public StellarBody StellarBodyLocation { get; private set; }
+        public StellarBody? StellarBodyLocation { get; private set; }
 
-        public Division(string Name, Faction Faction, DivisionTemplate Template, MultiCount<Unit> Composition)
-            : base(Faction)
+        public Division(string name, Faction faction, DivisionTemplate template, MultiCount<Unit> composition)
+            : base(faction)
         {
-            SetName(Name);
-            this.Template = Template;
+            SetName(name);
+            Template = template;
         }
     }
 }

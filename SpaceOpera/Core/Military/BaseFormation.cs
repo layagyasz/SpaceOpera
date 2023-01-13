@@ -1,49 +1,45 @@
+using Cardamom.Trackers;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Universe;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpaceOpera.Core.Military
 {
-    abstract class BaseFormation : IFormation
+    public abstract class BaseFormation : IFormation
     {
-        private static readonly float BASE_RECOHERANCE = 0.1f;
+        private static readonly float s_BaseRecoherence = 0.1f;
 
-        public EventHandler<MovementEventArgs> OnMoved { get; set; }
+        public EventHandler<MovementEventArgs>? OnMoved { get; set; }
 
-        public string Name { get; private set; }
+        public string Name { get; private set; } = string.Empty;
         public Faction Faction { get; }
-        public INavigable Position { get; private set; }
-        public Pool Cohesion { get; } = new Pool(1);
-        public List<UnitGrouping> Composition { get; } = new List<UnitGrouping>();
+        public INavigable? Position { get; private set; }
+        public Pool Cohesion { get; } = new(1);
+        public List<UnitGrouping> Composition { get; } = new();
         public bool InCombat { get; private set; }
 
-        protected BaseFormation(Faction Faction)
+        protected BaseFormation(Faction faction)
         {
-            this.Faction = Faction;
+            Faction = faction;
         }
 
-        public void Add(UnitGrouping UnitGrouping)
+        public void Add(UnitGrouping unitGrouping)
         {
-            var currentGrouping = Composition.Where(x => x.Unit == UnitGrouping.Unit).FirstOrDefault();
+            var currentGrouping = Composition.Where(x => x.Unit == unitGrouping.Unit).FirstOrDefault();
             if (currentGrouping != null)
             {
-                currentGrouping.Combine(UnitGrouping);
+                currentGrouping.Combine(unitGrouping);
             }
-            Composition.Add(UnitGrouping);
+            Composition.Add(unitGrouping);
         }
 
-        public void Add(Count<Unit> Unit)
+        public void Add(Count<Unit> unit)
         {
-            Add(new UnitGrouping(Unit));
+            Add(new UnitGrouping(unit));
         }
 
-        public void Add(MultiCount<Unit> Units)
+        public void Add(MultiCount<Unit> units)
         {
-            foreach (var unit in Units.GetCounts())
+            foreach (var unit in units.GetCounts())
             {
                 Add(unit);
             }
@@ -51,7 +47,7 @@ namespace SpaceOpera.Core.Military
 
         public void Cohere()
         {
-            Cohesion.ChangeAmount((InCombat ? .1f : 1) * BASE_RECOHERANCE);
+            Cohesion.Change((InCombat ? .1f : 1) * s_BaseRecoherence);
         }
 
         public void EnterCombat()
@@ -79,9 +75,9 @@ namespace SpaceOpera.Core.Military
             return Composition.Min(x => x.Unit.Evasion.UnitValue);
         }
 
-        public float GetSpeed(NavigableEdgeType Type)
+        public float GetSpeed(NavigableEdgeType type)
         {
-            switch (Type)
+            switch (type)
             {
                 case NavigableEdgeType.SPACE:
                     return 50;
@@ -94,16 +90,16 @@ namespace SpaceOpera.Core.Military
             }
         }
 
-        public void SetName(string Name)
+        public void SetName(string name)
         {
-            this.Name = Name;
+            this.Name = name;
         }
 
-        public void SetPosition(INavigable Position)
+        public void SetPosition(INavigable position)
         {
             var temp = this.Position;
-            this.Position = Position;
-            OnMoved?.Invoke(this, MovementEventArgs.Create(temp, Position));
+            this.Position = position;
+            OnMoved?.Invoke(this, MovementEventArgs.Create(temp, position));
         }
     }
 }

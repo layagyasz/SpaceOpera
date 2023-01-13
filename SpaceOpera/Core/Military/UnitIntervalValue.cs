@@ -1,16 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace SpaceOpera.Core.Military
 {
-    struct UnitIntervalValue
+    public struct UnitIntervalValue
     {
-        public static UnitIntervalValue ZERO = new UnitIntervalValue(0);
+        public static UnitIntervalValue Zero = new(0);
 
-        private static readonly float DIVISOR = 100;
+        private static readonly float s_Divisor = 100;
 
         public float RawValue { get; }
         public float UnitValue { get; }
@@ -23,7 +17,7 @@ namespace SpaceOpera.Core.Military
 
         public static float ToUnitInterval(float RawValue)
         {
-            return RawValue / (RawValue + DIVISOR);
+            return RawValue / (RawValue + s_Divisor);
         }
         public override string ToString()
         {

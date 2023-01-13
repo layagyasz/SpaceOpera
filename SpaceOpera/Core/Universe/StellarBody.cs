@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace SpaceOpera.Core.Universe
 {
-    class StellarBody
+    public class StellarBody
     {
         public EventHandler<ElementEventArgs<Division>> OnDivisionAdded { get; set; }
 

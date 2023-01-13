@@ -1,26 +1,21 @@
 using SpaceOpera.Core.Universe;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpaceOpera.Core.Military
 {
-    class MovementEventArgs : EventArgs
+    public class MovementEventArgs : EventArgs
     {
         public INavigable Origin { get; }
         public INavigable Destination { get; }
 
-        private MovementEventArgs(INavigable Origin, INavigable Destination)
+        private MovementEventArgs(INavigable origin, INavigable destination)
         {
-            this.Origin = Origin;
-            this.Destination = Destination;
+            Origin = origin;
+            Destination = destination;
         }
 
-        public static MovementEventArgs Create(INavigable Origin, INavigable Destination)
+        public static MovementEventArgs Create(INavigable origin, INavigable destination)
         {
-            return new MovementEventArgs(Origin, Destination);
+            return new MovementEventArgs(origin, destination);
         }
     }
 }

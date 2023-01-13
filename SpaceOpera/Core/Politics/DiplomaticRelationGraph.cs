@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SpaceOpera.Core.Politics
 {
-    class DiplomaticRelationGraph
+    public class DiplomaticRelationGraph
     {
         private readonly Dictionary<CompositeKey<Faction, Faction>, DiplomaticRelation> _Relations =
             new Dictionary<CompositeKey<Faction, Faction>, DiplomaticRelation>();

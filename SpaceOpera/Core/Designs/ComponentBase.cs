@@ -11,7 +11,7 @@ namespace SpaceOpera.Core.Designs
         public string Key { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
         public ComponentSlot Slot { get; set; }
-        public List<ComponentTag> Tags { get; set; }
+        public List<ComponentTag> Tags { get; set; } = new();
         public EnumMap<MaterialReference, MultiQuantity<IMaterial>> ReferenceMaterial { get; set; } = new();
         public Dictionary<MaterialReference, Modifier> ReferenceMaterialCost { get; set; } = new();
         public Dictionary<IMaterial, Modifier> MaterialCost { get; set; } = new();

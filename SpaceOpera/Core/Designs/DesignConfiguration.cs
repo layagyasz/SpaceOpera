@@ -19,7 +19,7 @@
 
         public IEnumerable<ComponentTag> GetTags()
         {
-            throw new NotImplementedException();
+            return _segments.SelectMany(x => x.GetTags());
         }
     }
 }

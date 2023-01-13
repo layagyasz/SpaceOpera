@@ -1,63 +1,56 @@
-using Adansonia;
 using SpaceOpera.Core.Military.Actions;
-using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Universe;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static SpaceOpera.Core.Military.SpaceOperaContext;
 
 namespace SpaceOpera.Core.Military.Routines
 {
-    static class PatrolRoutine
+    public static class PatrolRoutine
     {
         private class PatrolNode : ISupplierNode<INavigable, FleetContext>
         {
-            private INavigable _CachedDestination;
+            private INavigable? _cachedDestination;
 
-            public AdansoniaNodeResult<INavigable> Execute(FleetContext Context)
+            public AdansoniaNodeResult<INavigable> Execute(FleetContext context)
             {
-                var currentPosition = Context.Fleet.Fleet.Position;
-                var activeRegion = Context.Fleet.GetActiveRegion();
-                if (_CachedDestination == null 
-                    || _CachedDestination == Context.Fleet.Fleet.Position 
-                    || !Context.Fleet.GetActiveRegion().Contains(_CachedDestination))
+                var currentPosition = context.Fleet.Fleet.Position;
+                var activeRegion = context.Fleet.GetActiveRegion();
+                if (_cachedDestination == null 
+                    || _cachedDestination == context.Fleet.Fleet.Position 
+                    || !context.Fleet.GetActiveRegion().Contains(_cachedDestination))
                 {
-                    var options = activeRegion.Where(x => x != Context.Fleet.Fleet.Position).ToList();
+                    var options = activeRegion.Where(x => x != context.Fleet.Fleet.Position).ToList();
                     if (options.Count == 0)
                     {
-                        _CachedDestination = null;
+                        _cachedDestination = null;
                     }
                     else if (options.Count == 1)
                     {
-                        _CachedDestination = options[0];
+                        _cachedDestination = options[0];
                     }
                     else
                     {
-                        _CachedDestination = options[Context.World.Random.Next(0, options.Count)];
+                        _cachedDestination = options[context.World.Random.Next(0, options.Count)];
                     }
                 }
-                return _CachedDestination == null 
+                return _cachedDestination == null 
                     ? AdansoniaNodeResult<INavigable>.Incomplete()
-                    : AdansoniaNodeResult<INavigable>.Complete(_CachedDestination);
+                    : AdansoniaNodeResult<INavigable>.Complete(_cachedDestination);
             }
         }
 
         private class PatrolSpotNode : ISupplierNode<IAction, FleetContext>
         {
-            private readonly ISupplierNode<Fleet, FleetContext> _Target;
+            private readonly ISupplierNode<Fleet, FleetContext> _target;
 
-            public PatrolSpotNode(ISupplierNode<Fleet, FleetContext> Target)
+            public PatrolSpotNode(ISupplierNode<Fleet, FleetContext> target)
             {
-                _Target = Target;
+                _target = target;
             }
 
-            public AdansoniaNodeResult<IAction> Execute(FleetContext Context)
+            public AdansoniaNodeResult<IAction> Execute(FleetContext context)
             {
-                var currentPosition = Context.Fleet.Fleet.Position;
-                var target = _Target.Execute(Context);
+                var currentPosition = context.Fleet.Fleet.Position;
+                var target = _target.Execute(context);
                 if (!target.Status.Complete)
                 {
                     return AdansoniaNodeResult<IAction>.NotRun();
@@ -72,40 +65,40 @@ namespace SpaceOpera.Core.Military.Routines
 
         private class PatrolTargetNode : ISupplierNode<Fleet, FleetContext>
         {
-            private Fleet _CachedTarget;
+            private Fleet? _cachedTarget;
 
-            public AdansoniaNodeResult<Fleet> Execute(FleetContext Context)
+            public AdansoniaNodeResult<Fleet> Execute(FleetContext context)
             {
-                var currentPosition = Context.Fleet.Fleet.Position;
-                var faction = Context.Fleet.Fleet.Faction;
-                var activeRegions = Context.Fleet.GetActiveRegion();
-                if (_CachedTarget == null 
-                    || !activeRegions.Contains(_CachedTarget.Position) 
-                    || !Context.World.BattleManager.CanEngage(Context.Fleet.Fleet, _CachedTarget))
+                var currentPosition = context.Fleet.Fleet.Position;
+                var faction = context.Fleet.Fleet.Faction;
+                var activeRegions = context.Fleet.GetActiveRegion();
+                if (_cachedTarget == null 
+                    || !activeRegions.Contains(_cachedTarget.Position) 
+                    || !context.World.BattleManager.CanEngage(context.Fleet.Fleet, _cachedTarget))
                 {
                     var options =
-                        Context.World.GetFleets()
+                        context.World.GetFleets()
                             .Where(x => x.Position == currentPosition)
                             .Where(x => activeRegions.Contains(x.Position))
                             .Where(x => x.Faction != faction)
-                            .Where(x => Context.World.BattleManager.CanEngage(Context.Fleet.Fleet, x))
+                            .Where(x => context.World.BattleManager.CanEngage(context.Fleet.Fleet, x))
                             .ToList();
                     if (options.Count == 0)
                     {
-                        _CachedTarget = null;
+                        _cachedTarget = null;
                     }
                     else if (options.Count == 1)
                     {
-                        _CachedTarget = options[0];
+                        _cachedTarget = options[0];
                     }
                     else
                     {
-                        _CachedTarget = options[Context.World.Random.Next(0, options.Count)];
+                        _cachedTarget = options[context.World.Random.Next(0, options.Count)];
                     }
                 }
-                return _CachedTarget == null
+                return _cachedTarget == null
                     ? AdansoniaNodeResult<Fleet>.Incomplete()
-                    : AdansoniaNodeResult<Fleet>.Complete(_CachedTarget);
+                    : AdansoniaNodeResult<Fleet>.Complete(_cachedTarget);
             }
         }
         public static ISupplierNode<IAction, FleetContext> Create()

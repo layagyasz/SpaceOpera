@@ -1,34 +1,28 @@
-using Adansonia;
 using SpaceOpera.Core.Military.Actions;
 using SpaceOpera.Core.Universe;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static SpaceOpera.Core.Military.SpaceOperaContext;
 
 namespace SpaceOpera.Core.Military.Routines
 {
-    class MoveNode : ISupplierNode<IAction, FleetContext>
+    public class MoveNode : ISupplierNode<IAction, FleetContext>
     {
-        private readonly ISupplierNode<INavigable, FleetContext> _Destination;
-        private readonly EnumSet<NavigableEdgeType> _AllowedEdgeTypes;
+        private readonly ISupplierNode<INavigable, FleetContext> _destination;
+        private readonly EnumSet<NavigableEdgeType> _allowedEdgeTypes;
 
-        private Stack<NavigationMap.Movement> _CachedPath;
+        private Stack<NavigationMap.Movement> _cachedPath;
 
         public MoveNode(
-            ISupplierNode<INavigable, FleetContext> Destination,
-            EnumSet<NavigableEdgeType> AllowedEdgeTypes)
+            ISupplierNode<INavigable, FleetContext> destination,
+            EnumSet<NavigableEdgeType> allowedEdgeTypes)
         {
-            _Destination = Destination;
-            _AllowedEdgeTypes = AllowedEdgeTypes;
+            _destination = destination;
+            _allowedEdgeTypes = allowedEdgeTypes;
         }
 
-        public AdansoniaNodeResult<IAction> Execute(FleetContext Context)
+        public AdansoniaNodeResult<IAction> Execute(FleetContext context)
         {
-            var currentPosition = Context.Fleet.Fleet.Position;
-            var destination = _Destination.Execute(Context);
+            var currentPosition = context.Fleet.Fleet.Position;
+            var destination = _destination.Execute(context);
             if (!destination.Status.Complete)
             {
                 return AdansoniaNodeResult<IAction>.NotRun();
@@ -37,22 +31,22 @@ namespace SpaceOpera.Core.Military.Routines
             {
                 return AdansoniaNodeResult<IAction>.NotRun();
             }
-            if (_CachedPath?.Peek().Destination == currentPosition)
+            if (_cachedPath?.Peek().Destination == currentPosition)
             {
-                _CachedPath.Pop();
-                if (_CachedPath?.Count == 0)
+                _cachedPath.Pop();
+                if (_cachedPath?.Count == 0)
                 {
-                    _CachedPath = null;
+                    _cachedPath = null;
                 }
             }
-            if (_CachedPath == null 
-                || destination.Result != _CachedPath.Last().Destination
-                || _CachedPath.Peek().Origin != currentPosition)
+            if (_cachedPath == null 
+                || destination.Result != _cachedPath.Last().Destination
+                || _cachedPath.Peek().Origin != currentPosition)
             {
-                _CachedPath = 
-                    Context.World.NavigationMap.FindPath(currentPosition, destination.Result, _AllowedEdgeTypes);
+                _cachedPath = 
+                    context.World.NavigationMap.FindPath(currentPosition, destination.Result, _allowedEdgeTypes);
             }
-            return AdansoniaNodeResult<IAction>.Complete(new MoveAction(_CachedPath.Peek()));
+            return AdansoniaNodeResult<IAction>.Complete(new MoveAction(_cachedPath.Peek()));
         }
     }
 }

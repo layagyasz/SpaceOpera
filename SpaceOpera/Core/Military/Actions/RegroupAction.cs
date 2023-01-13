@@ -1,29 +1,23 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace SpaceOpera.Core.Military.Actions
 {
-    class RegroupAction : IAction
+    public class RegroupAction : IAction
     {
-        public ActionStatus Status { get; private set; } = ActionStatus.IN_PROGRESS;
+        public ActionStatus Status { get; private set; } = ActionStatus.InProgress;
 
-        public bool Equivalent(IAction Action)
+        public bool Equivalent(IAction action)
         {
-            if (Action is RegroupAction)
+            if (action is RegroupAction)
             {
                 return true;
             }
             return false;
         }
 
-        public void Progress(IFormation Formation, World World)
+        public void Progress(IFormation formation, World world)
         {
-            if (Formation.Cohesion.IsFull())
+            if (formation.Cohesion.IsFull())
             {
-                Status = ActionStatus.DONE;
+                Status = ActionStatus.Done;
             }
         }
 

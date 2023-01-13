@@ -1,23 +1,18 @@
 using SpaceOpera.Core.Politics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpaceOpera.Core.Military.Battles
 {
-    class BattleReport
+    public class BattleReport
     {
         public class FactionReport
         {
             public Faction Faction { get; }
             public List<UnitReport> UnitReports { get; }
 
-            public FactionReport(Faction Faction, IEnumerable<UnitReport> UnitReports)
+            public FactionReport(Faction faction, IEnumerable<UnitReport> unitReports)
             {
-                this.Faction = Faction;
-                this.UnitReports = UnitReports.ToList();
+                this.Faction = faction;
+                this.UnitReports = unitReports.ToList();
             }
 
             public void Print()
@@ -31,29 +26,28 @@ namespace SpaceOpera.Core.Military.Battles
 
             public class Builder
             {
-                private readonly Faction _Faction;
-                private readonly Dictionary<Unit, UnitReport.Builder> _UnitReports = 
-                    new Dictionary<Unit, UnitReport.Builder>();
+                private readonly Faction _faction;
+                private readonly Dictionary<Unit, UnitReport.Builder> _unitReports = new();
 
-                public Builder(Faction Faction)
+                public Builder(Faction faction)
                 {
-                    _Faction = Faction;
+                    _faction = faction;
                 }
 
-                public UnitReport.Builder GetBuilderFor(Unit Unit)
+                public UnitReport.Builder GetBuilderFor(Unit unit)
                 {
-                    _UnitReports.TryGetValue(Unit, out UnitReport.Builder builder);
+                    _unitReports.TryGetValue(unit, out UnitReport.Builder builder);
                     if (builder == null)
                     {
-                        builder = new UnitReport.Builder(Unit);
-                        _UnitReports.Add(Unit, builder);
+                        builder = new UnitReport.Builder(unit);
+                        _unitReports.Add(unit, builder);
                     }
                     return builder;
                 }
 
                 public FactionReport Build()
                 {
-                    return new FactionReport(_Faction, _UnitReports.Values.Select(x => x.Build()));
+                    return new FactionReport(_faction, _unitReports.Values.Select(x => x.Build()));
                 }
             }
         }
@@ -74,25 +68,25 @@ namespace SpaceOpera.Core.Military.Battles
             public float TotalTakenDamage { get; }
 
             public UnitReport(
-                Unit Unit,
-                int Count,
-                int Losses,
-                float TotalRawDamage, 
-                float TotalOnTargetDamage,
-                float TotalEffectiveDamage,
-                float TotalReceivedDamage,
-                float TotalHullDamage, 
-                float TotalTakenDamage)
+                Unit unit,
+                int count,
+                int losses,
+                float totalRawDamage, 
+                float totalOnTargetDamage,
+                float totalEffectiveDamage,
+                float totalReceivedDamage,
+                float totalHullDamage, 
+                float totalTakenDamage)
             {
-                this.Unit = Unit;
-                this.Count = Count;
-                this.Losses = Losses;
-                this.TotalRawDamage = TotalRawDamage;
-                this.TotalOnTargetDamage = TotalOnTargetDamage;
-                this.TotalEffectiveDamage = TotalEffectiveDamage;
-                this.TotalReceivedDamage = TotalReceivedDamage;
-                this.TotalHullDamage = TotalHullDamage;
-                this.TotalTakenDamage = TotalTakenDamage;
+                Unit = unit;
+                Count = count;
+                Losses = losses;
+                TotalRawDamage = totalRawDamage;
+                TotalOnTargetDamage = totalOnTargetDamage;
+                TotalEffectiveDamage = totalEffectiveDamage;
+                TotalReceivedDamage = totalReceivedDamage;
+                TotalHullDamage = totalHullDamage;
+                TotalTakenDamage = totalTakenDamage;
             }
 
             public float GetArmorEfficiency()
@@ -142,100 +136,99 @@ namespace SpaceOpera.Core.Military.Battles
 
             public class Builder
             {
-                private readonly Unit _Unit;
+                private readonly Unit _unit;
 
-                private int _Count;
-                private int _Losses;
+                private int _count;
+                private int _losses;
 
-                private float _TotalRawDamage;
-                private float _TotalOnTargetDamage;
-                private float _TotalEffectiveDamage;
+                private float _totalRawDamage;
+                private float _totalOnTargetDamage;
+                private float _totalEffectiveDamage;
 
-                private float _TotalReceivedDamage;
-                private float _TotalHullDamage;
-                private float _TotalTakenDamage;
+                private float _totalReceivedDamage;
+                private float _totalHullDamage;
+                private float _totalTakenDamage;
 
-                public Builder(Unit Unit)
+                public Builder(Unit unit)
                 {
-                    _Unit = Unit;
+                    _unit = unit;
                 }
 
-                public Builder Add(int Count)
+                public Builder Add(int count)
                 {
-                    _Count += Count;
+                    _count += count;
                     return this;
                 }
 
-                public Builder AddLosses(int Losses)
+                public Builder AddLosses(int losses)
                 {
-                    _Losses += Losses;
+                    _losses += losses;
                     return this;
                 }
 
-                public Builder AddRawDamage(float Damage)
+                public Builder AddRawDamage(float damage)
                 {
-                    _TotalRawDamage += Damage;
+                    _totalRawDamage += damage;
                     return this;
                 }
 
-                public Builder AddOnTargetDamage(float Damage)
+                public Builder AddOnTargetDamage(float damage)
                 {
-                    _TotalOnTargetDamage += Damage;
+                    _totalOnTargetDamage += damage;
                     return this;
                 }
 
-                public Builder AddEffectiveDamage(float Damage)
+                public Builder AddEffectiveDamage(float damage)
                 {
-                    _TotalEffectiveDamage += Damage;
+                    _totalEffectiveDamage += damage;
                     return this;
                 }
 
-                public Builder AddReceivedDamage(float Damage)
+                public Builder AddReceivedDamage(float damage)
                 {
-                    _TotalReceivedDamage += Damage;
+                    _totalReceivedDamage += damage;
                     return this;
                 }
 
-                public Builder AddHullDamage(float Damage)
+                public Builder AddHullDamage(float damage)
                 {
-                    _TotalHullDamage += Damage;
+                    _totalHullDamage += damage;
                     return this;
                 }
 
-                public Builder AddTakenDamage(float Damage)
+                public Builder AddTakenDamage(float damage)
                 {
-                    _TotalTakenDamage += Damage;
+                    _totalTakenDamage += damage;
                     return this;
                 }
 
                 public UnitReport Build()
                 {
                     return new UnitReport(
-                        _Unit,
-                        _Count,
-                        _Losses,
-                        _TotalRawDamage, 
-                        _TotalOnTargetDamage, 
-                        _TotalEffectiveDamage,
-                        _TotalReceivedDamage, 
-                        _TotalHullDamage, 
-                        _TotalTakenDamage);
+                        _unit,
+                        _count,
+                        _losses,
+                        _totalRawDamage, 
+                        _totalOnTargetDamage, 
+                        _totalEffectiveDamage,
+                        _totalReceivedDamage, 
+                        _totalHullDamage, 
+                        _totalTakenDamage);
                 }
             }
         }
 
         public class Builder
         {
-            private readonly Dictionary<Faction, FactionReport.Builder> _FactionBuilders = 
-                new Dictionary<Faction, FactionReport.Builder>();
+            private readonly Dictionary<Faction, FactionReport.Builder> _FactionBuilders = new();
 
-            public FactionReport.Builder GetBuilderFor(Faction Faction)
+            public FactionReport.Builder GetBuilderFor(Faction faction)
             {
-                _FactionBuilders.TryGetValue(Faction, out FactionReport.Builder builder);
+                _FactionBuilders.TryGetValue(faction, out var builder);
                 if (builder == null)
                 {
-                    builder = new FactionReport.Builder(Faction);
-                    _FactionBuilders.Add(Faction, builder);
+                    builder = new FactionReport.Builder(faction);
+                    _FactionBuilders.Add(faction, builder);
                 }
                 return builder;
             }
@@ -248,9 +241,9 @@ namespace SpaceOpera.Core.Military.Battles
 
         public List<FactionReport> FactionReports { get; }
 
-        public BattleReport(IEnumerable<FactionReport> FactionReports)
+        public BattleReport(IEnumerable<FactionReport> factionReports)
         {
-            this.FactionReports = FactionReports.ToList();
+            FactionReports = factionReports.ToList();
         }
 
         public void Print()

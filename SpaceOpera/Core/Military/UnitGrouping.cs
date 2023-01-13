@@ -1,14 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SpaceOpera.Core.Military.Battles;
 
 namespace SpaceOpera.Core.Military
 {
-    class UnitGrouping
+    public class UnitGrouping
     {
-        private static readonly float SHIELD_CONSTANT = 12;
+        private static readonly float s_ShieldConstant = 12;
 
         public Unit Unit { get; }
         public int Count { get; private set; }
@@ -34,7 +30,7 @@ namespace SpaceOpera.Core.Military
                 return 0;
             }
             var v = Unit.Shield.Absorption * Shielding / (Count * Unit.Shield.Capacity);
-            return v / (v + SHIELD_CONSTANT);
+            return v / (v + s_ShieldConstant);
         }
 
 

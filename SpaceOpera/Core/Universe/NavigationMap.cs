@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SpaceOpera.Core.Universe
 {
-    class NavigationMap
+    public class NavigationMap
     {
         public class Movement
         {

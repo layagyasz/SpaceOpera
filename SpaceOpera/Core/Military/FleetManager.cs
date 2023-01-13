@@ -1,30 +1,23 @@
-using SpaceOpera.Core.Advanceable;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace SpaceOpera.Core.Military
 {
-    class FleetManager
+    public class FleetManager
     {
-        private readonly Dictionary<Fleet, FleetDriver> _Drivers = new Dictionary<Fleet, FleetDriver>();
+        private readonly Dictionary<Fleet, FleetDriver> _drivers = new();
 
-        public void AddFleet(Fleet Fleet)
+        public void AddFleet(Fleet fleet)
         {
-            _Drivers.Add(Fleet, new FleetDriver(Fleet));
+            _drivers.Add(fleet, new FleetDriver(fleet));
         }
 
-        public FleetDriver GetDriver(Fleet Fleet)
+        public FleetDriver GetDriver(Fleet fleet)
         {
-            return _Drivers[Fleet];
+            return _drivers[fleet];
         }
 
-        public void Tick(World World)
+        public void Tick(World world)
         {
-            var context = new SpaceOperaContext(World);
-            foreach (var fleet in _Drivers.Values)
+            var context = new SpaceOperaContext(world);
+            foreach (var fleet in _drivers.Values)
             {
                 fleet.Tick(context);
             }

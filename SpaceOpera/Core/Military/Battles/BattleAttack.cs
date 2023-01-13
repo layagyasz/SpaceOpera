@@ -1,12 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Cardamom.Trackers;
 
 namespace SpaceOpera.Core.Military.Battles
 {
-    class BattleAttack
+    public class BattleAttack
     {
         public UnitGrouping Attacker { get; }
         public IFormation AttackerFormation { get; }
@@ -15,75 +11,75 @@ namespace SpaceOpera.Core.Military.Battles
         public Count<Weapon> Weapon { get; }
 
         private BattleAttack(
-            UnitGrouping Attacker,
-            IFormation AttackerFormation, 
-            UnitGrouping Target,
-            IFormation TargetFormation, 
-            Count<Weapon> Weapon)
+            UnitGrouping attacker,
+            IFormation attackerFormation, 
+            UnitGrouping target,
+            IFormation targetFormation, 
+            Count<Weapon> weapon)
         {
-            this.Attacker = Attacker;
-            this.AttackerFormation = AttackerFormation;
-            this.Target = Target;
-            this.TargetFormation = TargetFormation;
-            this.Weapon = Weapon;
+            Attacker = attacker;
+            AttackerFormation = attackerFormation;
+            Target = target;
+            TargetFormation = targetFormation;
+            Weapon = weapon;
         }
 
         public static BattleAttack Create(
-            UnitGrouping Attacker,
-            IFormation AttackerFormation,
-            UnitGrouping Target, 
-            IFormation TargetFormation, 
-            Count<Weapon> Weapon)
+            UnitGrouping attacker,
+            IFormation attackerFormation,
+            UnitGrouping target, 
+            IFormation targetFormation, 
+            Count<Weapon> weapon)
         {
-            return new BattleAttack(Attacker, AttackerFormation, Target, TargetFormation, Weapon);
+            return new BattleAttack(attacker, attackerFormation, target, targetFormation, weapon);
         }
 
         public Damage ComputePotential()
         {
-            return Weapon.Amount * ComputePotentialImpl(Weapon.Value, Target.Unit, 1);
+            return Weapon.Value * ComputePotentialImpl(Weapon.Key, Target.Unit, 1);
         }
 
         public Damage ComputeRaw()
         {
-            return Weapon.Amount * Weapon.Value.Damage;
+            return Weapon.Value * Weapon.Key.Damage;
         }
 
         public Damage ComputeOnTarget()
         {
-            return Weapon.Amount * ComputeUnadjustedPotentialImpl(Weapon.Value, Target.Unit);
+            return Weapon.Value * ComputeUnadjustedPotentialImpl(Weapon.Key, Target.Unit);
         }
 
-        public Damage ComputeFinal(float Adjustment)
+        public Damage ComputeFinal(float adjustment)
         {
-            return Weapon.Amount * ComputePotentialImpl(Weapon.Value, Target.Unit, Adjustment);
+            return Weapon.Value * ComputePotentialImpl(Weapon.Key, Target.Unit, adjustment);
         }
 
-        private static Damage ComputePotentialImpl(Weapon Weapon, Unit Target, float Adjustment)
+        private static Damage ComputePotentialImpl(Weapon weapon, Unit target, float adjustment)
         {
-            var unadjustedDamage = Adjustment * ComputeUnadjustedPotentialImpl(Weapon, Target);
+            var unadjustedDamage = adjustment * ComputeUnadjustedPotentialImpl(weapon, target);
             Damage adjustedDamage;
-            if (Adjustment * Weapon.Penetration > Target.Armor.Thickness)
+            if (adjustment * weapon.Penetration > target.Armor.Thickness)
             {
                 adjustedDamage = unadjustedDamage;
             }
-            else if (unadjustedDamage.GetTotal() > Target.Armor.Protection)
+            else if (unadjustedDamage.GetTotal() > target.Armor.Protection)
             {
-                adjustedDamage = Target.Armor.Coverage * (unadjustedDamage - Target.Armor.Protection) 
-                    + (1 - Target.Armor.Coverage) * unadjustedDamage;
+                adjustedDamage = target.Armor.Coverage * (unadjustedDamage - target.Armor.Protection) 
+                    + (1 - target.Armor.Coverage) * unadjustedDamage;
             }
             else
             {
-                adjustedDamage = (1 - Target.Armor.Coverage) * unadjustedDamage;
+                adjustedDamage = (1 - target.Armor.Coverage) * unadjustedDamage;
             }
-            return adjustedDamage.Cap(Target.Hitpoints);
+            return adjustedDamage.Cap(target.Hitpoints);
         }
 
-        private static Damage ComputeUnadjustedPotentialImpl(Weapon Weapon, Unit Target)
+        private static Damage ComputeUnadjustedPotentialImpl(Weapon weapon, Unit target)
         {
             return
                 Math.Max(
-                    0, Weapon.Accuracy.UnitValue - Math.Max(0, Target.Maneuver.UnitValue - Weapon.Tracking.UnitValue))
-                * Weapon.Damage;
+                    0, weapon.Accuracy.UnitValue - Math.Max(0, target.Maneuver.UnitValue - weapon.Tracking.UnitValue))
+                * weapon.Damage;
         }
 
         public override string ToString()

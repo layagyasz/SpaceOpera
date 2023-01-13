@@ -1,34 +1,31 @@
+using Cardamom.Collections;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Universe;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Security.AccessControl;
 
 namespace SpaceOpera.Core.Military.Battles
 {
-    class BattleManager
+    public class BattleManager
     {
         class BattleKey
         {
             public INavigable Position { get; }
 
-            private BattleKey(INavigable Position)
+            private BattleKey(INavigable position)
             {
-                this.Position = Position;
+                Position = position;
             }
 
-            public static BattleKey Create(INavigable Position)
+            public static BattleKey Create(INavigable position)
             {
-                return new BattleKey(Position);
+                return new BattleKey(position);
             }
 
-            public override bool Equals(object Object)
+            public override bool Equals(object? @object)
             {
-                if (Object is BattleKey other)
+                if (@object is BattleKey other)
                 {
-                    return other.Position == Position;
+                    return Equals(other?.Position, Position);
                 }
                 return false;
             }
@@ -41,95 +38,95 @@ namespace SpaceOpera.Core.Military.Battles
 
         public DiplomaticRelationGraph DiplomaticRelationGraph { get; }
 
-        private MultiMap<BattleKey, Battle> _ActiveBattles = new MultiMap<BattleKey, Battle>();
+        private MultiMap<BattleKey, Battle> _activeBattles = new();
 
-        public BattleManager(DiplomaticRelationGraph DiplomaticRelationGraph)
+        public BattleManager(DiplomaticRelationGraph diplomaticRelationGraph)
         {
-            this.DiplomaticRelationGraph = DiplomaticRelationGraph;
+            DiplomaticRelationGraph = diplomaticRelationGraph;
         }
 
-        public bool CanEngage(IFormation Formation, IFormation Target)
+        public bool CanEngage(IFormation formation, IFormation target)
         {
-            if (!DiplomaticRelationGraph.CanAttack(Formation.Faction, Target.Faction))
+            if (!DiplomaticRelationGraph.CanAttack(formation.Faction, target.Faction))
             {
                 return false;
             }
-            var currentBattle = GetCurrentBattle(Target, BattleKey.Create(Target.Position));
+            var currentBattle = GetCurrentBattle(target, BattleKey.Create(target.Position));
             if (currentBattle == null)
             {
                 return true;
             }
-            return CanParticipate(Formation, currentBattle.Battle, ReverseSide(currentBattle.Side));
+            return CanParticipate(formation, currentBattle.Battle, ReverseSide(currentBattle.Side));
         }
 
-        public bool CanParticipate(IFormation Formation, Battle Battle, BattleSideType Side)
+        public bool CanParticipate(IFormation formation, Battle battle, BattleSideType side)
         {
-            if (!Battle.GetFormations(Side)
+            if (!battle.GetFormations(side)
                 .Select(x => x.Faction)
                 .Distinct()
-                .All(x => x == Formation.Faction || !DiplomaticRelationGraph.CanAttack(Formation.Faction, x)))
+                .All(x => x == formation.Faction || !DiplomaticRelationGraph.CanAttack(formation.Faction, x)))
             {
                 return false;
             }
-            if (!Battle.GetFormations(ReverseSide(Side))
+            if (!battle.GetFormations(ReverseSide(side))
                 .Select(x => x.Faction)
                 .Distinct()
-                .All(x => x != Formation.Faction && DiplomaticRelationGraph.CanAttack(Formation.Faction, x)))
+                .All(x => x != formation.Faction && DiplomaticRelationGraph.CanAttack(formation.Faction, x)))
             {
                 return false;
             }
             return true;
         }
         
-        public void Engage(IFormation Formation, IFormation Target)
+        public void Engage(IFormation formation, IFormation target)
         {
-            Formation.EnterCombat();
-            var key = BattleKey.Create(Target.Position);
-            var currentBattle = GetCurrentBattle(Target, key);
+            formation.EnterCombat();
+            var key = BattleKey.Create(target.Position);
+            var currentBattle = GetCurrentBattle(target, key);
             if (currentBattle == null)
             {
-                Target.EnterCombat();
+                target.EnterCombat();
                 var newBattle = new Battle();
-                newBattle.Add(Formation, BattleSideType.OFFENSE);
-                newBattle.Add(Target, BattleSideType.DEFENSE);
-                _ActiveBattles.Add(key, newBattle);
+                newBattle.Add(formation, BattleSideType.Offense);
+                newBattle.Add(target, BattleSideType.Defense);
+                _activeBattles.Add(key, newBattle);
             }
             else
             {
-                currentBattle.Battle.Add(Formation, ReverseSide(currentBattle.Side));
+                currentBattle.Battle.Add(formation, ReverseSide(currentBattle.Side));
             }
         }
 
-        public void Tick(Random Random)
+        public void Tick(Random random)
         {
             var newActiveBattles = new MultiMap<BattleKey, Battle>();
-            foreach (var battlesAndKey in _ActiveBattles)
+            foreach (var battlesAndKey in _activeBattles)
             {
                 foreach (var battle in battlesAndKey.Value.ToList())
                 {
-                    battle.Tick(Random);
-                    foreach (var formation in battle.GetFormations(BattleSideType.OFFENSE).ToList())
+                    battle.Tick(random);
+                    foreach (var formation in battle.GetFormations(BattleSideType.Offense).ToList())
                     {
                         if (formation.Cohesion.IsEmpty())
                         {
-                            Disengage(formation, battle, BattleSideType.OFFENSE);
+                            Disengage(formation, battle, BattleSideType.Offense);
                         }
                     }
-                    foreach (var formation in battle.GetFormations(BattleSideType.DEFENSE).ToList())
+                    foreach (var formation in battle.GetFormations(BattleSideType.Defense).ToList())
                     {
                         if (formation.Cohesion.IsEmpty())
                         {
-                            Disengage(formation, battle, BattleSideType.DEFENSE);
+                            Disengage(formation, battle, BattleSideType.Defense);
                         }
                     }
-                    if (battle.GetFormations(BattleSideType.OFFENSE).Count() == 0
-                        || battle.GetFormations(BattleSideType.DEFENSE).Count() == 0)
+                    if (battle.GetFormations(BattleSideType.Offense).Count() == 0
+                        || battle.GetFormations(BattleSideType.Defense).Count() == 0)
                     {
-                        foreach (var formation in battle.GetFormations(BattleSideType.OFFENSE))
+                        foreach (var formation in battle.GetFormations(BattleSideType.Offense))
                         {
                             formation.ExitCombat();
                         }
-                        foreach (var formation in battle.GetFormations(BattleSideType.DEFENSE))
+                        foreach (var formation in battle.GetFormations(BattleSideType.Defense))
                         {
                             formation.ExitCombat();
                         }
@@ -142,30 +139,30 @@ namespace SpaceOpera.Core.Military.Battles
                     Console.ReadLine();
                 }
             }
-            _ActiveBattles = newActiveBattles;
+            _activeBattles = newActiveBattles;
         }
 
-        private void Disengage(IFormation Formation, Battle Battle, BattleSideType Side)
+        private void Disengage(IFormation formation, Battle battle, BattleSideType side)
         {
-            Formation.ExitCombat();
-            Battle.Remove(Formation, Side);
+            formation.ExitCombat();
+            battle.Remove(formation, side);
         }
 
-        private BattleParticipation GetCurrentBattle(IFormation Formation, BattleKey Key)
+        private BattleParticipation GetCurrentBattle(IFormation formation, BattleKey key)
         {
-            if (!Formation.InCombat)
+            if (!formation.InCombat)
             {
                 return null;
             }
-            foreach (var battle in _ActiveBattles[Key])
+            foreach (var battle in _activeBattles[key])
             {
-                var side = battle.GetBattleSide(Formation);
+                var side = battle.GetBattleSide(formation);
                 switch (side)
                 {
-                    case BattleSideType.NONE:
+                    case BattleSideType.None:
                         continue;
-                    case BattleSideType.OFFENSE:
-                    case BattleSideType.DEFENSE:
+                    case BattleSideType.Offense:
+                    case BattleSideType.Defense:
                         return new BattleParticipation(battle, side);
                     default:
                         throw new InvalidProgramException();
@@ -178,12 +175,12 @@ namespace SpaceOpera.Core.Military.Battles
         {
             switch (Side)
             {
-                case BattleSideType.OFFENSE:
-                    return BattleSideType.DEFENSE;
-                case BattleSideType.DEFENSE:
-                    return BattleSideType.OFFENSE;
+                case BattleSideType.Offense:
+                    return BattleSideType.Defense;
+                case BattleSideType.Defense:
+                    return BattleSideType.Offense;
                 default:
-                    return BattleSideType.NONE;
+                    return BattleSideType.None;
             }
         }
     }

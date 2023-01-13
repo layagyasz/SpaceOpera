@@ -1,23 +1,19 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Cardamom.Trackers;
 
 namespace SpaceOpera.Core.Military.Battles
 {
-    class BattleSide
+    public class BattleSide
     {
-        public List<IFormation> Formations { get; } = new List<IFormation>();
+        public List<IFormation> Formations { get; } = new();
 
         public void Add(IFormation Formation)
         {
             Formations.Add(Formation);
         }
 
-        public void Damage(List<DistributedBattleAttack> Attacks, BattleReport.Builder Report)
+        public void Damage(List<DistributedBattleAttack> attacks, BattleReport.Builder report)
         {
-            foreach (var formation in Attacks.GroupBy(x => x.Attack.TargetFormation))
+            foreach (var formation in attacks.GroupBy(x => x.Attack.TargetFormation))
             {
                 float currentCommand = formation.Key.GetCommand();
                 float lostCommand = 0;
@@ -38,7 +34,7 @@ namespace SpaceOpera.Core.Military.Battles
                         var effective = attack.ComputeFinal(1 - abs).GetTotal();
                         totalOnTarget += onTarget;
                         totalEffective += effective;
-                        Report
+                        report
                             .GetBuilderFor(attack.Attack.AttackerFormation.Faction)
                             .GetBuilderFor(attack.Attack.Attacker.Unit)
                             .AddRawDamage(attack.ComputeRaw().GetTotal())
@@ -49,7 +45,7 @@ namespace SpaceOpera.Core.Military.Battles
                     group.DamageShield(abs * totalOnTarget);
                     lostCommand += group.Unit.Command * losses;
 
-                    Report
+                    report
                         .GetBuilderFor(formation.Key.Faction)
                         .GetBuilderFor(group.Unit)
                         .AddLosses(losses)
@@ -61,7 +57,7 @@ namespace SpaceOpera.Core.Military.Battles
             }
         }
 
-        public List<DistributedBattleAttack> GetAttacks(BattleSide OpposingSide, Random Random)
+        public List<DistributedBattleAttack> GetAttacks(BattleSide opposingSide, Random random)
         {
             var result = new List<DistributedBattleAttack>();
             foreach (var formation in Formations)
@@ -69,32 +65,32 @@ namespace SpaceOpera.Core.Military.Battles
                 foreach (var group in formation.Composition)
                 {
                     result.AddRange(
-                        DistributedBattleAttack.Generate(GetPotential(formation, group, OpposingSide), Random));
+                        DistributedBattleAttack.Generate(GetPotential(formation, group, opposingSide), random));
                 }
             }
             return result;
         }
 
-        public void Remove(IFormation Formation)
+        public void Remove(IFormation formation)
         {
-            Formations.Remove(Formation);
+            Formations.Remove(formation);
         }
 
-        private List<BattleAttack> GetPotential(IFormation Formation, UnitGrouping Unit, BattleSide OpposingSide)
+        private List<BattleAttack> GetPotential(IFormation formation, UnitGrouping unit, BattleSide opposingSide)
         {
-            return Unit.Unit.Weapons.GetCounts()
-                .SelectMany(x => GetPotential(Formation, Unit, x, OpposingSide))
+            return unit.Unit.Weapons.GetCounts()
+                .SelectMany(x => GetPotential(formation, unit, x, opposingSide))
                 .ToList();
         }
 
         private IEnumerable<BattleAttack> GetPotential(
-            IFormation Formation, UnitGrouping Unit, Count<Weapon> Weapon, BattleSide OpposingSide)
+            IFormation formation, UnitGrouping unit, Count<Weapon> weapon, BattleSide opposingSide)
         {
-            foreach (var formation in OpposingSide.Formations)
+            foreach (var f in opposingSide.Formations)
             {
-                foreach (var group in formation.Composition)
+                foreach (var group in f.Composition)
                 {
-                    yield return BattleAttack.Create(Unit, Formation, group, formation, Weapon);
+                    yield return BattleAttack.Create(unit, formation, group, f, weapon);
                 }
             }
         }

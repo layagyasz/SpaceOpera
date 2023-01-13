@@ -1,39 +1,33 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace SpaceOpera.Core.Military.Actions
 {
-    class SpotAction : IAction
+    public class SpotAction : IAction
     {
-        public ActionStatus Status { get; private set; } = ActionStatus.IN_PROGRESS;
+        public ActionStatus Status { get; private set; } = ActionStatus.InProgress;
 
         public Fleet Target { get; }
 
-        public SpotAction(Fleet Target)
+        public SpotAction(Fleet target)
         {
-            this.Target = Target;
+            Target = target;
         }
 
-        public static IAction Create(Fleet Target)
+        public static IAction Create(Fleet target)
         {
-            return new SpotAction(Target);
+            return new SpotAction(target);
         }
 
-        public bool Equivalent(IAction Action)
+        public bool Equivalent(IAction action)
         {
-            if (Action is SpotAction other)
+            if (action is SpotAction other)
             {
                 return other.Target == Target;
             }
             return false;
         }
 
-        public void Progress(IFormation Formation, World World)
+        public void Progress(IFormation formation, World world)
         {
-            World.GetIntelligenceFor(Formation.Faction).FleetIntelligence.Spot(Target, .5);
+            world.GetIntelligenceFor(formation.Faction).FleetIntelligence.Spot(Target, .5);
         }
 
         public override string ToString()

@@ -1,15 +1,9 @@
-using Adansonia;
 using SpaceOpera.Core.Military.Actions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static SpaceOpera.Core.Military.SpaceOperaContext;
 
 namespace SpaceOpera.Core.Military.Routines
 {
-    class FleetRoutine
+    public class FleetRoutine
     {
         public static ISupplierNode<IAction, FleetContext> Create()
         {

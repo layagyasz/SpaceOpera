@@ -1,13 +1,6 @@
-using Adansonia;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace SpaceOpera.Core.Military
 {
-    class SpaceOperaContext : SimpleContext
+    public class SpaceOperaContext : SimpleContext
     {
         public class FleetContext : SpaceOperaContext
         {
