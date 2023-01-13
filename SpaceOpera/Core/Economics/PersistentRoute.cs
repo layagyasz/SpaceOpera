@@ -3,7 +3,7 @@ using SpaceOpera.Core.Advanceable;
 
 namespace SpaceOpera.Core.Economics
 {
-    class PersistentRoute : ITickable
+    public class PersistentRoute : ITickable
     {
         public EconomicZone LeftZone { get; }
         public MultiQuantity<IMaterial> LeftMaterials { get; }

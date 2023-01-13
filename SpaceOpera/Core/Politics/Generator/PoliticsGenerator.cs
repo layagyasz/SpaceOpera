@@ -1,15 +1,10 @@
-using Cardamom.Graphing;
-using Cardamom.Utilities;
+using Cardamom.Collections;
+using Cardamom.Trackers;
 using SpaceOpera.Core.Universe;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpaceOpera.Core.Politics.Generator
 {
-    class PoliticsGenerator
+    public class PoliticsGenerator
     {
         class FactionWrapper : DijkstraRegion<RegionWrapper>
         {
@@ -17,17 +12,17 @@ namespace SpaceOpera.Core.Politics.Generator
             public RegionWrapper Center { get; }
             public double StartDistance => 0;
 
-            public HashSet<RegionWrapper> Regions { get; } = new HashSet<RegionWrapper>();
+            public HashSet<RegionWrapper> Regions { get; } = new();
 
-            public FactionWrapper(Faction Faction, RegionWrapper Center)
+            public FactionWrapper(Faction faction, RegionWrapper center)
             {
-                this.Faction = Faction;
-                this.Center = Center;
+                Faction = faction;
+                Center = center;
             }
 
-            public void Add(RegionWrapper Child)
+            public void Add(RegionWrapper child)
             {
-                Regions.Add(Child);
+                Regions.Add(child);
             }
         }
 
@@ -36,13 +31,13 @@ namespace SpaceOpera.Core.Politics.Generator
             public bool Passable => true;
             public StellarBody StellarBody { get; }
             public StellarBodyRegion Region { get; }
-            public List<RegionEdgeWrapper> Edges { get; } = new List<RegionEdgeWrapper>();
-            public MultiQuantity<Culture> CultureWeights { get; } = new MultiQuantity<Culture>();
+            public List<RegionEdgeWrapper> Edges { get; } = new();
+            public MultiQuantity<Culture> CultureWeights { get; } = new();
 
-            public RegionWrapper(StellarBody StellarBody, StellarBodyRegion Region)
+            public RegionWrapper(StellarBody stellarBody, StellarBodyRegion region)
             {
-                this.StellarBody = StellarBody;
-                this.Region = Region;
+                StellarBody = stellarBody;
+                Region = region;
             }
 
             public IEnumerable<RegionWrapper> Neighbors()
@@ -50,14 +45,14 @@ namespace SpaceOpera.Core.Politics.Generator
                 return Edges.Select(x => x.End);
             }
 
-            public double DistanceTo(RegionWrapper Neighbor)
+            public double DistanceTo(RegionWrapper neighbor)
             {
-                return Edges.First(x => x.End == Neighbor).Distance;
+                return Edges.First(x => x.End == neighbor).Distance;
             }
 
-            public double HeuristicDistanceTo(RegionWrapper Other)
+            public double HeuristicDistanceTo(RegionWrapper other)
             {
-                return DistanceTo(Other);
+                return DistanceTo(other);
             }
         }
 
@@ -67,28 +62,28 @@ namespace SpaceOpera.Core.Politics.Generator
             public float Distance { get; }
             public float Falloff { get; }
 
-            public RegionEdgeWrapper(RegionWrapper End, float Distance, float Falloff)
+            public RegionEdgeWrapper(RegionWrapper end, float distance, float falloff)
             {
-                this.End = End;
-                this.Distance = Distance;
-                this.Falloff = Falloff;
+                End = end;
+                Distance = distance;
+                Falloff = falloff;
             }
         }
 
-        public CultureGenerator Culture { get; set; }
-        public BannerGenerator Banner { get; set; }
-        public FactionGenerator Faction { get; set; }
-        public DesignGenerator Design { get; set; }
-        public FleetGenerator Fleet { get; set; }
+        public CultureGenerator? Culture { get; set; }
+        public BannerGenerator? Banner { get; set; }
+        public FactionGenerator? Faction { get; set; }
+        public DesignGenerator? Design { get; set; }
+        public FleetGenerator? Fleet { get; set; }
         public float BaseLinkChance { get; set; }
         public uint Cultures { get; set; }
         public uint States { get; set; }
 
-        public void Generate(World World, Culture PlayerCulture, Faction PlayerFaction, Random Random)
+        public void Generate(World world, Culture playerCulture, Faction playerFaction, Random random)
         {
             var nodes = new Dictionary<StellarBodyRegion, RegionWrapper>();
             var homeRegions = new WeightedVector<RegionWrapper>();
-            foreach (var system in World.Galaxy.Systems)
+            foreach (var system in world.Galaxy.Systems)
             {
                 var regionOptions = new WeightedVector<RegionWrapper>();
                 foreach (var body in system.Orbiters.Concat(
@@ -112,7 +107,7 @@ namespace SpaceOpera.Core.Politics.Generator
                         var node = GetOrCreateNode(nodes, body, region);
                         if (region.DominantBiome.IsTraversable)
                         {
-                            homeRegions.Add(GetHabitability(region), node);
+                            homeRegions.Add(node, GetHabitability(region));
                         }
                         foreach (var neighbor in region.GetNeighbors())
                         {
@@ -122,9 +117,9 @@ namespace SpaceOpera.Core.Politics.Generator
                             node.Edges.Add(new RegionEdgeWrapper(neighborNode, distance, falloff));
                             neighborNode.Edges.Add(new RegionEdgeWrapper(node, distance, falloff));
                         }
-                        if (region.DominantBiome.IsTraversable && Random.NextDouble() < GetLinkChance(region))
+                        if (region.DominantBiome.IsTraversable && random.NextDouble() < GetLinkChance(region))
                         {
-                            var jump = regionOptions[Random.NextDouble()];
+                            var jump = regionOptions.Get(random.NextSingle());
                             float distance = GetDistance(region, jump.Region);
                             float falloff = GetFalloff(region, jump.Region);
                             node.Edges.Add(new RegionEdgeWrapper(jump, distance, falloff));
@@ -134,7 +129,7 @@ namespace SpaceOpera.Core.Politics.Generator
 
                     if (i < system.Orbiters.Count - 1)
                     {
-                        AddRandomEdge(body, system.Orbiters[i + 1], nodes, Random);
+                        AddRandomEdge(body, system.Orbiters[i + 1], nodes, random);
                     }
                     else
                     {
@@ -142,7 +137,7 @@ namespace SpaceOpera.Core.Politics.Generator
                         {
                             if (neighbor.Orbiters.Count > 0)
                             {
-                                AddRandomEdge(body, neighbor.Orbiters.Last(), nodes, Random);
+                                AddRandomEdge(body, neighbor.Orbiters.Last(), nodes, random);
                             }
                         }
                     }
@@ -150,92 +145,105 @@ namespace SpaceOpera.Core.Politics.Generator
             }
 
             var cultures = new List<Culture>();
-            var playerHomeRegion = homeRegions[Random.Next(0, homeRegions.Count)];
-            PlaceCulture(PlayerCulture, playerHomeRegion);
+            var playerHomeRegion = homeRegions.Get(random.Next(0, homeRegions.Count));
+            PlaceCulture(playerCulture, playerHomeRegion);
             var chosenHomeRegions = new List<RegionWrapper>();
             for (int i = 0; i < Cultures; ++i)
             {
-                var culture = Culture.Generate(Random);
+                var culture = Culture!.Generate(random);
                 cultures.Add(culture);
-                var homeRegion = homeRegions[Random.NextDouble()];
+                var homeRegion = homeRegions.Get(random.NextSingle());
                 chosenHomeRegions.Add(homeRegion);
                 PlaceCulture(culture, homeRegion);
             }
-            World.AddAllCultures(cultures);
+            world.AddAllCultures(cultures);
 
             var states = new List<FactionWrapper>();
-            var playerStateWrapper = new FactionWrapper(PlayerFaction, playerHomeRegion);
+            var playerStateWrapper = new FactionWrapper(playerFaction, playerHomeRegion);
             states.Add(playerStateWrapper);
-            var closedRegions = new HashSet<RegionWrapper>();
-            closedRegions.Add(playerHomeRegion);
+            var closedRegions = new HashSet<RegionWrapper>
+            {
+                playerHomeRegion
+            };
             var statePool = new DijkstraPool<RegionWrapper>();
             statePool.Drop(playerStateWrapper);
 
-            var banners = Banner.GenerateUnique(States, Random).ToList();
+            var banners = Banner!.GenerateUnique(States, random).ToList();
             for (int i = 0; i < States; ++i)
             {
-                var homeRegion = i < chosenHomeRegions.Count ? chosenHomeRegions[i] : homeRegions[Random.NextDouble()];
+                var homeRegion = 
+                    i < chosenHomeRegions.Count ? chosenHomeRegions[i] : homeRegions.Get(random.NextSingle());
                 while (closedRegions.Contains(homeRegion) || homeRegion.CultureWeights.Count == 0)
                 {
-                    homeRegion = homeRegions[Random.NextDouble()];
+                    homeRegion = homeRegions.Get(random.NextSingle());
                 }
                 closedRegions.Add(homeRegion);
                 var stateWrapper =
                     new FactionWrapper(
-                        Faction.Generate(
-                            homeRegion.CultureWeights.ArgMax(x => x.Value).Key, banners[i], Random), homeRegion);
+                        Faction!.Generate(
+                            homeRegion.CultureWeights.ArgMax(x => x.Value).Key, banners[i], random), homeRegion);
                 states.Add(stateWrapper);
                 statePool.Drop(stateWrapper);
             }
-            World.AddAllFactions(states.Select(x => x.Faction));
+            world.AddAllFactions(states.Select(x => x.Faction));
             statePool.Resolve();
 
             foreach (var state in states)
             {
-                Design.Generate(World, state.Faction, Random);
+                Design!.Generate(world, state.Faction, random);
                 foreach (var region in state.Regions)
                 {
-                    region.Region.SetName(state.Faction.NameGenerator.GenerateNameFor(region.Region, Random));
+                    region.Region.SetName(state.Faction.NameGenerator.GenerateNameFor(region.Region, random));
                     region.Region.SetSovereign(state.Faction);
                 }
                 var hq = 
-                    World.Galaxy.Systems
+                    world.Galaxy.Systems
                         .SelectMany(x => x.Orbiters)
                         .SelectMany(x => x.OrbitRegions)
                         .Where(x => x.SubRegions.Contains(state.Regions.First().Region.Center))
-                        .FirstOrDefault();
-                Fleet.Generate(World, state.Faction, hq, Random);
+                        .First();
+                Fleet!.Generate(world, state.Faction, hq, random);
             }
 
-            foreach (var system in World.Galaxy.Systems)
+            foreach (var system in world.Galaxy.Systems)
             {
                 var dominantFaction = 
                     system.Orbiters.SelectMany(x => x.Regions).GroupBy(x => x.Sovereign).ArgMax(x => x.Count())?.Key;
                 if (dominantFaction != null)
                 {
-                    system.Star.SetName(dominantFaction.NameGenerator.GenerateNameForStar(Random));
-                    system.SetName(dominantFaction.NameGenerator.GenerateNameFor(system, Random));
+                    system.Star.SetName(dominantFaction.NameGenerator.GenerateNameForStar(random));
+                    system.SetName(dominantFaction.NameGenerator.GenerateNameFor(system, random));
 
                     foreach (var stellarBody in system.Orbiters)
                     {
                         var stellarBodyDominantFaction = 
-                            stellarBody.Regions.GroupBy(x => x.Sovereign).ArgMax(x => x.Count()).Key 
+                            stellarBody.Regions.GroupBy(x => x.Sovereign).ArgMax(x => x.Count())?.Key 
                             ?? dominantFaction;
                         stellarBody.SetName(
-                            stellarBodyDominantFaction.NameGenerator.GenerateNameFor(stellarBody, system, Random));
+                            stellarBodyDominantFaction.NameGenerator.GenerateNameFor(stellarBody, system, random));
                     }
                 }
             }
         }
 
-        private void AddRandomEdge(
-            StellarBody Left, StellarBody Right, Dictionary<StellarBodyRegion, RegionWrapper> Wrappers, Random Random)
+        private float GetLinkChance(StellarBodyRegion region)
         {
-            var region = Left.Regions[Random.Next(0, Left.Regions.Count)];
-            var jump = Right.Regions[Random.Next(0, Right.Regions.Count)];
+            float chance = BaseLinkChance;
+            if (!region.DominantBiome.IsHabitable)
+            {
+                chance *= 0.1f;
+            }
+            return chance;
+        }
 
-            var node = GetOrCreateNode(Wrappers, Left, region);
-            var jumpNode = GetOrCreateNode(Wrappers, Right, jump);
+        private static void AddRandomEdge(
+            StellarBody left, StellarBody right, Dictionary<StellarBodyRegion, RegionWrapper> wrappers, Random random)
+        {
+            var region = left.Regions[random.Next(0, left.Regions.Count)];
+            var jump = right.Regions[random.Next(0, right.Regions.Count)];
+
+            var node = GetOrCreateNode(wrappers, left, region);
+            var jumpNode = GetOrCreateNode(wrappers, right, jump);
 
             float distance = GetDistance(region, jump);
             float falloff = GetFalloff(region, jump);
@@ -243,12 +251,12 @@ namespace SpaceOpera.Core.Politics.Generator
             jumpNode.Edges.Add(new RegionEdgeWrapper(node, distance, falloff));
         }
 
-        private void PlaceCulture(Culture Culture, RegionWrapper HomeRegion)
+        private static void PlaceCulture(Culture culture, RegionWrapper homeRegion)
         {
-            var queue = new PriorityQueue<RegionWrapper, float>();
+            var queue = new Heap<RegionWrapper, float>();
             var closed = new HashSet<RegionWrapper>();
-            queue.Push(HomeRegion, 0);
-            HomeRegion.CultureWeights.Add(Culture, 1);
+            queue.Push(homeRegion, 0);
+            homeRegion.CultureWeights.Add(culture, 1);
             while (queue.Count > 0)
             {
                 var current = queue.Pop();
@@ -257,10 +265,10 @@ namespace SpaceOpera.Core.Politics.Generator
                 {
                     if (!closed.Contains(edge.End))
                     {
-                        var weight = current.CultureWeights.Get(Culture) * edge.Falloff;
-                        if (edge.End.CultureWeights.Get(Culture) < weight)
+                        var weight = current.CultureWeights.Get(culture) * edge.Falloff;
+                        if (edge.End.CultureWeights.Get(culture) < weight)
                         {
-                            edge.End.CultureWeights[Culture] = weight;
+                            edge.End.CultureWeights[culture] = weight;
                             queue.Remove(edge.End);
                             queue.Push(edge.End, weight);
                         }
@@ -269,47 +277,36 @@ namespace SpaceOpera.Core.Politics.Generator
             }
         }
 
-        private float GetHabitability(StellarBodyRegion Region)
+        private static float GetHabitability(StellarBodyRegion region)
         {
-            if (Region.DominantBiome.IsHabitable)
+            if (region.DominantBiome.IsHabitable)
             {
                 return 1;
             }
             else return 0.01f;
         }
 
-        private float GetFalloff(StellarBodyRegion Left, StellarBodyRegion Right)
+        private static float GetFalloff(StellarBodyRegion left, StellarBodyRegion right)
         {
             return 0.9f;
         }
 
-        private float GetDistance(StellarBodyRegion Left, StellarBodyRegion Right)
+        private static float GetDistance(StellarBodyRegion left, StellarBodyRegion right)
         {
             return 1;
         }
 
-        private float GetLinkChance(StellarBodyRegion Region)
+        private static RegionWrapper GetOrCreateNode(
+            Dictionary<StellarBodyRegion, RegionWrapper> wrappers, StellarBody stellarBody, StellarBodyRegion region)
         {
-            float chance = BaseLinkChance;
-            if (!Region.DominantBiome.IsHabitable)
-            {
-                chance *= 0.1f;
-            }
-            return chance;
-        }
-
-        private RegionWrapper GetOrCreateNode(
-            Dictionary<StellarBodyRegion, RegionWrapper> Wrappers, StellarBody StellarBody, StellarBodyRegion Region)
-        {
-            RegionWrapper node;
-            if (Wrappers.TryGetValue(Region, out node))
+            if (wrappers.TryGetValue(region, out var node))
             {
                 return node;
             }
             else
             {
-                node = new RegionWrapper(StellarBody, Region);
-                Wrappers.Add(Region, node);
+                node = new RegionWrapper(stellarBody, region);
+                wrappers.Add(region, node);
                 return node;
             }
         }

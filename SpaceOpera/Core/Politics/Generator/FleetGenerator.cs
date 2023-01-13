@@ -1,25 +1,21 @@
+using Cardamom.Trackers;
 using SpaceOpera.Core.Designs;
 using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Universe;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpaceOpera.Core.Politics.Generator
 {
-    class FleetGenerator
+    public class FleetGenerator
     {
         public float InitialCommand { get; set; }
 
-        public void Generate(World World, Faction Faction, INavigable Headquarters, Random Random)
+        public void Generate(World world, Faction faction, INavigable headquarters, Random random)
         {
-            int fleets = (int)Math.Ceiling(InitialCommand / Faction.GetFleetCommand());
+            int fleets = (int)Math.Ceiling(InitialCommand / faction.GetFleetCommand());
             float perFleetCommand = InitialCommand / fleets;
 
             var shipDesigns = 
-                World.GetDesignsFor(Faction)
+                world.GetDesignsFor(faction)
                     .Where(x => x.Configuration.Template.Type == ComponentType.Ship)
                     .SelectMany(x => x.Components)
                     .Cast<Unit>()
@@ -41,11 +37,11 @@ namespace SpaceOpera.Core.Politics.Generator
 
             for (int i=0; i<fleets; ++i)
             {
-                var fleet = new Fleet(Faction);
-                fleet.SetName(Faction.NameGenerator.GenerateNameForFleet(Random));
+                var fleet = new Fleet(faction);
+                fleet.SetName(faction.NameGenerator.GenerateNameForFleet(random));
                 fleet.Add(composition);
-                fleet.SetPosition(Headquarters);
-                World.AddFleet(fleet);
+                fleet.SetPosition(headquarters);
+                world.AddFleet(fleet);
             }
         }
     }

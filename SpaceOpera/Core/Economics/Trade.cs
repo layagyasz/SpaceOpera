@@ -3,7 +3,7 @@ using SpaceOpera.Core.Advanceable;
 
 namespace SpaceOpera.Core.Economics
 {
-    class Trade : ITickable
+    public class Trade : ITickable
     {
         public EconomicZone LeftZone { get; }
         public MultiQuantity<IMaterial> LeftMaterials { get; }

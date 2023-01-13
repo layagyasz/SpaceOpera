@@ -1,29 +1,25 @@
+using Cardamom.Collections;
+using Cardamom.Trackers;
 using SpaceOpera.Core.Designs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static SpaceOpera.Core.Politics.ComponentNameGenerator;
 
 namespace SpaceOpera.Core.Politics.Generator
 {
-    class ComponentNameGeneratorGenerator
+    public class ComponentNameGeneratorGenerator
     {
         public class ComponentNamePartGenerator
         {
-            public RandomValue RandomValue { get; set; }
+            public RandomValue? RandomValue { get; set; }
             public ComponentTypeNameGenerator.ComponentNameSource Source { get; set; }
             public ComponentTypeNameGenerator.ComponentNameFilter Filter { get; set; }
 
-            public ComponentTypeNameGenerator.ComponentNamePart Generate(Random Random)
+            public ComponentTypeNameGenerator.ComponentNamePart Generate(Random random)
             {
-                if (Source == ComponentTypeNameGenerator.ComponentNameSource.STATIC)
+                if (Source == ComponentTypeNameGenerator.ComponentNameSource.Static)
                 {
                     return new ComponentTypeNameGenerator.ComponentNamePart(
-                        RandomValue.Generate(Random), null, Source, Filter);
+                        RandomValue!.Generate(random), null, Source, Filter);
                 }
-                if (Source == ComponentTypeNameGenerator.ComponentNameSource.RANDOM)
+                if (Source == ComponentTypeNameGenerator.ComponentNameSource.Random)
                 {
                     return new ComponentTypeNameGenerator.ComponentNamePart(null, RandomValue, Source, Filter);
                 }
@@ -33,15 +29,15 @@ namespace SpaceOpera.Core.Politics.Generator
 
         public class ComponentNamePattern
         {
-            public EnumSet<NameType> SupportedTypes { get; set; }
-            public List<string> Pattern { get; set; }
+            public EnumSet<NameType> SupportedTypes { get; set; } = new();
+            public List<string> Pattern { get; set; } = new();
         }
 
-        public EnumSet<NameType> RequiredTypes { get; set; }
-        public Dictionary<string, List<Frequent<ComponentNamePartGenerator>>> NameParts { get; set; }
-        public List<Frequent<ComponentNamePattern>> Patterns { get; set; }
+        public EnumSet<NameType> RequiredTypes { get; set; } = new();
+        public Dictionary<string, List<Frequent<ComponentNamePartGenerator>>> NameParts { get; set; } = new();
+        public List<Frequent<ComponentNamePattern>> Patterns { get; set; } = new();
 
-        public ComponentNameGenerator Generate(Random Random)
+        public ComponentNameGenerator Generate(Random random)
         {
             var parts = new Dictionary<string, ComponentTypeNameGenerator.ComponentNamePart>();
             foreach (var partGenerator in NameParts)
@@ -52,15 +48,15 @@ namespace SpaceOpera.Core.Politics.Generator
                 }
                 if (partGenerator.Value.Count == 1)
                 {
-                    parts.Add(partGenerator.Key, partGenerator.Value.First().Value.Generate(Random));
+                    parts.Add(partGenerator.Key, partGenerator.Value.First().Value!.Generate(random));
                     continue;
                 }
                 var options = new WeightedVector<ComponentNamePartGenerator>();
                 foreach (var option in partGenerator.Value)
                 {
-                    options.Add(option.Frequency, option.Value);
+                    options.Add(option.Value!, option.Frequency);
                 }
-                parts.Add(partGenerator.Key, options[Random.NextDouble()].Generate(Random));
+                parts.Add(partGenerator.Key, options.Get(random.NextSingle()).Generate(random));
             }
 
             var generators = new EnumMap<NameType, ComponentTypeNameGenerator>();
@@ -70,12 +66,12 @@ namespace SpaceOpera.Core.Politics.Generator
                 var options = new WeightedVector<ComponentNamePattern>();
                 foreach (var pattern in Patterns)
                 {
-                    if (requiredTypes.Overlaps(pattern.Value.SupportedTypes))
+                    if (requiredTypes.Overlaps(pattern.Value!.SupportedTypes))
                     {
-                        options.Add(pattern.Frequency, pattern.Value);
+                        options.Add(pattern.Value, pattern.Frequency);
                     }
                 }
-                var selected = options[Random.NextDouble()];
+                var selected = options.Get(random.NextSingle());
                 var generator = new ComponentTypeNameGenerator(selected.Pattern.Select(x => parts[x]));
                 foreach (var type in requiredTypes.Intersect(selected.SupportedTypes))
                 {

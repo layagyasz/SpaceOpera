@@ -1,14 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace SpaceOpera.Core.Politics
 {
-    class RandomValue
+    public class RandomValue
     {
-        public List<string> StaticString { get; set; }
+        public List<string>? StaticString { get; set; }
         public int MinimumIntegerValue { get; set; }
         public int MaximumIntegerValue { get; set; }
 

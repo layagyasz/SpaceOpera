@@ -1,22 +1,18 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Cardamom.Trackers;
 
 namespace SpaceOpera.Core.Economics
 {
-    class EconomyGraph
+    public class EconomyGraph
     {
         class RecipeNode
         {
             public Recipe Recipe { get; }
             public MultiQuantity<MaterialNode> Ancestors { get; } 
 
-            public RecipeNode(Recipe Recipe, MultiQuantity<MaterialNode> Ancestors)
+            public RecipeNode(Recipe recipe, MultiQuantity<MaterialNode> ancestors)
             {
-                this.Recipe = Recipe;
-                this.Ancestors = Ancestors;
+                Recipe = recipe;
+                Ancestors = ancestors;
             }
 
             public MultiQuantity<Recipe> Rollup()
@@ -24,7 +20,7 @@ namespace SpaceOpera.Core.Economics
                 var result = new MultiQuantity<Recipe>();
                 foreach (var ancestor in Ancestors.GetQuantities())
                 {
-                    result.Add(ancestor.Amount * ancestor.Value.Rollup());
+                    result.Add(ancestor.Value * ancestor.Key.Rollup());
                 }
                 return result;
             }
@@ -35,10 +31,10 @@ namespace SpaceOpera.Core.Economics
             public IMaterial Material { get; }
             public MultiQuantity<RecipeNode> Ancestors { get; }
 
-            public MaterialNode(IMaterial Material, MultiQuantity<RecipeNode> Ancestors)
+            public MaterialNode(IMaterial material, MultiQuantity<RecipeNode> ancestors)
             {
-                this.Material = Material;
-                this.Ancestors = Ancestors;
+                Material = material;
+                Ancestors = ancestors;
             }
 
             public MultiQuantity<Recipe> Rollup()
@@ -46,74 +42,73 @@ namespace SpaceOpera.Core.Economics
                 var result = new MultiQuantity<Recipe>();
                 foreach (var ancestor in Ancestors.GetQuantities())
                 {
-                    result.Add(ancestor.Value.Recipe, ancestor.Amount);
-                    result.Add(ancestor.Amount * ancestor.Value.Rollup());
+                    result.Add(ancestor.Key.Recipe, ancestor.Value);
+                    result.Add(ancestor.Value * ancestor.Key.Rollup());
                 }
                 return result;
             }
         }
 
-        private readonly List<Recipe> _Recipes = new List<Recipe>();
+        private readonly List<Recipe> _recipes = new();
 
-        private readonly Dictionary<Recipe, RecipeNode> _RecipeNodes = new Dictionary<Recipe, RecipeNode>();
-        private readonly Dictionary<IMaterial, MaterialNode> _MaterialNodes =
-            new Dictionary<IMaterial, MaterialNode>();
+        private readonly Dictionary<Recipe, RecipeNode> _recipeNodes = new();
+        private readonly Dictionary<IMaterial, MaterialNode> _materialNodes = new();
 
-        public void AddRecipe(Recipe Recipe)
+        public void AddRecipe(Recipe recipe)
         {
-            _Recipes.Add(Recipe);
+            _recipes.Add(recipe);
         }
 
-        public void AddRecipes(IEnumerable<Recipe> Recipes)
+        public void AddRecipes(IEnumerable<Recipe> recipes)
         {
-            _Recipes.AddRange(Recipes);
+            _recipes.AddRange(recipes);
         }
 
-        public MultiQuantity<Recipe> GetRequiredRecipes(IMaterial Material)
+        public MultiQuantity<Recipe> GetRequiredRecipes(IMaterial material)
         {
-            return GetOrCreateMaterialNode(Material).Rollup();
+            return GetOrCreateMaterialNode(material).Rollup();
         }
 
-        private MaterialNode CreateMaterialNode(IMaterial Material)
+        private MaterialNode CreateMaterialNode(IMaterial material)
         {
             var ancestors = new MultiQuantity<RecipeNode>();
-            foreach (var recipe in _Recipes.Where(x => x.Transformation.Any(y => y.Key == Material && y.Value > 0)))
+            foreach (var recipe in _recipes.Where(x => x.Transformation.Any(y => y.Key == material && y.Value > 0)))
             {
                 ancestors.Add(
                     GetOrCreateRecipeNode(recipe), 
-                    1 / (recipe.Coefficient * recipe.Transformation.First(x => x.Key == Material).Value));
+                    1 / (recipe.Coefficient * recipe.Transformation.First(x => x.Key == material).Value));
             }
-            return new MaterialNode(Material, ancestors);
+            return new MaterialNode(material, ancestors);
         }
 
-        private RecipeNode CreateRecipeNode(Recipe Recipe)
+        private RecipeNode CreateRecipeNode(Recipe recipe)
         {
             var ancestors = new MultiQuantity<MaterialNode>();
-            foreach (var material in Recipe.Transformation.Where(x => x.Value < 0))
+            foreach (var material in recipe.Transformation.Where(x => x.Value < 0))
             {
-                ancestors.Add(GetOrCreateMaterialNode(material.Key), -Recipe.Coefficient * material.Value);
+                ancestors.Add(GetOrCreateMaterialNode(material.Key), -recipe.Coefficient * material.Value);
             }
-            return new RecipeNode(Recipe, ancestors);
+            return new RecipeNode(recipe, ancestors);
         }
 
-        private MaterialNode GetOrCreateMaterialNode(IMaterial Material)
+        private MaterialNode GetOrCreateMaterialNode(IMaterial material)
         {
-            _MaterialNodes.TryGetValue(Material, out MaterialNode value);
+            _materialNodes.TryGetValue(material, out var value);
             if (value == null)
             {
-                value = CreateMaterialNode(Material);
-                _MaterialNodes.Add(Material, value);
+                value = CreateMaterialNode(material);
+                _materialNodes.Add(material, value);
             }
             return value;
         }
 
-        private RecipeNode GetOrCreateRecipeNode(Recipe Recipe)
+        private RecipeNode GetOrCreateRecipeNode(Recipe recipe)
         {
-            _RecipeNodes.TryGetValue(Recipe, out RecipeNode value);
+            _recipeNodes.TryGetValue(recipe, out var value);
             if (value == null)
             {
-                value = CreateRecipeNode(Recipe);
-                _RecipeNodes.Add(Recipe, value);
+                value = CreateRecipeNode(recipe);
+                _recipeNodes.Add(recipe, value);
             }
             return value;
         }

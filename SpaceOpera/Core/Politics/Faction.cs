@@ -12,10 +12,10 @@ namespace SpaceOpera.Core.Politics
         public Banner Banner { get; }
         public NameGenerator NameGenerator { get; }
 
-        private EnumMap<FactionAttribute, float> _Attributes;
+        private EnumMap<FactionAttribute, float> _attributes;
 
 
-        private AdvancementManager _AdvancementManager = new AdvancementManager();
+        private readonly AdvancementManager _advancementManager = new();
 
         public Faction(
             string name, Banner banner, EnumMap<FactionAttribute, float> baseAttributes, NameGenerator nameGenerator)
@@ -24,42 +24,42 @@ namespace SpaceOpera.Core.Politics
             Banner = banner;
             NameGenerator = nameGenerator;
 
-            _Attributes = new EnumMap<FactionAttribute, float>(baseAttributes);
+            _attributes = new EnumMap<FactionAttribute, float>(baseAttributes);
         }
 
         public void AddResearch(IMaterial research, float quantity)
         {
-            _AdvancementManager.AddResearch(research, quantity);
+            _advancementManager.AddResearch(research, quantity);
         }
 
         public float GetFleetCommand()
         {
-            return _Attributes[FactionAttribute.FleetCommand];
+            return _attributes[FactionAttribute.FleetCommand];
         }
 
         public Pool GetResearchProgress(IAdvancement Advancement)
         {
-            return _AdvancementManager.GetResearchProgress(Advancement);
+            return _advancementManager.GetResearchProgress(Advancement);
         }
 
         public IEnumerable<IAdvancement> GetResearchedAdvancements()
         {
-            return _AdvancementManager.GetResearchedAdvancements();
+            return _advancementManager.GetResearchedAdvancements();
         }
 
         public IEnumerable<AdvancementSlot> GetAdvancementSlots()
         {
-            return _AdvancementManager.GetAdvancementSlots();
+            return _advancementManager.GetAdvancementSlots();
         }
 
         public bool HasPrerequisiteResearch(IAdvancement advancement)
         {
-            return _AdvancementManager.HasPrerequisiteResearch(advancement);
+            return _advancementManager.HasPrerequisiteResearch(advancement);
         }
 
         public void Tick()
         {
-            _AdvancementManager.Tick();
+            _advancementManager.Tick();
         }
     }
 }

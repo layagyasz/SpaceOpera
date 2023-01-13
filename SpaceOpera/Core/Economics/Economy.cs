@@ -1,88 +1,83 @@
+using Cardamom;
 using SpaceOpera.Core.Advanceable;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Universe;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpaceOpera.Core.Economics
 {
-    class Economy : ITickable
+    public class Economy : ITickable
     {
         public MaterialSink MaterialSink { get; }
 
-        private Dictionary<CompositeKey<Faction, StellarBody>, StellarBodyHolding> _Holdings = 
-            new Dictionary<CompositeKey<Faction, StellarBody>, StellarBodyHolding>();
-        private readonly List<PersistentRoute> _Routes = new List<PersistentRoute>();
-        private readonly List<Trade> _Trades = new List<Trade>();
+        private readonly Dictionary<CompositeKey<Faction, StellarBody>, StellarBodyHolding> _holdings = new();
+        private readonly List<PersistentRoute> _routes = new();
+        private readonly List<Trade> _trades = new();
 
-        public Economy(MaterialSink MaterialSink)
+        public Economy(MaterialSink materialSink)
         {
-            this.MaterialSink = MaterialSink;
+            this.MaterialSink = materialSink;
         }
 
-        public void CreateSovereignHolding(Faction Faction, StellarBodyRegion StellarBodyRegion)
+        public void CreateSovereignHolding(Faction faction, StellarBodyRegion stellarBodyRegion)
         {
-            var holding = GetOrCreateHolding(Faction, StellarBodyRegion.Parent);
-            var regionHolding = new StellarBodyRegionHolding(holding, StellarBodyRegion);
-            holding.AddSubzone(StellarBodyRegion, regionHolding);
-            regionHolding.AddStructureNodes((int)StellarBodyRegion.StructureNodes);
-            foreach (ResourceNode resource in StellarBodyRegion.Resources)
+            var holding = GetOrCreateHolding(faction, stellarBodyRegion.Parent);
+            var regionHolding = new StellarBodyRegionHolding(holding, stellarBodyRegion);
+            holding.AddSubzone(stellarBodyRegion, regionHolding);
+            regionHolding.AddStructureNodes((int)stellarBodyRegion.StructureNodes);
+            foreach (var resource in stellarBodyRegion.Resources)
             {
-                regionHolding.AddResourceNodes(new Count<ResourceNode>(resource, resource.Size));
+                regionHolding.AddResourceNodes(Count<ResourceNode>(resource, resource.Size));
             }
         }
 
-        public StellarBodyHolding GetHolding(Faction Faction, StellarBody StellarBody)
+        public StellarBodyHolding? GetHolding(Faction faction, StellarBody stellarBody)
         {
-            _Holdings.TryGetValue(
-                CompositeKey<Faction, StellarBody>.Create(Faction, StellarBody), out StellarBodyHolding holding);
+            _holdings.TryGetValue(
+                CompositeKey<Faction, StellarBody>.Create(faction, stellarBody), out var holding);
             return holding;
         }
 
-        public StellarBodyRegionHolding GetHolding(Faction Faction, StellarBodyRegion StellarBodyRegion)
+        public StellarBodyRegionHolding? GetHolding(Faction faction, StellarBodyRegion stellarBodyRegion)
         {
-            var holding = GetHolding(Faction, StellarBodyRegion.Parent);
+            var holding = GetHolding(faction, stellarBodyRegion.Parent);
             if (holding != null)
             {
-                return (StellarBodyRegionHolding)holding.GetSubzone(StellarBodyRegion);
+                return (StellarBodyRegionHolding)holding.GetSubzone(stellarBodyRegion);
             }
             return null;
         }
 
-        public IEnumerable<StellarBodyRegionHolding> GetHoldings(Faction Faction)
+        public IEnumerable<StellarBodyRegionHolding> GetHoldings(Faction faction)
         {
-            return _Holdings
-                .Where(x => x.Key.Key1 == Faction)
+            return _holdings
+                .Where(x => x.Key.Key1 == faction)
                 .SelectMany(x => x.Value.GetSubzones())
                 .Cast<StellarBodyRegionHolding>();
         }
 
         public void Tick()
         {
-            foreach (var holding in _Holdings.Values)
+            foreach (var holding in _holdings.Values)
             {
                 holding.Tick();
             }
 
-            _Routes.ForEach(x => x.Tick());
-            _Trades.ForEach(x => x.Tick());
+            _routes.ForEach(x => x.Tick());
+            _trades.ForEach(x => x.Tick());
 
-            foreach (var holding in _Holdings.Values)
+            foreach (var holding in _holdings.Values)
             {
                 holding.Consume(MaterialSink);
             }
         }
 
-        private StellarBodyHolding GetOrCreateHolding(Faction Faction, StellarBody StellarBody)
+        private StellarBodyHolding GetOrCreateHolding(Faction faction, StellarBody stellarBody)
         {
-            var holding = GetHolding(Faction, StellarBody);
+            var holding = GetHolding(faction, stellarBody);
             if (holding == null)
             {
-                holding = new StellarBodyHolding(Faction, StellarBody);
-                _Holdings.Add(CompositeKey<Faction, StellarBody>.Create(Faction, StellarBody), holding);
+                holding = new StellarBodyHolding(faction, stellarBody);
+                _holdings.Add(CompositeKey<Faction, StellarBody>.Create(faction, stellarBody), holding);
             }
             return holding;
         }

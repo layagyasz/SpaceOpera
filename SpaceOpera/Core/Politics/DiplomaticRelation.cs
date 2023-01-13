@@ -1,29 +1,23 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace SpaceOpera.Core.Politics
 {
-    class DiplomaticRelation
+    public class DiplomaticRelation
     {
         public enum DiplomaticStatus
         {
-            NONE,
+            None,
 
-            PEACE,
-            WAR
+            Peace,
+            War
         }
 
         public Faction Faction { get; }
         public Faction Target { get; }
-        public DiplomaticStatus Status { get; } = DiplomaticStatus.WAR;
+        public DiplomaticStatus Status { get; } = DiplomaticStatus.War;
 
-        public DiplomaticRelation(Faction Faction, Faction Target)
+        public DiplomaticRelation(Faction faction, Faction target)
         {
-            this.Faction = Faction;
-            this.Target = Target;
+            Faction = faction;
+            Target = target;
         }
     }
 }

@@ -1,45 +1,40 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Cardamom;
 
 namespace SpaceOpera.Core.Politics
 {
     public class DiplomaticRelationGraph
     {
-        private readonly Dictionary<CompositeKey<Faction, Faction>, DiplomaticRelation> _Relations =
-            new Dictionary<CompositeKey<Faction, Faction>, DiplomaticRelation>();
+        private readonly Dictionary<CompositeKey<Faction, Faction>, DiplomaticRelation> _relations = new();
 
-        public void AddFaction(Faction NewFaction, IEnumerable<Faction> Factions)
+        public void AddFaction(Faction newFaction, IEnumerable<Faction> factions)
         {
-            foreach (var target in Factions)
+            foreach (var target in factions)
             {
-                if (NewFaction != target)
+                if (newFaction != target)
                 {
-                    _Relations.Add(
-                        CompositeKey<Faction, Faction>.Create(NewFaction, target),
-                        new DiplomaticRelation(NewFaction, target));
+                    _relations.Add(
+                        CompositeKey<Faction, Faction>.Create(newFaction, target),
+                        new DiplomaticRelation(newFaction, target));
                 }
             }
         }
 
-        public bool CanAttack(Faction Faction, Faction Target)
+        public bool CanAttack(Faction faction, Faction target)
         {
-            return Get(Faction, Target).Status == DiplomaticRelation.DiplomaticStatus.WAR;
+            return Get(faction, target).Status == DiplomaticRelation.DiplomaticStatus.War;
         }
 
-        public void Initialize(IEnumerable<Faction> Factions)
+        public void Initialize(IEnumerable<Faction> factions)
         {
-            foreach (var faction in Factions)
+            foreach (var faction in factions)
             {
-                AddFaction(faction, Factions);
+                AddFaction(faction, factions);
             }
         }
 
-        public DiplomaticRelation Get(Faction Faction, Faction Target)
+        public DiplomaticRelation Get(Faction faction, Faction target)
         {
-            return _Relations[CompositeKey<Faction, Faction>.Create(Faction, Target)];
+            return _relations[CompositeKey<Faction, Faction>.Create(faction, target)];
         }
     }
 }

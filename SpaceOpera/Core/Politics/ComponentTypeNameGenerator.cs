@@ -1,139 +1,137 @@
+using Cardamom.Collections;
 using SpaceOpera.Core.Designs;
 using SpaceOpera.Core.Languages;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
-using static SpaceOpera.Core.Politics.ComponentNameGenerator;
 
 namespace SpaceOpera.Core.Politics
 {
-    class ComponentTypeNameGenerator
+    public class ComponentTypeNameGenerator
     {
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public enum ComponentNameSource
         {
-            NONE,
+            None,
 
-            STATIC,
-            RANDOM,
+            Static,
+            Random,
 
-            SEQUENCE_NUMBER,
-            PARENT_NAME,
-            TAGS,
+            SequenceNumber,
+            ParentName,
+            Tags,
 
-            LANGUAGE_WORD,
-            LANGUAGE_LETTER
+            LanguageWord,
+            LanguageLetter
         }
 
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public enum ComponentNameFilter
         {
-            NONE,
-            STRING,
-            QUOTE_STRING,
-            INTEGER,
-            ORDINAL,
-            ROMAN,
-            TAG_SET
+            None,
+            String,
+            QuoteString,
+            Integer,
+            Ordinal,
+            Roman,
+            TagSet
         }
 
         public class ComponentNamePart
         {
-            public object StaticValue { get; }
-            public RandomValue RandomValue { get; }
+            public object? StaticValue { get; }
+            public RandomValue? RandomValue { get; }
             public ComponentNameSource Source { get; }
             public ComponentNameFilter Filter { get; }
 
             public ComponentNamePart(
-                object StaticValue, RandomValue RandomValue, ComponentNameSource Source, ComponentNameFilter Filter)
+                object? staticValue, RandomValue? randomValue, ComponentNameSource source, ComponentNameFilter filter)
             {
-                this.StaticValue = StaticValue;
-                this.RandomValue = RandomValue;
-                this.Source = Source;
-                this.Filter = Filter;
+                StaticValue = staticValue;
+                RandomValue = randomValue;
+                Source = source;
+                Filter = filter;
             }
         }
 
         public List<ComponentNamePart> Pattern { get; }
 
-        public ComponentTypeNameGenerator(IEnumerable<ComponentNamePart> Pattern)
+        public ComponentTypeNameGenerator(IEnumerable<ComponentNamePart> pattern)
         {
-            this.Pattern = Pattern.ToList();
+            Pattern = pattern.ToList();
         }
 
         public string GenerateNameFor(
-            NameGeneratorArgs Args, Language Language, List<ComponentTagName> ComponentTagNames, Random Random)
+            NameGeneratorArgs args, Language language, List<ComponentTagName> componentTagNames, Random random)
         {
             return string.Join(
                 " ",
                 Pattern.SelectMany(
                     x => NamePartToString(
-                        x, Args, Language, ComponentTagNames, Random)).Where(x => x.Length > 0));
+                        x, args, language, componentTagNames, random)).Where(x => x.Length > 0));
         }
 
-        private IEnumerable<string> NamePartToString(
-            ComponentNamePart Part,
-            NameGeneratorArgs Args, 
-            Language Language, 
-            List<ComponentTagName> TagNames, 
-            Random Random)
+        private static IEnumerable<string> NamePartToString(
+            ComponentNamePart part,
+            NameGeneratorArgs args, 
+            Language language, 
+            List<ComponentTagName> tagNames, 
+            Random random)
         {
-            return ValueToString(NamePartToValue(Part, Args, Language, Random), Part.Filter, TagNames);
+            return ValueToString(NamePartToValue(part, args, language, random), part.Filter, tagNames);
         }
 
-        private object NamePartToValue(
-            ComponentNamePart Part, NameGeneratorArgs Args, Language Language, Random Random)
+        private static object NamePartToValue(
+            ComponentNamePart part, NameGeneratorArgs args, Language language, Random random)
         {
-            switch (Part.Source)
+            switch (part.Source)
             {
-                case ComponentNameSource.STATIC:
-                    return Part.StaticValue;
-                case ComponentNameSource.RANDOM:
-                    return Part.RandomValue.Generate(Random);
-                case ComponentNameSource.SEQUENCE_NUMBER:
-                    return Args.SequenceNumber;
-                case ComponentNameSource.PARENT_NAME:
-                    return Args.ParentName;
-                case ComponentNameSource.TAGS:
-                    return Args.Tags;
-                case ComponentNameSource.LANGUAGE_WORD:
-                    return Language.GenerateWord(Random);
-                case ComponentNameSource.LANGUAGE_LETTER:
-                    return Language.GenerateLetter(Random);
+                case ComponentNameSource.Static:
+                    return part!.StaticValue;
+                case ComponentNameSource.Random:
+                    return part!.RandomValue.Generate(random);
+                case ComponentNameSource.SequenceNumber:
+                    return args.SequenceNumber;
+                case ComponentNameSource.ParentName:
+                    return args.ParentName;
+                case ComponentNameSource.Tags:
+                    return args.Tags;
+                case ComponentNameSource.LanguageWord:
+                    return language.GenerateWord(random);
+                case ComponentNameSource.LanguageLetter:
+                    return language.GenerateLetter(random);
+                case ComponentNameSource.None:
                 default:
-                    throw new ArgumentException(string.Format("Unsupported Source: [%s].", Part.Source));
+                    throw new ArgumentException($"Unsupported Source: [{part.Source}].");
             }
         }
 
-        private IEnumerable<string> ValueToString(
-            object Value, ComponentNameFilter Filter, List<ComponentTagName> TagNames)
+        private static IEnumerable<string> ValueToString(
+            object value, ComponentNameFilter filter, List<ComponentTagName> tagNames)
         {
-            switch (Filter)
+            switch (filter)
             {
-                case ComponentNameFilter.NONE:
-                case ComponentNameFilter.STRING:
-                case ComponentNameFilter.INTEGER:
-                    return new List<string>() { StringUtils.FormatCase(Value.ToString()) };
-                case ComponentNameFilter.QUOTE_STRING:
-                    return new List<string>() { string.Format("\"{0}\"", StringUtils.FormatCase(Value.ToString())) };
-                case ComponentNameFilter.ORDINAL:
-                    return new List<string>() { ToOrdinal((long)Value) };
-                case ComponentNameFilter.ROMAN:
-                    return new List<string>() { ToRoman((long)Value) };
-                case ComponentNameFilter.TAG_SET:
-                    return TagsToString((List<ComponentTag>)Value, TagNames);
+                case ComponentNameFilter.None:
+                case ComponentNameFilter.String:
+                case ComponentNameFilter.Integer:
+                    return new List<string>() { StringUtils.FormatCase(value.ToString()!) };
+                case ComponentNameFilter.QuoteString:
+                    return new List<string>() { string.Format("\"{0}\"", StringUtils.FormatCase(value.ToString()!)) };
+                case ComponentNameFilter.Ordinal:
+                    return new List<string>() { ToOrdinal((long)value) };
+                case ComponentNameFilter.Roman:
+                    return new List<string>() { ToRoman((long)value) };
+                case ComponentNameFilter.TagSet:
+                    return TagsToString((List<ComponentTag>)value, tagNames);
                 default:
-                    throw new ArgumentException(string.Format("Unsupported Filter: [%s].", Filter));
+                    throw new ArgumentException($"Unsupported Filter: [{filter}].");
             }
         }
 
-        private IEnumerable<string> TagsToString(IEnumerable<ComponentTag> Tags, List<ComponentTagName> TagNames)
+        private static IEnumerable<string> TagsToString(
+            IEnumerable<ComponentTag> tags, List<ComponentTagName> tagNames)
         {
-            var tagSet = new EnumSet<ComponentTag>(Tags);
-            foreach (var tagName in TagNames)
+            var tagSet = new EnumSet<ComponentTag>(tags);
+            foreach (var tagName in tagNames)
             {
                 if (tagSet.IsSupersetOf(tagName.Tags))
                 {
@@ -147,35 +145,35 @@ namespace SpaceOpera.Core.Politics
             }
         }
 
-        private static string ToOrdinal(long Value)
+        private static string ToOrdinal(long value)
         {
-            if (Value % 10 == 1 && Value % 100 != 11)
+            if (value % 10 == 1 && value % 100 != 11)
             {
-                return Value.ToString() + "st";
+                return value.ToString() + "st";
             }
-            if (Value % 10 == 2 && Value % 100 != 12)
+            if (value % 10 == 2 && value % 100 != 12)
             {
-                return Value.ToString() + "nd";
+                return value.ToString() + "nd";
             }
-            if (Value % 10 == 3 && Value % 100 != 13)
+            if (value % 10 == 3 && value % 100 != 13)
             {
-                return Value.ToString() + "rd";
+                return value.ToString() + "rd";
             }
-            return Value.ToString() + "th";
+            return value.ToString() + "th";
         }
 
-        private static int[] ROMAN_VALUES = { 1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1 };
-        private static String[] ROMAN_LITERALS = 
+        private static readonly int[] s_RomanValues = { 1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1 };
+        private static readonly string[] s_RomanLiterals = 
             { "M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I" };
-        private static string ToRoman(long Value)
+        private static string ToRoman(long value)
         {
-            StringBuilder result = new StringBuilder();
-            for (int i = 0; i < ROMAN_VALUES.Length; i++)
+            StringBuilder result = new();
+            for (int i = 0; i < s_RomanValues.Length; i++)
             {
-                while (Value >= ROMAN_VALUES[i])
+                while (value >= s_RomanValues[i])
                 {
-                    Value -= ROMAN_VALUES[i];
-                    result.Append(ROMAN_LITERALS[i]);
+                    value -= s_RomanValues[i];
+                    result.Append(s_RomanLiterals[i]);
                 }
             }
             return result.ToString();

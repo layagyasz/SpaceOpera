@@ -1,124 +1,117 @@
 using SpaceOpera.Core.Designs;
 using SpaceOpera.Core.Languages;
-using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Universe;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpaceOpera.Core.Politics
 {
-    class NameGenerator
+    public class NameGenerator
     {
         public Language Language { get; }
         public ComponentNameGenerator ComponentNameGenerator { get; }
-        public ComponentTypeNameGenerator FormationNameGenerator { get; }
 
-        private IIdGenerator _FleetIdGenerator = new SerialIdGenerator(1);
+        private readonly IIdGenerator _fleetIdGenerator = new SerialIdGenerator(1);
 
-        public NameGenerator(Language Language, ComponentNameGenerator ComponentNameGenerator)
+        public NameGenerator(Language language, ComponentNameGenerator componentNameGenerator)
         {
-            this.Language = Language;
-            this.ComponentNameGenerator = ComponentNameGenerator;
+            Language = language;
+            ComponentNameGenerator = componentNameGenerator;
         }
 
-        public string GenerateNameFor(StarSystem StarSystem, Random Random)
+        public string GenerateNameFor(StarSystem starSystem, Random random)
         {
-            return ComponentNameGenerator.GenerateNameFor(ToArgs(StarSystem), Language, Random);
+            return ComponentNameGenerator.GenerateNameFor(ToArgs(starSystem), Language, random);
         }
 
-        public string GenerateNameFor(StellarBody StellarBody, StarSystem StarSystem, Random Random)
+        public string GenerateNameFor(StellarBody stellarBody, StarSystem starSystem, Random random)
         {
-            return ComponentNameGenerator.GenerateNameFor(ToArgs(StellarBody, StarSystem), Language, Random);
+            return ComponentNameGenerator.GenerateNameFor(ToArgs(stellarBody, starSystem), Language, random);
         }
 
-        public string GenerateNameFor(StellarBodyRegion StellarBodyRegion, Random Random)
+        public string GenerateNameFor(StellarBodyRegion stellarBodyRegion, Random random)
         {
-            return ComponentNameGenerator.GenerateNameFor(ToArgs(StellarBodyRegion), Language, Random);
+            return ComponentNameGenerator.GenerateNameFor(ToArgs(stellarBodyRegion), Language, random);
         }
 
-        public string GenerateNameFor(Design Design, Random Random)
+        public string GenerateNameFor(Design design, Random random)
         {
-            return ComponentNameGenerator.GenerateNameFor(ToArgs(Design), Language, Random);
+            return ComponentNameGenerator.GenerateNameFor(ToArgs(design), Language, random);
         }
 
-        public string GenerateNameForFaction(Random Random)
+        public string GenerateNameForFaction(Random random)
         {
-            return ComponentNameGenerator.GenerateNameFor(GetFactionArgs(), Language, Random);
+            return ComponentNameGenerator.GenerateNameFor(GetFactionArgs(), Language, random);
         }
 
-        public string GenerateNameForFleet(Random Random)
+        public string GenerateNameForFleet(Random random)
         {
-            return ComponentNameGenerator.GenerateNameFor(GetFleetArgs(), Language, Random);
+            return ComponentNameGenerator.GenerateNameFor(GetFleetArgs(), Language, random);
         }
 
-        public string GenerateNameForStar(Random Random)
+        public string GenerateNameForStar(Random random)
         {
-            return ComponentNameGenerator.GenerateNameFor(GetStarArgs(), Language, Random);
+            return ComponentNameGenerator.GenerateNameFor(GetStarArgs(), Language, random);
         }
 
-        private NameGeneratorArgs GetFactionArgs()
+        private static NameGeneratorArgs GetFactionArgs()
         {
-            return new NameGeneratorArgs(NameType.FACTION);
+            return new NameGeneratorArgs(NameType.Faction);
         }
 
         private NameGeneratorArgs GetFleetArgs()
         {
-            return new NameGeneratorArgs(NameType.FLEET) { SequenceNumber = _FleetIdGenerator.Generate() };
+            return new NameGeneratorArgs(NameType.Fleet) { SequenceNumber = _fleetIdGenerator.Generate() };
         }
 
-        private NameGeneratorArgs GetStarArgs()
+        private static NameGeneratorArgs GetStarArgs()
         {
-            return new NameGeneratorArgs(NameType.STAR);
+            return new NameGeneratorArgs(NameType.Star);
         }
 
-        private NameGeneratorArgs ToArgs(StarSystem StarSystem)
+        private static NameGeneratorArgs ToArgs(StarSystem starSystem)
         {
-            return new NameGeneratorArgs(NameType.STAR_SYSTEM) { ParentName = StarSystem.Star.Name };
+            return new NameGeneratorArgs(NameType.StarSystem) { ParentName = starSystem.Star.Name };
         }
 
-        private NameGeneratorArgs ToArgs(StellarBody StellarBody, StarSystem StarSystem)
+        private static NameGeneratorArgs ToArgs(StellarBody stellarBody, StarSystem starSystem)
         {
-            return new NameGeneratorArgs(NameType.STELLAR_BODY)
+            return new NameGeneratorArgs(NameType.StellarBody)
             {
-                ParentName = StarSystem.Star.Name,
-                SequenceNumber = StarSystem.Orbiters.IndexOf(StellarBody) + 1
+                ParentName = starSystem.Star.Name,
+                SequenceNumber = starSystem.Orbiters.IndexOf(stellarBody) + 1
             };
         }
 
-        private NameGeneratorArgs ToArgs(StellarBodyRegion StellarBodyRegion)
+        private static NameGeneratorArgs ToArgs(StellarBodyRegion stellarBodyRegion)
         {
-            return new NameGeneratorArgs(NameType.STELLAR_BODY_REGION);
+            return new NameGeneratorArgs(NameType.StellarBodyRegion);
         }
 
-        private NameGeneratorArgs ToArgs(Design Design)
+        private static NameGeneratorArgs ToArgs(Design design)
         {
-            return new NameGeneratorArgs(ToNameType(Design.Configuration.Template.Type)) { Tags = Design.Tags };
+            return new NameGeneratorArgs(ToNameType(design.Configuration.Template.Type)) { Tags = design.Tags };
         }
 
-        public static NameType ToNameType(ComponentType Type)
+        public static NameType ToNameType(ComponentType type)
         {
-            switch (Type)
+            switch (type)
             {
                 case ComponentType.Ship:
-                    return NameType.SHIP;
+                    return NameType.Ship;
                 case ComponentType.Infantry:
-                    return NameType.INFANTRY;
+                    return NameType.Infantry;
                 case ComponentType.BattalionTemplate:
-                    return NameType.BATTALION_TEMPLATE;
+                    return NameType.BattalionTemplate;
                 case ComponentType.DivisionTemplate:
-                    return NameType.DIVISION_TEMPLATE;
+                    return NameType.DivisionTemplate;
                 case ComponentType.ShipWeapon:
                 case ComponentType.ShipPointDefense:
                 case ComponentType.ShipMissile:
                 case ComponentType.PersonalWeapon:
-                    return NameType.WEAPON;
+                    return NameType.Weapon;
                 case ComponentType.ShipShield:
-                    return NameType.SHIELD;
+                    return NameType.Shield;
                 default:
-                    throw new ArgumentException();
+                    throw new ArgumentException($"Unsupported ComponentType: [{type}].");
             }
         }
     }

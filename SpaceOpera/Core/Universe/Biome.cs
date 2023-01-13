@@ -7,5 +7,7 @@ namespace SpaceOpera.Core.Universe
         public string Key { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
         public List<GameModifier> Modifiers { get; set; } = new();
+        public bool IsHabitable { get; set; }
+        public bool IsTraversable { get; set; }
     }
 }

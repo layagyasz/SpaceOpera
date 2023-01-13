@@ -1,28 +1,23 @@
-using SpaceOpera.Core.Designs;
+using Cardamom.Collections;
 using SpaceOpera.Core.Languages;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpaceOpera.Core.Politics
 {
-    class ComponentNameGenerator
+    public class ComponentNameGenerator
     { 
-        private readonly EnumMap<NameType, ComponentTypeNameGenerator> _NameGenerators;
-        private readonly List<ComponentTagName> _TagNames;
+        private readonly EnumMap<NameType, ComponentTypeNameGenerator> _nameGenerators;
+        private readonly List<ComponentTagName> _tagNames;
 
         public ComponentNameGenerator(
-            EnumMap<NameType, ComponentTypeNameGenerator> NameGenerators, IEnumerable<ComponentTagName> TagNames)
+            EnumMap<NameType, ComponentTypeNameGenerator> nameGenerators, IEnumerable<ComponentTagName> tagNames)
         {
-            _NameGenerators = NameGenerators;
-            _TagNames = TagNames.ToList();
+            _nameGenerators = nameGenerators;
+            _tagNames = tagNames.ToList();
         }
 
-        public string GenerateNameFor(NameGeneratorArgs Args, Language Language, Random Random)
+        public string GenerateNameFor(NameGeneratorArgs args, Language language, Random random)
         {
-            return _NameGenerators[Args.Type].GenerateNameFor(Args, Language, _TagNames, Random);
+            return _nameGenerators[args.Type].GenerateNameFor(args, language, _tagNames, random);
         }
     }
 }

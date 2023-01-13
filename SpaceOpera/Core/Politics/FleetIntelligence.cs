@@ -1,37 +1,31 @@
 using SpaceOpera.Core.Military;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpaceOpera.Core.Politics
 {
-    class FleetIntelligence
+    public class FleetIntelligence
     {
         class SingleFleetIntelligence
         {
             public double SpottingProgress { get; set; }
         }
 
-        private readonly Dictionary<Fleet, SingleFleetIntelligence> _FleetIntelligence = 
-            new Dictionary<Fleet, SingleFleetIntelligence>();
+        private readonly Dictionary<Fleet, SingleFleetIntelligence> _fleetIntelligence = new();
 
-        public bool IsSpotted(Fleet Fleet)
+        public bool IsSpotted(Fleet fleet)
         {
-            _FleetIntelligence.TryGetValue(Fleet, out SingleFleetIntelligence intel);
+            _fleetIntelligence.TryGetValue(fleet, out var intel);
             return intel != null && Math.Abs(intel.SpottingProgress - 1) < double.Epsilon;
         }
 
-        public void Spot(Fleet Fleet, double Progress)
+        public void Spot(Fleet fleet, double progress)
         {
-            _FleetIntelligence.TryGetValue(Fleet, out SingleFleetIntelligence intel);
+            _fleetIntelligence.TryGetValue(fleet, out var intel);
             if (intel == null)
             {
                 intel = new SingleFleetIntelligence();
-                _FleetIntelligence.Add(Fleet, intel);
+                _fleetIntelligence.Add(fleet, intel);
             }
-            intel.SpottingProgress = Math.Min(1, intel.SpottingProgress + Progress);
+            intel.SpottingProgress = Math.Min(1, intel.SpottingProgress + progress);
         }
     }
 }

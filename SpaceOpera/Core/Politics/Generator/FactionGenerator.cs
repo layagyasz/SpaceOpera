@@ -1,20 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Cardamom.Collections;
 
 namespace SpaceOpera.Core.Politics.Generator
 {
-    class FactionGenerator
+    public class FactionGenerator
     {
-        public EnumMap<FactionAttribute, float> BaseAttributes { get; set; }
-        public ComponentNameGeneratorGenerator ComponentName { get; set; }
+        public EnumMap<FactionAttribute, float> BaseAttributes { get; set; } = new();
+        public ComponentNameGeneratorGenerator? ComponentName { get; set; }
 
-        public Faction Generate(Culture Culture, Banner Banner, Random Random)
+        public Faction Generate(Culture culture, Banner banner, Random random)
         {
-            var nameGenerator = new NameGenerator(Culture.Language, ComponentName.Generate(Random));
-            return new Faction(nameGenerator.GenerateNameForFaction(Random), Banner, BaseAttributes, nameGenerator);
+            var nameGenerator = new NameGenerator(culture.Language, ComponentName!.Generate(random));
+            return new Faction(nameGenerator.GenerateNameForFaction(random), banner, BaseAttributes, nameGenerator);
         }
     }
 }

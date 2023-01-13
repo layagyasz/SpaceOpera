@@ -2,7 +2,7 @@ using SpaceOpera.Core.Universe;
 
 namespace SpaceOpera.Core.Economics
 {
-    class StellarBodyRegionHolding : EconomicSubzone
+    public class StellarBodyRegionHolding : EconomicSubzone
     {
         public StellarBodyRegion Region { get; }
 
