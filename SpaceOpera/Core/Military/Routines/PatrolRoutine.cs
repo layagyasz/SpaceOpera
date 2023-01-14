@@ -1,3 +1,5 @@
+using Cardamom.Collections;
+using Cardamom.Graphing.BehaviorTree;
 using SpaceOpera.Core.Military.Actions;
 using SpaceOpera.Core.Universe;
 using static SpaceOpera.Core.Military.SpaceOperaContext;
@@ -10,7 +12,7 @@ namespace SpaceOpera.Core.Military.Routines
         {
             private INavigable? _cachedDestination;
 
-            public AdansoniaNodeResult<INavigable> Execute(FleetContext context)
+            public BehaviorNodeResult<INavigable> Execute(FleetContext context)
             {
                 var currentPosition = context.Fleet.Fleet.Position;
                 var activeRegion = context.Fleet.GetActiveRegion();
@@ -33,8 +35,8 @@ namespace SpaceOpera.Core.Military.Routines
                     }
                 }
                 return _cachedDestination == null 
-                    ? AdansoniaNodeResult<INavigable>.Incomplete()
-                    : AdansoniaNodeResult<INavigable>.Complete(_cachedDestination);
+                    ? BehaviorNodeResult<INavigable>.Incomplete()
+                    : BehaviorNodeResult<INavigable>.Complete(_cachedDestination);
             }
         }
 
@@ -47,19 +49,19 @@ namespace SpaceOpera.Core.Military.Routines
                 _target = target;
             }
 
-            public AdansoniaNodeResult<IAction> Execute(FleetContext context)
+            public BehaviorNodeResult<IAction> Execute(FleetContext context)
             {
                 var currentPosition = context.Fleet.Fleet.Position;
                 var target = _target.Execute(context);
                 if (!target.Status.Complete)
                 {
-                    return AdansoniaNodeResult<IAction>.NotRun();
+                    return BehaviorNodeResult<IAction>.NotRun();
                 }
-                if (target.Result.Position == currentPosition)
+                if (target.Result!.Position == currentPosition)
                 {
-                    return AdansoniaNodeResult<IAction>.Complete(new SpotAction(target.Result));
+                    return BehaviorNodeResult<IAction>.Complete(new SpotAction(target.Result));
                 }
-                return AdansoniaNodeResult<IAction>.Incomplete();
+                return BehaviorNodeResult<IAction>.Incomplete();
             }
         }
 
@@ -67,7 +69,7 @@ namespace SpaceOpera.Core.Military.Routines
         {
             private Fleet? _cachedTarget;
 
-            public AdansoniaNodeResult<Fleet> Execute(FleetContext context)
+            public BehaviorNodeResult<Fleet> Execute(FleetContext context)
             {
                 var currentPosition = context.Fleet.Fleet.Position;
                 var faction = context.Fleet.Fleet.Faction;
@@ -97,15 +99,15 @@ namespace SpaceOpera.Core.Military.Routines
                     }
                 }
                 return _cachedTarget == null
-                    ? AdansoniaNodeResult<Fleet>.Incomplete()
-                    : AdansoniaNodeResult<Fleet>.Complete(_cachedTarget);
+                    ? BehaviorNodeResult<Fleet>.Incomplete()
+                    : BehaviorNodeResult<Fleet>.Complete(_cachedTarget);
             }
         }
         public static ISupplierNode<IAction, FleetContext> Create()
         {
             var targetBuffer = new PatrolTargetNode().Buffer();
-            return new SelectorNode<AdansoniaNodeResult<IAction>, FleetContext>(
-                x => x.Status.Complete, AdansoniaNodeResult<IAction>.NotRun()) {
+            return new SelectorNode<BehaviorNodeResult<IAction>, FleetContext>(
+                x => x.Status.Complete, BehaviorNodeResult<IAction>.NotRun()) {
                 targetBuffer.Recompute().Check(
                     (x, y) =>
                         y.Fleet.Fleet.Position == x.Position 
@@ -113,13 +115,13 @@ namespace SpaceOpera.Core.Military.Routines
                     .Transform(EngageAction.Create),
                 targetBuffer.Check((x, y) => y.Fleet.Fleet.Position == x.Position).Transform(SpotAction.Create),
                 new MoveNode(
-                   new SelectorNode<AdansoniaNodeResult<INavigable>, FleetContext>(
-                       x => x.Status.Complete, AdansoniaNodeResult<INavigable>.Incomplete())
+                   new SelectorNode<BehaviorNodeResult<INavigable>, FleetContext>(
+                       x => x.Status.Complete, BehaviorNodeResult<INavigable>.Incomplete())
                    {
-                       targetBuffer.Transform(x => x.Position),
+                       targetBuffer.Transform(x => x.Position!),
                        new PatrolNode(),
                    }.Adapt(),
-                   new EnumSet<NavigableEdgeType>(NavigableEdgeType.SPACE, NavigableEdgeType.JUMP))
+                   new EnumSet<NavigableEdgeType>(NavigableEdgeType.Space, NavigableEdgeType.Jump))
             }.Adapt();
         }
     }

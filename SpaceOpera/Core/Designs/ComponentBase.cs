@@ -43,7 +43,7 @@ namespace SpaceOpera.Core.Designs
         public bool FitsSlot(DesignSlot slot)
         {
             return slot.Type.Contains(Slot.Type)
-                && (Slot.Size == ComponentSize.None || slot.Size.Count == 0 || slot.Size.Contains(Slot.Size));
+                && (Slot.Size == ComponentSize.Unknown || slot.Size.Count == 0 || slot.Size.Contains(Slot.Size));
         }
 
         private static EnumMap<TKey, float> TotalModifiers<TKey>(EnumMap<TKey, Modifier> map) where TKey : Enum

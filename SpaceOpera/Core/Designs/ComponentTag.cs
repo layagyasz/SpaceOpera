@@ -5,7 +5,7 @@ namespace SpaceOpera.Core.Designs
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum ComponentTag
     {
-        None,
+        Unknown,
 
         Light,
         Medium,

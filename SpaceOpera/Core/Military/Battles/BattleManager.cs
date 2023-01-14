@@ -1,7 +1,6 @@
 using Cardamom.Collections;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Universe;
-using System.Security.AccessControl;
 
 namespace SpaceOpera.Core.Military.Battles
 {
@@ -51,7 +50,7 @@ namespace SpaceOpera.Core.Military.Battles
             {
                 return false;
             }
-            var currentBattle = GetCurrentBattle(target, BattleKey.Create(target.Position));
+            var currentBattle = GetCurrentBattle(target, BattleKey.Create(target.Position!));
             if (currentBattle == null)
             {
                 return true;
@@ -81,7 +80,7 @@ namespace SpaceOpera.Core.Military.Battles
         public void Engage(IFormation formation, IFormation target)
         {
             formation.EnterCombat();
-            var key = BattleKey.Create(target.Position);
+            var key = BattleKey.Create(target.Position!);
             var currentBattle = GetCurrentBattle(target, key);
             if (currentBattle == null)
             {
@@ -119,8 +118,8 @@ namespace SpaceOpera.Core.Military.Battles
                             Disengage(formation, battle, BattleSideType.Defense);
                         }
                     }
-                    if (battle.GetFormations(BattleSideType.Offense).Count() == 0
-                        || battle.GetFormations(BattleSideType.Defense).Count() == 0)
+                    if (!battle.GetFormations(BattleSideType.Offense).Any()
+                        || !battle.GetFormations(BattleSideType.Defense).Any())
                     {
                         foreach (var formation in battle.GetFormations(BattleSideType.Offense))
                         {
@@ -142,13 +141,13 @@ namespace SpaceOpera.Core.Military.Battles
             _activeBattles = newActiveBattles;
         }
 
-        private void Disengage(IFormation formation, Battle battle, BattleSideType side)
+        private static void Disengage(IFormation formation, Battle battle, BattleSideType side)
         {
             formation.ExitCombat();
             battle.Remove(formation, side);
         }
 
-        private BattleParticipation GetCurrentBattle(IFormation formation, BattleKey key)
+        private BattleParticipation? GetCurrentBattle(IFormation formation, BattleKey key)
         {
             if (!formation.InCombat)
             {
@@ -171,17 +170,14 @@ namespace SpaceOpera.Core.Military.Battles
             return null;
         }
 
-        private BattleSideType ReverseSide(BattleSideType Side)
+        private static BattleSideType ReverseSide(BattleSideType Side)
         {
-            switch (Side)
+            return Side switch
             {
-                case BattleSideType.Offense:
-                    return BattleSideType.Defense;
-                case BattleSideType.Defense:
-                    return BattleSideType.Offense;
-                default:
-                    return BattleSideType.None;
-            }
+                BattleSideType.Offense => BattleSideType.Defense,
+                BattleSideType.Defense => BattleSideType.Offense,
+                _ => BattleSideType.None,
+            };
         }
     }
 }

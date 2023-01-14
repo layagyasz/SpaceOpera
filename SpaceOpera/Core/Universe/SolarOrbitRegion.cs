@@ -9,7 +9,7 @@ namespace SpaceOpera.Core.Universe
     class SolarOrbitRegion : INavigable
     {
         public string Name => string.Format("{0} Orbit", LocalOrbit.StellarBody.Name);
-        public NavigableNodeType NavigableNodeType => NavigableNodeType.SPACE;
+        public NavigableNodeType NavigableNodeType => NavigableNodeType.Space;
         public LocalOrbitRegion LocalOrbit { get; }
 
         public SolarOrbitRegion(LocalOrbitRegion LocalOrbit)

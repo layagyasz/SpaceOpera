@@ -2,7 +2,7 @@
 {
     public enum ComponentSize
     {
-        None,
+        Unknown,
         Small,
         Medium,
         Large,

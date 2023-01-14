@@ -1,3 +1,4 @@
+using Cardamom.Collections;
 using Cardamom.Utilities;
 using SpaceOpera.Core.Voronoi;
 using System;
@@ -172,14 +173,14 @@ namespace SpaceOpera.Core.Universe
         {
             var nodes = new HashSet<INavigable>();
             nodes.Add(LocalOrbit);
-            if (Types.Contains(NavigableNodeType.SPACE))
+            if (Types.Contains(NavigableNodeType.Space))
             {
                 foreach (var node in LocalOrbit.StellarBody.OrbitRegions)
                 {
                     nodes.Add(node);
                 }
             }
-            if (Types.Contains(NavigableNodeType.GROUND) || Types.Contains(NavigableNodeType.SEA))
+            if (Types.Contains(NavigableNodeType.Ground) || Types.Contains(NavigableNodeType.Sea))
             {
                 foreach (var node in LocalOrbit.StellarBody.Regions.SelectMany(x => x.SubRegions))
                 {
@@ -195,7 +196,7 @@ namespace SpaceOpera.Core.Universe
         public HashSet<INavigable> GetSystemNodes(StarSystem StarSystem, EnumSet<NavigableNodeType> Types)
         {
             var nodes = new HashSet<INavigable>();
-            if (Types.Contains(NavigableNodeType.SPACE))
+            if (Types.Contains(NavigableNodeType.Space))
             {
                 foreach (var node in StarSystem.OrbitalRegions)
                 {
@@ -211,7 +212,7 @@ namespace SpaceOpera.Core.Universe
                     nodes.Add(node.Value);
                 }
             }
-            if (Types.Contains(NavigableNodeType.GROUND) || Types.Contains(NavigableNodeType.SEA))
+            if (Types.Contains(NavigableNodeType.Ground) || Types.Contains(NavigableNodeType.Sea))
             {
                 foreach (
                     var node in StarSystem.OrbitalRegions.SelectMany(
@@ -319,9 +320,9 @@ namespace SpaceOpera.Core.Universe
 
                 var orbitDistance = .25f * circumference;
                 solarOrbitNode.Edges.Add(
-                    new NavigableEdge(solarOrbitNode, localOrbitNode, NavigableEdgeType.SPACE, orbitDistance));
+                    new NavigableEdge(solarOrbitNode, localOrbitNode, NavigableEdgeType.Space, orbitDistance));
                 localOrbitNode.Edges.Add(
-                    new NavigableEdge(localOrbitNode, solarOrbitNode, NavigableEdgeType.SPACE, orbitDistance));
+                    new NavigableEdge(localOrbitNode, solarOrbitNode, NavigableEdgeType.Space, orbitDistance));
 
                 foreach (var groundRegion in StarSystem.Orbiters[i].Regions.SelectMany(x => x.SubRegions))
                 {
@@ -339,7 +340,7 @@ namespace SpaceOpera.Core.Universe
                                 new NavigableEdge(
                                     groundNode,
                                     neighborNode,
-                                    NavigableEdgeType.GROUND,
+                                    NavigableEdgeType.Ground,
                                     (float)MathUtils.ArcLength(
                                         groundRegion.Center, neighborRegion.Center, StarSystem.Orbiters[i].Radius)));
                         }
@@ -353,13 +354,13 @@ namespace SpaceOpera.Core.Universe
                         new NavigableEdge(
                             localOrbitNode, 
                             orbitNode,
-                            NavigableEdgeType.SPACE,
+                            NavigableEdgeType.Space,
                             highOrbitAltitude - geosynchronousOrbitAltitude));
                     orbitNode.Edges.Add(
                         new NavigableEdge(
                             orbitNode,
                             localOrbitNode,
-                            NavigableEdgeType.SPACE, 
+                            NavigableEdgeType.Space, 
                             highOrbitAltitude - geosynchronousOrbitAltitude));
 
                     foreach (var groundRegion in orbitRegion.SubRegions)
@@ -373,13 +374,13 @@ namespace SpaceOpera.Core.Universe
                                 new NavigableEdge(
                                     orbitNode, 
                                     groundNode,
-                                    NavigableEdgeType.SPACE_GROUND, 
+                                    NavigableEdgeType.SpaceGround, 
                                     geosynchronousOrbitAltitude));
                             groundNode.Edges.Add(
                                 new NavigableEdge(
                                     groundNode,
                                     orbitNode, 
-                                    NavigableEdgeType.GROUND_SPACE,
+                                    NavigableEdgeType.GroundSpace,
                                     geosynchronousOrbitAltitude));
                         }
                     }
@@ -397,7 +398,7 @@ namespace SpaceOpera.Core.Universe
                                 StarSystem.OrbitalRegions[i - 1],
                                 otherOrbitDistance, 
                                 null), 
-                            NavigableEdgeType.SPACE, 
+                            NavigableEdgeType.Space, 
                             averageDistance - otherOrbitDistance));
                 }
                 if (i < StarSystem.OrbitalRegions.Count - 1)
@@ -413,7 +414,7 @@ namespace SpaceOpera.Core.Universe
                                 StarSystem.OrbitalRegions[i + 1],
                                 otherOrbitDistance,
                                 null),
-                            NavigableEdgeType.SPACE,
+                            NavigableEdgeType.Space,
                             otherOrbitDistance - averageDistance));
                 }
             }
@@ -433,7 +434,7 @@ namespace SpaceOpera.Core.Universe
                     new NavigableEdge(
                         node,
                         otherNode,
-                        NavigableEdgeType.JUMP,
+                        NavigableEdgeType.Jump,
                         (float)GetStarSystemDistance(StarSystem, transits[i].TransitSystem)));
                 if (transits.Count > 1)
                 {
@@ -446,7 +447,7 @@ namespace SpaceOpera.Core.Universe
                                 transits[(i + transits.Count - 1) % transits.Count],
                                 StarSystem.TransitLimit,
                                 null),
-                            NavigableEdgeType.SPACE,
+                            NavigableEdgeType.Space,
                             (float)MathUtils.ArcLength(
                                 transits[i].TransitSystem.Position - StarSystem.Position,
                                 transits[(i + transits.Count - 1) % transits.Count].TransitSystem.Position
@@ -461,7 +462,7 @@ namespace SpaceOpera.Core.Universe
                                 transits[(i + 1) % transits.Count],
                                 StarSystem.TransitLimit,
                                 null),
-                            NavigableEdgeType.SPACE,
+                            NavigableEdgeType.Space,
                             (float)MathUtils.ArcLength(
                                 transits[i].TransitSystem.Position - StarSystem.Position,
                                 transits[(i + 1) % transits.Count].TransitSystem.Position - StarSystem.Position,
@@ -475,8 +476,8 @@ namespace SpaceOpera.Core.Universe
                     var distance = StarSystem.TransitLimit - orbitDistance + 0.25f * circumference;
                     var outerOrbitNode = GetOrCreateNode(outerOrbit, StarSystem, outerOrbit, orbitDistance, null);
                     outerOrbitNode.Edges.Add(
-                        new NavigableEdge(outerOrbitNode, node, NavigableEdgeType.SPACE, distance));
-                    node.Edges.Add(new NavigableEdge(node, outerOrbitNode, NavigableEdgeType.SPACE, distance));
+                        new NavigableEdge(outerOrbitNode, node, NavigableEdgeType.Space, distance));
+                    node.Edges.Add(new NavigableEdge(node, outerOrbitNode, NavigableEdgeType.Space, distance));
                 }
             }
         }

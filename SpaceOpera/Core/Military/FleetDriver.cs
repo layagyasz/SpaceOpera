@@ -1,3 +1,4 @@
+using Cardamom.Graphing.BehaviorTree;
 using SpaceOpera.Core.Military.Actions;
 using SpaceOpera.Core.Military.Routines;
 using SpaceOpera.Core.Universe;
@@ -11,9 +12,9 @@ namespace SpaceOpera.Core.Military
 
         public Fleet Fleet { get; }
         public FleetAssignment Assignment { get; private set; }
-        private HashSet<INavigable> _ActiveRegion { get; set; } = new();
+        private HashSet<INavigable> _activeRegion = new();
 
-        private ISupplierNode<IAction, FleetContext> _ai;
+        private readonly ISupplierNode<IAction, FleetContext> _ai;
         private IAction? _action;
 
         public FleetDriver(Fleet fleet)
@@ -25,7 +26,7 @@ namespace SpaceOpera.Core.Military
 
         public IEnumerable<INavigable> GetActiveRegion()
         {
-            return _ActiveRegion;
+            return _activeRegion;
         }
 
         public void SetAssignment(FleetAssignment action)
@@ -36,7 +37,7 @@ namespace SpaceOpera.Core.Military
 
         public void SetActiveRegion(IEnumerable<INavigable> activeRegion)
         {
-            _ActiveRegion = new HashSet<INavigable>(activeRegion);
+            _activeRegion = new HashSet<INavigable>(activeRegion);
             OnOrderUpdated?.Invoke(this, EventArgs.Empty);
         }
 

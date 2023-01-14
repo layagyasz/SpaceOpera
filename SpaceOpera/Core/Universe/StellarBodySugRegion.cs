@@ -17,7 +17,7 @@ namespace SpaceOpera.Core.Universe
 
         public int Id { get; }
         public string Name { get { return ParentRegion.Name; } }
-        public NavigableNodeType NavigableNodeType => NavigableNodeType.GROUND;
+        public NavigableNodeType NavigableNodeType => NavigableNodeType.Ground;
         public Vector4f Center { get; }
         public CSpherical SphericalCenter { get; }
         public Biome Biome { get; }

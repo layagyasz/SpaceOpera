@@ -2,5 +2,12 @@
 {
     public enum NavigableEdgeType
     {
+        Unknown,
+        Space,
+        Ground,
+        Sea,
+        SpaceGround,
+        GroundSpace,
+        Jump
     }
 }

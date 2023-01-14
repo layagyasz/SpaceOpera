@@ -5,7 +5,7 @@ namespace SpaceOpera.Core.Designs
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum ComponentType
     {
-        None,
+        Unknown,
 
         InfantryPlatform,
 

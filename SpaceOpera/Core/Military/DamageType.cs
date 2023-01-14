@@ -5,7 +5,7 @@ namespace SpaceOpera.Core.Military
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum DamageType
     {
-        None,
+        Unknown,
         Kinetic,
         Energy,
         ElectroMagnetic

@@ -1,3 +1,5 @@
+using Cardamom.Collections;
+using Cardamom.Graphing.BehaviorTree;
 using SpaceOpera.Core.Military.Actions;
 using SpaceOpera.Core.Universe;
 using static SpaceOpera.Core.Military.SpaceOperaContext;
@@ -9,7 +11,7 @@ namespace SpaceOpera.Core.Military.Routines
         private readonly ISupplierNode<INavigable, FleetContext> _destination;
         private readonly EnumSet<NavigableEdgeType> _allowedEdgeTypes;
 
-        private Stack<NavigationMap.Movement> _cachedPath;
+        private Stack<NavigationMap.Movement>? _cachedPath;
 
         public MoveNode(
             ISupplierNode<INavigable, FleetContext> destination,
@@ -19,21 +21,21 @@ namespace SpaceOpera.Core.Military.Routines
             _allowedEdgeTypes = allowedEdgeTypes;
         }
 
-        public AdansoniaNodeResult<IAction> Execute(FleetContext context)
+        public BehaviorNodeResult<IAction> Execute(FleetContext context)
         {
-            var currentPosition = context.Fleet.Fleet.Position;
+            var currentPosition = context.Fleet.Fleet.Position!;
             var destination = _destination.Execute(context);
             if (!destination.Status.Complete)
             {
-                return AdansoniaNodeResult<IAction>.NotRun();
+                return BehaviorNodeResult<IAction>.NotRun();
             }
             if (currentPosition == destination.Result || destination.Result == null)
             {
-                return AdansoniaNodeResult<IAction>.NotRun();
+                return BehaviorNodeResult<IAction>.NotRun();
             }
             if (_cachedPath?.Peek().Destination == currentPosition)
             {
-                _cachedPath.Pop();
+                _cachedPath!.Pop();
                 if (_cachedPath?.Count == 0)
                 {
                     _cachedPath = null;
@@ -46,7 +48,7 @@ namespace SpaceOpera.Core.Military.Routines
                 _cachedPath = 
                     context.World.NavigationMap.FindPath(currentPosition, destination.Result, _allowedEdgeTypes);
             }
-            return AdansoniaNodeResult<IAction>.Complete(new MoveAction(_cachedPath.Peek()));
+            return BehaviorNodeResult<IAction>.Complete(new MoveAction(_cachedPath.Peek()));
         }
     }
 }

@@ -79,11 +79,11 @@ namespace SpaceOpera.Core.Military
         {
             switch (type)
             {
-                case NavigableEdgeType.SPACE:
+                case NavigableEdgeType.Space:
                     return 50;
-                case NavigableEdgeType.JUMP:
+                case NavigableEdgeType.Jump:
                     return 500000000;
-                case NavigableEdgeType.GROUND:
+                case NavigableEdgeType.Ground:
                     return 1;
                 default:
                     return 0;
