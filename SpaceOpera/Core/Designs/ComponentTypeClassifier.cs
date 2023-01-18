@@ -22,7 +22,7 @@ namespace SpaceOpera.Core.Designs
         public IEnumerable<ComponentTag> GetTags(DesignConfiguration design)
         {
             return ClassificationOptions
-                .SelectMany(x => x.ArgMax(y => y.GetFit(design)).Tags)
+                .SelectMany(x => x.ArgMax(y => y.GetFit(design))!.Tags)
                 .Distinct();
         }
 

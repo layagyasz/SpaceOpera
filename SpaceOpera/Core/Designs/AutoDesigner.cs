@@ -61,31 +61,31 @@ namespace SpaceOpera.Core.Designs
                 template, template.Segments.Select(x => DesignSegment(x, parameters, availableComponents, random)));
         }
 
-        public DesignConfiguration ContinueSeries(
+        public static DesignConfiguration ContinueSeries(
             DesignSeries series, IEnumerable<IComponent> availableComponents, Random random)
         {
             return DesignWithSegmentConfigurations(
                 series.GetDesignTemplate(), series.GetSegmentConfiguration(), availableComponents, random);
         }
 
-        private Segment DesignSegment(
+        private static Segment DesignSegment(
             SegmentTemplate template, 
             AutoDesignerParameters parameters, 
             IEnumerable<IComponent> availableComponents,
-            Random Random)
+            Random random)
         {
             return
                 template.ConfigurationOptions
-                    .Select(x => DesignSegmentWithConfiguration(template, x, parameters, availableComponents, Random))
-                    .ArgMaxRandomlySelecting(parameters.GetFitness, Random);
+                    .Select(x => DesignSegmentWithConfiguration(template, x, parameters, availableComponents, random))
+                    .ArgMaxRandomlySelecting(parameters.GetFitness, random);
         }
 
-        private Segment DesignSegmentWithConfiguration(
+        private static Segment DesignSegmentWithConfiguration(
             SegmentTemplate template,
             SegmentConfiguration configuration,
             AutoDesignerParameters parameters,
             IEnumerable<IComponent> availableComponents, 
-            Random Random)
+            Random random)
         {
             var components = new MultiMap<DesignSlot, IComponent>();
             foreach (var slot in configuration.Slots)
@@ -94,28 +94,28 @@ namespace SpaceOpera.Core.Designs
                     slot, 
                     Enumerable.Repeat(
                         availableComponents
-                            .Where(x => x.FitsSlot(slot)).ArgMaxRandomlySelecting(parameters.GetFitness, Random),
+                            .Where(x => x.FitsSlot(slot)).ArgMaxRandomlySelecting(parameters.GetFitness, random),
                         slot.Count));
             }
             return new Segment(template, configuration, components);
         }
 
-        private DesignConfiguration DesignWithSegmentConfigurations(
-            DesignTemplate Template,
-            Dictionary<SegmentTemplate, SegmentConfiguration> SegmentConfigurations,
-            IEnumerable<IComponent> AvailableComponents, 
-            Random Random)
+        private static DesignConfiguration DesignWithSegmentConfigurations(
+            DesignTemplate template,
+            Dictionary<SegmentTemplate, SegmentConfiguration> segmentConfigurations,
+            IEnumerable<IComponent> availableComponents, 
+            Random random)
         {
             var components =
-                SegmentConfigurations
+                segmentConfigurations
                     .SelectMany(x => x.Value.Slots)
                     .Select(x => x)
                     .Distinct()
-                    .ToDictionary(x => x, x => AvailableComponents.Where(y => y.FitsSlot(x)).ToList());
-            var selectedComponents = components.ToDictionary(x => x.Key, x => x.Value[Random.Next(0, x.Value.Count)]);
+                    .ToDictionary(x => x, x => availableComponents.Where(y => y.FitsSlot(x)).ToList());
+            var selectedComponents = components.ToDictionary(x => x.Key, x => x.Value[random.Next(0, x.Value.Count)]);
 
             var segments = new List<Segment>();
-            foreach (var segmentConfiguration in SegmentConfigurations)
+            foreach (var segmentConfiguration in segmentConfigurations)
             {
                 var componentMap = new MultiMap<DesignSlot, IComponent>();
                 foreach (var slot in segmentConfiguration.Value.Slots)
@@ -125,7 +125,7 @@ namespace SpaceOpera.Core.Designs
                 segments.Add(new Segment(segmentConfiguration.Key, segmentConfiguration.Value, componentMap));
             }
 
-            return new DesignConfiguration(Template, segments);
+            return new DesignConfiguration(template, segments);
         }
     }
 }

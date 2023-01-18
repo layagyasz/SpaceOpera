@@ -48,7 +48,7 @@ namespace SpaceOpera.Core.Designs
 
         private static EnumMap<TKey, float> TotalModifiers<TKey>(EnumMap<TKey, Modifier> map) where TKey : Enum
         {
-            EnumMap<TKey, float> values = new EnumMap<TKey, float>();
+            EnumMap<TKey, float> values = new();
             foreach (var entry in map)
             {
                 values[entry.Key] = entry.Value.GetTotal();

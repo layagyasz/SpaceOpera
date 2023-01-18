@@ -36,8 +36,7 @@ namespace SpaceOpera.Core.Designs
         protected virtual Dictionary<IMaterial, Modifier> ComputeMaterialCosts(
             float modifier, IEnumerable<ComponentAndSlot> components)
         {
-            Dictionary<MaterialReference, MultiQuantity<IMaterial>> referenceMaterials =
-                new Dictionary<MaterialReference, MultiQuantity<IMaterial>>();
+            Dictionary<MaterialReference, MultiQuantity<IMaterial>> referenceMaterials = new();
             foreach (var component in components.Select(x => x.Component))
             {
                 if (component.ReferenceMaterial != null)
@@ -81,7 +80,7 @@ namespace SpaceOpera.Core.Designs
                 }
             }
 
-            Dictionary<IMaterial, Modifier> finalCost = new Dictionary<IMaterial, Modifier>();
+            Dictionary<IMaterial, Modifier> finalCost = new();
             foreach (var material in materials)
             {
                 finalCost.Add(material.Key, modifier * material.Value.Combine());

@@ -1,10 +1,5 @@
 using SpaceOpera.Core.Economics;
 using SpaceOpera.Core.Military;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpaceOpera.Core.Designs
 {
@@ -12,64 +7,60 @@ namespace SpaceOpera.Core.Designs
     {
         public ComponentClassifier UnitClassifier { get; }
 
-        public DesignBuilder(ComponentClassifier UnitClassifier)
+        public DesignBuilder(ComponentClassifier unitClassifier)
         {
-            this.UnitClassifier = UnitClassifier;
+            UnitClassifier = unitClassifier;
         }
 
-        public Design Build(DesignConfiguration Design)
+        public Design Build(DesignConfiguration design)
         {
-            var tags = UnitClassifier.Classify(Design);
-            var components = BuildComponents(Design, tags).ToList();
+            var tags = UnitClassifier.Classify(design);
+            var components = BuildComponents(design, tags).ToList();
             var recipes = 
                 components
                     .Where(x => x is DesignedMaterial)
                     .Cast<DesignedMaterial>()
-                    .Select(x => Recipe.ForDesignedMaterial(x, Design.Template.Structure))
+                    .Select(x => Recipe.ForDesignedMaterial(x, design.Template.Structure!))
                     .ToList();
-            return new Design(Design, tags, components, recipes);
+            return new Design(design, tags, components, recipes);
         }
 
-        private IEnumerable<DesignedComponent> BuildComponents(DesignConfiguration Design, IEnumerable<ComponentTag> Tags)
+        private static IEnumerable<DesignedComponent> BuildComponents(
+            DesignConfiguration design, IEnumerable<ComponentTag> tags)
         {
-            if (Design.Template.Sizes == null)
+            if (design.Template.Sizes == null)
             {
                 yield return BuildComponent(
-                    Design.Name, 
-                    new ComponentSlot() { Size = ComponentSize.NONE, Type = Design.Template.Type },
-                    Design.GetComponents(), 
-                    Tags);
+                    design.Name, 
+                    new ComponentSlot() { Size = ComponentSize.Unknown, Type = design.Template.Type },
+                    design.GetComponents(), 
+                    tags);
             }
             else
             {
-                foreach (var size in Design.Template.Sizes)
+                foreach (var size in design.Template.Sizes)
                 {
-                    var components = Design.GetComponents().ToList();
+                    var components = design.GetComponents().ToList();
                     components.Add(new ComponentAndSlot(new DesignSlot() { Count = 1, Weight = 1 }, size.Value));
                     yield return BuildComponent(
-                        string.Format("{0} ({1})", Design.Name, StringUtils.FormatEnumChar(size.Key.ToString())),
-                        new ComponentSlot() { Size = size.Key, Type = Design.Template.Type },
+                        string.Format("{0} ({1})", design.Name, StringUtils.FormatEnumChar(size.Key.ToString())),
+                        new ComponentSlot() { Size = size.Key, Type = design.Template.Type },
                         components,
-                        Tags);
+                        tags);
                 }
             }
         }
 
-        private DesignedComponent BuildComponent(
-            string Name, ComponentSlot Slot, IEnumerable<ComponentAndSlot> Components, IEnumerable<ComponentTag> Tags)
+        private static DesignedComponent BuildComponent(
+            string name, ComponentSlot slot, IEnumerable<ComponentAndSlot> components, IEnumerable<ComponentTag> tags)
         {
-            switch (Slot.Type)
+            return slot.Type switch
             {
-                case ComponentType.Infantry:
-                case ComponentType.Ship:
-                    return new Unit(Name, Slot, Components, Tags);
-                case ComponentType.BattalionTemplate:
-                    return new BattalionTemplate(Name, Slot, Components, Tags);
-                case ComponentType.DivisionTemplate:
-                    return new DivisionTemplate(Name, Slot, Components, Tags);
-                default:
-                    return new DesignedComponent(Name, Slot, Components, Tags);
-            }
+                ComponentType.Infantry or ComponentType.Ship => new Unit(name, slot, components, tags),
+                ComponentType.BattalionTemplate => new BattalionTemplate(name, slot, components, tags),
+                ComponentType.DivisionTemplate => new DivisionTemplate(name, slot, components, tags),
+                _ => new DesignedComponent(name, slot, components, tags),
+            };
         }
     }
 }

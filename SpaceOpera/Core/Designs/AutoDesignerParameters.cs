@@ -12,9 +12,9 @@ namespace SpaceOpera.Core.Designs
             return AttributeFitness == null ? 0 : AttributeFitness.Sum(x => x.Value * component.GetAttribute(x.Key));
         }
 
-        public float GetFitness(Segment Segment)
+        public float GetFitness(Segment segment)
         {
-            return Segment.GetComponents().Sum(x => x.Value.Sum(y => GetFitness(y)));
+            return segment.GetComponents().Sum(x => x.Value.Sum(y => GetFitness(y)));
         }
     }
 }

@@ -2,6 +2,8 @@ namespace SpaceOpera.Core.Designs
 {
     public enum ComponentAttribute
     {
+        Unknowm,
+
         // Generic
         DamageResist,
         Size,

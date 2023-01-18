@@ -1,4 +1,4 @@
-using Cardamom.Randoms;
+using Cardamom.Utils.Generators.Samplers;
 using SpaceOpera.Core.Universe;
 
 namespace SpaceOpera.Core.Economics.Generator

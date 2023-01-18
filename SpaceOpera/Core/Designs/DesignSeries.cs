@@ -4,26 +4,26 @@ namespace SpaceOpera.Core.Designs
     {
         public string Name { get; private set; } = string.Empty;
 
-        private List<DesignConfiguration> _Designs = new List<DesignConfiguration>();
+        private List<DesignConfiguration> _designs = new();
 
-        public DesignSeries(DesignConfiguration InitialDesign)
+        public DesignSeries(DesignConfiguration initialDesign)
         {
-            _Designs.Add(InitialDesign);
+            _designs.Add(initialDesign);
         }
 
-        public void SetName(string Name)
+        public void SetName(string name)
         {
-            this.Name = Name;
+            this.Name = name;
         }
 
         public DesignTemplate GetDesignTemplate()
         {
-            return _Designs.First().Template;
+            return _designs.First().Template;
         }
 
         public Dictionary<SegmentTemplate, SegmentConfiguration> GetSegmentConfiguration()
         {
-            return _Designs.First().GetSegments().ToDictionary(x => x.Template, x => x.Configuration);
+            return _designs.First().GetSegments().ToDictionary(x => x.Template, x => x.Configuration);
         }
     }
 }

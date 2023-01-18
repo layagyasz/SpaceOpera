@@ -1,5 +1,5 @@
-using Cardamom.Randoms;
 using Cardamom.Trackers;
+using Cardamom.Utils.Generators.Samplers;
 
 namespace SpaceOpera.Core.Languages.Generator
 {

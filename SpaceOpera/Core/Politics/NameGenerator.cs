@@ -93,26 +93,19 @@ namespace SpaceOpera.Core.Politics
 
         public static NameType ToNameType(ComponentType type)
         {
-            switch (type)
+            return type switch
             {
-                case ComponentType.Ship:
-                    return NameType.Ship;
-                case ComponentType.Infantry:
-                    return NameType.Infantry;
-                case ComponentType.BattalionTemplate:
-                    return NameType.BattalionTemplate;
-                case ComponentType.DivisionTemplate:
-                    return NameType.DivisionTemplate;
-                case ComponentType.ShipWeapon:
-                case ComponentType.ShipPointDefense:
-                case ComponentType.ShipMissile:
-                case ComponentType.PersonalWeapon:
-                    return NameType.Weapon;
-                case ComponentType.ShipShield:
-                    return NameType.Shield;
-                default:
-                    throw new ArgumentException($"Unsupported ComponentType: [{type}].");
-            }
+                ComponentType.Ship => NameType.Ship,
+                ComponentType.Infantry => NameType.Infantry,
+                ComponentType.BattalionTemplate => NameType.BattalionTemplate,
+                ComponentType.DivisionTemplate => NameType.DivisionTemplate,
+                ComponentType.ShipWeapon 
+                    or ComponentType.ShipPointDefense
+                    or ComponentType.ShipMissile 
+                    or ComponentType.PersonalWeapon => NameType.Weapon,
+                ComponentType.ShipShield => NameType.Shield,
+                _ => throw new ArgumentException($"Unsupported ComponentType: [{type}]."),
+            };
         }
     }
 }

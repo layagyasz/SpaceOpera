@@ -1,5 +1,5 @@
-﻿using Cardamom.Randoms;
-using Cardamom.Trackers;
+﻿using Cardamom.Trackers;
+using Cardamom.Utils.Generators.Samplers;
 using SpaceOpera.Core.Universe;
 
 namespace SpaceOpera.Core.Economics.Generator

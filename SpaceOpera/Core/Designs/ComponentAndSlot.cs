@@ -2,13 +2,13 @@
 {
     public class ComponentAndSlot
     {
-        public IComponent Component { get; }
         public DesignSlot Slot { get; }
+        public IComponent Component { get; }
 
-        public ComponentAndSlot(IComponent component, DesignSlot slot)
+        public ComponentAndSlot(DesignSlot slot, IComponent component)
         {
-            Component = component;
             Slot = slot;
+            Component = component;
         }
     }
 }

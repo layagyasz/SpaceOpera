@@ -1,6 +1,6 @@
 ﻿namespace SpaceOpera.Core.Designs
 {
-    public class BaseComponent
+    public class BaseComponent : ComponentBase
     {
     }
 }

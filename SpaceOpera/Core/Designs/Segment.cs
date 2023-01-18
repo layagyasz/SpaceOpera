@@ -31,7 +31,7 @@ namespace SpaceOpera.Core.Designs
         {
             return Enumerable.Concat(
                 Configuration.IntrinsicComponent?.Tags ?? Enumerable.Empty<ComponentTag>(),
-                _components.SelectMany(x => x.Value.Select(x => x.Tags)));
+                _components.SelectMany(x => x.Value.SelectMany(x => x.Tags)));
         }
 
         public bool Validate()

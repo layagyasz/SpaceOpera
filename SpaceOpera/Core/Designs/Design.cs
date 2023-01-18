@@ -10,15 +10,15 @@ namespace SpaceOpera.Core.Designs
         public List<Recipe> Recipes { get; }
 
         public Design(
-            DesignConfiguration Configuration, 
-            IEnumerable<ComponentTag> Tags,
-            IEnumerable<DesignedComponent> Components,
-            IEnumerable<Recipe> Recipes)
+            DesignConfiguration configuration, 
+            IEnumerable<ComponentTag> tags,
+            IEnumerable<DesignedComponent> components,
+            IEnumerable<Recipe> recipes)
         {
-            this.Configuration = Configuration;
-            this.Tags = Tags.ToList();
-            this.Components = Components.ToList();
-            this.Recipes = Recipes.ToList();
+            Configuration = configuration;
+            Tags = tags.ToList();
+            Components = components.ToList();
+            Recipes = recipes.ToList();
         }
     }
 }
