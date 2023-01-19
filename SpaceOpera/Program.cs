@@ -15,12 +15,12 @@ namespace SpaceOpera
         static void Main(string[] args)
         {
             GameData gameData = GameData.FromPath("Resources");
-            Random random = new Random();
+            Random random = new();
 
-            Culture culture = gameData.PoliticsGenerator.Culture.Generate(random);
+            Culture culture = gameData.PoliticsGenerator.Culture!.Generate(random);
             Faction faction =
-                gameData.PoliticsGenerator.Faction.Generate(
-                    culture, gameData.PoliticsGenerator.Banner.Generate(random), random);
+                gameData.PoliticsGenerator.Faction!.Generate(
+                    culture, gameData.PoliticsGenerator.Banner!.Generate(random), random);
             World world = World.Generate(culture, faction, gameData, random);
 
 

@@ -1,10 +1,11 @@
 using Cardamom;
 using Cardamom.Collections;
+using Cardamom.Graphing;
+using Cardamom.Mathematics.Coordinates;
 using Cardamom.Mathematics.Coordinates.Projections;
 using Cardamom.Utils.Generators.Samplers;
 using DelaunayTriangulator;
 using OpenTK.Mathematics;
-using SpaceOpera.Core.Voronoi;
 
 namespace SpaceOpera.Core.Universe.Generator
 {
@@ -93,7 +94,7 @@ namespace SpaceOpera.Core.Universe.Generator
 
         private StellarBody GenerateAux(Random random, Orbit orbit)
         { 
-            double radius = RadiusSampler!.Sample(random);
+            float radius = RadiusSampler!.Generate(random);
             int subRegionCount = (int)Math.Ceiling(4 * SubRegionDensity * Math.PI * radius * radius);
 
             List<Vector3> centers = new();
@@ -115,7 +116,7 @@ namespace SpaceOpera.Core.Universe.Generator
             }
 
             List<Triad> triads = VoronoiGrapher.GetTriangulation(vertices);
-            VoronoiGrapher.NeighborsResult result = VoronoiGrapher.GetNeighbors(vertices, triads);
+            VoronoiGrapher.VoronoiNeighborsResult result = VoronoiGrapher.GetNeighbors(vertices, triads);
             result.Neighbors.Add(result.EdgeIndices);
             centers.Add(new(0, 0, 1));
 
@@ -123,7 +124,7 @@ namespace SpaceOpera.Core.Universe.Generator
             List<SubRegionWrapper> subRegionWrappers = new();
             for (int i=0;i<subRegionCount;++i)
             {
-                Vector4 center = centers[i] * (float)radius;
+                Vector3 center = centers[i] * (float)radius;
                 Spherical3 centerSpherical = center.AsSpherical();
                 Biome biome = BiomeSelector.Select(center, centerSpherical);
                 var subRegion = new StellarBodySubRegion(i, center, centerSpherical, biome);
@@ -239,7 +240,7 @@ namespace SpaceOpera.Core.Universe.Generator
             return new StellarBody(
                 Name,
                 radius,
-                4 * Density * Math.PI * radius * radius * radius / 3,
+                4 * Density * MathF.PI * radius * radius * radius / 3,
                 orbit,
                 AtmosphereGenerator.Generate(random), 
                 regions, 

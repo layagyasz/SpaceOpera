@@ -3,7 +3,7 @@ using SpaceOpera.Core.Military;
 
 namespace SpaceOpera.Core.Designs
 {
-    class DesignBuilder
+    public class DesignBuilder
     {
         public ComponentClassifier UnitClassifier { get; }
 

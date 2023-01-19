@@ -1,6 +1,6 @@
+using Cardamom.Mathematics.Comparers;
 using OpenTK.Mathematics;
 using SpaceOpera.Core.Politics;
-using SpaceOpera.Core.Voronoi;
 
 namespace SpaceOpera.Core.Universe
 {
@@ -57,7 +57,7 @@ namespace SpaceOpera.Core.Universe
         public void SetNeighbors(IEnumerable<StarSystem> neighbors)
         {
             Neighbors = neighbors.ToList();
-            var comparer = new ClockwiseVector2fComparer(Position);
+            var comparer = new ClockwiseVector2Comparer(Position);
             Neighbors.Sort((x, y) => comparer.Compare(x.Position, y.Position));
         }
     }

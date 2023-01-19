@@ -1,5 +1,6 @@
 using Cardamom.Collections;
 using SpaceOpera.Core.Economics;
+using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Politics;
 
 namespace SpaceOpera.Core.Universe
@@ -83,7 +84,7 @@ namespace SpaceOpera.Core.Universe
 
         public IEnumerable<StellarBodyRegion> GetNeighbors()
         {
-            return SubRegions.SelectMany(x => x.Neighbors).Select(x => x.ParentRegion!).Where(x => x != this);
+            return SubRegions.SelectMany(x => x.Neighbors!).Select(x => x.ParentRegion!).Where(x => x != this);
         }
 
         private void HandleDivisionAdded(object? sender, ElementEventArgs<Division> e)

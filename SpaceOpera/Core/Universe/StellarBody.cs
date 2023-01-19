@@ -47,11 +47,11 @@ namespace SpaceOpera.Core.Universe
             return Regions.Any(x => x.Sovereign == faction);
         }
 
-        public double GetGeosynchronousOrbitAltitude()
+        public float GetGeosynchronousOrbitAltitude()
         {
             // 24hrs.  Use random day length instead.
             return Constants.AstralUnit 
-                * (Math.Pow(7464960000 * Constants.GravitationalConstant * Mass / (4 * Math.PI * Math.PI), 0.3333) 
+                * (MathF.Pow(7464960000 * Constants.GravitationalConstant * Mass / (4 * MathF.PI * MathF.PI), 0.3333f) 
                     - Radius);
         }
 

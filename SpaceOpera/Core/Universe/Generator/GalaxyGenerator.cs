@@ -1,6 +1,6 @@
+using Cardamom.Graphing;
 using DelaunayTriangulator;
 using OpenTK.Mathematics;
-using SpaceOpera.Core.Voronoi;
 
 namespace SpaceOpera.Core.Universe.Generator
 {
@@ -32,7 +32,7 @@ namespace SpaceOpera.Core.Universe.Generator
 
             public float HeuristicDistanceTo(SystemWrapper node)
             {
-                return MathUtils.Distance(System.Position, node.System.Position);
+                return Vector2.Distance(System.Position, node.System.Position);
             }
 
             public void SetNeighbors(IEnumerable<SystemWrapper> wrappers)
@@ -71,7 +71,7 @@ namespace SpaceOpera.Core.Universe.Generator
 
             Triangulator triangulator = new Triangulator();
             List<Triad> triads = triangulator.Triangulation(vertices);
-            VoronoiGrapher.NeighborsResult result = VoronoiGrapher.GetNeighbors(vertices, triads);
+            VoronoiGrapher.VoronoiNeighborsResult result = VoronoiGrapher.GetNeighbors(vertices, triads);
 
             List<SystemWrapper> systemWrappers = new();
             for (int i=0; i< StarCount; ++i)

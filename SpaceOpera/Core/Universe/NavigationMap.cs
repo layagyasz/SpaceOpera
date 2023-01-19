@@ -36,7 +36,7 @@ namespace SpaceOpera.Core.Universe
             public INavigable Navigable { get; }
             public StarSystem StarSystem { get; }
             public INavigable SystemNode { get; }
-            public double OrbitDistance { get; }
+            public float OrbitDistance { get; }
             public StellarBody? StellarBody { get; }
             public List<NavigableEdge> Edges { get; } = new();
 
@@ -48,7 +48,7 @@ namespace SpaceOpera.Core.Universe
                 INavigable navigable,
                 StarSystem starSystem, 
                 INavigable systemNode,
-                double orbitDistance, 
+                float orbitDistance, 
                 StellarBody? stellarBody)
             {
                 Navigable = navigable;
@@ -245,7 +245,7 @@ namespace SpaceOpera.Core.Universe
             INavigable navigable, 
             StarSystem starSystem,
             INavigable systemNode, 
-            double orbitDistance, 
+            float orbitDistance, 
             StellarBody? stellarBody)
         {
             if (_nodes.TryGetValue(navigable, out var node))
@@ -325,7 +325,7 @@ namespace SpaceOpera.Core.Universe
                 {
                     if (groundRegion.Biome.IsTraversable)
                     {
-                        foreach (var neighborRegion in groundRegion.Neighbors.Where(x => x.Biome.IsTraversable))
+                        foreach (var neighborRegion in groundRegion.Neighbors!.Where(x => x.Biome.IsTraversable))
                         {
                             var groundNode =
                                 GetOrCreateNode(
