@@ -1,55 +1,48 @@
-using Cardamom.Utilities;
+using Cardamom.Collections;
 using SpaceOpera.Core.Economics;
-using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Politics;
-using SpaceOpera.View;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpaceOpera.Core.Universe
 {
     public class StellarBodyRegion
     {
-        public EventHandler<ElementEventArgs<Division>> OnDivisionAdded { get; set; }
+        public EventHandler<ElementEventArgs<Division>>? OnDivisionAdded { get; set; }
 
-        public string Name { get; private set; }
+        public string Name { get; private set; } = string.Empty;
         public StellarBodySubRegion Center { get; }
         public Biome DominantBiome { get; }
-        public StellarBody Parent { get; private set; }
+        public StellarBody? Parent { get; private set; }
         public List<StellarBodySubRegion> SubRegions { get; }
-        public List<ResourceNode> Resources { get; } = new List<ResourceNode>();
+        public List<ResourceNode> Resources { get; } = new();
         public uint StructureNodes { get; private set; }
         public uint Population { get; private set; }
 
-        public Faction Sovereign { get; private set; }
+        public Faction? Sovereign { get; private set; }
 
-        public StellarBodyRegion(StellarBodySubRegion Center, IEnumerable<StellarBodySubRegion> SubRegions)
+        public StellarBodyRegion(StellarBodySubRegion center, IEnumerable<StellarBodySubRegion> subRegions)
         {
-            this.Center = Center;
-            this.DominantBiome =
-                SubRegions
-                .GroupBy(x => x.Biome)
-                .Select(x => new KeyValuePair<Biome, int>(x.Key, x.Count()))
-                .ArgMax(x => x.Value).Key;
-            this.SubRegions = SubRegions.ToList();
+            Center = center;
+            DominantBiome =
+                subRegions
+                    .GroupBy(x => x.Biome)
+                    .Select(x => new KeyValuePair<Biome, int>(x.Key, x.Count()))
+                    .ArgMax(x => x.Value)!.Key;
+            SubRegions = subRegions.ToList();
 
-            foreach (var region in SubRegions)
+            foreach (var region in subRegions)
             {
                 region.OnDivisionAdded += HandleDivisionAdded;
             }
         }
 
-        public void AddPopulation(uint Population)
+        public void AddPopulation(uint population)
         {
-            this.Population += Population;
+            Population += population;
         }
 
-        public void AddResources(IEnumerable<ResourceNode> ResourceNodes)
+        public void AddResources(IEnumerable<ResourceNode> resourceNodes)
         {
-            foreach (var node in ResourceNodes)
+            foreach (var node in resourceNodes)
             {
                 var currentNode = Resources.FirstOrDefault(x => node.Resource == x.Resource);
                 if (currentNode == null)
@@ -63,39 +56,39 @@ namespace SpaceOpera.Core.Universe
             }
         }
 
-        public void AddStructureNodes(uint StructureNodes)
+        public void AddStructureNodes(uint structureNodes)
         {
-            this.StructureNodes += StructureNodes;
+            StructureNodes += structureNodes;
         }
 
-        public int GetResourceSize(IMaterial Resource)
+        public int GetResourceSize(IMaterial resource)
         {
-            return Resources.FirstOrDefault(x => x.Resource == Resource)?.Size ?? 0;
+            return Resources.FirstOrDefault(x => x.Resource == resource)?.Size ?? 0;
         }
 
-        public void SetName(string Name)
+        public void SetName(string name)
         {
-            this.Name = Name;
+            this.Name = name;
         }
 
-        public void SetParent(StellarBody Parent)
+        public void SetParent(StellarBody parent)
         {
-            this.Parent = Parent;
+            this.Parent = parent;
         }
 
-        public void SetSovereign(Faction Sovereign)
+        public void SetSovereign(Faction sovereign)
         {
-            this.Sovereign = Sovereign;
+            this.Sovereign = sovereign;
         }
 
         public IEnumerable<StellarBodyRegion> GetNeighbors()
         {
-            return SubRegions.SelectMany(x => x.Neighbors).Select(x => x.ParentRegion).Where(x => x != this);
+            return SubRegions.SelectMany(x => x.Neighbors).Select(x => x.ParentRegion!).Where(x => x != this);
         }
 
-        private void HandleDivisionAdded(object Sender, ElementEventArgs<Division> E)
+        private void HandleDivisionAdded(object? sender, ElementEventArgs<Division> e)
         {
-            OnDivisionAdded?.Invoke(this, E);
+            OnDivisionAdded?.Invoke(this, e);
         }
     }
 }

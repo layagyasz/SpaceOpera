@@ -1,26 +1,21 @@
 using SpaceOpera.Core.Economics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpaceOpera.Core.Universe
 {
-    class ResourceNode
+    public class ResourceNode
     {
         public IMaterial Resource { get; }
         public int Size { get; private set; }
 
-        public ResourceNode(IMaterial Resource, int Size)
+        public ResourceNode(IMaterial resource, int size)
         {
-            this.Resource = Resource;
-            this.Size = Size;
+            Resource = resource;
+            Size = size;
         }
 
-        public void Combine(ResourceNode Other)
+        public void Combine(ResourceNode other)
         {
-            Size += Other.Size;
+            Size += other.Size;
         }
 
         public override string ToString()

@@ -1,28 +1,22 @@
+using Cardamom.Trackers;
+using Cardamom.Utils.Generators.Samplers;
 using SpaceOpera.Core.Economics;
-using SpaceOpera.JsonConverters;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace SpaceOpera.Core.Universe.Generator
 {
-    class AtmosphereGenerator
+    public class AtmosphereGenerator
     {
         public float RegionDensity { get; set; }
-        public Sampler TotalPressureSampler { get; set; }
-        [JsonConverter(typeof(KeyValuePairJsonConverter<Dictionary<IMaterial, Sampler>, IMaterial, Sampler>))]
-        public Dictionary<IMaterial, Sampler> PartialPressureSamplers { get; set; }
+        public ISampler? TotalPressureSampler { get; set; }
+        public Dictionary<IMaterial, ISampler> PartialPressureSamplers { get; set; } = new();
 
-        public MultiQuantity<IMaterial> Generate(Random Random)
+        public MultiQuantity<IMaterial> Generate(Random random)
         {
             var result = new MultiQuantity<IMaterial>();
-            float pressure = (float)TotalPressureSampler.Sample(Random);
+            float pressure = (float)TotalPressureSampler!.Generate(random);
             foreach (var sampler in PartialPressureSamplers)
             {
-                float weight = (float)sampler.Value.Sample(Random);
+                float weight = sampler.Value.Generate(random);
                 float efficiency = Round(pressure * weight, 2);
                 if (efficiency > 0)
                 {
@@ -32,11 +26,11 @@ namespace SpaceOpera.Core.Universe.Generator
             return result;
         }
 
-        private static float Round(float X, int Figures)
+        private static float Round(float x, int figures)
         {
-            int offset = (int)Math.Log10(X);
-            int m = (int)Math.Pow(10, Figures - offset);
-            return (float)(Math.Round(m * X) / m);
+            int offset = (int)Math.Log10(x);
+            int m = (int)Math.Pow(10, figures - offset);
+            return (float)(Math.Round(m * x) / m);
         }
     }
 }

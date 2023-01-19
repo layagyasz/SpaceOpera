@@ -2,5 +2,7 @@
 {
     public interface INavigable
     {
+        string Name { get; }
+        NavigableNodeType NavigableNodeType { get; }
     }
 }

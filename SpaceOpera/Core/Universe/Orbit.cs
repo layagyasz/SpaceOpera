@@ -1,25 +1,20 @@
-using SFML.System;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using OpenTK.Mathematics;
 
 namespace SpaceOpera.Core.Universe
 {
-    class Orbit
+    public class Orbit
     {
         public Star Focus { get; }
         public float MajorAxis { get; }
         public float MinorAxis { get; }
         public float Eccentricity { get; }
 
-        public Orbit(Star Focus, float MajorAxis, float Eccentricity)
+        public Orbit(Star focus, float majorAxis, float eccentricity)
         {
-            this.Focus = Focus;
-            this.MajorAxis = MajorAxis;
-            this.MinorAxis = (float)(MajorAxis * Math.Sqrt(Eccentricity * Eccentricity + 1));
-            this.Eccentricity = Eccentricity;
+            Focus = focus;
+            MajorAxis = majorAxis;
+            MinorAxis = majorAxis * MathF.Sqrt(eccentricity * eccentricity + 1);
+            Eccentricity = eccentricity;
         }
 
         public float GetAverageDistance()
@@ -32,15 +27,15 @@ namespace SpaceOpera.Core.Universe
             return 0.5f * (float)Math.PI * (MajorAxis + MinorAxis);
         }
 
-        public Vector2f GetPoint(double Angle)
+        public Vector2 GetPoint(float angle)
         {
-            var d = GetDistance(Angle);
-            return new Vector2f(d * (float)Math.Cos(Angle), d * (float)Math.Sin(Angle));
+            var d = GetDistance(angle);
+            return new Vector2(d * MathF.Cos(angle), d * MathF.Sin(angle));
         }
 
-        public float GetDistance(double Angle)
+        public float GetDistance(float angle)
         {
-            return (MajorAxis / 2) * (1 - Eccentricity * Eccentricity) / (1 + Eccentricity * (float)Math.Cos(Angle));
+            return (MajorAxis / 2) * (1 - Eccentricity * Eccentricity) / (1 + Eccentricity * MathF.Cos(angle));
         }
     }
 }

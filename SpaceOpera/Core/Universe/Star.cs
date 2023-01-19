@@ -1,14 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace SpaceOpera.Core.Universe
 {
-    class Star
+    public class Star
     {
-        private static readonly float BOLTZMAN_CONSTANT = 5.6704e-8f;
+        private static readonly float s_BoltzmanConstant = 5.6704e-8f;
 
         public string Name { get; private set; }
         public float Temperature { get; }
@@ -16,18 +10,17 @@ namespace SpaceOpera.Core.Universe
         public float Mass { get; }
         public float Luminosity { get; }
 
-        public Star(float Temperature, float Radius, float Mass)
+        public Star(float temperature, float radius, float mass)
         {
-            this.Temperature = Temperature;
-            this.Radius = Radius;
-            this.Mass = Mass;
-            this.Luminosity = 
-                (float)(BOLTZMAN_CONSTANT * 4 * Math.PI * Math.Pow(Radius, 2) * Math.Pow(Temperature, 4));
+            Temperature = temperature;
+            Radius = radius;
+            Mass = mass;
+            Luminosity = s_BoltzmanConstant * 4 * MathF.PI * MathF.Pow(radius, 2) * MathF.Pow(temperature, 4);
         }
 
-        public void SetName(string Name)
+        public void SetName(string name)
         {
-            this.Name = Name;
+            this.Name = name;
         }
 
         public override string ToString()

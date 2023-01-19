@@ -1,43 +1,45 @@
-using Cardamom.Spatial;
-using Cence;
+using Cardamom.Mathematics.Coordinates;
+using Cardamom.Utils.Generators.Samplers;
 using MathNet.Numerics.Distributions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using OpenTK.Mathematics;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace SpaceOpera.Core.Universe.Generator
 {
-    class Expression
+    public class Expression
     {
-        private static readonly double NOISE_MEAN = .5;
-        private static readonly double NOISE_STD_DEV = .075;
+        private static readonly double s_NoiseMean = .5;
+        private static readonly double s_NoiseStandardDeviation = .075;
+
+        [JsonConverter(typeof(JsonStringEnumConverter))]
 
         public enum ExpressionType
         {
-            PARAMETER,
-            NOISE,
-            RANDOM,
-            CONSTANT
+            Parameter,
+            Noise,
+            Random,
+            Constant
         }
+
+        [JsonConverter(typeof(JsonStringEnumConverter))]
 
         public enum ParameterName
         {
-            WATER_LEVEL,
-            PLANET_TEMPERATURE,
-            PLANET_MOISTURE,
-            HEIGHT,
-            TEMPERATURE,
-            MOISTURE
+            WaterLevel,
+            PlanetTemperature,
+            PlanetMoisture,
+            Height,
+            Temperature,
+            Moisture
         }
+
+        [JsonConverter(typeof(JsonStringEnumConverter))]
 
         public enum ExpressionWaveForm
         {
-            NONE,
-            COSINE,
-            SINE
+            None,
+            Cosine,
+            Sine
         }
 
         [JsonConverter(typeof(JsonStringEnumConverter))]
@@ -48,76 +50,76 @@ namespace SpaceOpera.Core.Universe.Generator
         public ParameterName Parameter { get; set; }
 
         // Noise
-        public Expression Bias { get; set; }
+        public Expression? Bias { get; set; }
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public ExpressionWaveForm WaveForm { get; set; }
-        public Expression WaveAmplitude { get; set; }
-        public Expression WavePeriodicity { get; set; }
-        public Expression WaveTurbulence { get; set; }
+        public Expression? WaveAmplitude { get; set; }
+        public Expression? WavePeriodicity { get; set; }
+        public Expression? WaveTurbulence { get; set; }
 
         LatticeNoiseGenerator _Noise;
 
         // Random
-        public Sampler Sampler { get; set; }
+        public ISampler? Sampler { get; set; }
 
         float _Value;
 
         // Constant
         public float Constant { get; set; }
 
-        public void Seed(Random Random)
+        public void Seed(Random random)
         {
             switch (Type)
             {
-                case ExpressionType.NOISE:
-                    _Noise = new LatticeNoiseGenerator(Random) { Frequency = (x, y) => .0002 };
+                case ExpressionType.Noise:
+                    _Noise = new LatticeNoiseGenerator(random) { Frequency = (x, y) => .0002 };
                     break;
-                case ExpressionType.RANDOM:
-                    _Value = (float)Sampler.Sample(Random);
+                case ExpressionType.Random:
+                    _Value = Sampler!.Generate(random);
                     break;
             }
         }
 
-        public float Evaluate(float[] Parameters, Vector4f PositionCartesian, CSpherical PositionSpherical)
+        public float Evaluate(float[] parameters, Vector3 positionCartesian, Spherical3 positionSpherical)
         {
             switch (Type)
             {
-                case ExpressionType.PARAMETER:
-                    return Parameters[(int)Parameter];
-                case ExpressionType.NOISE:
-                    return EvaluateNoise(Parameters, PositionCartesian, PositionSpherical);
-                case ExpressionType.RANDOM:
+                case ExpressionType.Parameter:
+                    return parameters[(int)Parameter];
+                case ExpressionType.Noise:
+                    return EvaluateNoise(parameters, positionCartesian, positionSpherical);
+                case ExpressionType.Random:
                     return _Value;
-                case ExpressionType.CONSTANT:
+                case ExpressionType.Constant:
                     return Constant;
                 default:
                     throw new NotSupportedException();
             }
         }
 
-        private float EvaluateNoise(float[] Parameters, Vector4f PositionCartesian, CSpherical PositionSpherical)
+        private float EvaluateNoise(float[] parameters, Vector3 positionCartesian, Spherical3 positionSpherical)
         {
             float noiseValue =
                 (float)Normal.CDF(
-                    NOISE_MEAN,
-                    NOISE_STD_DEV,
+                    s_NoiseMean,
+                    s_NoiseStandardDeviation,
                     _Noise.Generate(
                         Math.Sqrt(
-                            PositionCartesian.X * PositionCartesian.X + PositionCartesian.Y * PositionCartesian.Y)
-                        * PositionSpherical.Phi,
-                        PositionCartesian.Z));
+                            positionCartesian.X * positionCartesian.X + positionCartesian.Y * positionCartesian.Y)
+                        * positionSpherical.Zenith,
+                        positionCartesian.Z));
 
-            float bias = Bias?.Evaluate(Parameters, PositionCartesian, PositionSpherical) ?? 0;
-            if (WaveForm == ExpressionWaveForm.NONE)
+            float bias = Bias?.Evaluate(parameters, positionCartesian, positionSpherical) ?? 0;
+            if (WaveForm == ExpressionWaveForm.None)
             {
                 return noiseValue + bias;
             }
 
-            float periodicity = WavePeriodicity?.Evaluate(Parameters, PositionCartesian, PositionSpherical) ?? 0;
-            float turbulence = WaveTurbulence?.Evaluate(Parameters, PositionCartesian, PositionSpherical) ?? 0;
-            float amplitude = WaveAmplitude?.Evaluate(Parameters, PositionCartesian, PositionSpherical) ?? 0;
-            float wave = periodicity * (PositionSpherical.Theta + turbulence * (2 * noiseValue - 1));
-            if (WaveForm == ExpressionWaveForm.COSINE)
+            float periodicity = WavePeriodicity?.Evaluate(parameters, positionCartesian, positionSpherical) ?? 0;
+            float turbulence = WaveTurbulence?.Evaluate(parameters, positionCartesian, positionSpherical) ?? 0;
+            float amplitude = WaveAmplitude?.Evaluate(parameters, positionCartesian, positionSpherical) ?? 0;
+            float wave = periodicity * (positionSpherical.Azimuth + turbulence * (2 * noiseValue - 1));
+            if (WaveForm == ExpressionWaveForm.Cosine)
             {
                 return (float)(amplitude * .5f * Math.Cos(wave) + .5f) + bias;
             }

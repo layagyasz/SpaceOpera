@@ -1,35 +1,29 @@
-using Cardamom.Graphing;
-using Cardamom.Planar;
-using Cardamom.Spatial;
-using Cardamom.Utilities;
+using Cardamom;
+using Cardamom.Collections;
+using Cardamom.Mathematics.Coordinates.Projections;
+using Cardamom.Utils.Generators.Samplers;
 using DelaunayTriangulator;
-using SFML.System;
-using SFML.Window;
+using OpenTK.Mathematics;
 using SpaceOpera.Core.Voronoi;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpaceOpera.Core.Universe.Generator
 {
-    class StellarBodyGenerator: IKeyed
+    public class StellarBodyGenerator: IKeyed
     {
         class RegionWrapper : DijkstraRegion<SubRegionWrapper>
         {
             public SubRegionWrapper Center { get; }
             public double StartDistance { get; } = 0;
-            public List<SubRegionWrapper> Children { get; } = new List<SubRegionWrapper>();
+            public List<SubRegionWrapper> Children { get; } = new();
 
-            public RegionWrapper(SubRegionWrapper Center)
+            public RegionWrapper(SubRegionWrapper center)
             {
-                this.Center = Center;
+                Center = center;
             }
 
-            public void Add(SubRegionWrapper Child)
+            public void Add(SubRegionWrapper child)
             {
-                Children.Add(Child);
+                Children.Add(child);
             }
 
             public override string ToString()
@@ -41,12 +35,12 @@ namespace SpaceOpera.Core.Universe.Generator
         class SubRegionWrapper : Pathable<SubRegionWrapper>
         {
             public StellarBodySubRegion Region { get; }
-            public List<SubRegionWrapper> NeighborWrappers { get; } = new List<SubRegionWrapper>();
+            public List<SubRegionWrapper> NeighborWrappers { get; } = new();
             public bool Passable { get; } = true;
 
-            public SubRegionWrapper(StellarBodySubRegion Region)
+            public SubRegionWrapper(StellarBodySubRegion region)
             {
-                this.Region = Region;
+                Region = region;
             }
 
             public IEnumerable<SubRegionWrapper> Neighbors()
@@ -54,13 +48,13 @@ namespace SpaceOpera.Core.Universe.Generator
                 return NeighborWrappers;
             }
 
-            public double DistanceTo(SubRegionWrapper OtherRegion)
+            public double DistanceTo(SubRegionWrapper otherRegion)
             {
-                int biomeCost = this.Region.Biome == OtherRegion.Region.Biome ? 0 : 4;
+                int biomeCost = Region.Biome == otherRegion.Region.Biome ? 0 : 4;
                 return 1 + biomeCost;
             }
 
-            public double HeuristicDistanceTo(SubRegionWrapper OtherRegion)
+            public double HeuristicDistanceTo(SubRegionWrapper otherRegion)
             {
                 throw new NotImplementedException();
             }
@@ -71,23 +65,23 @@ namespace SpaceOpera.Core.Universe.Generator
             }
         }
 
-        public string Key { get; set; }
-        public string Name { get; set; }
-        public Sampler RadiusSampler { get; set; }
+        public string Key { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
+        public ISampler? RadiusSampler { get; set; }
         public float Density { get; set; }
         public float RegionDensity { get; set; }
         public float SubRegionDensity { get; set; }
         public uint StructureNodeDensity { get; set; }
-        public BiomeSelector BiomeSelector { get; set; }
-        public AtmosphereGenerator AtmosphereGenerator { get; set; }
+        public BiomeSelector? BiomeSelector { get; set; }
+        public AtmosphereGenerator? AtmosphereGenerator { get; set; }
 
-        public StellarBody Generate(Random Random, Orbit Orbit)
+        public StellarBody Generate(Random random, Orbit orbit)
         {
             while(true)
             {
                 try
                 {
-                    return GenerateAux(Random, Orbit);
+                    return GenerateAux(random, orbit);
                 }
                 catch (Exception e)
                 {
@@ -97,40 +91,40 @@ namespace SpaceOpera.Core.Universe.Generator
             }
         }
 
-        private StellarBody GenerateAux(Random Random, Orbit Orbit)
+        private StellarBody GenerateAux(Random random, Orbit orbit)
         { 
-            double radius = RadiusSampler.Sample(Random);
+            double radius = RadiusSampler!.Sample(random);
             int subRegionCount = (int)Math.Ceiling(4 * SubRegionDensity * Math.PI * radius * radius);
 
-            List<Vector4f> centers = new List<Vector4f>();
+            List<Vector3> centers = new();
             for (int i = 0; i < subRegionCount - 1; ++i)
             {
-                float z = (float)(2 * Random.NextDouble() - 1);
+                float z = (float)(2 * random.NextDouble() - 1);
                 float r = (float)(Math.Sqrt(1 - z * z));
-                float theta = (float)(2 * Math.PI * Random.NextDouble());
-                centers.Add(new Vector4f(r * (float)Math.Cos(theta), r * (float)Math.Sin(theta), z));
+                float theta = (float)(2 * Math.PI * random.NextDouble());
+                centers.Add(new Vector3(r * (float)Math.Cos(theta), r * (float)Math.Sin(theta), z));
             }
             centers.Sort((x, y) => -x.Z.CompareTo(y.Z));
 
-            IProjection<Vector2f, Vector4f> projection = new Projection.StereographicProjection();
-            List<Vertex> vertices = new List<Vertex>();
+            var projection = new StereographicProjection.Cartesian();
+            List<Vertex> vertices = new();
             foreach (var center in centers)
             {
-                Vector2f projected = projection.Project(center);
+                Vector2 projected = projection.Project(center);
                 vertices.Add(new Vertex(projected.X, projected.Y));
             }
 
             List<Triad> triads = VoronoiGrapher.GetTriangulation(vertices);
             VoronoiGrapher.NeighborsResult result = VoronoiGrapher.GetNeighbors(vertices, triads);
             result.Neighbors.Add(result.EdgeIndices);
-            centers.Add(new Vector4f(0, 0, 1));
+            centers.Add(new(0, 0, 1));
 
-            BiomeSelector.Seed(Random);
-            List<SubRegionWrapper> subRegionWrappers = new List<SubRegionWrapper>();
+            BiomeSelector!.Seed(random);
+            List<SubRegionWrapper> subRegionWrappers = new();
             for (int i=0;i<subRegionCount;++i)
             {
-                Vector4f center = centers[i] * (float)radius;
-                CSpherical centerSpherical = CSpherical.FromCartesian(center);
+                Vector4 center = centers[i] * (float)radius;
+                Spherical3 centerSpherical = center.AsSpherical();
                 Biome biome = BiomeSelector.Select(center, centerSpherical);
                 var subRegion = new StellarBodySubRegion(i, center, centerSpherical, biome);
                 subRegionWrappers.Add(new SubRegionWrapper(subRegion));
@@ -147,14 +141,14 @@ namespace SpaceOpera.Core.Universe.Generator
 
             int regionCount = (int)Math.Ceiling(4 * RegionDensity * Math.PI * radius * radius);
             DijkstraPool<SubRegionWrapper> dijkstraPool = new DijkstraPool<SubRegionWrapper>();
-            List<RegionWrapper> regionWrappers = new List<RegionWrapper>();
-            List<int> cores = new List<int>();
+            List<RegionWrapper> regionWrappers = new();
+            List<int> cores = new();
             for (int i=0; i <regionCount; ++i)
             {
                 int core;
                 do
                 {
-                    core = Random.Next(0, subRegionCount);
+                    core = random.Next(0, subRegionCount);
                 }
                 while (cores.Contains(core) || subRegionWrappers[core].NeighborWrappers.Count < 4);
                 cores.Add(core);
@@ -176,7 +170,7 @@ namespace SpaceOpera.Core.Universe.Generator
                     var newWrapper = 
                         new RegionWrapper(
                             partitioned.ArgMax(
-                                x => -MathUtils.ArcLength(region.Center.Region.Center, x.Region.Center, radius)));
+                                x => -MathUtils.ArcLength(region.Center.Region.Center, x.Region.Center, radius))!);
                     newWrapper.Children.AddRange(partitioned);
                     regionWrappers.Add(newWrapper);
                 }
@@ -222,7 +216,7 @@ namespace SpaceOpera.Core.Universe.Generator
                 }
             }
 
-            int atmosphericRegionCount = (int)(2 * Math.PI * radius * AtmosphereGenerator.RegionDensity) + 1;
+            int atmosphericRegionCount = (int)(2 * Math.PI * radius * AtmosphereGenerator!.RegionDensity) + 1;
             List<List<StellarBodySubRegion>> atmosphereRegionMembers = new List<List<StellarBodySubRegion>>();
             for (int i=0; i<atmosphericRegionCount; ++i)
             {
@@ -246,8 +240,8 @@ namespace SpaceOpera.Core.Universe.Generator
                 Name,
                 radius,
                 4 * Density * Math.PI * radius * radius * radius / 3,
-                Orbit,
-                AtmosphereGenerator.Generate(Random), 
+                orbit,
+                AtmosphereGenerator.Generate(random), 
                 regions, 
                 orbitRegions);
         }

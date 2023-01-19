@@ -1,17 +1,10 @@
-using Cardamom.Graphing;
 using DelaunayTriangulator;
-using SFML.System;
-using SFML.Window;
+using OpenTK.Mathematics;
 using SpaceOpera.Core.Voronoi;
-using SpaceOpera.JsonConverters;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json.Serialization;
 
 namespace SpaceOpera.Core.Universe.Generator
 {
-    class GalaxyGenerator
+    public class GalaxyGenerator
     {
         public float Radius { get; set; }
         public uint Arms { get; set; }
@@ -19,60 +12,60 @@ namespace SpaceOpera.Core.Universe.Generator
         public float CoreRadius { get; set; }
         public int StarCount { get; set; }
         public float TransitDensity { get; set; }
-        public StarSystemGenerator StarSystemGenerator { get; set; }
+        public StarSystemGenerator? StarSystemGenerator { get; set; }
 
         class SystemWrapper : Pathable<SystemWrapper>
         {
             public StarSystem System { get; }
             public bool Passable { get; } = true;
-            private HashSet<SystemWrapper> _NeighborWrappers { get; } = new HashSet<SystemWrapper>();
+            private HashSet<SystemWrapper> _neighborWrappers { get; } = new();
 
-            public SystemWrapper(StarSystem System)
+            public SystemWrapper(StarSystem system)
             {
-                this.System = System;
+                this.System = system;
             }
 
-            public double DistanceTo(SystemWrapper Node)
+            public float DistanceTo(SystemWrapper node)
             {
-                return HeuristicDistanceTo(Node);
+                return HeuristicDistanceTo(node);
             }
 
-            public double HeuristicDistanceTo(SystemWrapper Node)
+            public float HeuristicDistanceTo(SystemWrapper node)
             {
-                return MathUtils.Distance(System.Position, Node.System.Position);
+                return MathUtils.Distance(System.Position, node.System.Position);
             }
 
-            public void SetNeighbors(IEnumerable<SystemWrapper> Wrappers)
+            public void SetNeighbors(IEnumerable<SystemWrapper> wrappers)
             {
-                foreach (var wrapper in Wrappers)
+                foreach (var wrapper in wrappers)
                 {
-                    _NeighborWrappers.Add(wrapper);
+                    _neighborWrappers.Add(wrapper);
                 }
-                System.SetNeighbors(Wrappers.Select(x => x.System));
+                System.SetNeighbors(wrappers.Select(x => x.System));
             }
 
             public IEnumerable<SystemWrapper> Neighbors()
             {
-                return _NeighborWrappers;
+                return _neighborWrappers;
             }
         }
 
-        public Galaxy Generate(Random Random)
+        public Galaxy Generate(Random random)
         {
-            List<Vertex> vertices = new List<Vertex>();
+            List<Vertex> vertices = new();
             int starId = 0;
             while (starId<StarCount)
             {
-                double x = Random.NextDouble() * 2 - 1;
-                double y = Random.NextDouble() * 2 - 1;
-                double angle = Math.Atan2(y, x);
+                float x = random.NextSingle() * 2 - 1;
+                float y = random.NextSingle() * 2 - 1;
+                float angle = MathF.Atan2(y, x);
                 float radius = (float)Math.Sqrt(x * x + y * y);
-                if (Random.NextDouble() < StarDensityFn(Arms, Rotation, angle, radius))
+                if (random.NextDouble() < StarDensityFn(Arms, Rotation, angle, radius))
                 {
                     ++starId;
                     float modifiedRadius = radius * (Radius - CoreRadius) + CoreRadius;
                     vertices.Add(
-                        new Vertex(modifiedRadius * (float)Math.Cos(angle), modifiedRadius * (float)Math.Sin(angle)));
+                        new Vertex(modifiedRadius * MathF.Cos(angle), modifiedRadius * MathF.Sin(angle)));
                 }
             }
 
@@ -80,12 +73,12 @@ namespace SpaceOpera.Core.Universe.Generator
             List<Triad> triads = triangulator.Triangulation(vertices);
             VoronoiGrapher.NeighborsResult result = VoronoiGrapher.GetNeighbors(vertices, triads);
 
-            List<SystemWrapper> systemWrappers = new List<SystemWrapper>();
+            List<SystemWrapper> systemWrappers = new();
             for (int i=0; i< StarCount; ++i)
             {
                 systemWrappers.Add(
                     new SystemWrapper(
-                        StarSystemGenerator.Generate(Random, new Vector2f(vertices[i].x, vertices[i].y))));
+                        StarSystemGenerator!.Generate(random, new Vector2(vertices[i].x, vertices[i].y))));
             }
             for (int i=0; i < StarCount;++i)
             {
@@ -113,7 +106,7 @@ namespace SpaceOpera.Core.Universe.Generator
                     {
                         continue;
                     }
-                    if (Random.NextDouble() 
+                    if (random.NextDouble() 
                         < TransitDensityFn(TransitDensity, (systemWrapper.DistanceTo(neighbor) - mean) / stdDev)) {
                         systemWrapper.System.AddTransit(neighbor.System);
                         neighbor.System.AddTransit(systemWrapper.System);
@@ -124,19 +117,19 @@ namespace SpaceOpera.Core.Universe.Generator
             return new Galaxy(Radius, systemWrappers.Select(x => x.System));
         }
 
-        private static double StarDensityFn(uint Arms, float Rotation, double Angle, double Radius)
+        private static float StarDensityFn(uint arms, float rotation, float angle, float radius)
         {
-            if (Radius > 1)
+            if (radius > 1)
             {
                 return 0;
             }
-            return .5 * Math.Max(
-                (Math.Cos(Angle * Arms + Radius * Rotation) + 1) * Math.Sqrt(1 - Radius), 1 - Radius);
+            return .5f * Math.Max(
+                (MathF.Cos(angle * arms + radius * rotation) + 1) * MathF.Sqrt(1 - radius), 1 - radius);
         }
 
-        private static double TransitDensityFn(float Density, double StandardDeviations)
+        private static float TransitDensityFn(float density, float standardDeviations)
         {
-            return 2 * Density / (1 + Math.Exp(20 * StandardDeviations));
+            return 2 * density / (1 + (float)Math.Exp(20 * standardDeviations));
         }
     }
 }

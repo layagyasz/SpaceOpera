@@ -1,5 +1,5 @@
 using Cardamom.Collections;
-using Cardamom.Json;
+using Cardamom.Json.Collections;
 using System.Text.Json.Serialization;
 
 namespace SpaceOpera.Core.Languages.Generator

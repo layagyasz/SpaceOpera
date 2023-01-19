@@ -1,72 +1,65 @@
-using Cardamom.Planar;
-using Cardamom.Spatial;
-using SFML.Window;
+using Cardamom.Mathematics.Coordinates;
+using OpenTK.Mathematics;
 using SpaceOpera.Core.Military;
-using SpaceOpera.View;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpaceOpera.Core.Universe
 {
-    class StellarBodySubRegion : INavigable
+    public class StellarBodySubRegion : INavigable
     {
-        public EventHandler<ElementEventArgs<Division>> OnDivisionAdded { get; set; }
+        public EventHandler<ElementEventArgs<Division>>? OnDivisionAdded { get; set; }
 
         public int Id { get; }
-        public string Name { get { return ParentRegion.Name; } }
+        public string Name => ParentRegion!.Name;
         public NavigableNodeType NavigableNodeType => NavigableNodeType.Ground;
-        public Vector4f Center { get; }
-        public CSpherical SphericalCenter { get; }
+        public Vector3 Center { get; }
+        public Spherical3 SphericalCenter { get; }
         public Biome Biome { get; }
-        public Vector4f[] Bounds { get; private set; }
 
-        public List<StellarBodySubRegion> Neighbors { get; private set; }
-        public StellarBodyRegion ParentRegion { get; private set; }
+        public Vector3[]? Bounds { get; private set; }
+        public List<StellarBodySubRegion>? Neighbors { get; private set; }
+        public StellarBodyRegion? ParentRegion { get; private set; }
 
-        private List<Division> _Divisions = new List<Division>();
+        private readonly List<Division> _divisions = new();
 
-        public StellarBodySubRegion(int Id, Vector4f Center, CSpherical SphericalCenter, Biome Biome)
+        public StellarBodySubRegion(int id, Vector3 center, Spherical3 sphericalCenter, Biome biome)
         {
-            this.Id = Id;
-            this.Center = Center;
-            this.SphericalCenter = SphericalCenter;
-            this.Biome = Biome;
+            Id = id;
+            Center = center;
+            SphericalCenter = sphericalCenter;
+            Biome = biome;
         }
 
-        public void SetParentRegion(StellarBodyRegion Region)
+        public void SetParentRegion(StellarBodyRegion region)
         {
-            this.ParentRegion = Region;
+            ParentRegion = region;
         }
 
-        public void SetNeighbors(IEnumerable<StellarBodySubRegion> Neighbors)
+        public void SetNeighbors(IEnumerable<StellarBodySubRegion> neighbors)
         {
-            this.Neighbors = Neighbors.ToList();
+            Neighbors = neighbors.ToList();
 
             var comparer = new ClockwiseSurface3dComparer(SphericalCenter);
-            this.Neighbors.Sort((x, y) => comparer.Compare(x.Center, y.Center));
+            Neighbors.Sort((x, y) => comparer.Compare(x.Center, y.Center));
 
-            Bounds = new Vector4f[this.Neighbors.Count];
-            for (int i = 0; i < this.Neighbors.Count; ++i)
+            Bounds = new Vector3[Neighbors.Count];
+            for (int i = 0; i < Neighbors.Count; ++i)
             {
                 Bounds[i] = 
                     SphericalCenter.Radius 
-                    * ((Center + this.Neighbors[i].Center 
-                    + this.Neighbors[(i + 1) % this.Neighbors.Count].Center) / 3).Normalize();
+                    * ((Center + Neighbors[i].Center 
+                    + Neighbors[(i + 1) % Neighbors.Count].Center) / 3).Normalize();
             }
         }
 
-        public void AddDivision(Division Division)
+        public void AddDivision(Division division)
         {
-            _Divisions.Add(Division);
-            OnDivisionAdded?.Invoke(this, new ElementEventArgs<Division>(Division));
+            _divisions.Add(division);
+            OnDivisionAdded?.Invoke(this, new ElementEventArgs<Division>(division));
         }
 
-        public void RemoveDivision(Division Division)
+        public void RemoveDivision(Division division)
         {
-            _Divisions.Remove(Division);
+            _divisions.Remove(division);
         }
 
         public override string ToString()

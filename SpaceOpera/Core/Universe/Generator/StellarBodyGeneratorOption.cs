@@ -1,21 +1,17 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Cardamom.Mathematics;
 
 namespace SpaceOpera.Core.Universe.Generator
 {
     class StellarBodyGeneratorOption
     {
-        public StellarBodyGenerator Generator { get; set; }
+        public StellarBodyGenerator? Generator { get; set; }
         public float Weight { get; set; }
-        public Range ThermalRange { get; set; }
-        public Range GravitationalRange { get; set; }
+        public Interval ThermalRange { get; set; }
+        public Interval GravitationalRange { get; set; }
 
-        public bool Satisfies(float Temperature, float Gravity)
+        public bool Satisfies(float temperature, float gravity)
         {
-            return ThermalRange.Contains(Temperature) && GravitationalRange.Contains(Gravity);
+            return ThermalRange.Contains(temperature) && GravitationalRange.Contains(gravity);
         }
     }
 }

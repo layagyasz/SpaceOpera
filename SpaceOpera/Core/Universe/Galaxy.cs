@@ -1,20 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace SpaceOpera.Core.Universe
 {
-    class Galaxy
+    public class Galaxy
     {
         public double Radius { get; }
         public List<StarSystem> Systems { get; }
 
-        public Galaxy(double Radius, IEnumerable<StarSystem> Systems)
+        public Galaxy(double radius, IEnumerable<StarSystem> systems)
         {
-            this.Radius = Radius;
-            this.Systems = Systems.ToList();
+            Radius = radius;
+            Systems = systems.ToList();
         }
 
         public IEnumerable<Tuple<StarSystem, StarSystem>> GetTransits()

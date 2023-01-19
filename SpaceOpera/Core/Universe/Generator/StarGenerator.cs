@@ -1,25 +1,22 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Cardamom;
+using Cardamom.Utils.Generators.Samplers;
 
 namespace SpaceOpera.Core.Universe.Generator
 {
-    class StarGenerator : IKeyed
+    public class StarGenerator : IKeyed
     {
-        public string Key { get; set; }
-        public string Name { get; set; }
-        public Sampler TemperatureSampler { get; set; }
-        public Sampler RadiusSampler { get; set; }
-        public Sampler MassSampler { get; set; }
+        public string Key { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
+        public ISampler? TemperatureSampler { get; set; }
+        public ISampler? RadiusSampler { get; set; }
+        public ISampler? MassSampler { get; set; }
 
-        public Star Generate(Random Random)
+        public Star Generate(Random random)
         {
             return new Star(
-                (float)TemperatureSampler.Sample(Random), 
-                Constants.SOLAR_RADIUS * (float)RadiusSampler.Sample(Random),
-                Constants.SOLAR_MASS * (float)MassSampler.Sample(Random));
+                TemperatureSampler!.Generate(random), 
+                Constants.SolarRadius * RadiusSampler!.Generate(random),
+                Constants.SolarMass * MassSampler!.Generate(random));
         }
     }
 }

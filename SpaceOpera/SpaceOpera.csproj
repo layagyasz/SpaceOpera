@@ -11,4 +11,10 @@
     <ProjectReference Include="..\..\Cardamom\Cardamom\Cardamom.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="S-hull">
+      <HintPath>D:\Antiquity\Antiquity\bin\Debug\S-hull.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

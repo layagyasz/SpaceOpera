@@ -1,38 +1,32 @@
-using Cardamom.Spatial;
-using SpaceOpera.JsonConverters;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+using Cardamom.Collections;
+using Cardamom.Mathematics.Coordinates;
+using OpenTK.Mathematics;
 
 namespace SpaceOpera.Core.Universe.Generator
 {
-    class BiomeSelector
+    public class BiomeSelector
     {
-        [JsonConverter(typeof(EnumMapJsonConverter<Expression.ParameterName, Expression>))]
-        public EnumMap<Expression.ParameterName, Expression> BiomeParameters { get; set; }
-        public List<BiomeOption> BiomeOptions { get; set; }
+        public EnumMap<Expression.ParameterName, Expression> BiomeParameters { get; set; } = new();
+        public List<BiomeOption> BiomeOptions { get; set; } = new();
 
-        public void Seed(Random Random)
+        public void Seed(Random random)
         {
             foreach (var field in BiomeParameters.Values)
             {
                 if (field != null)
                 {
-                    field.Seed(Random);
+                    field.Seed(random);
                 }
             }
         }
 
-        public Biome Select(Vector4f PositionCartesian, CSpherical PositionSpherical)
+        public Biome Select(Vector3 positionCartesian, Spherical3 positionSpherical)
         {
             float[] parameters = new float[Enum.GetValues(typeof(Expression.ParameterName)).Length];
             foreach (var parameter in BiomeParameters)
             {
                 parameters[(int)parameter.Key] = 
-                    parameter.Value.Evaluate(parameters, PositionCartesian, PositionSpherical);
+                    parameter.Value.Evaluate(parameters, positionCartesian, positionSpherical);
             }
             return BiomeOptions.First(x => x.Satisfies(parameters)).Biome;
         }
