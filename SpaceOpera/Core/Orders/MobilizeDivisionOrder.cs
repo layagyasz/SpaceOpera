@@ -1,4 +1,5 @@
 using SpaceOpera.Core.Economics;
+using SpaceOpera.Core.Economics.Projects;
 using SpaceOpera.Core.Military;
 
 namespace SpaceOpera.Core.Orders
@@ -22,7 +23,7 @@ namespace SpaceOpera.Core.Orders
 
         public bool Execute(World world)
         {
-            world.AddProject(new MobilizeDivisionOrder(Holding, Division));
+            world.AddProject(new MobilizeDivisionProject(Holding, Division));
             return true;
         }
     }

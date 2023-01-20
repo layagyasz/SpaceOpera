@@ -33,5 +33,10 @@
         {
             Name = name;
         }
+
+        public bool Validate()
+        {
+            return _segments.All(x => x.Validate());
+        }
     }
 }

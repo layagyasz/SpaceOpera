@@ -8,15 +8,12 @@ using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Military.Battles;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Universe;
-using SpaceOpera.View;
-using SpaceOpera.View.StellarBodyViews;
 
 namespace SpaceOpera
 {
     public class World
     {
         public GameData GameData { get; }
-        public IconFactory IconFactory { get; }
         public Random Random { get; }
         public StarCalendar Calendar { get; }
         public Galaxy Galaxy { get; }
@@ -25,54 +22,44 @@ namespace SpaceOpera
         public Economy Economy { get; }
         public EconomyGraph EconomyGraph { get; }
         public BattleManager BattleManager { get; }
+        public DesignBuilder DesignBuilder { get; }
 
-        private readonly List<Culture> _Cultures = new List<Culture>();
-        private readonly List<Faction> _Factions = new List<Faction>();
-        private readonly Dictionary<Faction, Intelligence> _Intelligence = new Dictionary<Faction, Intelligence>();
+        private readonly List<Culture> _cultures = new();
+        private readonly List<Faction> _factions = new();
+        private readonly Dictionary<Faction, Intelligence> _intelligence = new();
 
-        private readonly List<Design> _Designs = new List<Design>();
-        private readonly List<DesignLicense> _DesignLicenses = new List<DesignLicense>();
+        private readonly List<Design> _designs = new();
+        private readonly List<DesignLicense> _designLicenses = new();
 
-        private readonly List<Fleet> _Fleets = new List<Fleet>();
+        private readonly List<Fleet> _fleets = new();
+        private readonly FleetManager _fleetManager = new();
 
-        private readonly FleetManager _FleetManager = new FleetManager();
         private readonly ProjectManager _projectManager = new();
 
         private World(
-            GameData GameData, 
-            Random Random,
-            Galaxy Galaxy,
-            StarCalendar Calendar)
+            GameData gameData, 
+            Random random,
+            Galaxy galaxy,
+            StarCalendar calendar)
         {
-            this.Calendar = Calendar;
-            this.GameData = GameData;
-            this.IconFactory =
-                new IconFactory(
-                    GameData.SimpleIconFactory,
-                    GameData.DesignedComponentIconFactory, 
-                    GameData.BannerViewFactory,
-                    new StellarBodyIconFactory(
-                        Galaxy.Systems.SelectMany(x => x.Orbiters), 
-                        GameData.StellarBodyViewFactory, 
-                        /* SpriteSize= */ 64, 
-                        /* TextureSize= */ 1024,
-                        GameData.LightingShader));
-            IconFactory.StellarBodyIconFactory.WriteToFile("stellar-bodies");
-            this.Random = Random;
-            this.Galaxy = Galaxy;
-            this.NavigationMap = new NavigationMap(Galaxy);
-            this.DiplomaticRelations = new DiplomaticRelationGraph();
-            this.Economy = new Economy(GameData.MaterialSink);
-            this.EconomyGraph = new EconomyGraph();
-            this.EconomyGraph.AddRecipes(GameData.Recipes.Values);
-            this.BattleManager = new BattleManager(DiplomaticRelations);
+            Calendar = calendar;
+            GameData = gameData;
+            Random = random;
+            Galaxy = galaxy;
+            NavigationMap = new NavigationMap(galaxy);
+            DiplomaticRelations = new DiplomaticRelationGraph();
+            Economy = new Economy(gameData.MaterialSink!);
+            EconomyGraph = new EconomyGraph();
+            EconomyGraph.AddRecipes(gameData.Recipes.Values);
+            BattleManager = new BattleManager(DiplomaticRelations);
+            DesignBuilder = new DesignBuilder(new ComponentClassifier(gameData.ComponentClassifiers));
 
-            foreach (var material in GameData.Materials)
+            foreach (var material in gameData.Materials)
             {
                 Console.WriteLine("[{0}]", material.Key);
                 foreach (var recipe in EconomyGraph.GetRequiredRecipes(material.Value).GetQuantities())
                 {
-                    Console.WriteLine("\t{0} * {1}", recipe.Value.Key, recipe.Amount);
+                    Console.WriteLine("\t{0} * {1}", recipe.Key.Key, recipe.Value);
                 }
             }
         }
@@ -83,10 +70,10 @@ namespace SpaceOpera
                 new World(
                     GameData, 
                     Random,
-                    GameData.GalaxyGenerator.Generate(Random),
+                    GameData.GalaxyGenerator!.Generate(Random),
                     new StarCalendar(/* StartDate= */ 1440000));
-            GameData.PoliticsGenerator.Generate(world, PlayerCulture, PlayerFaction, Random);
-            GameData.EconomyGenerator.Generate(world, Random);
+            GameData.PoliticsGenerator!.Generate(world, PlayerCulture, PlayerFaction, Random);
+            GameData.EconomyGenerator!.Generate(world, Random);
             return world;
         }
 
@@ -96,11 +83,11 @@ namespace SpaceOpera
             {
                 Economy
             };
-            ticks.AddRange(_Factions);
+            ticks.AddRange(_factions);
             return new CompositeTickable() {
                 Calendar,
                 new ActionTickable(() => BattleManager.Tick(Random)),
-                new ActionTickable(() => _FleetManager.Tick(this)),
+                new ActionTickable(() => _fleetManager.Tick(this)),
                 new ActionTickable(_projectManager.Tick),
                 new CycleTickable(new CompositeTickable(ticks), 30)
             };
@@ -108,22 +95,22 @@ namespace SpaceOpera
 
         public void AddAllCultures(IEnumerable<Culture> Cultures)
         {
-            _Cultures.AddRange(Cultures);
+            _cultures.AddRange(Cultures);
         }
 
         public void AddAllFactions(IEnumerable<Faction> Factions)
         {
-            _Factions.AddRange(Factions);
+            _factions.AddRange(Factions);
             DiplomaticRelations.Initialize(Factions);
             foreach (var faction in Factions)
             {
-                _Intelligence.Add(faction, new Intelligence());
+                _intelligence.Add(faction, new());
             }
         }
 
         public void AddDesign(Design Design)
         {
-            _Designs.Add(Design);
+            _designs.Add(Design);
             foreach (var recipe in Design.Recipes)
             {
                 EconomyGraph.AddRecipe(recipe);
@@ -132,13 +119,13 @@ namespace SpaceOpera
 
         public void AddFleet(Fleet Fleet)
         {
-            _Fleets.Add(Fleet);
-            _FleetManager.AddFleet(Fleet);
+            _fleets.Add(Fleet);
+            _fleetManager.AddFleet(Fleet);
         }
 
         public void AddLicense(DesignLicense License)
         {
-            _DesignLicenses.Add(License);
+            _designLicenses.Add(License);
         }
 
         public void AddProject(IProject project)
@@ -163,32 +150,32 @@ namespace SpaceOpera
             {
                 return Enumerable.Empty<Design>();
             }
-            return _DesignLicenses.Where(x => x.Faction == Faction).Select(x => x.Design);
+            return _designLicenses.Where(x => x.Faction == Faction).Select(x => x.Design);
         }
 
         public FleetDriver GetDriver(Fleet Fleet)
         {
-            return _FleetManager.GetDriver(Fleet);
+            return _fleetManager.GetDriver(Fleet);
         }
 
         public IEnumerable<Faction> GetFactions()
         {
-            return _Factions;
+            return _factions;
         }
 
         public IEnumerable<Fleet> GetFleets()
         {
-            return _Fleets;
+            return _fleets;
         }
 
         public IEnumerable<Fleet> GetFleetsFor(Faction Faction)
         {
-            return _Fleets.Where(x => x.Faction == Faction);
+            return _fleets.Where(x => x.Faction == Faction);
         }
 
         public Intelligence GetIntelligenceFor(Faction Faction)
         {
-            return _Intelligence[Faction];
+            return _intelligence[Faction];
         }
 
         public IEnumerable<IAdvancement> GetResearchableAdvancementsFor(Faction Faction)
@@ -203,7 +190,7 @@ namespace SpaceOpera
                 return Enumerable.Empty<Recipe>();
             }
             return Enumerable.Concat(
-                _DesignLicenses.Where(x => x.Faction == Faction).SelectMany(x => x.Design.Recipes),
+                _designLicenses.Where(x => x.Faction == Faction).SelectMany(x => x.Design.Recipes),
                 GameData.Recipes.Values)
                 .Where(Faction.HasPrerequisiteResearch);
         }

@@ -19,7 +19,7 @@ namespace SpaceOpera.Core.Designs
         public EnumMap<DamageType, Modifier> Damage { get; set; } = new();
 
         public EnumMap<DamageType, Modifier> DamageResist { get; set; } = new();
-        public List<IAdvancement> Prerequisites { get; set; } = new();
+        public HashSet<IAdvancement> Prerequisites { get; set; } = new();
 
         public float GetAttribute(ComponentAttribute attribute)
         {

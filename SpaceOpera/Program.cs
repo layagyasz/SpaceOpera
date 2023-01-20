@@ -1,12 +1,25 @@
+using Cardamom.Graphics.Ui;
+using Cardamom.Window;
+using OpenTK.Mathematics;
+using OpenTK.Windowing.Desktop;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 using SpaceOpera.Core.Politics;
 
 namespace SpaceOpera
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            GameData gameData = GameData.FromPath("Resources");
+            var monitor = Monitors.GetPrimaryMonitor();
+            var window = 
+                new RenderWindow("SpaceOpera", new Vector2i(monitor.HorizontalResolution, monitor.VerticalResolution));
+            var ui = new UiWindow(window);
+            ui.Bind(new MouseListener());
+            ui.Bind(
+                new KeyboardListener(SimpleKeyMapper.Us, new Keys[] { Keys.Left, Keys.Right, Keys.Up, Keys.Down }));
+
+            GameData gameData = GameData.LoadFrom("Resources/GameData.json");
             Random random = new();
 
             Culture culture = gameData.PoliticsGenerator!.Culture!.Generate(random);
@@ -15,17 +28,9 @@ namespace SpaceOpera
                     culture, gameData.PoliticsGenerator.Banner!.Generate(random), random);
             World world = World.Generate(culture, faction, gameData, random);
 
-
-            var renderWindow = new LitRenderWindow(VideoMode.DesktopMode, "Space Opera", Styles.Default);
-            var game = new Interface(renderWindow);
-
-            GameDriver driver = new GameDriver(world);
-            driver.AddTickable(world.GetTickable());
-            GameController gameController =
-                new GameController(
-                    new Vector2f(game.Window.Size.X, game.Window.Size.Y), game, world, driver, faction);
-            gameController.ChangeScreenTo(world.Galaxy);
-            gameController.Start();
+            GameDriver driver = new(world);
+            driver.Start();
+            ui.Start();
         }
     }
 }

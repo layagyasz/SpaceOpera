@@ -2,6 +2,7 @@ using Cardamom.Collections;
 using Cardamom.Trackers;
 using SpaceOpera.Core.Advanceable;
 using SpaceOpera.Core.Advancement;
+using SpaceOpera.Core.Designs;
 using SpaceOpera.Core.Economics;
 
 namespace SpaceOpera.Core.Politics
@@ -12,7 +13,7 @@ namespace SpaceOpera.Core.Politics
         public Banner Banner { get; }
         public NameGenerator NameGenerator { get; }
 
-        private EnumMap<FactionAttribute, float> _attributes;
+        private readonly EnumMap<FactionAttribute, float> _attributes;
 
 
         private readonly AdvancementManager _advancementManager = new();
@@ -55,6 +56,16 @@ namespace SpaceOpera.Core.Politics
         public bool HasPrerequisiteResearch(IAdvancement advancement)
         {
             return _advancementManager.HasPrerequisiteResearch(advancement);
+        }
+
+        public bool HasPrerequisiteResearch(IComponent component)
+        {
+            return component.Prerequisites.All(HasPrerequisiteResearch);
+        }
+
+        public bool HasPrerequisiteResearch(Recipe recipe)
+        {
+            return recipe.Transformation.Keys.All(x => !(x is IComponent));
         }
 
         public void Tick()

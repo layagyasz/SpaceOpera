@@ -5,9 +5,9 @@ namespace SpaceOpera.Core.Designs
     public class DesignLicense
     {
         public Faction Faction { get; }
-        public DesignConfiguration Design { get; }
+        public Design Design { get; }
 
-        public DesignLicense(Faction faction, DesignConfiguration design)
+        public DesignLicense(Faction faction, Design design)
         {
             Faction = faction;
             Design = design;

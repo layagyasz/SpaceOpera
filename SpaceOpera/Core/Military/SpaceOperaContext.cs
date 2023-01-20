@@ -1,3 +1,5 @@
+using Cardamom.Graphing.BehaviorTree;
+
 namespace SpaceOpera.Core.Military
 {
     public class SpaceOperaContext : SimpleContext
@@ -6,23 +8,23 @@ namespace SpaceOpera.Core.Military
         {
             public FleetDriver Fleet { get; }
 
-            internal FleetContext(World World, FleetDriver Fleet)
-                : base(World)
+            internal FleetContext(World world, FleetDriver fleet)
+                : base(world)
             {
-                this.Fleet = Fleet;
+                this.Fleet = fleet;
             }
         }
 
         public World World { get; }
 
-        public SpaceOperaContext(World World)
+        public SpaceOperaContext(World world)
         {
-            this.World = World;
+            this.World = world;
         }
 
-        public FleetContext ForFleet(FleetDriver Fleet)
+        public FleetContext ForFleet(FleetDriver fleet)
         {
-            return new FleetContext(World, Fleet);
+            return new FleetContext(World, fleet);
         }
     }
 }

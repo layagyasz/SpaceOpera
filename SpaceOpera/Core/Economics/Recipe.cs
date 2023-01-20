@@ -1,5 +1,7 @@
 ﻿using Cardamom;
 using Cardamom.Trackers;
+using SpaceOpera.Core.Advancement;
+using SpaceOpera.Core.Designs;
 
 namespace SpaceOpera.Core.Economics
 {
@@ -13,6 +15,7 @@ namespace SpaceOpera.Core.Economics
         public float Coefficient { get; set; }
         public MultiQuantity<IMaterial> Transformation { get; set; } = new();
         public IMaterial? BoundResourceNode { get; set; }
+        public HashSet<IAdvancement> Prerequisites { get; set; } = new();
 
         public static Recipe ForDesignedMaterial(DesignedMaterial material, Structure structure)
         {
@@ -24,7 +27,11 @@ namespace SpaceOpera.Core.Economics
                 Name = material.Name,
                 Structure = structure,
                 Coefficient = s_Production / material.ProductionCost,
-                Transformation = transformation
+                Transformation = transformation,
+                Prerequisites = 
+                    transformation.Keys
+                        .SelectMany(x => x is IComponent c ? c.Prerequisites : Enumerable.Empty<IAdvancement>())
+                        .ToHashSet()
             };
         }
     }

@@ -1,7 +1,11 @@
+using Cardamom;
 using Cardamom.Collections;
 using Cardamom.Graphics;
 using Cardamom.Json;
 using Cardamom.Json.Collections;
+using Cardamom.Json.Graphics.TexturePacking;
+using Cardamom.Json.Graphics;
+using Cardamom.Json.OpenTK;
 using SpaceOpera.Core;
 using SpaceOpera.Core.Advancement;
 using SpaceOpera.Core.Designs;
@@ -10,6 +14,7 @@ using SpaceOpera.Core.Economics.Generator;
 using SpaceOpera.Core.Politics.Generator;
 using SpaceOpera.Core.Universe;
 using SpaceOpera.Core.Universe.Generator;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace SpaceOpera
@@ -50,10 +55,29 @@ namespace SpaceOpera
         public Library<BaseComponent> Components { get; } = new();
 
         [JsonConverter(typeof(FromMultipleFileJsonConverter))]
+        public List<ComponentTypeClassifier> ComponentClassifiers = new();
+
+        [JsonConverter(typeof(FromMultipleFileJsonConverter))]
         public Library<DesignTemplate> DesignTemplates { get; set; } = new();
 
         public GalaxyGenerator? GalaxyGenerator { get; set; }
         public PoliticsGenerator? PoliticsGenerator { get; set; }
         public EconomyGenerator? EconomyGenerator { get; set; }
+
+        public static GameData LoadFrom(string path)
+        {
+            JsonSerializerOptions options = new()
+            {
+                ReferenceHandler = new KeyedReferenceHandler(new Dictionary<string, IKeyed>())
+            };
+            options.Converters.Add(new ColorJsonConverter());
+            options.Converters.Add(new Vector2JsonConverter());
+            options.Converters.Add(new Vector2iJsonConverter());
+            options.Converters.Add(new FontJsonConverter());
+            options.Converters.Add(new ShaderJsonConverter());
+            options.Converters.Add(new TextureLibraryJsonConverter());
+            options.Converters.Add(new LibraryJsonConverter());
+            return JsonSerializer.Deserialize<GameData>(File.ReadAllText(path), options)!;
+        }
     }
 }
