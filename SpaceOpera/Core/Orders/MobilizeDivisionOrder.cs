@@ -1,42 +1,29 @@
 using SpaceOpera.Core.Economics;
 using SpaceOpera.Core.Military;
-using SpaceOpera.Core.Universe;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpaceOpera.Core.Orders
 {
-    class MobilizeDivisionOrder : TimedOrder, IProject
+    public class MobilizeDivisionOrder : IOrder
     {
         public StellarBodyRegionHolding Holding { get; }
         public Division Division { get; }
 
-        public MobilizeDivisionOrder(StellarBodyRegionHolding Holding, Division Division)
-            : base(1)
+        public MobilizeDivisionOrder(StellarBodyRegionHolding holding, Division division)
         {
-            this.Holding = Holding;
-            this.Division = Division;
+            Holding = holding;
+            Division = division;
         }
 
-        public override ValidationFailureReason Validate()
+        public ValidationFailureReason Validate()
         {
             return Division.StellarBodyLocation == null 
-                ? ValidationFailureReason.ILLEGAL_ORDER : ValidationFailureReason.NONE;
+                ? ValidationFailureReason.IllegalOrder : ValidationFailureReason.None;
         }
 
-        public override void Setup()
+        public bool Execute(World world)
         {
-            Holding.AddProject(this);
-        }
-
-        public override void Cleanup()
-        {
-            Holding.RemoveProject(this);
-            // TODO: Reimplement
-            // Division.SetLocation(Holding.Region.Center);
+            world.AddProject(new MobilizeDivisionOrder(Holding, Division));
+            return true;
         }
     }
 }

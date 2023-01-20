@@ -3,6 +3,7 @@ using SpaceOpera.Core.Advanceable;
 using SpaceOpera.Core.Advancement;
 using SpaceOpera.Core.Designs;
 using SpaceOpera.Core.Economics;
+using SpaceOpera.Core.Economics.Projects;
 using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Military.Battles;
 using SpaceOpera.Core.Politics;
@@ -35,6 +36,7 @@ namespace SpaceOpera
         private readonly List<Fleet> _Fleets = new List<Fleet>();
 
         private readonly FleetManager _FleetManager = new FleetManager();
+        private readonly ProjectManager _projectManager = new();
 
         private World(
             GameData GameData, 
@@ -90,13 +92,16 @@ namespace SpaceOpera
 
         public ITickable GetTickable()
         {
-            var ticks = new List<ITickable>();
-            ticks.Add(Economy);
+            var ticks = new List<ITickable>
+            {
+                Economy
+            };
             ticks.AddRange(_Factions);
             return new CompositeTickable() {
                 Calendar,
                 new ActionTickable(() => BattleManager.Tick(Random)),
                 new ActionTickable(() => _FleetManager.Tick(this)),
+                new ActionTickable(_projectManager.Tick),
                 new CycleTickable(new CompositeTickable(ticks), 30)
             };
         }
@@ -134,6 +139,11 @@ namespace SpaceOpera
         public void AddLicense(DesignLicense License)
         {
             _DesignLicenses.Add(License);
+        }
+
+        public void AddProject(IProject project)
+        {
+            _projectManager.Add(project);
         }
 
         public IEnumerable<IComponent> GetComponentsFor(Faction Faction)

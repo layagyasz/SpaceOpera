@@ -1,26 +1,20 @@
-using SpaceOpera.Core.Advanceable;
+using Cardamom.Trackers;
 using SpaceOpera.Core.Economics;
-using SpaceOpera.Core.Universe;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpaceOpera.Core.Orders
 {
-    class AdjustProductionOrder : IImmediateOrder
+    class AdjustProductionOrder : IOrder
     {
         public StellarBodyRegionHolding Holding { get; }
         public Structure Structure { get; }
         public MultiCount<Recipe> Production { get; }
 
         public AdjustProductionOrder(
-            StellarBodyRegionHolding Holding, Structure Structure, MultiCount<Recipe> Production)
+            StellarBodyRegionHolding holding, Structure structure, MultiCount<Recipe> production)
         {
-            this.Holding = Holding;
-            this.Structure = Structure;
-            this.Production = Production;
+            Holding = holding;
+            Structure = structure;
+            Production = production;
         }
 
         public ValidationFailureReason Validate()
@@ -32,16 +26,16 @@ namespace SpaceOpera.Core.Orders
                 totalUsage += productionUsage;
                 if (productionUsage < 0)
                 {
-                    return ValidationFailureReason.ILLEGAL_ORDER;
+                    return ValidationFailureReason.IllegalOrder;
                 }
                 if (production.Value >  Holding.GetAvailableResourceNodes(production.Key.BoundResourceNode))
                 {
-                    return ValidationFailureReason.TOO_FEW_RESOURCE_NODES;
+                    return ValidationFailureReason.TooFewResourceNodes;
                 }
             }
             return totalUsage <= Holding.GetStructureCount(Structure)
-                ? ValidationFailureReason.NONE
-                : ValidationFailureReason.TOO_FEW_STRUCTURES;
+                ? ValidationFailureReason.None
+                : ValidationFailureReason.TooFewStructures;
         }
 
         public bool Execute(World World)

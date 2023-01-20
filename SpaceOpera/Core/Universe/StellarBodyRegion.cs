@@ -69,17 +69,17 @@ namespace SpaceOpera.Core.Universe
 
         public void SetName(string name)
         {
-            this.Name = name;
+            Name = name;
         }
 
         public void SetParent(StellarBody parent)
         {
-            this.Parent = parent;
+            Parent = parent;
         }
 
         public void SetSovereign(Faction sovereign)
         {
-            this.Sovereign = sovereign;
+            Sovereign = sovereign;
         }
 
         public IEnumerable<StellarBodyRegion> GetNeighbors()

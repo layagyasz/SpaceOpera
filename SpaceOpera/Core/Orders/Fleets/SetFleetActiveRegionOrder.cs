@@ -1,25 +1,29 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SpaceOpera.Core.Military;
+using SpaceOpera.Core.Orders;
+using SpaceOpera.Core.Universe;
 
 namespace SpaceOpera.Core.Languages
 {
-    class Phonetics
+    public class SetFleetActiveRegionOrder : IOrder
     {
-        public List<Frequent<Phoneme>> Phonemes { get; }
+        public FleetDriver Fleet { get; }
+        public ISet<INavigable> ActiveRegion { get; }
 
-        public Phonetics(IEnumerable<Frequent<Phoneme>> Phonemes)
+        public SetFleetActiveRegionOrder(FleetDriver fleet, ISet<INavigable> activeRegion)
         {
-            this.Phonemes = Phonemes.ToList();
+            Fleet = fleet;
+            ActiveRegion = activeRegion;
         }
 
-        public override string ToString()
+        public ValidationFailureReason Validate()
         {
-            return string.Format(
-                "[Phonetics]\n{0}",
-                string.Join("\n", Phonemes.Select(x => string.Format("{0} {1}", x.Value, x.Frequency))));
+            return ValidationFailureReason.None;
+        }
+
+        public bool Execute(World world)
+        {
+            Fleet.SetActiveRegion(ActiveRegion);
+            return true;
         }
     }
 }

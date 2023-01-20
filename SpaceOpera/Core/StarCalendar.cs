@@ -1,19 +1,14 @@
 using SpaceOpera.Core.Advanceable;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpaceOpera.Core
 {
-    class StarCalendar : ITickable
+    public class StarCalendar : ITickable
     {
         public int StarDate { get; private set; }
 
-        public StarCalendar(int StartDate)
+        public StarCalendar(int startDate)
         {
-            StarDate = StartDate;
+            StarDate = startDate;
         }
 
         public void Tick()

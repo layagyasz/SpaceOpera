@@ -18,11 +18,11 @@ namespace SpaceOpera.Core.Universe.Generator
         {
             public StarSystem System { get; }
             public bool Passable { get; } = true;
-            private HashSet<SystemWrapper> _neighborWrappers { get; } = new();
+            private readonly HashSet<SystemWrapper> _neighborWrappers = new();
 
             public SystemWrapper(StarSystem system)
             {
-                this.System = system;
+                System = system;
             }
 
             public float DistanceTo(SystemWrapper node)
@@ -69,7 +69,7 @@ namespace SpaceOpera.Core.Universe.Generator
                 }
             }
 
-            Triangulator triangulator = new Triangulator();
+            Triangulator triangulator = new();
             List<Triad> triads = triangulator.Triangulation(vertices);
             VoronoiGrapher.VoronoiNeighborsResult result = VoronoiGrapher.GetNeighbors(vertices, triads);
 

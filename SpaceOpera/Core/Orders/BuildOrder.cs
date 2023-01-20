@@ -1,23 +1,18 @@
-using SpaceOpera.Core.Advanceable;
+using Cardamom.Trackers;
 using SpaceOpera.Core.Economics;
-using SpaceOpera.Core.Universe;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SpaceOpera.Core.Economics.Projects;
 
 namespace SpaceOpera.Core.Orders
 {
-    class BuildOrder : ICompoundOrder
+    class BuildOrder : IOrder
     {
         public StellarBodyRegionHolding Holding { get; }
         public MultiCount<Structure> Structures { get; }
 
-        public BuildOrder(StellarBodyRegionHolding Holding, MultiCount<Structure> Structures)
+        public BuildOrder(StellarBodyRegionHolding holding, MultiCount<Structure> structures)
         {
-            this.Holding = Holding;
-            this.Structures = Structures;
+            Holding = holding;
+            Structures = structures;
         }
 
         public ValidationFailureReason Validate()
@@ -26,20 +21,21 @@ namespace SpaceOpera.Core.Orders
             {
                 if (construction.Value < 0)
                 {
-                    return ValidationFailureReason.ILLEGAL_ORDER;
+                    return ValidationFailureReason.IllegalOrder;
                 }
             }
             return Structures.GetTotal() <= Holding.GetAvailableStructureNodes() 
-                ? ValidationFailureReason.NONE 
-                : ValidationFailureReason.TOO_FEW_STRUCTURE_NODES;
+                ? ValidationFailureReason.None 
+                : ValidationFailureReason.TooFewStructureNodes;
         }
 
-        public IEnumerable<IOrder> GetChildOrders()
+        public bool Execute(World world)
         {
-            foreach (var construction in Structures)
+            foreach (var construction in Structures.GetCounts())
             {
-                yield return new SingleBuildOrder(Holding, new Count<Structure>(construction.Key, construction.Value));
+                world.AddProject(new BuildProject(Holding, construction));
             }
+            return true;
         }
     }
 }

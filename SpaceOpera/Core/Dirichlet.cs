@@ -1,21 +1,16 @@
 using MathNet.Numerics.Distributions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpaceOpera.Core
 {
-    class Dirichlet
+    public class Dirichlet
     {
-        public static double[] GetDistribution(Random Random, double[] Weights)
+        public static double[] GetDistribution(Random random, double[] weights)
         {
-            double[] values = new double[Weights.Length];
+            double[] values = new double[weights.Length];
             double total = 0;
             for (int i=0;i<values.Length;++i)
             {
-                values[i] = Gamma.Sample(Random, Weights[i], 1);
+                values[i] = Gamma.Sample(random, weights[i], 1);
                 total += values[i];
             }
             for (int i=0; i<values.Length;++i)

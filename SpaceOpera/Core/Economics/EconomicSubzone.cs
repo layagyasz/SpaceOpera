@@ -1,6 +1,8 @@
-﻿namespace SpaceOpera.Core.Economics
+﻿using SpaceOpera.Core.Economics.Projects;
+
+namespace SpaceOpera.Core.Economics
 {
-    public class EconomicSubzone
+    public class EconomicSubzone : ProjectHub
     {
         public EconomicZone Parent { get; set; }
 

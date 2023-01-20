@@ -1,44 +1,39 @@
 using SpaceOpera.Core.Advancement;
 using SpaceOpera.Core.Politics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpaceOpera.Core.Orders
 {
-    class SetResearchOrder : IImmediateOrder
+    public class SetResearchOrder : IOrder
     {
         public Faction Faction { get; }
         public AdvancementSlot AdvancementSlot { get; }
         public IAdvancement Advancement { get; }
 
-        public SetResearchOrder(Faction Faction, AdvancementSlot AdvancementSlot, IAdvancement Advancement)
+        public SetResearchOrder(Faction faction, AdvancementSlot advancementSlot, IAdvancement advancement)
         {
-            this.Faction = Faction;
-            this.AdvancementSlot = AdvancementSlot;
-            this.Advancement = Advancement;
+            Faction = faction;
+            AdvancementSlot = advancementSlot;
+            Advancement = advancement;
         }
 
         public ValidationFailureReason Validate()
         {
             if (Faction == null || AdvancementSlot == null || Advancement == null)
             {
-                return ValidationFailureReason.ILLEGAL_ORDER;
+                return ValidationFailureReason.IllegalOrder;
             }
             if (!Faction.HasPrerequisiteResearch(Advancement))
             {
-                return ValidationFailureReason.PREREQUISITE_RESEARCH;
+                return ValidationFailureReason.PrerequisiteResearch;
             }
             if (Faction.GetAdvancementSlots().Any(x => x.Advancement == Advancement))
             {
-                return ValidationFailureReason.DUPLICATE_RESEARCH;
+                return ValidationFailureReason.DuplicateResearch;
             }
-            return ValidationFailureReason.NONE;
+            return ValidationFailureReason.None;
         }
 
-        public bool Execute(World World)
+        public bool Execute(World world)
         {
             AdvancementSlot.Advancement = Advancement;
             return true;

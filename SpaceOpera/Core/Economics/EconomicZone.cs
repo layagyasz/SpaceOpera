@@ -1,5 +1,6 @@
 using Cardamom.Trackers;
 using SpaceOpera.Core.Advanceable;
+using SpaceOpera.Core.Economics.Projects;
 using SpaceOpera.Core.Politics;
 
 namespace SpaceOpera.Core.Economics
@@ -15,7 +16,7 @@ namespace SpaceOpera.Core.Economics
 
         protected EconomicZone(Faction owner)
         {
-            this.Owner = owner;
+            Owner = owner;
         }
 
         public void Add(MultiQuantity<IMaterial> materials)
@@ -93,7 +94,7 @@ namespace SpaceOpera.Core.Economics
             {
                 foreach (var transform in production.Key.Transformation)
                 {
-                    var total = transform.Value * production.Value * production.Key.BaseRecipe.Structure.MaxWorkers;
+                    var total = transform.Value * production.Value * production.Key.BaseRecipe.Structure!.MaxWorkers;
                     switch (transform.Key.Type)
                     {
                         case MaterialType.MaterialContinuous:

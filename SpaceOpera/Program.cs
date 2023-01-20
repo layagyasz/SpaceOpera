@@ -1,12 +1,4 @@
-using Cardamom.Interface;
-using SFML.Graphics;
-using SFML.System;
-using SFML.Window;
-using SpaceOpera.Controller;
-using SpaceOpera.Core;
 using SpaceOpera.Core.Politics;
-using SpaceOpera.View;
-using System;
 
 namespace SpaceOpera
 {
@@ -17,7 +9,7 @@ namespace SpaceOpera
             GameData gameData = GameData.FromPath("Resources");
             Random random = new();
 
-            Culture culture = gameData.PoliticsGenerator.Culture!.Generate(random);
+            Culture culture = gameData.PoliticsGenerator!.Culture!.Generate(random);
             Faction faction =
                 gameData.PoliticsGenerator.Faction!.Generate(
                     culture, gameData.PoliticsGenerator.Banner!.Generate(random), random);
@@ -25,7 +17,6 @@ namespace SpaceOpera
 
 
             var renderWindow = new LitRenderWindow(VideoMode.DesktopMode, "Space Opera", Styles.Default);
-            renderWindow.SetLightingShader(gameData.LightingShader);
             var game = new Interface(renderWindow);
 
             GameDriver driver = new GameDriver(world);

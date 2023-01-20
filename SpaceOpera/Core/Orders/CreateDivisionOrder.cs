@@ -1,42 +1,31 @@
 using SpaceOpera.Core.Economics;
+using SpaceOpera.Core.Economics.Projects;
 using SpaceOpera.Core.Military;
-using SpaceOpera.Core.Universe;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpaceOpera.Core.Orders
 {
-    class CreateDivisionOrder : TimedOrder, IProject
+    public class CreateDivisionOrder : IOrder
     {
         public StellarBodyHolding Holding { get; }
         public DivisionTemplate Template { get; }
 
-        public CreateDivisionOrder(StellarBodyHolding Holding, DivisionTemplate Template)
-            : base(1)
+        public CreateDivisionOrder(StellarBodyHolding holding, DivisionTemplate template)
         {
-            this.Holding = Holding;
-            this.Template = Template;
+            Holding = holding;
+            Template = template;
         }
 
-        public override ValidationFailureReason Validate()
+        public ValidationFailureReason Validate()
         {
-            return ValidationFailureReason.NONE;
+            return ValidationFailureReason.None;
         }
 
-        public override void Setup()
+        public bool Execute(World world)
         {
-            Holding.AddProject(this);
-        }
-
-        public override void Cleanup()
-        {
-            Holding.RemoveProject(this);
-            // TODO: Reimplement
-            // var division = new Division(Template.Name, Holding.Owner, Template, Template.Composition);
-            // division.SetLocation(Holding.StellarBody);
+            // TODO: Set name
+            var division = new Division(string.Empty, Holding.Owner, Template, new());
+            world.AddProject(new CreateDivisionProject(Holding, division));
+            return true;
         }
     }
 }

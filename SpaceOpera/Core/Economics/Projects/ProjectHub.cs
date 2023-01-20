@@ -1,4 +1,4 @@
-namespace SpaceOpera.Core.Economics
+namespace SpaceOpera.Core.Economics.Projects
 {
     public abstract class ProjectHub
     {

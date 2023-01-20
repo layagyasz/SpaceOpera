@@ -1,31 +1,26 @@
 using SpaceOpera.Core.Military;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpaceOpera.Core.Orders.Fleets
 {
-    class SetFleetAssignmentOrder : IImmediateOrder
+    public class SetFleetAssignmentOrder : IOrder
     {
         public FleetDriver Fleet { get; }
-        public FleetAssignment Action { get; }
+        public FleetAssignment Assignment { get; }
 
-        public SetFleetAssignmentOrder(FleetDriver Fleet, FleetAssignment Action)
+        public SetFleetAssignmentOrder(FleetDriver fleet, FleetAssignment assignment)
         {
-            this.Fleet = Fleet;
-            this.Action = Action;
+            Fleet = fleet;
+            Assignment = assignment;
         }
 
         public ValidationFailureReason Validate()
         {
-            return ValidationFailureReason.NONE;
+            return ValidationFailureReason.None;
         }
 
-        public bool Execute(World World)
+        public bool Execute(World world)
         {
-            Fleet.SetAssignment(Action);
+            Fleet.SetAssignment(Assignment);
             return true;
         }
     }

@@ -225,7 +225,8 @@ namespace SpaceOpera.Core.Universe.Generator
             }
             foreach (var subRegion in subRegionWrappers)
             {
-                double angle = ((subRegion.Region.SphericalCenter.Phi + 2 * Math.PI) % (2 * Math.PI)) / (2 * Math.PI);
+                double angle = 
+                    (subRegion.Region.SphericalCenter.Azimuth + 2 * Math.PI) % (2 * Math.PI) / (2 * Math.PI);
                 int atmosphereRegion = (int)(angle * atmosphericRegionCount);
                 atmosphereRegionMembers[atmosphereRegion].Add(subRegion.Region);
             }

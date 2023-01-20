@@ -4,7 +4,7 @@ namespace SpaceOpera.Core.Designs
     {
         public string Name { get; private set; } = string.Empty;
 
-        private List<DesignConfiguration> _designs = new();
+        private readonly List<DesignConfiguration> _designs = new();
 
         public DesignSeries(DesignConfiguration initialDesign)
         {
@@ -13,7 +13,7 @@ namespace SpaceOpera.Core.Designs
 
         public void SetName(string name)
         {
-            this.Name = name;
+            Name = name;
         }
 
         public DesignTemplate GetDesignTemplate()

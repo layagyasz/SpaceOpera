@@ -13,7 +13,7 @@ namespace SpaceOpera.Core.Economics
         public StellarBodyHolding(Faction owner, StellarBody stellarBody)
             : base(owner)
         {
-            this.StellarBody = stellarBody;
+            StellarBody = stellarBody;
         }
 
         public List<Division> GetDivisions()

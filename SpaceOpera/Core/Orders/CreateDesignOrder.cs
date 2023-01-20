@@ -1,32 +1,27 @@
 using SpaceOpera.Core.Designs;
 using SpaceOpera.Core.Politics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpaceOpera.Core.Orders
 {
-    class CreateDesignOrder : IImmediateOrder
+    public class CreateDesignOrder : IOrder
     {
         public Faction Faction { get; }
         public DesignConfiguration Design { get; }
 
-        public CreateDesignOrder(Faction Faction, DesignConfiguration Design)
+        public CreateDesignOrder(Faction faction, DesignConfiguration design)
         {
-            this.Faction = Faction;
-            this.Design = Design;
+            Faction = faction;
+            Design = design;
         }
 
         public ValidationFailureReason Validate()
         {
-            return Design.Validate() ? ValidationFailureReason.NONE : ValidationFailureReason.INVALID_DESIGN;
+            return Design.Validate() ? ValidationFailureReason.None : ValidationFailureReason.InvalidDesign;
         }
 
         public bool Execute(World World)
         {
-            var design = World.GameData.DesignBuilder.Build(Design);
+            var design = World.DesignBuilder.Build(Design);
             World.AddDesign(design);
             World.AddLicense(new DesignLicense(Faction, design));
             return true;

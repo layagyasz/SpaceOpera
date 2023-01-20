@@ -1,3 +1,4 @@
+using Cardamom.Mathematics.Comparers;
 using Cardamom.Mathematics.Coordinates;
 using OpenTK.Mathematics;
 using SpaceOpera.Core.Military;
@@ -38,7 +39,7 @@ namespace SpaceOpera.Core.Universe
         {
             Neighbors = neighbors.ToList();
 
-            var comparer = new ClockwiseSurface3dComparer(SphericalCenter);
+            var comparer = new ClockwiseVector3Comparer(Center, Center);
             Neighbors.Sort((x, y) => comparer.Compare(x.Center, y.Center));
 
             Bounds = new Vector3[Neighbors.Count];
@@ -47,7 +48,7 @@ namespace SpaceOpera.Core.Universe
                 Bounds[i] = 
                     SphericalCenter.Radius 
                     * ((Center + Neighbors[i].Center 
-                    + Neighbors[(i + 1) % Neighbors.Count].Center) / 3).Normalize();
+                    + Neighbors[(i + 1) % Neighbors.Count].Center) / 3).Normalized();
             }
         }
 
