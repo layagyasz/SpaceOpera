@@ -1,3 +1,4 @@
+using Cardamom.Graphing;
 using Cardamom.Trackers;
 
 namespace SpaceOpera.Core.Languages.Generator
@@ -22,17 +23,16 @@ namespace SpaceOpera.Core.Languages.Generator
             var modifiers = 
                 SymbolModifiers
                     .Where(x => Random.NextDouble() < x.Frequency)
-                    .Select(x => x.Value)
-                    .Select(x => x.Reduce(Random))
+                    .Select(x => x.Value!.Reduce(Random))
                     .ToList();
-            var modifierWeights = modifiers.ToDictionary(x => x, x => Random.NextDouble());
+            var modifierWeights = modifiers.ToDictionary(x => x, x => Random.NextSingle());
 
             var symbols = new List<OrthographySymbol>();
-            var symbolWeights = new Dictionary<OrthographySymbol, double>();
+            var symbolWeights = new Dictionary<OrthographySymbol, float>();
             foreach (var symbol in Symbols)
             {
                 symbols.Add(symbol);
-                symbolWeights.Add(symbol, Random.NextDouble());
+                symbolWeights.Add(symbol, Random.NextSingle());
                 foreach (var modifier in modifiers)
                 {
                     if (!modifier.IsApplicable(symbol))
@@ -41,7 +41,7 @@ namespace SpaceOpera.Core.Languages.Generator
                     }
                     var modified = modifier.Modify(symbol);
                     symbols.Add(modified);
-                    symbolWeights.Add(modified, Random.NextDouble() * modifierWeights[modifier]);
+                    symbolWeights.Add(modified, Random.NextSingle() * modifierWeights[modifier]);
                 }
             }
 
@@ -54,25 +54,14 @@ namespace SpaceOpera.Core.Languages.Generator
                 }
             }
 
-            var stableMatching = new StableMatching<Phoneme, Wrapper<OrthographySymbol>>();
-            foreach (var symbol in symbolWrappers)
-            {
-                stableMatching.AddSecondaryActor(symbol);
-            }
-            foreach (var phoneme in Phonetics.Phonemes)
-            {
-                stableMatching.AddPrimaryActor(phoneme.Value);
-                foreach (var symbol in symbolWrappers)
-                {
-                    stableMatching.SetPrimaryPreference(
-                        phoneme.Value, 
-                        symbol, 
-                        -symbolWeights[symbol.Value] * symbol.Value.Range.Distance(phoneme.Value.Range));
-                    stableMatching.SetSecondaryPreference(symbol, phoneme.Value, phoneme.Frequency);
-                }
-            }
             return new Orthography(
-                stableMatching.GetPairs().Select(x => new OrthographyMatcher(x.First, x.Second.Value.Symbol)));
+                StableMatching.Compute(
+                    Phonetics.Phonemes,
+                    symbolWrappers,
+                    (phoneme, symbol) => 
+                        -symbolWeights[symbol.Value] * symbol.Value.Range.Distance(phoneme.Value!.Range),
+                    (phoneme, _) => 
+                        phoneme.Frequency).Select(x => new OrthographyMatcher(x.Item1.Value!, x.Item2.Value.Symbol)));
         }
     }
 }

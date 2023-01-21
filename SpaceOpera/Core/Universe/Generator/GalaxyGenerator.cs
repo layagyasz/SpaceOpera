@@ -1,6 +1,7 @@
 using Cardamom.Graphing;
 using DelaunayTriangulator;
 using OpenTK.Mathematics;
+using SharpFont.Cache;
 
 namespace SpaceOpera.Core.Universe.Generator
 {
@@ -14,39 +15,27 @@ namespace SpaceOpera.Core.Universe.Generator
         public float TransitDensity { get; set; }
         public StarSystemGenerator? StarSystemGenerator { get; set; }
 
-        class SystemWrapper : Pathable<SystemWrapper>
+        class SystemWrapper : IGraphNode
         {
             public StarSystem System { get; }
-            public bool Passable { get; } = true;
-            private readonly HashSet<SystemWrapper> _neighborWrappers = new();
+            private readonly List<IGraphEdge> _edges = new();
 
             public SystemWrapper(StarSystem system)
             {
                 System = system;
             }
 
-            public float DistanceTo(SystemWrapper node)
+            public IEnumerable<IGraphEdge> GetEdges()
             {
-                return HeuristicDistanceTo(node);
-            }
-
-            public float HeuristicDistanceTo(SystemWrapper node)
-            {
-                return Vector2.Distance(System.Position, node.System.Position);
+                return _edges;
             }
 
             public void SetNeighbors(IEnumerable<SystemWrapper> wrappers)
             {
-                foreach (var wrapper in wrappers)
-                {
-                    _neighborWrappers.Add(wrapper);
-                }
+                _edges.AddRange(
+                    wrappers.Select(
+                        x => new DefaultGraphEdge(this, x, Vector2.Distance(System.Position, x.System.Position))));
                 System.SetNeighbors(wrappers.Select(x => x.System));
-            }
-
-            public IEnumerable<SystemWrapper> Neighbors()
-            {
-                return _neighborWrappers;
             }
         }
 
@@ -85,29 +74,30 @@ namespace SpaceOpera.Core.Universe.Generator
                 var neighbors = result.Neighbors[i].Where(x => x >= 0).Select(x => systemWrappers[x]).ToList();
                 systemWrappers[i].SetNeighbors(neighbors);
             }
-            var spanningTree = 
-                new MinimalSpanning<SystemWrapper>(systemWrappers, x => x.Neighbors(), (x, y) => x.DistanceTo(y));
-            foreach (var transit in spanningTree.GetEdges())
+            foreach (var transit in MinimalSpanningTree.Compute(systemWrappers))
             {
-                transit.Item1.System.AddTransit(transit.Item2.System);
-                transit.Item2.System.AddTransit(transit.Item1.System);
+                var start = (SystemWrapper)transit.Start;
+                var end = (SystemWrapper)transit.End;
+                start.System.AddTransit(end.System);
+                end.System.AddTransit(start.System);
             }
-            var distances = systemWrappers.SelectMany(x => x.Neighbors().Select(y => (float)x.DistanceTo(y))).ToList();
+            var distances = systemWrappers.SelectMany(x => x.GetEdges().Select(y => y.Cost)).ToList();
             var mean = distances.Average();
             var stdDev = MathUtils.StandardDeviation(distances, mean);
             var closed = new HashSet<SystemWrapper>();
             foreach (var systemWrapper in systemWrappers)
             {
                 closed.Add(systemWrapper);
-                foreach (var neighbor in systemWrapper.Neighbors())
+                foreach (var edge in systemWrapper.GetEdges())
                 {
+                    var neighbor = (SystemWrapper)edge.End;
                     if (closed.Contains(neighbor) 
                         || systemWrapper.System.Transits.Values.Any(x => x.TransitSystem == neighbor.System))
                     {
                         continue;
                     }
                     if (random.NextDouble() 
-                        < TransitDensityFn(TransitDensity, (systemWrapper.DistanceTo(neighbor) - mean) / stdDev)) {
+                        < TransitDensityFn(TransitDensity, (edge.Cost - mean) / stdDev)) {
                         systemWrapper.System.AddTransit(neighbor.System);
                         neighbor.System.AddTransit(systemWrapper.System);
                     }

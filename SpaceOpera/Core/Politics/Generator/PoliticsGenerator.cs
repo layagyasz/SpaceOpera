@@ -1,4 +1,5 @@
 using Cardamom.Collections;
+using Cardamom.Graphing;
 using Cardamom.Trackers;
 using SpaceOpera.Core.Universe;
 
@@ -6,29 +7,26 @@ namespace SpaceOpera.Core.Politics.Generator
 {
     public class PoliticsGenerator
     {
-        class FactionWrapper : DijkstraRegion<RegionWrapper>
+        class FactionWrapper : SeededGraphPartition.ISeed<RegionWrapper>
         {
             public Faction Faction { get; }
-            public RegionWrapper Center { get; }
-            public double StartDistance => 0;
+            public RegionWrapper Origin { get; }
+            public float InitialCost => 0;
 
-            public HashSet<RegionWrapper> Regions { get; } = new();
-
-            public FactionWrapper(Faction faction, RegionWrapper center)
+            public FactionWrapper(Faction faction, RegionWrapper origin)
             {
                 Faction = faction;
-                Center = center;
+                Origin = origin;
             }
 
-            public void Add(RegionWrapper child)
+            public float GetPenalty(RegionWrapper wrapper)
             {
-                Regions.Add(child);
+                return 0;
             }
         }
 
-        class RegionWrapper : Pathable<RegionWrapper>
+        class RegionWrapper : IGraphNode
         {
-            public bool Passable => true;
             public StellarBody StellarBody { get; }
             public StellarBodyRegion Region { get; }
             public List<RegionEdgeWrapper> Edges { get; } = new();
@@ -40,32 +38,19 @@ namespace SpaceOpera.Core.Politics.Generator
                 Region = region;
             }
 
-            public IEnumerable<RegionWrapper> Neighbors()
+            public IEnumerable<IGraphEdge> GetEdges()
             {
-                return Edges.Select(x => x.End);
-            }
-
-            public double DistanceTo(RegionWrapper neighbor)
-            {
-                return Edges.First(x => x.End == neighbor).Distance;
-            }
-
-            public double HeuristicDistanceTo(RegionWrapper other)
-            {
-                return DistanceTo(other);
+                return Edges;
             }
         }
 
-        class RegionEdgeWrapper
+        class RegionEdgeWrapper : DefaultGraphEdge
         {
-            public RegionWrapper End { get; }
-            public float Distance { get; }
             public float Falloff { get; }
 
-            public RegionEdgeWrapper(RegionWrapper end, float distance, float falloff)
+            public RegionEdgeWrapper(RegionWrapper start, RegionWrapper end, float cost, float falloff)
+                : base(start, end, cost)
             {
-                End = end;
-                Distance = distance;
                 Falloff = falloff;
             }
         }
@@ -94,7 +79,7 @@ namespace SpaceOpera.Core.Politics.Generator
                         if (region.DominantBiome.IsTraversable)
                         {
                             var node = GetOrCreateNode(nodes, body, region);
-                            regionOptions.Add(GetLinkChance(region), node);
+                            regionOptions.Add(node, GetLinkChance(region));
                         }
                     }
                 }
@@ -114,16 +99,16 @@ namespace SpaceOpera.Core.Politics.Generator
                             var neighborNode = GetOrCreateNode(nodes, body, neighbor);
                             float distance = GetDistance(region, neighbor);
                             float falloff = GetFalloff(region, neighbor);
-                            node.Edges.Add(new RegionEdgeWrapper(neighborNode, distance, falloff));
-                            neighborNode.Edges.Add(new RegionEdgeWrapper(node, distance, falloff));
+                            node.Edges.Add(new RegionEdgeWrapper(node, neighborNode, distance, falloff));
+                            neighborNode.Edges.Add(new RegionEdgeWrapper(neighborNode, node, distance, falloff));
                         }
                         if (region.DominantBiome.IsTraversable && random.NextDouble() < GetLinkChance(region))
                         {
                             var jump = regionOptions.Get(random.NextSingle());
                             float distance = GetDistance(region, jump.Region);
                             float falloff = GetFalloff(region, jump.Region);
-                            node.Edges.Add(new RegionEdgeWrapper(jump, distance, falloff));
-                            jump.Edges.Add(new RegionEdgeWrapper(node, distance, falloff));
+                            node.Edges.Add(new RegionEdgeWrapper(node, jump, distance, falloff));
+                            jump.Edges.Add(new RegionEdgeWrapper(jump, node, distance, falloff));
                         }
                     }
 
@@ -165,9 +150,6 @@ namespace SpaceOpera.Core.Politics.Generator
             {
                 playerHomeRegion
             };
-            var statePool = new DijkstraPool<RegionWrapper>();
-            statePool.Drop(playerStateWrapper);
-
             var banners = Banner!.GenerateUnique(States, random).ToList();
             for (int i = 0; i < States; ++i)
             {
@@ -183,15 +165,14 @@ namespace SpaceOpera.Core.Politics.Generator
                         Faction!.Generate(
                             homeRegion.CultureWeights.ArgMax(x => x.Value).Key, banners[i], random), homeRegion);
                 states.Add(stateWrapper);
-                statePool.Drop(stateWrapper);
             }
             world.AddAllFactions(states.Select(x => x.Faction));
-            statePool.Resolve();
 
-            foreach (var state in states)
+            foreach (var partition in SeededGraphPartition.Compute<FactionWrapper, RegionWrapper>(states))
             {
+                var state = partition.Seed;
                 Design!.Generate(world, state.Faction, random);
-                foreach (var region in state.Regions)
+                foreach (var region in partition.Nodes)
                 {
                     region.Region.SetName(state.Faction.NameGenerator.GenerateNameFor(region.Region, random));
                     region.Region.SetSovereign(state.Faction);
@@ -200,7 +181,7 @@ namespace SpaceOpera.Core.Politics.Generator
                     world.Galaxy.Systems
                         .SelectMany(x => x.Orbiters)
                         .SelectMany(x => x.OrbitRegions)
-                        .Where(x => x.SubRegions.Contains(state.Regions.First().Region.Center))
+                        .Where(x => x.SubRegions.Contains(partition.Nodes.First().Region.Center))
                         .First();
                 Fleet!.Generate(world, state.Faction, hq, random);
             }
@@ -247,8 +228,8 @@ namespace SpaceOpera.Core.Politics.Generator
 
             float distance = GetDistance(region, jump);
             float falloff = GetFalloff(region, jump);
-            node.Edges.Add(new RegionEdgeWrapper(jumpNode, distance, falloff));
-            jumpNode.Edges.Add(new RegionEdgeWrapper(node, distance, falloff));
+            node.Edges.Add(new RegionEdgeWrapper(node, jumpNode, distance, falloff));
+            jumpNode.Edges.Add(new RegionEdgeWrapper(jumpNode, node, distance, falloff));
         }
 
         private static void PlaceCulture(Culture culture, RegionWrapper homeRegion)
@@ -266,11 +247,12 @@ namespace SpaceOpera.Core.Politics.Generator
                     if (!closed.Contains(edge.End))
                     {
                         var weight = current.CultureWeights.Get(culture) * edge.Falloff;
-                        if (edge.End.CultureWeights.Get(culture) < weight)
+                        var wrapper = (RegionWrapper)edge.End;
+                        if (wrapper.CultureWeights.Get(culture) < weight)
                         {
-                            edge.End.CultureWeights[culture] = weight;
-                            queue.Remove(edge.End);
-                            queue.Push(edge.End, weight);
+                            wrapper.CultureWeights[culture] = weight;
+                            queue.Remove(wrapper);
+                            queue.Push(wrapper, weight);
                         }
                     }
                 }

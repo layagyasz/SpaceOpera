@@ -11,58 +11,47 @@ namespace SpaceOpera.Core.Universe.Generator
 {
     public class StellarBodyGenerator: IKeyed
     {
-        class RegionWrapper : DijkstraRegion<SubRegionWrapper>
+        class RegionWrapper : SeededGraphPartition.ISeed<SubRegionWrapper>
         {
-            public SubRegionWrapper Center { get; }
-            public double StartDistance { get; } = 0;
-            public List<SubRegionWrapper> Children { get; } = new();
+            public SubRegionWrapper Origin { get; }
+            public float InitialCost => 0;
+            public HashSet<SubRegionWrapper>? Children { get; set; }
 
-            public RegionWrapper(SubRegionWrapper center)
+            public RegionWrapper(SubRegionWrapper origin)
             {
-                Center = center;
+                Origin = origin;
             }
 
-            public void Add(SubRegionWrapper child)
+            public float GetPenalty(SubRegionWrapper wrapper)
             {
-                Children.Add(child);
-            }
-
-            public override string ToString()
-            {
-                return Center.ToString();
+                return 0;
             }
         }
 
-        class SubRegionWrapper : Pathable<SubRegionWrapper>
+        class SubRegionWrapper : IGraphNode
         {
             public StellarBodySubRegion Region { get; }
-            public List<SubRegionWrapper> NeighborWrappers { get; } = new();
-            public bool Passable { get; } = true;
+            public readonly List<IGraphEdge> _edges = new();
 
             public SubRegionWrapper(StellarBodySubRegion region)
             {
                 Region = region;
             }
 
-            public IEnumerable<SubRegionWrapper> Neighbors()
+            public void AddNeighbors(IEnumerable<SubRegionWrapper> neighbors)
             {
-                return NeighborWrappers;
+                _edges.AddRange(neighbors.Select(x => new DefaultGraphEdge(this, x, DistanceTo(x))));
             }
 
-            public double DistanceTo(SubRegionWrapper otherRegion)
+            public IEnumerable<IGraphEdge> GetEdges()
+            {
+                return _edges;
+            }
+
+            private float DistanceTo(SubRegionWrapper otherRegion)
             {
                 int biomeCost = Region.Biome == otherRegion.Region.Biome ? 0 : 4;
                 return 1 + biomeCost;
-            }
-
-            public double HeuristicDistanceTo(SubRegionWrapper otherRegion)
-            {
-                throw new NotImplementedException();
-            }
-
-            public override string ToString()
-            {
-                return Region.ToString();
             }
         }
 
@@ -136,12 +125,11 @@ namespace SpaceOpera.Core.Universe.Generator
                 subRegionWrappers[i].Region.SetNeighbors(
                     result.Neighbors[i]
                     .Select(x => subRegionWrappers[x >= 0 ? x : subRegionCount - 1].Region));
-                subRegionWrappers[i].NeighborWrappers.AddRange(
+                subRegionWrappers[i].AddNeighbors(
                     result.Neighbors[i].Select(x => subRegionWrappers[x >= 0 ? x : subRegionCount - 1]));
             }
 
             int regionCount = (int)Math.Ceiling(4 * RegionDensity * Math.PI * radius * radius);
-            DijkstraPool<SubRegionWrapper> dijkstraPool = new DijkstraPool<SubRegionWrapper>();
             List<RegionWrapper> regionWrappers = new();
             List<int> cores = new();
             for (int i=0; i <regionCount; ++i)
@@ -151,35 +139,37 @@ namespace SpaceOpera.Core.Universe.Generator
                 {
                     core = random.Next(0, subRegionCount);
                 }
-                while (cores.Contains(core) || subRegionWrappers[core].NeighborWrappers.Count < 4);
+                while (cores.Contains(core) || subRegionWrappers[core]._edges.Count < 4);
                 cores.Add(core);
                 var region = new RegionWrapper(subRegionWrappers[core]);
                 regionWrappers.Add(region);
-                dijkstraPool.Drop(region);
             }
-            dijkstraPool.Resolve();
 
-            foreach (var region in regionWrappers.ToList())
+            foreach (var partition in SeededGraphPartition.Compute<RegionWrapper, SubRegionWrapper>(regionWrappers))
             {
+                var region = partition.Seed;
                 var partitioned =
-                    region.Children
-                        .Where(x => x.Region.Biome.IsTraversable != region.Center.Region.Biome.IsTraversable)
-                        .ToList();
+                    partition.Nodes
+                        .Where(x => x.Region.Biome.IsTraversable != region.Origin.Region.Biome.IsTraversable)
+                        .ToHashSet();
+                region.Children = new(partition.Nodes);
                 if (partitioned.Count > 0)
                 {
-                    region.Children.RemoveAll(partitioned.Contains);
-                    var newWrapper = 
+                    region.Children.RemoveWhere(partitioned.Contains);
+                    var newWrapper =
                         new RegionWrapper(
                             partitioned.ArgMax(
-                                x => -MathUtils.ArcLength(region.Center.Region.Center, x.Region.Center, radius))!);
-                    newWrapper.Children.AddRange(partitioned);
+                                x => -MathUtils.ArcLength(region.Origin.Region.Center, x.Region.Center, radius))!)
+                        {
+                            Children = partitioned
+                        };
                     regionWrappers.Add(newWrapper);
                 }
             }
             if (regionWrappers.Count > regionCount)
             {
                 regionWrappers.Sort(
-                    Comparer<RegionWrapper>.Create((x, y) => x.Children.Count.CompareTo(y.Children.Count)));
+                    Comparer<RegionWrapper>.Create((x, y) => x.Children!.Count.CompareTo(y.Children!.Count)));
                 var regionsToRemove = regionWrappers.Count - regionCount;
                 while (regionsToRemove > 0)
                 {
@@ -187,12 +177,16 @@ namespace SpaceOpera.Core.Universe.Generator
                     var regionToCombine =
                         regionWrappers.FirstOrDefault(
                             x => x != region 
-                                && region.Center.Region.Biome.IsTraversable == x.Center.Region.Biome.IsTraversable 
-                                && region.Children.SelectMany(y => y.NeighborWrappers).Any(region.Children.Contains));
+                                && region.Origin.Region.Biome.IsTraversable == x.Origin.Region.Biome.IsTraversable 
+                                && region.Children!.SelectMany(y => y.GetEdges())
+                                         .Select(x => x.End).Any(region.Children!.Contains));
                     if (regionToCombine != null)
                     {
-                        regionToCombine.Children.AddRange(region.Children);
-                        region.Children.Clear();
+                        foreach (var child in region.Children!)
+                        {
+                            regionToCombine.Children!.Add(child);
+                        }
+                        region.Children!.Clear();
                         --regionsToRemove;
                     }
                     else
@@ -203,22 +197,22 @@ namespace SpaceOpera.Core.Universe.Generator
                 }
             }
 
-            List<StellarBodyRegion> regions = new List<StellarBodyRegion>();
+            List<StellarBodyRegion> regions = new();
             for (int i = 0; i < regionCount;++i)
             {
                 var region = 
                     new StellarBodyRegion(
-                        regionWrappers[i].Center.Region, regionWrappers[i].Children.Select(x => x.Region));
-                region.AddStructureNodes((uint)(StructureNodeDensity * regionWrappers[i].Children.Count));
+                        regionWrappers[i].Origin.Region, regionWrappers[i].Children!.Select(x => x.Region));
+                region.AddStructureNodes((uint)(StructureNodeDensity * regionWrappers[i].Children!.Count));
                 regions.Add(region);
-                foreach (var subRegion in regionWrappers[i].Children)
+                foreach (var subRegion in regionWrappers[i].Children!)
                 {
                     subRegion.Region.SetParentRegion(region);
                 }
             }
 
             int atmosphericRegionCount = (int)(2 * Math.PI * radius * AtmosphereGenerator!.RegionDensity) + 1;
-            List<List<StellarBodySubRegion>> atmosphereRegionMembers = new List<List<StellarBodySubRegion>>();
+            List<List<StellarBodySubRegion>> atmosphereRegionMembers = new();
             for (int i=0; i<atmosphericRegionCount; ++i)
             {
                 atmosphereRegionMembers.Add(new List<StellarBodySubRegion>());
