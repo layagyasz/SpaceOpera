@@ -23,6 +23,7 @@ namespace SpaceOpera
         public EconomyGraph EconomyGraph { get; }
         public BattleManager BattleManager { get; }
         public DesignBuilder DesignBuilder { get; }
+        public AutoDesigner AutoDesigner { get; }
 
         private readonly List<Culture> _cultures = new();
         private readonly List<Faction> _factions = new();
@@ -46,13 +47,14 @@ namespace SpaceOpera
             GameData = gameData;
             Random = random;
             Galaxy = galaxy;
-            NavigationMap = new NavigationMap(galaxy);
-            DiplomaticRelations = new DiplomaticRelationGraph();
-            Economy = new Economy(gameData.MaterialSink!);
-            EconomyGraph = new EconomyGraph();
+            NavigationMap = new(galaxy);
+            DiplomaticRelations = new();
+            Economy = new(gameData.MaterialSink!);
+            EconomyGraph = new();
             EconomyGraph.AddRecipes(gameData.Recipes.Values);
-            BattleManager = new BattleManager(DiplomaticRelations);
-            DesignBuilder = new DesignBuilder(new ComponentClassifier(gameData.ComponentClassifiers));
+            BattleManager = new(DiplomaticRelations);
+            DesignBuilder = new(new ComponentClassifier(gameData.ComponentClassifiers));
+            AutoDesigner = new(gameData.DesignTemplates.Values);
 
             foreach (var material in gameData.Materials)
             {

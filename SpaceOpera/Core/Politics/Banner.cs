@@ -1,16 +1,14 @@
-using OpenTK.Mathematics;
-
 namespace SpaceOpera.Core.Politics
 {
     public class Banner
     {
-        public uint Symbol { get; }
-        public uint Background { get; }
-        public Color4 PrimaryColor { get; }
-        public Color4 SecondaryColor { get; }
-        public Color4 SymbolColor { get; }
+        public int Symbol { get; }
+        public int Background { get; }
+        public int PrimaryColor { get; }
+        public int SecondaryColor { get; }
+        public int SymbolColor { get; }
 
-        public Banner(uint symbol, uint background, Color4 primaryColor, Color4 secondaryColor, Color4 symbolColor)
+        public Banner(int symbol, int background, int primaryColor, int secondaryColor, int symbolColor)
         {
             Symbol = symbol;
             Background = background;

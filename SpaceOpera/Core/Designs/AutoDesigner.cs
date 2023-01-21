@@ -43,7 +43,7 @@ namespace SpaceOpera.Core.Designs
                 foreach (var node in nodes.Keys.ToList())
                 {
                     nodes.RemoveAll(node, x => x == current);
-                    if (nodes[node].Count() == 0)
+                    if (!nodes[node].Any())
                     {
                         open.Enqueue(node);
                         nodes.Remove(node);
@@ -77,7 +77,7 @@ namespace SpaceOpera.Core.Designs
             return
                 template.ConfigurationOptions
                     .Select(x => DesignSegmentWithConfiguration(template, x, parameters, availableComponents, random))
-                    .ArgMaxRandomlySelecting(parameters.GetFitness, random);
+                    .ArgMaxRandomlySelecting(parameters.GetFitness, random)!;
         }
 
         private static Segment DesignSegmentWithConfiguration(
@@ -95,7 +95,7 @@ namespace SpaceOpera.Core.Designs
                     Enumerable.Repeat(
                         availableComponents
                             .Where(x => x.FitsSlot(slot)).ArgMaxRandomlySelecting(parameters.GetFitness, random),
-                        slot.Count));
+                        slot.Count)!);
             }
             return new Segment(template, configuration, components);
         }

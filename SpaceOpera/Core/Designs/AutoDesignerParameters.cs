@@ -9,7 +9,7 @@ namespace SpaceOpera.Core.Designs
 
         public float GetFitness(IComponent component)
         {
-            return AttributeFitness == null ? 0 : AttributeFitness.Sum(x => x.Value * component.GetAttribute(x.Key));
+            return AttributeFitness.Sum(x => x.Value * component.GetAttribute(x.Key));
         }
 
         public float GetFitness(Segment segment)
