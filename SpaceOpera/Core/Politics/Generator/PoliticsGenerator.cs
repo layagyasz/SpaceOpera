@@ -168,7 +168,7 @@ namespace SpaceOpera.Core.Politics.Generator
             }
             world.AddAllFactions(states.Select(x => x.Faction));
 
-            foreach (var partition in SeededGraphPartition.Compute<FactionWrapper, RegionWrapper>(states))
+            foreach (var partition in SeededGraphPartition.Compute<FactionWrapper, RegionWrapper>(states, x => true))
             {
                 var state = partition.Seed;
                 Design!.Generate(world, state.Faction, random);

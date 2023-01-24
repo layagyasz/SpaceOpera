@@ -62,7 +62,7 @@ namespace SpaceOpera.Core.Universe.Generator
         public float RegionDensity { get; set; }
         public float SubRegionDensity { get; set; }
         public uint StructureNodeDensity { get; set; }
-        public BiomeSelector? BiomeSelector { get; set; }
+        public StellarBodySurfaceGenerator? SurfaceGenerator { get; set; }
         public AtmosphereGenerator? AtmosphereGenerator { get; set; }
 
         public StellarBody Generate(Random random, Orbit orbit)
@@ -86,37 +86,30 @@ namespace SpaceOpera.Core.Universe.Generator
             float radius = RadiusSampler!.Generate(random);
             int subRegionCount = (int)Math.Ceiling(4 * SubRegionDensity * Math.PI * radius * radius);
 
-            List<Vector3> centers = new();
+            Vector3[] centers = new Vector3[subRegionCount];
+            List<Vertex> vertices = new(subRegionCount - 1);
+            var projection = new StereographicProjection.Cartesian();
             for (int i = 0; i < subRegionCount - 1; ++i)
             {
-                float z = (float)(2 * random.NextDouble() - 1);
-                float r = (float)(Math.Sqrt(1 - z * z));
-                float theta = (float)(2 * Math.PI * random.NextDouble());
-                centers.Add(new Vector3(r * (float)Math.Cos(theta), r * (float)Math.Sin(theta), z));
-            }
-            centers.Sort((x, y) => -x.Z.CompareTo(y.Z));
-
-            var projection = new StereographicProjection.Cartesian();
-            List<Vertex> vertices = new();
-            foreach (var center in centers)
-            {
-                Vector2 projected = projection.Project(center);
+                var point =
+                    new Cylindrical3(1, MathF.Tau * random.NextSingle(), 2 * random.NextSingle() - 1).AsCartesian();
+                centers[i] = point;
+                var projected = projection.Project(point);
                 vertices.Add(new Vertex(projected.X, projected.Y));
             }
 
             List<Triad> triads = VoronoiGrapher.GetTriangulation(vertices);
             VoronoiGrapher.VoronoiNeighborsResult result = VoronoiGrapher.GetNeighbors(vertices, triads);
             result.Neighbors.Add(result.EdgeIndices);
-            centers.Add(new(0, 0, 1));
+            centers[subRegionCount - 1] = new(0, 0, 1);
 
-            BiomeSelector!.Seed(random);
+            Biome[] biomes = SurfaceGenerator!.Get(SurfaceGenerator!.Generate(random), centers);
             List<SubRegionWrapper> subRegionWrappers = new();
             for (int i=0;i<subRegionCount;++i)
             {
                 Vector3 center = centers[i] * (float)radius;
                 Spherical3 centerSpherical = center.AsSpherical();
-                Biome biome = BiomeSelector.Select(center, centerSpherical);
-                var subRegion = new StellarBodySubRegion(i, center, centerSpherical, biome);
+                var subRegion = new StellarBodySubRegion(i, center, centerSpherical, biomes[i]);
                 subRegionWrappers.Add(new SubRegionWrapper(subRegion));
             }
             
@@ -145,7 +138,8 @@ namespace SpaceOpera.Core.Universe.Generator
                 regionWrappers.Add(region);
             }
 
-            foreach (var partition in SeededGraphPartition.Compute<RegionWrapper, SubRegionWrapper>(regionWrappers))
+            foreach (var partition in 
+                SeededGraphPartition.Compute<RegionWrapper, SubRegionWrapper>(regionWrappers, x => true))
             {
                 var region = partition.Seed;
                 var partitioned =
