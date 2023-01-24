@@ -12,7 +12,7 @@ namespace SpaceOpera.Core.Economics
 
         private readonly Dictionary<object, EconomicSubzone> _subzones = new();
         private readonly MultiQuantity<IMaterial> _inventory = new();
-        private readonly MultiCount<ActualizedRecipe> _production = new ();
+        private readonly MultiCount<Recipe> _production = new ();
 
         protected EconomicZone(Faction owner)
         {
@@ -29,7 +29,7 @@ namespace SpaceOpera.Core.Economics
             _subzones.Add(key, subzone);
         }
 
-        public void AdjustProduction(MultiCount<ActualizedRecipe> allocation)
+        public void AdjustProduction(MultiCount<Recipe> allocation)
         {
             _production.Add(allocation);
         }
@@ -94,7 +94,7 @@ namespace SpaceOpera.Core.Economics
             {
                 foreach (var transform in production.Key.Transformation)
                 {
-                    var total = transform.Value * production.Value * production.Key.BaseRecipe.Structure!.MaxWorkers;
+                    var total = transform.Value * production.Value * production.Key.Structure!.MaxWorkers;
                     switch (transform.Key.Type)
                     {
                         case MaterialType.MaterialContinuous:

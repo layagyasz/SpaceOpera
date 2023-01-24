@@ -61,8 +61,8 @@ namespace SpaceOpera.Core.Politics.Generator
         public DesignGenerator? Design { get; set; }
         public FleetGenerator? Fleet { get; set; }
         public float BaseLinkChance { get; set; }
-        public uint Cultures { get; set; }
-        public uint States { get; set; }
+        public int Cultures { get; set; }
+        public int States { get; set; }
 
         public void Generate(World world, Culture playerCulture, Faction playerFaction, Random random)
         {

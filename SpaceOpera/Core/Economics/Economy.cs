@@ -1,4 +1,5 @@
 using Cardamom;
+using Cardamom.Trackers;
 using SpaceOpera.Core.Advanceable;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Universe;
@@ -15,18 +16,18 @@ namespace SpaceOpera.Core.Economics
 
         public Economy(MaterialSink materialSink)
         {
-            this.MaterialSink = materialSink;
+            MaterialSink = materialSink;
         }
 
         public void CreateSovereignHolding(Faction faction, StellarBodyRegion stellarBodyRegion)
         {
-            var holding = GetOrCreateHolding(faction, stellarBodyRegion.Parent);
+            var holding = GetOrCreateHolding(faction, stellarBodyRegion.Parent!);
             var regionHolding = new StellarBodyRegionHolding(holding, stellarBodyRegion);
             holding.AddSubzone(stellarBodyRegion, regionHolding);
             regionHolding.AddStructureNodes((int)stellarBodyRegion.StructureNodes);
             foreach (var resource in stellarBodyRegion.Resources)
             {
-                regionHolding.AddResourceNodes(Count<ResourceNode>(resource, resource.Size));
+                regionHolding.AddResourceNodes(Count<ResourceNode>.Create(resource, resource.Size));
             }
         }
 
@@ -39,7 +40,7 @@ namespace SpaceOpera.Core.Economics
 
         public StellarBodyRegionHolding? GetHolding(Faction faction, StellarBodyRegion stellarBodyRegion)
         {
-            var holding = GetHolding(faction, stellarBodyRegion.Parent);
+            var holding = GetHolding(faction, stellarBodyRegion.Parent!);
             if (holding != null)
             {
                 return (StellarBodyRegionHolding)holding.GetSubzone(stellarBodyRegion);

@@ -2,5 +2,6 @@
 {
     public class MaterialSink
     {
+        public List<SingleMaterialSink> PopulationSink { get; set; } = new();
     }
 }

@@ -1,11 +1,12 @@
 using MathNet.Numerics.Distributions;
+using SpaceOpera.Core.Universe;
 using System.Text.Json.Serialization;
 
 namespace SpaceOpera.Core.Economics.Generator
 {
     public class ResourceSampler
     {
-        private static readonly double s_ClumpingConstant = .05;
+        private static readonly float s_ClumpingConstant = .05f;
 
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public enum ResourceSamplerType
@@ -31,27 +32,20 @@ namespace SpaceOpera.Core.Economics.Generator
 
         public ResourceNode Generate(float scale, Random random)
         {
-            double x;
-            switch (SamplerType)
+            var x = SamplerType switch
             {
-                case ResourceSamplerType.Clumped:
-                    x = Pareto.Sample(random, .5 * NodeDensityCoefficient / Clumping(), 2);
-                    break;
-                case ResourceSamplerType.Dispersed:
-                    x = Normal.Sample(random, NodeDensityCoefficient, .25 * NodeDensityCoefficient);
-                    break;
-                case ResourceSamplerType.Ubiquitous:
-                default:
-                    x = 0;
-                    break;
-            }
+                ResourceSamplerType.Clumped => Pareto.Sample(random, .5 * NodeDensityCoefficient / Clumping(), 2),
+                ResourceSamplerType.Dispersed => 
+                    Normal.Sample(random, NodeDensityCoefficient, .25 * NodeDensityCoefficient),
+                _ => 0,
+            };
             x *= scale;
             return new ResourceNode(
-                Resource,
+                Resource!,
                 (int)x + Bernoulli.Sample(random, x - (int)Math.Floor(x)));
         }
 
-        private double Clumping()
+        private float Clumping()
         {
             if (SamplerType == ResourceSamplerType.Clumped)
             {
