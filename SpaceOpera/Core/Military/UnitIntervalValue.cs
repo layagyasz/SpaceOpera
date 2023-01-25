@@ -1,23 +1,23 @@
 namespace SpaceOpera.Core.Military
 {
-    public struct UnitIntervalValue
+    public readonly struct UnitIntervalValue
     {
-        public static UnitIntervalValue Zero = new(0);
+        public static readonly UnitIntervalValue Zero = new(0);
 
         private static readonly float s_Divisor = 100;
 
         public float RawValue { get; }
         public float UnitValue { get; }
 
-        public UnitIntervalValue(float RawValue)
+        public UnitIntervalValue(float rawValue)
         {
-            this.RawValue = RawValue;
-            this.UnitValue = ToUnitInterval(RawValue);
+            RawValue = rawValue;
+            UnitValue = ToUnitInterval(rawValue);
         }
 
-        public static float ToUnitInterval(float RawValue)
+        public static float ToUnitInterval(float rawValue)
         {
-            return RawValue / (RawValue + s_Divisor);
+            return rawValue / (rawValue + s_Divisor);
         }
         public override string ToString()
         {

@@ -14,7 +14,7 @@ namespace SpaceOpera.Core.Languages
             Phonetics = phonetics;
             Orthography = orthography;
             Phonology = phonology;
-            WordLengthSampler = new UniformSampler(32 / phonology.Entropy, 40 / phonology.Entropy);
+            WordLengthSampler = new UniformSampler(new(32 / phonology.Entropy, 40 / phonology.Entropy));
         }
 
         public string GenerateLetter(Random random)

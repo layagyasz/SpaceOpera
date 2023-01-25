@@ -73,7 +73,7 @@ namespace SpaceOpera.Core.Languages
 
         public static bool Contains(PhonemeClass Outer, PhonemeClass Inner)
         {
-            if (Outer == PhonemeClass.ANY || Inner == PhonemeClass.ANY || Inner == PhonemeClass.NONE)
+            if (Outer == PhonemeClass.Any || Inner == PhonemeClass.Any || Inner == PhonemeClass.None)
             {
                 return true;
             }

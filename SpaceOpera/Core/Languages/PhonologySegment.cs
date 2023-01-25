@@ -7,7 +7,7 @@ namespace SpaceOpera.Core.Languages
     {
         private static readonly Phoneme s_Terminal = new();
 
-        public double Entropy { get; }
+        public float Entropy { get; }
 
         private readonly Dictionary<Phoneme, WeightedVector<Phoneme>> _allowedSequences;
 
@@ -47,9 +47,9 @@ namespace SpaceOpera.Core.Languages
                         x => string.Format("{0} => {1}", x.Key, string.Join(",", x.Value.Select(y => y.Key))))));
         }
 
-        private double GetEntropy()
+        private float GetEntropy()
         {
-            return Math.Log(_allowedSequences.Sum(x => x.Value.Count)) / Math.Log(2);
+            return MathF.Log(_allowedSequences.Sum(x => x.Value.Count)) / MathF.Log(2);
         }
 
         public class Builder
@@ -96,7 +96,7 @@ namespace SpaceOpera.Core.Languages
                     var options = new WeightedVector<Phoneme>();
                     foreach (var value in entry.Value)
                     {
-                        options.Add(value.Value, value.Frequency);
+                        options.Add(value.Value!, value.Frequency);
                     }
                     dict.Add(entry.Key, options);
                 }

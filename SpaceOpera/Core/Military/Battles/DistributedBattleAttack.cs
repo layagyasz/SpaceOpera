@@ -25,24 +25,24 @@ namespace SpaceOpera.Core.Military.Battles
                 Dirichlet.GetDistribution(
                     random, 
                     potentials.Select(
-                        x => (double)x.Target.Count * x.Target.Unit.Threat * x.ComputePotential().GetTotal())
+                        x => (double)x.Target.Count.Amount * x.Target.Unit.Threat * x.ComputePotential().GetTotal())
                     .ToArray());
             return potentials.Zip(dirichlet, (x, y) => Create(x, (float)y)).ToList();
         }
 
         public Damage ComputeRaw()
         {
-            return s_BaseMultiplier * Effort * Attack.Attacker.Count * Attack.ComputeRaw();
+            return s_BaseMultiplier * Effort * Attack.Attacker.Count.Amount * Attack.ComputeRaw();
         }
 
         public Damage ComputeOnTarget()
         {
-            return s_BaseMultiplier * Effort * Attack.Attacker.Count * Attack.ComputeOnTarget();
+            return s_BaseMultiplier * Effort * Attack.Attacker.Count.Amount * Attack.ComputeOnTarget();
         }
 
         public Damage ComputeFinal(float Adjustment)
         {
-            return s_BaseMultiplier * Effort * Attack.Attacker.Count * Attack.ComputeFinal(Adjustment);
+            return s_BaseMultiplier * Effort * Attack.Attacker.Count.Amount * Attack.ComputeFinal(Adjustment);
         }
 
         public override string ToString()

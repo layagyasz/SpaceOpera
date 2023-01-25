@@ -39,9 +39,9 @@ namespace SpaceOpera.Core.Universe.Generator
             var orbiters = new List<StellarBody>();
             for (int i=0; i<numBodies;++i)
             {
-                var orbit = OrbitGenerator.Generate(random, star, distanceSampler.Generate(random));
+                var orbit = OrbitGenerator!.Generate(random, star, distanceSampler.Generate(random));
                 var avgDistance = orbit.GetAverageDistance();
-                var generator = StellarBodySelector.Select(
+                var generator = StellarBodySelector!.Select(
                         random,
                         GetTemperatureForDistance(star, avgDistance),
                         GetGravityForDistance(star, avgDistance));

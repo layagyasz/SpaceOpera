@@ -83,26 +83,17 @@ namespace SpaceOpera.Core.Politics
         private static object NamePartToValue(
             ComponentNamePart part, NameGeneratorArgs args, Language language, Random random)
         {
-            switch (part.Source)
+            return part.Source switch
             {
-                case ComponentNameSource.Static:
-                    return part!.StaticValue;
-                case ComponentNameSource.Random:
-                    return part!.RandomValue.Generate(random);
-                case ComponentNameSource.SequenceNumber:
-                    return args.SequenceNumber;
-                case ComponentNameSource.ParentName:
-                    return args.ParentName;
-                case ComponentNameSource.Tags:
-                    return args.Tags;
-                case ComponentNameSource.LanguageWord:
-                    return language.GenerateWord(random);
-                case ComponentNameSource.LanguageLetter:
-                    return language.GenerateLetter(random);
-                case ComponentNameSource.None:
-                default:
-                    throw new ArgumentException($"Unsupported Source: [{part.Source}].");
-            }
+                ComponentNameSource.Static => part!.StaticValue!,
+                ComponentNameSource.Random => part!.RandomValue!.Generate(random),
+                ComponentNameSource.SequenceNumber => args.SequenceNumber,
+                ComponentNameSource.ParentName => args.ParentName,
+                ComponentNameSource.Tags => args.Tags,
+                ComponentNameSource.LanguageWord => language.GenerateWord(random),
+                ComponentNameSource.LanguageLetter => language.GenerateLetter(random),
+                _ => throw new ArgumentException($"Unsupported Source: [{part.Source}]."),
+            };
         }
 
         private static IEnumerable<string> ValueToString(

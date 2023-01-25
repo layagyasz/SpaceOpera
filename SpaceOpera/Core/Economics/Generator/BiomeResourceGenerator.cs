@@ -20,7 +20,7 @@ namespace SpaceOpera.Core.Economics.Generator
             _resourceSamplers = new MultiQuantity<ResourceSampler>();
             foreach (var sampler in resourceSamplers)
             {
-                modifiers.TryGetValue(sampler.Resource, out Modifier modifier);
+                modifiers.TryGetValue(sampler.Resource!, out var modifier);
                 var total = (Modifier.One + modifier).GetTotal();
                 if (total > 0)
                 {

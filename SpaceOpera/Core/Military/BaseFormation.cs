@@ -62,7 +62,7 @@ namespace SpaceOpera.Core.Military
 
         public float GetCommand()
         {
-            return Composition.Sum(x => x.Unit.Command * x.Count);
+            return Composition.Sum(x => x.Unit.Command * x.Count.Amount);
         }
 
         public float GetDetection()
@@ -77,28 +77,24 @@ namespace SpaceOpera.Core.Military
 
         public float GetSpeed(NavigableEdgeType type)
         {
-            switch (type)
+            return type switch
             {
-                case NavigableEdgeType.Space:
-                    return 50;
-                case NavigableEdgeType.Jump:
-                    return 500000000;
-                case NavigableEdgeType.Ground:
-                    return 1;
-                default:
-                    return 0;
-            }
+                NavigableEdgeType.Space => 50,
+                NavigableEdgeType.Jump => 500000000,
+                NavigableEdgeType.Ground => 1,
+                _ => (float)0,
+            };
         }
 
         public void SetName(string name)
         {
-            this.Name = name;
+            Name = name;
         }
 
         public void SetPosition(INavigable position)
         {
-            var temp = this.Position;
-            this.Position = position;
+            var temp = Position;
+            Position = position;
             OnMoved?.Invoke(this, MovementEventArgs.Create(temp, position));
         }
     }

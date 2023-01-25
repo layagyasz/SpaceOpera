@@ -2,6 +2,7 @@
 {
     public class DesignConfiguration
     {
+        public string Name { get; private set; } = string.Empty;
         public DesignTemplate Template { get; set; }
 
         private readonly List<Segment> _segments;
@@ -26,6 +27,11 @@
         public IEnumerable<ComponentTag> GetTags()
         {
             return Enumerable.Concat(Template.Tags, _segments.SelectMany(x => x.GetTags()));
+        }
+
+        public void SetName(string name)
+        {
+            Name = name;
         }
 
         public bool Validate()

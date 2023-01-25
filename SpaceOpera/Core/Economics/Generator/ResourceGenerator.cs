@@ -43,10 +43,10 @@ namespace SpaceOpera.Core.Economics.Generator
                 {
                     resourceNodes.Add(
                         new ResourceNode(
-                            atmosphereNode.Value, 
+                            atmosphereNode.Key, 
                             (int)Math.Min(
                                 region.StructureNodes,
-                                _gasNodeDensity * region.StructureNodes * atmosphereNode.Amount)));
+                                _gasNodeDensity * region.StructureNodes * atmosphereNode.Value)));
                 }
                 region.AddResources(resourceNodes);
                 if (region.Sovereign != null)

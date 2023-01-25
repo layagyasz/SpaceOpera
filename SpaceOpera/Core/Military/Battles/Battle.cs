@@ -29,7 +29,7 @@ namespace SpaceOpera.Core.Military.Battles
             var factionReport = _report.GetBuilderFor(formation.Faction);
             foreach (var group in formation.Composition)
             {
-                factionReport.GetBuilderFor(group.Unit).Add(group.Count);
+                factionReport.GetBuilderFor(group.Unit).Add(group.Count.Amount);
             }
         }
 
@@ -48,15 +48,12 @@ namespace SpaceOpera.Core.Military.Battles
 
         public IEnumerable<IFormation> GetFormations(BattleSideType type)
         {
-            switch (type)
+            return type switch
             {
-                case BattleSideType.Offense:
-                    return _offense.Formations;
-                case BattleSideType.Defense:
-                    return _defense.Formations;
-                default:
-                    throw new ArgumentException();
-            }
+                BattleSideType.Offense => _offense.Formations,
+                BattleSideType.Defense => _defense.Formations,
+                _ => throw new ArgumentException($"Unsupported BattleSideType: [{type}]."),
+            };
         }
 
         public BattleReport GetReport()
@@ -81,7 +78,7 @@ namespace SpaceOpera.Core.Military.Battles
                     }
                     return;
                 default:
-                    throw new ArgumentException();
+                    throw new ArgumentException($"Unsupported BattleSideType: [{side}].");
             }
         }
 
@@ -93,8 +90,8 @@ namespace SpaceOpera.Core.Military.Battles
                 {
                     var defenses = _defense.GetAttacks(_offense, random);
                     var attacks = _offense.GetAttacks(_defense, random);
-                    _defense.Damage(attacks, _report);
-                    _offense.Damage(defenses, _report);
+                    BattleSide.Damage(attacks, _report);
+                    BattleSide.Damage(defenses, _report);
                 }
             }
         }

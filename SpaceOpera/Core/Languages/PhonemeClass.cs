@@ -5,7 +5,9 @@ namespace SpaceOpera.Core.Languages
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum PhonemeClass
     {
-        Unknown,
+        None,
+        Any,
+
         Consonant,
         Vowel
     }

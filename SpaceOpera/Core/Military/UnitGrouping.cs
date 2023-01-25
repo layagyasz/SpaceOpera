@@ -1,68 +1,71 @@
-using SpaceOpera.Core.Military.Battles;
+using Cardamom;
+using Cardamom.Trackers;
 
 namespace SpaceOpera.Core.Military
 {
     public class UnitGrouping
     {
-        private static readonly float s_ShieldConstant = 12;
-
         public Unit Unit { get; }
-        public int Count { get; private set; }
-        public double Shielding { get; private set; }
+        public IntPool Count { get; }
+        public Pool Hitpoints { get; }
+        public Pool Shielding { get; }
 
-        public UnitGrouping(Unit Unit, int Count)
+        public UnitGrouping(Count<Unit> unit)
         {
-            this.Unit = Unit;
-            this.Count = Count;
+            Unit = unit.Key;
+            Count = new(unit.Value);
 
-            Shielding = Count * Unit.Shield.Capacity;
+            Hitpoints = new(unit.Value * Unit.Hitpoints);
+            Shielding = new(unit.Value * Unit.Shield.Capacity);
+        }
+
+        public void Combine(UnitGrouping other)
+        {
+            Precondition.Check(other.Unit == Unit);
+            Count.Merge(other.Count);
+            Hitpoints.Merge(other.Hitpoints);
+            Shielding.Merge(other.Shielding);
         }
 
         public void Recharge()
         {
-            Shielding = Math.Min(Shielding + Count * Unit.Shield.Recharge, Count * Unit.Shield.Capacity);
+            Shielding.Change(Count.Amount * Unit.Shield.Recharge);
         }
 
-        private double CurrentAbsorption()
+        public float GetCurrentAbsorption()
         {
-            if (Shielding < double.Epsilon)
-            {
-                return 0;
-            }
-            var v = Unit.Shield.Absorption * Shielding / (Count * Unit.Shield.Capacity);
-            return v / (v + s_ShieldConstant);
+            return UnitIntervalValue.ToUnitInterval(Unit.Shield.Absorption.RawValue * Shielding.PercentFull());
         }
 
-
-        private void DamageShield(double Damage)
+        public int DamageHitpoints(float damage)
         {
-            Shielding = Math.Max(0, Shielding - Damage);
+            Hitpoints.Change(-damage);
+            var p = Hitpoints.Amount / (Count.MaxAmount * Unit.Hitpoints);
+            int losses = Count.Amount - (int)(Count.MaxAmount * (1 - p * p));
+            TakeCasualties(losses);
+            return losses;
+        }
+
+        public void DamageShield(Damage damage)
+        {
+            Shielding.Change(-damage.GetTotal());
         }
 
         private void TakeCasualties(int Casualties)
         {
-            Count = Math.Max(0, Count - Casualties);
-        }
-
-        public void Damage(IEnumerable<DistributedBattleAttack> Attacks, Random Random)
-        {
-            double rawDamage = Attacks.Sum(x => x.ComputeRaw());
-            DamageShield(CurrentAbsorption() * rawDamage);
-
-            double finalDamage = Attacks.Sum(x => x.ComputeFinal(1 - CurrentAbsorption()));
-            TakeCasualties(ToCasualtyNumber(finalDamage, Unit, Random));
-        }
-
-        private static int ToCasualtyNumber(double Damage, Unit Target, Random Random)
-        {
-            double damage = 1 / Target.Hitpoints * Damage;
-            int additional = Random.NextDouble() < Math.Floor(damage) - damage ? 1 : 0;
-            return (int)Math.Floor(damage) + additional;
+            Count.Change(-Casualties);
+            Hitpoints.Change(-Casualties * Unit.Hitpoints);
+            Shielding.Change(-Casualties * Unit.Shield.Capacity);
         }
 
         public override string ToString()
         {
-            return string.Format("[UnitGrouping Unit={0}, Shield={1}, Count={2}]", Unit, Shielding, Count);
+            return string.Format(
+                "[UnitGrouping: Unit={0}, Count={1}, Hitpoints={2}, Shielding={3}]", 
+                Unit, 
+                Count,
+                Hitpoints, 
+                Shielding);
         }
     }
 }

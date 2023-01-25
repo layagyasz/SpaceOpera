@@ -14,7 +14,7 @@ namespace SpaceOpera.Core.Languages.Generator
         {
             var exlcusions = new List<PhonemeRange>();
 
-            foreach (var newRange in Exclusions.Select(random))
+            foreach (var newRange in Exclusions!.Select(random))
             {
                 exlcusions.Add(newRange);
             }

@@ -11,7 +11,7 @@ namespace SpaceOpera.Core.Military.Battles
             Formations.Add(Formation);
         }
 
-        public void Damage(List<DistributedBattleAttack> attacks, BattleReport.Builder report)
+        public static void Damage(List<DistributedBattleAttack> attacks, BattleReport.Builder report)
         {
             foreach (var formation in attacks.GroupBy(x => x.Attack.TargetFormation))
             {
@@ -20,13 +20,13 @@ namespace SpaceOpera.Core.Military.Battles
                 foreach (var grouping in formation.GroupBy(x => x.Attack.Target))
                 {
                     var group = grouping.Key;
-                    if (group.Count <= 0)
+                    if (group.Count.IsEmpty())
                     {
                         continue;
                     }
 
-                    var abs = group.CurrentAbsorption();
-                    Damage totalOnTarget = new Damage();
+                    var abs = group.GetCurrentAbsorption();
+                    Damage totalOnTarget = new();
                     float totalEffective = 0;
                     foreach (var attack in grouping)
                     {
@@ -53,7 +53,7 @@ namespace SpaceOpera.Core.Military.Battles
                         .AddHullDamage((1 - abs) * totalOnTarget.GetTotal())
                         .AddTakenDamage(totalEffective);
                 }
-                formation.Key.Cohesion.ChangeAmount(-10 * lostCommand / currentCommand);
+                formation.Key.Cohesion.Change(-10 * lostCommand / currentCommand);
             }
         }
 
@@ -76,14 +76,14 @@ namespace SpaceOpera.Core.Military.Battles
             Formations.Remove(formation);
         }
 
-        private List<BattleAttack> GetPotential(IFormation formation, UnitGrouping unit, BattleSide opposingSide)
+        private static List<BattleAttack> GetPotential(IFormation formation, UnitGrouping unit, BattleSide opposingSide)
         {
             return unit.Unit.Weapons.GetCounts()
                 .SelectMany(x => GetPotential(formation, unit, x, opposingSide))
                 .ToList();
         }
 
-        private IEnumerable<BattleAttack> GetPotential(
+        private static IEnumerable<BattleAttack> GetPotential(
             IFormation formation, UnitGrouping unit, Count<Weapon> weapon, BattleSide opposingSide)
         {
             foreach (var f in opposingSide.Formations)

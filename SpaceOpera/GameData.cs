@@ -3,8 +3,6 @@ using Cardamom.Collections;
 using Cardamom.Graphics;
 using Cardamom.Json;
 using Cardamom.Json.Collections;
-using Cardamom.Json.Graphics.TexturePacking;
-using Cardamom.Json.Graphics;
 using Cardamom.Json.OpenTK;
 using SpaceOpera.Core;
 using SpaceOpera.Core.Advancement;
@@ -73,10 +71,6 @@ namespace SpaceOpera
             options.Converters.Add(new ColorJsonConverter());
             options.Converters.Add(new Vector2JsonConverter());
             options.Converters.Add(new Vector2iJsonConverter());
-            options.Converters.Add(new FontJsonConverter());
-            options.Converters.Add(new ShaderJsonConverter());
-            options.Converters.Add(new TextureLibraryJsonConverter());
-            options.Converters.Add(new LibraryJsonConverter());
             return JsonSerializer.Deserialize<GameData>(File.ReadAllText(path), options)!;
         }
     }

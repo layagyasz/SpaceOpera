@@ -101,7 +101,7 @@ namespace SpaceOpera.Core.Universe.Generator
             List<Triad> triads = VoronoiGrapher.GetTriangulation(vertices);
             VoronoiGrapher.VoronoiNeighborsResult result = VoronoiGrapher.GetNeighbors(vertices, triads);
             result.Neighbors.Add(result.EdgeIndices);
-            centers[subRegionCount - 1] = new(0, 0, 1);
+            centers[subRegionCount - 1] = new(0, 1, 0);
 
             Biome[] biomes = SurfaceGenerator!.Get(SurfaceGenerator!.Generate(random), centers);
             List<SubRegionWrapper> subRegionWrappers = new();

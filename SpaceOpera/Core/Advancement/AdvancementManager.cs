@@ -83,10 +83,9 @@ namespace SpaceOpera.Core.Advancement
 
         private Pool GetOrCreateProgress(IAdvancement advancement)
         {
-            _advancementProgress.TryGetValue(advancement, out Pool progress);
-            if (progress == null)
+            if (!_advancementProgress.TryGetValue(advancement, out var progress))
             {
-                progress = new Pool(advancement.Cost);
+                progress = new(advancement.Cost);
                 _advancementProgress.Add(advancement, progress);
             }
             return progress;

@@ -2,5 +2,6 @@
 {
     public class Intelligence
     {
+        public FleetIntelligence FleetIntelligence { get; } = new();
     }
 }

@@ -2,7 +2,7 @@ using Cardamom.Mathematics;
 
 namespace SpaceOpera.Core.Universe.Generator
 {
-    class StellarBodyGeneratorOption
+    public class StellarBodyGeneratorOption
     {
         public StellarBodyGenerator? Generator { get; set; }
         public float Weight { get; set; }

@@ -11,13 +11,13 @@ namespace SpaceOpera.Core.Military
         public float Penetration { get; }
 
         public Weapon(
-            string Name, UnitIntervalValue Accuracy, UnitIntervalValue Tracking, Damage Damage, float Penetration)
+            string name, UnitIntervalValue accuracy, UnitIntervalValue tracking, Damage damage, float penetration)
         {
-            this.Name = Name;
-            this.Accuracy = Accuracy;
-            this.Tracking = Tracking;
-            this.Damage = Damage;
-            this.Penetration = Penetration;
+            Name = name;
+            Accuracy = accuracy;
+            Tracking = tracking;
+            Damage = damage;
+            Penetration = penetration;
         }
 
         public static Weapon FromComponent(IComponent Component)

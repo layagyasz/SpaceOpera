@@ -10,7 +10,7 @@
             Target = target;
         }
 
-        public static EngageAction Create(Fleet target)
+        public static IAction Create(Fleet target)
         {
             return new EngageAction(target);
         }

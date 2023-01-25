@@ -2,7 +2,7 @@ using SpaceOpera.Core.Designs;
 
 namespace SpaceOpera.Core.Military
 {
-    public class Armor
+    public readonly struct Armor
     {
         public float Thickness { get; }
         public float Protection { get; }
@@ -10,9 +10,9 @@ namespace SpaceOpera.Core.Military
 
         public Armor(float thickness, float protection, float coverage)
         {
-            this.Thickness = thickness;
-            this.Protection = protection;
-            this.Coverage = coverage;
+            Thickness = thickness;
+            Protection = protection;
+            Coverage = coverage;
         }
 
         public static Armor FromComponent(IComponent component)

@@ -32,7 +32,7 @@ namespace SpaceOpera.Core.Politics
             return ComponentNameGenerator.GenerateNameFor(ToArgs(stellarBodyRegion), Language, random);
         }
 
-        public string GenerateNameFor(Design design, Random random)
+        public string GenerateNameFor(DesignConfiguration design, Random random)
         {
             return ComponentNameGenerator.GenerateNameFor(ToArgs(design), Language, random);
         }
@@ -86,9 +86,9 @@ namespace SpaceOpera.Core.Politics
             return new NameGeneratorArgs(NameType.StellarBodyRegion);
         }
 
-        private static NameGeneratorArgs ToArgs(Design design)
+        private static NameGeneratorArgs ToArgs(DesignConfiguration design)
         {
-            return new NameGeneratorArgs(ToNameType(design.Configuration.Template.Type)) { Tags = design.Tags };
+            return new NameGeneratorArgs(ToNameType(design.Template.Type)) { Tags = design.GetTags().ToList() };
         }
 
         public static NameType ToNameType(ComponentType type)

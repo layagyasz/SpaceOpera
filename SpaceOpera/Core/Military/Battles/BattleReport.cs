@@ -36,8 +36,7 @@ namespace SpaceOpera.Core.Military.Battles
 
                 public UnitReport.Builder GetBuilderFor(Unit unit)
                 {
-                    _unitReports.TryGetValue(unit, out UnitReport.Builder builder);
-                    if (builder == null)
+                    if (!_unitReports.TryGetValue(unit, out var builder))
                     {
                         builder = new UnitReport.Builder(unit);
                         _unitReports.Add(unit, builder);

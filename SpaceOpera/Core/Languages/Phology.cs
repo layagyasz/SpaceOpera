@@ -4,7 +4,7 @@ namespace SpaceOpera.Core.Languages
 {
     public class Phonology
     {
-        public double Entropy { get; }
+        public float Entropy { get; }
 
         private readonly PhonologySegment _onset;
         private readonly PhonologySegment _nucleus;
@@ -37,7 +37,7 @@ namespace SpaceOpera.Core.Languages
             return string.Format("[Phology]\n[Onset]\n{0}\n[Nucleus]\n{1}\n[Offset]\n{2}", _onset, _nucleus, _offset);
         }
 
-        private double GetEntropy()
+        private float GetEntropy()
         {
             return _onset.Entropy + _nucleus.Entropy + _offset.Entropy;
         }

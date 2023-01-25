@@ -4,7 +4,7 @@ namespace SpaceOpera.Core.Designs
 {
     public class Design
     {
-        public string Name { get; private set; } = string.Empty;
+        public string Name => Configuration.Name;
         public DesignConfiguration Configuration { get; }
         public List<ComponentTag> Tags { get; }
         public List<DesignedComponent> Components { get; }
@@ -20,11 +20,6 @@ namespace SpaceOpera.Core.Designs
             Tags = tags.ToList();
             Components = components.ToList();
             Recipes = recipes.ToList();
-        }
-
-        public void SetName(string name)
-        {
-            Name = name;
         }
     }
 }

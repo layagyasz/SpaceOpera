@@ -4,7 +4,7 @@ namespace SpaceOpera.Core.Universe
     {
         private static readonly float s_BoltzmanConstant = 5.6704e-8f;
 
-        public string Name { get; private set; }
+        public string Name { get; private set; } = string.Empty;
         public float Temperature { get; }
         public float Radius { get; }
         public float Mass { get; }
