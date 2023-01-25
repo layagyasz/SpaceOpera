@@ -1,0 +1,167 @@
+[
+  {
+    "$id": "modifier-biome-abyss",
+    "Name": "Abyss",
+    "Modifiers": [
+      {
+        "Type": "ResourceGeneration",
+        "Material": "material-food",
+        "Modifier": {
+          "Bonus": -1
+        }
+      },
+      {
+        "Type": "ResourceGeneration",
+        "Material": "material-alkalite-ore",
+        "Modifier": {
+          "Bonus": -1
+        }
+      },
+      {
+        "Type": "ResourceGeneration",
+        "Material": "material-alumite-ore",
+        "Modifier": {
+          "Bonus": -1
+        }
+      },
+      {
+        "Type": "ResourceGeneration",
+        "Material": "material-argentite-ore",
+        "Modifier": {
+          "Bonus": -1
+        }
+      },
+      {
+        "Type": "ResourceGeneration",
+        "Material": "material-aurite-ore",
+        "Modifier": {
+          "Bonus": -1
+        }
+      },
+      {
+        "Type": "ResourceGeneration",
+        "Material": "material-carbon-ignic",
+        "Modifier": {
+          "Bonus": -1
+        }
+      },
+      {
+        "Type": "ResourceGeneration",
+        "Material": "material-clay",
+        "Modifier": {
+          "Bonus": -1
+        }
+      },
+      {
+        "Type": "ResourceGeneration",
+        "Material": "material-crystal",
+        "Modifier": {
+          "Bonus": -1
+        }
+      },
+      {
+        "Type": "ResourceGeneration",
+        "Material": "material-cuprite-ore",
+        "Modifier": {
+          "Bonus": -1
+        }
+      },
+      {
+        "Type": "ResourceGeneration",
+        "Material": "material-ferrite-ore",
+        "Modifier": {
+          "Bonus": -1
+        }
+      },
+      {
+        "Type": "ResourceGeneration",
+        "Material": "material-food",
+        "Modifier": {
+          "Bonus": -1
+        }
+      },
+      {
+        "Type": "ResourceGeneration",
+        "Material": "material-graphite",
+        "Modifier": {
+          "Bonus": -1
+        }
+      },
+      {
+        "Type": "ResourceGeneration",
+        "Material": "material-gravel",
+        "Modifier": {
+          "Bonus": -1
+        }
+      },
+      {
+        "Type": "ResourceGeneration",
+        "Material": "material-gravite-ore",
+        "Modifier": {
+          "Bonus": -1
+        }
+      },
+      {
+        "Type": "ResourceGeneration",
+        "Material": "material-halics",
+        "Modifier": {
+          "Bonus": -1
+        }
+      },
+      {
+        "Type": "ResourceGeneration",
+        "Material": "material-merite-ore",
+        "Modifier": {
+          "Bonus": -1
+        }
+      },
+      {
+        "Type": "ResourceGeneration",
+        "Material": "material-ossic-stone",
+        "Modifier": {
+          "Bonus": -1
+        }
+      },
+      {
+        "Type": "ResourceGeneration",
+        "Material": "material-valentulite-ore",
+        "Modifier": {
+          "Bonus": -1
+        }
+      },
+      {
+        "Type": "ResourceGeneration",
+        "Material": "material-wulframite-ore",
+        "Modifier": {
+          "Bonus": -1
+        }
+      }
+    ]
+  },
+  {
+    "$id": "modifier-biome-barren",
+    "Name": "Barren",
+    "Modifiers": [
+      {
+        "Type": "ResourceGeneration",
+        "Material": "material-food",
+        "Modifier": {
+          "Bonus": -1
+        }
+      }
+    ]
+  },
+  {
+    "$id": "modifier-biome-inorganic",
+    "Name": "Inorganic",
+    "Modifiers": [
+      {
+        "Type": "ResourceGeneration",
+        "Material": "material-carbon-ignic",
+        "Modifier": {
+          "Bonus": -1
+        }
+      }
+    ]
+  }
+]

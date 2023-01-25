@@ -1,0 +1,63 @@
+{
+  "Radius": 50000,
+  "Arms": 4,
+  "Rotation": 8,
+  "CoreRadius": 0,
+  "StarCount": 100,
+  "TransitDensity": 0.25,
+  "StarSystemGenerator": {
+    "StarGenerators": "Resources/Generators/Star.json",
+    "StarGeneratorSelector": {
+      "star-generator-class-o": 3,
+      "star-generator-class-b": 13000,
+      "star-generator-class-a": 60000,
+      "star-generator-class-f": 300000,
+      "star-generator-class-g": 800000,
+      "star-generator-class-k": 1200000,
+      "star-generator-class-m": 7500000,
+      "star-generator-blue-giant": 50000,
+      "star-generator-red-giant": 50000,
+      "star-generator-brown-dwarf": 600000,
+      "star-generator-white-dwarf": 800000
+    },
+    "TransitLimit": 2.5,
+    "StellarBodyDensity": 0.1,
+    "ViableThermalRange": [ 0, 500 ],
+    "ViableGravitationalRange": [ 3, 40000 ],
+    "OrbitGenerator": {
+      "EccentricitySampler": {
+        "$type": "Normal",
+        "Mean": 0.08,
+        "StandardDeviation": 0.08
+      }
+    },
+    "StellarBodySelector": {
+      "Options": [
+        {
+          "Generator": "Resources/Generators/StellarBody/Barren.json",
+          "Weight": 0.25,
+        },
+        {
+          "Generator": "Resources/Generators/StellarBody/Volcanic.json",
+          "Weight": 0.125
+        },
+        {
+          "Generator": "Resources/Generators/StellarBody/Gaia.json",
+          "Weight": 1,
+          "ThermalRange": [ 273, 373 ]
+        },
+        {
+          "Generator": "Resources/Generators/StellarBody/GasGiant.json",
+          "Weight": 1,
+          "GravitationalRange": [ 0, 400 ]
+        },
+        {
+          "Generator": "Resources/Generators/StellarBody/IceGiant.json",
+          "Weight": 1,
+          "ThermalRange": [ 0, 95 ],
+          "GravitationalRange": [ 0, 400 ]
+        }
+      ]
+    }
+  }
+}

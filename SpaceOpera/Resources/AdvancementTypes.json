@@ -1,0 +1,17 @@
+[
+  {
+    "$id": "advancement-type-military",
+    "Name": "Military Research",
+    "Research": "material-research-military"
+  },
+  {
+    "$id": "advancement-type-society",
+    "Name": "Society Research",
+    "Research": "material-research-society"
+  },
+  {
+    "$id": "advancement-type-technology",
+    "Name": "Technology Research",
+    "Research": "material-research-technology"
+  }
+]

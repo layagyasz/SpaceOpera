@@ -1,5 +1,7 @@
 using Cardamom;
+using Cardamom.Json.Collections;
 using Cardamom.Trackers;
+using System.Text.Json.Serialization;
 
 namespace SpaceOpera.Core.Economics
 {
@@ -9,6 +11,7 @@ namespace SpaceOpera.Core.Economics
         public string Name { get; set; } = string.Empty;
         public uint MaxWorkers { get; set; }
         public float BuildTime { get; set; }
+        [JsonConverter(typeof(ReferenceDictionaryJsonConverter))]
         public MultiQuantity<IMaterial> Cost { get; set; } = new();
 
         public override string ToString()

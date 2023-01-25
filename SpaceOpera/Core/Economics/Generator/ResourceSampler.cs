@@ -1,3 +1,4 @@
+using Cardamom.Json;
 using MathNet.Numerics.Distributions;
 using SpaceOpera.Core.Universe;
 using System.Text.Json.Serialization;
@@ -16,6 +17,7 @@ namespace SpaceOpera.Core.Economics.Generator
             Ubiquitous
         }
 
+        [JsonConverter(typeof(ReferenceJsonConverter))]
         public IMaterial? Resource { get; set; }
         
         public ResourceSamplerType SamplerType { get; set; }

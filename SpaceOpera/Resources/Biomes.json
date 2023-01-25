@@ -1,0 +1,178 @@
+[
+  {
+    "$id": "biome-ammonium-band",
+    "Name": "Ammonium Band",
+    "IsHabitable": false,
+    "IsTraversable": false,
+    "Modifiers": [
+      "modifier-biome-abyss"
+    ]
+  },
+  {
+    "$id": "biome-desert",
+    "Name": "Desert",
+    "IsHabitable": true,
+    "IsTraversable": true,
+    "Modifiers": [
+      "modifier-biome-barren"
+    ]
+  },
+  {
+    "$id": "biome-barren-mountains",
+    "Name": "Barren Mountains",
+    "IsHabitable": false,
+    "IsTraversable": true,
+    "Modifiers": [
+      "modifier-biome-barren",
+      "modifier-biome-inorganic"
+    ]
+  },
+  {
+    "$id": "biome-barren-plains",
+    "Name": "Barren Plains",
+    "IsHabitable": false,
+    "IsTraversable": true,
+    "Modifiers": [
+      "modifier-biome-barren",
+      "modifier-biome-inorganic"
+    ]
+  },
+  {
+    "$id": "biome-ferrous-plains",
+    "Name": "Ferrous Plains",
+    "IsHabitable": false,
+    "IsTraversable": true,
+    "Modifiers": [
+      "modifier-biome-barren",
+      "modifier-biome-inorganic"
+    ]
+  },
+  {
+    "$id": "biome-ferrous-mountains",
+    "Name": "Ferrous Mountains",
+    "IsHabitable": false,
+    "IsTraversable": true,
+    "Modifiers": [
+      "modifier-biome-barren",
+      "modifier-biome-inorganic"
+    ]
+  },
+  {
+    "$id": "biome-forest",
+    "Name": "Forest",
+    "IsHabitable": true,
+    "IsTraversable": true
+  },
+  {
+    "$id": "biome-grassland",
+    "Name": "Grassland",
+    "IsHabitable": true,
+    "IsTraversable": true
+  },
+  {
+    "$id": "biome-hydrogen-band",
+    "Name": "Hydrogen Band",
+    "IsHabitable": false,
+    "IsTraversable": false,
+    "Modifiers": [
+      "modifier-biome-abyss"
+    ]
+  },
+  {
+    "$id": "biome-ice",
+    "Name": "Ice",
+    "IsHabitable": false,
+    "IsTraversable": true,
+    "Modifiers": [
+      "modifier-biome-barren"
+    ]
+  },
+  {
+    "$id": "biome-ice-barren",
+    "Name": "Ice",
+    "IsHabitable": false,
+    "IsTraversable": true,
+    "Modifiers": [
+      "modifier-biome-barren",
+      "modifier-biome-inorganic"
+    ]
+  },
+  {
+    "$id": "biome-jungle",
+    "Name": "Jungle",
+    "IsHabitable": true,
+    "IsTraversable": true
+  },
+  {
+    "$id": "biome-methane-band",
+    "Name": "Methane Band",
+    "IsHabitable": false,
+    "IsTraversable": false,
+    "Modifiers": [
+      "modifier-biome-abyss"
+    ]
+  },
+  {
+    "$id": "biome-molten",
+    "Name": "Molten",
+    "IsHabitable": false,
+    "IsTraversable": false,
+    "Modifiers": [
+      "modifier-biome-barren",
+      "modifier-biome-inorganic"
+    ]
+  },
+  {
+    "$id": "biome-ocean",
+    "Name": "Ocean",
+    "IsHabitable": true,
+    "IsTraversable": false
+  },
+  {
+    "$id": "biome-savanna",
+    "Name": "Savanna",
+    "IsHabitable": true,
+    "IsTraversable": true
+  },
+  {
+    "$id": "biome-sulfurous-plains",
+    "Name": "Sulferous Plains",
+    "IsHabitable": false,
+    "IsTraversable": true,
+    "Modifiers": [
+      "modifier-biome-barren",
+      "modifier-biome-inorganic"
+    ]
+  },
+  {
+    "$id": "biome-sulfurous-mountains",
+    "Name": "Ferrous Mountains",
+    "IsHabitable": false,
+    "IsTraversable": true,
+    "Modifiers": [
+      "modifier-biome-barren",
+      "modifier-biome-inorganic"
+    ]
+  },
+  {
+    "$id": "biome-taiga",
+    "Name": "Taiga",
+    "IsTraversable": true
+  },
+  {
+    "$id": "biome-tundra",
+    "Name": "Tundra",
+    "IsHabitable": true,
+    "IsTraversable": true
+  },
+  {
+    "$id": "biome-volcanic-mountains",
+    "Name": "Volcanic Mountains",
+    "IsHabitable": false,
+    "IsTraversable": true,
+    "Modifiers": [
+      "modifier-biome-barren",
+      "modifier-biome-inorganic"
+    ]
+  }
+]

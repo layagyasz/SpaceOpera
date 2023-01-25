@@ -1,0 +1,327 @@
+[
+  {
+    "$id": "material-alkalite-ore",
+    "Name": "Alkalite Ore",
+    "Mass": 1.7
+  },
+  {
+    "$id": "material-alkalite-metal",
+    "Name": "Alkalite",
+    "Mass": 0.5
+  },
+  {
+    "$id": "material-alkane-fuel",
+    "Name": "Alkane Fuel",
+    "Mass": 26.3
+  },
+  {
+    "$id": "material-alkane-gas",
+    "Name": "Alkane",
+    "Mass": 26.3
+  },
+  {
+    "$id": "material-alumite-ore",
+    "Name": "Alumite Ore",
+    "Mass": 2.8
+  },
+  {
+    "$id": "material-alumite-metal",
+    "Name": "Alumite",
+    "Mass": 2.7
+  },
+  {
+    "$id": "material-argentite-ore",
+    "Name": "Argentite Ore",
+    "Mass": 6.6
+  },
+  {
+    "$id": "material-argentite-metal",
+    "Name": "Argentite",
+    "Mass": 10.5
+  },
+  {
+    "$id": "material-aurite-ore",
+    "Name": "Aurite Ore",
+    "Mass": 11.0
+  },
+  {
+    "$id": "material-aurite-metal",
+    "Name": "Aurite",
+    "Mass": 19.3
+  },
+  {
+    "$id": "material-carbon-ignic",
+    "Name": "Ignic Carbon",
+    "Mass": 1.4
+  },
+  {
+    "$id": "material-carbon-attenic",
+    "Name": "Attenic Carbon",
+    "Mass": 0.8
+  },
+  {
+    "$id": "material-carbox-gas",
+    "Name": "Carbox",
+    "Mass": 79.2
+  },
+  {
+    "$id": "material-catalyst",
+    "Name": "Catalysts",
+    "Mass": 1.3
+  },
+  {
+    "$id": "material-clay",
+    "Name": "Clay",
+    "Mass": 2.7
+  },
+  {
+    "$id": "material-ceramic",
+    "Name": "Ceramic",
+    "Mass": 3.8
+  },
+  {
+    "$id": "material-construction-material",
+    "Name": "Construction Material",
+    "Mass": 1.5
+  },
+  {
+    "$id": "material-crystal",
+    "Name": "Crystal",
+    "Mass": 2.7
+  },
+  {
+    "$id": "material-cuprite-ore",
+    "Name": "Cuprite Ore",
+    "Mass": 5.9
+  },
+  {
+    "$id": "material-cuprite-metal",
+    "Name": "Cuprite",
+    "Mass": 9.0
+
+  },
+  {
+    "$id": "material-duracrete",
+    "Name": "Duracrete",
+    "Mass": 1.5
+  },
+  {
+    "$id": "material-duralumin-metal",
+    "Name": "Duralumin",
+    "Mass": 4.2
+  },
+  {
+    "$id": "material-durasteel-metal",
+    "Name": "Durasteel",
+    "Mass": 8.0
+  },
+  {
+    "$id": "material-electronics",
+    "Name": "Electronics",
+    "Mass": 1.2
+  },
+  {
+    "$id": "material-farming-equipment",
+    "Name": "Farming Equiment",
+    "Mass": 4.0
+  },
+  {
+    "$id": "material-ferrite-ore",
+    "Name": "Ferrite Ore",
+    "Mass": 5.4
+  },
+  {
+    "$id": "material-ferrite-metal",
+    "Name": "Ferrite",
+    "Mass": 7.9
+  },
+  {
+    "$id": "material-food",
+    "Name": "Food",
+    "Mass": 1
+  },
+  {
+    "$id": "material-graphite",
+    "Name": "Graphite",
+    "Mass": 2.2
+  },
+  {
+    "$id": "material-gravel",
+    "Name": "Gravel",
+    "Mass": 1.9
+  },
+  {
+    "$id": "material-gravite-ore",
+    "Name": "Gravite Ore",
+    "Mass": 7.2
+  },
+  {
+    "$id": "material-gravite-metal",
+    "Name": "Gravite",
+    "Mass": 11.3
+  },
+  {
+    "$id": "material-halics",
+    "Name": "Halics",
+    "Mass": 2.2
+  },
+  {
+    "$id": "material-infrastructure-material",
+    "Name": "Infrastructure Material",
+    "Mass": 1.3
+  },
+  {
+    "$id": "material-ingenon-gas",
+    "Name": "Ingenon",
+    "Mass": 67.6
+  },
+  {
+    "$id": "material-kiln-material",
+    "Name": "Kiln Material",
+    "Mass": 3.8
+  },
+  {
+    "$id": "material-liquid-storage-equipment",
+    "Name": "Liquid Storage",
+    "Mass": 4.0
+  },
+  {
+    "$id": "material-manufacturing-equipment-heavy",
+    "Name": "Heavy Manufacturing Equipment",
+    "Mass": 4.0
+  },
+  {
+    "$id": "material-manufacturing-equipment-light",
+    "Name": "Light Manufacturing Equipment",
+    "Mass": 4.0
+  },
+  {
+    "$id": "material-merite-ore",
+    "Name": "Merite Ore",
+    "Mass": 5.0
+  },
+  {
+    "$id": "material-merite-metal",
+    "Name": "Merite",
+    "Mass": 7.2
+  },
+  {
+    "$id": "material-mining-equipment",
+    "Name": "Mining Equipment",
+    "Mass": 4.0
+  },
+  {
+    "$id": "material-ossic-stone",
+    "Name": "Ossic Stone",
+    "Mass": 2.7
+  },
+  {
+    "$id": "material-personal-armor-alumite",
+    "Name": "Personal Armor (Alumite)",
+    "Mass": 0.0014,
+    "Size": 0.001
+  },
+  {
+    "$id": "material-personal-armor-duralumin",
+    "Name": "Personal Armor (Duralumin)",
+    "Mass": 0.0021,
+    "Size": 0.001
+  },
+  {
+    "$id": "material-personal-armor-durasteel",
+    "Name": "Personal Armor (Durasteel)",
+    "Mass": 0.004,
+    "Size": 0.001
+  },
+  {
+    "$id": "material-personal-shield-energy-field",
+    "Name": "Personal Energy Shield",
+    "Mass": 0.000875,
+    "Size": 0.0004
+  },
+  {
+    "$id": "material-personal-shield-energy-shell",
+    "Name": "Personal Energy Shield",
+    "Mass": 0.000875,
+    "Size": 0.0004
+  },
+  {
+    "$id": "material-personal-shield-energy-shield",
+    "Name": "Personal Energy Shield",
+    "Mass": 0.000875,
+    "Size": 0.0004
+  },
+  {
+    "$id": "material-personal-weapon-kinetic",
+    "Name": "Personal Weapon (Kinetic)",
+    "Mass": 0.001,
+    "Size": 0.01
+  },
+  {
+    "$id": "material-personal-weapon-laser",
+    "Name": "Personal Weapon (Laser)",
+    "Mass": 0.001,
+    "Size": 0.01
+  },
+  {
+    "$id": "material-personal-weapon-plasma",
+    "Name": "Personal Weapon (Plasma)",
+    "Mass": 0.001,
+    "Size": 0.01
+  },
+  {
+    "$id": "material-polymer",
+    "Name": "Polymer",
+    "Mass": 1.2
+  },
+  {
+    "$id": "material-power-cells",
+    "Name": "Power Cells",
+    "Mass": 2.1
+  },
+  {
+    "$id": "material-research-military",
+    "Name": "Military Research",
+    "Type": "RESEARCH"
+  },
+  {
+    "$id": "material-research-society",
+    "Name": "Society Research",
+    "Type": "RESEARCH"
+  },
+  {
+    "$id": "material-research-technology",
+    "Name": "Technology Research",
+    "Type": "RESEARCH"
+  },
+  {
+    "$id": "material-valentulite-ore",
+    "Name": "Valentulite Ore",
+    "Mass": 3.7
+  },
+  {
+    "$id": "material-valentulite-metal",
+    "Name": "Valentulite",
+    "Mass": 4.5
+  },
+  {
+    "$id": "material-vitraglass",
+    "Name": "Vitraglass",
+    "Mass": 1.2
+  },
+  {
+    "$id": "material-water-fresh",
+    "Name": "Water (Fresh)",
+    "Mass": 1
+  },
+  {
+    "$id": "material-wulframite-ore",
+    "Name": "Wulframite Ore",
+    "Mass": 11.1
+  },
+  {
+    "$id": "material-wulframite-metal",
+    "Name": "Wulframite",
+    "Mass": 19.3
+  }
+]

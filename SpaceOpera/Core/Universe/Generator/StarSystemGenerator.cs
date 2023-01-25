@@ -1,13 +1,19 @@
 using Cardamom.Collections;
+using Cardamom.Json;
+using Cardamom.Json.Collections;
 using Cardamom.Mathematics;
 using Cardamom.Utils.Generators.Samplers;
 using OpenTK.Mathematics;
+using System.Text.Json.Serialization;
 
 namespace SpaceOpera.Core.Universe.Generator
 {
     public class StarSystemGenerator
     {
-        public WeightedVector<StarGenerator> StarGenerator { get; set; } = new();
+        [JsonConverter(typeof(FromFileJsonConverter))]
+        public List<StarGenerator> StarGenerators { get; set; } = new();
+        [JsonConverter(typeof(ReferenceDictionaryJsonConverter))]
+        public WeightedVector<StarGenerator> StarGeneratorSelector { get; set; } = new();
         public float TransitLimit { get; set; }
         public float StellarBodyDensity { get; set; }
         public Interval ViableThermalRange { get; set; }
@@ -17,7 +23,7 @@ namespace SpaceOpera.Core.Universe.Generator
 
         public StarSystem Generate(Random random, Vector2 position)
         {
-            var star = StarGenerator.Get(random.NextSingle()).Generate(random);
+            var star = StarGeneratorSelector.Get(random.NextSingle()).Generate(random);
             float innerBoundary = 
                 Math.Max(
                     GetDistanceForTemperature(star, ViableThermalRange.Maximum),

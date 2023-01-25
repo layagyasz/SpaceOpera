@@ -1,0 +1,298 @@
+{
+  "Culture": {
+    "Language": {
+      "Phonetics": "Resources/Generator/Language/Phonetics.json",
+      "Orthography": "Resources/Generator/Language/Orthography.json",
+      "Phonology": "Resources/Generator/Language/Phonology.json"
+    }
+  },
+  "Banner": {
+    "Symbols": 121,
+    "Backgrounds": 11,
+    "Colors": 9
+  },
+  "Faction": {
+    "BaseAttributes": {
+      "FLEET_COMMAND": 40
+    },
+    "ComponentName": {
+      "RequiredTypes": [
+        "Ship",
+        "Infantry",
+        "BattalionTemplate",
+        "DivisionTemplate",
+        "Fleet",
+        "Faction",
+        "Shield",
+        "Weapon",
+        "StellarBody",
+        "StellarBodyRegion",
+        "StarSystem",
+        "Star"
+      ],
+      "NameParts": {
+        "battalion": [
+          {
+            "Frequency": 1,
+            "Value": {
+              "RandomValue": {
+                "StaticString": [ "battalion" ]
+              },
+              "Source": "Static",
+              "Filter": "String"
+            }
+          }
+        ],
+        "classification": [
+          {
+            "Frequency": 1,
+            "Value": {
+              "Source": "Tags",
+              "Filter": "TagSet"
+            }
+          }
+        ],
+        "division": [
+          {
+            "Frequency": 1,
+            "Value": {
+              "RandomValue": {
+                "StaticString": [ "division", "legion", "brigade" ]
+              },
+              "Source": "Static",
+              "Filter": "String"
+            }
+          }
+        ],
+        "fleet": [
+          {
+            "Frequency": 1,
+            "Value": {
+              "RandomValue": {
+                "StaticString": [ "fleet", "group", "force" ]
+              },
+              "Source": "Static",
+              "Filter": "String"
+            }
+          }
+        ],
+        "model": [
+          {
+            "Frequency": 1,
+            "Value": {
+              "RandomValue": {
+                "StaticString": [ "type", "pattern", "mark", "model" ]
+              },
+              "Source": "Static",
+              "Filter": "String"
+            }
+          }
+        ],
+        "model-number": [
+          {
+            "Value": {
+              "RandomValue": {
+                "MinimumIntegerValue": 1,
+                "MaximumIntegerValue": 100
+              },
+              "Source": "Random",
+              "Filter": "Integer"
+            }
+          }
+        ],
+        "name": [
+          {
+            "Frequency": 1,
+            "Value": {
+              "Source": "LanguageWord",
+              "Filter": "String"
+            }
+          }
+        ],
+        "name-suffix": [
+          {
+            "Frequency": 1,
+            "Value": {
+              "RandomValue": {
+                "StaticString": [ "class", "type" ]
+              },
+              "Source": "Static",
+              "Filter": "String"
+            }
+          }
+        ],
+        "parent-name": [
+          {
+            "Frequency": 1,
+            "Value": {
+              "Source": "ParentName",
+              "Filter": "String"
+            }
+          }
+        ],
+        "sequence-number-roman": [
+          {
+            "Frequency": 1,
+            "Value": {
+              "Source": "SequenceNumber",
+              "Filter": "Roman"
+            }
+          }
+        ],
+        "sequence-number-ordinal": [
+          {
+            "Frequency": 1,
+            "Value": {
+              "Source": "SequenceNumber",
+              "Filter": "Ordindal"
+            }
+          }
+        ],
+        "system": [
+          {
+            "Frequency": 1,
+            "Value": {
+              "RandomValue": {
+                "StaticString": [ "system" ]
+              },
+              "Source": "Static",
+              "Filter": "String"
+            }
+          }
+        ]
+      },
+      "Patterns": [
+        {
+          "Frequency": 1,
+          "Value": {
+            "SupportedTypes": [ "Infantry" ],
+            "Pattern": [ "classification" ]
+          }
+        },
+        {
+          "Frequency": 1,
+          "Value": {
+            "SupportedTypes": [ "BattalionTemplate" ],
+            "Pattern": [ "classification", "battalion" ]
+          }
+        },
+        {
+          "Frequency": 1,
+          "Value": {
+            "SupportedTypes": [ "DivisionTemplate" ],
+            "Pattern": [ "classification", "division" ]
+          }
+        },
+        {
+          "Frequency": 0.6,
+          "Value": {
+            "SupportedTypes": [ "Ship" ],
+            "Pattern": [ "name", "name-suffix", "classification" ]
+          }
+        },
+        {
+          "Frequency": 0.25,
+          "Value": {
+            "SupportedTypes": [ "Ship" ],
+            "Pattern": [ "model", "model-number", "name", "classification" ]
+          }
+        },
+        {
+          "Frequency": 0.15,
+          "Value": {
+            "SupportedTypes": [ "Ship" ],
+            "Pattern": [ "model", "model-number", "classification" ]
+          }
+        },
+        {
+          "Frequency": 1.0,
+          "Value": {
+            "SupportedTypes": [ "Shield", "Weapon" ],
+            "Pattern": [ "model", "model-number", "classification" ]
+          }
+        },
+        {
+          "Frequency": 0.5,
+          "Value": {
+            "SupportedTypes": [ "Fleet" ],
+            "Pattern": [ "name", "fleet" ]
+          }
+        },
+        {
+          "Frequency": 0.5,
+          "Value": {
+            "SupportedTypes": [ "Fleet" ],
+            "Pattern": [ "sequence-number-ordinal", "fleet" ]
+          }
+        },
+        {
+          "Frequency": 1,
+          "Value": {
+            "SupportedTypes": [ "Faction", "Star", "StellarBodyRegion" ],
+            "Pattern": [ "name" ]
+          }
+        },
+        {
+          "Frequency": 1,
+          "Value": {
+            "SupportedTypes": [ "StarSystem" ],
+            "Pattern": [ "parent-name", "system" ]
+          }
+        },
+        {
+          "Frequency": 1,
+          "Value": {
+            "SupportedTypes": [ "StellarBody" ],
+            "Pattern": [ "parent-name", "sequence-number-roman" ]
+          }
+        }
+      ]
+    }
+  },
+  "Design": {
+    "DesignParameters": [
+      {
+        "Amount": 4,
+        "Value": {
+          "Type": "ShieldShield"
+        }
+      },
+      {
+        "Amount": 4,
+        "Value": {
+          "Type": "ShipWeapon"
+        }
+      },
+      {
+        "Amount": 4,
+        "Value": {
+          "Type": "Ship"
+        }
+      },
+      {
+        "Amount": 1,
+        "Value": {
+          "Type": "Infantry"
+        }
+      },
+      {
+        "Amount": 1,
+        "Value": {
+          "Type": "BattalionTemplate"
+        }
+      },
+      {
+        "Amount": 1,
+        "Value": {
+          "Type": "DivisionTemplate"
+        }
+      }
+    ]
+  },
+  "Fleet": {
+    "InitialCommand": 120
+  },
+  "BaseLinkChance": 0.1,
+  "Cultures": 20,
+  "States": 5
+}

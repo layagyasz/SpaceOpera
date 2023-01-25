@@ -1,0 +1,634 @@
+[
+  {
+    "$id": "recipe-alkalite-mine",
+    "Name": "Alkalite Mine",
+    "Structure": "structure-mine",
+    "Coefficient": 0.02,
+    "Transformation": {
+      "material-alkalite-ore": 1
+    },
+    "BoundResourceNode": "material-alkalite-ore"
+  },
+  {
+    "$id": "recipe-alkane-refinery",
+    "Name": "Alkane Refinery",
+    "Structure": "structure-chemical-plant",
+    "Coefficient": 20,
+    "Transformation": {
+      "material-alkane-gas": 1,
+      "material-alkane-fuel": 1
+    }
+  },
+  {
+    "$id": "recipe-alkane-harvester",
+    "Name": "Alkane Harvester",
+    "Structure": "structure-gas-harvester",
+    "Coefficient": 10,
+    "Transformation": {
+      "material-alkane-gas": 1
+    },
+    "BoundResourceNode": "material-alkane-gas"
+  },
+  {
+    "$id": "recipe-alumite-mine",
+    "Name": "Alumite Mine",
+    "Structure": "structure-mine",
+    "Coefficient": 14,
+    "Transformation": {
+      "material-alumite-ore": 1
+    },
+    "BoundResourceNode": "material-alumite-ore"
+  },
+  {
+    "$id": "recipe-alumite-refinery",
+    "Name": "Alumite Refinery",
+    "Structure": "structure-ore-refinery",
+    "Coefficient": 20,
+    "Transformation": {
+      "material-alumite-ore": -2,
+      "material-alumite-metal": 1
+    }
+  },
+  {
+    "$id": "recipe-argentite-mine",
+    "Name": "Argentite Mine",
+    "Structure": "structure-mine",
+    "Coefficient": 0.001,
+    "Transformation": {
+      "material-argentite-ore": 1
+    },
+    "BoundResourceNode": "material-argentite-ore"
+  },
+  {
+    "$id": "recipe-argentite-refinery",
+    "Name": "Argentite Refinery",
+    "Structure": "structure-ore-refinery",
+    "Coefficient": 5,
+    "Transformation": {
+      "material-argentite-ore": -2,
+      "material-argentite-metal": 1
+    }
+  },
+  {
+    "$id": "recipe-aurite-mine",
+    "Name": "Aurite Mine",
+    "Structure": "structure-mine",
+    "Coefficient": 0.000125,
+    "Transformation": {
+      "material-aurite-ore": 1
+    },
+    "BoundResourceNode": "material-aurite-ore"
+  },
+  {
+    "$id": "recipe-aurite-refinery",
+    "Name": "Aurite Refinery",
+    "Structure": "structure-ore-refinery",
+    "Coefficient": 2.5,
+    "Transformation": {
+      "material-aurite-ore": -2,
+      "material-aurite-metal": 1
+    }
+  },
+  {
+    "$id": "recipe-carbon-attenic-kiln",
+    "Name": "Attenic Carbon Kilning",
+    "Structure": "structure-kiln",
+    "Coefficient": 100,
+    "Transformation": {
+      "material-carbon-ignic": -4,
+      "material-carbon-attenic": 7
+    }
+  },
+  {
+    "$id": "recipe-carbon-ignic-mine",
+    "Name": "Ignic Carbon Mine",
+    "Structure": "structure-mine",
+    "Coefficient": 550,
+    "Transformation": {
+      "material-carbon-ignic": 1
+    },
+    "BoundResourceNode": "material-carbon-ignic"
+  },
+  {
+    "$id": "recipe-carbox-harvester",
+    "Name": "Carbox Harvester",
+    "Structure": "structure-gas-harvester",
+    "Coefficient": 10,
+    "Transformation": {
+      "material-carbox-gas": 1
+    },
+    "BoundResourceNode": "material-carbox-gas"
+  },
+  {
+    "$id": "recipe-catalyst-plant",
+    "Name": "Catalyst Plant",
+    "Structure": "structure-chemical-plant",
+    "Coefficient": 100,
+    "Transformation": {
+      "material-water-fresh": -2,
+      "material-halics": -0.9,
+      "material-catalyst": 3
+    }
+  },
+  {
+    "$id": "recipe-ceramic-kiln",
+    "Name": "Ceramic Kilning",
+    "Structure": "structure-kiln",
+    "Coefficient": 400,
+    "Transformation": {
+      "material-clay": -1.125,
+      "material-ceramic": 1
+    }
+  },
+  {
+    "$id": "recipe-clay-mine",
+    "Name": "Clay Mine",
+    "Structure": "structure-mine",
+    "Coefficient": 250,
+    "Transformation": {
+      "material-clay": 1
+    },
+    "BoundResourceNode": "material-clay"
+  },
+  {
+    "$id": "recipe-construction-material-factory",
+    "Name": "Construction Factory",
+    "Structure": "structure-light-factory",
+    "Coefficient": 500,
+    "Transformation": {
+      "material-duracrete": -0.8,
+      "material-durasteel-metal": -0.025,
+      "material-vitraglass": -0.008,
+      "material-construction-material": 1
+    }
+  },
+  {
+    "$id": "recipe-crystal-mine",
+    "Name": "Crystal Mine",
+    "Structure": "structure-mine",
+    "Coefficient": 1.5,
+    "Transformation": {
+      "material-crystal": 1
+    },
+    "BoundResourceNode": "material-crystal"
+  },
+  {
+    "$id": "recipe-cuprite-mine",
+    "Name": "Cuprite Mine",
+    "Structure": "structure-mine",
+    "Coefficient": 1.5,
+    "Transformation": {
+      "material-cuprite-ore": 1
+    },
+    "BoundResourceNode": "material-cuprite-ore"
+  },
+  {
+    "$id": "recipe-cuprite-refinery",
+    "Name": "Curpite Refinery",
+    "Structure": "structure-ore-refinery",
+    "Coefficient": 5,
+    "Transformation": {
+      "material-cuprite-ore": -2,
+      "material-cuprite-metal": 1
+    }
+  },
+  {
+    "$id": "recipe-duracrete-kiln",
+    "Name": "Duracrete Kilning",
+    "Structure": "structure-kiln",
+    "Coefficient": 400,
+    "Transformation": {
+      "material-ossic-stone": -0.075,
+      "material-gravel": -0.75,
+      "material-duracrete": 1
+    }
+  },
+  {
+    "$id": "recipe-duralumin-refinery",
+    "Name": "Duralumin Refinery",
+    "Structure": "structure-ore-refinery",
+    "Coefficient": 60,
+    "Transformation": {
+      "material-alumite-metal": -0.17,
+      "material-valentulite-metal": -0.83,
+      "material-duralumin-metal": 1
+    }
+  },
+  {
+    "$id": "recipe-durasteel-refinery",
+    "Name": "Durasteel Refinery",
+    "Structure": "structure-ore-refinery",
+    "Coefficient": 6,
+    "Transformation": {
+      "material-ferrite-ore": -2,
+      "material-carbon-attenic": -6,
+      "material-durasteel-metal": 1
+    }
+  },
+  {
+    "$id": "recipe-electronics-factory",
+    "Name": "Electronics Factory",
+    "Structure": "structure-light-factory",
+    "Coefficient": 10,
+    "Transformation": {
+      "material-argentite-metal": -0.0003,
+      "material-aurite-metal": -0.00004,
+      "material-crystal": -6,
+      "material-cuprite-metal": -0.05,
+      "material-electronics": 1
+    }
+  },
+  {
+    "$id": "recipe-farming-equipment-factory",
+    "Name": "Farming Equipment Factory",
+    "Structure": "structure-heavy-factory",
+    "Coefficient": 50,
+    "Transformation": {
+      "material-durasteel-metal": -0.5,
+      "material-farming-equipment": 1
+    }
+  },
+  {
+    "$id": "recipe-ferrite-mine",
+    "Name": "Ferrite Mine",
+    "Structure": "structure-mine",
+    "Coefficient": 150,
+    "Transformation": {
+      "material-ferrite-ore": 1
+    },
+    "BoundResourceNode": "material-ferrite-ore"
+  },
+  {
+    "$id": "recipe-food-farm",
+    "Name": "Food Farm",
+    "Structure": "structure-farm",
+    "Coefficient": 5000,
+    "Transformation": {
+      "material-food": 1
+    },
+    "BoundResourceNode": "material-food"
+  },
+  {
+    "$id": "recipe-graphite-kiln",
+    "Name": "Graphite Kilning",
+    "Structure": "structure-kiln",
+    "Coefficient": 4.5,
+    "Transformation": {
+      "material-carbon-attenic": -3,
+      "material-graphite": 1
+    }
+  },
+  {
+    "$id": "recipe-graphite-mine",
+    "Name": "Graphite Mine",
+    "Structure": "structure-mine",
+    "Coefficient": 0.5,
+    "Transformation": {
+      "material-graphite": 1
+    },
+    "BoundResourceNode": "material-graphite"
+  },
+  {
+    "$id": "recipe-gravel-mine",
+    "Name": "Gravel Mine",
+    "Structure": "structure-mine",
+    "Coefficient": 250,
+    "Transformation": {
+      "material-gravel": 1
+    },
+    "BoundResourceNode": "material-gravel"
+  },
+  {
+    "$id": "recipe-gravite-mine",
+    "Name": "Gravite Mine",
+    "Structure": "structure-mine",
+    "Coefficient": 0.75,
+    "Transformation": {
+      "material-gravite-ore": 1
+    },
+    "BoundResourceNode": "material-gravite-ore"
+  },
+  {
+    "$id": "recipe-gravite-refinery",
+    "Name": "Gravite Refinery",
+    "Structure": "structure-ore-refinery",
+    "Coefficient": 5,
+    "Transformation": {
+      "material-gravite-ore": -2,
+      "material-gravite-metal": 1
+    }
+  },
+  {
+    "$id": "recipe-halics-mine",
+    "Name": "Halics Mine",
+    "Structure": "structure-mine",
+    "Coefficient": 15,
+    "Transformation": {
+      "material-halics": 1
+    },
+    "BoundResourceNode": "material-halics"
+  },
+  {
+    "$id": "recipe-infrastructure-material-factory",
+    "Name": "Infrastructure Factory",
+    "Structure": "structure-light-factory",
+    "Coefficient": 500,
+    "Transformation": {
+      "material-duracrete": -0.8,
+      "material-durasteel-metal": -0.016,
+      "material-infrastructure-material": 500
+    }
+  },
+  {
+    "$id": "recipe-ingenon-harvester",
+    "Name": "Ingenon Harvester",
+    "Structure": "structure-gas-harvester",
+    "Coefficient": 10,
+    "Transformation": {
+      "material-ingenon-gas": 1
+    },
+    "BoundResourceNode": "material-ingenon-gas"
+  },
+  {
+    "$id": "recipe-kiln-material-factory",
+    "Name": "Kiln Material Factory",
+    "Structure": "structure-light-factory",
+    "Coefficient": 400,
+    "Transformation": {
+      "material-ceramic": -1,
+      "material-kiln-material": 1
+    }
+  },
+  {
+    "$id": "recipe-liquid-storage-equipment-factory",
+    "Name": "Liquid Storage Equipment Factory",
+    "Structure": "structure-heavy-factory",
+    "Coefficient": 100,
+    "Transformation": {
+      "material-durasteel-metal": -0.5,
+      "material-liquid-storage-equipment": 1
+    }
+  },
+  {
+    "$id": "recipe-manufacturing-equipment-heavy-factory",
+    "Name": "Heavy Manufacturing Equipment Factory",
+    "Structure": "structure-heavy-factory",
+    "Coefficient": 50,
+    "Transformation": {
+      "material-durasteel-metal": -0.5,
+      "material-manufacturing-equipment-heavy": 1
+    }
+  },
+  {
+    "$id": "recipe-manufacturing-equipment-light-factory",
+    "Name": "Light Manufacturing Equipment Factory",
+    "Structure": "structure-heavy-factory",
+    "Coefficient": 50,
+    "Transformation": {
+      "material-durasteel-metal": -0.5,
+      "material-manufacturing-equipment-light": 1
+    }
+  },
+  {
+    "$id": "recipe-merite-mine",
+    "Name": "Merite Mine",
+    "Structure": "structure-mine",
+    "Coefficient": 4,
+    "Transformation": {
+      "material-merite-ore": 1
+    },
+    "BoundResourceNode": "material-merite-ore"
+  },
+  {
+    "$id": "recipe-merite-refinery",
+    "Name": "Merite Refinery",
+    "Structure": "structure-ore-refinery",
+    "Coefficient": 7.5,
+    "Transformation": {
+      "material-merite-ore": -2,
+      "material-merite-metal": 1
+    }
+  },
+  {
+    "$id": "recipe-military-institute",
+    "Name": "Military Institute",
+    "Structure": "structure-institute",
+    "Coefficient": 1,
+    "Transformation": {
+      "material-research-military": 1
+    }
+  },
+  {
+    "$id": "recipe-mining-equipment-factory",
+    "Name": "Mining Equipment Factory",
+    "Structure": "structure-heavy-factory",
+    "Coefficient": 50,
+    "Transformation": {
+      "material-durasteel-metal": -0.5,
+      "material-mining-equipment": 1
+    }
+  },
+  {
+    "$id": "recipe-ossic-stone-mine",
+    "Name": "Ossic Stone Mine",
+    "Structure": "structure-mine",
+    "Coefficient": 50,
+    "Transformation": {
+      "material-ossic-stone": 1
+    },
+    "BoundResourceNode": "material-ossic-stone"
+  },
+  {
+    "$id": "recipe-personal-armor-alumite-factory",
+    "Name": "Personal Armor (Alumite) Factory",
+    "Structure": "structure-light-factory",
+    "Coefficient": 50000,
+    "Transformation": {
+      "material-alumite-metal": -0.0005,
+      "material-personal-armor-alumite": 1
+    }
+  },
+  {
+    "$id": "recipe-personal-armor-duralumin-factory",
+    "Name": "Personal Armor (Duralumin) Factory",
+    "Structure": "structure-light-factory",
+    "Coefficient": 50000,
+    "Transformation": {
+      "material-duralumin-metal": -0.0005,
+      "material-personal-armor-duralumin": 1
+    }
+  },
+  {
+    "$id": "recipe-personal-armor-durasteel-factory",
+    "Name": "Personal Armor (Durasteel) Factory",
+    "Structure": "structure-light-factory",
+    "Coefficient": 50000,
+    "Transformation": {
+      "material-durasteel-metal": -0.0005,
+      "material-personal-armor-durasteel": 1
+    }
+  },
+  {
+    "$id": "recipe-personal-shield-energy-field-factory",
+    "Name": "Personal Energy Field Factory",
+    "Structure": "structure-light-factory",
+    "Coefficient": 20000,
+    "Transformation": {
+      "material-crystal": -0.00005,
+      "material-electronics": -0.00005,
+      "material-polymer": -0.0002,
+      "material-power-cells": -0.0002,
+      "material-personal-shield-energy-field": 1
+    }
+  },
+  {
+    "$id": "recipe-personal-shield-energy-shell-factory",
+    "Name": "Personal Energy Shell Factory",
+    "Structure": "structure-light-factory",
+    "Coefficient": 20000,
+    "Transformation": {
+      "material-crystal": -0.00005,
+      "material-electronics": -0.00005,
+      "material-polymer": -0.0002,
+      "material-power-cells": -0.0002,
+      "material-personal-shield-energy-shell": 1
+    }
+  },
+  {
+    "$id": "recipe-personal-shield-energy-shield-factory",
+    "Name": "Personal Energy Shield Factory",
+    "Structure": "structure-light-factory",
+    "Coefficient": 20000,
+    "Transformation": {
+      "material-crystal": -0.00005,
+      "material-electronics": -0.00005,
+      "material-polymer": -0.0002,
+      "material-power-cells": -0.0002,
+      "material-personal-shield-energy-shield": 1
+    }
+  },
+  {
+    "$id": "recipe-personal-weapon-kinetic-factory",
+    "Name": "Personal Weapon (Kinetic) Factory",
+    "Structure": "structure-light-factory",
+    "Coefficient": 20000,
+    "Transformation": {
+      "material-polymer": -0.00085,
+      "material-durasteel-metal": -0.00015,
+      "material-personal-weapon-kinetic": 1
+    }
+  },
+  {
+    "$id": "recipe-personal-weapon-laser-factory",
+    "Name": "Personal Weapon (Kinetic) Factory",
+    "Structure": "structure-light-factory",
+    "Coefficient": 20000,
+    "Transformation": {
+      "material-polymer": -0.00085,
+      "material-durasteel-metal": -0.00015,
+      "material-personal-weapon-laser": 1
+    }
+  },
+  {
+    "$id": "recipe-personal-weapon-plasma-factory",
+    "Name": "Personal Weapon (Kinetic) Factory",
+    "Structure": "structure-light-factory",
+    "Coefficient": 20000,
+    "Transformation": {
+      "material-polymer": -0.00085,
+      "material-durasteel-metal": -0.00015,
+      "material-personal-weapon-plasma": 1
+    }
+  },
+  {
+    "$id": "recipe-polymer-plant",
+    "Name": "Polymer Plant",
+    "Structure": "structure-chemical-plant",
+    "Coefficient": 15,
+    "Transformation": {
+      "material-alkane-gas": -0.067,
+      "material-polymer": 1
+    }
+  },
+  {
+    "$id": "recipe-power-cells-factory",
+    "Name": "Power Cell Factory",
+    "Structure": "structure-light-factory",
+    "Coefficient": 80,
+    "Transformation": {
+      "material-graphite": -0.45,
+      "material-alkalite-metal": -0.45,
+      "material-cuprite-metal": -0.1,
+      "material-power-cells": 1
+    }
+  },
+  {
+    "$id": "recipe-society-institute",
+    "Name": "Society Institute",
+    "Structure": "structure-institute",
+    "Coefficient": 1,
+    "Transformation": {
+      "material-research-society": 1
+    }
+  },
+  {
+    "$id": "recipe-technology-institute",
+    "Name": "Technology Institute",
+    "Structure": "structure-institute",
+    "Coefficient": 1,
+    "Transformation": {
+      "material-research-technology": 1
+    }
+  },
+  {
+    "$id": "recipe-valentulite-mine",
+    "Name": "Valentulite Mine",
+    "Structure": "structure-mine",
+    "Coefficient": 0.025,
+    "Transformation": {
+      "material-valentulite-ore": 1
+    },
+    "BoundResourceNode": "material-valentulite-ore"
+  },
+  {
+    "$id": "recipe-valentulite-refinery",
+    "Name": "Valentulite Refinery",
+    "Structure": "structure-ore-refinery",
+    "Coefficient": 10,
+    "Transformation": {
+      "material-valentulite-ore": -2,
+      "material-valentulite-metal": 1
+    }
+  },
+  {
+    "$id": "recipe-vitraglass-plant",
+    "Name": "Vitraglass Plant",
+    "Structure": "structure-chemical-plant",
+    "Coefficient": 32,
+    "Transformation": {
+      "material-polymer": -0.625,
+      "material-carbon-attenic": -0.078125,
+      "material-vitraglass": 1
+    }
+  },
+  {
+    "$id": "recipe-wulframite-mine",
+    "Name": "Wulframite Mine",
+    "Structure": "structure-mine",
+    "Coefficient": 0.003,
+    "Transformation": {
+      "material-wulframite-ore": 1
+    },
+    "BoundResourceNode": "material-wulframite-ore"
+  },
+  {
+    "$id": "recipe-wulframite-refinery",
+    "Name": "Wulframite Refinery",
+    "Structure": "structure-ore-refinery",
+    "Coefficient": 2.5,
+    "Transformation": {
+      "material-wulframite-ore": -2,
+      "material-wulframite-metal": 1
+    }
+  }
+]

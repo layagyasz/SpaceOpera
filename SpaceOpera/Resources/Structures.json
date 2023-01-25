@@ -1,0 +1,117 @@
+[
+  {
+    "$id": "structure-chemical-plant",
+    "Name": "Chemical Plant",
+    "BuildTime": 10,
+    "MaxWorkers": 1000,
+    "Cost": {
+      "material-construction-material": 2500,
+      "material-infrastructure-material": 625,
+      "material-liquid-storage-equipment": 300,
+      "material-catalyst": 300
+    }
+  },
+  {
+    "$id": "structure-light-factory",
+    "Name": "Light Factory",
+    "BuildTime": 10,
+    "MaxWorkers": 1000,
+    "Cost": {
+      "material-construction-material": 2500,
+      "material-infrastructure-material": 625,
+      "material-manufacturing-equipment-light": 300
+    }
+  },
+  {
+    "$id": "structure-heavy-factory",
+    "Name": "Heavy Factory",
+    "BuildTime": 10,
+    "MaxWorkers": 1000,
+    "Cost": {
+      "material-construction-material": 2500,
+      "material-infrastructure-material": 625,
+      "material-manufacturing-equipment-heavy": 300
+    }
+  },
+  {
+    "$id": "structure-farm",
+    "Name": "Farm",
+    "BuildTime": 10,
+    "MaxWorkers": 40,
+    "Cost": {
+      "material-construction-material": 100,
+      "material-infrastructure-material": 25,
+      "material-farming-equipment": 12
+    }
+  },
+  {
+    "$id": "structure-gas-harvester",
+    "Name": "Gas Harvester",
+    "BuildTime": 10,
+    "MaxWorkers": 80,
+    "Cost": {}
+  },
+  {
+    "$id": "structure-institute",
+    "Name": "Institute",
+    "BuildTime": 10,
+    "MaxWorkers": 1000,
+    "Cost": {}
+  },
+  {
+    "$id": "structure-kiln",
+    "Name": "Kiln",
+    "BuildTime": 10,
+    "MaxWorkers": 1000,
+    "Cost": {
+      "material-construction-material": 2500,
+      "material-infrastructure-material": 625,
+      "material-kiln-material": 300
+    }
+  },
+  {
+    "$id": "structure-mine",
+    "Name": "Mine",
+    "BuildTime": 10,
+    "MaxWorkers": 1000,
+    "Cost": {
+      "material-construction-material": 2500,
+      "material-infrastructure-material": 625,
+      "material-mining-equipment": 300
+    }
+  },
+  {
+    "$id": "structure-ore-refinery",
+    "Name": "Ore Refinery",
+    "BuildTime": 10,
+    "MaxWorkers": 1000,
+    "Cost": {}
+  },
+  {
+    "$id": "structure-shipyard",
+    "Name": "Shipyard",
+    "BuildTime": 10,
+    "MaxWorkers": 1000,
+    "Cost": {}
+  },
+  {
+    "$id": "structure-spaceport",
+    "Name": "Spaceport",
+    "BuildTime": 10,
+    "MaxWorkers": 1000,
+    "Cost": {
+      "material-construction-material": 5000,
+      "material-infrastructure-material": 1300
+    }
+  },
+  {
+    "$id": "structure-training-facility",
+    "Name": "Training Facility",
+    "BuildTime": 10,
+    "MaxWorkers": 1000,
+    "Cost": {
+      "material-construction-material": 2500,
+      "material-infrastructure-material": 625
+    }
+  }
+]

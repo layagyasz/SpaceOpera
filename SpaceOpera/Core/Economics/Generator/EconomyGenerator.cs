@@ -8,7 +8,6 @@ namespace SpaceOpera.Core.Economics.Generator
     {
         public ISampler? PopulationSampler { get; set; }
         public float GasNodeDensity { get; set; }
-        public float GasNodeEfficiency { get; set; }
         public List<ResourceSampler> ResourceSamplers { get; set; } = new();
 
         public void Generate(World world, Random random)

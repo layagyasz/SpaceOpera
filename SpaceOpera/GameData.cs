@@ -21,45 +21,55 @@ namespace SpaceOpera
     {
         public GraphicsResources? GraphicResources { get; set; }
 
-        [JsonConverter(typeof(FromMultipleFileJsonConverter))]
-        public Library<BaseMaterial> Materials { get; } = new();
+        [JsonPropertyOrder(1)]
+        [JsonConverter(typeof(FromFileJsonConverter))]
+        public Library<BaseMaterial> Materials { get; set; } = new();
+
+        [JsonPropertyOrder(2)]
+        [JsonConverter(typeof(FromFileJsonConverter))]
         public MaterialSink? MaterialSink { get; set; }
 
+        [JsonPropertyOrder(3)]
         [JsonConverter(typeof(FromFileJsonConverter))]
-        public Library<GameModifier> Modifiers { get; } = new();
+        public Library<GameModifier> Modifiers { get; set; } = new();
 
+        [JsonPropertyOrder(4)]
         [JsonConverter(typeof(FromFileJsonConverter))]
-        public Library<AdvancementType> AdvancementTypes { get; } = new();
+        public Library<AdvancementType> AdvancementTypes { get; set; } = new();
 
+        [JsonPropertyOrder(5)]
         [JsonConverter(typeof(FromFileJsonConverter))]
-        public Library<BaseAdvancement> Advancements { get; } = new();
+        public Library<BaseAdvancement> Advancements { get; set; } = new();
 
+        [JsonPropertyOrder(6)]
         [JsonConverter(typeof(FromFileJsonConverter))]
-        public Library<Structure> Structures { get; } = new();
+        public Library<Structure> Structures { get; set; } = new();
 
+        [JsonPropertyOrder(7)]
         [JsonConverter(typeof(FromFileJsonConverter))]
-        public Library<Recipe> Recipes { get; } = new();
+        public Library<Recipe> Recipes { get; set; } = new();
 
+        [JsonPropertyOrder(8)]
         [JsonConverter(typeof(FromFileJsonConverter))]
-        public Library<Biome> Biomes { get; } = new();
-
+        public Library<Biome> Biomes { get; set; } = new();
+        
+        [JsonPropertyOrder(9)]
         [JsonConverter(typeof(FromMultipleFileJsonConverter))]
-        public Library<StellarBodyGenerator> StellarBodyGenerators { get; } = new();
+        public Library<BaseComponent> Components { get; set; } = new();
 
-        [JsonConverter(typeof(FromFileJsonConverter))]
-        public Library<StarGenerator> StarGenerator { get; } = new();
-
+        [JsonPropertyOrder(10)]
         [JsonConverter(typeof(FromMultipleFileJsonConverter))]
-        public Library<BaseComponent> Components { get; } = new();
+        public List<ComponentTypeClassifier> ComponentClassifiers { get; set; } = new();
 
-        [JsonConverter(typeof(FromMultipleFileJsonConverter))]
-        public List<ComponentTypeClassifier> ComponentClassifiers = new();
-
+        [JsonPropertyOrder(11)]
         [JsonConverter(typeof(FromMultipleFileJsonConverter))]
         public Library<DesignTemplate> DesignTemplates { get; set; } = new();
 
+        [JsonPropertyOrder(12)]
         public GalaxyGenerator? GalaxyGenerator { get; set; }
+        [JsonPropertyOrder(13)]
         public PoliticsGenerator? PoliticsGenerator { get; set; }
+        [JsonPropertyOrder(14)]
         public EconomyGenerator? EconomyGenerator { get; set; }
 
         public static GameData LoadFrom(string path)

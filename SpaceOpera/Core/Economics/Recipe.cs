@@ -1,7 +1,10 @@
 ﻿using Cardamom;
+using Cardamom.Json;
+using Cardamom.Json.Collections;
 using Cardamom.Trackers;
 using SpaceOpera.Core.Advancement;
 using SpaceOpera.Core.Designs;
+using System.Text.Json.Serialization;
 
 namespace SpaceOpera.Core.Economics
 {
@@ -11,9 +14,12 @@ namespace SpaceOpera.Core.Economics
 
         public string Key { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
+        [JsonConverter(typeof(ReferenceJsonConverter))]
         public Structure? Structure { get; set; }
         public float Coefficient { get; set; }
+        [JsonConverter(typeof(ReferenceDictionaryJsonConverter))]
         public MultiQuantity<IMaterial> Transformation { get; set; } = new();
+        [JsonConverter(typeof(ReferenceJsonConverter))]
         public IMaterial? BoundResourceNode { get; set; }
         public HashSet<IAdvancement> Prerequisites { get; set; } = new();
 
