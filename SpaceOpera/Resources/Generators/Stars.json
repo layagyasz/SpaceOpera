@@ -1,0 +1,178 @@
+[
+  {
+    "$id": "star-generator-class-o",
+    "Name": "Class O Main Sequence",
+    "TemperatureSampler": {
+      "$type": "Uniform",
+      "Range": [ 30000, 52000 ]
+    },
+    "RadiusSampler": {
+      "$type": "Uniform",
+      "Range": [ 6.6, 15 ]
+    },
+    "MassSampler": {
+      "$type": "Uniform",
+      "Range": [ 15, 90 ]
+    }
+  },
+  {
+    "$id": "star-generator-class-b",
+    "Name": "Class B Main Sequence",
+    "TemperatureSampler": {
+      "$type": "Uniform",
+      "Range": [ 10000, 30000 ]
+    },
+    "RadiusSampler": {
+      "$type": "Uniform",
+      "Range": [ 1.8, 6.6 ]
+    },
+    "MassSampler": {
+      "$type": "Uniform",
+      "Range": [ 2.1, 16 ]
+    }
+  },
+  {
+    "$id": "star-generator-class-a",
+    "Name": "Class A Main Sequence",
+    "TemperatureSampler": {
+      "$type": "Uniform",
+      "Range": [ 7500, 10000 ]
+    },
+    "RadiusSampler": {
+      "$type": "Uniform",
+      "Range": [ 1.4, 1.8 ]
+    },
+    "MassSampler": {
+      "$type": "Uniform",
+      "Range": [ 1.4, 2.1 ]
+    }
+  },
+  {
+    "$id": "star-generator-class-f",
+    "Name": "Class F Main Sequence",
+    "TemperatureSampler": {
+      "$type": "Uniform",
+      "Range": [ 6000, 7500 ]
+    },
+    "RadiusSampler": {
+      "$type": "Uniform",
+      "Range": [ 1.15, 1.4 ]
+    },
+    "MassSampler": {
+      "$type": "Uniform",
+      "Range": [ 1.04, 1.4 ]
+    }
+  },
+  {
+    "$id": "star-generator-class-g",
+    "Name": "Class G Main Sequence",
+    "TemperatureSampler": {
+      "$type": "Uniform",
+      "Range": [ 5200, 6000 ]
+    },
+    "RadiusSampler": {
+      "$type": "Uniform",
+      "Range": [ 0.96, 1.15 ]
+    },
+    "MassSampler": {
+      "$type": "Uniform",
+      "Range": [ 0.8, 1.04 ]
+    }
+  },
+  {
+    "$id": "star-generator-class-k",
+    "Name": "Class K Main Sequence",
+    "TemperatureSampler": {
+      "$type": "Uniform",
+      "Range": [ 3700, 5200 ]
+    },
+    "RadiusSampler": {
+      "$type": "Uniform",
+      "Range": [ 0.7, 0.96 ]
+    },
+    "MassSampler": {
+      "$type": "Uniform",
+      "Range": [ 0.45, 0.8 ]
+    }
+  },
+  {
+    "$id": "star-generator-class-m",
+    "Name": "Class M Main Sequence",
+    "TemperatureSampler": {
+      "$type": "Uniform",
+      "Range": [ 2400, 3700 ]
+    },
+    "RadiusSampler": {
+      "$type": "Uniform",
+      "Range": [ 0.13, 0.7 ]
+    },
+    "MassSampler": {
+      "$type": "Uniform",
+      "Range": [ 0.08, 0.45 ]
+    }
+  },
+  {
+    "$id": "star-generator-blue-giant",
+    "Name": "Blue Giant",
+    "TemperatureSampler": {
+      "$type": "Uniform",
+      "Range": [ 10000, 52000 ]
+    },
+    "RadiusSampler": {
+      "$type": "Uniform",
+      "Range": [ 5, 10 ]
+    },
+    "MassSampler": {
+      "$type": "Uniform",
+      "Range": [ 0.5, 5 ]
+    }
+  },
+  {
+    "$id": "star-generator-red-giant",
+    "Name": "Red Giant",
+    "TemperatureSampler": {
+      "$type": "Uniform",
+      "Range": [ 2400, 5000 ]
+    },
+    "RadiusSampler": {
+      "$type": "Uniform",
+      "Range": [ 100, 1000 ]
+    },
+    "MassSampler": {
+      "$type": "Uniform",
+      "Range": [ 0.3, 8 ]
+    }
+  },
+  {
+    "$id": "star-generator-brown-dwarf",
+    "Name": "Brown Dwarf",
+    "TemperatureSampler": {
+      "$type": "Uniform",
+      "Range": [ 400, 1000 ]
+    },
+    "RadiusSampler": {
+      "$type": "Uniform",
+      "Range": [ 0.07, 0.14 ]
+    },
+    "MassSampler": {
+      "$type": "Uniform",
+      "Range": [ 0.01, 0.08 ]
+    }
+  },
+  {
+    "$id": "star-generator-white-dwarf",
+    "Name": "White Dwarf",
+    "TemperatureSampler": {
+      "$type": "Uniform",
+      "Range": [ 10000, 150000 ]
+    },
+    "RadiusSampler": {
+      "$type": "Uniform",
+      "Range": [ 0.06, 0.14 ]
+    },
+    "MassSampler": {
+      "$type": "Uniform",
+      "Range": [ 0.15, 1.2 ]
+    }
+  }
+]

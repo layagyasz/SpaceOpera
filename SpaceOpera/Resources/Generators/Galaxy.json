@@ -6,7 +6,7 @@
   "StarCount": 100,
   "TransitDensity": 0.25,
   "StarSystemGenerator": {
-    "StarGenerators": "Resources/Generators/Star.json",
+    "StarGenerators": "Resources/Generators/Stars.json",
     "StarGeneratorSelector": {
       "star-generator-class-o": 3,
       "star-generator-class-b": 13000,

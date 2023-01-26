@@ -1,0 +1,1539 @@
+{
+  "Phonemes": [
+    {
+      "Symbol": "m",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "None" ],
+        "Types": [ "Nasal" ],
+        "Positions": [ "Bilabial" ]
+      }
+    },
+    {
+      "Symbol": "p",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "Unvoiced" ],
+        "Types": [ "Plosive" ],
+        "Positions": [ "Bilabial" ]
+      }
+    },
+    {
+      "Symbol": "b",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "Voiced" ],
+        "Types": [ "Plosive" ],
+        "Positions": [ "Bilabial" ]
+      }
+    },
+    {
+      "Symbol": "p^",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "Unvoiced" ],
+        "Types": [ "Fricative" ],
+        "Positions": [ "Bilabial" ]
+      }
+    },
+    {
+      "Symbol": "b^",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "Voiced" ],
+        "Types": [ "Fricative" ],
+        "Positions": [ "Bilabial" ]
+      }
+    },
+    {
+      "Symbol": "B",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "Voiced" ],
+        "Types": [ "Trill" ],
+        "Positions": [ "Bilabial" ]
+      }
+    },
+    {
+      "Symbol": "m_",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "None" ],
+        "Types": [ "Nasal" ],
+        "Positions": [ "Labiodental" ]
+      }
+    },
+    {
+      "Symbol": "f",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "Unvoiced" ],
+        "Types": [ "Fricative" ],
+        "Positions": [ "Labiodental" ]
+      }
+    },
+    {
+      "Symbol": "v",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "Voiced" ],
+        "Types": [ "Fricative" ],
+        "Positions": [ "Labiodental" ]
+      }
+    },
+    {
+      "Symbol": "v~",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "Voiced" ],
+        "Types": [ "Approximant" ],
+        "Positions": [ "Labiodental" ]
+      }
+    },
+    {
+      "Symbol": "v.",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "Voiced" ],
+        "Types": [ "Tap" ],
+        "Positions": [ "Labiodental" ]
+      }
+    },
+    {
+      "Symbol": "t^",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "Unvoiced" ],
+        "Types": [ "Fricative" ],
+        "Positions": [ "Dental" ]
+      }
+    },
+    {
+      "Symbol": "d^",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "Voiced" ],
+        "Types": [ "Fricative" ],
+        "Positions": [ "Dental" ]
+      }
+    },
+    {
+      "Symbol": "n",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "None" ],
+        "Types": [ "Nasal" ],
+        "Positions": [ "Alveolar" ]
+      }
+    },
+    {
+      "Symbol": "t",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "Unvoiced" ],
+        "Types": [ "Plosive" ],
+        "Positions": [ "Alveolar" ]
+      }
+    },
+    {
+      "Symbol": "d",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "Voiced" ],
+        "Types": [ "Plosive" ],
+        "Positions": [ "Alveolar" ]
+      }
+    },
+    {
+      "Symbol": "s",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "Unvoiced" ],
+        "Types": [ "SibilantFricative" ],
+        "Positions": [ "Alveolar" ]
+      }
+    },
+    {
+      "Symbol": "z",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "Voiced" ],
+        "Types": [ "SibilantFricative" ],
+        "Positions": [ "Alveolar" ]
+      }
+    },
+    {
+      "Symbol": "r",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "None" ],
+        "Types": [ "Trill" ],
+        "Positions": [ "Alveolar" ]
+      }
+    },
+    {
+      "Symbol": "r.",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "None" ],
+        "Types": [ "Tap" ],
+        "Positions": [ "Alveolar" ]
+      }
+    },
+    {
+      "Symbol": "l^",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "Unvoiced" ],
+        "Types": [ "LateralFricative" ],
+        "Positions": [ "Alveolar" ]
+      }
+    },
+    {
+      "Symbol": "l^:",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "Voiced" ],
+        "Types": [ "LateralFricative" ],
+        "Positions": [ "Alveolar" ]
+      }
+    },
+    {
+      "Symbol": "l",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "None" ],
+        "Types": [ "LateralApproximant" ],
+        "Positions": [ "Alveolar" ]
+      }
+    },
+    {
+      "Symbol": "s^",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "Unvoiced" ],
+        "Types": [ "SibilantFricative" ],
+        "Positions": [ "Postalveolar" ]
+      }
+    },
+    {
+      "Symbol": "z^",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "Voiced" ],
+        "Types": [ "SibilantFricative" ],
+        "Positions": [ "Postalveolar" ]
+      }
+    },
+    {
+      "Symbol": "n~",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "None" ],
+        "Types": [ "Nasal" ],
+        "Positions": [ "Retroflex" ]
+      }
+    },
+    {
+      "Symbol": "t~",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "Unvoiced" ],
+        "Types": [ "Plosive" ],
+        "Positions": [ "Retroflex" ]
+      }
+    },
+    {
+      "Symbol": "d~",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "Voiced" ],
+        "Types": [ "Plosive" ],
+        "Positions": [ "Retroflex" ]
+      }
+    },
+    {
+      "Symbol": "s~",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "Unvoiced" ],
+        "Types": [ "SibilantFricative" ],
+        "Positions": [ "Retroflex" ]
+      }
+    },
+    {
+      "Symbol": "z~",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "Voiced" ],
+        "Types": [ "SibilantFricative" ],
+        "Positions": [ "Retroflex" ]
+      }
+    },
+    {
+      "Symbol": "r~",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "None" ],
+        "Types": [ "Approximant" ],
+        "Positions": [ "Retroflex" ]
+      }
+    },
+    {
+      "Symbol": "l~",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "None" ],
+        "Types": [ "LateralApproximant" ],
+        "Positions": [ "Retroflex" ]
+      }
+    },
+    {
+      "Symbol": "n>",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "None" ],
+        "Types": [ "Nasal" ],
+        "Positions": [ "Palatal" ]
+      }
+    },
+    {
+      "Symbol": "k>",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "Unvoiced" ],
+        "Types": [ "Plosive" ],
+        "Positions": [ "Palatal" ]
+      }
+    },
+    {
+      "Symbol": "g>",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "Voiced" ],
+        "Types": [ "Plosive" ],
+        "Positions": [ "Palatal" ]
+      }
+    },
+    {
+      "Symbol": "x>",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "Unvoiced" ],
+        "Types": [ "Fricative" ],
+        "Positions": [ "Palatal" ]
+      }
+    },
+    {
+      "Symbol": "j>",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "Voiced" ],
+        "Types": [ "Fricative" ],
+        "Positions": [ "Palatal" ]
+      }
+    },
+    {
+      "Symbol": "j",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "None" ],
+        "Types": [ "Approximant" ],
+        "Positions": [ "Palatal" ]
+      }
+    },
+    {
+      "Symbol": "l>",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "None" ],
+        "Types": [ "LateralApproximant" ],
+        "Positions": [ "Palatal" ]
+      }
+    },
+    {
+      "Symbol": "n=",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "None" ],
+        "Types": [ "Nasal" ],
+        "Positions": [ "Velar" ]
+      }
+    },
+    {
+      "Symbol": "k",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "Unvoiced" ],
+        "Types": [ "Plosive" ],
+        "Positions": [ "Velar" ]
+      }
+    },
+    {
+      "Symbol": "g",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "Voiced" ],
+        "Types": [ "Plosive" ],
+        "Positions": [ "Velar" ]
+      }
+    },
+    {
+      "Symbol": "x",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "Unvoiced" ],
+        "Types": [ "Fricative" ],
+        "Positions": [ "Velar" ]
+      }
+    },
+    {
+      "Symbol": "g^",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "Voiced" ],
+        "Types": [ "Fricative" ],
+        "Positions": [ "Velar" ]
+      }
+    },
+    {
+      "Symbol": "w=",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "None" ],
+        "Types": [ "Approximant" ],
+        "Positions": [ "Velar" ]
+      }
+    },
+    {
+      "Symbol": "L",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "None" ],
+        "Types": [ "LateralApproximant" ],
+        "Positions": [ "Velar" ]
+      }
+    },
+    {
+      "Symbol": "N",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "None" ],
+        "Types": [ "Nasal" ],
+        "Positions": [ "Uvular" ]
+      }
+    },
+    {
+      "Symbol": "q",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "Unvoiced" ],
+        "Types": [ "Plosive" ],
+        "Positions": [ "Uvular" ]
+      }
+    },
+    {
+      "Symbol": "G",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "Voiced" ],
+        "Types": [ "Plosive" ],
+        "Positions": [ "Uvular" ]
+      }
+    },
+    {
+      "Symbol": "X",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "Unvoiced" ],
+        "Types": [ "Fricative" ],
+        "Positions": [ "Uvular" ]
+      }
+    },
+    {
+      "Symbol": "R:",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "Voiced" ],
+        "Types": [ "Fricative" ],
+        "Positions": [ "Uvular" ]
+      }
+    },
+    {
+      "Symbol": "R",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "None" ],
+        "Types": [ "Trill" ],
+        "Positions": [ "Uvular" ]
+      }
+    },
+    {
+      "Symbol": "h-",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "Unvoiced" ],
+        "Types": [ "Fricative" ],
+        "Positions": [ "Pharyngeal" ]
+      }
+    },
+    {
+      "Symbol": "?:",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "Voiced" ],
+        "Types": [ "Fricative" ],
+        "Positions": [ "Pharyngeal" ]
+      }
+    },
+    {
+      "Symbol": "?",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "Unvoiced" ],
+        "Types": [ "Plosive" ],
+        "Positions": [ "Glottal" ]
+      }
+    },
+    {
+      "Symbol": "h",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "Unvoiced" ],
+        "Types": [ "Fricative" ],
+        "Positions": [ "Glottal" ]
+      }
+    },
+    {
+      "Symbol": "h^",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "Voiced" ],
+        "Types": [ "Fricative" ],
+        "Positions": [ "Glottal" ]
+      }
+    },
+    {
+      "Symbol": "w",
+      "Range": {
+        "Classes": [ "Consonant" ],
+        "Voices": [ "None" ],
+        "Types": [ "Approximant" ],
+        "Positions": [ "Labiovelar" ]
+      }
+    },
+    {
+      "Symbol": "i",
+      "Range": {
+        "Classes": [ "Vowel" ],
+        "Voices": [ "Unrounded" ],
+        "Types": [ "Closed" ],
+        "Positions": [ "Front" ]
+      }
+    },
+    {
+      "Symbol": "y",
+      "Range": {
+        "Classes": [ "Vowel" ],
+        "Voices": [ "Rounded" ],
+        "Types": [ "Closed" ],
+        "Positions": [ "Front" ]
+      }
+    },
+    {
+      "Symbol": "i-",
+      "Range": {
+        "Classes": [ "Vowel" ],
+        "Voices": [ "Unrounded" ],
+        "Types": [ "Closed" ],
+        "Positions": [ "Central" ]
+      }
+    },
+    {
+      "Symbol": "u-",
+      "Range": {
+        "Classes": [ "Vowel" ],
+        "Voices": [ "Rounded" ],
+        "Types": [ "Closed" ],
+        "Positions": [ "Central" ]
+      }
+    },
+    {
+      "Symbol": "w:",
+      "Range": {
+        "Classes": [ "Vowel" ],
+        "Voices": [ "Unrounded" ],
+        "Types": [ "Closed" ],
+        "Positions": [ "Back" ]
+      }
+    },
+    {
+      "Symbol": "u",
+      "Range": {
+        "Classes": [ "Vowel" ],
+        "Voices": [ "Rounded" ],
+        "Types": [ "Closed" ],
+        "Positions": [ "Back" ]
+      }
+    },
+    {
+      "Symbol": "I",
+      "Range": {
+        "Classes": [ "Vowel" ],
+        "Voices": [ "Unrounded" ],
+        "Types": [ "ClosedClosedMiddle" ],
+        "Positions": [ "Front" ]
+      }
+    },
+    {
+      "Symbol": "Y",
+      "Range": {
+        "Classes": [ "Vowel" ],
+        "Voices": [ "Rounded" ],
+        "Types": [ "ClosedClosedMiddle" ],
+        "Positions": [ "Front" ]
+      }
+    },
+    {
+      "Symbol": "u^",
+      "Range": {
+        "Classes": [ "Vowel" ],
+        "Voices": [ "Rounded" ],
+        "Types": [ "ClosedClosedMiddle" ],
+        "Positions": [ "Back" ]
+      }
+    },
+    {
+      "Symbol": "e",
+      "Range": {
+        "Classes": [ "Vowel" ],
+        "Voices": [ "Unrounded" ],
+        "Types": [ "ClosedMiddle" ],
+        "Positions": [ "Front" ]
+      }
+    },
+    {
+      "Symbol": "o/",
+      "Range": {
+        "Classes": [ "Vowel" ],
+        "Voices": [ "Rounded" ],
+        "Types": [ "ClosedMiddle" ],
+        "Positions": [ "Front" ]
+      }
+    },
+    {
+      "Symbol": "e<",
+      "Range": {
+        "Classes": [ "Vowel" ],
+        "Voices": [ "Unrounded" ],
+        "Types": [ "ClosedMiddle" ],
+        "Positions": [ "Central" ]
+      }
+    },
+    {
+      "Symbol": "o<",
+      "Range": {
+        "Classes": [ "Vowel" ],
+        "Voices": [ "Rounded" ],
+        "Types": [ "ClosedMiddle" ],
+        "Positions": [ "Central" ]
+      }
+    },
+    {
+      "Symbol": "o*",
+      "Range": {
+        "Classes": [ "Vowel" ],
+        "Voices": [ "Unrounded" ],
+        "Types": [ "ClosedMiddle" ],
+        "Positions": [ "Back" ]
+      }
+    },
+    {
+      "Symbol": "o",
+      "Range": {
+        "Classes": [ "Vowel" ],
+        "Voices": [ "Rounded" ],
+        "Types": [ "ClosedMiddle" ],
+        "Positions": [ "Back" ]
+      }
+    },
+    {
+      "Symbol": "e&",
+      "Range": {
+        "Classes": [ "Vowel" ],
+        "Voices": [ "None" ],
+        "Types": [ "Middle" ],
+        "Positions": [ "Central" ]
+      }
+    },
+    {
+      "Symbol": "E",
+      "Range": {
+        "Classes": [ "Vowel" ],
+        "Voices": [ "Unrounded" ],
+        "Types": [ "OpenMiddle" ],
+        "Positions": [ "Front" ]
+      }
+    },
+    {
+      "Symbol": "o:",
+      "Range": {
+        "Classes": [ "Vowel" ],
+        "Voices": [ "Rounded" ],
+        "Types": [ "OpenMiddle" ],
+        "Positions": [ "Front" ]
+      }
+    },
+    {
+      "Symbol": "E<",
+      "Range": {
+        "Classes": [ "Vowel" ],
+        "Voices": [ "Unrounded" ],
+        "Types": [ "OpenMiddle" ],
+        "Positions": [ "Central" ]
+      }
+    },
+    {
+      "Symbol": "E:",
+      "Range": {
+        "Classes": [ "Vowel" ],
+        "Voices": [ "Rounded" ],
+        "Types": [ "OpenMiddle" ],
+        "Positions": [ "Central" ]
+      }
+    },
+    {
+      "Symbol": "u_",
+      "Range": {
+        "Classes": [ "Vowel" ],
+        "Voices": [ "Unrounded" ],
+        "Types": [ "OpenMiddle" ],
+        "Positions": [ "Back" ]
+      }
+    },
+    {
+      "Symbol": "O",
+      "Range": {
+        "Classes": [ "Vowel" ],
+        "Voices": [ "Rounded" ],
+        "Types": [ "OpenMiddle" ],
+        "Positions": [ "Back" ]
+      }
+    },
+    {
+      "Symbol": "a:",
+      "Range": {
+        "Classes": [ "Vowel" ],
+        "Voices": [ "Unrounded" ],
+        "Types": [ "OpenOpenMiddle" ],
+        "Positions": [ "Front" ]
+      }
+    },
+    {
+      "Symbol": "a&",
+      "Range": {
+        "Classes": [ "Vowel" ],
+        "Voices": [ "Unrounded" ],
+        "Types": [ "OpenOpenMiddle" ],
+        "Positions": [ "Central" ]
+      }
+    },
+    {
+      "Symbol": "a",
+      "Range": {
+        "Classes": [ "Vowel" ],
+        "Voices": [ "Unrounded" ],
+        "Types": [ "Open" ],
+        "Positions": [ "Front" ]
+      }
+    },
+    {
+      "Symbol": "O:",
+      "Range": {
+        "Classes": [ "Vowel" ],
+        "Voices": [ "Rounded" ],
+        "Types": [ "Open" ],
+        "Positions": [ "Front" ]
+      }
+    },
+    {
+      "Symbol": "A",
+      "Range": {
+        "Classes": [ "Vowel" ],
+        "Voices": [ "Unrounded" ],
+        "Types": [ "Open" ],
+        "Positions": [ "Back" ]
+      }
+    },
+    {
+      "Symbol": "A&",
+      "Range": {
+        "Classes": [ "Vowel" ],
+        "Voices": [ "Rounded" ],
+        "Types": [ "Open" ],
+        "Positions": [ "Back" ]
+      }
+    }
+  ],
+  "Exclusions": {
+    "IndependentOptions": [
+      {
+        "Frequency": 1.0,
+        "Value": {
+          "DependentOptions": [
+            {
+              "Frequency": 0.85,
+              "Value": {
+                "Classes": [],
+                "Voices": [],
+                "Types": [],
+                "Positions": []
+              }
+            },
+            {
+              "Frequency": 0.1,
+              "Value": {
+                "Classes": [ "Any" ],
+                "Voices": [ "Voiced" ],
+                "Types": [ "Any" ],
+                "Positions": [ "Any" ]
+              }
+            },
+            {
+              "Frequency": 0.05,
+              "Value": {
+                "Classes": [ "Any" ],
+                "Voices": [ "Unvoiced" ],
+                "Types": [ "Any" ],
+                "Positions": [ "Any" ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Frequency": 1.0,
+        "Value": {
+          "DependentOptions": [
+            {
+              "Frequency": 0.15,
+              "Value": {
+                "Classes": [ "Any" ],
+                "Voices": [ "Any" ],
+                "Types": [ "Trill", "Tap" ],
+                "Positions": [ "Alveolar", "Retroflex" ]
+              }
+            },
+            {
+              "Frequency": 0.4,
+              "Value": {
+                "Classes": [ "Any" ],
+                "Voices": [ "Any" ],
+                "Types": [ "Tap", "Approximant" ],
+                "Positions": [ "Alveolar", "Retroflex" ]
+              }
+            },
+            {
+              "Frequency": 0.4,
+              "Value": {
+                "Classes": [ "Any" ],
+                "Voices": [ "Any" ],
+                "Types": [ "Trill", "Approximant" ],
+                "Positions": [ "Alveolar", "Retroflex" ]
+              }
+            },
+            {
+              "Frequency": 0.05,
+              "Value": {
+                "Classes": [ "Any" ],
+                "Voices": [ "Any" ],
+                "Types": [ "Trill", "Tap", "Approximant" ],
+                "Positions": [ "Alveolar", "Retroflex" ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Frequency": 0.05,
+        "Value": {
+          "DependentOptions": [
+            {
+              "Frequency": 1.0,
+              "Value": {
+                "Classes": [ "Any" ],
+                "Voices": [ "Any" ],
+                "Types": [ "Trill" ],
+                "Positions": [ "Any" ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Frequency": 0.15,
+        "Value": {
+          "DependentOptions": [
+            {
+              "Frequency": 1.0,
+              "Value": {
+                "Classes": [ "Any" ],
+                "Voices": [ "Any" ],
+                "Types": [ "Tap" ],
+                "Positions": [ "Any" ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Frequency": 0.05,
+        "Value": {
+          "DependentOptions": [
+            {
+              "Frequency": 1.0,
+              "Value": {
+                "Classes": [ "Any" ],
+                "Voices": [ "Any" ],
+                "Types": [ "Fricative" ],
+                "Positions": [ "Any" ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Frequency": 0.05,
+        "Value": {
+          "DependentOptions": [
+            {
+              "Frequency": 1.0,
+              "Value": {
+                "Classes": [ "Any" ],
+                "Voices": [ "Any" ],
+                "Types": [ "SibilantFricative" ],
+                "Positions": [ "Any" ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Frequency": 0.95,
+        "Value": {
+          "DependentOptions": [
+            {
+              "Frequency": 1.0,
+              "Value": {
+                "Classes": [ "Any" ],
+                "Voices": [ "Any" ],
+                "Types": [ "LateralFricative" ],
+                "Positions": [ "Any" ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Frequency": 0.05,
+        "Value": {
+          "DependentOptions": [
+            {
+              "Frequency": 1.0,
+              "Value": {
+                "Classes": [ "Any" ],
+                "Voices": [ "Any" ],
+                "Types": [ "Approximant" ],
+                "Positions": [ "Any" ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Frequency": 0.1,
+        "Value": {
+          "DependentOptions": [
+            {
+              "Frequency": 1.0,
+              "Value": {
+                "Classes": [ "Any" ],
+                "Voices": [ "Any" ],
+                "Types": [ "LateralApproximant" ],
+                "Positions": [ "Any" ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Frequency": 0.1,
+        "Value": {
+          "DependentOptions": [
+            {
+              "Frequency": 1.0,
+              "Value": {
+                "Classes": [ "Any" ],
+                "Voices": [ "Any" ],
+                "Types": [ "Any" ],
+                "Positions": [ "Labiodental" ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Frequency": 0.8,
+        "Value": {
+          "DependentOptions": [
+            {
+              "Frequency": 1.0,
+              "Value": {
+                "Classes": [ "Any" ],
+                "Voices": [ "Any" ],
+                "Types": [ "Any" ],
+                "Positions": [ "Dental" ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Frequency": 0.1,
+        "Value": {
+          "DependentOptions": [
+            {
+              "Frequency": 1.0,
+              "Value": {
+                "Classes": [ "Any" ],
+                "Voices": [ "Any" ],
+                "Types": [ "Any" ],
+                "Positions": [ "Postalveolar" ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Frequency": 0.95,
+        "Value": {
+          "DependentOptions": [
+            {
+              "Frequency": 1.0,
+              "Value": {
+                "Classes": [ "Any" ],
+                "Voices": [ "Any" ],
+                "Types": [ "Any" ],
+                "Positions": [ "Retroflex" ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Frequency": 0.95,
+        "Value": {
+          "DependentOptions": [
+            {
+              "Frequency": 1.0,
+              "Value": {
+                "Classes": [ "Any" ],
+                "Voices": [ "Any" ],
+                "Types": [ "Any" ],
+                "Positions": [ "Palatal" ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Frequency": 0.95,
+        "Value": {
+          "DependentOptions": [
+            {
+              "Frequency": 1.0,
+              "Value": {
+                "Classes": [ "Any" ],
+                "Voices": [ "Any" ],
+                "Types": [ "Any" ],
+                "Positions": [ "Uvular" ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Frequency": 0.98,
+        "Value": {
+          "DependentOptions": [
+            {
+              "Frequency": 1.0,
+              "Value": {
+                "Classes": [ "Any" ],
+                "Voices": [ "Any" ],
+                "Types": [ "Any" ],
+                "Positions": [ "Pharyngeal" ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Frequency": 0.05,
+        "Value": {
+          "DependentOptions": [
+            {
+              "Frequency": 1.0,
+              "Value": {
+                "Classes": [ "Any" ],
+                "Voices": [ "Any" ],
+                "Types": [ "Any" ],
+                "Positions": [ "Glottal" ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Frequency": 0.5,
+        "Value": {
+          "DependentOptions": [
+            {
+              "Frequency": 1.0,
+              "Value": {
+                "Classes": [ "Any" ],
+                "Voices": [ "Any" ],
+                "Types": [ "Any" ],
+                "Positions": [ "Labiovelar" ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Frequency": 0.2,
+        "Value": {
+          "DependentOptions": [
+            {
+              "Frequency": 1.0,
+              "Value": {
+                "Classes": [ "Any" ],
+                "Voices": [ "Any" ],
+                "Types": [ "Plosive" ],
+                "Positions": [ "Retroflex", "Palatal", "Uvular" ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Frequency": 0.9,
+        "Value": {
+          "DependentOptions": [
+            {
+              "Frequency": 1.0,
+              "Value": {
+                "Classes": [ "Any" ],
+                "Voices": [ "Any" ],
+                "Types": [ "Nasal" ],
+                "Positions": [ "Labiodental" ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Frequency": 0.2,
+        "Value": {
+          "DependentOptions": [
+            {
+              "Frequency": 1.0,
+              "Value": {
+                "Classes": [ "Any" ],
+                "Voices": [ "Any" ],
+                "Types": [ "Nasal" ],
+                "Positions": [ "Retroflex", "Palatal", "Velar", "Uvular" ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Frequency": 0.9,
+        "Value": {
+          "DependentOptions": [
+            {
+              "Frequency": 1.0,
+              "Value": {
+                "Classes": [ "Any" ],
+                "Voices": [ "Any" ],
+                "Types": [ "Trill" ],
+                "Positions": [ "Bilabial" ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Frequency": 0.5,
+        "Value": {
+          "DependentOptions": [
+            {
+              "Frequency": 1.0,
+              "Value": {
+                "Classes": [ "Any" ],
+                "Voices": [ "Any" ],
+                "Types": [ "Trill" ],
+                "Positions": [ "Uvular" ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Frequency": 0.9,
+        "Value": {
+          "DependentOptions": [
+            {
+              "Frequency": 1.0,
+              "Value": {
+                "Classes": [ "Any" ],
+                "Voices": [ "Any" ],
+                "Types": [ "Tap" ],
+                "Positions": [ "Labiodental" ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Frequency": 0.9,
+        "Value": {
+          "DependentOptions": [
+            {
+              "Frequency": 1.0,
+              "Value": {
+                "Classes": [ "Any" ],
+                "Voices": [ "Any" ],
+                "Types": [ "Tap" ],
+                "Positions": [ "Retroflex" ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Frequency": 0.8,
+        "Value": {
+          "DependentOptions": [
+            {
+              "Frequency": 1.0,
+              "Value": {
+                "Classes": [ "Any" ],
+                "Voices": [ "Any" ],
+                "Types": [ "Fricative" ],
+                "Positions": [ "Bilabial" ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Frequency": 0.2,
+        "Value": {
+          "DependentOptions": [
+            {
+              "Frequency": 1.0,
+              "Value": {
+                "Classes": [ "Any" ],
+                "Voices": [ "Any" ],
+                "Types": [ "Fricative" ],
+                "Positions": [ "Retroflex", "Palatal", "Uvular" ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Frequency": 0.4,
+        "Value": {
+          "DependentOptions": [
+            {
+              "Frequency": 1.0,
+              "Value": {
+                "Classes": [ "Any" ],
+                "Voices": [ "Any" ],
+                "Types": [ "Fricative" ],
+                "Positions": [ "Velar" ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Frequency": 0.95,
+        "Value": {
+          "DependentOptions": [
+            {
+              "Frequency": 1.0,
+              "Value": {
+                "Classes": [ "Any" ],
+                "Voices": [ "Voiced" ],
+                "Types": [ "Any" ],
+                "Positions": [ "Glottal" ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Frequency": 0.95,
+        "Value": {
+          "DependentOptions": [
+            {
+              "Frequency": 1.0,
+              "Value": {
+                "Classes": [ "Any" ],
+                "Voices": [ "Any" ],
+                "Types": [ "Approximant" ],
+                "Positions": [ "Labiodental" ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Frequency": 0.95,
+        "Value": {
+          "DependentOptions": [
+            {
+              "Frequency": 1.0,
+              "Value": {
+                "Classes": [ "Any" ],
+                "Voices": [ "Any" ],
+                "Types": [ "Approximant" ],
+                "Positions": [ "Retroflex", "Velar" ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Frequency": 0.1,
+        "Value": {
+          "DependentOptions": [
+            {
+              "Frequency": 1.0,
+              "Value": {
+                "Classes": [ "Any" ],
+                "Voices": [ "Any" ],
+                "Types": [ "LateralApproximant" ],
+                "Positions": [ "Retroflex", "Palatal", "Velar" ]
+              }
+            }
+          ]
+        }
+      },
+
+      {
+        "Frequency": 0.6,
+        "Value": {
+          "DependentOptions": [
+            {
+              "Frequency": 1.0,
+              "Value": {
+                "Classes": [ "Any" ],
+                "Voices": [ "Rounded" ],
+                "Types": [ "Any" ],
+                "Positions": [ "Front" ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Frequency": 0.95,
+        "Value": {
+          "DependentOptions": [
+            {
+              "Frequency": 1.0,
+              "Value": {
+                "Classes": [ "Any" ],
+                "Voices": [ "Unrounded" ],
+                "Types": [
+                  "Closed",
+                  "ClosedClosedMiddle",
+                  "ClosedMiddle",
+                  "OpenMiddle",
+                  "OpenOpenMiddle",
+                  "Open"
+                ],
+                "Positions": [ "Central" ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Frequency": 0.95,
+        "Value": {
+          "DependentOptions": [
+            {
+              "Frequency": 1.0,
+              "Value": {
+                "Classes": [ "Any" ],
+                "Voices": [ "Rounded" ],
+                "Types": [ "Any" ],
+                "Positions": [ "Central" ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Frequency": 0.1,
+        "Value": {
+          "DependentOptions": [
+            {
+              "Frequency": 1.0,
+              "Value": {
+                "Classes": [ "Any" ],
+                "Voices": [ "Any" ],
+                "Types": [ "Middle" ],
+                "Positions": [ "Central" ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Frequency": 0.95,
+        "Value": {
+          "DependentOptions": [
+            {
+              "Frequency": 1.0,
+              "Value": {
+                "Classes": [ "Any" ],
+                "Voices": [ "Unrounded" ],
+                "Types": [ "Any" ],
+                "Positions": [ "Back" ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Frequency": 0.6,
+        "Value": {
+          "DependentOptions": [
+            {
+              "Frequency": 1.0,
+              "Value": {
+                "Classes": [ "Any" ],
+                "Voices": [ "Any" ],
+                "Types": [ "ClosedClosedMiddle" ],
+                "Positions": [ "Any" ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Frequency": 0.1,
+        "Value": {
+          "DependentOptions": [
+            {
+              "Frequency": 1.0,
+              "Value": {
+                "Classes": [ "Any" ],
+                "Voices": [ "Any" ],
+                "Types": [ "OpenMiddle" ],
+                "Positions": [ "Any" ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Frequency": 0.6,
+        "Value": {
+          "DependentOptions": [
+            {
+              "Frequency": 1.0,
+              "Value": {
+                "Classes": [ "Any" ],
+                "Voices": [ "Any" ],
+                "Types": [ "OpenOpenMiddle" ],
+                "Positions": [ "Any" ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Frequency": 0.5,
+        "Value": {
+          "DependentOptions": [
+            {
+              "Frequency": 1.0,
+              "Value": {
+                "Classes": [ "Any" ],
+                "Voices": [ "Rounded" ],
+                "Types": [ "Closed" ],
+                "Positions": [ "Any" ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Frequency": 0.75,
+        "Value": {
+          "DependentOptions": [
+            {
+              "Frequency": 1.0,
+              "Value": {
+                "Classes": [ "Any" ],
+                "Voices": [ "Rounded" ],
+                "Types": [ "ClosedClosedMiddle" ],
+                "Positions": [ "Any" ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Frequency": 0.75,
+        "Value": {
+          "DependentOptions": [
+            {
+              "Frequency": 1.0,
+              "Value": {
+                "Classes": [ "Any" ],
+                "Voices": [ "Rounded" ],
+                "Types": [ "Open" ],
+                "Positions": [ "Any" ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Frequency": 0.25,
+        "Value": {
+          "DependentOptions": [
+            {
+              "Frequency": 1.0,
+              "Value": {
+                "Classes": [ "Any" ],
+                "Voices": [ "Rounded" ],
+                "Types": [ "ClosedClosedMiddle" ],
+                "Positions": [ "Back" ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

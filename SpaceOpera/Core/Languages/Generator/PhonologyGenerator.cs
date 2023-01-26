@@ -9,7 +9,7 @@ namespace SpaceOpera.Core.Languages.Generator
         public Phonology Generate(Phonetics Phonetics, Random Random)
         {
             var builder = new Phonology.Builder(Phonetics.Phonemes);
-            foreach (var exclusion in Exclusions.Where(x => Random.NextDouble() < x.Frequency))
+            foreach (var exclusion in Exclusions.Where(x => Random.NextSingle() < x.Frequency))
             {
                 switch (exclusion.Value!.Segment)
                 {

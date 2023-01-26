@@ -1,0 +1,58 @@
+{
+  "Exclusions": [
+    {
+      "Frequency": 1,
+      "Value": {
+        "Segment": "Onset",
+        "Left": {
+          "Classes": [ "Any" ],
+          "Voices": [ "Any" ],
+          "Types": [ "Any" ],
+          "Positions": [ "Any" ]
+        },
+        "Right": {
+          "Classes": [ "Any" ],
+          "Voices": [ "Any" ],
+          "Types": [ "Any" ],
+          "Positions": [ "Any" ]
+        }
+      }
+    },
+    {
+      "Frequency": 1,
+      "Value": {
+        "Segment": "Nucleus",
+        "Left": {
+          "Classes": [ "Any" ],
+          "Voices": [ "Any" ],
+          "Types": [ "Any" ],
+          "Positions": [ "Any" ]
+        },
+        "Right": {
+          "Classes": [ "Any" ],
+          "Voices": [ "Any" ],
+          "Types": [ "Any" ],
+          "Positions": [ "Any" ]
+        }
+      }
+    },
+    {
+      "Frequency": 1,
+      "Value": {
+        "Segment": "Offset",
+        "Left": {
+          "Classes": [ "Any" ],
+          "Voices": [ "Any" ],
+          "Types": [ "Any" ],
+          "Positions": [ "Any" ]
+        },
+        "Right": {
+          "Classes": [ "Any" ],
+          "Voices": [ "Any" ],
+          "Types": [ "Any" ],
+          "Positions": [ "Any" ]
+        }
+      }
+    }
+  ]
+}

@@ -7,7 +7,7 @@
   "Structures": "Resources/Structures.json",
   "Recipes": "Resources/Recipes.json",
   "Biomes": "Resources/Biomes.json",
-  "GalaxyGenerator": "Resources/Generator/Galaxy.json",
-  "PoliticsGenerator": "Resources/Generator/Politics.json",
-  "EconomyGenerator": "Resources/Generator/Economy.json"
+  "GalaxyGenerator": "Resources/Generators/Galaxy.json",
+  "PoliticsGenerator": "Resources/Generators/Politics.json",
+  "EconomyGenerator": "Resources/Generators/Economy.json"
 }

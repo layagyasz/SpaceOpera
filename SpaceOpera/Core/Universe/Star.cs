@@ -15,12 +15,12 @@ namespace SpaceOpera.Core.Universe
             Temperature = temperature;
             Radius = radius;
             Mass = mass;
-            Luminosity = s_BoltzmanConstant * 4 * MathF.PI * MathF.Pow(radius, 2) * MathF.Pow(temperature, 4);
+            Luminosity = 4000 * s_BoltzmanConstant * MathF.PI * MathF.Pow(radius, 2) * MathF.Pow(temperature, 4);
         }
 
         public void SetName(string name)
         {
-            this.Name = name;
+            Name = name;
         }
 
         public override string ToString()

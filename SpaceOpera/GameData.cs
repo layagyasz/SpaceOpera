@@ -66,10 +66,15 @@ namespace SpaceOpera
         public Library<DesignTemplate> DesignTemplates { get; set; } = new();
 
         [JsonPropertyOrder(12)]
+        [JsonConverter(typeof(FromFileJsonConverter))]
         public GalaxyGenerator? GalaxyGenerator { get; set; }
+
         [JsonPropertyOrder(13)]
+        [JsonConverter(typeof(FromFileJsonConverter))]
         public PoliticsGenerator? PoliticsGenerator { get; set; }
+
         [JsonPropertyOrder(14)]
+        [JsonConverter(typeof(FromFileJsonConverter))]
         public EconomyGenerator? EconomyGenerator { get; set; }
 
         public static GameData LoadFrom(string path)
