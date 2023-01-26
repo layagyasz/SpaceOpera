@@ -11,12 +11,17 @@ namespace SpaceOpera.Core.Languages
 
         public static PhonemeRange CreateEmpty()
         {
+            return new PhonemeRange();
+        }
+
+        public static PhonemeRange CreateFull()
+        {
             return new PhonemeRange()
             {
-                Classes = new EnumSet<PhonemeClass>(),
-                Voices = new EnumSet<PhonemeVoice>(),
-                Types = new EnumSet<PhonemeType>(),
-                Positions = new EnumSet<PhonemePosition>()
+                Classes = new(PhonemeClass.Any),
+                Voices = new(PhonemeVoice.Any),
+                Types = new(PhonemeType.Any),
+                Positions = new(PhonemePosition.Any)
             };
         }
 

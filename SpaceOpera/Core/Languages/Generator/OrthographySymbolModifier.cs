@@ -4,15 +4,14 @@ namespace SpaceOpera.Core.Languages.Generator
 {
     public class OrthographySymbolModifier
     {
-        public PhonemeRange? Range { get; set; } = PhonemeRange.CreateEmpty();
+        public PhonemeRange Range { get; set; } = PhonemeRange.CreateFull();
         public PhonemeRange ModifiedRange { get; set; } = PhonemeRange.CreateEmpty();
-        public Dictionary<string, string> SymbolMap { get; set; } = new();
+        public Dictionary<string, string>? SymbolMap { get; set; }
         public string Modifier { get; set; } = string.Empty;
 
         public bool IsApplicable(OrthographySymbol symbol)
         {
-            return (Range == null || Range.Contains(symbol.Range))
-                && (SymbolMap == null || SymbolMap.ContainsKey(symbol.Symbol));
+            return Range.Contains(symbol.Range) && (SymbolMap == null || SymbolMap.ContainsKey(symbol.Symbol));
         }
 
         public OrthographySymbol Modify(OrthographySymbol symbol)
@@ -48,9 +47,6 @@ namespace SpaceOpera.Core.Languages.Generator
             return new PhonemeRange()
             {
                 Classes = new EnumSet<PhonemeClass>(range.Classes.ToArray()[random.Next(0, range.Classes.Count)]),
-                Voices = new EnumSet<PhonemeVoice>(),
-                Types = new EnumSet<PhonemeType>(),
-                Positions = new EnumSet<PhonemePosition>()
             };
         }
 
@@ -58,10 +54,7 @@ namespace SpaceOpera.Core.Languages.Generator
         {
             return new PhonemeRange()
             {
-                Classes = new EnumSet<PhonemeClass>(),
                 Voices = SelectRandom(range.Voices, random),
-                Types = new EnumSet<PhonemeType>(),
-                Positions = new EnumSet<PhonemePosition>()
             };
         }
 
@@ -69,10 +62,7 @@ namespace SpaceOpera.Core.Languages.Generator
         {
             return new PhonemeRange()
             {
-                Classes = new EnumSet<PhonemeClass>(),
-                Voices = new EnumSet<PhonemeVoice>(),
                 Types = SelectRandom(range.Types, random),
-                Positions = new EnumSet<PhonemePosition>()
             };
         }
 
@@ -80,9 +70,6 @@ namespace SpaceOpera.Core.Languages.Generator
         {
             return new PhonemeRange()
             {
-                Classes = new EnumSet<PhonemeClass>(),
-                Voices = new EnumSet<PhonemeVoice>(),
-                Types = new EnumSet<PhonemeType>(),
                 Positions = SelectRandom(range.Positions, random)
             };
         }
