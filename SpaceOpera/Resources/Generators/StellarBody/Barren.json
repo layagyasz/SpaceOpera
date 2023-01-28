@@ -1,0 +1,228 @@
+{
+  "$id": "planet-generator-barren",
+  "Name": "Barren Planet",
+  "RadiusSampler": {
+    "$type": "Normal",
+    "Mean": 3500,
+    "StandardDeviation": 500
+  },
+  "Density": 3930,
+  "SubRegionDensity": 0.000004,
+  "RegionDensity": 0.0000002,
+  "StructureNodeDensity": 2500,
+  "AtmosphereGenerator": {
+    "RegionDensity": 0.000175,
+    "TotalPressureSampler": {
+      "$type": "Normal",
+      "Scale": 0.006,
+      "Shape": 0.01
+    },
+    "PartialPressureSamplers": {
+      "material-carbox-gas": {
+        "$type": "Normal",
+        "Mean": 0.95,
+        "StandardDeviation": 0.4
+      },
+      "material-ingenon-gas": {
+        "$type": "Normal",
+        "Mean": 0.02,
+        "StandardDeviation": 0.01
+      }
+    }
+  },
+  "SurfaceGenerator": {
+    "Generators": {
+      "stellar-body-generator-barren-temperature-seed": {
+        "Type": "Cardamom.Utils.Generators.Numeric.SeedGenerator, Cardamom",
+        "Object": {}
+      },
+      "stellar-body-generator-barren-rockiness-seed": {
+        "Type": "Cardamom.Utils.Generators.Numeric.SeedGenerator, Cardamom",
+        "Object": {}
+      },
+      "stellar-body-generator-barren-ferrous-seed": {
+        "Type": "Cardamom.Utils.Generators.Numeric.SeedGenerator, Cardamom",
+        "Object": {}
+      }
+    },
+    "Parameters": [
+      {
+        "$id": "stellar-body-generator-barren-temperature-seed",
+        "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Int32], Cardamom",
+        "Object": {}
+      },
+      {
+        "$id": "stellar-body-generator-barren-rockiness-seed",
+        "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Int32], Cardamom",
+        "Object": {}
+      },
+      {
+        "$id": "stellar-body-generator-barren-ferrous-seed",
+        "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Int32], Cardamom",
+        "Object": {}
+      }
+    ],
+    "Pipeline": {
+      "Steps": [
+        {
+          "$type": "LatticeNoise",
+          "Key": "temperature",
+          "Channel": [ "Red" ],
+          "Input": {
+            "input": "input"
+          },
+          "Parameters": {
+            "Seed": {
+              "$ref": "stellar-body-generator-barren-temperature-seed"
+            }
+          }
+        },
+        {
+          "$type": "LatticeNoise",
+          "Key": "rockiness",
+          "Channel": [ "Green" ],
+          "Input": {
+            "input": "temperature"
+          },
+          "Parameters": {
+            "Seed": {
+              "$ref": "stellar-body-generator-barren-rockiness-seed"
+            }
+          }
+        },
+        {
+          "$type": "LatticeNoise",
+          "Key": "ferrous",
+          "Channel": [ "Blue" ],
+          "Input": {
+            "input": "rockiness"
+          },
+          "Parameters": {
+            "Seed": {
+              "$ref": "stellar-body-generator-barren-ferrous-seed"
+            }
+          }
+        },
+        {
+          "$type": "Denormalize",
+          "Key": "denormalize",
+          "Channel": [ "Color" ],
+          "Input": {
+            "input": "ferrous"
+          }
+        },
+        {
+          "$type": "Combine",
+          "Key": "combine",
+          "Channel": [ "Red" ],
+          "Input": {
+            "left": "input",
+            "right": "denormalize"
+          },
+          "Parameters": {
+            "LeftFactor": {
+              "Type": "Cardamom.Utils.Suppliers.Vector.Vector4UniformSupplier, Cardamom",
+              "Object": {
+                "ComponentValue": {
+                  "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single]",
+                  "Object": {
+                    "Value": 1
+                  }
+                }
+              }
+            },
+            "RightFactor": {
+              "Type": "Cardamom.Utils.Suppliers.Vector.Vector4UniformSupplier, Cardamom",
+              "Object": {
+                "ComponentValue": {
+                  "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single]",
+                  "Object": {
+                    "Value": 0.25
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "$type": "WaveForm",
+          "Key": "output",
+          "Input": {
+            "input": "combine"
+          },
+          "Parameters": {
+            "WaveType": {
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[Cardamom.ImageProcessing.Filters.WaveForm+WaveType, Cardamom]], Cardamom",
+              "Object": {
+                "Value": "Cosine"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "BiomeOptions": [
+      {
+        "Biome": "biome-ice-barren",
+        "Conditions": [
+          {
+            "Channel": "Red",
+            "Range": [ -1, -0.5 ]
+          }
+        ]
+      },
+      {
+        "Biome": "biome-barren-plains",
+        "Conditions": [
+          {
+            "Channel": "Blue",
+            "Range": [ -1, 0 ]
+          },
+          {
+            "Channel": "Green",
+            "Range": [ -1, 0 ]
+          }
+        ]
+      },
+      {
+        "Biome": "biome-ferrous-plains",
+        "Conditions": [
+          {
+            "Channel": "Blue",
+            "Range": [ 0, 1 ]
+          },
+          {
+            "Channel": "Green",
+            "Range": [ -1, 0 ]
+          }
+        ]
+      },
+      {
+        "Biome": "biome-barren-mountains",
+        "Conditions": [
+          {
+            "Channel": "Blue",
+            "Range": [ -1, 0 ]
+          },
+          {
+            "Channel": "Green",
+            "Range": [ 0, 1 ]
+          }
+        ]
+      },
+      {
+        "Biome": "biome-ferrous-mountains",
+        "Conditions": [
+          {
+            "Channel": "Blue",
+            "Range": [ 0, 1 ]
+          },
+          {
+            "Channel": "Green",
+            "Range": [ 0, 1 ]
+          }
+        ]
+      }
+    ]
+  }
+}

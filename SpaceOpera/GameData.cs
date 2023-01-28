@@ -81,10 +81,13 @@ namespace SpaceOpera
         {
             JsonSerializerOptions options = new()
             {
-                ReferenceHandler = new KeyedReferenceHandler(new Dictionary<string, IKeyed>())
+                ReferenceHandler = new KeyedReferenceHandler(),
+                NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals
             };
             options.Converters.Add(new ColorJsonConverter());
             options.Converters.Add(new Vector2JsonConverter());
+            options.Converters.Add(new Vector3JsonConverter());
+            options.Converters.Add(new Vector4JsonConverter());
             options.Converters.Add(new Vector2iJsonConverter());
             return JsonSerializer.Deserialize<GameData>(File.ReadAllText(path), options)!;
         }

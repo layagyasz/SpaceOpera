@@ -21,13 +21,13 @@ namespace SpaceOpera.Core.Universe.Generator
         private static readonly ICanvasProvider s_BiomeCanvasProvider = 
             new CachingCanvasProvider(new(s_TexSize, s_TexSize), Color4.Black);
 
-        private readonly Library<IGenerator> _generators;
+        private readonly Dictionary<string, IGenerator> _generators;
         private readonly Library<Cardamom.Utils.Suppliers.Generic.IConstantSupplier> _parameters;
         private readonly List<Biome> _biomes;
         private readonly Pipeline _biomeIdPipeline;
 
         public StellarBodySurfaceGenerator(
-            Library<IGenerator> generators,
+            Dictionary<string, IGenerator> generators,
             Library<Cardamom.Utils.Suppliers.Generic.IConstantSupplier> parameters,
             IEnumerable<Biome> biomes, 
             Pipeline biomeIdPipeline)
@@ -71,8 +71,9 @@ namespace SpaceOpera.Core.Universe.Generator
 
         public class Builder
         {
-            public Library<IGenerator> Generators { get; set; } = new();
-            public Library<Cardamom.Utils.Suppliers.Generic.IConstantSupplier> Parameters { get; set; } = new();
+            public Dictionary<string, IGenerator> Generators { get; set; } = new();
+            public Library<Cardamom.Utils.Suppliers.Generic.IConstantSupplier> Parameters { get; set; } 
+                = new();
             public List<BiomeOption> BiomeOptions { get; set; } = new();
             public Pipeline.Builder? Pipeline { get; set; }
 
@@ -94,8 +95,7 @@ namespace SpaceOpera.Core.Universe.Generator
                             new Classify.Condition() 
                             { 
                                 Channel = condition.Channel, 
-                                Minimum = condition.Minimum, 
-                                Maximum = condition.Maximum
+                                Range = condition.Range
                             });
                     }
                 }

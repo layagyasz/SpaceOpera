@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <Folder Include="Resources\Generators\Language\" />
+    <Folder Include="Resources\Generators\StellarBody\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -53,6 +54,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Generators\Stars.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Generators\StellarBody\Barren.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Materials.json">

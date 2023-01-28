@@ -1,6 +1,8 @@
+using Cardamom.Json.Collections;
 using Cardamom.Trackers;
 using Cardamom.Utils.Generators.Samplers;
 using SpaceOpera.Core.Economics;
+using System.Text.Json.Serialization;
 
 namespace SpaceOpera.Core.Universe.Generator
 {
@@ -8,6 +10,7 @@ namespace SpaceOpera.Core.Universe.Generator
     {
         public float RegionDensity { get; set; }
         public ISampler? TotalPressureSampler { get; set; }
+        [JsonConverter(typeof(ReferenceDictionaryJsonConverter))]
         public Dictionary<IMaterial, ISampler> PartialPressureSamplers { get; set; } = new();
 
         public MultiQuantity<IMaterial> Generate(Random random)

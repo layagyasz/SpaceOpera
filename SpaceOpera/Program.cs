@@ -1,4 +1,5 @@
 using Cardamom.Graphics.Ui;
+using Cardamom.Utils.Suppliers;
 using Cardamom.Window;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Desktop;
@@ -18,6 +19,8 @@ namespace SpaceOpera
             ui.Bind(new MouseListener());
             ui.Bind(
                 new KeyboardListener(SimpleKeyMapper.Us, new Keys[] { Keys.Left, Keys.Right, Keys.Up, Keys.Down }));
+
+            Console.WriteLine(typeof(ConstantSupplier<Vector4>).AssemblyQualifiedName);
 
             GameData gameData = GameData.LoadFrom("Resources/GameData.json");
             Random random = new();

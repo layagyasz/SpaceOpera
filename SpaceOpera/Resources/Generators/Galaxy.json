@@ -35,7 +35,7 @@
       "Options": [
         {
           "Generator": "Resources/Generators/StellarBody/Barren.json",
-          "Weight": 0.25,
+          "Weight": 0.25
         },
         {
           "Generator": "Resources/Generators/StellarBody/Volcanic.json",
