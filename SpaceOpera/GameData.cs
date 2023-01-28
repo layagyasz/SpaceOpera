@@ -19,8 +19,6 @@ namespace SpaceOpera
 {
     public class GameData
     {
-        public GraphicsResources? GraphicResources { get; set; }
-
         [JsonPropertyOrder(1)]
         [JsonConverter(typeof(FromFileJsonConverter))]
         public Library<BaseMaterial> Materials { get; set; } = new();

@@ -1,5 +1,8 @@
-﻿namespace SpaceOpera.Core.Politics
+﻿using System.Text.Json.Serialization;
+
+namespace SpaceOpera.Core.Politics
 {
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum NameType
     {
         BattalionTemplate,

@@ -782,8 +782,8 @@
         "Value": {
           "DependentOptions": [
             {
-              "Frequency": 0.85,
-              "Value": {
+              "Value": 0.85,
+              "Key": {
                 "Classes": [],
                 "Voices": [],
                 "Types": [],
@@ -791,8 +791,8 @@
               }
             },
             {
-              "Frequency": 0.1,
-              "Value": {
+              "Value": 0.1,
+              "Key": {
                 "Classes": [ "Any" ],
                 "Voices": [ "Voiced" ],
                 "Types": [ "Any" ],
@@ -800,8 +800,8 @@
               }
             },
             {
-              "Frequency": 0.05,
-              "Value": {
+              "Value": 0.05,
+              "Key": {
                 "Classes": [ "Any" ],
                 "Voices": [ "Unvoiced" ],
                 "Types": [ "Any" ],
@@ -816,8 +816,8 @@
         "Value": {
           "DependentOptions": [
             {
-              "Frequency": 0.15,
-              "Value": {
+              "Value": 0.15,
+              "Key": {
                 "Classes": [ "Any" ],
                 "Voices": [ "Any" ],
                 "Types": [ "Trill", "Tap" ],
@@ -825,8 +825,8 @@
               }
             },
             {
-              "Frequency": 0.4,
-              "Value": {
+              "Value": 0.4,
+              "Key": {
                 "Classes": [ "Any" ],
                 "Voices": [ "Any" ],
                 "Types": [ "Tap", "Approximant" ],
@@ -834,8 +834,8 @@
               }
             },
             {
-              "Frequency": 0.4,
-              "Value": {
+              "Value": 0.4,
+              "Key": {
                 "Classes": [ "Any" ],
                 "Voices": [ "Any" ],
                 "Types": [ "Trill", "Approximant" ],
@@ -843,8 +843,8 @@
               }
             },
             {
-              "Frequency": 0.05,
-              "Value": {
+              "Value": 0.05,
+              "Key": {
                 "Classes": [ "Any" ],
                 "Voices": [ "Any" ],
                 "Types": [ "Trill", "Tap", "Approximant" ],
@@ -859,8 +859,8 @@
         "Value": {
           "DependentOptions": [
             {
-              "Frequency": 1.0,
-              "Value": {
+              "Value": 1.0,
+              "Key": {
                 "Classes": [ "Any" ],
                 "Voices": [ "Any" ],
                 "Types": [ "Trill" ],
@@ -875,8 +875,8 @@
         "Value": {
           "DependentOptions": [
             {
-              "Frequency": 1.0,
-              "Value": {
+              "Value": 1.0,
+              "Key": {
                 "Classes": [ "Any" ],
                 "Voices": [ "Any" ],
                 "Types": [ "Tap" ],
@@ -891,8 +891,8 @@
         "Value": {
           "DependentOptions": [
             {
-              "Frequency": 1.0,
-              "Value": {
+              "Value": 1.0,
+              "Key": {
                 "Classes": [ "Any" ],
                 "Voices": [ "Any" ],
                 "Types": [ "Fricative" ],
@@ -907,8 +907,8 @@
         "Value": {
           "DependentOptions": [
             {
-              "Frequency": 1.0,
-              "Value": {
+              "Value": 1.0,
+              "Key": {
                 "Classes": [ "Any" ],
                 "Voices": [ "Any" ],
                 "Types": [ "SibilantFricative" ],
@@ -923,8 +923,8 @@
         "Value": {
           "DependentOptions": [
             {
-              "Frequency": 1.0,
-              "Value": {
+              "Value": 1.0,
+              "Key": {
                 "Classes": [ "Any" ],
                 "Voices": [ "Any" ],
                 "Types": [ "LateralFricative" ],
@@ -939,8 +939,8 @@
         "Value": {
           "DependentOptions": [
             {
-              "Frequency": 1.0,
-              "Value": {
+              "Value": 1.0,
+              "Key": {
                 "Classes": [ "Any" ],
                 "Voices": [ "Any" ],
                 "Types": [ "Approximant" ],
@@ -955,8 +955,8 @@
         "Value": {
           "DependentOptions": [
             {
-              "Frequency": 1.0,
-              "Value": {
+              "Value": 1.0,
+              "Key": {
                 "Classes": [ "Any" ],
                 "Voices": [ "Any" ],
                 "Types": [ "LateralApproximant" ],
@@ -971,8 +971,8 @@
         "Value": {
           "DependentOptions": [
             {
-              "Frequency": 1.0,
-              "Value": {
+              "Value": 1.0,
+              "Key": {
                 "Classes": [ "Any" ],
                 "Voices": [ "Any" ],
                 "Types": [ "Any" ],
@@ -987,8 +987,8 @@
         "Value": {
           "DependentOptions": [
             {
-              "Frequency": 1.0,
-              "Value": {
+              "Value": 1.0,
+              "Key": {
                 "Classes": [ "Any" ],
                 "Voices": [ "Any" ],
                 "Types": [ "Any" ],
@@ -1003,8 +1003,8 @@
         "Value": {
           "DependentOptions": [
             {
-              "Frequency": 1.0,
-              "Value": {
+              "Value": 1.0,
+              "Key": {
                 "Classes": [ "Any" ],
                 "Voices": [ "Any" ],
                 "Types": [ "Any" ],
@@ -1019,8 +1019,8 @@
         "Value": {
           "DependentOptions": [
             {
-              "Frequency": 1.0,
-              "Value": {
+              "Value": 1.0,
+              "Key": {
                 "Classes": [ "Any" ],
                 "Voices": [ "Any" ],
                 "Types": [ "Any" ],
@@ -1035,8 +1035,8 @@
         "Value": {
           "DependentOptions": [
             {
-              "Frequency": 1.0,
-              "Value": {
+              "Value": 1.0,
+              "Key": {
                 "Classes": [ "Any" ],
                 "Voices": [ "Any" ],
                 "Types": [ "Any" ],
@@ -1051,8 +1051,8 @@
         "Value": {
           "DependentOptions": [
             {
-              "Frequency": 1.0,
-              "Value": {
+              "Value": 1.0,
+              "Key": {
                 "Classes": [ "Any" ],
                 "Voices": [ "Any" ],
                 "Types": [ "Any" ],
@@ -1067,8 +1067,8 @@
         "Value": {
           "DependentOptions": [
             {
-              "Frequency": 1.0,
-              "Value": {
+              "Value": 1.0,
+              "Key": {
                 "Classes": [ "Any" ],
                 "Voices": [ "Any" ],
                 "Types": [ "Any" ],
@@ -1083,8 +1083,8 @@
         "Value": {
           "DependentOptions": [
             {
-              "Frequency": 1.0,
-              "Value": {
+              "Value": 1.0,
+              "Key": {
                 "Classes": [ "Any" ],
                 "Voices": [ "Any" ],
                 "Types": [ "Any" ],
@@ -1099,8 +1099,8 @@
         "Value": {
           "DependentOptions": [
             {
-              "Frequency": 1.0,
-              "Value": {
+              "Value": 1.0,
+              "Key": {
                 "Classes": [ "Any" ],
                 "Voices": [ "Any" ],
                 "Types": [ "Any" ],
@@ -1115,8 +1115,8 @@
         "Value": {
           "DependentOptions": [
             {
-              "Frequency": 1.0,
-              "Value": {
+              "Value": 1.0,
+              "Key": {
                 "Classes": [ "Any" ],
                 "Voices": [ "Any" ],
                 "Types": [ "Plosive" ],
@@ -1131,8 +1131,8 @@
         "Value": {
           "DependentOptions": [
             {
-              "Frequency": 1.0,
-              "Value": {
+              "Value": 1.0,
+              "Key": {
                 "Classes": [ "Any" ],
                 "Voices": [ "Any" ],
                 "Types": [ "Nasal" ],
@@ -1147,8 +1147,8 @@
         "Value": {
           "DependentOptions": [
             {
-              "Frequency": 1.0,
-              "Value": {
+              "Value": 1.0,
+              "Key": {
                 "Classes": [ "Any" ],
                 "Voices": [ "Any" ],
                 "Types": [ "Nasal" ],
@@ -1163,8 +1163,8 @@
         "Value": {
           "DependentOptions": [
             {
-              "Frequency": 1.0,
-              "Value": {
+              "Value": 1.0,
+              "Key": {
                 "Classes": [ "Any" ],
                 "Voices": [ "Any" ],
                 "Types": [ "Trill" ],
@@ -1179,8 +1179,8 @@
         "Value": {
           "DependentOptions": [
             {
-              "Frequency": 1.0,
-              "Value": {
+              "Value": 1.0,
+              "Key": {
                 "Classes": [ "Any" ],
                 "Voices": [ "Any" ],
                 "Types": [ "Trill" ],
@@ -1195,8 +1195,8 @@
         "Value": {
           "DependentOptions": [
             {
-              "Frequency": 1.0,
-              "Value": {
+              "Value": 1.0,
+              "Key": {
                 "Classes": [ "Any" ],
                 "Voices": [ "Any" ],
                 "Types": [ "Tap" ],
@@ -1211,8 +1211,8 @@
         "Value": {
           "DependentOptions": [
             {
-              "Frequency": 1.0,
-              "Value": {
+              "Value": 1.0,
+              "Key": {
                 "Classes": [ "Any" ],
                 "Voices": [ "Any" ],
                 "Types": [ "Tap" ],
@@ -1227,8 +1227,8 @@
         "Value": {
           "DependentOptions": [
             {
-              "Frequency": 1.0,
-              "Value": {
+              "Value": 1.0,
+              "Key": {
                 "Classes": [ "Any" ],
                 "Voices": [ "Any" ],
                 "Types": [ "Fricative" ],
@@ -1243,8 +1243,8 @@
         "Value": {
           "DependentOptions": [
             {
-              "Frequency": 1.0,
-              "Value": {
+              "Value": 1.0,
+              "Key": {
                 "Classes": [ "Any" ],
                 "Voices": [ "Any" ],
                 "Types": [ "Fricative" ],
@@ -1259,8 +1259,8 @@
         "Value": {
           "DependentOptions": [
             {
-              "Frequency": 1.0,
-              "Value": {
+              "Value": 1.0,
+              "Key": {
                 "Classes": [ "Any" ],
                 "Voices": [ "Any" ],
                 "Types": [ "Fricative" ],
@@ -1275,8 +1275,8 @@
         "Value": {
           "DependentOptions": [
             {
-              "Frequency": 1.0,
-              "Value": {
+              "Value": 1.0,
+              "Key": {
                 "Classes": [ "Any" ],
                 "Voices": [ "Voiced" ],
                 "Types": [ "Any" ],
@@ -1291,8 +1291,8 @@
         "Value": {
           "DependentOptions": [
             {
-              "Frequency": 1.0,
-              "Value": {
+              "Value": 1.0,
+              "Key": {
                 "Classes": [ "Any" ],
                 "Voices": [ "Any" ],
                 "Types": [ "Approximant" ],
@@ -1307,8 +1307,8 @@
         "Value": {
           "DependentOptions": [
             {
-              "Frequency": 1.0,
-              "Value": {
+              "Value": 1.0,
+              "Key": {
                 "Classes": [ "Any" ],
                 "Voices": [ "Any" ],
                 "Types": [ "Approximant" ],
@@ -1323,8 +1323,8 @@
         "Value": {
           "DependentOptions": [
             {
-              "Frequency": 1.0,
-              "Value": {
+              "Value": 1.0,
+              "Key": {
                 "Classes": [ "Any" ],
                 "Voices": [ "Any" ],
                 "Types": [ "LateralApproximant" ],
@@ -1340,8 +1340,8 @@
         "Value": {
           "DependentOptions": [
             {
-              "Frequency": 1.0,
-              "Value": {
+              "Value": 1.0,
+              "Key": {
                 "Classes": [ "Any" ],
                 "Voices": [ "Rounded" ],
                 "Types": [ "Any" ],
@@ -1356,8 +1356,8 @@
         "Value": {
           "DependentOptions": [
             {
-              "Frequency": 1.0,
-              "Value": {
+              "Value": 1.0,
+              "Key": {
                 "Classes": [ "Any" ],
                 "Voices": [ "Unrounded" ],
                 "Types": [
@@ -1379,8 +1379,8 @@
         "Value": {
           "DependentOptions": [
             {
-              "Frequency": 1.0,
-              "Value": {
+              "Value": 1.0,
+              "Key": {
                 "Classes": [ "Any" ],
                 "Voices": [ "Rounded" ],
                 "Types": [ "Any" ],
@@ -1395,8 +1395,8 @@
         "Value": {
           "DependentOptions": [
             {
-              "Frequency": 1.0,
-              "Value": {
+              "Value": 1.0,
+              "Key": {
                 "Classes": [ "Any" ],
                 "Voices": [ "Any" ],
                 "Types": [ "Middle" ],
@@ -1411,8 +1411,8 @@
         "Value": {
           "DependentOptions": [
             {
-              "Frequency": 1.0,
-              "Value": {
+              "Value": 1.0,
+              "Key": {
                 "Classes": [ "Any" ],
                 "Voices": [ "Unrounded" ],
                 "Types": [ "Any" ],
@@ -1427,8 +1427,8 @@
         "Value": {
           "DependentOptions": [
             {
-              "Frequency": 1.0,
-              "Value": {
+              "Value": 1.0,
+              "Key": {
                 "Classes": [ "Any" ],
                 "Voices": [ "Any" ],
                 "Types": [ "ClosedClosedMiddle" ],
@@ -1443,8 +1443,8 @@
         "Value": {
           "DependentOptions": [
             {
-              "Frequency": 1.0,
-              "Value": {
+              "Value": 1.0,
+              "Key": {
                 "Classes": [ "Any" ],
                 "Voices": [ "Any" ],
                 "Types": [ "OpenMiddle" ],
@@ -1459,8 +1459,8 @@
         "Value": {
           "DependentOptions": [
             {
-              "Frequency": 1.0,
-              "Value": {
+              "Value": 1.0,
+              "Key": {
                 "Classes": [ "Any" ],
                 "Voices": [ "Any" ],
                 "Types": [ "OpenOpenMiddle" ],
@@ -1475,8 +1475,8 @@
         "Value": {
           "DependentOptions": [
             {
-              "Frequency": 1.0,
-              "Value": {
+              "Value": 1.0,
+              "Key": {
                 "Classes": [ "Any" ],
                 "Voices": [ "Rounded" ],
                 "Types": [ "Closed" ],
@@ -1491,8 +1491,8 @@
         "Value": {
           "DependentOptions": [
             {
-              "Frequency": 1.0,
-              "Value": {
+              "Value": 1.0,
+              "Key": {
                 "Classes": [ "Any" ],
                 "Voices": [ "Rounded" ],
                 "Types": [ "ClosedClosedMiddle" ],
@@ -1507,8 +1507,8 @@
         "Value": {
           "DependentOptions": [
             {
-              "Frequency": 1.0,
-              "Value": {
+              "Value": 1.0,
+              "Key": {
                 "Classes": [ "Any" ],
                 "Voices": [ "Rounded" ],
                 "Types": [ "Open" ],
@@ -1523,8 +1523,8 @@
         "Value": {
           "DependentOptions": [
             {
-              "Frequency": 1.0,
-              "Value": {
+              "Value": 1.0,
+              "Key": {
                 "Classes": [ "Any" ],
                 "Voices": [ "Rounded" ],
                 "Types": [ "ClosedClosedMiddle" ],

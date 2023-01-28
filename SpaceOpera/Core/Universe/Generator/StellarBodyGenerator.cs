@@ -67,7 +67,9 @@ namespace SpaceOpera.Core.Universe.Generator
 
         public StellarBody Generate(Random random, Orbit orbit)
         {
-            while(true)
+            return GenerateAux(random, orbit);
+            /*
+            while (true)
             {
                 try
                 {
@@ -79,6 +81,7 @@ namespace SpaceOpera.Core.Universe.Generator
                     continue;
                 }
             }
+            */
         }
 
         private StellarBody GenerateAux(Random random, Orbit orbit)
@@ -103,7 +106,8 @@ namespace SpaceOpera.Core.Universe.Generator
             result.Neighbors.Add(result.EdgeIndices);
             centers[subRegionCount - 1] = new(0, 1, 0);
 
-            Biome[] biomes = SurfaceGenerator!.Get(SurfaceGenerator!.Generate(random), centers);
+            var parameters = SurfaceGenerator!.Generate(random);
+            Biome[] biomes = SurfaceGenerator!.Get(parameters, centers);
             List<SubRegionWrapper> subRegionWrappers = new();
             for (int i=0;i<subRegionCount;++i)
             {
@@ -227,7 +231,8 @@ namespace SpaceOpera.Core.Universe.Generator
             }
 
             return new StellarBody(
-                Name,
+                Key,
+                parameters,
                 radius,
                 4 * Density * MathF.PI * radius * radius * radius / 3,
                 orbit,

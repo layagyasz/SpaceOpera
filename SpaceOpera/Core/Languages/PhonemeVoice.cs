@@ -8,6 +8,8 @@ namespace SpaceOpera.Core.Languages
         None,
         Any,
         Voiced,
-        Unvoiced
+        Unvoiced,
+        Rounded,
+        Unrounded
     }
 }

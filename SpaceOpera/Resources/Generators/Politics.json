@@ -1,9 +1,9 @@
 {
   "Culture": {
     "Language": {
-      "Phonetics": "Resources/Generator/Language/Phonetics.json",
-      "Orthography": "Resources/Generator/Language/Orthography.json",
-      "Phonology": "Resources/Generator/Language/Phonology.json"
+      "Phonetics": "Resources/Generators/Language/Phonetics.json",
+      "Orthography": "Resources/Generators/Language/Orthography.json",
+      "Phonology": "Resources/Generators/Language/Phonology.json"
     }
   },
   "Banner": {
@@ -13,7 +13,7 @@
   },
   "Faction": {
     "BaseAttributes": {
-      "FLEET_COMMAND": 40
+      "FleetCommand": 40
     },
     "ComponentName": {
       "RequiredTypes": [
@@ -144,7 +144,7 @@
             "Frequency": 1,
             "Value": {
               "Source": "SequenceNumber",
-              "Filter": "Ordindal"
+              "Filter": "Ordinal"
             }
           }
         ],
@@ -252,38 +252,38 @@
   "Design": {
     "DesignParameters": [
       {
-        "Amount": 4,
-        "Value": {
-          "Type": "ShieldShield"
+        "Value": 4,
+        "Key": {
+          "Type": "ShipShield"
         }
       },
       {
-        "Amount": 4,
-        "Value": {
+        "Value": 4,
+        "Key": {
           "Type": "ShipWeapon"
         }
       },
       {
-        "Amount": 4,
-        "Value": {
+        "Value": 4,
+        "Key": {
           "Type": "Ship"
         }
       },
       {
-        "Amount": 1,
-        "Value": {
+        "Value": 1,
+        "Key": {
           "Type": "Infantry"
         }
       },
       {
-        "Amount": 1,
-        "Value": {
+        "Value": 1,
+        "Key": {
           "Type": "BattalionTemplate"
         }
       },
       {
-        "Amount": 1,
-        "Value": {
+        "Value": 1,
+        "Key": {
           "Type": "DivisionTemplate"
         }
       }

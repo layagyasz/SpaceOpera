@@ -11,6 +11,7 @@ namespace SpaceOpera.Core.Universe
 
         public string Name { get; private set; } = string.Empty;
         public string Type { get; }
+        public Dictionary<string, object> Parameters { get; }
         public float Radius { get; }
         public float Mass { get; }
         public Orbit Orbit { get; }
@@ -20,6 +21,7 @@ namespace SpaceOpera.Core.Universe
         
         public StellarBody(
             string type,
+            Dictionary<string, object> parameters,
             float radius,
             float mass,
             Orbit orbit,
@@ -28,6 +30,7 @@ namespace SpaceOpera.Core.Universe
             IEnumerable<StationaryOrbitRegion> orbitRegions)
         {
             Type = type;
+            Parameters = parameters;
             Radius = radius;
             Mass = mass;
             Orbit = orbit;

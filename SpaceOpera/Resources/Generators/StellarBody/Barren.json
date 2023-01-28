@@ -68,12 +68,18 @@
           "$type": "LatticeNoise",
           "Key": "temperature",
           "Channel": [ "Red" ],
-          "Input": {
-            "input": "input"
+          "Inputs": {
+            "input": "position"
           },
           "Parameters": {
             "Seed": {
               "$ref": "stellar-body-generator-barren-temperature-seed"
+            },
+            "Frequency": {
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
+              "Object": {
+                "Value": 2.0
+              }
             }
           }
         },
@@ -81,12 +87,18 @@
           "$type": "LatticeNoise",
           "Key": "rockiness",
           "Channel": [ "Green" ],
-          "Input": {
+          "Inputs": {
             "input": "temperature"
           },
           "Parameters": {
             "Seed": {
               "$ref": "stellar-body-generator-barren-rockiness-seed"
+            }
+          },
+          "Frequency": {
+            "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
+            "Object": {
+              "Value": 2.0
             }
           }
         },
@@ -94,20 +106,26 @@
           "$type": "LatticeNoise",
           "Key": "ferrous",
           "Channel": [ "Blue" ],
-          "Input": {
+          "Inputs": {
             "input": "rockiness"
           },
           "Parameters": {
             "Seed": {
               "$ref": "stellar-body-generator-barren-ferrous-seed"
+            },
+            "Frequency": {
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
+              "Object": {
+                "Value": 2.0
+              }
             }
           }
         },
         {
           "$type": "Denormalize",
-          "Key": "denormalize",
+          "Key": "output",
           "Channel": [ "Color" ],
-          "Input": {
+          "Inputs": {
             "input": "ferrous"
           }
         },
@@ -115,9 +133,9 @@
           "$type": "Combine",
           "Key": "combine",
           "Channel": [ "Red" ],
-          "Input": {
-            "left": "input",
-            "right": "denormalize"
+          "Inputs": {
+            "left": "position",
+            "right": "output"
           },
           "Parameters": {
             "LeftFactor": {
@@ -146,8 +164,9 @@
         },
         {
           "$type": "WaveForm",
-          "Key": "output",
-          "Input": {
+          "Key": "wave-form",
+          "Channel": [ "Red" ],
+          "Inputs": {
             "input": "combine"
           },
           "Parameters": {

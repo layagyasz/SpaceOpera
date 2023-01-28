@@ -1,14 +1,13 @@
 using Cardamom.Graphics.Ui;
-using Cardamom.Utils.Suppliers;
 using Cardamom.Window;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Desktop;
 using OpenTK.Windowing.GraphicsLibraryFramework;
-using SpaceOpera.Core.Politics;
+using SpaceOpera.Views;
 
 namespace SpaceOpera
 {
-    class Program
+    public class Program
     {
         static void Main()
         {
@@ -20,20 +19,19 @@ namespace SpaceOpera
             ui.Bind(
                 new KeyboardListener(SimpleKeyMapper.Us, new Keys[] { Keys.Left, Keys.Right, Keys.Up, Keys.Down }));
 
-            Console.WriteLine(typeof(ConstantSupplier<Vector4>).AssemblyQualifiedName);
+            var gameData = GameData.LoadFrom("Resources/GameData.json");
+            var viewData = ViewData.LoadFrom("Resources/ViewData.json");
+            var viewFactory = ViewFactory.Create(viewData, gameData);
 
-            GameData gameData = GameData.LoadFrom("Resources/GameData.json");
-            Random random = new();
-
-            Culture culture = gameData.PoliticsGenerator!.Culture!.Generate(random);
-            Faction faction =
-                gameData.PoliticsGenerator.Faction!.Generate(
-                    culture, gameData.PoliticsGenerator.Banner!.Generate(random), random);
-            World world = World.Generate(culture, faction, gameData, random);
-
-            GameDriver driver = new(world);
-            driver.Start();
-            ui.Start();
+            var random = new Random();
+            var planetGenerator = 
+                gameData.GalaxyGenerator!.StarSystemGenerator!.StellarBodySelector!.Options.First().Generator!;
+            var orbitGenerator = gameData.GalaxyGenerator!.StarSystemGenerator!.OrbitGenerator!;
+            var starGenerator = gameData.GalaxyGenerator!.StarSystemGenerator!.StarGenerators.First()!;
+            var planet = 
+                planetGenerator.Generate(random, orbitGenerator.Generate(random, starGenerator.Generate(random), 0));
+            var surface = viewFactory.StellarBodyViewFactory.GenerateSurfaceFor(planet);
+            surface.GetTexture().CopyToImage().SaveToFile("planet-surface.png");
         }
     }
 }

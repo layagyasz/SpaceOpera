@@ -36,26 +36,6 @@
         {
           "Generator": "Resources/Generators/StellarBody/Barren.json",
           "Weight": 0.25
-        },
-        {
-          "Generator": "Resources/Generators/StellarBody/Volcanic.json",
-          "Weight": 0.125
-        },
-        {
-          "Generator": "Resources/Generators/StellarBody/Gaia.json",
-          "Weight": 1,
-          "ThermalRange": [ 273, 373 ]
-        },
-        {
-          "Generator": "Resources/Generators/StellarBody/GasGiant.json",
-          "Weight": 1,
-          "GravitationalRange": [ 0, 400 ]
-        },
-        {
-          "Generator": "Resources/Generators/StellarBody/IceGiant.json",
-          "Weight": 1,
-          "ThermalRange": [ 0, 95 ],
-          "GravitationalRange": [ 0, 400 ]
         }
       ]
     }
