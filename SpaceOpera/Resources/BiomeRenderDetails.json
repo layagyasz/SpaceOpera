@@ -1,31 +1,37 @@
 [
   {
     "$id": "biome-barren-mountains",
-    "Color": "#7b7b7b"
+    "Color": "#7b7b7b",
+    "Roughness": 1
   },
   {
     "$id": "biome-barren-plains",
-    "Color": "#bcbcbc"
+    "Color": "#bcbcbc",
+    "Roughness": 0.25
   },
   {
     "$id": "biome-ferrous-mountains",
-    "Color": "#a76a55"
+    "Color": "#a76a55",
+    "Roughness": 1
   },
   {
     "$id": "biome-ferrous-plains",
-    "Color": "#da7758"
+    "Color": "#da7758",
+    "Roughness": 0.25
   },
   {
     "$id": "biome-ice",
     "Color": "#f0f8ff",
     "SpecularCoefficient": 1,
-    "SpecularFactor": 2
+    "SpecularFactor": 2,
+    "Roughness": 0.1
   },
   {
     "$id": "biome-ice-barren",
     "Color": "#f0f8ff",
     "SpecularCoefficient": 1,
-    "SpecularFactor": 2
+    "SpecularFactor": 2,
+    "Roughness": 0.1
   },
   {
     "$id": "biome-jungle",
@@ -34,36 +40,43 @@
       "Hue": -0.07,
       "Saturation": 1,
       "Lightness": 0.56
-    }
+    },
+    "Roughness": 0.25
   },
   {
     "$id": "biome-methane-band",
-    "Color": "#7496bc"
+    "Color": "#7496bc",
+    "Roughness": 0
   },
   {
     "$id": "biome-molten",
     "Color": "#d35b26",
-    "Luminance": 200
+    "Luminance": 200,
+    "Roughness": 0
   },
   {
     "$id": "biome-ocean",
     "Color": "#000066",
     "SpecularCoefficient": 2,
-    "SpecularFactor": 4
+    "SpecularFactor": 4,
+    "Roughness": 0
   },
   {
     "$id": "biome-savanna",
-    "Color": "#baa65b"
+    "Color": "#baa65b",
+    "Roughness": 0.25
   },
   {
     "$id": "biome-sulfurous-plains",
     "Color": "#e2cd96",
     "SpecularCoefficient": 1,
-    "SpecularFactor": 2
+    "SpecularFactor": 2,
+    "Roughness": 0.25
   },
   {
     "$id": "biome-sulfurous-mountains",
-    "Color": "#ad7d3f"
+    "Color": "#ad7d3f",
+    "Roughness": 1
   },
   {
     "$id": "biome-taiga",
@@ -72,7 +85,8 @@
       "Hue": -0.1,
       "Saturation": 0.7,
       "Lightness": 0.32
-    }
+    },
+    "Roughness": 0.25
   },
   {
     "$id": "biome-tundra",
@@ -81,7 +95,8 @@
       "Hue": -0.1,
       "Saturation": 0.1,
       "Lightness": 1.8
-    }
+    },
+    "Roughness": 0.25
   },
   {
     "$id": "biome-volcanic-mountains",

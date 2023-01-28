@@ -30,7 +30,8 @@ namespace SpaceOpera.Core.Universe.Generator
         private readonly List<BiomeOption> _biomes;
         private readonly Pipeline _biomeIdPipeline;
         private readonly Pipeline _surfacePipeline;
-        private readonly IConstantSupplier<IEnumerable<Classify.Classification>> _surfaceClassificationParameter;
+        private readonly IConstantSupplier<IEnumerable<Classify.Classification>> _surfaceDiffuseParameter;
+        private readonly IConstantSupplier<IEnumerable<Classify.Classification>> _surfaceLightingParameter;
 
         private StellarBodySurfaceGenerator(
             Dictionary<string, IGenerator> generators,
@@ -38,14 +39,16 @@ namespace SpaceOpera.Core.Universe.Generator
             IEnumerable<BiomeOption> biomes, 
             Pipeline biomeIdPipeline,
             Pipeline surfacePipeline,
-            IConstantSupplier<IEnumerable<Classify.Classification>> surfaceClassificationParameter)
+            IConstantSupplier<IEnumerable<Classify.Classification>> surfaceDiffuseParameter,
+            IConstantSupplier<IEnumerable<Classify.Classification>> surfaceLightingParameter)
         {
             _generators = generators;
             _parameters = parameters;
             _biomes = biomes.ToList();
             _biomeIdPipeline = biomeIdPipeline;
             _surfacePipeline = surfacePipeline;
-            _surfaceClassificationParameter = surfaceClassificationParameter;
+            _surfaceDiffuseParameter = surfaceDiffuseParameter;
+            _surfaceLightingParameter = surfaceLightingParameter;
         }
 
         public Library<object> Generate(Random random)
@@ -79,36 +82,47 @@ namespace SpaceOpera.Core.Universe.Generator
             return result;
         }
 
-        public Canvas GenerateSurface(Dictionary<string, object> parameterValues, Func<Biome, Color4> biomeColorFn)
+        public Material GenerateSurface(
+            Dictionary<string, object> parameterValues, Func<Biome, Color4> diffuseFn, Func<Biome, Color4> lightingFn)
         {
             foreach (var parameter in parameterValues)
             {
                 _parameters[parameter.Key].Set(parameter.Value);
             }
 
-            var classifications = new List<Classify.Classification>();
+            var diffuse = new List<Classify.Classification>();
+            var lighting = new List<Classify.Classification>();
             for (int i = 0; i < _biomes.Count; ++i)
             {
                 var option = _biomes[i];
-                var classification = new Classify.Classification()
+                var classificationDiffuse = new Classify.Classification()
                 {
-                    Color = biomeColorFn(option.Biome!)
+                    Color = diffuseFn(option.Biome!)
+                };
+                var classificationLighting = new Classify.Classification()
+                {
+                    Color = lightingFn(option.Biome!)
                 };
                 foreach (var condition in option.Conditions)
                 {
-                    classification.Conditions.Add(
-                        new Classify.Condition()
-                        {
-                            Channel = condition.Channel,
-                            Range = condition.Range
-                        });
+                    var c = new Classify.Condition()
+                    {
+                        Channel = condition.Channel,
+                        Range = condition.Range
+                    };
+                    classificationDiffuse.Conditions.Add(c);
+                    classificationLighting.Conditions.Add(c);
                 }
-                classifications.Add(classification);
+                diffuse.Add(classificationDiffuse);
+                lighting.Add(classificationLighting);
             }
-            _surfaceClassificationParameter.Set(classifications);
+            _surfaceDiffuseParameter.Set(diffuse);
+            _surfaceLightingParameter.Set(lighting);
 
-            s_SurfaceCanvaseProvider ??= new CachingCanvasProvider(new(s_SurfaceSize, s_SurfaceSize), Color4.Black);
-            return _surfacePipeline.Run(s_SurfaceCanvaseProvider)[0];
+            s_SurfaceCanvaseProvider ??= 
+                new CachingCanvasProvider(new(s_SurfaceSize, s_SurfaceSize), new(0.5f, 0.5f, 1, 1));
+            var surface = _surfacePipeline.Run(s_SurfaceCanvaseProvider);
+            return new(surface[0].GetTexture(), surface[2].GetTexture(), surface[1].GetTexture());
         }
 
         public class Builder
@@ -118,6 +132,7 @@ namespace SpaceOpera.Core.Universe.Generator
                 = new();
             public List<BiomeOption> BiomeOptions { get; set; } = new();
             public Pipeline.Builder? Pipeline { get; set; }
+            public Channel HeightChannel { get; set; }
 
             public StellarBodySurfaceGenerator Build()
             {
@@ -156,7 +171,8 @@ namespace SpaceOpera.Core.Universe.Generator
                             }));
                 biomePipeline.AddOutput("biome");
 
-                var classificationParameter = new ConstantSupplier<IEnumerable<Classify.Classification>>();
+                var diffuseParameter = new ConstantSupplier<IEnumerable<Classify.Classification>>();
+                var lightingParameter = new ConstantSupplier<IEnumerable<Classify.Classification>>();
                 var surfacePipeline = Pipeline!.Clone();
                 surfacePipeline
                     .AddNode(new GeneratorNode.Builder().SetKey("new"))
@@ -186,17 +202,43 @@ namespace SpaceOpera.Core.Universe.Generator
                             .SetParameters(
                                 new ClassifyNode.Parameters()
                                 {
-                                    Classifications = classificationParameter
+                                    Classifications = diffuseParameter
                                 }))
-                    .AddOutput("diffuse");
+                    .AddNode(
+                        new ClassifyNode.Builder()
+                            .SetKey("lighting")
+                            .SetChannel(Channel.All)
+                            .SetInput("input", "output")
+                            .SetParameters(
+                                new ClassifyNode.Parameters()
+                                { 
+                                    Classifications = lightingParameter
+                                }))
+                    .AddOutput("diffuse")
+                    .AddOutput("lighting");
+                if (HeightChannel != Channel.None)
+                {
+                    surfacePipeline
+                        .AddNode(
+                            new SobelNode.Builder()
+                                .SetKey("normal")
+                                .SetChannel(HeightChannel)
+                                .SetInput("input", "output"));
+                }
+                else
+                {
+                    surfacePipeline.AddNode(new GeneratorNode.Builder().SetKey("normal"));
+                }
+                surfacePipeline.AddOutput("normal");
 
                 return new StellarBodySurfaceGenerator(
                     Generators,
                     Parameters,
                     BiomeOptions,
-                    biomePipeline.Build(), 
-                    surfacePipeline.Build(), 
-                    classificationParameter);
+                    biomePipeline.Build(),
+                    surfacePipeline.Build(),
+                    diffuseParameter,
+                    lightingParameter);
             }
         }
     }

@@ -38,18 +38,21 @@ namespace SpaceOpera.Views.StellarBodyViews
         public float SpecularCoefficient { get; set; }
         public float SpecularFactor { get; set; }
         public float Luminance { get; set; }
+        public float Roughness { get; set; } = 1;
 
         public Color4 GetColor(Color4 solarPeakOutputColor)
         {
-            switch (ColorMode)
+            return ColorMode switch
             {
-                case BiomeRenderDetailsColorMode.Static:
-                    return Color;
-                case BiomeRenderDetailsColorMode.SolarPeakOutput:
-                    return SolarPeakOutputTransform.Apply(solarPeakOutputColor);
-                default:
-                    throw new ArgumentException(string.Format("Unsupported ColorMode: {0}", ColorMode));
-            }
+                BiomeRenderDetailsColorMode.Static => Color,
+                BiomeRenderDetailsColorMode.SolarPeakOutput => SolarPeakOutputTransform.Apply(solarPeakOutputColor),
+                _ => throw new ArgumentException(string.Format("Unsupported ColorMode: {0}", ColorMode)),
+            };
+        }
+
+        public Color4 GetLighting()
+        {
+            return new(SpecularCoefficient, SpecularFactor, Luminance, Roughness);
         }
     }
 }

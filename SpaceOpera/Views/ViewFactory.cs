@@ -18,7 +18,7 @@ namespace SpaceOpera.Views
                 new(
                     viewData.BiomeRenderDetails.ToDictionary(x => gameData.Biomes[x.Key], x => x.Value), 
                     gameData.GalaxyGenerator!.StarSystemGenerator!.StellarBodySelector!.Options
-                        .Select(x => x.Generator)
+                        .Select(x => x.Generator!)
                         .ToLibrary(x => x.Key, x => x)));
         }
     }

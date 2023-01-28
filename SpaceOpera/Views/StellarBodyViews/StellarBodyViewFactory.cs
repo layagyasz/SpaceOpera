@@ -1,5 +1,5 @@
 ﻿using Cardamom.Collections;
-using Cardamom.ImageProcessing;
+using Cardamom.Graphics;
 using SpaceOpera.Core.Universe;
 using SpaceOpera.Core.Universe.Generator;
 
@@ -18,10 +18,14 @@ namespace SpaceOpera.Views.StellarBodyViews
             StellarBodyGenerators = stellarBodyGenerators;
         }
 
-        public Canvas GenerateSurfaceFor(StellarBody StellarBody)
+        public Material GenerateSurfaceFor(StellarBody StellarBody)
         {
             return StellarBodyGenerators[StellarBody.Type]
-                .SurfaceGenerator!.GenerateSurface(StellarBody.Parameters, x => BiomeRenderDetails[x].Color);
+                .SurfaceGenerator!
+                    .GenerateSurface(
+                        StellarBody.Parameters,
+                        x => BiomeRenderDetails[x].Color,
+                        x => BiomeRenderDetails[x].GetLighting());
         }
     }
 }

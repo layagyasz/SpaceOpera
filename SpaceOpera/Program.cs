@@ -31,7 +31,9 @@ namespace SpaceOpera
             var planet = 
                 planetGenerator.Generate(random, orbitGenerator.Generate(random, starGenerator.Generate(random), 0));
             var surface = viewFactory.StellarBodyViewFactory.GenerateSurfaceFor(planet);
-            surface.GetTexture().CopyToImage().SaveToFile("planet-surface.png");
+            surface.Diffuse.CopyToImage().SaveToFile("planet-surface.png");
+            surface.Normal.CopyToImage().SaveToFile("planet-normal.png");
+            surface.Lighting.CopyToImage().SaveToFile("planet-lighting.png");
         }
     }
 }
