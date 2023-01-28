@@ -88,8 +88,9 @@
           "Key": "rockiness",
           "Channel": [ "Green" ],
           "Inputs": {
-            "input": "temperature"
+            "input": "position"
           },
+          "Output": "temperature",
           "Parameters": {
             "Seed": {
               "$ref": "stellar-body-generator-barren-rockiness-seed"
@@ -107,8 +108,9 @@
           "Key": "ferrous",
           "Channel": [ "Blue" ],
           "Inputs": {
-            "input": "rockiness"
+            "input": "position"
           },
+          "Output": "rockiness",
           "Parameters": {
             "Seed": {
               "$ref": "stellar-body-generator-barren-ferrous-seed"
@@ -123,7 +125,7 @@
         },
         {
           "$type": "Denormalize",
-          "Key": "output",
+          "Key": "denormalize",
           "Channel": [ "Color" ],
           "Inputs": {
             "input": "ferrous"
@@ -132,48 +134,60 @@
         {
           "$type": "Combine",
           "Key": "combine",
-          "Channel": [ "Red" ],
+          "Channel": [ "Color" ],
           "Inputs": {
             "left": "position",
-            "right": "output"
+            "right": "denormalize"
           },
           "Parameters": {
-            "LeftFactor": {
-              "Type": "Cardamom.Utils.Suppliers.Vector.Vector4UniformSupplier, Cardamom",
+            "LeftTransform": {
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[OpenTK.Mathematics.Matrix4, OpenTK.Mathematics]], Cardamom",
               "Object": {
-                "ComponentValue": {
-                  "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single]",
-                  "Object": {
-                    "Value": 1
-                  }
-                }
+                "Value": [
+                  [ 0, 0, 0, 0 ],
+                  [ 1, 0, 0, 0 ],
+                  [ 0, 0, 0, 0 ],
+                  [ 0, 0, 0, 0 ]
+                ]
               }
             },
-            "RightFactor": {
-              "Type": "Cardamom.Utils.Suppliers.Vector.Vector4UniformSupplier, Cardamom",
+            "RightTransform": {
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[OpenTK.Mathematics.Matrix4, OpenTK.Mathematics]], Cardamom",
               "Object": {
-                "ComponentValue": {
-                  "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single]",
-                  "Object": {
-                    "Value": 0.25
-                  }
-                }
+                "Value": [
+                  [ 0.25, 0, 0, 0 ],
+                  [ 0, 1, 0, 0 ],
+                  [ 0, 0, 1, 0 ],
+                  [ 0, 0, 0, 1 ]
+                ]
               }
             }
           }
         },
         {
           "$type": "WaveForm",
-          "Key": "wave-form",
+          "Key": "output",
           "Channel": [ "Red" ],
           "Inputs": {
             "input": "combine"
           },
+          "Output": "combine",
           "Parameters": {
             "WaveType": {
               "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[Cardamom.ImageProcessing.Filters.WaveForm+WaveType, Cardamom]], Cardamom",
               "Object": {
                 "Value": "Cosine"
+              }
+            },
+            "Frequency": {
+              "Type": "Cardamom.Utils.Suppliers.Matrix.Matrix4DiagonalUniformSupplier, Cardamom",
+              "Object": {
+                "Diagonal": {
+                  "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
+                  "Object": {
+                    "Value": 0.5
+                  }
+                }
               }
             }
           }

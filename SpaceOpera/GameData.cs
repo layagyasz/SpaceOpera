@@ -87,6 +87,7 @@ namespace SpaceOpera
             options.Converters.Add(new Vector3JsonConverter());
             options.Converters.Add(new Vector4JsonConverter());
             options.Converters.Add(new Vector2iJsonConverter());
+            options.Converters.Add(new Matrix4JsonConverter());
             return JsonSerializer.Deserialize<GameData>(File.ReadAllText(path), options)!;
         }
     }
