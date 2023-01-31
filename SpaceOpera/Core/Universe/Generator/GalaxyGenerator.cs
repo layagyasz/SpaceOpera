@@ -1,7 +1,6 @@
 using Cardamom.Graphing;
 using DelaunayTriangulator;
 using OpenTK.Mathematics;
-using SharpFont.Cache;
 
 namespace SpaceOpera.Core.Universe.Generator
 {

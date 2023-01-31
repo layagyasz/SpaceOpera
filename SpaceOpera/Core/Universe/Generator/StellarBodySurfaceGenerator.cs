@@ -21,7 +21,7 @@ namespace SpaceOpera.Core.Universe.Generator
         private static readonly ICanvasProvider s_BiomeCanvasProvider = 
             new CachingCanvasProvider(new(s_TexSize, s_TexSize), Color4.Black);
 
-        private static readonly int s_SurfaceSize = 1024;
+        private static readonly int s_SurfaceSize = 2048;
         private static ICanvasProvider? s_SurfaceCanvaseProvider;
             
 
@@ -95,26 +95,8 @@ namespace SpaceOpera.Core.Universe.Generator
             for (int i = 0; i < _biomes.Count; ++i)
             {
                 var option = _biomes[i];
-                var classificationDiffuse = new Classify.Classification()
-                {
-                    Color = diffuseFn(option.Biome!)
-                };
-                var classificationLighting = new Classify.Classification()
-                {
-                    Color = lightingFn(option.Biome!)
-                };
-                foreach (var condition in option.Conditions)
-                {
-                    var c = new Classify.Condition()
-                    {
-                        Channel = condition.Channel,
-                        Range = condition.Range
-                    };
-                    classificationDiffuse.Conditions.Add(c);
-                    classificationLighting.Conditions.Add(c);
-                }
-                diffuse.Add(classificationDiffuse);
-                lighting.Add(classificationLighting);
+                diffuse.Add(CreateClassification(option, diffuseFn(option.Biome!)));
+                lighting.Add(CreateClassification(option, lightingFn(option.Biome!)));
             }
             _surfaceDiffuseParameter.Set(diffuse);
             _surfaceLightingParameter.Set(lighting);
@@ -123,6 +105,18 @@ namespace SpaceOpera.Core.Universe.Generator
                 new CachingCanvasProvider(new(s_SurfaceSize, s_SurfaceSize), new(0.5f, 0.5f, 1, 1));
             var surface = _surfacePipeline.Run(s_SurfaceCanvaseProvider);
             return new(surface[0].GetTexture(), surface[2].GetTexture(), surface[1].GetTexture());
+        }
+
+        private static Classify.Classification CreateClassification(BiomeOption option, Color4 color)
+        {
+            return new Classify.Classification()
+            {
+                Color = color,
+                Center = option.Center,
+                AxisWeight = option.AxisWeight,
+                Weight = option.Weight,
+                BlendRange = option.BlendRange,
+            };
         }
 
         public class Builder
@@ -142,20 +136,7 @@ namespace SpaceOpera.Core.Universe.Generator
                 for (int i=0; i<BiomeOptions!.Count; ++i)
                 {
                     var option = BiomeOptions[i];
-                    var classification = new Classify.Classification()
-                    {
-                        Color = new(i, i, i, 1)
-                    };
-                    foreach (var condition in option.Conditions)
-                    {
-                        classification.Conditions.Add(
-                            new Classify.Condition() 
-                            { 
-                                Channel = condition.Channel, 
-                                Range = condition.Range
-                            });
-                    }
-                    classifications.Add(classification);
+                    classifications.Add(CreateClassification(option, new(i, i, i, 1)));
                 }
                 biomePipeline.AddNode(
                     new ClassifyNode.Builder()
@@ -202,6 +183,7 @@ namespace SpaceOpera.Core.Universe.Generator
                             .SetParameters(
                                 new ClassifyNode.Parameters()
                                 {
+                                    Blend = new ConstantSupplier<bool>(true),
                                     Classifications = diffuseParameter
                                 }))
                     .AddNode(
@@ -212,6 +194,7 @@ namespace SpaceOpera.Core.Universe.Generator
                             .SetParameters(
                                 new ClassifyNode.Parameters()
                                 { 
+                                    Blend = new ConstantSupplier<bool>(true),
                                     Classifications = lightingParameter
                                 }))
                     .AddOutput("diffuse")

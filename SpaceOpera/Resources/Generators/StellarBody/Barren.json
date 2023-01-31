@@ -198,64 +198,34 @@
     "BiomeOptions": [
       {
         "Biome": "biome-ice-barren",
-        "Conditions": [
-          {
-            "Channel": "Red",
-            "Range": [ -1, -0.5 ]
-          }
-        ]
+        "Center": [ -1, 0, 0, 0 ],
+        "AxisWeight": [ 1, 0, 0, 0 ],
+        "Weight": 10,
+        "BlendRange": 0.5
       },
       {
         "Biome": "biome-barren-plains",
-        "Conditions": [
-          {
-            "Channel": "Blue",
-            "Range": [ -1, 0 ]
-          },
-          {
-            "Channel": "Green",
-            "Range": [ -1, 0 ]
-          }
-        ]
+        "Center": [ 0, -1, -1, 0 ],
+        "AxisWeight": [ 0, 1, 1, 0 ],
+        "BlendRange": 3
       },
       {
         "Biome": "biome-ferrous-plains",
-        "Conditions": [
-          {
-            "Channel": "Blue",
-            "Range": [ 0, 1 ]
-          },
-          {
-            "Channel": "Green",
-            "Range": [ -1, 0 ]
-          }
-        ]
+        "Center": [ 0, -1, 1, 0 ],
+        "AxisWeight": [ 0, 1, 1, 0 ],
+        "BlendRange": 2
       },
       {
         "Biome": "biome-barren-mountains",
-        "Conditions": [
-          {
-            "Channel": "Blue",
-            "Range": [ -1, 0 ]
-          },
-          {
-            "Channel": "Green",
-            "Range": [ 0, 1 ]
-          }
-        ]
+        "Center": [ 0, 1, -1, 0 ],
+        "AxisWeight": [ 0, 1, 1, 0 ],
+        "BlendRange": 2
       },
       {
         "Biome": "biome-ferrous-mountains",
-        "Conditions": [
-          {
-            "Channel": "Blue",
-            "Range": [ 0, 1 ]
-          },
-          {
-            "Channel": "Green",
-            "Range": [ 0, 1 ]
-          }
-        ]
+        "Center": [ 0, 1, 1, 0 ],
+        "AxisWeight": [ 0, 1, 1, 0 ],
+        "BlendRange": 2
       }
     ]
   }
