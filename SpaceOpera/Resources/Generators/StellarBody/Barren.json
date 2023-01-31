@@ -207,25 +207,25 @@
         "Biome": "biome-barren-plains",
         "Center": [ 0, -1, -1, 0 ],
         "AxisWeight": [ 0, 1, 1, 0 ],
-        "BlendRange": 3
+        "BlendRange": 2.1
       },
       {
         "Biome": "biome-ferrous-plains",
         "Center": [ 0, -1, 1, 0 ],
         "AxisWeight": [ 0, 1, 1, 0 ],
-        "BlendRange": 2
+        "BlendRange": 2.1
       },
       {
         "Biome": "biome-barren-mountains",
         "Center": [ 0, 1, -1, 0 ],
         "AxisWeight": [ 0, 1, 1, 0 ],
-        "BlendRange": 2
+        "BlendRange": 2.1
       },
       {
         "Biome": "biome-ferrous-mountains",
         "Center": [ 0, 1, 1, 0 ],
         "AxisWeight": [ 0, 1, 1, 0 ],
-        "BlendRange": 2
+        "BlendRange": 2.1
       }
     ]
   }

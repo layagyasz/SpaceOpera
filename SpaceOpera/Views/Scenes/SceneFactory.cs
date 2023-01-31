@@ -29,7 +29,7 @@ namespace SpaceOpera.Views.Scenes
                         PitchRange = new(-MathHelper.PiOver2 + 0.01f, MathHelper.PiOver2 - 0.01f),
                         DistanceRange = new(1.1f, 10)
                     });
-            return new StellarBodyScene(controller, camera, model);
+            return new StellarBodyScene(controller, camera, model, StellarBodyViewFactory.SurfaceShader);
         }
     }
 }

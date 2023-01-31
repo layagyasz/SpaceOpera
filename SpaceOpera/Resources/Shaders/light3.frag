@@ -4,19 +4,19 @@ out vec4 out_color;
 
 in vec4 vert_color;
 in vec2 vert_tex_coord;
-in vec3 vert_internal_coord;
 in vec3 vert_normal;
 in vec2 vert_normal_tex_coord;
 in vec2 vert_lighting_tex_coord;
-in vec3 eye_normal;
+in vec3 vert_position;
 
 layout(binding = 0) uniform sampler2D diffuse_texture;
 layout(binding = 1) uniform sampler2D normal_texture;
 layout(binding = 2) uniform sampler2D lighting_texture;
 
-const vec3 light_normal = vec3(-1, 0, 0);
-const float light_intensity = 0.5f;
-const float ambient = 0.2f;
+uniform vec3 light_position;
+uniform float light_intensity;
+uniform float ambient;
+uniform vec3 eye_position;
 
 vec2 as_spherical(vec3 v)
 {
@@ -50,6 +50,8 @@ void main()
     }
     vec3 normal = combine_normals_tan(normalize(vert_normal), texture_normal);
 
+    vec3 light_normal = normalize(vert_position - light_position);
+    vec3 eye_normal = normalize(eye_position - vert_position);
     float diffuse = max(0, dot(normal, light_normal));
     float specular = max(0, specular_params.x
         * pow(dot(normal, normalize(light_normal + eye_normal)), specular_params.y));

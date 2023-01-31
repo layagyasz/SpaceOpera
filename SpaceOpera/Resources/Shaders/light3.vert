@@ -16,9 +16,7 @@ out vec2 vert_tex_coord;
 out vec3 vert_normal;
 out vec2 vert_normal_tex_coord;
 out vec2 vert_lighting_tex_coord;
-out vec3 eye_normal;
-
-out vec3 vert_internal_coord;
+out vec3 vert_position;
 
 void main(void)
 {
@@ -28,6 +26,5 @@ void main(void)
 	vert_normal = (vec4(in_normal, 0) * model).xyz;
 	vert_normal_tex_coord = in_normal_tex_coord;
 	vert_lighting_tex_coord = in_lighting_tex_coord;
-	vert_internal_coord = in_position;
-	eye_normal = (vec4(0, 0, 1, 0) * inverse(view)).xyz;
+	vert_position = (vec4(in_position, 1.0) * model).xyz;
 }
