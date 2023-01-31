@@ -1,9 +1,13 @@
-using Cardamom.Graphics.Ui;
+using Cardamom.Graphics;
+using Cardamom.Ui;
+using Cardamom.Ui.Controller;
 using Cardamom.Window;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Desktop;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using SpaceOpera.Views;
+using static System.Formats.Asn1.AsnWriter;
+using System.Numerics;
 
 namespace SpaceOpera
 {
@@ -30,10 +34,12 @@ namespace SpaceOpera
             var starGenerator = gameData.GalaxyGenerator!.StarSystemGenerator!.StarGenerators.First()!;
             var planet = 
                 planetGenerator.Generate(random, orbitGenerator.Generate(random, starGenerator.Generate(random), 0));
-            var surface = viewFactory.StellarBodyViewFactory.GenerateSurfaceFor(planet);
-            surface.Diffuse.CopyToImage().SaveToFile("planet-surface.png");
-            surface.Normal.CopyToImage().SaveToFile("planet-normal.png");
-            surface.Lighting.CopyToImage().SaveToFile("planet-lighting.png");
+            var scene = viewFactory.SceneFactory.Create(planet);
+
+            var screen = new SceneScreen(new NoOpController<Screen>(), Enumerable.Empty<IUiLayer>(), scene);
+            screen.Initialize();
+            ui.UiRoot = screen;
+            ui.Start();
         }
     }
 }

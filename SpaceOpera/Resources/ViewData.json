@@ -1,3 +1,4 @@
 {
+  "GameResources": "Resources/GameResources.json",
   "BiomeRenderDetails": "Resources/BiomeRenderDetails.json"
 }

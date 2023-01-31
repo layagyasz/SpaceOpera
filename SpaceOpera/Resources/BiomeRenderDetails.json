@@ -23,14 +23,14 @@
     "$id": "biome-ice",
     "Color": "#f0f8ff",
     "SpecularCoefficient": 1,
-    "SpecularFactor": 2,
+    "SpecularFactor": 128,
     "Roughness": 0.1
   },
   {
     "$id": "biome-ice-barren",
     "Color": "#f0f8ff",
     "SpecularCoefficient": 1,
-    "SpecularFactor": 2,
+    "SpecularFactor": 128,
     "Roughness": 0.1
   },
   {
@@ -58,7 +58,7 @@
     "$id": "biome-ocean",
     "Color": "#000066",
     "SpecularCoefficient": 2,
-    "SpecularFactor": 4,
+    "SpecularFactor": 128,
     "Roughness": 0
   },
   {
@@ -69,8 +69,8 @@
   {
     "$id": "biome-sulfurous-plains",
     "Color": "#e2cd96",
-    "SpecularCoefficient": 1,
-    "SpecularFactor": 2,
+    "SpecularCoefficient": 0.5,
+    "SpecularFactor": 128,
     "Roughness": 0.25
   },
   {
