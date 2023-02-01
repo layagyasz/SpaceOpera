@@ -53,7 +53,7 @@
     },
     {
       "Resource": "material-food",
-      "SamplerType": "DISPERSED",
+      "SamplerType": "Dispersed",
       "NodeDensityCoefficient": 650
     },
     {

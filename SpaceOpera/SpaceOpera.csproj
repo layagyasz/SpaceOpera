@@ -18,21 +18,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Resources\Generators\Language\" />
-    <Folder Include="Resources\Generators\StellarBody\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Resources\Advancements.json">
+    <None Update="Resources\Core\Advancements.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\AdvancementTypes.json">
+    <None Update="Resources\Core\AdvancementTypes.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\BiomeRenderDetails.json">
+    <None Update="Resources\View\BiomeRenderDetails.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Biomes.json">
+    <None Update="Resources\Core\Biomes.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\GameData.json">
@@ -41,52 +36,52 @@
     <None Update="Resources\GameResources.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Generators\Economy.json">
+    <None Update="Resources\Core\Generators\Economy.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Generators\Galaxy.json">
+    <None Update="Resources\Core\Generators\Galaxy.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Generators\Language\Orthography.json">
+    <None Update="Resources\Core\Generators\Language\Orthography.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Generators\Language\Phonetics.json">
+    <None Update="Resources\Core\Generators\Language\Phonetics.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Generators\Language\Phonology.json">
+    <None Update="Resources\Core\Generators\Language\Phonology.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Generators\Politics.json">
+    <None Update="Resources\Core\Generators\Politics.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Generators\Stars.json">
+    <None Update="Resources\Core\Generators\Stars.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Generators\StellarBody\Barren.json">
+    <None Update="Resources\Core\Generators\StellarBody\Barren.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Materials.json">
+    <None Update="Resources\Core\Materials.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\MaterialSink.json">
+    <None Update="Resources\Core\MaterialSink.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Modifiers.json">
+    <None Update="Resources\Core\Modifiers.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Recipes.json">
+    <None Update="Resources\Core\Recipes.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Shaders\Shaders.json">
+    <None Update="Resources\View\Shaders\Shaders.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Shaders\light3.frag">
+    <None Update="Resources\View\Shaders\light3.frag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Shaders\light3.vert">
+    <None Update="Resources\View\Shaders\light3.vert">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Structures.json">
+    <None Update="Resources\Core\Structures.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\ViewData.json">

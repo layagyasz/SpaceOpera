@@ -6,7 +6,7 @@
   "StarCount": 100,
   "TransitDensity": 0.25,
   "StarSystemGenerator": {
-    "StarGenerators": "Resources/Generators/Stars.json",
+    "StarGenerators": "Resources/Core/Generators/Stars.json",
     "StarGeneratorSelector": {
       "star-generator-class-o": 3,
       "star-generator-class-b": 13000,
@@ -34,7 +34,7 @@
     "StellarBodySelector": {
       "Options": [
         {
-          "Generator": "Resources/Generators/StellarBody/Barren.json",
+          "Generator": "Resources/Core/Generators/StellarBody/Barren.json",
           "Weight": 0.25
         }
       ]

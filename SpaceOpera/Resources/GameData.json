@@ -1,13 +1,13 @@
 {
-  "Materials": "Resources/Materials.json",
-  "MaterialSink": "Resources/MaterialSink.json",
-  "Modifiers": "Resources/Modifiers.json",
-  "AdvancementTypes": "Resources/AdvancementTypes.json",
-  "Advancements": "Resources/Advancements.json",
-  "Structures": "Resources/Structures.json",
-  "Recipes": "Resources/Recipes.json",
-  "Biomes": "Resources/Biomes.json",
-  "GalaxyGenerator": "Resources/Generators/Galaxy.json",
-  "PoliticsGenerator": "Resources/Generators/Politics.json",
-  "EconomyGenerator": "Resources/Generators/Economy.json"
+  "Materials": "Resources/Core/Materials.json",
+  "MaterialSink": "Resources/Core/MaterialSink.json",
+  "Modifiers": "Resources/Core/Modifiers.json",
+  "AdvancementTypes": "Resources/Core/AdvancementTypes.json",
+  "Advancements": "Resources/Core/Advancements.json",
+  "Structures": "Resources/Core/Structures.json",
+  "Recipes": "Resources/Core/Recipes.json",
+  "Biomes": "Resources/Core/Biomes.json",
+  "GalaxyGenerator": "Resources/Core/Generators/Galaxy.json",
+  "PoliticsGenerator": "Resources/Core/Generators/Politics.json",
+  "EconomyGenerator": "Resources/Core/Generators/Economy.json"
 }

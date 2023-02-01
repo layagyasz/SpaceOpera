@@ -1,9 +1,9 @@
 {
   "Culture": {
     "Language": {
-      "Phonetics": "Resources/Generators/Language/Phonetics.json",
-      "Orthography": "Resources/Generators/Language/Orthography.json",
-      "Phonology": "Resources/Generators/Language/Phonology.json"
+      "Phonetics": "Resources/Core/Generators/Language/Phonetics.json",
+      "Orthography": "Resources/Core/Generators/Language/Orthography.json",
+      "Phonology": "Resources/Core/Generators/Language/Phonology.json"
     }
   },
   "Banner": {

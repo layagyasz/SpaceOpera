@@ -1,9 +1,0 @@
-[
-  {
-    "$id": "shader-light3",
-    "Element": {
-      "Vertex": "Resources/Shaders/light3.vert",
-      "Fragment": "Resources/Shaders/light3.frag"
-    }
-  }
-]
