@@ -29,7 +29,7 @@ namespace SpaceOpera
 
             var random = new Random();
             var planetGenerator = 
-                gameData.GalaxyGenerator!.StarSystemGenerator!.StellarBodySelector!.Options.First().Generator!;
+                gameData.GalaxyGenerator!.StarSystemGenerator!.StellarBodySelector!.Options.Last().Generator!;
             var orbitGenerator = gameData.GalaxyGenerator!.StarSystemGenerator!.OrbitGenerator!;
             var starGenerator = 
                 gameData.GalaxyGenerator!.StarSystemGenerator!.StarGeneratorSelector.Get(random.NextSingle());

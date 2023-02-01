@@ -1,0 +1,336 @@
+{
+  "Key": "planet-generator-gaia",
+  "Name": "Gaia Planet",
+  "RadiusSampler": {
+    "$type": "Normal",
+    "Mean": 6000,
+    "StandardDeviation": 500
+  },
+  "Density": 5510,
+  "SubRegionDensity": 0.000004,
+  "RegionDensity": 0.0000002,
+  "StructureNodeDensity": 2500,
+  "AtmosphereGenerator": {
+    "RegionDensity": 0.000175,
+    "TotalPressureSampler": {
+      "$type": "Normal",
+      "Scale": 1,
+      "StandardDeviation": 0.1
+    },
+    "PartialPressureSamplers": {
+      "material-alkane-gas": {
+        "$type": "Normal",
+        "Mean": 0.0001,
+        "StandardDeviation": 0.00005
+      },
+      "material-carbox-gas": {
+        "$type": "Normal",
+        "Mean": 0.03,
+        "StandardDeviation": 0.01
+      },
+      "material-ingenon-gas": {
+        "$type": "Normal",
+        "Mean": 0.01,
+        "StandardDeviation": 0.005
+      }
+    }
+  },
+  "SurfaceGenerator": {
+    "HeightChannel": "Green",
+    "Generators": {
+      "stellar-body-generator-gaia-temperature-seed": {
+        "Type": "Cardamom.Utils.Generators.Numeric.SeedGenerator, Cardamom",
+        "Object": {}
+      },
+      "stellar-body-generator-gaia-height-seed": {
+        "Type": "Cardamom.Utils.Generators.Numeric.SeedGenerator, Cardamom",
+        "Object": {}
+      },
+      "stellar-body-generator-gaia-moisture-seed": {
+        "Type": "Cardamom.Utils.Generators.Numeric.SeedGenerator, Cardamom",
+        "Object": {}
+      },
+      "stellar-body-generator-gaia-temperature-offset": {
+        "Type": "Cardamom.Utils.Generators.Numeric.FloatGenerator, Cardamom",
+        "Object": {
+          "Range": [ -0.5, 1.5 ]
+        }
+      },
+      "stellar-body-generator-gaia-height-offset": {
+        "Type": "Cardamom.Utils.Generators.Numeric.FloatGenerator, Cardamom",
+        "Object": {
+          "Range": [ 0, 1 ]
+        }
+      },
+      "stellar-body-generator-gaia-moisture-offset": {
+        "Type": "Cardamom.Utils.Generators.Numeric.FloatGenerator, Cardamom",
+        "Object": {
+          "Range": [ -0.5, 1.5 ]
+        }
+      }
+    },
+    "Parameters": [
+      {
+        "$id": "stellar-body-generator-gaia-temperature-seed",
+        "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Int32], Cardamom",
+        "Object": {}
+      },
+      {
+        "$id": "stellar-body-generator-gaia-height-seed",
+        "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Int32], Cardamom",
+        "Object": {}
+      },
+      {
+        "$id": "stellar-body-generator-gaia-moisture-seed",
+        "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Int32], Cardamom",
+        "Object": {}
+      },
+      {
+        "$id": "stellar-body-generator-gaia-temperature-offset",
+        "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
+        "Object": {}
+      },
+      {
+        "$id": "stellar-body-generator-gaia-height-offset",
+        "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
+        "Object": {}
+      },
+      {
+        "$id": "stellar-body-generator-gaia-moisture-offset",
+        "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
+        "Object": {}
+      }
+    ],
+    "Pipeline": {
+      "Steps": [
+        {
+          "$type": "LatticeNoise",
+          "Key": "temperature",
+          "Channel": [ "Red" ],
+          "Inputs": {
+            "input": "position"
+          },
+          "Parameters": {
+            "Seed": {
+              "$ref": "stellar-body-generator-barren-temperature-seed"
+            },
+            "Frequency": {
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
+              "Object": {
+                "Value": 2.0
+              }
+            }
+          }
+        },
+        {
+          "$type": "LatticeNoise",
+          "Key": "height",
+          "Channel": [ "Green" ],
+          "Inputs": {
+            "input": "position"
+          },
+          "Output": "temperature",
+          "Parameters": {
+            "Seed": {
+              "$ref": "stellar-body-generator-gaia-height-seed"
+            }
+          },
+          "Frequency": {
+            "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
+            "Object": {
+              "Value": 2.0
+            }
+          }
+        },
+        {
+          "$type": "LatticeNoise",
+          "Key": "moisture",
+          "Channel": [ "Blue" ],
+          "Inputs": {
+            "input": "position"
+          },
+          "Output": "height",
+          "Parameters": {
+            "Seed": {
+              "$ref": "stellar-body-generator-gaia-moisture-seed"
+            },
+            "Frequency": {
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
+              "Object": {
+                "Value": 2.0
+              }
+            }
+          }
+        },
+        {
+          "$type": "Denormalize",
+          "Key": "denormalize",
+          "Channel": [ "Color" ],
+          "Inputs": {
+            "input": "moisture"
+          }
+        },
+        {
+          "$type": "Combine",
+          "Key": "combine",
+          "Channel": [ "Color" ],
+          "Inputs": {
+            "left": "position",
+            "right": "denormalize"
+          },
+          "Parameters": {
+            "LeftTransform": {
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[OpenTK.Mathematics.Matrix4, OpenTK.Mathematics]], Cardamom",
+              "Object": {
+                "Value": [
+                  [ 0, 0, 0, 0 ],
+                  [ 1, 0, 1, 0 ],
+                  [ 0, 0, 0, 0 ],
+                  [ 0, 0, 0, 0 ]
+                ]
+              }
+            },
+            "RightTransform": {
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[OpenTK.Mathematics.Matrix4, OpenTK.Mathematics]], Cardamom",
+              "Object": {
+                "Value": [
+                  [ 0.25, 0, 0, 0 ],
+                  [ 0, 1, 0, 0 ],
+                  [ 0, 0, 0.375, 0 ],
+                  [ 0, 0, 0, 1 ]
+                ]
+              }
+            }
+          }
+        },
+        {
+          "$type": "WaveForm",
+          "Key": "wave-form",
+          "Channel": [ "Red", "Blue" ],
+          "Inputs": {
+            "input": "combine"
+          },
+          "Output": "combine",
+          "Parameters": {
+            "WaveType": {
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[Cardamom.ImageProcessing.Filters.WaveForm+WaveType, Cardamom]], Cardamom",
+              "Object": {
+                "Value": "Cosine"
+              }
+            },
+            "Frequency": {
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[OpenTK.Mathematics.Matrix4, OpenTK.Mathematics]], Cardamom",
+              "Object": {
+                "Value": [
+                  [ 0.5, 0, 0, 0 ],
+                  [ 0, 1, 0, 0 ],
+                  [ 0, 0, 1, 0 ],
+                  [ 0, 0, 0, 1 ]
+                ]
+              }
+            }
+          }
+        },
+        {
+          "$type": "Adjust",
+          "Key": "output",
+          "Channel": [ "Color" ],
+          "Inputs": {
+            "input": "wave-form"
+          },
+          "Parameters": {
+            "OverflowBehavior": {
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[Cardamom.ImageProcessing.OverflowBehavior, Cardamom]], Cardamom",
+              "Object": {
+                "Value": "Clamp"
+              }
+            },
+            "Gradient": {
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[OpenTK.Mathematics.Matrix4, OpenTK.Mathematics]], Cardamom",
+              "Object": {
+                "Value": [
+                  [ 0.5, 0, 0, 0 ],
+                  [ 0, 0.5, 0, 0 ],
+                  [ 0, 0, -0.5, 0 ],
+                  [ 0, 0, 0, 1 ]
+                ]
+              }
+            },
+            "Bias": {
+              "Type": "Cardamom.Utils.Suppliers.Vector.Vector4ComponentwiseSupplier, Cardamom",
+              "Object": {
+                "X": {
+                  "$ref": "stellar-body-generator-gaia-temperature-offset"
+                },
+                "Y": {
+                  "$ref": "stellar-body-generator-gaia-height-offset"
+                },
+                "Z": {
+                  "$ref": "stellar-body-generator-gaia-moisture-offset"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "BiomeOptions": [
+      {
+        "Biome": "biome-ice",
+        "Center": [ 0, 0, 0, 0 ],
+        "AxisWeight": [ 1, 0, 0, 0 ],
+        "Weight": 8,
+        "BlendRange": 0.125
+      },
+      {
+        "Biome": "biome-ocean",
+        "Center": [ 0, 0, 0, 0 ],
+        "AxisWeight": [ 0, 1, 0, 0 ],
+        "Weight": 32,
+        "BlendRange": 0.25
+      },
+      {
+        "Biome": "biome-desert",
+        "Center": [ 1, 0, 0, 0 ],
+        "AxisWeight": [ 2, 0, 2, 0 ],
+        "BlendRange": 0.5
+      },
+      {
+        "Biome": "biome-tundra",
+        "Center": [ 0.375, 0, 0, 0 ],
+        "AxisWeight": [ 1, 0, 0.5, 0 ],
+        "BlendRange": 0.2
+      },
+      {
+        "Biome": "biome-taiga",
+        "Center": [ 0.375, 0, 1, 0 ],
+        "AxisWeight": [ 1, 0, 1, 0 ],
+        "BlendRange": 0.2
+      },
+      {
+        "Biome": "biome-grassland",
+        "Center": [ 0.7, 0, 0.425, 0 ],
+        "AxisWeight": [ 1, 0, 1, 0 ],
+        "BlendRange": 0.2
+      },
+      {
+        "Biome": "biome-forest",
+        "Center": [ 0.7, 0, 0.875, 0 ],
+        "AxisWeight": [ 1, 0, 1, 0 ],
+        "BlendRange": 0.2
+      },
+      {
+        "Biome": "biome-savanna",
+        "Center": [ 1, 0, 0.425, 0 ],
+        "AxisWeight": [ 4, 0, 4, 0 ],
+        "BlendRange": 0.2
+      },
+      {
+        "Biome": "biome-jungle",
+        "Center": [ 1, 0, 1, 0 ],
+        "AxisWeight": [ 1.5, 0, 1.5, 0 ],
+        "BlendRange": 0.2
+      }
+    ]
+  }
+}

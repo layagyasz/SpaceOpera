@@ -36,6 +36,11 @@
         {
           "Generator": "Resources/Core/Generators/StellarBody/Barren.json",
           "Weight": 0.25
+        },
+        {
+          "Generator": "Resources/Core/Generators/StellarBody/Gaia.json",
+          "Weight": 1,
+          "ThermalRange": [ 273, 373 ]
         }
       ]
     }

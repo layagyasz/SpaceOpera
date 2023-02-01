@@ -10,6 +10,11 @@
     "Roughness": 0.25
   },
   {
+    "$id": "biome-desert",
+    "Color": "#bea680",
+    "Roughness": 0.25
+  },
+  {
     "$id": "biome-ferrous-mountains",
     "Color": "#a76a55",
     "Roughness": 1
@@ -17,6 +22,26 @@
   {
     "$id": "biome-ferrous-plains",
     "Color": "#da7758",
+    "Roughness": 0.25
+  },
+  {
+    "$id": "biome-forest",
+    "ColorMode": "SolarPeakOutput",
+    "SolarPeakOutputTransform": {
+      "Hue": -0.1,
+      "Saturation": 0.75,
+      "Lightness": 0.48
+    },
+    "Roughness": 0.25
+  },
+  {
+    "$id": "biome-grassland",
+    "ColorMode": "SolarPeakOutput",
+    "SolarPeakOutputTransform": {
+      "Hue": -0.1,
+      "Saturation": 0.31,
+      "Lightness": 0.96
+    },
     "Roughness": 0.25
   },
   {
@@ -51,12 +76,12 @@
   {
     "$id": "biome-molten",
     "Color": "#d35b26",
-    "Luminance": 200,
+    "Luminance": 0.8,
     "Roughness": 0
   },
   {
     "$id": "biome-ocean",
-    "Color": "#000066",
+    "Color": "#4747ff",
     "SpecularCoefficient": 2,
     "SpecularFactor": 128,
     "Roughness": 0

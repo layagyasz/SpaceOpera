@@ -55,9 +55,8 @@ void main()
     float diffuse = max(0, dot(normal, light_normal));
     float specular = max(0, specular_params.x
         * pow(dot(normal, normalize(light_normal + eye_normal)), specular_params.y));
-    float ambient = ambient + luminance;
 
     vec4 diffuse_color = vert_color * texture(diffuse_texture, vert_tex_coord);
-    vec4 c = diffuse_color * ambient + diffuse_color * light_color * (diffuse + specular);
+    vec4 c = diffuse_color * (ambient + luminance) + diffuse_color * light_color * (diffuse + specular);
     out_color = vec4(c.rgb, 1);
 }
