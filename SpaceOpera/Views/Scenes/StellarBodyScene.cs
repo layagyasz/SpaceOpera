@@ -18,6 +18,7 @@ namespace SpaceOpera.Views.Scenes
         public ICamera Camera { get; }
 
         private readonly StellarBodyModel _stellarBodyModel;
+        private readonly Color4 _lightColor;
         private readonly RenderShader _surfaceShader;
         private long _rotation = 0;
 
@@ -25,11 +26,13 @@ namespace SpaceOpera.Views.Scenes
             IElementController controller, 
             ICamera camera, 
             StellarBodyModel stellarBodyModel,
+            Color4 lightColor,
             RenderShader surfaceShader)
         {
             Controller = controller;
             Camera = camera;
             _stellarBodyModel = stellarBodyModel;
+            _lightColor = lightColor;
             _surfaceShader = surfaceShader;
         }
 
@@ -58,7 +61,7 @@ namespace SpaceOpera.Views.Scenes
             _surfaceShader.SetVector3(
                 "light_position", (s_LightPosition * Matrix4.CreateRotationY(_rotation * s_LightSpeed)).Xyz);
             _surfaceShader.SetVector3("eye_position", Camera.Position);
-            _surfaceShader.SetFloat("light_intensity", 0.5f);
+            _surfaceShader.SetColor("light_color", _lightColor);
             _surfaceShader.SetFloat("ambient", 0.1f);
             _stellarBodyModel.Draw(target, context);
 

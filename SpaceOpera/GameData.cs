@@ -12,6 +12,7 @@ using SpaceOpera.Core.Economics.Generator;
 using SpaceOpera.Core.Politics.Generator;
 using SpaceOpera.Core.Universe;
 using SpaceOpera.Core.Universe.Generator;
+using SpaceOpera.Core.Universe.Spectra;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -74,6 +75,9 @@ namespace SpaceOpera
         [JsonPropertyOrder(14)]
         [JsonConverter(typeof(FromFileJsonConverter))]
         public EconomyGenerator? EconomyGenerator { get; set; }
+
+        [JsonConverter(typeof(FromFileJsonConverter))]
+        public SpectrumSensitivity? HumanEyeSensitivity { get; set; }
 
         public static GameData LoadFrom(string path)
         {

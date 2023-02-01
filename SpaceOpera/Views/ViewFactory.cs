@@ -23,8 +23,9 @@ namespace SpaceOpera.Views
                     gameData.GalaxyGenerator!.StarSystemGenerator!.StellarBodySelector!.Options
                         .Select(x => x.Generator!)
                         .ToLibrary(x => x.Key, x => x),
-                    viewData.GameResources!.GetShader("shader-light3"));
-            return new(new(stellarBodyViewFactory), stellarBodyViewFactory);
+                    viewData.GameResources!.GetShader("shader-light3"),
+                    gameData.HumanEyeSensitivity!);
+            return new(new(stellarBodyViewFactory, gameData.HumanEyeSensitivity!), stellarBodyViewFactory);
         }
     }
 }

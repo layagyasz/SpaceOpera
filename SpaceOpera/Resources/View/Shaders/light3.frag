@@ -14,7 +14,7 @@ layout(binding = 1) uniform sampler2D normal_texture;
 layout(binding = 2) uniform sampler2D lighting_texture;
 
 uniform vec3 light_position;
-uniform float light_intensity;
+uniform vec4 light_color;
 uniform float ambient;
 uniform vec3 eye_position;
 
@@ -57,6 +57,7 @@ void main()
         * pow(dot(normal, normalize(light_normal + eye_normal)), specular_params.y));
     float ambient = ambient + luminance;
 
-    vec4 diffuse_color = vert_color * texture(diffuse_texture, vert_tex_coord); 
-    out_color = vec4((light_intensity * (diffuse + specular) + ambient) * diffuse_color.rgb, 1);
+    vec4 diffuse_color = vert_color * texture(diffuse_texture, vert_tex_coord);
+    vec4 c = diffuse_color * ambient + diffuse_color * light_color * (diffuse + specular);
+    out_color = vec4(c.rgb, 1);
 }
