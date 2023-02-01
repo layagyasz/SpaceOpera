@@ -10,7 +10,7 @@ namespace SpaceOpera.Views.Scenes
 {
     public class StellarBodyScene : IScene
     {
-        private static Vector4 s_LightPosition = new(0, 0, -1000, 1);
+        private static Vector4 s_LightPosition = new(0, 0, 1000, 1);
         private static float s_LightSpeed = 0.0001f * MathF.PI;
 
         public IElementController Controller { get; }

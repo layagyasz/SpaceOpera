@@ -87,6 +87,7 @@ namespace SpaceOpera.Core.Universe.Generator
         {
             foreach (var parameter in parameterValues)
             {
+                Console.WriteLine($"{parameter.Key} = {parameter.Value}");
                 _parameters[parameter.Key].Set(parameter.Value);
             }
 
@@ -206,7 +207,12 @@ namespace SpaceOpera.Core.Universe.Generator
                             new SobelNode.Builder()
                                 .SetKey("normal")
                                 .SetChannel(HeightChannel)
-                                .SetInput("input", "output"));
+                                .SetInput("input", "output")
+                                .SetParameters(
+                                    new SobelNode.Parameters()
+                                    {
+                                        Roughness = new ConstantSupplier<float>(1f * s_SurfaceSize / 4096)
+                                    }));
                 }
                 else
                 {

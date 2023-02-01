@@ -14,8 +14,8 @@
     "RegionDensity": 0.000175,
     "TotalPressureSampler": {
       "$type": "Normal",
-      "Scale": 0.006,
-      "Shape": 0.01
+      "Mean": 0.006,
+      "StandardDeviation": 0.01
     },
     "PartialPressureSamplers": {
       "material-carbox-gas": {
@@ -44,6 +44,24 @@
       "stellar-body-generator-barren-ferrous-seed": {
         "Type": "Cardamom.Utils.Generators.Numeric.SeedGenerator, Cardamom",
         "Object": {}
+      },
+      "stellar-body-generator-barren-temperature-offset": {
+        "Type": "Cardamom.Utils.Generators.Numeric.FloatGenerator, Cardamom",
+        "Object": {
+          "Range": [ -0.5, 1.5 ]
+        }
+      },
+      "stellar-body-generator-barren-rockiness-offset": {
+        "Type": "Cardamom.Utils.Generators.Numeric.FloatGenerator, Cardamom",
+        "Object": {
+          "Range": [ -0.5, 1.5 ]
+        }
+      },
+      "stellar-body-generator-barren-ferrous-offset": {
+        "Type": "Cardamom.Utils.Generators.Numeric.FloatGenerator, Cardamom",
+        "Object": {
+          "Range": [ -0.5, 1.5 ]
+        }
       }
     },
     "Parameters": [
@@ -60,6 +78,21 @@
       {
         "$id": "stellar-body-generator-barren-ferrous-seed",
         "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Int32], Cardamom",
+        "Object": {}
+      },
+      {
+        "$id": "stellar-body-generator-barren-temperature-offset",
+        "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
+        "Object": {}
+      },
+      {
+        "$id": "stellar-body-generator-barren-rockiness-offset",
+        "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
+        "Object": {}
+      },
+      {
+        "$id": "stellar-body-generator-barren-ferrous-offset",
+        "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
         "Object": {}
       }
     ],
@@ -167,7 +200,7 @@
         },
         {
           "$type": "WaveForm",
-          "Key": "output",
+          "Key": "wave-form",
           "Channel": [ "Red" ],
           "Inputs": {
             "input": "combine"
@@ -192,40 +225,81 @@
               }
             }
           }
+        },
+        {
+          "$type": "Adjust",
+          "Key": "output",
+          "Channel": [ "Color" ],
+          "Inputs": {
+            "input": "wave-form"
+          },
+          "Parameters": {
+            "OverflowBehavior": {
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[Cardamom.ImageProcessing.OverflowBehavior, Cardamom]], Cardamom",
+              "Object": {
+                "Value": "Clamp"
+              }
+            },
+            "Gradient": {
+              "Type": "Cardamom.Utils.Suppliers.Matrix.Matrix4DiagonalUniformSupplier, Cardamom",
+              "Object": {
+                "Diagonal": {
+                  "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
+                  "Object": {
+                    "Value": 0.5
+                  }
+                }
+              }
+            },
+            "Bias": {
+              "Type": "Cardamom.Utils.Suppliers.Vector.Vector4ComponentwiseSupplier, Cardamom",
+              "Object": {
+                "X": {
+                  "$ref": "stellar-body-generator-barren-temperature-offset"
+                },
+                "Y": {
+                  "$ref": "stellar-body-generator-barren-rockiness-offset"
+                },
+                "Z": {
+                  "$ref": "stellar-body-generator-barren-ferrous-offset"
+                }
+              }
+            }
+          }
         }
       ]
     },
     "BiomeOptions": [
       {
         "Biome": "biome-ice-barren",
-        "Center": [ -1, 0, 0, 0 ],
+        "Center": [ 0, 0, 0, 0 ],
         "AxisWeight": [ 1, 0, 0, 0 ],
-        "Weight": 10,
-        "BlendRange": 0.5
+        "Weight": 8,
+        "BlendRange": 0.125
       },
       {
         "Biome": "biome-barren-plains",
-        "Center": [ 0, -1, -1, 0 ],
+        "Center": [ 0, 0, 0, 0 ],
         "AxisWeight": [ 0, 1, 1, 0 ],
-        "BlendRange": 2.1
+        "BlendRange": 1.2
       },
       {
         "Biome": "biome-ferrous-plains",
-        "Center": [ 0, -1, 1, 0 ],
+        "Center": [ 0, 0, 1, 0 ],
         "AxisWeight": [ 0, 1, 1, 0 ],
-        "BlendRange": 2.1
+        "BlendRange": 1.2
       },
       {
         "Biome": "biome-barren-mountains",
-        "Center": [ 0, 1, -1, 0 ],
+        "Center": [ 0, 1, 0, 0 ],
         "AxisWeight": [ 0, 1, 1, 0 ],
-        "BlendRange": 2.1
+        "BlendRange": 1.2
       },
       {
         "Biome": "biome-ferrous-mountains",
         "Center": [ 0, 1, 1, 0 ],
         "AxisWeight": [ 0, 1, 1, 0 ],
-        "BlendRange": 2.1
+        "BlendRange": 1.2
       }
     ]
   }
