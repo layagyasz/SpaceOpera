@@ -280,7 +280,7 @@
         "Center": [ 0, 0, 0, 0 ],
         "AxisWeight": [ 1, 0, 0, 0 ],
         "Weight": 8,
-        "BlendRange": 0.125
+        "BlendRange": 0.1
       },
       {
         "Biome": "biome-ocean",
@@ -292,8 +292,8 @@
       {
         "Biome": "biome-desert",
         "Center": [ 1, 0, 0, 0 ],
-        "AxisWeight": [ 2, 0, 2, 0 ],
-        "BlendRange": 0.5
+        "AxisWeight": [ 2, 0, 2.5, 0 ],
+        "BlendRange": 0.3
       },
       {
         "Biome": "biome-tundra",
@@ -304,7 +304,7 @@
       {
         "Biome": "biome-taiga",
         "Center": [ 0.375, 0, 1, 0 ],
-        "AxisWeight": [ 1, 0, 1, 0 ],
+        "AxisWeight": [ 1, 0, 0.5, 0 ],
         "BlendRange": 0.2
       },
       {
@@ -316,13 +316,13 @@
       {
         "Biome": "biome-forest",
         "Center": [ 0.7, 0, 0.875, 0 ],
-        "AxisWeight": [ 1, 0, 1, 0 ],
+        "AxisWeight": [ 1, 0, 1.5, 0 ],
         "BlendRange": 0.2
       },
       {
         "Biome": "biome-savanna",
         "Center": [ 1, 0, 0.425, 0 ],
-        "AxisWeight": [ 4, 0, 4, 0 ],
+        "AxisWeight": [ 1.5, 0, 1.5, 0 ],
         "BlendRange": 0.2
       },
       {
