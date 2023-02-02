@@ -9,13 +9,13 @@
             Temperature = temperature;
         }
 
-        public float GetIntensity(float wavelength)
+        public double GetIntensity(float wavelength)
         {
             double w = wavelength * 1e-9;
             double left = 2.0 * Constants.Planck * Constants.C * Constants.C / (w * w * w * w * w);
             double right = 1.0 / (
                 Math.Exp(Constants.Planck * Constants.C / (w * Constants.Boltzman * Temperature)) - 1);
-            return (float)(left * right);
+            return left * right;
         }
 
         public float GetPeak()

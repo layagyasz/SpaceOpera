@@ -2,6 +2,6 @@
 {
     public interface ISpectrum
     {
-        float GetIntensity(float wavelenght);
+        double GetIntensity(float wavelenght);
     }
 }

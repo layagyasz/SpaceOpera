@@ -27,7 +27,7 @@
   {
     "$id": "biome-forest",
     "ColorMode": "SolarPeakOutput",
-    "SolarPeakOutputTransform": {
+    "SolarColorTransform": {
       "Hue": -0.1,
       "Saturation": 0.75,
       "Lightness": 0.48
@@ -37,7 +37,7 @@
   {
     "$id": "biome-grassland",
     "ColorMode": "SolarPeakOutput",
-    "SolarPeakOutputTransform": {
+    "SolarColorTransform": {
       "Hue": -0.1,
       "Saturation": 0.31,
       "Lightness": 0.96
@@ -61,7 +61,7 @@
   {
     "$id": "biome-jungle",
     "ColorMode": "SolarPeakOutput",
-    "SolarPeakOutputTransform": {
+    "SolarColorTransform": {
       "Hue": -0.07,
       "Saturation": 1,
       "Lightness": 0.56
@@ -81,9 +81,14 @@
   },
   {
     "$id": "biome-ocean",
-    "Color": "#4747ff",
     "SpecularCoefficient": 2,
     "SpecularFactor": 128,
+    "ColorMode": "SolarScatteredOutput",
+    "SolarColorTransform": {
+      "Hue": 0,
+      "Saturation": 1,
+      "Lightness": 0.8
+    },
     "Roughness": 0
   },
   {
@@ -106,7 +111,7 @@
   {
     "$id": "biome-taiga",
     "ColorMode": "SolarPeakOutput",
-    "SolarPeakOutputTransform": {
+    "SolarColorTransform": {
       "Hue": -0.1,
       "Saturation": 0.7,
       "Lightness": 0.32
@@ -116,7 +121,7 @@
   {
     "$id": "biome-tundra",
     "ColorMode": "SolarPeakOutput",
-    "SolarPeakOutputTransform": {
+    "SolarColorTransform": {
       "Hue": -0.1,
       "Saturation": 0.1,
       "Lightness": 1.8

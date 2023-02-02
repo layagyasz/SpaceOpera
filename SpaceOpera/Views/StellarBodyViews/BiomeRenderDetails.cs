@@ -11,7 +11,8 @@ namespace SpaceOpera.Views.StellarBodyViews
         public enum BiomeRenderDetailsColorMode
         {
             Static,
-            SolarPeakOutput
+            SolarPeakOutput,
+            SolarScatteredOutput
         }
 
         public struct ColorTransform
@@ -34,18 +35,20 @@ namespace SpaceOpera.Views.StellarBodyViews
         public string Key { get; set; } = string.Empty;
         public BiomeRenderDetailsColorMode ColorMode { get; set; } = BiomeRenderDetailsColorMode.Static;
         public Color4 Color { get; set; }
-        public ColorTransform SolarPeakOutputTransform { get; set; }
+        public ColorTransform SolarColorTransform { get; set; }
         public float SpecularCoefficient { get; set; }
         public float SpecularFactor { get; set; }
         public float Luminance { get; set; }
         public float Roughness { get; set; } = 1;
 
-        public Color4 GetColor(Color4 solarPeakOutputColor)
+        public Color4 GetColor(Color4 solarPeakOutputColor, Color4 solarScatteredOutputColor)
         {
             return ColorMode switch
             {
                 BiomeRenderDetailsColorMode.Static => Color,
-                BiomeRenderDetailsColorMode.SolarPeakOutput => SolarPeakOutputTransform.Apply(solarPeakOutputColor),
+                BiomeRenderDetailsColorMode.SolarPeakOutput => SolarColorTransform.Apply(solarPeakOutputColor),
+                BiomeRenderDetailsColorMode.SolarScatteredOutput => 
+                    SolarColorTransform.Apply(solarScatteredOutputColor),
                 _ => throw new ArgumentException(string.Format("Unsupported ColorMode: {0}", ColorMode)),
             };
         }

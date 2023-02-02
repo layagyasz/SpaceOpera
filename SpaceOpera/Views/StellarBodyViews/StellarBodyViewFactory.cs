@@ -45,12 +45,13 @@ namespace SpaceOpera.Views.StellarBodyViews
                         spectrum.GetPeak(),
                         HumanEyeSensitivity.Range.Minimum + 1));
             var peakColor = ToColor(HumanEyeSensitivity.GetColor(peakWavelength));
+            var scatteredColor = ToColor(HumanEyeSensitivity.GetColor(new RayleighScatteredSpectrum(spectrum)));
 
             var material = StellarBodyGenerators[stellarBody.Type]
                 .SurfaceGenerator!
                     .GenerateSurface(
                         stellarBody.Parameters,
-                        x => BiomeRenderDetails[x].GetColor(peakColor),
+                        x => BiomeRenderDetails[x].GetColor(peakColor, scatteredColor),
                         x => BiomeRenderDetails[x].GetLighting());
             var buffer = GenerateSphere(s_SphereHighResSubdivisions);
             return new StellarBodyModel(new(buffer, SurfaceShader, material));

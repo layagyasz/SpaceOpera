@@ -9,10 +9,10 @@
             Base = @base;
         }
 
-        public float GetIntensity(float wavelength)
+        public double GetIntensity(float wavelength)
         {
             double w = wavelength * 1e-9f;
-            return (float)(Base.GetIntensity(wavelength) / (w * w * w * w));
+            return Base.GetIntensity(wavelength) / (w * w * w * w);
         }
     }
 }
