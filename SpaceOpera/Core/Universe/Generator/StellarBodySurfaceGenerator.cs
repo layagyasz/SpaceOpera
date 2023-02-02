@@ -21,7 +21,7 @@ namespace SpaceOpera.Core.Universe.Generator
         private static readonly ICanvasProvider s_BiomeCanvasProvider = 
             new CachingCanvasProvider(new(s_TexSize, s_TexSize), Color4.Black);
 
-        private static readonly int s_SurfaceSize = 2048;
+        private static readonly int s_SurfaceSize = 1024;
         private static ICanvasProvider? s_SurfaceCanvaseProvider;
             
 

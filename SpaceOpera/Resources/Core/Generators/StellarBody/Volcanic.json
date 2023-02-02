@@ -1,0 +1,296 @@
+{
+  "Key": "planet-generator-volcanic",
+  "Name": "Volcanic Planet",
+  "RadiusSampler": {
+    "$type": "Normal",
+    "Mean": 3600,
+    "StandardDeviation": 300
+  },
+  "Density": 3530,
+  "SubRegionDensity": 0.000004,
+  "RegionDensity": 0.0000002,
+  "StructureNodeDensity": 2500,
+  "AtmosphereGenerator": {
+    "RegionDensity": 0.000175,
+    "TotalPressureSampler": {
+      "$type": "Normal",
+      "Mean": 0.05,
+      "StandardDeviation": 0.01
+    },
+    "PartialPressureSamplers": {}
+  },
+  "SurfaceGenerator": {
+    "HeightChannel": "Green",
+    "Generators": {
+      "stellar-body-generator-volcanic-temperature-seed": {
+        "Type": "Cardamom.Utils.Generators.Numeric.SeedGenerator, Cardamom",
+        "Object": {}
+      },
+      "stellar-body-generator-volcanic-height-seed": {
+        "Type": "Cardamom.Utils.Generators.Numeric.SeedGenerator, Cardamom",
+        "Object": {}
+      },
+      "stellar-body-generator-volcanic-rockiness-seed": {
+        "Type": "Cardamom.Utils.Generators.Numeric.SeedGenerator, Cardamom",
+        "Object": {}
+      },
+      "stellar-body-generator-volcanic-temperature-offset": {
+        "Type": "Cardamom.Utils.Generators.Numeric.FloatGenerator, Cardamom",
+        "Object": {
+          "Range": [ 0, 1 ]
+        }
+      },
+      "stellar-body-generator-volcanic-height-offset": {
+        "Type": "Cardamom.Utils.Generators.Numeric.FloatGenerator, Cardamom",
+        "Object": {
+          "Range": [ 0, 1 ]
+        }
+      },
+      "stellar-body-generator-volcanic-rockiness-offset": {
+        "Type": "Cardamom.Utils.Generators.Numeric.FloatGenerator, Cardamom",
+        "Object": {
+          "Range": [ 0, 1 ]
+        }
+      }
+    },
+    "Parameters": [
+      {
+        "$id": "stellar-body-generator-volcanic-temperature-seed",
+        "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Int32], Cardamom",
+        "Object": {}
+      },
+      {
+        "$id": "stellar-body-generator-volcanic-height-seed",
+        "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Int32], Cardamom",
+        "Object": {}
+      },
+      {
+        "$id": "stellar-body-generator-volcanic-rockiness-seed",
+        "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Int32], Cardamom",
+        "Object": {}
+      },
+      {
+        "$id": "stellar-body-generator-volcanic-temperature-offset",
+        "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
+        "Object": {}
+      },
+      {
+        "$id": "stellar-body-generator-volcanic-height-offset",
+        "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
+        "Object": {}
+      },
+      {
+        "$id": "stellar-body-generator-volcanic-rockiness-offset",
+        "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
+        "Object": {}
+      }
+    ],
+    "Pipeline": {
+      "Steps": [
+        {
+          "$type": "LatticeNoise",
+          "Key": "temperature",
+          "Channel": [ "Red" ],
+          "Inputs": {
+            "input": "position"
+          },
+          "Parameters": {
+            "Seed": {
+              "$ref": "stellar-body-generator-barren-temperature-seed"
+            },
+            "Frequency": {
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
+              "Object": {
+                "Value": 2.0
+              }
+            }
+          }
+        },
+        {
+          "$type": "LatticeNoise",
+          "Key": "height",
+          "Channel": [ "Green" ],
+          "Inputs": {
+            "input": "position"
+          },
+          "Output": "temperature",
+          "Parameters": {
+            "Seed": {
+              "$ref": "stellar-body-generator-volcanic-height-seed"
+            }
+          },
+          "Frequency": {
+            "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
+            "Object": {
+              "Value": 2.0
+            }
+          }
+        },
+        {
+          "$type": "LatticeNoise",
+          "Key": "rockiness",
+          "Channel": [ "Blue" ],
+          "Inputs": {
+            "input": "position"
+          },
+          "Output": "height",
+          "Parameters": {
+            "Seed": {
+              "$ref": "stellar-body-generator-volcanic-rockiness-seed"
+            },
+            "Frequency": {
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
+              "Object": {
+                "Value": 2.0
+              }
+            }
+          }
+        },
+        {
+          "$type": "Denormalize",
+          "Key": "denormalize",
+          "Channel": [ "Color" ],
+          "Inputs": {
+            "input": "rockiness"
+          }
+        },
+        {
+          "$type": "Combine",
+          "Key": "combine",
+          "Channel": [ "Color" ],
+          "Inputs": {
+            "left": "position",
+            "right": "denormalize"
+          },
+          "Parameters": {
+            "LeftTransform": {
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[OpenTK.Mathematics.Matrix4, OpenTK.Mathematics]], Cardamom",
+              "Object": {
+                "Value": [
+                  [ 0, 0, 0, 0 ],
+                  [ 1, 0, 0, 0 ],
+                  [ 0, 0, 0, 0 ],
+                  [ 0, 0, 0, 0 ]
+                ]
+              }
+            },
+            "RightTransform": {
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[OpenTK.Mathematics.Matrix4, OpenTK.Mathematics]], Cardamom",
+              "Object": {
+                "Value": [
+                  [ 0.25, 0, 0, 0 ],
+                  [ 0, 1, 0, 0 ],
+                  [ 0, 0, 1, 0 ],
+                  [ 0, 0, 0, 1 ]
+                ]
+              }
+            }
+          }
+        },
+        {
+          "$type": "WaveForm",
+          "Key": "wave-form",
+          "Channel": [ "Red" ],
+          "Inputs": {
+            "input": "combine"
+          },
+          "Output": "combine",
+          "Parameters": {
+            "WaveType": {
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[Cardamom.ImageProcessing.Filters.WaveForm+WaveType, Cardamom]], Cardamom",
+              "Object": {
+                "Value": "Cosine"
+              }
+            },
+            "Frequency": {
+              "Type": "Cardamom.Utils.Suppliers.Matrix.Matrix4DiagonalUniformSupplier, Cardamom",
+              "Object": {
+                "Diagonal": {
+                  "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
+                  "Object": {
+                    "Value": 0.5
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "$type": "Adjust",
+          "Key": "output",
+          "Channel": [ "Color" ],
+          "Inputs": {
+            "input": "wave-form"
+          },
+          "Parameters": {
+            "OverflowBehavior": {
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[Cardamom.ImageProcessing.OverflowBehavior, Cardamom]], Cardamom",
+              "Object": {
+                "Value": "Clamp"
+              }
+            },
+            "Gradient": {
+              "Type": "Cardamom.Utils.Suppliers.Matrix.Matrix4DiagonalUniformSupplier, Cardamom",
+              "Object": {
+                "Diagonal": {
+                  "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
+                  "Object": {
+                    "Value": 0.5
+                  }
+                }
+              }
+            },
+            "Bias": {
+              "Type": "Cardamom.Utils.Suppliers.Vector.Vector4ComponentwiseSupplier, Cardamom",
+              "Object": {
+                "X": {
+                  "$ref": "stellar-body-generator-volcanic-temperature-offset"
+                },
+                "Y": {
+                  "$ref": "stellar-body-generator-volcanic-height-offset"
+                },
+                "Z": {
+                  "$ref": "stellar-body-generator-volcanic-rockiness-offset"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "BiomeOptions": [
+      {
+        "Biome": "biome-ice-barren",
+        "Center": [ 0, 1, 0, 0 ],
+        "AxisWeight": [ 1, 2, 0, 0 ],
+        "Weight": 8,
+        "BlendRange": 0.5
+      },
+      {
+        "Biome": "biome-molten",
+        "Center": [ 0, 0, 0, 0 ],
+        "AxisWeight": [ 0, 1, 1, 0 ],
+        "Weight": 16,
+        "BlendRange": 0.25
+      },
+      {
+        "Biome": "biome-volcanic-mountains",
+        "Center": [ 0, 0, 1, 0 ],
+        "AxisWeight": [ 0, 1, 1, 0 ],
+        "BlendRange": 0.5
+      },
+      {
+        "Biome": "biome-sulfurous-mountains",
+        "Center": [ 0, 1, 1, 0 ],
+        "AxisWeight": [ 0, 1, 1, 0 ],
+        "BlendRange": 0.5
+      },
+      {
+        "Biome": "biome-sulfurous-plains",
+        "Center": [ 0, 1, 0, 0 ],
+        "AxisWeight": [ 0, 1, 1, 0 ],
+        "BlendRange": 1
+      }
+    ]
+  }
+}

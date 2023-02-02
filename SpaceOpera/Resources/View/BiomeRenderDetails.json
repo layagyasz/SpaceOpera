@@ -83,12 +83,7 @@
     "$id": "biome-ocean",
     "SpecularCoefficient": 2,
     "SpecularFactor": 128,
-    "ColorMode": "SolarScatteredOutput",
-    "SolarColorTransform": {
-      "Hue": 0,
-      "Saturation": 1,
-      "Lightness": 0.8
-    },
+    "Color": "#314e6c",
     "Roughness": 0
   },
   {
@@ -130,6 +125,6 @@
   },
   {
     "$id": "biome-volcanic-mountains",
-    "Color": "#000201"
+    "Color": "#505050"
   }
 ]
