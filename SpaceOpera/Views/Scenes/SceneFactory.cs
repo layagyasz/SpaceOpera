@@ -30,16 +30,18 @@ namespace SpaceOpera.Views.Scenes
         public IScene Create(Galaxy galaxy)
         {
             var model = GalaxyViewFactory.CreateModel(galaxy);
-            var camera = new SubjectiveCamera3d(1.5f, 1000, new(), 0.2f);
+            var camera = new SubjectiveCamera3d(1.5f, 1000, new(), 1);
             camera.OnCameraChange += (s, e) => model.Dirty();
             camera.SetPitch(-MathHelper.PiOver2 + 0.01f);
+            camera.SetYaw(MathHelper.PiOver2);
             var controller =
                 new PassthroughController(
-                    new SubjectiveCamera3dController(camera)
+                    new GalaxyCameraController(camera)
                     {
-                        KeySensitivity = 0.0005f,
+                        Radius2 = 1,
+                        KeySensitivity = 0.0004f,
                         MouseWheelSensitivity = 0.02f,
-                        PitchRange = new(-MathHelper.PiOver2 + 0.01f, MathHelper.PiOver2 - 0.01f),
+                        PitchRange = new(-MathHelper.PiOver2 + 0.01f, -0.125f * MathHelper.Pi),
                         DistanceRange = new(0.05f, 1)
                     });
             return new GalaxyScene(controller, camera, model);
