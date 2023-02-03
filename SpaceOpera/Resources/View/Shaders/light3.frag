@@ -45,7 +45,7 @@ void main()
     texture_normal = normalize(vec3(texture_normal.x * roughness, texture_normal.y * roughness, texture_normal.z));
     vec3 normal = combine_normals_tan(normalize(vert_normal), texture_normal);
 
-    vec3 light_normal = normalize(vert_position - light_position);
+    vec3 light_normal = normalize(light_position - vert_position);
     vec3 eye_normal = normalize(eye_position - vert_position);
     float diffuse = max(0, dot(normal, light_normal));
     float specular = max(0, specular_params.x

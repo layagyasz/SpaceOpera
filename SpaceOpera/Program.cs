@@ -29,7 +29,7 @@ namespace SpaceOpera
 
             var random = new Random();
             IScene scene;
-            int mode = 2;
+            int mode = 1;
             if (mode == 1)
             {
                 var planetGenerator =
@@ -40,7 +40,7 @@ namespace SpaceOpera
                     gameData.GalaxyGenerator!.StarSystemGenerator!.StarGeneratorSelector.Get(random.NextSingle());
                 var planet =
                     planetGenerator.Generate(
-                        random, orbitGenerator.Generate(random, starGenerator.Generate(random), 0));
+                        random, orbitGenerator.Generate(random, starGenerator.Generate(random), 80));
                 scene = viewFactory.SceneFactory.Create(planet);
             }
             else if (mode == 2)
@@ -54,8 +54,7 @@ namespace SpaceOpera
             }
 
             var screen = new SceneScreen(new NoOpController<Screen>(), Enumerable.Empty<IUiLayer>(), scene);
-            screen.Initialize();
-            ui.UiRoot = screen;
+            ui.SetRoot(screen);
             ui.Start();
         }
     }

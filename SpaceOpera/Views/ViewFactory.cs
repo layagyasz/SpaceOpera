@@ -31,7 +31,12 @@ namespace SpaceOpera.Views
                     viewData.GameResources!.GetShader("shader-light3"),
                     gameData.HumanEyeSensitivity!);
             return new(
-                new(galaxyViewFactory, stellarBodyViewFactory, gameData.HumanEyeSensitivity!), stellarBodyViewFactory);
+                new(
+                    galaxyViewFactory, 
+                    stellarBodyViewFactory,
+                    starViewFactory, 
+                    gameData.HumanEyeSensitivity!), 
+                stellarBodyViewFactory);
         }
     }
 }

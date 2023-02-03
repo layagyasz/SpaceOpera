@@ -32,6 +32,11 @@ namespace SpaceOpera.Views.StarViews
             _dirty = true;
         }
 
+        public VertexPseudo3 Get(int index)
+        {
+            return _vertices[index];
+        }
+
         public void Initialize() { }
 
         public void ResizeContext(Vector3 bounds) { }

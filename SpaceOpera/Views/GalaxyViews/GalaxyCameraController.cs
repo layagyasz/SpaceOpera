@@ -85,7 +85,7 @@ namespace SpaceOpera.Views.GalaxyViews
         {
             if (e.Button == MouseButton.Left)
             {
-                ChangeFocus(2 * _camera.Distance * new Vector3(_camera.AspectRatio * e.NdcDelta.X, 0, e.NdcDelta.Y)); 
+                ChangeFocus(2 * _camera.Distance * new Vector3(_camera.AspectRatio * e.NdcDelta.X, 0, -e.NdcDelta.Y)); 
                 return true;
             }
             return false;
