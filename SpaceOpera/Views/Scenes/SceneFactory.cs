@@ -1,30 +1,55 @@
 ﻿using Cardamom.Graphics.Camera;
+using Cardamom.Mathematics;
 using Cardamom.Mathematics.Color;
 using Cardamom.Ui;
 using Cardamom.Ui.Controller.Element;
 using OpenTK.Mathematics;
 using SpaceOpera.Core.Universe;
 using SpaceOpera.Core.Universe.Spectra;
+using SpaceOpera.Views.GalaxyViews;
 using SpaceOpera.Views.StellarBodyViews;
 
 namespace SpaceOpera.Views.Scenes
 {
     public class SceneFactory
     {
+        public GalaxyViewFactory GalaxyViewFactory { get; }
         public StellarBodyViewFactory StellarBodyViewFactory { get; }
         public SpectrumSensitivity HumanEyeSensitivity { get; }
 
-        public SceneFactory(StellarBodyViewFactory stellarBodyViewFactory, SpectrumSensitivity humanEyeSensitivity)
+        public SceneFactory(
+            GalaxyViewFactory galaxyViewFactory,
+            StellarBodyViewFactory stellarBodyViewFactory, 
+            SpectrumSensitivity humanEyeSensitivity)
         {
+            GalaxyViewFactory = galaxyViewFactory;
             StellarBodyViewFactory = stellarBodyViewFactory;
             HumanEyeSensitivity = humanEyeSensitivity;
+        }
+
+        public IScene Create(Galaxy galaxy)
+        {
+            var model = GalaxyViewFactory.CreateModel(galaxy);
+            var camera = new SubjectiveCamera3d(1.5f, 1000, new(), 0.2f);
+            camera.OnCameraChange += (s, e) => model.Dirty();
+            camera.SetPitch(-MathHelper.PiOver2 + 0.01f);
+            var controller =
+                new PassthroughController(
+                    new SubjectiveCamera3dController(camera)
+                    {
+                        KeySensitivity = 0.0005f,
+                        MouseWheelSensitivity = 0.02f,
+                        PitchRange = new(-MathHelper.PiOver2 + 0.01f, MathHelper.PiOver2 - 0.01f),
+                        DistanceRange = new(0.05f, 1)
+                    });
+            return new GalaxyScene(controller, camera, model);
         }
 
         public IScene Create(StellarBody stellarBody)
         {
             var spectrum = new BlackbodySpectrum(stellarBody.Orbit.Focus.Temperature);
             var lightColor = ToColor(HumanEyeSensitivity.GetColor(spectrum));
-            var model = StellarBodyViewFactory.GenerateModel(stellarBody);
+            var model = StellarBodyViewFactory.CreateModel(stellarBody);
             var camera = new SubjectiveCamera3d(1.5f, 1000, new(), 2);
             var controller =
                 new PassthroughController(

@@ -7,7 +7,7 @@ namespace SpaceOpera.Core.Universe
     public class StarSystem
     {
         public string Name { get; private set; } = string.Empty;
-        public Vector2 Position { get; }
+        public Vector3 Position { get; }
         public Star Star { get; }
         public float InnerBoundary { get; }
         public float OuterBoundary { get; }
@@ -18,7 +18,7 @@ namespace SpaceOpera.Core.Universe
         public SortedList<double, TransitRegion> Transits { get; private set; }
 
         public StarSystem(
-            Vector2 position,
+            Vector3 position,
             Star star, 
             float innerBoundary,
             float outerBoundary, 
@@ -41,7 +41,7 @@ namespace SpaceOpera.Core.Universe
             {
                 throw new ArgumentException(string.Format("{0} is not a neighbor of {1}", neighbor, this));
             }
-            Transits.Add(MathUtils.Theta(Position, neighbor.Position), new TransitRegion(neighbor));
+            Transits.Add(MathUtils.Theta(Position.Xz, neighbor.Position.Xz), new TransitRegion(neighbor));
         }
 
         public bool ContainsFaction(Faction faction)
@@ -57,8 +57,8 @@ namespace SpaceOpera.Core.Universe
         public void SetNeighbors(IEnumerable<StarSystem> neighbors)
         {
             Neighbors = neighbors.ToList();
-            var comparer = new ClockwiseVector2Comparer(Position);
-            Neighbors.Sort((x, y) => comparer.Compare(x.Position, y.Position));
+            var comparer = new ClockwiseVector2Comparer(Position.Xz);
+            Neighbors.Sort((x, y) => comparer.Compare(x.Position.Xz, y.Position.Xz));
         }
     }
 }

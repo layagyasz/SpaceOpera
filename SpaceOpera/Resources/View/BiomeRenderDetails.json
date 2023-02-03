@@ -94,8 +94,8 @@
   {
     "$id": "biome-sulfurous-plains",
     "Color": "#e2cd96",
-    "SpecularCoefficient": 0.5,
-    "SpecularFactor": 128,
+    "SpecularCoefficient": 0.25,
+    "SpecularFactor": 64,
     "Roughness": 0.25
   },
   {

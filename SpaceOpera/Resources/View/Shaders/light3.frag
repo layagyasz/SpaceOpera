@@ -34,7 +34,6 @@ vec3 combine_normals_tan(vec3 surface_normal, vec3 texture_normal)
     return as_cartesian(as_spherical(surface_normal) + as_spherical(texture_normal) - vec2(pi_over_2, pi_over_2));
 }
 
-
 void main()
 {
     vec4 lighting = texture(lighting_texture, vert_lighting_tex_coord);
@@ -42,12 +41,8 @@ void main()
     float luminance = lighting.z;
     float roughness = lighting.w;
 
-    vec3 texture_normal = vec3(0, 0, 1);
-    if (roughness > 0.00001)
-    {
-        texture_normal =  2 * texture(normal_texture, vert_normal_tex_coord).rgb - 1;
-        texture_normal = normalize(vec3(texture_normal.x * roughness, texture_normal.y * roughness, texture_normal.z));
-    }
+    vec3 texture_normal =  2 * texture(normal_texture, vert_normal_tex_coord).rgb - 1;
+    texture_normal = normalize(vec3(texture_normal.x * roughness, texture_normal.y * roughness, texture_normal.z));
     vec3 normal = combine_normals_tan(normalize(vert_normal), texture_normal);
 
     vec3 light_normal = normalize(vert_position - light_position);

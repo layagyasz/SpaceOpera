@@ -35,7 +35,7 @@ namespace SpaceOpera.Views.StellarBodyViews
             HumanEyeSensitivity = humanEyeSensitivity;
         }
 
-        public StellarBodyModel GenerateModel(StellarBody stellarBody)
+        public StellarBodyModel CreateModel(StellarBody stellarBody)
         {
             var spectrum = new BlackbodySpectrum(stellarBody.Orbit.Focus.Temperature);
             var peakWavelength =
@@ -53,7 +53,7 @@ namespace SpaceOpera.Views.StellarBodyViews
                         stellarBody.Parameters,
                         x => BiomeRenderDetails[x].GetColor(peakColor, scatteredColor),
                         x => BiomeRenderDetails[x].GetLighting());
-            var buffer = GenerateSphere(s_SphereHighResSubdivisions);
+            var buffer = CreateSphere(s_SphereHighResSubdivisions);
             return new StellarBodyModel(new(buffer, SurfaceShader, material));
         }
 
@@ -68,7 +68,7 @@ namespace SpaceOpera.Views.StellarBodyViews
             return ColorSystem.Ntsc.Transform(color);
         }
 
-        private static VertexBuffer<VertexLit3> GenerateSphere(int subdivisions)
+        private static VertexBuffer<VertexLit3> CreateSphere(int subdivisions)
         {
             var uvSphereSolid = Solid<Spherical3>.GenerateSphericalUvSphere(1, subdivisions);
             VertexLit3[] vertices = new VertexLit3[6 * uvSphereSolid.Faces.Length];

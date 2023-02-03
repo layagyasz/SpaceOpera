@@ -299,37 +299,37 @@
         "Biome": "biome-tundra",
         "Center": [ 0.375, 0, 0, 0 ],
         "AxisWeight": [ 1, 0, 0.5, 0 ],
-        "BlendRange": 0.2
+        "BlendRange": 0.25
       },
       {
         "Biome": "biome-taiga",
         "Center": [ 0.375, 0, 1, 0 ],
         "AxisWeight": [ 1, 0, 0.5, 0 ],
-        "BlendRange": 0.2
+        "BlendRange": 0.25
       },
       {
         "Biome": "biome-grassland",
         "Center": [ 0.7, 0, 0.425, 0 ],
         "AxisWeight": [ 1, 0, 1, 0 ],
-        "BlendRange": 0.2
+        "BlendRange": 0.25
       },
       {
         "Biome": "biome-forest",
         "Center": [ 0.7, 0, 0.875, 0 ],
         "AxisWeight": [ 1, 0, 1.5, 0 ],
-        "BlendRange": 0.2
+        "BlendRange": 0.25
       },
       {
         "Biome": "biome-savanna",
         "Center": [ 1, 0, 0.425, 0 ],
         "AxisWeight": [ 1.5, 0, 1.5, 0 ],
-        "BlendRange": 0.2
+        "BlendRange": 0.3
       },
       {
         "Biome": "biome-jungle",
         "Center": [ 1, 0, 1, 0 ],
         "AxisWeight": [ 1.5, 0, 1.5, 0 ],
-        "BlendRange": 0.2
+        "BlendRange": 0.25
       }
     ]
   }

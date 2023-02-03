@@ -5,5 +5,13 @@
       "Vertex": "Resources/View/Shaders/light3.vert",
       "Fragment": "Resources/View/Shaders/light3.frag"
     }
+  },
+  {
+    "$id": "shader-star",
+    "Element": {
+      "Vertex": "Resources/View/Shaders/star.vert",
+      "Geometry": "Resources/View/Shaders/star.geom",
+      "Fragment": "Resources/View/Shaders/star.frag"
+    }
   }
 ]

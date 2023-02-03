@@ -21,7 +21,7 @@ namespace SpaceOpera.Core.Universe.Generator
         public OrbitGenerator? OrbitGenerator { get; set; }
         public StellarBodyGeneratorSelector? StellarBodySelector { get; set; }
 
-        public StarSystem Generate(Random random, Vector2 position)
+        public StarSystem Generate(Random random, Vector3 position)
         {
             var star = StarGeneratorSelector.Get(random.NextSingle()).Generate(random);
             float innerBoundary = 

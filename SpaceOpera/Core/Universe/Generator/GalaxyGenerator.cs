@@ -1,4 +1,6 @@
 using Cardamom.Graphing;
+using Cardamom.Mathematics;
+using Cardamom.Utils.Generators.Samplers;
 using DelaunayTriangulator;
 using OpenTK.Mathematics;
 
@@ -6,6 +8,8 @@ namespace SpaceOpera.Core.Universe.Generator
 {
     public class GalaxyGenerator
     {
+        private static readonly ISampler s_YSampler = new NormalSampler(0, 1000);
+
         public float Radius { get; set; }
         public uint Arms { get; set; }
         public float Rotation { get; set; }
@@ -33,7 +37,7 @@ namespace SpaceOpera.Core.Universe.Generator
             {
                 _edges.AddRange(
                     wrappers.Select(
-                        x => new DefaultGraphEdge(this, x, Vector2.Distance(System.Position, x.System.Position))));
+                        x => new DefaultGraphEdge(this, x, Vector3.Distance(System.Position, x.System.Position))));
                 System.SetNeighbors(wrappers.Select(x => x.System));
             }
         }
@@ -66,7 +70,8 @@ namespace SpaceOpera.Core.Universe.Generator
             {
                 systemWrappers.Add(
                     new SystemWrapper(
-                        StarSystemGenerator!.Generate(random, new Vector2(vertices[i].x, vertices[i].y))));
+                        StarSystemGenerator!.Generate(
+                            random, new Vector3(vertices[i].x, s_YSampler.Generate(random), vertices[i].y))));
             }
             for (int i=0; i < StarCount;++i)
             {

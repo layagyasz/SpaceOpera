@@ -1,5 +1,7 @@
 ﻿using Cardamom.Collections;
+using SpaceOpera.Views.GalaxyViews;
 using SpaceOpera.Views.Scenes;
+using SpaceOpera.Views.StarViews;
 using SpaceOpera.Views.StellarBodyViews;
 
 namespace SpaceOpera.Views
@@ -17,6 +19,9 @@ namespace SpaceOpera.Views
 
         public static ViewFactory Create(ViewData viewData, GameData gameData)
         {
+            var starViewFactory = 
+                new StarViewFactory(viewData.GameResources!.GetShader("shader-star"), gameData.HumanEyeSensitivity!);
+            var galaxyViewFactory = new GalaxyViewFactory(starViewFactory);
             var stellarBodyViewFactory =
                 new StellarBodyViewFactory(
                     viewData.BiomeRenderDetails.ToDictionary(x => gameData.Biomes[x.Key], x => x.Value),
@@ -25,7 +30,8 @@ namespace SpaceOpera.Views
                         .ToLibrary(x => x.Key, x => x),
                     viewData.GameResources!.GetShader("shader-light3"),
                     gameData.HumanEyeSensitivity!);
-            return new(new(stellarBodyViewFactory, gameData.HumanEyeSensitivity!), stellarBodyViewFactory);
+            return new(
+                new(galaxyViewFactory, stellarBodyViewFactory, gameData.HumanEyeSensitivity!), stellarBodyViewFactory);
         }
     }
 }

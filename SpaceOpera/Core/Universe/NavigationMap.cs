@@ -262,7 +262,7 @@ namespace SpaceOpera.Core.Universe
 
         private static float GetStarSystemDistance(StarSystem left, StarSystem right)
         {
-            return Constants.AstralUnitPerLightYear * Vector2.Distance(left.Position, right.Position);
+            return Constants.AstralUnitPerLightYear * Vector3.Distance(left.Position, right.Position);
         }
 
         private static float HeuristicDistance(NavigableNode left, NavigableNode right)

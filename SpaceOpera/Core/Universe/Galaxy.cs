@@ -2,10 +2,10 @@ namespace SpaceOpera.Core.Universe
 {
     public class Galaxy
     {
-        public double Radius { get; }
+        public float Radius { get; }
         public List<StarSystem> Systems { get; }
 
-        public Galaxy(double radius, IEnumerable<StarSystem> systems)
+        public Galaxy(float radius, IEnumerable<StarSystem> systems)
         {
             Radius = radius;
             Systems = systems.ToList();
