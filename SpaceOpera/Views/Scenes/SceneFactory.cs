@@ -80,6 +80,7 @@ namespace SpaceOpera.Views.Scenes
                 camera, 
                 model,
                 StellarBodyViewFactory.SurfaceShader,
+                StellarBodyViewFactory.AtmosphereShader,
                 s_LuminanceRange.Clamp(s_LightPower * MathF.Log(stellarBody.Orbit.Focus.Luminosity + 1)),
                 logDistance * logDistance / (1000 * 1000),
                 StarViewFactory.CreateView(

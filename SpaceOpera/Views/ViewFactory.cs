@@ -29,7 +29,8 @@ namespace SpaceOpera.Views
                         .Select(x => x.Generator!)
                         .ToLibrary(x => x.Key, x => x),
                     viewData.GameResources!.GetShader("shader-light3"),
-                    gameData.HumanEyeSensitivity!);
+                    viewData.GameResources!.GetShader("shader-atmosphere"),
+                    gameData.HumanEyeSensitivity!); ;
             return new(
                 new(
                     galaxyViewFactory, 

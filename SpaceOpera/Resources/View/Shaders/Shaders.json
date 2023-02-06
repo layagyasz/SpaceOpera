@@ -1,5 +1,12 @@
 [
   {
+    "$id": "shader-atmosphere",
+    "Element": {
+      "Vertex": "Resources/View/Shaders/atmosphere.vert",
+      "Fragment": "Resources/View/Shaders/atmosphere.frag"
+    }
+  },
+  {
     "$id": "shader-light3",
     "Element": {
       "Vertex": "Resources/View/Shaders/light3.vert",

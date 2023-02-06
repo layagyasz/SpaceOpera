@@ -35,7 +35,7 @@ namespace SpaceOpera
                 var orbitGenerator = gameData.GalaxyGenerator!.StarSystemGenerator!.OrbitGenerator!;
                 var starGenerator =
                     gameData.GalaxyGenerator!.StarSystemGenerator!.StarGenerators
-                        .First(x => x.Key == "star-generator-white-dwarf");
+                        .First(x => x.Key == "star-generator-class-g");
                 var planet =
                     planetGenerator.Generate(
                         random, orbitGenerator.Generate(random, starGenerator.Generate(random), 1f));

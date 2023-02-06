@@ -9,29 +9,35 @@ using SpaceOpera.Core.Universe.Generator;
 using OpenTK.Graphics.OpenGL4;
 using SpaceOpera.Core.Universe.Spectra;
 using Cardamom.Mathematics.Color;
+using SharpFont;
 
 namespace SpaceOpera.Views.StellarBodyViews
 {
     public class StellarBodyViewFactory : GraphicsResource
     {
+        private readonly static float s_AtmosphericScattering = 4f;
         private readonly static int s_SphereHighResSubdivisions = 64;
 
-        private VertexBuffer<VertexLit3>? _sphereHighRes;
+        private VertexBuffer<VertexLit3>? _sphereHighResSurf;
+        private VertexBuffer<VertexLit3>? _sphereHighResAtmo;
 
         public Dictionary<Biome, BiomeRenderDetails> BiomeRenderDetails { get; }
         public Library<StellarBodyGenerator> StellarBodyGenerators { get; }
         public RenderShader SurfaceShader { get; }
+        public RenderShader AtmosphereShader { get; }
         public SpectrumSensitivity HumanEyeSensitivity { get; }
 
         public StellarBodyViewFactory(
             Dictionary<Biome, BiomeRenderDetails> biomeRenderDetails,
             Library<StellarBodyGenerator> stellarBodyGenerators,
-            RenderShader surfaceShader, 
+            RenderShader surfaceShader,
+            RenderShader atmosphereShader,
             SpectrumSensitivity humanEyeSensitivity)
         {
             BiomeRenderDetails = biomeRenderDetails;
             StellarBodyGenerators = stellarBodyGenerators;
             SurfaceShader = surfaceShader;
+            AtmosphereShader = atmosphereShader;
             HumanEyeSensitivity = humanEyeSensitivity;
         }
 
@@ -53,14 +59,27 @@ namespace SpaceOpera.Views.StellarBodyViews
                         stellarBody.Parameters,
                         x => BiomeRenderDetails[x].GetColor(peakColor, scatteredColor),
                         x => BiomeRenderDetails[x].GetLighting());
-            var buffer = CreateSphere(s_SphereHighResSubdivisions);
-            return new StellarBodyModel(new(buffer, SurfaceShader, material));
+            _sphereHighResSurf ??= CreateSphere(1f, s_SphereHighResSubdivisions, Color4.White);
+            _sphereHighResAtmo ??= 
+                CreateSphere(
+                    1.2f, 
+                    s_SphereHighResSubdivisions,
+                    new Color4(
+                        s_AtmosphericScattering * 0.1066f,
+                        s_AtmosphericScattering * 0.3244f, 
+                        s_AtmosphericScattering * 0.6830f,
+                        1f));
+            return new StellarBodyModel(
+                new(_sphereHighResSurf, SurfaceShader, material), _sphereHighResAtmo, AtmosphereShader);
         }
 
         protected override void DisposeImpl()
         {
-            _sphereHighRes?.Dispose();
-            _sphereHighRes = null;
+            _sphereHighResSurf?.Dispose();
+            _sphereHighResSurf = null;
+
+            _sphereHighResAtmo?.Dispose();
+            _sphereHighResAtmo = null;
         }
 
         private static Color4 ToColor(ColorCie color)
@@ -68,9 +87,9 @@ namespace SpaceOpera.Views.StellarBodyViews
             return ColorSystem.Ntsc.Transform(color);
         }
 
-        private static VertexBuffer<VertexLit3> CreateSphere(int subdivisions)
+        private static VertexBuffer<VertexLit3> CreateSphere(float scale, int subdivisions, Color4 color)
         {
-            var uvSphereSolid = Solid<Spherical3>.GenerateSphericalUvSphere(1, subdivisions);
+            var uvSphereSolid = Solid<Spherical3>.GenerateSphericalUvSphere(scale, subdivisions);
             VertexLit3[] vertices = new VertexLit3[6 * uvSphereSolid.Faces.Length];
             var projection = new CylindricalProjection.Spherical();
             for (int i = 0; i < uvSphereSolid.Faces.Length; ++i)
@@ -80,7 +99,7 @@ namespace SpaceOpera.Views.StellarBodyViews
                     var vert = uvSphereSolid.Faces[i].Vertices[j];
                     var texCoords = new Vector2(0.5f, 1) * projection.Project(vert);
                     var c = vert.AsCartesian();
-                    vertices[6 * i + j] = new(c, Color4.White, texCoords, c.Normalized(), texCoords, texCoords);
+                    vertices[6 * i + j] = new(c, color, texCoords, c.Normalized(), texCoords, texCoords);
                 }
             }
             return new(vertices, PrimitiveType.Triangles);
