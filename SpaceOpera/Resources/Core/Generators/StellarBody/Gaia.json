@@ -36,6 +36,7 @@
     }
   },
   "SurfaceGenerator": {
+    "HeightOutput": "denormalize",
     "HeightChannel": "Green",
     "Generators": {
       "stellar-body-generator-gaia-temperature-seed": {

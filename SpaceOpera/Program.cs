@@ -1,4 +1,3 @@
-using Cardamom.Graphics;
 using Cardamom.Ui;
 using Cardamom.Ui.Controller;
 using Cardamom.Window;
@@ -6,8 +5,6 @@ using OpenTK.Mathematics;
 using OpenTK.Windowing.Desktop;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using SpaceOpera.Views;
-using static System.Formats.Asn1.AsnWriter;
-using System.Numerics;
 
 namespace SpaceOpera
 {
@@ -37,10 +34,11 @@ namespace SpaceOpera
                         .First(x => x.Generator!.Key == "planet-generator-gaia").Generator!;
                 var orbitGenerator = gameData.GalaxyGenerator!.StarSystemGenerator!.OrbitGenerator!;
                 var starGenerator =
-                    gameData.GalaxyGenerator!.StarSystemGenerator!.StarGeneratorSelector.Get(random.NextSingle());
+                    gameData.GalaxyGenerator!.StarSystemGenerator!.StarGenerators
+                        .First(x => x.Key == "star-generator-white-dwarf");
                 var planet =
                     planetGenerator.Generate(
-                        random, orbitGenerator.Generate(random, starGenerator.Generate(random), 80));
+                        random, orbitGenerator.Generate(random, starGenerator.Generate(random), 1f));
                 scene = viewFactory.SceneFactory.Create(planet);
             }
             else if (mode == 2)

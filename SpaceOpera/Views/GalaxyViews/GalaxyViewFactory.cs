@@ -14,13 +14,12 @@ namespace SpaceOpera.Views.GalaxyViews
             StarViewFactory = starViewFactory;
         }
 
-        public GalaxyModel CreateModel(Galaxy galaxy)
+        public GalaxyModel CreateModel(Galaxy galaxy, float scale)
         {
-            var positionFactor = 1f / galaxy.Radius;
             return new GalaxyModel(
                 StarViewFactory.CreateView(galaxy.Systems.Select(x => x.Star),
-                galaxy.Systems.Select(x => positionFactor * x.Position),
-                s_StarScale * positionFactor));
+                galaxy.Systems.Select(x => scale * x.Position),
+                s_StarScale * scale));
         }
     }
 }

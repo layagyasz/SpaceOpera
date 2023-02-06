@@ -19,6 +19,8 @@ namespace SpaceOpera.Views.Scenes
 
         private readonly StellarBodyModel _stellarBodyModel;
         private readonly RenderShader _surfaceShader;
+        private readonly float _luminance;
+        private readonly float _attenuation;
         private StarBuffer? _star;
         private long _rotation = 0;
 
@@ -27,12 +29,16 @@ namespace SpaceOpera.Views.Scenes
             ICamera camera, 
             StellarBodyModel stellarBodyModel,
             RenderShader surfaceShader,
+            float luminance,
+            float attenuation,
             StarBuffer star)
         {
             Controller = controller;
             Camera = camera;
             _stellarBodyModel = stellarBodyModel;
             _surfaceShader = surfaceShader;
+            _luminance = luminance;
+            _attenuation = attenuation;
             _star = star;
         }
 
@@ -67,8 +73,10 @@ namespace SpaceOpera.Views.Scenes
             var starPosition = _star!.Get(0).Position;
             _surfaceShader.SetVector3("light_position", (new Vector4(starPosition, 1) * sceneMatrix).Xyz);
             _surfaceShader.SetVector3("eye_position", Camera.Position);
-            _surfaceShader.SetColor("light_color", _star!.Get(0).Color);
-            _surfaceShader.SetFloat("ambient", 0.1f);
+            _surfaceShader.SetColor("light_color",  _star!.Get(0).Color);
+            _surfaceShader.SetFloat("light_luminance", _luminance);
+            _surfaceShader.SetFloat("light_attenuation", _attenuation);
+            _surfaceShader.SetFloat("ambient", 0.2f);
             _stellarBodyModel.Draw(target, context);
 
             target.PopProjectionMatrix();

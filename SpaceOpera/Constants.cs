@@ -9,6 +9,7 @@ namespace SpaceOpera
         public static readonly float GravitationalConstant = 6.67408e-11f;
         public static readonly float AstralUnitPerLightYear = 63241.1f;
         public static readonly double Planck = 6.62606957e-34f;
+        public static readonly float SolarLuminosity = 3.828e20f;
         public static readonly float SolarMass = 1.98847e30f;
         public static readonly float SolarRadius = 695700;
         public static readonly float Wien = 2897771;

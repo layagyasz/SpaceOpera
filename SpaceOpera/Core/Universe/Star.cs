@@ -15,7 +15,9 @@ namespace SpaceOpera.Core.Universe
             Temperature = temperature;
             Radius = radius;
             Mass = mass;
-            Luminosity = 4000 * s_BoltzmanConstant * MathF.PI * MathF.Pow(radius, 2) * MathF.Pow(temperature, 4);
+            Luminosity = 
+                4 * s_BoltzmanConstant * MathF.PI * MathF.Pow(radius, 2) * MathF.Pow(temperature, 4) 
+                / Constants.SolarLuminosity;
         }
 
         public void SetName(string name)

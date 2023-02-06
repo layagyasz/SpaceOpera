@@ -127,6 +127,7 @@ namespace SpaceOpera.Core.Universe.Generator
                 = new();
             public List<BiomeOption> BiomeOptions { get; set; } = new();
             public Pipeline.Builder? Pipeline { get; set; }
+            public string? HeightOutput { get; set; }
             public Channel HeightChannel { get; set; }
 
             public StellarBodySurfaceGenerator Build()
@@ -200,14 +201,14 @@ namespace SpaceOpera.Core.Universe.Generator
                                 }))
                     .AddOutput("diffuse")
                     .AddOutput("lighting");
-                if (HeightChannel != Channel.None)
+                if (HeightOutput != null && HeightChannel != Channel.None)
                 {
                     surfacePipeline
                         .AddNode(
                             new SobelNode.Builder()
                                 .SetKey("normal")
                                 .SetChannel(HeightChannel)
-                                .SetInput("input", "output")
+                                .SetInput("input", HeightOutput)
                                 .SetParameters(
                                     new SobelNode.Parameters()
                                     {

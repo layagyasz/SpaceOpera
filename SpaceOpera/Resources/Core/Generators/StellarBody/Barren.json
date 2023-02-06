@@ -31,6 +31,7 @@
     }
   },
   "SurfaceGenerator": {
+    "HeightOutput": "denormalize",
     "HeightChannel": "Green",
     "Generators": {
       "stellar-body-generator-barren-temperature-seed": {

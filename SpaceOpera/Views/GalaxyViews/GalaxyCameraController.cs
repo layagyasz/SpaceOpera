@@ -18,7 +18,7 @@ namespace SpaceOpera.Views.GalaxyViews
         public float MouseWheelSensitivity { get; set; } = 1f;
         public Interval PitchRange { get; set; } = Interval.Unbounded;
         public Interval DistanceRange { get; set; } = Interval.Unbounded;
-        public float Radius2 { get; set; }
+        public float Radius { get; set; }
 
         private readonly SubjectiveCamera3d _camera;
 
@@ -54,9 +54,9 @@ namespace SpaceOpera.Views.GalaxyViews
         private void ChangeFocus(Vector3 delta)
         {
             var newFocus = _camera.Focus + delta;
-            if (Vector3.Dot(newFocus, newFocus) > Radius2)
+            if (Vector3.Dot(newFocus, newFocus) > Radius * Radius)
             {
-                newFocus = Radius2 * newFocus.Normalized();
+                newFocus = Radius * newFocus.Normalized();
             }
             _camera.SetFocus(newFocus);
         }
