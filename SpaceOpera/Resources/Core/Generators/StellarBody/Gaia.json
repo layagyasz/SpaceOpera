@@ -4,7 +4,7 @@
   "RadiusSampler": {
     "$type": "Normal",
     "Mean": 6000,
-    "StandardDeviation": 500
+    "StandardDeviation": 1500
   },
   "Density": 5510,
   "SubRegionDensity": 0.000004,
@@ -14,8 +14,8 @@
     "RegionDensity": 0.000175,
     "TotalPressureSampler": {
       "$type": "Normal",
-      "Scale": 1,
-      "StandardDeviation": 0.1
+      "Mean": 1,
+      "StandardDeviation": 0.3
     },
     "PartialPressureSamplers": {
       "material-alkane-gas": {

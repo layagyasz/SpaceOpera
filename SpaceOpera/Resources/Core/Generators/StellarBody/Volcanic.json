@@ -3,8 +3,8 @@
   "Name": "Volcanic Planet",
   "RadiusSampler": {
     "$type": "Normal",
-    "Mean": 3600,
-    "StandardDeviation": 300
+    "Mean": 6000,
+    "StandardDeviation": 2000
   },
   "Density": 3530,
   "SubRegionDensity": 0.000004,
@@ -14,8 +14,8 @@
     "RegionDensity": 0.000175,
     "TotalPressureSampler": {
       "$type": "Normal",
-      "Mean": 0.05,
-      "StandardDeviation": 0.01
+      "Mean": 75,
+      "StandardDeviation": 70
     },
     "PartialPressureSamplers": {}
   },

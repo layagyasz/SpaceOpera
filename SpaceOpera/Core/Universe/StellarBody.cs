@@ -15,7 +15,7 @@ namespace SpaceOpera.Core.Universe
         public float Radius { get; }
         public float Mass { get; }
         public Orbit Orbit { get; }
-        public MultiQuantity<IMaterial> Atmosphere { get; }
+        public Atmosphere Atmosphere { get; }
         public List<StellarBodyRegion> Regions { get; }
         public List<StationaryOrbitRegion> OrbitRegions { get; }
         
@@ -25,7 +25,7 @@ namespace SpaceOpera.Core.Universe
             float radius,
             float mass,
             Orbit orbit,
-            MultiQuantity<IMaterial> atmosphere,
+            Atmosphere atmosphere,
             IEnumerable<StellarBodyRegion> regions, 
             IEnumerable<StationaryOrbitRegion> orbitRegions)
         {

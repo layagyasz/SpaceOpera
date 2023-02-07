@@ -4,7 +4,7 @@
   "RadiusSampler": {
     "$type": "Normal",
     "Mean": 3500,
-    "StandardDeviation": 500
+    "StandardDeviation": 1000
   },
   "Density": 3930,
   "SubRegionDensity": 0.000004,

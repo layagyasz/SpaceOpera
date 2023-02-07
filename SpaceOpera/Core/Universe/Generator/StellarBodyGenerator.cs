@@ -230,13 +230,14 @@ namespace SpaceOpera.Core.Universe.Generator
                 orbitRegions.Add(region);
             }
 
+            float mass = 4 * Density * MathF.PI * radius * radius * radius / 3;
             return new StellarBody(
                 Key,
                 parameters,
                 radius,
-                4 * Density * MathF.PI * radius * radius * radius / 3,
+                mass,
                 orbit,
-                AtmosphereGenerator.Generate(random), 
+                AtmosphereGenerator.Generate(random, mass, radius), 
                 regions, 
                 orbitRegions);
         }

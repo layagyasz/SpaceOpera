@@ -82,16 +82,12 @@ namespace SpaceOpera.Views.Scenes
             _surfaceShader.SetFloat("light_attenuation", _attenuation);
             _surfaceShader.SetFloat("ambient", 0.5f);
             _atmosphereShader.SetVector3("center_position", new());
-            _atmosphereShader.SetFloat("outer_radius", 1.1f);
-            _atmosphereShader.SetFloat("inner_radius", 1f);
             _atmosphereShader.SetVector3("light_position", lightPosition);
             _atmosphereShader.SetVector3("eye_position", Camera.Position);
             _atmosphereShader.SetColor("light_color", _star!.Get(0).Color);
             _atmosphereShader.SetFloat("light_luminance", _luminance);
             _atmosphereShader.SetFloat("light_attenuation", _attenuation);
-            _atmosphereShader.SetFloat("atmosphere_density", 10);
-            _atmosphereShader.SetFloat("atmosphere_density_falloff", 4);
-            _atmosphereShader.SetInt32("atmosphere_precision", 10);
+
             _stellarBodyModel.Draw(target, context);
 
             target.PopProjectionMatrix();

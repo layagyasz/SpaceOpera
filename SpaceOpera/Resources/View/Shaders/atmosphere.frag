@@ -94,7 +94,7 @@ void main()
         vec3 light_direction = light_position - vert_position;
         float l = light_luminance / (light_attenuation * dot(light_direction, light_direction));
         vec4 a = atmosphere_light(eye_position + eye_normal * outer_intersection.x, eye_normal, d);
-        a.a = clamp(a.a, 0, 0.8f);
+        a.a = clamp(a.a, 0, 0.9f);
         out_color = vec4(clamp(l * light_color.rgb * a.rgb, 0f, 1f), a.a);
     }
     else

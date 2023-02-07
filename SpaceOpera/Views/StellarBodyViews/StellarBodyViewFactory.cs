@@ -13,13 +13,10 @@ using SharpFont;
 
 namespace SpaceOpera.Views.StellarBodyViews
 {
-    public class StellarBodyViewFactory : GraphicsResource
+    public class StellarBodyViewFactory
     {
-        private readonly static float s_AtmosphericScattering = 4f;
+        private readonly static float s_AtmosphericScattering = 2f;
         private readonly static int s_SphereHighResSubdivisions = 64;
-
-        private VertexBuffer<VertexLit3>? _sphereHighResSurf;
-        private VertexBuffer<VertexLit3>? _sphereHighResAtmo;
 
         public Dictionary<Biome, BiomeRenderDetails> BiomeRenderDetails { get; }
         public Library<StellarBodyGenerator> StellarBodyGenerators { get; }
@@ -43,6 +40,7 @@ namespace SpaceOpera.Views.StellarBodyViews
 
         public StellarBodyModel CreateModel(StellarBody stellarBody)
         {
+            float scale = 1f / stellarBody.Radius;
             var spectrum = new BlackbodySpectrum(stellarBody.Orbit.Focus.Temperature);
             var peakWavelength =
                 Math.Min(
@@ -59,10 +57,10 @@ namespace SpaceOpera.Views.StellarBodyViews
                         stellarBody.Parameters,
                         x => BiomeRenderDetails[x].GetColor(peakColor, scatteredColor),
                         x => BiomeRenderDetails[x].GetLighting());
-            _sphereHighResSurf ??= CreateSphere(1f, s_SphereHighResSubdivisions, Color4.White);
-            _sphereHighResAtmo ??= 
+            var surface = CreateSphere(scale * stellarBody.Radius, s_SphereHighResSubdivisions, Color4.White);
+            var atmosphere = 
                 CreateSphere(
-                    1.2f, 
+                    scale * stellarBody.Atmosphere.Radius, 
                     s_SphereHighResSubdivisions,
                     new Color4(
                         s_AtmosphericScattering * 0.1066f,
@@ -70,16 +68,7 @@ namespace SpaceOpera.Views.StellarBodyViews
                         s_AtmosphericScattering * 0.6830f,
                         1f));
             return new StellarBodyModel(
-                new(_sphereHighResSurf, SurfaceShader, material), _sphereHighResAtmo, AtmosphereShader);
-        }
-
-        protected override void DisposeImpl()
-        {
-            _sphereHighResSurf?.Dispose();
-            _sphereHighResSurf = null;
-
-            _sphereHighResAtmo?.Dispose();
-            _sphereHighResAtmo = null;
+                stellarBody, scale, new(surface, SurfaceShader, material), atmosphere, AtmosphereShader);
         }
 
         private static Color4 ToColor(ColorCie color)

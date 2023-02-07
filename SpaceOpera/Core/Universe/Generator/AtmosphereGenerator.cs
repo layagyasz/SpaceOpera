@@ -8,15 +8,19 @@ namespace SpaceOpera.Core.Universe.Generator
 {
     public class AtmosphereGenerator
     {
+        private static readonly float s_BaseOpticalThickness = 4f;
+        private static readonly float s_BaseThickness = 300;
+        private static readonly float s_BaseFalloff = 4f;
+
         public float RegionDensity { get; set; }
         public ISampler? TotalPressureSampler { get; set; }
         [JsonConverter(typeof(ReferenceDictionaryJsonConverter))]
         public Dictionary<IMaterial, ISampler> PartialPressureSamplers { get; set; } = new();
 
-        public MultiQuantity<IMaterial> Generate(Random random)
+        public Atmosphere Generate(Random random, float bodyMass, float bodyRadius)
         {
             var result = new MultiQuantity<IMaterial>();
-            float pressure = (float)TotalPressureSampler!.Generate(random);
+            float pressure = Math.Max(0, TotalPressureSampler!.Generate(random));
             foreach (var sampler in PartialPressureSamplers)
             {
                 float weight = sampler.Value.Generate(random);
@@ -26,7 +30,17 @@ namespace SpaceOpera.Core.Universe.Generator
                     result.Add(sampler.Key, efficiency);
                 }
             }
-            return result;
+
+            float g = 
+                MathF.Sqrt(
+                    1000 * Constants.GravitationalConstant * bodyMass 
+                    / (bodyRadius * bodyRadius * Constants.EarthGravity));
+            float falloff = s_BaseFalloff * g;
+            return new(
+                result,
+                bodyRadius + s_BaseThickness / MathF.Sqrt(g), 
+                -pressure * falloff * falloff * s_BaseOpticalThickness / (1 - falloff - MathF.Exp(-falloff)),
+                falloff);
         }
 
         private static float Round(float x, int figures)

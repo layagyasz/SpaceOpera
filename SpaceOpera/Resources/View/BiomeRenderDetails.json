@@ -83,7 +83,7 @@
     "$id": "biome-ocean",
     "SpecularCoefficient": 2,
     "SpecularFactor": 128,
-    "Color": "#314e6c",
+    "Color": "#1b3755",
     "Roughness": 0
   },
   {
