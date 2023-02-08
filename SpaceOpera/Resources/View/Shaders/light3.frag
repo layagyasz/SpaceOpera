@@ -33,7 +33,7 @@ vec3 as_cartesian(vec2 v)
 vec3 combine_normals_tan(vec3 surface_normal, vec3 texture_normal)
 {
     const float pi_over_2 = 1.57079632f;
-    return as_cartesian(as_spherical(surface_normal) + as_spherical(texture_normal) - vec2(pi_over_2, pi_over_2));
+    return as_cartesian(as_spherical(surface_normal) - as_spherical(texture_normal) + vec2(pi_over_2, pi_over_2));
 }
 
 void main()

@@ -31,7 +31,7 @@ namespace SpaceOpera
             {
                 var planetGenerator =
                     gameData.GalaxyGenerator!.StarSystemGenerator!.StellarBodySelector!.Options
-                        .First(x => x.Generator!.Key == "planet-generator-gaia").Generator!;
+                        .First(x => x.Generator!.Key == "planet-generator-barren").Generator!;
                 var orbitGenerator = gameData.GalaxyGenerator!.StarSystemGenerator!.OrbitGenerator!;
                 var starGenerator =
                     gameData.GalaxyGenerator!.StarSystemGenerator!.StarGenerators

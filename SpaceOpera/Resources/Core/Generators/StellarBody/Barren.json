@@ -31,7 +31,7 @@
     }
   },
   "SurfaceGenerator": {
-    "HeightOutput": "denormalize",
+    "HeightOutput": "wave-form",
     "HeightChannel": "Green",
     "Generators": {
       "stellar-body-generator-barren-temperature-seed": {
@@ -159,17 +159,56 @@
           }
         },
         {
+          "$type": "SpotNoise",
+          "Key": "crater",
+          "Channel": [ "Alpha" ],
+          "Inputs": {
+            "input": "position"
+          },
+          "Output": "ferrous",
+          "Parameters": {
+            "Seed": {
+              "$ref": "stellar-body-generator-barren-ferrous-seed"
+            },
+            "Frequency": {
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
+              "Object": {
+                "Value": 2.0
+              }
+            },
+            "Amplitude": {
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
+              "Object": {
+                "Value": 0.2
+              }
+            },
+            "Octaves": {
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Int32], Cardamom",
+              "Object": {
+                "Value": 3
+              }
+            },
+            "Density": {
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[Cardamom.Mathematics.IntInterval, Cardamom]], Cardamom",
+              "Object": {
+                "Value": [ -10, 10 ]
+              }
+            }
+          }
+        },
+        {
           "$type": "Denormalize",
           "Key": "denormalize",
           "Channel": [ "Color" ],
           "Inputs": {
-            "input": "ferrous"
-          }
+            "input": "crater"
+          },
+          "Output": "crater"
         },
         {
           "$type": "Combine",
           "Key": "combine",
-          "Channel": [ "Color" ],
+          "Channel": [ "All" ],
           "Inputs": {
             "left": "position",
             "right": "denormalize"
@@ -182,7 +221,7 @@
                   [ 0, 0, 0, 0 ],
                   [ 1, 0, 0, 0 ],
                   [ 0, 0, 0, 0 ],
-                  [ 0, 0, 0, 0 ]
+                  [ 0, 0, 0, 1 ]
                 ]
               }
             },
@@ -193,7 +232,7 @@
                   [ 0.25, 0, 0, 0 ],
                   [ 0, 1, 0, 0 ],
                   [ 0, 0, 1, 0 ],
-                  [ 0, 0, 0, 1 ]
+                  [ 0, -0.25, 0, 0 ]
                 ]
               }
             }

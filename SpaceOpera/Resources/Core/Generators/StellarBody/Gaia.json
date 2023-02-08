@@ -134,12 +134,12 @@
           "Parameters": {
             "Seed": {
               "$ref": "stellar-body-generator-gaia-height-seed"
-            }
-          },
-          "Frequency": {
-            "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
-            "Object": {
-              "Value": 2.0
+            },
+            "Frequency": {
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
+              "Object": {
+                "Value": 2.0
+              }
             }
           }
         },
