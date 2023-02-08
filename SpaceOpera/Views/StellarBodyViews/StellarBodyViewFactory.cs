@@ -9,13 +9,12 @@ using SpaceOpera.Core.Universe.Generator;
 using OpenTK.Graphics.OpenGL4;
 using SpaceOpera.Core.Universe.Spectra;
 using Cardamom.Mathematics.Color;
-using SharpFont;
 
 namespace SpaceOpera.Views.StellarBodyViews
 {
     public class StellarBodyViewFactory
     {
-        private readonly static float s_AtmosphericScattering = 2f;
+        private readonly static float s_AtmosphericScattering = 4f;
         private readonly static int s_SphereHighResSubdivisions = 64;
 
         public Dictionary<Biome, BiomeRenderDetails> BiomeRenderDetails { get; }

@@ -8,7 +8,7 @@ namespace SpaceOpera.Core.Universe.Generator
 {
     public class AtmosphereGenerator
     {
-        private static readonly float s_BaseOpticalThickness = 4f;
+        private static readonly float s_BaseOpticalThickness = 0.1f;
         private static readonly float s_BaseThickness = 300;
         private static readonly float s_BaseFalloff = 4f;
 

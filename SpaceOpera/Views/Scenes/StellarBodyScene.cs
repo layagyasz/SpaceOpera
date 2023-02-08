@@ -23,6 +23,7 @@ namespace SpaceOpera.Views.Scenes
         private readonly float _luminance;
         private readonly float _attenuation;
         private StarBuffer? _star;
+        private readonly Skybox _skybox;
         private long _rotation = 0;
 
         public StellarBodyScene(
@@ -33,7 +34,8 @@ namespace SpaceOpera.Views.Scenes
             RenderShader atmosphereShader,
             float luminance,
             float attenuation,
-            StarBuffer star)
+            StarBuffer star,
+            Skybox skybox)
         {
             Controller = controller;
             Camera = camera;
@@ -43,6 +45,7 @@ namespace SpaceOpera.Views.Scenes
             _luminance = luminance;
             _attenuation = attenuation;
             _star = star;
+            _skybox = skybox;
         }
 
         public void Initialize()
@@ -69,6 +72,7 @@ namespace SpaceOpera.Views.Scenes
 
             var sceneMatrix = Matrix4.CreateRotationY(_rotation * s_StarSpeed);
             target.PushModelMatrix(sceneMatrix);
+            _skybox.Draw(target, context);
             _star!.Dirty();
             _star!.Draw(target, context);
             target.PopModelMatrix();

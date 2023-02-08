@@ -36,7 +36,8 @@ namespace SpaceOpera.Views
                     galaxyViewFactory, 
                     stellarBodyViewFactory,
                     starViewFactory, 
-                    gameData.HumanEyeSensitivity!), 
+                    gameData.HumanEyeSensitivity!,
+                    viewData.GameResources!.GetShader("shader-default")), 
                 stellarBodyViewFactory);
         }
     }

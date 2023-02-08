@@ -7,6 +7,13 @@
     }
   },
   {
+    "$id": "shader-default",
+    "Element": {
+      "Vertex": "Resources/View/Shaders/default.vert",
+      "Fragment": "Resources/View/Shaders/default.frag"
+    }
+  },
+  {
     "$id": "shader-light3",
     "Element": {
       "Vertex": "Resources/View/Shaders/light3.vert",

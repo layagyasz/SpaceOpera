@@ -40,8 +40,9 @@ vec2 intersect_sphere(vec3 sphere_center, float sphere_radius, vec3 ray_origin, 
 
 float density(vec3 p)
 {
-    float h = (distance(p, center_position) - inner_radius) / (outer_radius - inner_radius);
-    return atmosphere_density * exp(-h * atmosphere_density_falloff) * (1 - h);
+    float d = 1f / (outer_radius - inner_radius);
+    float h = d * (distance(p, center_position) - inner_radius);
+    return d * atmosphere_density * exp(-h * atmosphere_density_falloff) * (1 - h);
 }
 
 float optical_depth(vec3 ray_origin, vec3 ray_direction, float ray_length)
