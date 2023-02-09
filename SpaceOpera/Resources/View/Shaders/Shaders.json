@@ -14,10 +14,25 @@
     }
   },
   {
+    "$id": "shader-default-no-tex",
+    "Element": {
+      "Vertex": "Resources/View/Shaders/default.vert",
+      "Fragment": "Resources/View/Shaders/default_no_tex.frag"
+    }
+  },
+  {
     "$id": "shader-light3",
     "Element": {
       "Vertex": "Resources/View/Shaders/light3.vert",
       "Fragment": "Resources/View/Shaders/light3.frag"
+    }
+  },
+  {
+    "$id": "shader-pin",
+    "Element": {
+      "Vertex": "Resources/View/Shaders/pin.vert",
+      "Geometry": "Resources/View/Shaders/pin.geom",
+      "Fragment": "Resources/View/Shaders/pin.frag"
     }
   },
   {

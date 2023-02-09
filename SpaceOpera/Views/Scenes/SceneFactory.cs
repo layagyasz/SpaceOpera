@@ -22,7 +22,7 @@ namespace SpaceOpera.Views.Scenes
 {
     public class SceneFactory
     {
-        private static readonly float s_GalaxyScale = 0.00005f;
+        private static readonly float s_GalaxyScale = 0.0001f;
         private static readonly float s_SkyboxRadius = 1100;
         private static readonly int s_SkyboxPrecision = 64;
         private static readonly int s_SkyboxResolution = 2048;
@@ -157,7 +157,7 @@ namespace SpaceOpera.Views.Scenes
                                 {
                                     Seed = ConstantSupplier<int>.Create(GetHashCode()),
                                     Frequency = ConstantSupplier<float>.Create(50f),
-                                    Amplitude = ConstantSupplier<float>.Create(0.1f)
+                                    Scale = ConstantSupplier<Interval>.Create(new Interval(0.09f, 0.11f))
                                 }))
                     .AddOutput("spot-noise")
                     .Build();

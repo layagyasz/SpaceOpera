@@ -52,7 +52,7 @@ namespace SpaceOpera.Views.StellarBodyViews
                 _atmosphereModel!, 
                 0,
                 _atmosphereModel!.Length, 
-                new RenderResources(BlendMode.Alpha, _atmosphereShader) { EnableDepthTest = false });
+                new RenderResources(BlendMode.Alpha, _atmosphereShader));
         }
 
         public void Update(long delta)

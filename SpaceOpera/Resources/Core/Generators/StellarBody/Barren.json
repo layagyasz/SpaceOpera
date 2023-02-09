@@ -46,6 +46,10 @@
         "Type": "Cardamom.Utils.Generators.Numeric.SeedGenerator, Cardamom",
         "Object": {}
       },
+      "stellar-body-generator-barren-crater-seed": {
+        "Type": "Cardamom.Utils.Generators.Numeric.SeedGenerator, Cardamom",
+        "Object": {}
+      },
       "stellar-body-generator-barren-temperature-offset": {
         "Type": "Cardamom.Utils.Generators.Numeric.FloatGenerator, Cardamom",
         "Object": {
@@ -78,6 +82,11 @@
       },
       {
         "$id": "stellar-body-generator-barren-ferrous-seed",
+        "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Int32], Cardamom",
+        "Object": {}
+      },
+      {
+        "$id": "stellar-body-generator-barren-crater-seed",
         "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Int32], Cardamom",
         "Object": {}
       },
@@ -168,18 +177,24 @@
           "Output": "ferrous",
           "Parameters": {
             "Seed": {
-              "$ref": "stellar-body-generator-barren-ferrous-seed"
+              "$ref": "stellar-body-generator-barren-crater-seed"
             },
             "Frequency": {
               "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
               "Object": {
-                "Value": 2.0
+                "Value": 1.5
               }
             },
             "Amplitude": {
               "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
               "Object": {
-                "Value": 0.2
+                "Value": 2
+              }
+            },
+            "Scale": {
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[Cardamom.Mathematics.Interval, Cardamom]], Cardamom",
+              "Object": {
+                "Value": [ 0.2, 0.6 ]
               }
             },
             "Octaves": {
@@ -191,7 +206,7 @@
             "Density": {
               "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[Cardamom.Mathematics.IntInterval, Cardamom]], Cardamom",
               "Object": {
-                "Value": [ -10, 10 ]
+                "Value": [ -3, 1 ]
               }
             }
           }
@@ -234,6 +249,12 @@
                   [ 0, 0, 1, 0 ],
                   [ 0, -0.25, 0, 0 ]
                 ]
+              }
+            },
+            "Bias": {
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[OpenTK.Mathematics.Vector4, OpenTK.Mathematics]], Cardamom",
+              "Object": {
+                "Value": [ 0, -0.25, 0, 0 ]
               }
             }
           }

@@ -8,7 +8,7 @@ namespace SpaceOpera.Core.Universe.Generator
 {
     public class GalaxyGenerator
     {
-        private static readonly ISampler s_YSampler = new NormalSampler(0, 1000);
+        private static readonly ISampler s_YSampler = new NormalSampler(0, 100);
 
         public float Radius { get; set; }
         public uint Arms { get; set; }
