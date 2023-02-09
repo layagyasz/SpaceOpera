@@ -16,6 +16,7 @@ void main()
     float cycle = mod(vert_color.a + cycle_time, 1);
     float f = flicker * (cos(cycle * 20 * pi) * sin(cycle * 10 * pi) + 1) + (1 - flicker);
     float a = attenuation * dot(vert_internal_position, vert_internal_position);
+    float s = f / a;
 
-    out_color = f * vec4(vert_color.rgb, 1) / a;
+    out_color = vec4(max(1, s) * vert_color.rgb, s);
 }

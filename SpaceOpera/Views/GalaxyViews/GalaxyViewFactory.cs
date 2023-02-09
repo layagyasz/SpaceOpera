@@ -12,15 +12,15 @@ namespace SpaceOpera.Views.GalaxyViews
         private static readonly Color4 s_PinColor = new(0.7f, 0.7f, 0.7f, 1f);
         private static readonly float s_PinDashLength = 128f;
         private static readonly float s_PinPadding = 128f;
-        private static readonly float s_PinY = -1024f;
+        private static readonly float s_PinY = -612f;
         private static readonly float s_PinScale = 14f;
 
         private static readonly float s_StarScale = 4096f;
 
         private static readonly Color4 s_TransitColor = new(0.5f, 0.5f, 0.5f, 1f);
-        private static readonly Vector3 s_TransitOffset = new(0, -500f, 0);
+        private static readonly Vector3 s_TransitOffset = new(0, -512f, 0);
         private static readonly float s_TransitPadding = 0f;
-        private static readonly float s_TransitScale = 128f;
+        private static readonly float s_TransitScale = 64f;
 
         public StarViewFactory StarViewFactory { get; }
         public RenderShader TransitShader { get; }

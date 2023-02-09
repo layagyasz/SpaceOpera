@@ -95,6 +95,7 @@ namespace SpaceOpera.Views.GalaxyViews
         {
             _camera.SetDistance(DistanceRange.Clamp(_camera.Distance - MouseWheelSensitivity * e.OffsetY));
             float p = 1 - (_camera.Distance - DistanceRange.Minimum) / (DistanceRange.Maximum - DistanceRange.Minimum);
+            p = p * p * p * p;
             _camera.SetPitch(PitchRange.Minimum + (PitchRange.Maximum - PitchRange.Minimum) * p);
             return true;
         }

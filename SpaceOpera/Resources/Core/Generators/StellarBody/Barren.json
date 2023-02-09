@@ -191,6 +191,12 @@
                 "Value": 2
               }
             },
+            "Persistence": {
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
+              "Object": {
+                "Value": 0.9
+              }
+            },
             "Scale": {
               "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[Cardamom.Mathematics.Interval, Cardamom]], Cardamom",
               "Object": {
