@@ -2,9 +2,8 @@
   "$id": "planet-generator-barren",
   "Name": "Barren Planet",
   "RadiusSampler": {
-    "$type": "Normal",
-    "Mean": 3500,
-    "StandardDeviation": 1000
+    "$type": "Uniform",
+    "Range": [ 2000, 5000 ]
   },
   "Density": 3930,
   "SubRegionDensity": 0.000004,

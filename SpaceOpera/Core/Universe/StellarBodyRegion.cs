@@ -84,7 +84,8 @@ namespace SpaceOpera.Core.Universe
 
         public IEnumerable<StellarBodyRegion> GetNeighbors()
         {
-            return SubRegions.SelectMany(x => x.Neighbors!).Select(x => x.ParentRegion!).Where(x => x != this);
+            return SubRegions
+                .SelectMany(x => x.Neighbors!).Select(x => x.ParentRegion!).Where(x => x != this).Distinct();
         }
 
         private void HandleDivisionAdded(object? sender, ElementEventArgs<Division> e)

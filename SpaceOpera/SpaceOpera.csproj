@@ -30,7 +30,7 @@
     <None Update="Resources\Core\Generators\StellarBody\Volcanic.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Core\HumanEyeSensitivity.json">
+    <None Update="Resources\View\HumanEyeSensitivity.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\View\BiomeRenderDetails.json">
@@ -39,7 +39,7 @@
     <None Update="Resources\Core\Biomes.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\GameData.json">
+    <None Update="Resources\Core\CoreData.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\GameResources.json">
@@ -114,7 +114,7 @@
     <None Update="Resources\Core\Structures.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\ViewData.json">
+    <None Update="Resources\View\ViewData.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\View\Shaders\star.frag">

@@ -4,6 +4,7 @@ using Cardamom.Window;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Desktop;
 using OpenTK.Windowing.GraphicsLibraryFramework;
+using SpaceOpera.Core;
 using SpaceOpera.Views;
 
 namespace SpaceOpera
@@ -20,21 +21,21 @@ namespace SpaceOpera
             ui.Bind(
                 new KeyboardListener(SimpleKeyMapper.Us, new Keys[] { Keys.Left, Keys.Right, Keys.Up, Keys.Down }));
 
-            var gameData = GameData.LoadFrom("Resources/GameData.json");
-            var viewData = ViewData.LoadFrom("Resources/ViewData.json");
-            var viewFactory = ViewFactory.Create(viewData, gameData);
+            var coreData = CoreData.LoadFrom("Resources/Core/CoreData.json");
+            var viewData = ViewData.LoadFrom("Resources/View/ViewData.json");
+            var viewFactory = ViewFactory.Create(viewData, coreData);
 
             var random = new Random();
             IScene scene;
-            int mode = 2;
+            int mode = 4;
             if (mode == 1)
             {
                 var planetGenerator =
-                    gameData.GalaxyGenerator!.StarSystemGenerator!.StellarBodySelector!.Options
+                    coreData.GalaxyGenerator!.StarSystemGenerator!.StellarBodySelector!.Options
                         .First(x => x.Generator!.Key == "planet-generator-gaia").Generator!;
-                var orbitGenerator = gameData.GalaxyGenerator!.StarSystemGenerator!.OrbitGenerator!;
+                var orbitGenerator = coreData.GalaxyGenerator!.StarSystemGenerator!.OrbitGenerator!;
                 var starGenerator =
-                    gameData.GalaxyGenerator!.StarSystemGenerator!.StarGenerators
+                    coreData.GalaxyGenerator!.StarSystemGenerator!.StarGenerators
                         .First(x => x.Key == "star-generator-class-g");
                 var planet =
                     planetGenerator.Generate(
@@ -43,8 +44,20 @@ namespace SpaceOpera
             }
             else if (mode == 2)
             {
-                var galaxy = gameData.GalaxyGenerator!.Generate(random);
+                throw new ArgumentException("Star system view not yet implemented");
+            }
+            else if (mode == 3)
+            {
+                var galaxy = coreData.GalaxyGenerator!.Generate(random);
                 scene = viewFactory.SceneFactory.Create(galaxy);
+            }
+            else if (mode == 4)
+            {
+                var playerCulture = coreData.PoliticsGenerator!.Culture!.Generate(random);
+                var playerBanner = coreData.PoliticsGenerator!.Banner!.Generate(random);
+                var playerFaction = coreData.PoliticsGenerator!.Faction!.Generate(playerCulture, playerBanner, random);
+                var world = WorldGenerator.Generate(playerCulture, playerFaction, coreData, random);
+                scene = viewFactory.SceneFactory.Create(world.Galaxy);
             }
             else
             {

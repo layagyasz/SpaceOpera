@@ -1,0 +1,5 @@
+{
+  "GameResources": "Resources/GameResources.json",
+  "BiomeRenderDetails": "Resources/View/BiomeRenderDetails.json",
+  "HumanEyeSensitivity": "Resources/View/HumanEyeSensitivity.json"
+}

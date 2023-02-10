@@ -23,7 +23,8 @@ namespace SpaceOpera.Core.Universe.Generator
 
         private static readonly int s_SurfaceSize = 2048;
         private static ICanvasProvider? s_SurfaceCanvaseProvider;
-            
+
+        public static int MaxSubRegions => s_TexSize * s_TexSize;
 
         private readonly Dictionary<string, IGenerator> _generators;
         private readonly Library<Cardamom.Utils.Suppliers.Generic.IConstantSupplier> _parameters;

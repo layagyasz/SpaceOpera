@@ -67,8 +67,6 @@ namespace SpaceOpera.Core.Universe.Generator
 
         public StellarBody Generate(Random random, Orbit orbit)
         {
-            return GenerateAux(random, orbit);
-            /*
             while (true)
             {
                 try
@@ -81,13 +79,15 @@ namespace SpaceOpera.Core.Universe.Generator
                     continue;
                 }
             }
-            */
         }
 
         private StellarBody GenerateAux(Random random, Orbit orbit)
         { 
             float radius = RadiusSampler!.Generate(random);
-            int subRegionCount = (int)Math.Ceiling(4 * SubRegionDensity * Math.PI * radius * radius);
+            int subRegionCount =
+                Math.Min(
+                    StellarBodySurfaceGenerator.MaxSubRegions, 
+                    (int)Math.Ceiling(4 * SubRegionDensity * Math.PI * radius * radius));
 
             Vector3[] centers = new Vector3[subRegionCount];
             List<Vertex> vertices = new(subRegionCount - 1);

@@ -29,7 +29,7 @@ namespace SpaceOpera.Core.Universe.Generator
                     GetDistanceForTemperature(star, ViableThermalRange.Maximum),
                     GetDistanceForGravity(star, ViableGravitationalRange.Maximum));
             float outerBoundary =
-                Math.Max(
+                Math.Min(
                     GetDistanceForTemperature(star, ViableThermalRange.Minimum), 
                     GetDistanceForGravity(star, ViableGravitationalRange.Minimum));
             float transitLimit = GetDistanceForGravity(star, TransitLimit);
@@ -66,8 +66,8 @@ namespace SpaceOpera.Core.Universe.Generator
 
         private static float GetTemperatureForDistance(Star star, float distance)
         {
-            return (float)((3 * star.Temperature * Math.Sqrt(star.Radius)) 
-                / (4 * Math.Sqrt(distance / Constants.AstralUnit)));
+            return 3 * star.Temperature * MathF.Sqrt(star.Radius)
+                / (4 * MathF.Sqrt(distance / Constants.AstralUnit));
         }
 
         private static float GetDistanceForGravity(Star star, float gravity)
@@ -77,7 +77,7 @@ namespace SpaceOpera.Core.Universe.Generator
 
         private static float GetGravityForDistance(Star star, float distance)
         {
-            return (Constants.AstralUnit * Constants.AstralUnit * Constants.GravitationalConstant * star.Mass)
+            return Constants.AstralUnit * Constants.AstralUnit * Constants.GravitationalConstant * star.Mass
                 / (distance * distance);
         }
     }

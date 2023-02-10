@@ -7,6 +7,8 @@ namespace SpaceOpera.Core.Politics.Generator
 {
     public class PoliticsGenerator
     {
+        private static float s_WeightCutoff = 0.1f;
+
         class FactionWrapper : SeededGraphPartition.ISeed<RegionWrapper>
         {
             public Faction Faction { get; }
@@ -31,6 +33,7 @@ namespace SpaceOpera.Core.Politics.Generator
             public StellarBodyRegion Region { get; }
             public List<RegionEdgeWrapper> Edges { get; } = new();
             public MultiQuantity<Culture> CultureWeights { get; } = new();
+            public bool IsOpen { get; set; }
 
             public RegionWrapper(StellarBody stellarBody, StellarBodyRegion region)
             {
@@ -248,10 +251,14 @@ namespace SpaceOpera.Core.Politics.Generator
                     {
                         var weight = current.CultureWeights.Get(culture) * edge.Falloff;
                         var wrapper = (RegionWrapper)edge.End;
-                        if (wrapper.CultureWeights.Get(culture) < weight)
+                        if (weight > s_WeightCutoff && wrapper.CultureWeights.Get(culture) < weight)
                         {
                             wrapper.CultureWeights[culture] = weight;
-                            queue.Remove(wrapper);
+                            if (wrapper.IsOpen)
+                            {
+                                queue.Remove(wrapper);
+                            }
+                            wrapper.IsOpen = true;
                             queue.Push(wrapper, weight);
                         }
                     }

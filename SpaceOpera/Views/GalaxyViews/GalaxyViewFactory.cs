@@ -13,7 +13,7 @@ namespace SpaceOpera.Views.GalaxyViews
         private static readonly float s_PinDashLength = 128f;
         private static readonly float s_PinPadding = 128f;
         private static readonly float s_PinY = -612f;
-        private static readonly float s_PinScale = 14f;
+        private static readonly float s_PinScale = 8f;
 
         private static readonly float s_StarScale = 4096f;
 

@@ -9,6 +9,5 @@
   "Biomes": "Resources/Core/Biomes.json",
   "GalaxyGenerator": "Resources/Core/Generators/Galaxy.json",
   "PoliticsGenerator": "Resources/Core/Generators/Politics.json",
-  "EconomyGenerator": "Resources/Core/Generators/Economy.json",
-  "HumanEyeSensitivity": "Resources/Core/HumanEyeSensitivity.json"
+  "EconomyGenerator": "Resources/Core/Generators/Economy.json"
 }

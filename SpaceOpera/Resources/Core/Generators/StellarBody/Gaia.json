@@ -2,9 +2,8 @@
   "Key": "planet-generator-gaia",
   "Name": "Gaia Planet",
   "RadiusSampler": {
-    "$type": "Normal",
-    "Mean": 6000,
-    "StandardDeviation": 1500
+    "$type": "Uniform",
+    "Range": [ 3000, 9000 ]
   },
   "Density": 5510,
   "SubRegionDensity": 0.000004,

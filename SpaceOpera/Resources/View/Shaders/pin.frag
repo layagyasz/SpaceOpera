@@ -9,7 +9,7 @@ uniform float dash_length;
 
 void main()
 {
-	if (mod(vert_position.y, 2 * dash_length) > dash_length)
+	if (mod(vert_position.y, 2 * dash_length) < dash_length)
 	{
 		discard;
 	}

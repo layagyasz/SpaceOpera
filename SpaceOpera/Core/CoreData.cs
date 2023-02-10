@@ -4,7 +4,6 @@ using Cardamom.Graphics;
 using Cardamom.Json;
 using Cardamom.Json.Collections;
 using Cardamom.Json.OpenTK;
-using SpaceOpera.Core;
 using SpaceOpera.Core.Advancement;
 using SpaceOpera.Core.Designs;
 using SpaceOpera.Core.Economics;
@@ -16,9 +15,9 @@ using SpaceOpera.Core.Universe.Spectra;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace SpaceOpera
+namespace SpaceOpera.Core
 {
-    public class GameData
+    public class CoreData
     {
         [JsonPropertyOrder(1)]
         [JsonConverter(typeof(FromFileJsonConverter))]
@@ -51,7 +50,7 @@ namespace SpaceOpera
         [JsonPropertyOrder(8)]
         [JsonConverter(typeof(FromFileJsonConverter))]
         public Library<Biome> Biomes { get; set; } = new();
-        
+
         [JsonPropertyOrder(9)]
         [JsonConverter(typeof(FromMultipleFileJsonConverter))]
         public Library<BaseComponent> Components { get; set; } = new();
@@ -76,15 +75,13 @@ namespace SpaceOpera
         [JsonConverter(typeof(FromFileJsonConverter))]
         public EconomyGenerator? EconomyGenerator { get; set; }
 
-        [JsonConverter(typeof(FromFileJsonConverter))]
-        public SpectrumSensitivity? HumanEyeSensitivity { get; set; }
-
-        public static GameData LoadFrom(string path)
+        public static CoreData LoadFrom(string path)
         {
             JsonSerializerOptions options = new()
             {
                 ReferenceHandler = new KeyedReferenceHandler(),
-                NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals
+                NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals,
+                ReadCommentHandling = JsonCommentHandling.Skip
             };
             options.Converters.Add(new ColorJsonConverter());
             options.Converters.Add(new Vector2JsonConverter());
@@ -92,7 +89,7 @@ namespace SpaceOpera
             options.Converters.Add(new Vector4JsonConverter());
             options.Converters.Add(new Vector2iJsonConverter());
             options.Converters.Add(new Matrix4JsonConverter());
-            return JsonSerializer.Deserialize<GameData>(File.ReadAllText(path), options)!;
+            return JsonSerializer.Deserialize<CoreData>(File.ReadAllText(path), options)!;
         }
     }
 }

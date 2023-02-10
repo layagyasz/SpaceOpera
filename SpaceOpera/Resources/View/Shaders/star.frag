@@ -11,7 +11,7 @@ void main()
 {
     const float pi = 3.141592f;
     const float attenuation = 256f;
-    const float flicker = 0.5;
+    const float flicker = 0.25;
 
     float cycle = mod(vert_color.a + cycle_time, 1);
     float f = flicker * (cos(cycle * 20 * pi) * sin(cycle * 10 * pi) + 1) + (1 - flicker);

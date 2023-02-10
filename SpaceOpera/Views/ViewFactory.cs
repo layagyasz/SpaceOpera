@@ -1,4 +1,5 @@
 ﻿using Cardamom.Collections;
+using SpaceOpera.Core;
 using SpaceOpera.Views.GalaxyViews;
 using SpaceOpera.Views.Scenes;
 using SpaceOpera.Views.StarViews;
@@ -17,10 +18,10 @@ namespace SpaceOpera.Views
             StellarBodyViewFactory = stellarBodyViewFactory;
         }
 
-        public static ViewFactory Create(ViewData viewData, GameData gameData)
+        public static ViewFactory Create(ViewData viewData, CoreData coreData)
         {
             var starViewFactory = 
-                new StarViewFactory(viewData.GameResources!.GetShader("shader-star"), gameData.HumanEyeSensitivity!);
+                new StarViewFactory(viewData.GameResources!.GetShader("shader-star"), viewData.HumanEyeSensitivity!);
             var galaxyViewFactory = 
                 new GalaxyViewFactory(
                     starViewFactory, 
@@ -28,19 +29,19 @@ namespace SpaceOpera.Views
                     viewData.GameResources!.GetShader("shader-pin"));
             var stellarBodyViewFactory =
                 new StellarBodyViewFactory(
-                    viewData.BiomeRenderDetails.ToDictionary(x => gameData.Biomes[x.Key], x => x.Value),
-                    gameData.GalaxyGenerator!.StarSystemGenerator!.StellarBodySelector!.Options
+                    viewData.BiomeRenderDetails.ToDictionary(x => coreData.Biomes[x.Key], x => x.Value),
+                    coreData.GalaxyGenerator!.StarSystemGenerator!.StellarBodySelector!.Options
                         .Select(x => x.Generator!)
                         .ToLibrary(x => x.Key, x => x),
                     viewData.GameResources!.GetShader("shader-light3"),
                     viewData.GameResources!.GetShader("shader-atmosphere"),
-                    gameData.HumanEyeSensitivity!); ;
+                    viewData.HumanEyeSensitivity!); ;
             return new(
                 new(
                     galaxyViewFactory, 
                     stellarBodyViewFactory,
-                    starViewFactory, 
-                    gameData.HumanEyeSensitivity!,
+                    starViewFactory,
+                    viewData.HumanEyeSensitivity!,
                     viewData.GameResources!.GetShader("shader-default")), 
                 stellarBodyViewFactory);
         }

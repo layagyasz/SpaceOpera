@@ -77,12 +77,17 @@ namespace SpaceOpera.Core.Universe
 
         private readonly Dictionary<INavigable, NavigableNode> _nodes = new();
 
-        public NavigationMap(Galaxy galaxy)
+        private NavigationMap(Galaxy galaxy)
         {
             foreach (var system in galaxy.Systems)
             {
                 Populate(system);
             }
+        }
+
+        public static NavigationMap Create(Galaxy galaxy)
+        {
+            return new(galaxy);
         }
 
         public Stack<Movement> FindPath(INavigable start, INavigable end, EnumSet<NavigableEdgeType> allowedEdges)

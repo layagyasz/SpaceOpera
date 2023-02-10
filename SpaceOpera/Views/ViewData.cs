@@ -2,6 +2,7 @@
 using Cardamom.Collections;
 using Cardamom.Json;
 using Cardamom.Json.OpenTK;
+using SpaceOpera.Core.Universe.Spectra;
 using SpaceOpera.Views.StellarBodyViews;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -15,6 +16,9 @@ namespace SpaceOpera.Views
 
         [JsonConverter(typeof(FromFileJsonConverter))]
         public Library<BiomeRenderDetails> BiomeRenderDetails { get; set; } = new();
+
+        [JsonConverter(typeof(FromFileJsonConverter))]
+        public SpectrumSensitivity? HumanEyeSensitivity { get; set; }
 
         public static ViewData LoadFrom(string path)
         {

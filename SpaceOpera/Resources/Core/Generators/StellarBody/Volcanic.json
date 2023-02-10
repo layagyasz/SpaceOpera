@@ -2,9 +2,8 @@
   "Key": "planet-generator-volcanic",
   "Name": "Volcanic Planet",
   "RadiusSampler": {
-    "$type": "Normal",
-    "Mean": 6000,
-    "StandardDeviation": 2000
+    "$type": "Uniform",
+    "Range": [ 2000, 9000 ]
   },
   "Density": 3530,
   "SubRegionDensity": 0.000004,

@@ -2,7 +2,7 @@
 using SpaceOpera.Core.Advanceable;
 using SpaceOpera.Core.Orders;
 
-namespace SpaceOpera
+namespace SpaceOpera.Core
 {
     public class GameDriver
     {
