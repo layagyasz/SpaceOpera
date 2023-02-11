@@ -1,0 +1,26 @@
+[
+  {
+    "Key": "design-template-battalion-template",
+    "Type": "BattalionTemplate",
+    "Segments": [
+      {
+        "Key": "design-template-segment-battalion-core",
+        "Name": "Core",
+        "ConfigurationOptions": [
+          {
+            "Key": "design-template-segment-battalion-infantry",
+            "Name": "Infantry",
+            "Slots": [
+              {
+                "Type": [ "Infantry" ],
+                "Size": [],
+                "Count": 1,
+                "Weight": 500
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

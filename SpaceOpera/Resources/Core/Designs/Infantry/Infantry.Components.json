@@ -1,0 +1,253 @@
+[
+  {
+    "Key": "component-infantry-platform-human",
+    "Name": "Human",
+    "Slot": {
+      "Type": "InfantryPlatform"
+    },
+    "Attributes": {
+      "ProductionCost": {
+        "Constant": 200
+      },
+      "Hitpoints": {
+        "Constant": 1
+      }
+    }
+  },
+  {
+    "Key": "component-personal-weapon-kinetic",
+    "Name": "Personal Weapon (Kinetic)",
+    "Slot": {
+      "Type": "PersonalWeapon"
+    },
+    "Attributes": {
+      "WeaponAccuracy": {
+        "Constant": 0.6
+      },
+      "WeaponPenetration": {
+        "Constant": 0.4
+      },
+      "WeaponTracking": {
+        "Constant": 0.6
+      }
+    },
+    "Damage": {
+      "Kinetic": {
+        "Constant": 1
+      }
+    },
+    "MaterialCost": {
+      "material-personal-weapon-kinetic": {
+        "Constant": 1
+      }
+    }
+  },
+  {
+    "Key": "component-personal-weapon-laser",
+    "Name": "Personal Weapon (Laser)",
+    "Slot": {
+      "Type": "PersonalWeapon"
+    },
+    "Attributes": {
+      "WeaponAccuracy": {
+        "Constant": 0.6
+      },
+      "WeaponPenetration": {
+        "Constant": 0.4
+      },
+      "WeaponTracking": {
+        "Constant": 0.6
+      }
+    },
+    "Damage": {
+      "Energy": {
+        "Constant": 1
+      }
+    },
+    "MaterialCost": {
+      "material-personal-weapon-laser": {
+        "Constant": 1
+      }
+    }
+  },
+  {
+    "Key": "component-personal-weapon-plasma",
+    "Name": "Personal Weapon (Plasma)",
+    "Slot": {
+      "Type": "PersonalWeapon"
+    },
+    "Attributes": {
+      "WeaponAccuracy": {
+        "Constant": 0.6
+      },
+      "WeaponPenetration": {
+        "Constant": 0.4
+      },
+      "WeaponTracking": {
+        "Constant": 0.6
+      }
+    },
+    "Damage": {
+      "ElectroMagnetic": {
+        "Constant": 1
+      }
+    },
+    "MaterialCost": {
+      "material-personal-weapon-plasma": {
+        "Constant": 1
+      }
+    }
+  },
+  {
+    "Key": "component-personal-armor-alumite",
+    "Name": "Personal Armor (Alumite)",
+    "Slot": {
+      "Type": "PersonalArmor"
+    },
+    "Attributes": {
+      "ArmorThickness": {
+        "Constant": 0.2
+      },
+      "ArmorCoverage": {
+        "Constant": 0.2
+      },
+      "ArmorCoverage": {
+        "Constant": 0.4
+      }
+    },
+    "MaterialCost": {
+      "material-personal-armor-alumite": {
+        "Constant": 1
+      }
+    }
+  },
+  {
+    "Key": "component-personal-armor-duralumin",
+    "Name": "Personal Armor (Duralumin)",
+    "Slot": {
+      "Type": "PersonalArmor"
+    },
+    "Attributes": {
+      "ArmorThickness": {
+        "Constant": 0.35
+      },
+      "ArmorCoverage": {
+        "Constant": 0.35
+      },
+      "ArmorCoverage": {
+        "Constant": 0.4
+      }
+    },
+    "MaterialCost": {
+      "material-personal-armor-duralumin": {
+        "Constant": 1
+      }
+    }
+  },
+  {
+    "Key": "component-personal-armor-durasteel",
+    "Name": "Personal Armor (Durasteel)",
+    "Slot": {
+      "Type": "PersonalArmor"
+    },
+    "Attributes": {
+      "ArmorThickness": {
+        "Constant": 0.5
+      },
+      "ArmorCoverage": {
+        "Constant": 0.5
+      },
+      "ArmorCoverage": {
+        "Constant": 0.4
+      }
+    },
+    "MaterialCost": {
+      "material-personal-armor-durasteel": {
+        "Constant": 1
+      }
+    }
+  },
+  {
+    "Key": "component-personal-armor-none",
+    "Name": "None",
+    "Slot": {
+      "Type": "PersonalArmor"
+    }
+  },
+  {
+    "Key": "component-personal-shield-energy-field",
+    "Name": "Personal Energy Field",
+    "Slot": {
+      "Type": "PersonalShield"
+    },
+    "Attributes": {
+      "ShieldCapacity": {
+        "Constant": 0.20
+      },
+      "ShieldAbsorption": {
+        "Constant": 12
+      },
+      "ShieldRecharge": {
+        "Constant": 0.003
+      }
+    },
+    "MaterialCost": {
+      "material-personal-shield-energy-field": {
+        "Constant": 1
+      }
+    }
+  },
+  {
+    "Key": "component-personal-shield-energy-shell",
+    "Name": "Personal Energy Shell",
+    "Slot": {
+      "Type": "PersonalShield"
+    },
+    "Attributes": {
+      "ShieldCapacity": {
+        "Constant": 0.3
+      },
+      "ShieldAbsorption": {
+        "Constant": 12
+      },
+      "ShieldRecharge": {
+        "Constant": 0.002
+      }
+    },
+    "MaterialCost": {
+      "material-personal-shield-energy-shell": {
+        "Constant": 1
+      }
+    }
+  },
+  {
+    "Key": "component-personal-shield-energy-shield",
+    "Name": "Personal Energy Shield",
+    "Slot": {
+      "Type": "PersonalShield"
+    },
+    "Attributes": {
+      "ShieldCapacity": {
+        "Constant": 0.25
+      },
+      "ShieldAbsorption": {
+        "Constant": 12
+      },
+      "ShieldRecharge": {
+        "Constant": 0.0025
+      }
+    },
+    "MaterialCost": {
+      "material-personal-shield-energy-shield": {
+        "Constant": 1
+      }
+    }
+  },
+  {
+    "Key": "component-personal-shield-none",
+    "Name": "None",
+    "Slot": {
+      "Type": "PersonalShield"
+    }
+  }
+]

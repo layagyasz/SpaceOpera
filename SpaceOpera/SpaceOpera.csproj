@@ -24,6 +24,30 @@
     <None Update="Resources\Core\AdvancementTypes.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\Core\Designs\BattalionTemplate\BattalionTemplate.Template.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Core\Designs\DivisionTemplate\DivisionTemplate.Template.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Core\Designs\Infantry\Infantry.Components.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Core\Designs\ShipShield\ShipShield.Components.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Core\Designs\ShipShield\ShipShield.Template.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Core\Designs\ShipWeapon\ShipWeapon.Components.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Core\Designs\ShipWeapon\ShipWeapon.Template.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Core\Designs\Ship\Ship.Classification.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\Core\Generators\StellarBody\Gaia.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -129,6 +153,14 @@
     <None Update="Resources\View\Shaders\default_no_tex.frag">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources\Core\Designs\BattalionTemplate\" />
+    <Folder Include="Resources\Core\Designs\DivisionTemplate\" />
+    <Folder Include="Resources\Core\Designs\ShipWeapon\" />
+    <Folder Include="Resources\Core\Designs\ShipShield\" />
+    <Folder Include="Resources\Core\Designs\Ship\" />
   </ItemGroup>
 
 </Project>

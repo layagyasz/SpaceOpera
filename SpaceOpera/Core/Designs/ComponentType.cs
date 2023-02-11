@@ -32,7 +32,7 @@ namespace SpaceOpera.Core.Designs
         ShieldMount,
         ShieldWeight,
 
-        ShipWeaponAmmo,
+        ShipWeaponAmmunition,
         ShipWeaponAssembly,
         ShipWeaponFireControl,
         ShipWeaponMount,

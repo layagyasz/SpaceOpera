@@ -1,0 +1,109 @@
+[
+  {
+    "Key": "design-template-ship-shield",
+    "Type": "ShipShield",
+    "Sizes": {
+      "Small": {
+        "Attributes": {
+          "MaterialCost": {
+            "Bonus": 0
+          },
+          "ProductionCost": {
+            "Bonus": 0
+          },
+          "ShieldAbsorption": {
+            "Bonus": 0
+          },
+          "ShieldCapacity": {
+            "Bonus": 0
+          },
+          "ShieldRecharge": {
+            "Bonus": 0
+          }
+        }
+      },
+      "Medium": {
+        "Attributes": {
+          "MaterialCost": {
+            "Bonus": 1
+          },
+          "ProductionCost": {
+            "Bonus": 1
+          },
+          "ShieldAbsorption": {
+            "Bonus": 0
+          },
+          "ShieldCapacity": {
+            "Bonus": 1
+          },
+          "ShieldRecharge": {
+            "Bonus": 1
+          }
+        }
+      },
+      "Large": {
+        "Attributes": {
+          "MaterialCost": {
+            "Bonus": 3
+          },
+          "ProductionCost": {
+            "Bonus": 3
+          },
+          "ShieldAbsorption": {
+            "Bonus": 0
+          },
+          "ShieldCapacity": {
+            "Bonus": 3
+          },
+          "ShieldRecharge": {
+            "Bonus": 3
+          }
+        }
+      }
+    },
+    "Segments": [
+      {
+        "Key": "design-template-segment-ship-shield-components",
+        "Name": "Components",
+        "ConfigurationOptions": [
+          {
+            "Key": "design-template-segment-ship-shield-components-standard",
+            "Name": "Standard",
+            "Slots": [
+              {
+                "Type": [ "ShieldEmitter" ],
+                "Size": [],
+                "Count": 1,
+                "Weight": 1
+              },
+              {
+                "Type": [ "ShieldCapacitor" ],
+                "Size": [],
+                "Count": 1,
+                "Weight": 1
+              },
+              {
+                "Type": [ "ShieldPowerSupply" ],
+                "Size": [],
+                "Count": 1,
+                "Weight": 1
+              },
+              {
+                "Type": [ "ShieldMount" ],
+                "Size": [],
+                "Count": 1,
+                "Weight": 1
+              },
+              {
+                "Type": [ "ShieldWeight" ],
+                "Size": [],
+                "Count": 1,
+                "Weight": 1
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

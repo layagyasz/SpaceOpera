@@ -1,0 +1,765 @@
+[
+  {
+    "Key": "component-ship-shield-emitter-energy",
+    "Name": "Energy Emitter",
+    "Slot": {
+      "Type": "ShieldEmitter"
+    },
+    "Attributes": {
+      "ShieldCapacity": {
+        "Constant": 32000
+      },
+      "ShieldAbsorption": {
+        "Constant": 100
+      },
+      "ShieldRecharge": {
+        "Constant": 16
+      }
+    }
+  },
+  {
+    "Key": "component-ship-shield-emitter-magnetic",
+    "Name": "Magnetic Emitter",
+    "Slot": {
+      "Type": "ShieldEmitter"
+    },
+    "Attributes": {
+      "ShieldCapacity": {
+        "Constant": 32000
+      },
+      "ShieldAbsorption": {
+        "Constant": 100
+      },
+      "ShieldRecharge": {
+        "Constant": 16
+      }
+    }
+  },
+  {
+    "Key": "component-ship-shield-emitter-particle",
+    "Name": "Particle Emitter",
+    "Slot": {
+      "Type": "ShieldEmitter"
+    },
+    "Attributes": {
+      "ShieldCapacity": {
+        "Constant": 32000
+      },
+      "ShieldAbsorption": {
+        "Constant": 100
+      },
+      "ShieldRecharge": {
+        "Constant": 16
+      }
+    }
+  },
+  {
+    "Key": "component-ship-shield-emitter-plasma",
+    "Name": "Plasma Emitter",
+    "Slot": {
+      "Type": "ShieldEmitter"
+    },
+    "Attributes": {
+      "ShieldCapacity": {
+        "Constant": 32000
+      },
+      "ShieldAbsorption": {
+        "Constant": 100
+      },
+      "ShieldRecharge": {
+        "Constant": 16
+      }
+    }
+  },
+  {
+    "Key": "component-ship-shield-capacitor-flux-mesh-i",
+    "Name": "Flux Mesh I",
+    "Slot": {
+      "Type": "ShieldCapacitor"
+    },
+    "Attributes": {
+      "ShieldAbsorption": {
+        "Bonus": -0.1
+      },
+      "ShieldRecharge": {
+        "Bonus": 0.1
+      }
+    }
+  },
+  {
+    "Key": "component-ship-shield-capacitor-flux-mesh-ii",
+    "Name": "Flux Mesh II",
+    "Slot": {
+      "Type": "ShieldCapacitor"
+    },
+    "Attributes": {
+      "ShieldAbsorption": {
+        "Bonus": -0.075
+      },
+      "ShieldRecharge": {
+        "Bonus": 0.2
+      }
+    }
+  },
+  {
+    "Key": "component-ship-shield-capacitor-flux-mesh-iii",
+    "Name": "Flux Mesh III",
+    "Slot": {
+      "Type": "ShieldCapacitor"
+    },
+    "Attributes": {
+      "ShieldAbsorption": {
+        "Bonus": -0.05
+      },
+      "ShieldRecharge": {
+        "Bonus": 0.3
+      }
+    }
+  },
+  {
+    "Key": "component-ship-shield-capacitor-flux-mesh-iv",
+    "Name": "Flux Mesh IV",
+    "Slot": {
+      "Type": "ShieldCapacitor"
+    },
+    "Attributes": {
+      "ShieldAbsorption": {
+        "Bonus": -0.025
+      },
+      "ShieldRecharge": {
+        "Bonus": 0.4
+      }
+    }
+  },
+  {
+    "Key": "component-ship-shield-capacitor-flux-field-i",
+    "Name": "Flux Field I",
+    "Slot": {
+      "Type": "ShieldCapacitor"
+    },
+    "Attributes": {
+      "ShieldCapacity": {
+        "Bonus": -0.1
+      },
+      "ShieldRecharge": {
+        "Bonus": 0.1
+      }
+    }
+  },
+  {
+    "Key": "component-ship-shield-capacitor-flux-field-ii",
+    "Name": "Flux Field I",
+    "Slot": {
+      "Type": "ShieldCapacitor"
+    },
+    "Attributes": {
+      "ShieldCapacity": {
+        "Bonus": -0.075
+      },
+      "ShieldRecharge": {
+        "Bonus": 0.2
+      }
+    }
+  },
+  {
+    "Key": "component-ship-shield-capacitor-flux-field-iii",
+    "Name": "Flux Field III",
+    "Slot": {
+      "Type": "ShieldCapacitor"
+    },
+    "Attributes": {
+      "ShieldCapacity": {
+        "Bonus": -0.05
+      },
+      "ShieldRecharge": {
+        "Bonus": 0.3
+      }
+    }
+  },
+  {
+    "Key": "component-ship-shield-capacitor-flux-field-iv",
+    "Name": "Flux Field IV",
+    "Slot": {
+      "Type": "ShieldCapacitor"
+    },
+    "Attributes": {
+      "ShieldCapacity": {
+        "Bonus": -0.025
+      },
+      "ShieldRecharge": {
+        "Bonus": 0.4
+      }
+    }
+  },
+  {
+    "Key": "component-ship-shield-capacitor-flux-shell-i",
+    "Name": "Flux Shell I",
+    "Slot": {
+      "Type": "ShieldCapacitor"
+    },
+    "Attributes": {
+      "ShieldCapacity": {
+        "Bonus": 0.05
+      },
+      "ShieldRecharge": {
+        "Bonus": 0.05
+      }
+    }
+  },
+  {
+    "Key": "component-ship-shield-capacitor-flux-shell-ii",
+    "Name": "Flux Shell II",
+    "Slot": {
+      "Type": "ShieldCapacitor"
+    },
+    "Attributes": {
+      "ShieldCapacity": {
+        "Bonus": 0.1
+      },
+      "ShieldRecharge": {
+        "Bonus": 0.1
+      }
+    }
+  },
+  {
+    "Key": "component-ship-shield-capacitor-flux-shell-iii",
+    "Name": "Flux Shell III",
+    "Slot": {
+      "Type": "ShieldCapacitor"
+    },
+    "Attributes": {
+      "ShieldCapacity": {
+        "Bonus": 0.15
+      },
+      "ShieldRecharge": {
+        "Bonus": 0.15
+      }
+    }
+  },
+  {
+    "Key": "component-ship-shield-capacitor-flux-shell-iv",
+    "Name": "Flux Shell IV",
+    "Slot": {
+      "Type": "ShieldCapacitor"
+    },
+    "Attributes": {
+      "ShieldCapacity": {
+        "Bonus": 0.2
+      },
+      "ShieldRecharge": {
+        "Bonus": 0.2
+      }
+    }
+  },
+  {
+    "Key": "component-ship-shield-capacitor-quantum-shell-i",
+    "Name": "Quantum Shell I",
+    "Slot": {
+      "Type": "ShieldCapacitor"
+    },
+    "Attributes": {
+      "ShieldAbsorption": {
+        "Bonus": 0.1
+      },
+      "ShieldRecharge": {
+        "Bonus": -0.1
+      }
+    }
+  },
+  {
+    "Key": "component-ship-shield-capacitor-quantum-shell-ii",
+    "Name": "Quantum Shell II",
+    "Slot": {
+      "Type": "ShieldCapacitor"
+    },
+    "Attributes": {
+      "ShieldAbsorption": {
+        "Bonus": 0.2
+      },
+      "ShieldRecharge": {
+        "Bonus": -0.075
+      }
+    }
+  },
+  {
+    "Key": "component-ship-shield-capacitor-quantum-shell-iii",
+    "Name": "Quantum Shell III",
+    "Slot": {
+      "Type": "ShieldCapacitor"
+    },
+    "Attributes": {
+      "ShieldAbsorption": {
+        "Bonus": 0.3
+      },
+      "ShieldRecharge": {
+        "Bonus": -0.05
+      }
+    }
+  },
+  {
+    "Key": "component-ship-shield-capacitor-quantum-shell-iv",
+    "Name": "Quantum Shell IV",
+    "Slot": {
+      "Type": "ShieldCapacitor"
+    },
+    "Attributes": {
+      "ShieldAbsorption": {
+        "Bonus": 0.4
+      },
+      "ShieldRecharge": {
+        "Bonus": -0.025
+      }
+    }
+  },
+  {
+    "Key": "component-ship-shield-capacitor-quantum-field-i",
+    "Name": "Quantum Field I",
+    "Slot": {
+      "Type": "ShieldCapacitor"
+    },
+    "Attributes": {
+      "ShieldCapacity": {
+        "Bonus": -0.1
+      },
+      "ShieldAbsorption": {
+        "Bonus": 0.1
+      }
+    }
+  },
+  {
+    "Key": "component-ship-shield-capacitor-quantum-field-ii",
+    "Name": "Quantum Field II",
+    "Slot": {
+      "Type": "ShieldCapacitor"
+    },
+    "Attributes": {
+      "ShieldCapacity": {
+        "Bonus": -0.075
+      },
+      "ShieldAbsorption": {
+        "Bonus": 0.2
+      }
+    }
+  },
+  {
+    "Key": "component-ship-shield-capacitor-quantum-field-iii",
+    "Name": "Quantum Field III",
+    "Slot": {
+      "Type": "ShieldCapacitor"
+    },
+    "Attributes": {
+      "ShieldCapacity": {
+        "Bonus": -0.05
+      },
+      "ShieldAbsorption": {
+        "Bonus": 0.3
+      }
+    }
+  },
+  {
+    "Key": "component-ship-shield-capacitor-quantum-field-iv",
+    "Name": "Quantum Field IV",
+    "Slot": {
+      "Type": "ShieldCapacitor"
+    },
+    "Attributes": {
+      "ShieldCapacity": {
+        "Bonus": -0.025
+      },
+      "ShieldAbsorption": {
+        "Bonus": 0.4
+      }
+    }
+  },
+  {
+    "Key": "component-ship-shield-capacitor-hyper-shell-i",
+    "Name": "Hyper Shell I",
+    "Slot": {
+      "Type": "ShieldCapacitor"
+    },
+    "Attributes": {
+      "ShieldCapacity": {
+        "Bonus": 0.1
+      },
+      "ShieldRecharge": {
+        "Bonus": -0.1
+      }
+    }
+  },
+  {
+    "Key": "component-ship-shield-capacitor-hyper-shell-ii",
+    "Name": "Hyper Shell II",
+    "Slot": {
+      "Type": "ShieldCapacitor"
+    },
+    "Attributes": {
+      "ShieldCapacity": {
+        "Bonus": 0.2
+      },
+      "ShieldRecharge": {
+        "Bonus": -0.075
+      }
+    }
+  },
+  {
+    "Key": "component-ship-shield-capacitor-hyper-shell-iii",
+    "Name": "Hyper Shell III",
+    "Slot": {
+      "Type": "ShieldCapacitor"
+    },
+    "Attributes": {
+      "ShieldCapacity": {
+        "Bonus": 0.3
+      },
+      "ShieldRecharge": {
+        "Bonus": -0.05
+      }
+    }
+  },
+  {
+    "Key": "component-ship-shield-capacitor-hyper-shell-iv",
+    "Name": "Hyper Shell IV",
+    "Slot": {
+      "Type": "ShieldCapacitor"
+    },
+    "Attributes": {
+      "ShieldCapacity": {
+        "Bonus": 0.4
+      },
+      "ShieldRecharge": {
+        "Bonus": -0.025
+      }
+    }
+  },
+  {
+    "Key": "component-ship-shield-capacitor-hyper-mesh-i",
+    "Name": "Hyper Mesh I",
+    "Slot": {
+      "Type": "ShieldCapacitor"
+    },
+    "Attributes": {
+      "ShieldCapacity": {
+        "Constant": 0.1
+      },
+      "ShieldAbsorption": {
+        "Constant": -0.1
+      }
+    }
+  },
+  {
+    "Key": "component-ship-shield-capacitor-hyper-mesh-ii",
+    "Name": "Hyper Mesh II",
+    "Slot": {
+      "Type": "ShieldCapacitor"
+    },
+    "Attributes": {
+      "ShieldCapacity": {
+        "Constant": 0.2
+      },
+      "ShieldAbsorption": {
+        "Constant": -0.075
+      }
+    }
+  },
+  {
+    "Key": "component-ship-shield-capacitor-hyper-mesh-iii",
+    "Name": "Hyper Mesh III",
+    "Slot": {
+      "Type": "ShieldCapacitor"
+    },
+    "Attributes": {
+      "ShieldCapacity": {
+        "Constant": 0.3
+      },
+      "ShieldAbsorption": {
+        "Constant": -0.05
+      }
+    }
+  },
+  {
+    "Key": "component-ship-shield-capacitor-hyper-mesh-iv",
+    "Name": "Hyper Mesh IV",
+    "Slot": {
+      "Type": "ShieldCapacitor"
+    },
+    "Attributes": {
+      "ShieldCapacity": {
+        "Constant": 0.4
+      },
+      "ShieldAbsorption": {
+        "Constant": -0.025
+      }
+    }
+  },
+  {
+    "Key": "component-ship-shield-power-supply-balanced-i",
+    "Name": "Balance Power Supply I",
+    "Slot": {
+      "Type": "ShieldPowerSupply"
+    },
+    "Attributes": {
+      "ShieldCapacity": {
+        "Bonus": 0.05
+      },
+      "ShieldRecharge": {
+        "Bonus": 0.05
+      }
+    }
+  },
+  {
+    "Key": "component-ship-shield-power-supply-balanced-ii",
+    "Name": "Balance Power Supply II",
+    "Slot": {
+      "Type": "ShieldPowerSupply"
+    },
+    "Attributes": {
+      "ShieldCapacity": {
+        "Bonus": 0.1
+      },
+      "ShieldRecharge": {
+        "Bonus": 0.1
+      }
+    }
+  },
+  {
+    "Key": "component-ship-shield-power-supply-balanced-iii",
+    "Name": "Balance Power Supply III",
+    "Slot": {
+      "Type": "ShieldPowerSupply"
+    },
+    "Attributes": {
+      "ShieldCapacity": {
+        "Bonus": 0.15
+      },
+      "ShieldRecharge": {
+        "Bonus": 0.15
+      }
+    }
+  },
+  {
+    "Key": "component-ship-shield-power-supply-balanced-iv",
+    "Name": "Balance Power Supply IV",
+    "Slot": {
+      "Type": "ShieldPowerSupply"
+    },
+    "Attributes": {
+      "ShieldCapacity": {
+        "Bonus": 0.2
+      },
+      "ShieldRecharge": {
+        "Bonus": 0.2
+      }
+    }
+  },
+  {
+    "Key": "component-ship-shield-power-supply-overcharged-i",
+    "Name": "Overcharged Power Supply I",
+    "Slot": {
+      "Type": "ShieldPowerSupply"
+    },
+    "Attributes": {
+      "ShieldCapacity": {
+        "Bonus": 0.1
+      },
+      "ShieldRecharge": {
+        "Bonus": -0.1
+      }
+    }
+  },
+  {
+    "Key": "component-ship-shield-power-supply-overcharged-ii",
+    "Name": "Overcharged Power Supply II",
+    "Slot": {
+      "Type": "ShieldPowerSupply"
+    },
+    "Attributes": {
+      "ShieldCapacity": {
+        "Bonus": 0.2
+      },
+      "ShieldRecharge": {
+        "Bonus": -0.075
+      }
+    }
+  },
+  {
+    "Key": "component-ship-shield-power-supply-overcharged-iii",
+    "Name": "Overcharged Power Supply III",
+    "Slot": {
+      "Type": "ShieldPowerSupply"
+    },
+    "Attributes": {
+      "ShieldCapacity": {
+        "Bonus": 0.3
+      },
+      "ShieldRecharge": {
+        "Bonus": -0.05
+      }
+    }
+  },
+  {
+    "Key": "component-ship-shield-power-supply-overcharged-iv",
+    "Name": "Overcharged Power Supply IV",
+    "Slot": {
+      "Type": "ShieldPowerSupply"
+    },
+    "Attributes": {
+      "ShieldCapacity": {
+        "Bonus": 0.4
+      },
+      "ShieldRecharge": {
+        "Bonus": -0.025
+      }
+    }
+  },
+  {
+    "Key": "component-ship-shield-power-supply-regenerative-i",
+    "Name": "Regenerative Power Supply I",
+    "Slot": {
+      "Type": "ShieldPowerSupply"
+    },
+    "Attributes": {
+      "ShieldCapacity": {
+        "Bonus": -0.1
+      },
+      "ShieldRecharge": {
+        "Bonus": 0.1
+      }
+    }
+  },
+  {
+    "Key": "component-ship-shield-power-supply-regenerative-ii",
+    "Name": "Regenerative Power Supply II",
+    "Slot": {
+      "Type": "ShieldPowerSupply"
+    },
+    "Attributes": {
+      "ShieldCapacity": {
+        "Bonus": -0.075
+      },
+      "ShieldRecharge": {
+        "Bonus": 0.2
+      }
+    }
+  },
+  {
+    "Key": "component-ship-shield-power-supply-regenerative-iii",
+    "Name": "Regenerative Power Supply III",
+    "Slot": {
+      "Type": "ShieldPowerSupply"
+    },
+    "Attributes": {
+      "ShieldCapacity": {
+        "Bonus": -0.05
+      },
+      "ShieldRecharge": {
+        "Bonus": 0.3
+      }
+    }
+  },
+  {
+    "Key": "component-ship-shield-power-supply-regenerative-iv",
+    "Name": "Regenerative Power Supply IV",
+    "Slot": {
+      "Type": "ShieldPowerSupply"
+    },
+    "Attributes": {
+      "ShieldCapacity": {
+        "Bonus": -0.025
+      },
+      "ShieldRecharge": {
+        "Bonus": 0.4
+      }
+    }
+  },
+  {
+    "Key": "component-ship-shield-mount-single",
+    "Name": "Single Mount",
+    "Slot": {
+      "Type": "ShieldMount"
+    },
+    "Attributes": {}
+  },
+  {
+    "Key": "component-ship-shield-mount-double",
+    "Name": "Double Mount",
+    "Slot": {
+      "Type": "ShieldMount"
+    },
+    "Attributes": {
+      "MaterialCost": {
+        "Bonus": 0.5
+      },
+      "ShieldAbsorption": {
+        "Bonus": 1
+      }
+    }
+  },
+  {
+    "Key": "component-ship-shield-mount-quad",
+    "Name": "Quad Mount",
+    "Slot": {
+      "Type": "ShieldMount"
+    },
+    "Attributes": {
+      "MaterialCost": {
+        "Bonus": 1
+      },
+      "ShieldAbsorption": {
+        "Bonus": 3
+      }
+    }
+  },
+  {
+    "Key": "component-ship-shield-mount-octal",
+    "Name": "Octal Mount",
+    "Slot": {
+      "Type": "ShieldMount"
+    },
+    "Attributes": {
+      "MaterialCost": {
+        "Bonus": 2
+      },
+      "ShieldAbsorption": {
+        "Bonus": 7
+      }
+    }
+  },
+  {
+    "Key": "component-ship-shield-weight-light",
+    "Name": "Light",
+    "Slot": {
+      "Type": "ShieldWeight"
+    },
+    "Attributes": {
+      "MaterialCost": {
+        "Bonus": -0.2
+      },
+      "ShieldCapacity": {
+        "Bonus": -0.2
+      }
+    }
+  },
+  {
+    "Key": "component-ship-shield-weight-medium",
+    "Name": "Medium",
+    "Slot": {
+      "Type": "ShieldWeight"
+    },
+    "Attributes": {}
+  },
+  {
+    "Key": "component-ship-shield-weight-heavy",
+    "Name": "Heavy",
+    "Slot": {
+      "Type": "ShieldWeight"
+    },
+    "Attributes": {
+      "MaterialCost": {
+        "Bonus": 0.2
+      },
+      "ShieldCapacity": {
+        "Bonus": 0.2
+      }
+    }
+  }
+]

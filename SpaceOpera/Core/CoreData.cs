@@ -4,6 +4,7 @@ using Cardamom.Graphics;
 using Cardamom.Json;
 using Cardamom.Json.Collections;
 using Cardamom.Json.OpenTK;
+using Cardamom.Logging;
 using SpaceOpera.Core.Advancement;
 using SpaceOpera.Core.Designs;
 using SpaceOpera.Core.Economics;
@@ -75,7 +76,7 @@ namespace SpaceOpera.Core
         [JsonConverter(typeof(FromFileJsonConverter))]
         public EconomyGenerator? EconomyGenerator { get; set; }
 
-        public static CoreData LoadFrom(string path)
+        public static CoreData LoadFrom(string path, ILogger logger)
         {
             JsonSerializerOptions options = new()
             {
@@ -89,7 +90,21 @@ namespace SpaceOpera.Core
             options.Converters.Add(new Vector4JsonConverter());
             options.Converters.Add(new Vector2iJsonConverter());
             options.Converters.Add(new Matrix4JsonConverter());
-            return JsonSerializer.Deserialize<CoreData>(File.ReadAllText(path), options)!;
+            var data = JsonSerializer.Deserialize<CoreData>(File.ReadAllText(path), options)!;
+            logger = logger.ForType(typeof(CoreData)).AtInfo();
+            logger.Log("Loaded");
+            logger.Log($"\t{data.Advancements.Count} Advancements");
+            logger.Log($"\t{data.AdvancementTypes.Count} AdvancementTypes");
+            logger.Log($"\t{data.Biomes.Count} Biomes");
+            logger.Log($"\t{data.ComponentClassifiers.Count} ComponentClassifiers");
+            logger.Log($"\t{data.Components.Count} Components");
+            logger.Log($"\t{data.DesignTemplates.Count} DesignTemplates");
+            logger.Log($"\t{data.Materials.Count} Materials");
+            logger.Log($"\t{data.MaterialSink != null} MaterialSink");
+            logger.Log($"\t{data.Modifiers.Count} Modifiers");
+            logger.Log($"\t{data.Recipes.Count} Recipes");
+            logger.Log($"\t{data.Structures.Count} Structures");
+            return data;
         }
     }
 }

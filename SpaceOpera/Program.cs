@@ -22,11 +22,12 @@ namespace SpaceOpera
             ui.Bind(
                 new KeyboardListener(SimpleKeyMapper.Us, new Keys[] { Keys.Left, Keys.Right, Keys.Up, Keys.Down }));
 
-            var coreData = CoreData.LoadFrom("Resources/Core/CoreData.json");
+            var logger = new Logger(new ConsoleBackend(), LogLevel.Info);
+            var coreData = CoreData.LoadFrom("Resources/Core/CoreData.json", logger);
             var viewData = ViewData.LoadFrom("Resources/View/ViewData.json");
             var viewFactory = ViewFactory.Create(viewData, coreData);
 
-            var generatorContext = new GeneratorContext(new Logger(new ConsoleBackend(), LogLevel.Info), new());
+            var generatorContext = new GeneratorContext(logger, new());
             IScene scene;
             int mode = 4;
             if (mode == 1)

@@ -1,0 +1,768 @@
+[
+  {
+    "Key": "component-ship-weapon-ammunition-kinetic",
+    "Name": "Kinetic Ammunition",
+    "Slot": {
+      "Type": "ShipWeaponAmmunition"
+    },
+    "Attributes": {
+      "WeaponPenetration": {
+        "Constant": 32
+      },
+      "WeaponAccuracy": {
+        "Constant": 300
+      },
+      "WeaponTracking": {
+        "Constant": 300
+      }
+    },
+    "Damage": {
+      "Kinetic": {
+        "Constant": 3200
+      }
+    },
+    "MaterialCost": {
+      "material-gravite-metal": {
+        "Constant": 100
+      }
+    }
+  },
+  {
+    "Key": "component-ship-weapon-ammunition-penetrator",
+    "Name": "Penetrator Ammunition",
+    "Slot": {
+      "Type": "ShipWeaponAmmunition"
+    },
+    "Attributes": {
+      "WeaponPenetration": {
+        "Constant": 48
+      },
+      "WeaponAccuracy": {
+        "Constant": 300
+      },
+      "WeaponTracking": {
+        "Constant": 300
+      }
+    },
+    "Damage": {
+      "Kinetic": {
+        "Constant": 3200
+      }
+    },
+    "MaterialCost": {
+      "material-gravite-metal": {
+        "Constant": 70
+      },
+      "material-wulframite-metal": {
+        "Constant": 30
+      }
+    }
+  },
+  {
+    "Key": "component-ship-weapon-ammunition-explosive",
+    "Name": "Explosive Ammunition",
+    "Slot": {
+      "Type": "ShipWeaponAmmunition"
+    },
+    "Attributes": {
+      "WeaponPenetration": {
+        "Constant": 16
+      },
+      "WeaponAccuracy": {
+        "Constant": 300
+      },
+      "WeaponTracking": {
+        "Constant": 300
+      }
+    },
+    "Damage": {
+      "Kinetic": {
+        "Constant": 3200
+      },
+      "Energy": {
+        "Constant": 3200
+      }
+    }
+  },
+  {
+    "Key": "component-ship-weapon-ammunition-laser-beam",
+    "Name": "Laser Beam Emitter",
+    "Slot": {
+      "Type": "ShipWeaponAmmunition"
+    },
+    "Attributes": {
+      "WeaponPenetration": {
+        "Constant": 32
+      },
+      "WeaponAccuracy": {
+        "Constant": 300
+      },
+      "WeaponTracking": {
+        "Constant": 450
+      }
+    },
+    "Damage": {
+      "Energy": {
+        "Constant": 3200
+      }
+    }
+  },
+  {
+    "Key": "component-ship-weapon-ammunition-laser-pulse",
+    "Name": "Laser Pulse Emitter",
+    "Slot": {
+      "Type": "ShipWeaponAmmunition"
+    },
+    "Attributes": {
+      "WeaponPenetration": {
+        "Constant": 40
+      },
+      "WeaponAccuracy": {
+        "Constant": 300
+      },
+      "WeaponTracking": {
+        "Constant": 300
+      }
+    },
+    "Damage": {
+      "Energy": {
+        "Constant": 3200
+      }
+    }
+  },
+  {
+    "Key": "component-ship-weapon-ammunition-plasma-beam",
+    "Name": "Plasma Beam Emitter",
+    "Slot": {
+      "Type": "ShipWeaponAmmunition"
+    },
+    "Attributes": {
+      "WeaponPenetration": {
+        "Constant": 32
+      },
+      "WeaponAccuracy": {
+        "Constant": 300
+      },
+      "WeaponTracking": {
+        "Constant": 450
+      }
+    },
+    "Damage": {
+      "Energy": {
+        "Constant": 1600
+      },
+      "ElectroMagnetic": {
+        "Constant": 1600
+      }
+    }
+  },
+  {
+    "Key": "component-ship-weapon-ammunition-plasma-pulse",
+    "Name": "Plasma Pulse Emitter",
+    "Slot": {
+      "Type": "ShipWeaponAmmunition"
+    },
+    "Attributes": {
+      "WeaponPenetration": {
+        "Constant": 40
+      }
+    },
+    "Damage": {
+      "Energy": {
+        "Constant": 1600
+      },
+      "ElectroMagnetic": {
+        "Constant": 1600
+      }
+    }
+  },
+
+  {
+    "Key": "component-ship-weapon-assembly-combat-i",
+    "Name": "Combat Assembly I",
+    "Slot": {
+      "Type": "ShipWeaponAssembly"
+    },
+    "Attributes": {
+      "MaterialCost": {
+        "Bonus": -0.05
+      }
+    }
+  },
+  {
+    "Key": "component-ship-weapon-assembly-combat-ii",
+    "Name": "Combat Assembly II",
+    "Slot": {
+      "Type": "ShipWeaponAssembly"
+    },
+    "Attributes": {
+      "MaterialCost": {
+        "Bonus": -0.1
+      }
+    }
+  },
+  {
+    "Key": "component-ship-weapon-assembly-combat-iii",
+    "Name": "Combat Assembly III",
+    "Slot": {
+      "Type": "ShipWeaponAssembly"
+    },
+    "Attributes": {
+      "MaterialCost": {
+        "Bonus": -0.15
+      }
+    }
+  },
+  {
+    "Key": "component-ship-weapon-assembly-combat-iv",
+    "Name": "Combat Assembly IV",
+    "Slot": {
+      "Type": "ShipWeaponAssembly"
+    },
+    "Attributes": {
+      "MaterialCost": {
+        "Bonus": -0.2
+      }
+    }
+  },
+  {
+    "Key": "component-ship-weapon-assembly-magnum-i",
+    "Name": "Magnum Assembly I",
+    "Slot": {
+      "Type": "ShipWeaponAssembly"
+    },
+    "Attributes": {
+      "WeaponDamage": {
+        "Bonus": 0.05
+      }
+    }
+  },
+  {
+    "Key": "component-ship-weapon-assembly-magnum-ii",
+    "Name": "Magnum Assembly II",
+    "Slot": {
+      "Type": "ShipWeaponAssembly"
+    },
+    "Attributes": {
+      "WeaponDamage": {
+        "Bonus": 0.1
+      }
+    }
+  },
+  {
+    "Key": "component-ship-weapon-assembly-magnum-iii",
+    "Name": "Magnum Assembly III",
+    "Slot": {
+      "Type": "ShipWeaponAssembly"
+    },
+    "Attributes": {
+      "WeaponDamage": {
+        "Bonus": 0.15
+      }
+    }
+  },
+  {
+    "Key": "component-ship-weapon-assembly-magnum-iv",
+    "Name": "Magnum Assembly IV",
+    "Slot": {
+      "Type": "ShipWeaponAssembly"
+    },
+    "Attributes": {
+      "WeaponDamage": {
+        "Bonus": 0.2
+      }
+    }
+  },
+  {
+    "Key": "component-ship-weapon-assembly-precision-i",
+    "Name": "Precision Assembly I",
+    "Slot": {
+      "Type": "ShipWeaponAssembly"
+    },
+    "Attributes": {
+      "WeaponAccuracy": {
+        "Bonus": 0.5
+      }
+    }
+  },
+  {
+    "Key": "component-ship-weapon-assembly-precision-ii",
+    "Name": "Precision Assembly II",
+    "Slot": {
+      "Type": "ShipWeaponAssembly"
+    },
+    "Attributes": {
+      "WeaponAccuracy": {
+        "Bonus": 1
+      }
+    }
+  },
+  {
+    "Key": "component-ship-weapon-assembly-precision-iii",
+    "Name": "Precision Assembly III",
+    "Slot": {
+      "Type": "ShipWeaponAssembly"
+    },
+    "Attributes": {
+      "WeaponAccuracy": {
+        "Bonus": 1.5
+      }
+    }
+  },
+  {
+    "Key": "component-ship-weapon-assembly-precision-iv",
+    "Name": "Precision Assembly IV",
+    "Slot": {
+      "Type": "ShipWeaponAssembly"
+    },
+    "Attributes": {
+      "WeaponAccuracy": {
+        "Bonus": 2
+      }
+    }
+  },
+  {
+    "Key": "component-ship-weapon-assembly-rail-i",
+    "Name": "Rail Assembly I",
+    "Slot": {
+      "Type": "ShipWeaponAssembly"
+    },
+    "Attributes": {
+      "WeaponAccuracy": {
+        "Bonus": 0.25
+      },
+      "WeaponDamage": {
+        "Bonus": 0.025
+      },
+      "WeaponPenetration": {
+        "Bonus": 0.1
+      },
+      "WeaponTracking": {
+        "Bonus": -0.4
+      }
+    }
+  },
+  {
+    "Key": "component-ship-weapon-assembly-rail-ii",
+    "Name": "Rail Assembly II",
+    "Slot": {
+      "Type": "ShipWeaponAssembly"
+    },
+    "Attributes": {
+      "WeaponAccuracy": {
+        "Bonus": 0.5
+      },
+      "WeaponDamage": {
+        "Bonus": 0.05
+      },
+      "WeaponPenetration": {
+        "Bonus": 0.2
+      },
+      "WeaponTracking": {
+        "Bonus": -0.35
+      }
+    }
+  },
+  {
+    "Key": "component-ship-weapon-assembly-rail-iii",
+    "Name": "Rail Assembly III",
+    "Slot": {
+      "Type": "ShipWeaponAssembly"
+    },
+    "Attributes": {
+      "WeaponAccuracy": {
+        "Bonus": 0.75
+      },
+      "WeaponDamage": {
+        "Bonus": 0.075
+      },
+      "WeaponPenetration": {
+        "Bonus": 0.3
+      },
+      "WeaponTracking": {
+        "Bonus": -0.3
+      }
+    }
+  },
+  {
+    "Key": "component-ship-weapon-assembly-rail-iv",
+    "Name": "Rail Assembly IV",
+    "Slot": {
+      "Type": "ShipWeaponAssembly"
+    },
+    "Attributes": {
+      "WeaponAccuracy": {
+        "Bonus": 1
+      },
+      "WeaponDamage": {
+        "Bonus": 0.1
+      },
+      "WeaponPenetration": {
+        "Bonus": 0.4
+      },
+      "WeaponTracking": {
+        "Bonus": -0.25
+      }
+    }
+  },
+  {
+    "Key": "component-ship-weapon-assembly-rotary-i",
+    "Name": "Rotary Assembly I",
+    "Slot": {
+      "Type": "ShipWeaponAssembly"
+    },
+    "Attributes": {
+      "WeaponAccuracy": {
+        "Bonus": -0.25
+      },
+      "WeaponDamage": {
+        "Bonus": -0.1
+      },
+      "WeaponPenetration": {
+        "Bonus": -0.1
+      },
+      "WeaponTracking": {
+        "Bonus": 0.5
+      }
+    }
+  },
+  {
+    "Key": "component-ship-weapon-assembly-rotary-ii",
+    "Name": "Rotary Assembly II",
+    "Slot": {
+      "Type": "ShipWeaponAssembly"
+    },
+    "Attributes": {
+      "WeaponAccuracy": {
+        "Bonus": -0.20
+      },
+      "WeaponDamage": {
+        "Bonus": -0.075
+      },
+      "WeaponPenetration": {
+        "Bonus": -0.075
+      },
+      "WeaponTracking": {
+        "Bonus": 1
+      }
+    }
+  },
+  {
+    "Key": "component-ship-weapon-assembly-rotary-iii",
+    "Name": "Rotary Assembly III",
+    "Slot": {
+      "Type": "ShipWeaponAssembly"
+    },
+    "Attributes": {
+      "WeaponAccuracy": {
+        "Bonus": -0.15
+      },
+      "WeaponDamage": {
+        "Bonus": -0.05
+      },
+      "WeaponPenetration": {
+        "Bonus": -0.05
+      },
+      "WeaponTracking": {
+        "Bonus": 1.5
+      }
+    }
+  },
+  {
+    "Key": "component-ship-weapon-assembly-rotary-iv",
+    "Name": "Rotary Assembly IV",
+    "Slot": {
+      "Type": "ShipWeaponAssembly"
+    },
+    "Attributes": {
+      "WeaponAccuracy": {
+        "Bonus": -0.1
+      },
+      "WeaponDamage": {
+        "Bonus": -0.025
+      },
+      "WeaponPenetration": {
+        "Bonus": -0.025
+      },
+      "WeaponTracking": {
+        "Bonus": 2
+      }
+    }
+  },
+
+  {
+    "Key": "component-ship-weapon-fire-control-precision-i",
+    "Name": "Precision Fire Control I",
+    "Slot": {
+      "Type": "ShipWeaponFireControl"
+    },
+    "Attributes": {
+      "WeaponAccuracy": {
+        "Bonus": 0.5
+      }
+    }
+  },
+  {
+    "Key": "component-ship-weapon-fire-control-precision-ii",
+    "Name": "Precision Fire Control II",
+    "Slot": {
+      "Type": "ShipWeaponFireControl"
+    },
+    "Attributes": {
+      "WeaponAccuracy": {
+        "Bonus": 1
+      }
+    }
+  },
+  {
+    "Key": "component-ship-weapon-fire-control-precision-iii",
+    "Name": "Precision Fire Control III",
+    "Slot": {
+      "Type": "ShipWeaponFireControl"
+    },
+    "Attributes": {
+      "WeaponAccuracy": {
+        "Bonus": 1.5
+      }
+    }
+  },
+  {
+    "Key": "component-ship-weapon-fire-control-precision-iv",
+    "Name": "Precision Fire Control IV",
+    "Slot": {
+      "Type": "ShipWeaponFireControl"
+    },
+    "Attributes": {
+      "WeaponAccuracy": {
+        "Bonus": 2
+      }
+    }
+  },
+  {
+    "Key": "component-ship-weapon-fire-control-targeting-i",
+    "Name": "Targeting Fire Control I",
+    "Slot": {
+      "Type": "ShipWeaponFireControl"
+    },
+    "Attributes": {
+      "WeaponDamage": {
+        "Bonus": 0.05
+      }
+    }
+  },
+  {
+    "Key": "component-ship-weapon-fire-control-targeting-ii",
+    "Name": "Targeting Fire Control II",
+    "Slot": {
+      "Type": "ShipWeaponFireControl"
+    },
+    "Attributes": {
+      "WeaponDamage": {
+        "Bonus": 0.1
+      }
+    }
+  },
+  {
+    "Key": "component-ship-weapon-fire-control-targeting-iii",
+    "Name": "Targeting Fire Control III",
+    "Slot": {
+      "Type": "ShipWeaponFireControl"
+    },
+    "Attributes": {
+      "WeaponDamage": {
+        "Bonus": 0.15
+      }
+    }
+  },
+  {
+    "Key": "component-ship-weapon-fire-control-targeting-iv",
+    "Name": "Targeting Fire Control IV",
+    "Slot": {
+      "Type": "ShipWeaponFireControl"
+    },
+    "Attributes": {
+      "WeaponDamage": {
+        "Bonus": 0.2
+      }
+    }
+  },
+  {
+    "Key": "component-ship-weapon-fire-control-tracking-i",
+    "Name": "Tracking Fire Control I",
+    "Slot": {
+      "Type": "ShipWeaponFireControl"
+    },
+    "Attributes": {
+      "WeaponTracking": {
+        "Bonus": 0.5
+      }
+    }
+  },
+  {
+    "Key": "component-ship-weapon-fire-control-tracking-ii",
+    "Name": "Tracking Fire Control II",
+    "Slot": {
+      "Type": "ShipWeaponFireControl"
+    },
+    "Attributes": {
+      "WeaponTracking": {
+        "Bonus": 1
+      }
+    }
+  },
+  {
+    "Key": "component-ship-weapon-fire-control-tracking-iii",
+    "Name": "Tracking Fire Control III",
+    "Slot": {
+      "Type": "ShipWeaponFireControl"
+    },
+    "Attributes": {
+      "WeaponTracking": {
+        "Bonus": 1.5
+      }
+    }
+  },
+  {
+    "Key": "component-ship-weapon-fire-control-tracking-iv",
+    "Name": "Tracking Fire Control IV",
+    "Slot": {
+      "Type": "ShipWeaponFireControl"
+    },
+    "Attributes": {
+      "WeaponTracking": {
+        "Bonus": 2
+      }
+    }
+  },
+
+  {
+    "Key": "component-ship-weapon-mount-double",
+    "Name": "Double Mount",
+    "Slot": {
+      "Type": "ShipWeaponMount"
+    },
+    "Attributes": {
+      "MaterialCost": {
+        "Bonus": -0.1
+      },
+      "ProductionCost": {
+        "Bonus": -0.1
+      },
+      "WeaponDamage": {
+        "Bonus": 0.1
+      },
+      "WeaponPenetration": {
+        "Bonus": 0.1
+      }
+    }
+  },
+  {
+    "Key": "component-ship-weapon-mount-quad",
+    "Name": "Quad Mount",
+    "Slot": {
+      "Type": "ShipWeaponMount"
+    },
+    "Attributes": {
+      "MaterialCost": {
+        "Bonus": -0.3
+      },
+      "ProductionCost": {
+        "Bonus": -0.3
+      },
+      "WeaponDamage": {
+        "Bonus": -0.1
+      },
+      "WeaponPenetration": {
+        "Bonus": -0.1
+      }
+    }
+  },
+  {
+    "Key": "component-ship-weapon-mount-single",
+    "Name": "Single Mount",
+    "Slot": {
+      "Type": "ShipWeaponMount"
+    },
+    "Attributes": {
+      "MaterialCost": {
+        "Bonus": 0
+      },
+      "ProductionCost": {
+        "Bonus": 0
+      },
+      "WeaponDamage": {
+        "Bonus": 0.2
+      },
+      "WeaponPenetration": {
+        "Bonus": 0.2
+      }
+    }
+  },
+  {
+    "Key": "component-ship-weapon-mount-triple",
+    "Name": "Triple Mount",
+    "Slot": {
+      "Type": "ShipWeaponMount"
+    },
+    "Attributes": {
+      "MaterialCost": {
+        "Bonus": -0.2
+      },
+      "ProductionCost": {
+        "Bonus": -0.2
+      },
+      "WeaponDamage": {
+        "Bonus": 0
+      },
+      "WeaponPenetration": {
+        "Bonus": 0
+      }
+    }
+  },
+
+  {
+    "Key": "component-ship-weapon-weight-heavy",
+    "Name": "Heavy",
+    "Slot": {
+      "Type": "ShipWeaponWeight"
+    },
+    "Attributes": {
+      "WeaponPenetration": {
+        "Bonus": 0.1
+      },
+      "WeaponTracking": {
+        "Bonus": -0.4
+      }
+    }
+  },
+  {
+    "Key": "component-ship-weapon-weight-light",
+    "Name": "Light",
+    "Slot": {
+      "Type": "ShipWeaponWeight"
+    },
+    "Attributes": {
+      "WeaponPenetration": {
+        "Bonus": -0.1
+      },
+      "WeaponTracking": {
+        "Bonus": 0.5
+      }
+    }
+  },
+  {
+    "Key": "component-ship-weapon-weight-medium",
+    "Name": "Medium",
+    "Slot": {
+      "Type": "ShipWeaponWeight"
+    },
+    "Attributes": {
+      "WeaponPenetration": {
+        "Bonus": 0
+      },
+      "WeaponTracking": {
+        "Bonus": 0
+      }
+    }
+  }
+]

@@ -1,0 +1,109 @@
+[
+  {
+    "Key": "design-template-ship-weapon",
+    "Type": "ShipWeapon",
+    "Sizes": {
+      "SMALL": {
+        "Attributes": {
+          "MaterialCost": {
+            "Bonus": 0
+          },
+          "ProductionCost": {
+            "Bonus": 0
+          },
+          "WeaponDamage": {
+            "Bonus": 0
+          },
+          "WeaponPenetration": {
+            "Bonus": 0
+          },
+          "WeaponTracking": {
+            "Bonus": 0
+          }
+        }
+      },
+      "MEDIUM": {
+        "Attributes": {
+          "MaterialCost": {
+            "Bonus": 1
+          },
+          "ProductionCost": {
+            "Bonus": 1
+          },
+          "WeaponDamage": {
+            "Bonus": 1
+          },
+          "WeaponPenetration": {
+            "Bonus": 1
+          },
+          "WeaponTracking": {
+            "Bonus": -0.5
+          }
+        }
+      },
+      "LARGE": {
+        "Attributes": {
+          "MaterialCost": {
+            "Bonus": 3
+          },
+          "ProductionCost": {
+            "Bonus": 3
+          },
+          "WeaponDamage": {
+            "Bonus": 3
+          },
+          "WeaponPenetration": {
+            "Bonus": 3
+          },
+          "WeaponTracking": {
+            "Bonus": -0.75
+          }
+        }
+      }
+    },
+    "Segments": [
+      {
+        "Key": "design-template-segment-ship-weapon-components",
+        "Name": "Components",
+        "ConfigurationOptions": [
+          {
+            "Key": "design-template-segment-ship-weapon-components-standard",
+            "Name": "Standard",
+            "Slots": [
+              {
+                "Type": [ "ShipWeaponAmmunition" ],
+                "Size": [],
+                "Count": 1,
+                "Weight": 1
+              },
+              {
+                "Type": [ "ShipWeaponAssembly" ],
+                "Size": [],
+                "Count": 1,
+                "Weight": 1
+              },
+              {
+                "Type": [ "ShipWeaponFireControl" ],
+                "Size": [],
+                "Count": 1,
+                "Weight": 1
+              },
+              {
+                "Type": [ "ShipWeaponMount" ],
+                "Size": [],
+                "Count": 1,
+                "Weight": 1
+              },
+              {
+                "Type": [ "ShipWeaponWeight" ],
+                "Size": [],
+                "Count": 1,
+                "Weight": 1
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

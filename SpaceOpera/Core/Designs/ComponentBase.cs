@@ -1,12 +1,14 @@
 using Cardamom.Collections;
+using Cardamom.Json.Collections;
 using Cardamom.Trackers;
 using SpaceOpera.Core.Advancement;
 using SpaceOpera.Core.Economics;
 using SpaceOpera.Core.Military;
+using System.Text.Json.Serialization;
 
 namespace SpaceOpera.Core.Designs
 {
-    public class ComponentBase : IComponent
+    public abstract class ComponentBase : IComponent
     {
         public string Key { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
@@ -14,6 +16,7 @@ namespace SpaceOpera.Core.Designs
         public List<ComponentTag> Tags { get; set; } = new();
         public EnumMap<MaterialReference, MultiQuantity<IMaterial>> ReferenceMaterial { get; set; } = new();
         public Dictionary<MaterialReference, Modifier> ReferenceMaterialCost { get; set; } = new();
+        [JsonConverter(typeof(ReferenceDictionaryJsonConverter))]
         public Dictionary<IMaterial, Modifier> MaterialCost { get; set; } = new();
         public EnumMap<ComponentAttribute, Modifier> Attributes { get; set; } = new();
         public EnumMap<DamageType, Modifier> Damage { get; set; } = new();
