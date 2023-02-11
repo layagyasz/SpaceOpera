@@ -6,8 +6,9 @@ namespace SpaceOpera.Core.Politics.Generator
     {
         public LanguageGenerator? Language { get; set; }
 
-        public Culture Generate(Random random)
+        public Culture Generate(GeneratorContext context)
         {
+            var random = context.Random;
             return new Culture(
                 new CulturalTraits()
                 {
@@ -18,7 +19,7 @@ namespace SpaceOpera.Core.Politics.Generator
                     MonumentalHumble = GenerateValue(random),
                     IndulgentAustere = GenerateValue(random)
                 }, 
-                Language!.Generate(random));
+                Language!.Generate(context));
         }
 
         private static int GenerateValue(Random Random)

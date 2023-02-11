@@ -65,24 +65,25 @@ namespace SpaceOpera.Core.Universe.Generator
         public StellarBodySurfaceGenerator? SurfaceGenerator { get; set; }
         public AtmosphereGenerator? AtmosphereGenerator { get; set; }
 
-        public StellarBody Generate(Random random, Orbit orbit)
+        public StellarBody Generate(Orbit orbit, GeneratorContext context)
         {
             while (true)
             {
                 try
                 {
-                    return GenerateAux(random, orbit);
+                    return GenerateAux(orbit, context);
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e);
+                    context.Logger.ForType(typeof(StellarBodyGenerator)).AtWarning().Log(e.ToString());
                     continue;
                 }
             }
         }
 
-        private StellarBody GenerateAux(Random random, Orbit orbit)
-        { 
+        private StellarBody GenerateAux(Orbit orbit, GeneratorContext context)
+        {
+            var random = context.Random;
             float radius = RadiusSampler!.Generate(random);
             int subRegionCount =
                 Math.Min(
@@ -237,7 +238,7 @@ namespace SpaceOpera.Core.Universe.Generator
                 radius,
                 mass,
                 orbit,
-                AtmosphereGenerator.Generate(random, mass, radius), 
+                AtmosphereGenerator.Generate(mass, radius, context), 
                 regions, 
                 orbitRegions);
         }

@@ -1,6 +1,4 @@
-﻿using System.Globalization;
-
-namespace SpaceOpera.Core.Politics.Generator
+﻿namespace SpaceOpera.Core.Politics.Generator
 {
     public class BannerGenerator
     {
@@ -8,17 +6,17 @@ namespace SpaceOpera.Core.Politics.Generator
         public int Backgrounds { get; set; }
         public int Colors { get; set; }
 
-        public Banner Generate(Random random)
+        public Banner Generate(GeneratorContext context)
         {
-            return GenerateWithSymbol(random.Next(Symbols), random);
+            return GenerateWithSymbol(context.Random.Next(Symbols), context.Random);
         }
 
-        public IEnumerable<Banner> GenerateUnique(int count,  Random random)
+        public IEnumerable<Banner> GenerateUnique(int count,  GeneratorContext context)
         {
-            int[] symbols = GenerateUnique(count, Symbols, random);
+            int[] symbols = GenerateUnique(count, Symbols, context.Random);
             foreach (int symbol in symbols)
             {
-                yield return GenerateWithSymbol(symbol, random);
+                yield return GenerateWithSymbol(symbol, context.Random);
             }
         }
 

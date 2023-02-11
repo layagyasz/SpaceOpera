@@ -158,6 +158,11 @@ namespace SpaceOpera.Core.Universe
             return path;
         }
 
+        public int GetSize()
+        {
+            return _nodes.Count;
+        }
+
         public StarSystem GetStarSystem(INavigable navigable)
         {
             return _nodes[navigable].StarSystem;

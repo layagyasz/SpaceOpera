@@ -12,7 +12,7 @@ namespace SpaceOpera.Core.Politics.Generator
 
         private List<ComponentType>? _designOrder;
 
-        public void Generate(World world, Faction faction, Random random)
+        public void Generate(World world, Faction faction, GeneratorContext context)
         {
             _designOrder ??= world.AutoDesigner.GetDesignOrder();
             foreach (var component in _designOrder)
@@ -23,8 +23,8 @@ namespace SpaceOpera.Core.Politics.Generator
                     continue;
                 }
                 var designConfig = 
-                    world.AutoDesigner.CreateSeries(parameters.Key, world.GetComponentsFor(faction), random);
-                designConfig.SetName(faction.NameGenerator.GenerateNameFor(designConfig, random));
+                    world.AutoDesigner.CreateSeries(parameters.Key, world.GetComponentsFor(faction), context.Random);
+                designConfig.SetName(faction.NameGenerator.GenerateNameFor(designConfig, context.Random));
                 var design = world.DesignBuilder.Build(designConfig);
                 world.AddDesign(design);
                 world.AddLicense(new DesignLicense(faction, design));

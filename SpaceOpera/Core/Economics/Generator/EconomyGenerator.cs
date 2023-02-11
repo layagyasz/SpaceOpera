@@ -10,11 +10,11 @@ namespace SpaceOpera.Core.Economics.Generator
         public float GasNodeDensity { get; set; }
         public List<ResourceSampler> ResourceSamplers { get; set; } = new();
 
-        public void Generate(World world, Random random)
+        public void Generate(World world, GeneratorContext context)
         {
             var resources = 
                 new ResourceGenerator(PopulationSampler!, GasNodeDensity, ResourceSamplers);
-            resources.Generate(world, random);
+            resources.Generate(world, context);
 
             foreach (var region in world.Galaxy.Systems.SelectMany(x => x.Orbiters).SelectMany(x => x.Regions))
             {

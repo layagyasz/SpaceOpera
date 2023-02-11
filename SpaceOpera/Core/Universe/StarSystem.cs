@@ -49,9 +49,14 @@ namespace SpaceOpera.Core.Universe
             return Orbiters.Any(x => x.ContainsFaction(faction));
         }
 
+        public int GetSize()
+        {
+            return Transits.Count + 2 * OrbitalRegions.Count + Orbiters.Sum(x => x.GetSize());
+        }
+
         public void SetName(string name)
         {
-            this.Name = name;
+            Name = name;
         }
 
         public void SetNeighbors(IEnumerable<StarSystem> neighbors)

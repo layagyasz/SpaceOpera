@@ -11,6 +11,11 @@ namespace SpaceOpera.Core.Universe
             Systems = systems.ToList();
         }
 
+        public int GetSize()
+        {
+            return Systems.Sum(x => x.GetSize());
+        }
+
         public IEnumerable<Tuple<StarSystem, StarSystem>> GetTransits()
         {
             var closed = new HashSet<StarSystem>();

@@ -18,21 +18,22 @@ namespace SpaceOpera.Core.Languages.Generator
         public List<OrthographySymbol> Symbols { get; set; } = new();
         public List<Frequent<OrthographySymbolModifier>> SymbolModifiers { get; set; } = new();
 
-        public Orthography Generate(Phonetics Phonetics, Random Random)
+        public Orthography Generate(Phonetics phonetics, GeneratorContext context)
         {
+            var random = context.Random;
             var modifiers = 
                 SymbolModifiers
-                    .Where(x => Random.NextDouble() < x.Frequency)
-                    .Select(x => x.Value!.Reduce(Random))
+                    .Where(x => random.NextSingle() < x.Frequency)
+                    .Select(x => x.Value!.Reduce(random))
                     .ToList();
-            var modifierWeights = modifiers.ToDictionary(x => x, x => Random.NextSingle());
+            var modifierWeights = modifiers.ToDictionary(x => x, x => random.NextSingle());
 
             var symbols = new List<OrthographySymbol>();
             var symbolWeights = new Dictionary<OrthographySymbol, float>();
             foreach (var symbol in Symbols)
             {
                 symbols.Add(symbol);
-                symbolWeights.Add(symbol, Random.NextSingle());
+                symbolWeights.Add(symbol, random.NextSingle());
                 foreach (var modifier in modifiers)
                 {
                     if (!modifier.IsApplicable(symbol))
@@ -41,12 +42,12 @@ namespace SpaceOpera.Core.Languages.Generator
                     }
                     var modified = modifier.Modify(symbol);
                     symbols.Add(modified);
-                    symbolWeights.Add(modified, Random.NextSingle() * modifierWeights[modifier]);
+                    symbolWeights.Add(modified, random.NextSingle() * modifierWeights[modifier]);
                 }
             }
 
             var symbolWrappers = new List<Wrapper<OrthographySymbol>>();
-            while (symbolWrappers.Count < Phonetics.Phonemes.Count)
+            while (symbolWrappers.Count < phonetics.Phonemes.Count)
             {
                 foreach (var symbol in symbols)
                 {
@@ -56,7 +57,7 @@ namespace SpaceOpera.Core.Languages.Generator
 
             return new Orthography(
                 StableMatching.Compute(
-                    Phonetics.Phonemes,
+                    phonetics.Phonemes,
                     symbolWrappers,
                     (phoneme, symbol) => 
                         -symbolWeights[symbol.Value] * symbol.Value.Range.Distance(phoneme.Value!.Range),

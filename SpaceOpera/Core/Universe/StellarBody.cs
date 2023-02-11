@@ -1,5 +1,3 @@
-using Cardamom.Trackers;
-using SpaceOpera.Core.Economics;
 using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Politics;
 
@@ -61,6 +59,11 @@ namespace SpaceOpera.Core.Universe
         public double GetHighOrbitAltitude()
         {
             return 4 * GetGeosynchronousOrbitAltitude();
+        }
+
+        public int GetSize()
+        {
+            return OrbitRegions.Count + Regions.Sum(x => x.SubRegions.Count);
         }
 
         public void SetName(string name)

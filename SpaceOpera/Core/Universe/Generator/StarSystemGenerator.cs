@@ -21,9 +21,10 @@ namespace SpaceOpera.Core.Universe.Generator
         public OrbitGenerator? OrbitGenerator { get; set; }
         public StellarBodyGeneratorSelector? StellarBodySelector { get; set; }
 
-        public StarSystem Generate(Random random, Vector3 position)
+        public StarSystem Generate(Vector3 position, GeneratorContext context)
         {
-            var star = StarGeneratorSelector.Get(random.NextSingle()).Generate(random);
+            var random = context.Random;
+            var star = StarGeneratorSelector.Get(random.NextSingle()).Generate(context);
             float innerBoundary = 
                 Math.Max(
                     GetDistanceForTemperature(star, ViableThermalRange.Maximum),
@@ -45,13 +46,13 @@ namespace SpaceOpera.Core.Universe.Generator
             var orbiters = new List<StellarBody>();
             for (int i=0; i<numBodies;++i)
             {
-                var orbit = OrbitGenerator!.Generate(random, star, distanceSampler.Generate(random));
+                var orbit = OrbitGenerator!.Generate(star, distanceSampler.Generate(random), context);
                 var avgDistance = orbit.GetAverageDistance();
                 var generator = StellarBodySelector!.Select(
                         random,
                         GetTemperatureForDistance(star, avgDistance),
                         GetGravityForDistance(star, avgDistance));
-                var stellarBody = generator.Generate(random, orbit);
+                var stellarBody = generator.Generate(orbit, context);
                 orbiters.Add(stellarBody);
             }
             orbiters.Sort((x, y) => x.Orbit.GetAverageDistance().CompareTo(y.Orbit.GetAverageDistance()));

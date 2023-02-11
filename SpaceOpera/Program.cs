@@ -1,3 +1,4 @@
+using Cardamom.Logging;
 using Cardamom.Ui;
 using Cardamom.Ui.Controller;
 using Cardamom.Window;
@@ -25,7 +26,7 @@ namespace SpaceOpera
             var viewData = ViewData.LoadFrom("Resources/View/ViewData.json");
             var viewFactory = ViewFactory.Create(viewData, coreData);
 
-            var random = new Random();
+            var generatorContext = new GeneratorContext(new Logger(new ConsoleBackend(), LogLevel.Info), new());
             IScene scene;
             int mode = 4;
             if (mode == 1)
@@ -39,7 +40,8 @@ namespace SpaceOpera
                         .First(x => x.Key == "star-generator-class-g");
                 var planet =
                     planetGenerator.Generate(
-                        random, orbitGenerator.Generate(random, starGenerator.Generate(random), 1f));
+                        orbitGenerator.Generate(starGenerator.Generate(generatorContext), 1f, generatorContext), 
+                        generatorContext);
                 scene = viewFactory.SceneFactory.Create(planet);
             }
             else if (mode == 2)
@@ -48,15 +50,16 @@ namespace SpaceOpera
             }
             else if (mode == 3)
             {
-                var galaxy = coreData.GalaxyGenerator!.Generate(random);
+                var galaxy = coreData.GalaxyGenerator!.Generate(generatorContext);
                 scene = viewFactory.SceneFactory.Create(galaxy);
             }
             else if (mode == 4)
             {
-                var playerCulture = coreData.PoliticsGenerator!.Culture!.Generate(random);
-                var playerBanner = coreData.PoliticsGenerator!.Banner!.Generate(random);
-                var playerFaction = coreData.PoliticsGenerator!.Faction!.Generate(playerCulture, playerBanner, random);
-                var world = WorldGenerator.Generate(playerCulture, playerFaction, coreData, random);
+                var playerCulture = coreData.PoliticsGenerator!.Culture!.Generate(generatorContext);
+                var playerBanner = coreData.PoliticsGenerator!.Banner!.Generate(generatorContext);
+                var playerFaction =
+                    coreData.PoliticsGenerator!.Faction!.Generate(playerCulture, playerBanner, generatorContext);
+                var world = WorldGenerator.Generate(playerCulture, playerFaction, coreData, generatorContext);
                 scene = viewFactory.SceneFactory.Create(world.Galaxy);
             }
             else

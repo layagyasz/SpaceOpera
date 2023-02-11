@@ -9,7 +9,7 @@ namespace SpaceOpera.Core.Politics.Generator
     {
         public float InitialCommand { get; set; }
 
-        public void Generate(World world, Faction faction, INavigable headquarters, Random random)
+        public void Generate(World world, Faction faction, INavigable headquarters, GeneratorContext context)
         {
             int fleets = (int)Math.Ceiling(InitialCommand / faction.GetFleetCommand());
             float perFleetCommand = InitialCommand / fleets;
@@ -38,7 +38,7 @@ namespace SpaceOpera.Core.Politics.Generator
             for (int i=0; i<fleets; ++i)
             {
                 var fleet = new Fleet(faction);
-                fleet.SetName(faction.NameGenerator.GenerateNameForFleet(random));
+                fleet.SetName(faction.NameGenerator.GenerateNameForFleet(context.Random));
                 fleet.Add(composition);
                 fleet.SetPosition(headquarters);
                 world.AddFleet(fleet);

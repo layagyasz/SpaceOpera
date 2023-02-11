@@ -6,10 +6,10 @@ namespace SpaceOpera.Core.Languages.Generator
     {
         public List<Frequent<PhonologyExclusion>> Exclusions { get; set; } = new();
 
-        public Phonology Generate(Phonetics Phonetics, Random Random)
+        public Phonology Generate(Phonetics phonetics, GeneratorContext context)
         {
-            var builder = new Phonology.Builder(Phonetics.Phonemes);
-            foreach (var exclusion in Exclusions.Where(x => Random.NextSingle() < x.Frequency))
+            var builder = new Phonology.Builder(phonetics.Phonemes);
+            foreach (var exclusion in Exclusions.Where(x => context.Random.NextSingle() < x.Frequency))
             {
                 switch (exclusion.Value!.Segment)
                 {

@@ -20,25 +20,26 @@ namespace SpaceOpera.Core.Economics.Generator
             _resourceSamplers = resourceSamplers.ToList();
         }
 
-        public void Generate(World world, Random random)
+        public void Generate(World world, GeneratorContext context)
         {
             foreach (var system in world.Galaxy.Systems)
             {
                 foreach (var stellarBody in system.Orbiters)
                 {
-                    Generate(stellarBody, random);
+                    Generate(stellarBody, context);
                 }
             }
         }
 
-        private void Generate(StellarBody stellarBody, Random random)
+        private void Generate(StellarBody stellarBody, GeneratorContext context)
         {
+            var random = context.Random;
             foreach (var region in stellarBody.Regions)
             {
                 var resourceNodes = new List<ResourceNode>();
                 resourceNodes.AddRange(
                     Generate(region.DominantBiome, random)
-                    .Select(x => new ResourceNode(x.Resource, region.SubRegions.Count * x.Size)));
+                        .Select(x => new ResourceNode(x.Resource, region.SubRegions.Count * x.Size)));
                 foreach (var atmosphereNode in stellarBody.Atmosphere.Composition.GetQuantities())
                 {
                     resourceNodes.Add(

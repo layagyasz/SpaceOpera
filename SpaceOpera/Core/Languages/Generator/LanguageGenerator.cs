@@ -14,13 +14,13 @@ namespace SpaceOpera.Core.Languages.Generator
         [JsonConverter(typeof(FromFileJsonConverter))]
         public PhonologyGenerator? Phonology { get; set; }
 
-        public Language Generate(Random Random)
+        public Language Generate(GeneratorContext context)
         {
-            var phonetics = Phonetics!.Generate(Random);
+            var phonetics = Phonetics!.Generate(context);
             return new Language(
                 phonetics,
-                Orthography!.Generate(phonetics, Random),
-                Phonology!.Generate(phonetics, Random));
+                Orthography!.Generate(phonetics, context),
+                Phonology!.Generate(phonetics, context));
         }
     }
 }

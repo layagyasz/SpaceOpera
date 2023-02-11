@@ -10,8 +10,9 @@ namespace SpaceOpera.Core.Languages.Generator
         public List<Phoneme> Phonemes { get; set; } = new();
         public IndependentSelector<PhonemeRange>? Exclusions { get; set; }
 
-        public Phonetics Generate(Random random)
+        public Phonetics Generate(GeneratorContext context)
         {
+            var random = context.Random;
             var exlcusions = new List<PhonemeRange>();
 
             foreach (var newRange in Exclusions!.Select(random))
@@ -36,7 +37,7 @@ namespace SpaceOpera.Core.Languages.Generator
             {
                 phonemeRanks[i] = 
                     Math.Pow(
-                        random.NextDouble(), 
+                        random.NextSingle(), 
                         phonemesArray[i].Range.Classes.Contains(PhonemeClass.Vowel) 
                             ? consonantVowelRatio : 1 / consonantVowelRatio);
             }

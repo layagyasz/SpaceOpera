@@ -17,8 +17,9 @@ namespace SpaceOpera.Core.Universe.Generator
         [JsonConverter(typeof(ReferenceDictionaryJsonConverter))]
         public Dictionary<IMaterial, ISampler> PartialPressureSamplers { get; set; } = new();
 
-        public Atmosphere Generate(Random random, float bodyMass, float bodyRadius)
+        public Atmosphere Generate(float bodyMass, float bodyRadius, GeneratorContext context)
         {
+            var random = context.Random;
             var result = new MultiQuantity<IMaterial>();
             float pressure = Math.Max(0, TotalPressureSampler!.Generate(random));
             foreach (var sampler in PartialPressureSamplers)

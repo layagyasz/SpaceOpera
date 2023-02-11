@@ -53,15 +53,6 @@ namespace SpaceOpera.Core
             BattleManager = new(DiplomaticRelations);
             DesignBuilder = new(new ComponentClassifier(coreData.ComponentClassifiers));
             AutoDesigner = new(coreData.DesignTemplates.Values);
-
-            foreach (var material in coreData.Materials)
-            {
-                Console.WriteLine("[{0}]", material.Key);
-                foreach (var recipe in EconomyGraph.GetRequiredRecipes(material.Value).GetQuantities())
-                {
-                    Console.WriteLine("\t{0} * {1}", recipe.Key.Key, recipe.Value);
-                }
-            }
         }
 
         public ITickable GetTickable()

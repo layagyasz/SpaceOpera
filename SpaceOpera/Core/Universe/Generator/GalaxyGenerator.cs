@@ -1,5 +1,4 @@
 using Cardamom.Graphing;
-using Cardamom.Mathematics;
 using Cardamom.Utils.Generators.Samplers;
 using DelaunayTriangulator;
 using OpenTK.Mathematics;
@@ -42,8 +41,9 @@ namespace SpaceOpera.Core.Universe.Generator
             }
         }
 
-        public Galaxy Generate(Random random)
+        public Galaxy Generate(GeneratorContext context)
         {
+            var random = context.Random;
             List<Vertex> vertices = new();
             int starId = 0;
             while (starId<StarCount)
@@ -68,10 +68,11 @@ namespace SpaceOpera.Core.Universe.Generator
             List<SystemWrapper> systemWrappers = new();
             for (int i=0; i< StarCount; ++i)
             {
+                context.Logger.ForType(typeof(GalaxyGenerator)).AtInfo().EverySeconds(5).Log($"\tCreated {i} systems");
                 systemWrappers.Add(
                     new SystemWrapper(
                         StarSystemGenerator!.Generate(
-                            random, new Vector3(vertices[i].x, s_YSampler.Generate(random), vertices[i].y))));
+                            new Vector3(vertices[i].x, s_YSampler.Generate(random), vertices[i].y), context)));
             }
             for (int i=0; i < StarCount;++i)
             {

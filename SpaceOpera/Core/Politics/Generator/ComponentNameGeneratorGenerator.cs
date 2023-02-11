@@ -37,8 +37,9 @@ namespace SpaceOpera.Core.Politics.Generator
         public Dictionary<string, List<Frequent<ComponentNamePartGenerator>>> NameParts { get; set; } = new();
         public List<Frequent<ComponentNamePattern>> Patterns { get; set; } = new();
 
-        public ComponentNameGenerator Generate(Random random)
+        public ComponentNameGenerator Generate(GeneratorContext context)
         {
+            var random = context.Random;
             var parts = new Dictionary<string, ComponentTypeNameGenerator.ComponentNamePart>();
             foreach (var partGenerator in NameParts)
             {

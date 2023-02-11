@@ -11,12 +11,12 @@ namespace SpaceOpera.Core.Universe.Generator
         public ISampler? RadiusSampler { get; set; }
         public ISampler? MassSampler { get; set; }
 
-        public Star Generate(Random random)
+        public Star Generate(GeneratorContext context)
         {
             return new Star(
-                TemperatureSampler!.Generate(random), 
-                Constants.SolarRadius * RadiusSampler!.Generate(random),
-                Constants.SolarMass * MassSampler!.Generate(random));
+                TemperatureSampler!.Generate(context.Random), 
+                Constants.SolarRadius * RadiusSampler!.Generate(context.Random),
+                Constants.SolarMass * MassSampler!.Generate(context.Random));
         }
     }
 }

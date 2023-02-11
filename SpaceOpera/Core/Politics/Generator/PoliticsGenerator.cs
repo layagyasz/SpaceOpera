@@ -7,7 +7,7 @@ namespace SpaceOpera.Core.Politics.Generator
 {
     public class PoliticsGenerator
     {
-        private static float s_WeightCutoff = 0.1f;
+        private static float s_WeightCutoff = 0.01f;
 
         class FactionWrapper : SeededGraphPartition.ISeed<RegionWrapper>
         {
@@ -67,8 +67,9 @@ namespace SpaceOpera.Core.Politics.Generator
         public int Cultures { get; set; }
         public int States { get; set; }
 
-        public void Generate(World world, Culture playerCulture, Faction playerFaction, Random random)
+        public void Generate(World world, Culture playerCulture, Faction playerFaction, GeneratorContext context)
         {
+            var random = context.Random;
             var nodes = new Dictionary<StellarBodyRegion, RegionWrapper>();
             var homeRegions = new WeightedVector<RegionWrapper>();
             foreach (var system in world.Galaxy.Systems)
@@ -105,7 +106,7 @@ namespace SpaceOpera.Core.Politics.Generator
                             node.Edges.Add(new RegionEdgeWrapper(node, neighborNode, distance, falloff));
                             neighborNode.Edges.Add(new RegionEdgeWrapper(neighborNode, node, distance, falloff));
                         }
-                        if (region.DominantBiome.IsTraversable && random.NextDouble() < GetLinkChance(region))
+                        if (region.DominantBiome.IsTraversable && random.NextSingle() < GetLinkChance(region))
                         {
                             var jump = regionOptions.Get(random.NextSingle());
                             float distance = GetDistance(region, jump.Region);
@@ -138,7 +139,7 @@ namespace SpaceOpera.Core.Politics.Generator
             var chosenHomeRegions = new List<RegionWrapper>();
             for (int i = 0; i < Cultures; ++i)
             {
-                var culture = Culture!.Generate(random);
+                var culture = Culture!.Generate(context);
                 cultures.Add(culture);
                 var homeRegion = homeRegions.Get(random.NextSingle());
                 chosenHomeRegions.Add(homeRegion);
@@ -153,7 +154,7 @@ namespace SpaceOpera.Core.Politics.Generator
             {
                 playerHomeRegion
             };
-            var banners = Banner!.GenerateUnique(States, random).ToList();
+            var banners = Banner!.GenerateUnique(States, context).ToList();
             for (int i = 0; i < States; ++i)
             {
                 var homeRegion = 
@@ -166,7 +167,7 @@ namespace SpaceOpera.Core.Politics.Generator
                 var stateWrapper =
                     new FactionWrapper(
                         Faction!.Generate(
-                            homeRegion.CultureWeights.ArgMax(x => x.Value).Key, banners[i], random), homeRegion);
+                            homeRegion.CultureWeights.ArgMax(x => x.Value).Key, banners[i], context), homeRegion);
                 states.Add(stateWrapper);
             }
             world.AddAllFactions(states.Select(x => x.Faction));
@@ -174,7 +175,7 @@ namespace SpaceOpera.Core.Politics.Generator
             foreach (var partition in SeededGraphPartition.Compute<FactionWrapper, RegionWrapper>(states, x => true))
             {
                 var state = partition.Seed;
-                Design!.Generate(world, state.Faction, random);
+                Design!.Generate(world, state.Faction, context);
                 foreach (var region in partition.Nodes)
                 {
                     region.Region.SetName(state.Faction.NameGenerator.GenerateNameFor(region.Region, random));
@@ -186,7 +187,7 @@ namespace SpaceOpera.Core.Politics.Generator
                         .SelectMany(x => x.OrbitRegions)
                         .Where(x => x.SubRegions.Contains(partition.Nodes.First().Region.Center))
                         .First();
-                Fleet!.Generate(world, state.Faction, hq, random);
+                Fleet!.Generate(world, state.Faction, hq, context);
             }
 
             foreach (var system in world.Galaxy.Systems)
@@ -240,7 +241,7 @@ namespace SpaceOpera.Core.Politics.Generator
             var queue = new Heap<RegionWrapper, float>();
             var closed = new HashSet<RegionWrapper>();
             queue.Push(homeRegion, 0);
-            homeRegion.CultureWeights.Add(culture, 1);
+            homeRegion.CultureWeights.Add(culture, -1);
             while (queue.Count > 0)
             {
                 var current = queue.Pop();
@@ -259,7 +260,7 @@ namespace SpaceOpera.Core.Politics.Generator
                                 queue.Remove(wrapper);
                             }
                             wrapper.IsOpen = true;
-                            queue.Push(wrapper, weight);
+                            queue.Push(wrapper, -weight);
                         }
                     }
                 }
