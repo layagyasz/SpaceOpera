@@ -1,11 +1,11 @@
 {
-  "$id": "planet-generator-barren",
-  "Name": "Barren Planet",
+  "Key": "planet-generator-cytherean",
+  "Name": "Cytherean",
   "RadiusSampler": {
     "$type": "Uniform",
-    "Range": [ 2000, 5000 ]
+    "Range": [ 2000, 9000 ]
   },
-  "Density": 3930,
+  "Density": 3530,
   "SubRegionDensity": 0.000004,
   "RegionDensity": 0.0000002,
   "StructureNodeDensity": 2500,
@@ -13,94 +13,74 @@
     "RegionDensity": 0.000175,
     "TotalPressureSampler": {
       "$type": "Normal",
-      "Mean": 0.006,
-      "StandardDeviation": 0.01
+      "Mean": 75,
+      "StandardDeviation": 70
     },
-    "PartialPressureSamplers": {
-      "material-carbox-gas": {
-        "$type": "Normal",
-        "Mean": 0.95,
-        "StandardDeviation": 0.4
-      },
-      "material-ingenon-gas": {
-        "$type": "Normal",
-        "Mean": 0.02,
-        "StandardDeviation": 0.01
-      }
-    }
+    "PartialPressureSamplers": {}
   },
   "SurfaceGenerator": {
-    "HeightOutput": "wave-form",
+    "HeightOutput": "denormalize",
     "HeightChannel": "Green",
     "Generators": {
-      "stellar-body-generator-barren-temperature-seed": {
+      "stellar-body-generator-volcanic-temperature-seed": {
         "Type": "Cardamom.Utils.Generators.Numeric.SeedGenerator, Cardamom",
         "Object": {}
       },
-      "stellar-body-generator-barren-rockiness-seed": {
+      "stellar-body-generator-volcanic-height-seed": {
         "Type": "Cardamom.Utils.Generators.Numeric.SeedGenerator, Cardamom",
         "Object": {}
       },
-      "stellar-body-generator-barren-ferrous-seed": {
+      "stellar-body-generator-volcanic-rockiness-seed": {
         "Type": "Cardamom.Utils.Generators.Numeric.SeedGenerator, Cardamom",
         "Object": {}
       },
-      "stellar-body-generator-barren-crater-seed": {
-        "Type": "Cardamom.Utils.Generators.Numeric.SeedGenerator, Cardamom",
-        "Object": {}
-      },
-      "stellar-body-generator-barren-temperature-offset": {
+      "stellar-body-generator-volcanic-temperature-offset": {
         "Type": "Cardamom.Utils.Generators.Numeric.FloatGenerator, Cardamom",
         "Object": {
-          "Range": [ -0.5, 1.5 ]
+          "Range": [ 0, 1 ]
         }
       },
-      "stellar-body-generator-barren-rockiness-offset": {
+      "stellar-body-generator-volcanic-height-offset": {
         "Type": "Cardamom.Utils.Generators.Numeric.FloatGenerator, Cardamom",
         "Object": {
-          "Range": [ -0.5, 1.5 ]
+          "Range": [ 0, 1 ]
         }
       },
-      "stellar-body-generator-barren-ferrous-offset": {
+      "stellar-body-generator-volcanic-rockiness-offset": {
         "Type": "Cardamom.Utils.Generators.Numeric.FloatGenerator, Cardamom",
         "Object": {
-          "Range": [ -0.5, 1.5 ]
+          "Range": [ 0, 1 ]
         }
       }
     },
     "Parameters": [
       {
-        "$id": "stellar-body-generator-barren-temperature-seed",
+        "$id": "stellar-body-generator-volcanic-temperature-seed",
         "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Int32], Cardamom",
         "Object": {}
       },
       {
-        "$id": "stellar-body-generator-barren-rockiness-seed",
+        "$id": "stellar-body-generator-volcanic-height-seed",
         "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Int32], Cardamom",
         "Object": {}
       },
       {
-        "$id": "stellar-body-generator-barren-ferrous-seed",
+        "$id": "stellar-body-generator-volcanic-rockiness-seed",
         "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Int32], Cardamom",
         "Object": {}
       },
       {
-        "$id": "stellar-body-generator-barren-crater-seed",
-        "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Int32], Cardamom",
-        "Object": {}
-      },
-      {
-        "$id": "stellar-body-generator-barren-temperature-offset",
+        "$id": "stellar-body-generator-volcanic-temperature-offset",
         "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
         "Object": {}
       },
       {
-        "$id": "stellar-body-generator-barren-rockiness-offset",
+        "$id": "stellar-body-generator-volcanic-height-offset",
         "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
         "Object": {}
       },
       {
-        "$id": "stellar-body-generator-barren-ferrous-offset",
+        "$id": "stellar-body-generator-volcanic-rockiness-offset",
         "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
         "Object": {}
       }
@@ -128,7 +108,7 @@
         },
         {
           "$type": "LatticeNoise",
-          "Key": "rockiness",
+          "Key": "height",
           "Channel": [ "Green" ],
           "Inputs": {
             "input": "position"
@@ -136,7 +116,7 @@
           "Output": "temperature",
           "Parameters": {
             "Seed": {
-              "$ref": "stellar-body-generator-barren-rockiness-seed"
+              "$ref": "stellar-body-generator-volcanic-height-seed"
             }
           },
           "Frequency": {
@@ -148,15 +128,15 @@
         },
         {
           "$type": "LatticeNoise",
-          "Key": "ferrous",
+          "Key": "rockiness",
           "Channel": [ "Blue" ],
           "Inputs": {
             "input": "position"
           },
-          "Output": "rockiness",
+          "Output": "height",
           "Parameters": {
             "Seed": {
-              "$ref": "stellar-body-generator-barren-ferrous-seed"
+              "$ref": "stellar-body-generator-volcanic-rockiness-seed"
             },
             "Frequency": {
               "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
@@ -167,68 +147,17 @@
           }
         },
         {
-          "$type": "SpotNoise",
-          "Key": "crater",
-          "Channel": [ "Alpha" ],
-          "Inputs": {
-            "input": "position"
-          },
-          "Output": "ferrous",
-          "Parameters": {
-            "Seed": {
-              "$ref": "stellar-body-generator-barren-crater-seed"
-            },
-            "Frequency": {
-              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
-              "Object": {
-                "Value": 1.5
-              }
-            },
-            "Amplitude": {
-              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
-              "Object": {
-                "Value": 2
-              }
-            },
-            "Persistence": {
-              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
-              "Object": {
-                "Value": 0.9
-              }
-            },
-            "Scale": {
-              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[Cardamom.Mathematics.Interval, Cardamom]], Cardamom",
-              "Object": {
-                "Value": [ 0.2, 0.6 ]
-              }
-            },
-            "Octaves": {
-              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Int32], Cardamom",
-              "Object": {
-                "Value": 3
-              }
-            },
-            "Density": {
-              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[Cardamom.Mathematics.IntInterval, Cardamom]], Cardamom",
-              "Object": {
-                "Value": [ -3, 1 ]
-              }
-            }
-          }
-        },
-        {
           "$type": "Denormalize",
           "Key": "denormalize",
           "Channel": [ "Color" ],
           "Inputs": {
-            "input": "crater"
-          },
-          "Output": "crater"
+            "input": "rockiness"
+          }
         },
         {
           "$type": "Combine",
           "Key": "combine",
-          "Channel": [ "All" ],
+          "Channel": [ "Color" ],
           "Inputs": {
             "left": "position",
             "right": "denormalize"
@@ -241,7 +170,7 @@
                   [ 0, 0, 0, 0 ],
                   [ 1, 0, 0, 0 ],
                   [ 0, 0, 0, 0 ],
-                  [ 0, 0, 0, 1 ]
+                  [ 0, 0, 0, 0 ]
                 ]
               }
             },
@@ -252,14 +181,8 @@
                   [ 0.25, 0, 0, 0 ],
                   [ 0, 1, 0, 0 ],
                   [ 0, 0, 1, 0 ],
-                  [ 0, -0.25, 0, 0 ]
+                  [ 0, 0, 0, 1 ]
                 ]
-              }
-            },
-            "Bias": {
-              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[OpenTK.Mathematics.Vector4, OpenTK.Mathematics]], Cardamom",
-              "Object": {
-                "Value": [ 0, -0.25, 0, 0 ]
               }
             }
           }
@@ -321,13 +244,13 @@
               "Type": "Cardamom.Utils.Suppliers.Vector.Vector4ComponentwiseSupplier, Cardamom",
               "Object": {
                 "X": {
-                  "$ref": "stellar-body-generator-barren-temperature-offset"
+                  "$ref": "stellar-body-generator-volcanic-temperature-offset"
                 },
                 "Y": {
-                  "$ref": "stellar-body-generator-barren-rockiness-offset"
+                  "$ref": "stellar-body-generator-volcanic-height-offset"
                 },
                 "Z": {
-                  "$ref": "stellar-body-generator-barren-ferrous-offset"
+                  "$ref": "stellar-body-generator-volcanic-rockiness-offset"
                 }
               }
             }
@@ -338,34 +261,35 @@
     "BiomeOptions": [
       {
         "Biome": "biome-ice-barren",
-        "Center": [ 0, 0, 0, 0 ],
-        "AxisWeight": [ 1, 0, 0, 0 ],
+        "Center": [ 0, 1, 0, 0 ],
+        "AxisWeight": [ 1, 2, 0, 0 ],
         "Weight": 8,
-        "BlendRange": 0.125
+        "BlendRange": 0.5
       },
       {
-        "Biome": "biome-barren-plains",
+        "Biome": "biome-molten",
         "Center": [ 0, 0, 0, 0 ],
         "AxisWeight": [ 0, 1, 1, 0 ],
-        "BlendRange": 1.2
+        "Weight": 16,
+        "BlendRange": 0.25
       },
       {
-        "Biome": "biome-ferrous-plains",
+        "Biome": "biome-volcanic-mountains",
         "Center": [ 0, 0, 1, 0 ],
         "AxisWeight": [ 0, 1, 1, 0 ],
-        "BlendRange": 1.2
+        "BlendRange": 0.5
       },
       {
-        "Biome": "biome-barren-mountains",
-        "Center": [ 0, 1, 0, 0 ],
-        "AxisWeight": [ 0, 1, 1, 0 ],
-        "BlendRange": 1.2
-      },
-      {
-        "Biome": "biome-ferrous-mountains",
+        "Biome": "biome-sulfurous-mountains",
         "Center": [ 0, 1, 1, 0 ],
         "AxisWeight": [ 0, 1, 1, 0 ],
-        "BlendRange": 1.2
+        "BlendRange": 0.5
+      },
+      {
+        "Biome": "biome-sulfurous-plains",
+        "Center": [ 0, 1, 0, 0 ],
+        "AxisWeight": [ 0, 1, 1, 0 ],
+        "BlendRange": 1
       }
     ]
   }

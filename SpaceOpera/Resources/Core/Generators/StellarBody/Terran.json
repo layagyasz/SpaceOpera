@@ -1,6 +1,6 @@
 {
-  "Key": "planet-generator-gaia",
-  "Name": "Gaia Planet",
+  "Key": "planet-generator-terran",
+  "Name": "Terran",
   "RadiusSampler": {
     "$type": "Uniform",
     "Range": [ 3000, 9000 ]

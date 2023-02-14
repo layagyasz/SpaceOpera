@@ -51,10 +51,10 @@
     <None Update="Resources\Core\Designs\Ship\Ship.Classification.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Core\Generators\StellarBody\Gaia.json">
+    <None Update="Resources\Core\Generators\StellarBody\Terran.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Core\Generators\StellarBody\Volcanic.json">
+    <None Update="Resources\Core\Generators\StellarBody\Cytherean.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\View\HumanEyeSensitivity.json">
@@ -93,7 +93,7 @@
     <None Update="Resources\Core\Generators\Stars.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Core\Generators\StellarBody\Barren.json">
+    <None Update="Resources\Core\Generators\StellarBody\Telluric.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Core\Materials.json">
