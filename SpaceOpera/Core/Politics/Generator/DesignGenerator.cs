@@ -27,7 +27,7 @@ namespace SpaceOpera.Core.Politics.Generator
                 designConfig.SetName(faction.NameGenerator.GenerateNameFor(designConfig, context.Random));
                 var design = world.DesignBuilder.Build(designConfig);
                 world.AddDesign(design);
-                world.AddLicense(new DesignLicense(faction, design));
+                world.AddLicense(new(faction, design));
             }
         }
     }

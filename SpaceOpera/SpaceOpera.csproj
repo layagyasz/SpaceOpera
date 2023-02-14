@@ -33,6 +33,9 @@
     <None Update="Resources\Core\Designs\Infantry\Infantry.Components.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\Core\Designs\Infantry\Infantry.Template.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\Core\Designs\ShipShield\ShipShield.Components.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

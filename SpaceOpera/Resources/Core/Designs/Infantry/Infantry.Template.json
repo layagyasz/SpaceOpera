@@ -1,0 +1,57 @@
+[
+  {
+    "Key": "design-template-infantry",
+    "Type": "Infantry",
+    "Tags": [ "Infantry" ],
+    "Segments": [
+      {
+        "Key": "design-template-segment-infantry-platform",
+        "Name": "Platform",
+        "ConfigurationOptions": [
+          {
+            "Key": "design-template-segment-infantry-platform-standard",
+            "Name": "Standard",
+            "Slots": [
+              {
+                "Type": [ "InfantryPlatform" ],
+                "Size": [],
+                "Count": 1,
+                "Weight": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "Key": "design-template-segment-infantry-components",
+        "Name": "Equipment",
+        "ConfigurationOptions": [
+          {
+            "Key": "design-template-segment-infantry-equipment-standard",
+            "Name": "Standard",
+            "Slots": [
+              {
+                "Type": [ "PersonalWeapon" ],
+                "Size": [],
+                "Count": 1,
+                "Weight": 1
+              },
+              {
+                "Type": [ "PersonalArmor" ],
+                "Size": [],
+                "Count": 1,
+                "Weight": 1
+              },
+              {
+                "Type": [ "PersonalShield" ],
+                "Size": [],
+                "Count": 1,
+                "Weight": 1
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

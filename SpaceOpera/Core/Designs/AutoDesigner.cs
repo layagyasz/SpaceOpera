@@ -94,7 +94,7 @@ namespace SpaceOpera.Core.Designs
                     slot, 
                     Enumerable.Repeat(
                         availableComponents
-                            .Where(x => x.FitsSlot(slot)).ArgMaxRandomlySelecting(parameters.GetFitness, random),
+                            .Where(x => x.FitsSlot(slot)).ArgMaxRandomlySelecting(parameters.GetFitness, random)!,
                         slot.Count)!);
             }
             return new Segment(template, configuration, components);

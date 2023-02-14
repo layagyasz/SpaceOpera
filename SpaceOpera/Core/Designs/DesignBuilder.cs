@@ -28,7 +28,7 @@ namespace SpaceOpera.Core.Designs
         private static IEnumerable<DesignedComponent> BuildComponents(
             DesignConfiguration design, IEnumerable<ComponentTag> tags)
         {
-            if (design.Template.Sizes == null)
+            if (design.Template.Sizes.Count == 0)
             {
                 yield return BuildComponent(
                     design.Name, 
