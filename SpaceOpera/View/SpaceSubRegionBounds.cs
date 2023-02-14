@@ -20,11 +20,13 @@ namespace SpaceOpera.View
         }
 
         public Vector3 Center { get; }
+        public SpaceSubRegionBounds[]? Neighbors { get; private set; }
         public Edge[] NeighborEdges;
         public Line3[] OuterEdges;
 
         private SpaceSubRegionBounds(Vector3 center, Edge[] neighborEdges, Line3[] outerEdges)
         {
+            Center = center;
             NeighborEdges = neighborEdges;
             OuterEdges = outerEdges;
         }
@@ -33,6 +35,27 @@ namespace SpaceOpera.View
             Vector3 center, Edge[] neighborEdges, Line3[] outerEdges)
         {
             return new(center, neighborEdges, outerEdges);
+        }
+
+        public static Dictionary<T, SpaceSubRegionBounds> CreateBounds<T>(
+            IEnumerable<T> objects, Func<T, SpaceSubRegionBounds> boundsFn, Func<T, IEnumerable<T>> neighborsFn)
+            where T : notnull
+        {
+            var dict = new Dictionary<T, SpaceSubRegionBounds>();
+            foreach (var obj in objects)
+            {
+                dict.Add(obj, boundsFn(obj));
+            }
+            foreach (var entry in dict)
+            {
+                entry.Value.SetNeighbors(neighborsFn(entry.Key).Select(x => dict[x]));
+            }
+            return dict;
+        }
+
+        public void SetNeighbors(IEnumerable<SpaceSubRegionBounds> neighbors)
+        {
+            Neighbors = neighbors.ToArray();
         }
     }
 }

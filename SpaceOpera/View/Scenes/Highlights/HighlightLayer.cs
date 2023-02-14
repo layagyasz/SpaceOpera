@@ -11,28 +11,36 @@ namespace SpaceOpera.View.Scenes.Highlights
         class SingleHighlightLayer : IRenderable
         {
             public ICompositeHighlight Highlight { get; }
-
+       
             private readonly ISet<TSubRegion> _range;
-            private readonly Func<IEnumerable<TSubRegion>, Color4, Color4, IRenderable> _highlightFn;
+            private readonly Dictionary<TSubRegion, SpaceSubRegionBounds> _boundsMap;
+            private readonly float _borderWidth;
+            private readonly RenderShader _shader;
 
             private readonly Dictionary<IHighlight, IRenderable> _highlights = new();
 
             private SingleHighlightLayer(
-                ICompositeHighlight vighlight, 
+                ICompositeHighlight highlight,
                 ISet<TSubRegion> range, 
-                Func<IEnumerable<TSubRegion>, Color4, Color4, IRenderable> highlightFn)
+                Dictionary<TSubRegion, SpaceSubRegionBounds> boundsMap,
+                float borderWidth, 
+                RenderShader shader)
             {
-                Highlight = vighlight;
+                Highlight = highlight;
                 _range = range;
-                _highlightFn = highlightFn;
+                _boundsMap = boundsMap;
+                _borderWidth = borderWidth;
+                _shader = shader;
             }
 
             public static SingleHighlightLayer Create(
-                ICompositeHighlight highlight, 
+                ICompositeHighlight highlight,
                 ISet<TSubRegion> range,
-                Func<IEnumerable<TSubRegion>, Color4, Color4, IRenderable> highlightFn)
+                Dictionary<TSubRegion, SpaceSubRegionBounds> boundsMap, 
+                float borderWidth, 
+                RenderShader shader)
             {
-                var layer = new SingleHighlightLayer(highlight, range, highlightFn);
+                var layer = new SingleHighlightLayer(highlight, range, boundsMap, borderWidth, shader);
                 foreach (var h in highlight.GetHighlights())
                 {
                     h.OnUpdated += layer.HandleHighlightUpdate;
@@ -65,7 +73,12 @@ namespace SpaceOpera.View.Scenes.Highlights
 
             private IRenderable ComputeHighlight(IHighlight highlight)
             {
-                return _highlightFn(_range.Where(x => highlight.Contains(x)), highlight.BorderColor, highlight.Color);
+                return HighlightBuffer.Create(
+                    _shader, 
+                    _range.Where(x => highlight.Contains(x)).Select(x => _boundsMap[x]).ToImmutableHashSet(),
+                    highlight.BorderColor, 
+                    highlight.Color, 
+                    _borderWidth);
             }
 
             private void HandleHighlightUpdate(object? sender, EventArgs e)
@@ -76,15 +89,22 @@ namespace SpaceOpera.View.Scenes.Highlights
         }
 
         private readonly ISet<TSubRegion> _range;
-        private readonly Func<IEnumerable<TSubRegion>, Color4, Color4, IRenderable> _highlightFn;
+        private readonly Dictionary<TSubRegion, SpaceSubRegionBounds> _boundsMap;
+        private readonly float _borderWidth;
+        private readonly RenderShader _shader;
 
         private readonly EnumMap<HighlightLayerName, SingleHighlightLayer> _layers = new();
 
         public HighlightLayer(
-            IEnumerable<TSubRegion> range, Func<IEnumerable<TSubRegion>, Color4, Color4, IRenderable> highlightFn)
+            IEnumerable<TSubRegion> range, 
+            Dictionary<TSubRegion, SpaceSubRegionBounds> boundsMap,
+            float borderWidth, 
+            RenderShader shader)
         {
             _range = range.ToImmutableHashSet();
-            _highlightFn = highlightFn;
+            _boundsMap = boundsMap;
+            _borderWidth = borderWidth;
+            _shader = shader;
         }
 
         public void Initialize() { }
@@ -103,7 +123,7 @@ namespace SpaceOpera.View.Scenes.Highlights
         public void SetLayer(HighlightLayerName layer, ICompositeHighlight highlight)
         {
             ClearLayer(layer);
-            _layers[layer] = SingleHighlightLayer.Create(highlight, _range, _highlightFn);
+            _layers[layer] = SingleHighlightLayer.Create(highlight, _range, _boundsMap, _borderWidth, _shader);
         }
 
         public void Draw(RenderTarget target, UiContext context)
