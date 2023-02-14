@@ -7,7 +7,7 @@ using OpenTK.Windowing.Common;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using OpenTK.Mathematics;
 
-namespace SpaceOpera.Views.GalaxyViews
+namespace SpaceOpera.View.GalaxyViews
 {
     public class GalaxyCameraController : IElementController
     {

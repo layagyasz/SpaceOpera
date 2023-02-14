@@ -1,8 +1,7 @@
 ﻿using Cardamom.Mathematics.Geometry;
 using OpenTK.Mathematics;
-using System.Collections;
 
-namespace SpaceOpera.Views
+namespace SpaceOpera.View
 {
     public static class Utils
     {
@@ -24,7 +23,7 @@ namespace SpaceOpera.Views
 
         public static WideSegment CreateSegment(Ray3 ray, float length, Vector3 axis, float width)
         {
-            var far = ray.Point + ray.Direction * length;
+            var far = ray.Get(length);
             var p = Vector3.Cross(ray.Direction, axis);
             p *= 0.5f * width;
             return new(ray.Point + p, ray.Point - p, far + p, far - p);

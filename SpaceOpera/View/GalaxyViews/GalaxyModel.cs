@@ -1,9 +1,9 @@
 ﻿using Cardamom.Graphics;
 using Cardamom.Ui;
 using OpenTK.Mathematics;
-using SpaceOpera.Views.StarViews;
+using SpaceOpera.View.StarViews;
 
-namespace SpaceOpera.Views.GalaxyViews
+namespace SpaceOpera.View.GalaxyViews
 {
     public class GalaxyModel : GraphicsResource, IRenderable
     {

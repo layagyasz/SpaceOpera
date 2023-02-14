@@ -4,9 +4,9 @@ using Cardamom.Mathematics.Geometry;
 using Cardamom.Ui;
 using Cardamom.Ui.Controller.Element;
 using OpenTK.Mathematics;
-using SpaceOpera.Views.GalaxyViews;
+using SpaceOpera.View.GalaxyViews;
 
-namespace SpaceOpera.Views.Scenes
+namespace SpaceOpera.View.Scenes
 {
     public class GalaxyScene : IScene
     {

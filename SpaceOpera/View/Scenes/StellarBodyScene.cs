@@ -4,10 +4,10 @@ using Cardamom.Mathematics.Geometry;
 using Cardamom.Ui;
 using Cardamom.Ui.Controller.Element;
 using OpenTK.Mathematics;
-using SpaceOpera.Views.StarViews;
-using SpaceOpera.Views.StellarBodyViews;
+using SpaceOpera.View.StarViews;
+using SpaceOpera.View.StellarBodyViews;
 
-namespace SpaceOpera.Views.Scenes
+namespace SpaceOpera.View.Scenes
 {
     public class StellarBodyScene : GraphicsResource, IScene
     {

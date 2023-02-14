@@ -2,7 +2,7 @@
 using Cardamom.Ui;
 using OpenTK.Mathematics;
 
-namespace SpaceOpera.Views.GalaxyViews
+namespace SpaceOpera.View.GalaxyViews
 {
     public class TransitBuffer : GraphicsResource, IRenderable
     {

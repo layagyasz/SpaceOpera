@@ -2,7 +2,7 @@
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 
-namespace SpaceOpera.Views
+namespace SpaceOpera.View
 {
     public struct VertexPseudo3
     {

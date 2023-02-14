@@ -10,7 +10,7 @@ using OpenTK.Graphics.OpenGL4;
 using SpaceOpera.Core.Universe.Spectra;
 using Cardamom.Mathematics.Color;
 
-namespace SpaceOpera.Views.StellarBodyViews
+namespace SpaceOpera.View.StellarBodyViews
 {
     public class StellarBodyViewFactory
     {

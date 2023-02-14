@@ -6,7 +6,7 @@ using OpenTK.Mathematics;
 using OpenTK.Windowing.Desktop;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using SpaceOpera.Core;
-using SpaceOpera.Views;
+using SpaceOpera.View;
 
 namespace SpaceOpera
 {
@@ -29,12 +29,12 @@ namespace SpaceOpera
 
             var generatorContext = new GeneratorContext(logger, new());
             IScene scene;
-            int mode = 4;
+            int mode = 1;
             if (mode == 1)
             {
                 var planetGenerator =
                     coreData.GalaxyGenerator!.StarSystemGenerator!.StellarBodySelector!.Options
-                        .First(x => x.Generator!.Key == "planet-generator-gaia").Generator!;
+                        .First(x => x.Generator!.Key == "planet-generator-volcanic").Generator!;
                 var orbitGenerator = coreData.GalaxyGenerator!.StarSystemGenerator!.OrbitGenerator!;
                 var starGenerator =
                     coreData.GalaxyGenerator!.StarSystemGenerator!.StarGenerators

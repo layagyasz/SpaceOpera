@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 using OpenTK.Mathematics;
 using Cardamom.Mathematics.Color;
 
-namespace SpaceOpera.Views.StellarBodyViews
+namespace SpaceOpera.View.StellarBodyViews
 {
     public class BiomeRenderDetails : IKeyed
     {

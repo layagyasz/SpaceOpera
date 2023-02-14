@@ -4,7 +4,7 @@ using Cardamom.Ui;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 
-namespace SpaceOpera.Views.StarViews
+namespace SpaceOpera.View.StarViews
 {
     public class StarBuffer : GraphicsResource, IRenderable
     {

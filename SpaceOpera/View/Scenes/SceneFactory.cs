@@ -9,16 +9,16 @@ using Cardamom.Ui.Controller.Element;
 using OpenTK.Mathematics;
 using SpaceOpera.Core.Universe;
 using SpaceOpera.Core.Universe.Spectra;
-using SpaceOpera.Views.GalaxyViews;
-using SpaceOpera.Views.StarViews;
-using SpaceOpera.Views.StellarBodyViews;
+using SpaceOpera.View.GalaxyViews;
+using SpaceOpera.View.StarViews;
+using SpaceOpera.View.StellarBodyViews;
 using OpenTK.Graphics.OpenGL4;
 using Cardamom.ImageProcessing.Pipelines.Nodes;
 using Cardamom.ImageProcessing.Pipelines;
 using Cardamom.Utils.Suppliers;
 using Cardamom.ImageProcessing;
 
-namespace SpaceOpera.Views.Scenes
+namespace SpaceOpera.View.Scenes
 {
     public class SceneFactory
     {

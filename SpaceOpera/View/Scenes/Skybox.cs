@@ -2,7 +2,7 @@
 using Cardamom.Ui;
 using OpenTK.Mathematics;
 
-namespace SpaceOpera.Views.Scenes
+namespace SpaceOpera.View.Scenes
 {
     public class Skybox : GraphicsResource, IRenderable
     {

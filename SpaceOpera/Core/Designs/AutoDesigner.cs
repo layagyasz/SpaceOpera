@@ -22,7 +22,7 @@ namespace SpaceOpera.Core.Designs
                         .SelectMany(x => x.ConfigurationOptions)
                         .SelectMany(x => x.Slots)
                         .SelectMany(x => x.Type)
-                        .Where(x => _templates.ContainsKey(x))
+                        .Where(_templates.ContainsKey)
                         .ToHashSet();
                 if (parents.Count == 0)
                 {

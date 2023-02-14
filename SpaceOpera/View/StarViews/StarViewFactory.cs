@@ -6,7 +6,7 @@ using OpenTK.Mathematics;
 using SpaceOpera.Core.Universe;
 using SpaceOpera.Core.Universe.Spectra;
 
-namespace SpaceOpera.Views.StarViews
+namespace SpaceOpera.View.StarViews
 {
     public class StarViewFactory
     {

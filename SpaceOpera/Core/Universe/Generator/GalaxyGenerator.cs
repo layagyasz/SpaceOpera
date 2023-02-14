@@ -51,8 +51,8 @@ namespace SpaceOpera.Core.Universe.Generator
                 float x = random.NextSingle() * 2 - 1;
                 float y = random.NextSingle() * 2 - 1;
                 float angle = MathF.Atan2(y, x);
-                float radius = (float)Math.Sqrt(x * x + y * y);
-                if (random.NextDouble() < StarDensityFn(Arms, Rotation, angle, radius))
+                float radius = MathF.Sqrt(x * x + y * y);
+                if (random.NextSingle() < StarDensityFn(Arms, Rotation, angle, radius))
                 {
                     ++starId;
                     float modifiedRadius = radius * (Radius - CoreRadius) + CoreRadius;
@@ -66,7 +66,7 @@ namespace SpaceOpera.Core.Universe.Generator
             VoronoiGrapher.VoronoiNeighborsResult result = VoronoiGrapher.GetNeighbors(vertices, triads);
 
             List<SystemWrapper> systemWrappers = new();
-            for (int i=0; i< StarCount; ++i)
+            for (int i=0; i < StarCount; ++i)
             {
                 context.Logger.ForType(typeof(GalaxyGenerator)).AtInfo().EverySeconds(5).Log($"\tCreated {i} systems");
                 systemWrappers.Add(
@@ -101,8 +101,7 @@ namespace SpaceOpera.Core.Universe.Generator
                     {
                         continue;
                     }
-                    if (random.NextDouble() 
-                        < TransitDensityFn(TransitDensity, (edge.Cost - mean) / stdDev)) {
+                    if (random.NextSingle() < TransitDensityFn(TransitDensity, (edge.Cost - mean) / stdDev)) {
                         systemWrapper.System.AddTransit(neighbor.System);
                         neighbor.System.AddTransit(systemWrapper.System);
                     }
@@ -118,13 +117,13 @@ namespace SpaceOpera.Core.Universe.Generator
             {
                 return 0;
             }
-            return .5f * Math.Max(
-                (MathF.Cos(angle * arms + radius * rotation) + 1) * MathF.Sqrt(1 - radius), 1 - radius);
+            return MathF.Pow(Math.Max(
+                (MathF.Cos(angle * arms + radius * rotation) + 1) * MathF.Sqrt(1 - radius), 1 - radius), 2);
         }
 
         private static float TransitDensityFn(float density, float standardDeviations)
         {
-            return 2 * density / (1 + (float)Math.Exp(20 * standardDeviations));
+            return 2 * density / (1 + MathF.Exp(20 * standardDeviations));
         }
     }
 }

@@ -3,11 +3,11 @@ using Cardamom.Collections;
 using Cardamom.Json;
 using Cardamom.Json.OpenTK;
 using SpaceOpera.Core.Universe.Spectra;
-using SpaceOpera.Views.StellarBodyViews;
+using SpaceOpera.View.StellarBodyViews;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace SpaceOpera.Views
+namespace SpaceOpera.View
 {
     public class ViewData
     {

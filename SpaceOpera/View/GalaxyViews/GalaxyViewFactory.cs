@@ -3,9 +3,9 @@ using Cardamom.Graphics;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 using SpaceOpera.Core.Universe;
-using SpaceOpera.Views.StarViews;
+using SpaceOpera.View.StarViews;
 
-namespace SpaceOpera.Views.GalaxyViews
+namespace SpaceOpera.View.GalaxyViews
 {
     public class GalaxyViewFactory
     {

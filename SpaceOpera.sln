@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33103.201
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaceOpera", "SpaceOpera\SpaceOpera.csproj", "{2F8A2E47-25AD-4ECB-A1F9-E3B3B650FB9D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpaceOpera", "SpaceOpera\SpaceOpera.csproj", "{2F8A2E47-25AD-4ECB-A1F9-E3B3B650FB9D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cardamom", "..\Cardamom\Cardamom\Cardamom.csproj", "{E656ED54-7A3C-4522-A983-3386F0BC930F}"
 EndProject

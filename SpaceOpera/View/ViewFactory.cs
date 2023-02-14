@@ -1,11 +1,11 @@
 ﻿using Cardamom.Collections;
 using SpaceOpera.Core;
-using SpaceOpera.Views.GalaxyViews;
-using SpaceOpera.Views.Scenes;
-using SpaceOpera.Views.StarViews;
-using SpaceOpera.Views.StellarBodyViews;
+using SpaceOpera.View.GalaxyViews;
+using SpaceOpera.View.Scenes;
+using SpaceOpera.View.StarViews;
+using SpaceOpera.View.StellarBodyViews;
 
-namespace SpaceOpera.Views
+namespace SpaceOpera.View
 {
     public class ViewFactory
     {

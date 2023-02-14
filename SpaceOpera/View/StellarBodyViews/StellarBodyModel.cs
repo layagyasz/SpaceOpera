@@ -3,7 +3,7 @@ using Cardamom.Ui;
 using OpenTK.Mathematics;
 using SpaceOpera.Core.Universe;
 
-namespace SpaceOpera.Views.StellarBodyViews
+namespace SpaceOpera.View.StellarBodyViews
 {
     public class StellarBodyModel : GraphicsResource, IRenderable
     {
