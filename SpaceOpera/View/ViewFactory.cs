@@ -24,8 +24,9 @@ namespace SpaceOpera.View
                 new StarViewFactory(viewData.GameResources!.GetShader("shader-star"), viewData.HumanEyeSensitivity!);
             var galaxyViewFactory = 
                 new GalaxyViewFactory(
-                    starViewFactory, 
-                    viewData.GameResources!.GetShader("shader-default-no-tex"), 
+                    starViewFactory,
+                    viewData.GameResources!.GetShader("shader-border"),
+                    viewData.GameResources!.GetShader("shader-transit"), 
                     viewData.GameResources!.GetShader("shader-pin"));
             var stellarBodyViewFactory =
                 new StellarBodyViewFactory(

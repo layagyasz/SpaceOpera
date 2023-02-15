@@ -6,9 +6,12 @@ namespace SpaceOpera.View
     {
         public static Vector2[] GetArcPoints(float start, float end, Func<float, float> radiusFn, float resolution)
         {
-            var points = new List<Vector2>();
+            var points = new List<Vector2>
+            {
+                radiusFn(start) * new Vector2(MathF.Cos(start), MathF.Sin(start))
+            };
             for (
-                float i = start;
+                float i = start + resolution;
                 MathUtils.AngleDistance(start, end) > MathUtils.AngleDistance(start, i);
                 i += resolution)
             {

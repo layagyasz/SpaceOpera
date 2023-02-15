@@ -21,7 +21,7 @@
       "star-generator-white-dwarf": 800000
     },
     "TransitLimit": 2.5,
-    "StellarBodyDensity": 0.1,
+    "StellarBodyDensity": 0,
     "ViableThermalRange": [ 0, 500 ],
     "ViableGravitationalRange": [ 3, 40000 ],
     "OrbitGenerator": {

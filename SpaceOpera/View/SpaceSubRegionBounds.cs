@@ -20,21 +20,23 @@ namespace SpaceOpera.View
         }
 
         public Vector3 Center { get; }
+        public Vector3 Axis { get; }
         public SpaceSubRegionBounds[]? Neighbors { get; private set; }
         public Edge[] NeighborEdges;
-        public Line3[] OuterEdges;
+        public Line3?[] OuterEdges;
 
-        private SpaceSubRegionBounds(Vector3 center, Edge[] neighborEdges, Line3[] outerEdges)
+        private SpaceSubRegionBounds(Vector3 center, Vector3 axis, Edge[] neighborEdges, Line3?[] outerEdges)
         {
             Center = center;
+            Axis = axis;
             NeighborEdges = neighborEdges;
             OuterEdges = outerEdges;
         }
 
         public static SpaceSubRegionBounds FromEdges(
-            Vector3 center, Edge[] neighborEdges, Line3[] outerEdges)
+            Vector3 center, Vector3 axis, Edge[] neighborEdges, Line3[] outerEdges)
         {
-            return new(center, neighborEdges, outerEdges);
+            return new(center, axis, neighborEdges, outerEdges);
         }
 
         public static Dictionary<T, SpaceSubRegionBounds> CreateBounds<T>(

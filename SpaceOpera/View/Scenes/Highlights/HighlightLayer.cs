@@ -73,7 +73,7 @@ namespace SpaceOpera.View.Scenes.Highlights
 
             private IRenderable ComputeHighlight(IHighlight highlight)
             {
-                return HighlightBuffer.Create(
+                return SpaceRegionView.Create(
                     _shader, 
                     _range.Where(x => highlight.Contains(x)).Select(x => _boundsMap[x]).ToImmutableHashSet(),
                     highlight.BorderColor, 

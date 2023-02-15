@@ -29,7 +29,7 @@ namespace SpaceOpera
 
             var generatorContext = new GeneratorContext(logger, new());
             IScene scene;
-            int mode = 4;
+            int mode = 3;
             if (mode == 1)
             {
                 var planetGenerator =

@@ -21,7 +21,7 @@ namespace SpaceOpera.View.GalaxyViews
 
         public void Draw(RenderTarget target, UiContext context)
         {
-            target.Draw(_vertices!, 0, _vertices!.Length, new RenderResources(BlendMode.None, _shader));
+            target.Draw(_vertices!, 0, _vertices!.Length, new RenderResources(BlendMode.Alpha, _shader));
         }
 
         public void Update(long delta) { }

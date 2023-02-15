@@ -8,12 +8,14 @@ namespace SpaceOpera.View.GalaxyViews
     public class GalaxyModel : GraphicsResource, IRenderable
     {
         private StarBuffer? _stars;
+        private SpaceRegionView? _regions;
         private TransitBuffer? _transits;
         private PinBuffer? _pins;
 
-        public GalaxyModel(StarBuffer stars, TransitBuffer transits, PinBuffer pinBuffer)
+        public GalaxyModel(StarBuffer stars, SpaceRegionView regions, TransitBuffer transits, PinBuffer pinBuffer)
         {
             _stars = stars;
+            _regions = regions;
             _transits = transits;
             _pins = pinBuffer;
         }
@@ -33,9 +35,9 @@ namespace SpaceOpera.View.GalaxyViews
             _stars!.ResizeContext(bounds);
         }
         
-
         public void Draw(RenderTarget target, UiContext context)
         {
+            _regions!.Draw(target, context);
             _transits!.Draw(target, context);
             _pins!.Draw(target, context);
             _stars!.Draw(target, context);
@@ -50,6 +52,8 @@ namespace SpaceOpera.View.GalaxyViews
         {
             _stars!.Dispose();
             _stars = null;
+            _regions!.Dispose();
+            _regions = null;
             _transits!.Dispose();
             _transits = null;
             _pins!.Dispose();

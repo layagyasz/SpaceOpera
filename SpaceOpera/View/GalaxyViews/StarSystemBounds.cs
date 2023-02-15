@@ -7,17 +7,19 @@ namespace SpaceOpera.View.GalaxyViews
 {
     public static class StarSystemBounds
     {
-        private static readonly float s_RadiusBuffer = 1.05f;
-        private static readonly float s_EdgeResolution = 0.05f * MathHelper.Pi;
+        private static readonly float s_RadiusBuffer = 1f;
+        private static readonly float s_EdgeResolution = 0.02f * MathHelper.Pi;
         private static readonly int s_OutEdgeIndex = 0;
+        private static readonly Vector3 s_BoundsOffset = new(0f, -700f, 0f);
 
-        public static SpaceSubRegionBounds ComputeBounds(StarSystem starSystem, float galaxyRadius)
+        public static SpaceSubRegionBounds ComputeBounds(StarSystem starSystem, float galaxyRadius, float scale)
         {
             galaxyRadius *= s_RadiusBuffer * s_RadiusBuffer;
 
             var outer = new float[1][];
+            outer[s_OutEdgeIndex] = new float[2];
             Line3[] outerEdges = new Line3[1];
-            var edges = ComputeEdges(starSystem, galaxyRadius * galaxyRadius, outer);
+            var edges = ComputeEdges(starSystem, galaxyRadius * galaxyRadius, scale, outer);
             var outerThetas = outer[s_OutEdgeIndex];
             if (outerThetas[0] != outerThetas[1])
             {
@@ -28,29 +30,30 @@ namespace SpaceOpera.View.GalaxyViews
                 var outerPoints = 
                     Shape.GetArcPoints(outerThetas[0], outerThetas[1], x => galaxyRadius, s_EdgeResolution);
                 var a = new Vector3[outerPoints.Length];
-                for (int i = 0; i < outerPoints.Length - 1; ++i)
+                for (int i = outerPoints.Length - 1; i >= 0; --i)
                 {
-                    a[i] = ToVector3(outerPoints[i]);
+                    a[i] = scale * ToVector3(outerPoints[i]);
                 }
                 outerEdges[s_OutEdgeIndex] = new(a);
             }
 
-            return SpaceSubRegionBounds.FromEdges(starSystem.Position, edges, outerEdges);
+            return SpaceSubRegionBounds.FromEdges(
+                scale * (starSystem.Position + s_BoundsOffset), Vector3.UnitY, edges, outerEdges);
         }
 
         private static SpaceSubRegionBounds.Edge[] ComputeEdges(
-            StarSystem starSystem, float galaxyRadius2, float[][] outerEdges)
+            StarSystem starSystem, float galaxyRadius2, float scale, float[][] outerEdges)
         {
             var edges = new SpaceSubRegionBounds.Edge[starSystem.Neighbors!.Count];
             for (int i = 0; i < starSystem.Neighbors.Count; ++i)
             {
-                edges[i] = ComputeEdgeFor(starSystem, i, galaxyRadius2, outerEdges);
+                edges[i] = ComputeEdgeFor(starSystem, i, galaxyRadius2, scale, outerEdges);
             }
             return edges;
         }
 
         private static SpaceSubRegionBounds.Edge ComputeEdgeFor(
-            StarSystem starSystem, int neighborIndex, float galaxyRadius2, float[][] outerEdges)
+            StarSystem starSystem, int neighborIndex, float galaxyRadius2, float scale, float[][] outerEdges)
         {
             var current = starSystem.Neighbors![neighborIndex];
             var left =
@@ -65,7 +68,10 @@ namespace SpaceOpera.View.GalaxyViews
                 bool rightInside = rightCircumcenter.Value.LengthSquared < galaxyRadius2;
                 if (leftInside && rightInside)
                 {
-                    return new(new(ToVector3(leftCircumcenter.Value), ToVector3(rightCircumcenter.Value)), -1, -1);
+                    return new(
+                        new(scale * ToVector3(leftCircumcenter.Value), scale * ToVector3(rightCircumcenter.Value)), 
+                        -1, 
+                        -1);
                 }
                 if (leftInside && !rightInside)
                 {
@@ -75,7 +81,10 @@ namespace SpaceOpera.View.GalaxyViews
                             (rightCircumcenter.Value - leftCircumcenter.Value).Normalized(),
                             galaxyRadius2);
                     outerEdges[s_OutEdgeIndex][0] = MathF.Atan2(outerPoint.Y, outerPoint.X);
-                    return new(new(ToVector3(leftCircumcenter.Value), ToVector3(outerPoint)), s_OutEdgeIndex, -1);
+                    return new(
+                        new(scale * ToVector3(leftCircumcenter.Value), scale * ToVector3(outerPoint)),
+                        -1,
+                        s_OutEdgeIndex);
                 }
                 if (!leftInside && rightInside)
                 {
@@ -85,7 +94,10 @@ namespace SpaceOpera.View.GalaxyViews
                             (leftCircumcenter.Value - rightCircumcenter.Value).Normalized(),
                             galaxyRadius2);
                     outerEdges[s_OutEdgeIndex][1] = MathF.Atan2(outerPoint.Y, outerPoint.X);
-                    return new(new(ToVector3(outerPoint), ToVector3(rightCircumcenter.Value)), -1, s_OutEdgeIndex);
+                    return new(
+                        new(scale * ToVector3(outerPoint), scale * ToVector3(rightCircumcenter.Value)),
+                        s_OutEdgeIndex,
+                        -1);
                 }
                 return new(null, -1, -1);
             }
@@ -102,7 +114,10 @@ namespace SpaceOpera.View.GalaxyViews
                                 mean.Xz, current.Position.Xz - starSystem.Position.Xz).Normalized(),
                             galaxyRadius2);
                     outerEdges[s_OutEdgeIndex][0] = MathF.Atan2(outerPoint.Y, outerPoint.X);
-                    return new(new(ToVector3(leftCircumcenter.Value), ToVector3(outerPoint)), s_OutEdgeIndex, -1);
+                    return new(
+                        new(scale * ToVector3(leftCircumcenter.Value), scale * ToVector3(outerPoint)),
+                        -1,
+                        s_OutEdgeIndex);
                 }
                 return new(null, -1, -1);
             }
@@ -119,7 +134,10 @@ namespace SpaceOpera.View.GalaxyViews
                                 mean.Xz, current.Position.Xz - starSystem.Position.Xz).Normalized(),
                             galaxyRadius2);
                     outerEdges[s_OutEdgeIndex][1] = MathF.Atan2(outerPoint.Y, outerPoint.X);
-                    return new(new(ToVector3(outerPoint), ToVector3(rightCircumcenter.Value)), -1, s_OutEdgeIndex);
+                    return new(
+                        new(scale * ToVector3(outerPoint), scale * ToVector3(rightCircumcenter.Value)),
+                        s_OutEdgeIndex, 
+                        -1);
                 }
                 return new(null, -1, -1);
             }
@@ -137,7 +155,7 @@ namespace SpaceOpera.View.GalaxyViews
 
         private static Vector3 ToVector3(Vector2 v)
         {
-            return new(v.X, 0, v.Y);
+            return new Vector3(v.X, 0, v.Y) + s_BoundsOffset;
         }
     }
 }
