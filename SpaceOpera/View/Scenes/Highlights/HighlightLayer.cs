@@ -15,7 +15,10 @@ namespace SpaceOpera.View.Scenes.Highlights
             private readonly ISet<TSubRegion> _range;
             private readonly Dictionary<TSubRegion, SpaceSubRegionBounds> _boundsMap;
             private readonly float _borderWidth;
-            private readonly RenderShader _shader;
+            private readonly Matrix4 _outlineTransform;
+            private readonly RenderShader _outlineShader;
+            private readonly Matrix4 _fillTransform;
+            private readonly RenderShader _fillShader;
 
             private readonly Dictionary<IHighlight, SpaceRegionView> _highlights = new();
 
@@ -24,13 +27,19 @@ namespace SpaceOpera.View.Scenes.Highlights
                 ISet<TSubRegion> range, 
                 Dictionary<TSubRegion, SpaceSubRegionBounds> boundsMap,
                 float borderWidth, 
-                RenderShader shader)
+                Matrix4 outlineTransform,
+                RenderShader outlineShader,
+                Matrix4 fillTransform,
+                RenderShader fillShader)
             {
                 Highlight = highlight;
                 _range = range;
                 _boundsMap = boundsMap;
                 _borderWidth = borderWidth;
-                _shader = shader;
+                _outlineTransform = outlineTransform;
+                _outlineShader = outlineShader;
+                _fillTransform = fillTransform;
+                _fillShader = fillShader;
             }
 
             public static SingleHighlightLayer Create(
@@ -38,9 +47,21 @@ namespace SpaceOpera.View.Scenes.Highlights
                 ISet<TSubRegion> range,
                 Dictionary<TSubRegion, SpaceSubRegionBounds> boundsMap, 
                 float borderWidth, 
-                RenderShader shader)
+                Matrix4 outlineTransform,
+                RenderShader outlineShader,
+                Matrix4 fillTransform,
+                RenderShader fillShader)
             {
-                var layer = new SingleHighlightLayer(highlight, range, boundsMap, borderWidth, shader);
+                var layer = 
+                    new SingleHighlightLayer(
+                        highlight, 
+                        range, 
+                        boundsMap, 
+                        borderWidth, 
+                        outlineTransform,
+                        outlineShader,
+                        fillTransform,
+                        fillShader);
                 foreach (var h in highlight.GetHighlights())
                 {
                     h.OnUpdated += layer.HandleHighlightUpdate;
@@ -83,7 +104,10 @@ namespace SpaceOpera.View.Scenes.Highlights
             private SpaceRegionView ComputeHighlight(IHighlight highlight)
             {
                 return SpaceRegionView.Create(
-                    _shader, 
+                    _outlineTransform,
+                    _outlineShader,
+                    _fillTransform,
+                    _fillShader,
                     _range.Where(x => highlight.Contains(x)).Select(x => _boundsMap[x]).ToImmutableHashSet(),
                     highlight.BorderColor, 
                     highlight.Color, 
@@ -104,20 +128,29 @@ namespace SpaceOpera.View.Scenes.Highlights
         private readonly ISet<TSubRegion> _range;
         private readonly Dictionary<TSubRegion, SpaceSubRegionBounds> _boundsMap;
         private readonly float _borderWidth;
-        private readonly RenderShader _shader;
+        private readonly RenderShader _outlineShader;
+        private readonly RenderShader _fillShader;
+        private readonly EnumMap<HighlightLayerName, Matrix4> _outlineTransforms;
+        private readonly EnumMap<HighlightLayerName, Matrix4> _fillTransforms;
 
         private readonly EnumMap<HighlightLayerName, SingleHighlightLayer> _layers = new();
 
         public HighlightLayer(
-            IEnumerable<TSubRegion> range, 
+            IEnumerable<TSubRegion> range,
             Dictionary<TSubRegion, SpaceSubRegionBounds> boundsMap,
-            float borderWidth, 
-            RenderShader shader)
+            float borderWidth,
+            EnumMap<HighlightLayerName, Matrix4> outlineTransforms,
+            RenderShader outlineShader,
+            EnumMap<HighlightLayerName, Matrix4> fillTransforms,
+            RenderShader fillShader)
         {
             _range = range.ToImmutableHashSet();
             _boundsMap = boundsMap;
             _borderWidth = borderWidth;
-            _shader = shader;
+            _outlineShader = outlineShader;
+            _fillShader = fillShader;
+            _outlineTransforms = outlineTransforms;
+            _fillTransforms = fillTransforms;
         }
 
         public void Initialize() { }
@@ -137,7 +170,16 @@ namespace SpaceOpera.View.Scenes.Highlights
         public void SetLayer(HighlightLayerName layer, ICompositeHighlight highlight)
         {
             ClearLayer(layer);
-            _layers[layer] = SingleHighlightLayer.Create(highlight, _range, _boundsMap, _borderWidth, _shader);
+            _layers[layer] =
+                SingleHighlightLayer.Create(
+                    highlight, 
+                    _range, 
+                    _boundsMap, 
+                    _borderWidth,
+                    _outlineTransforms[layer], 
+                    _outlineShader,
+                    _fillTransforms[layer], 
+                    _fillShader);
         }
 
         public void Draw(RenderTarget target, UiContext context)

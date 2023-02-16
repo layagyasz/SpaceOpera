@@ -25,6 +25,7 @@ namespace SpaceOpera.View.Scenes
     public class SceneFactory
     {
         private static readonly float s_GalaxyScale = 0.0001f;
+        private static readonly Vector3 s_GalaxyFloor = new(0f, -700f, 0f);
         private static readonly float s_SkyboxRadius = 1100;
         private static readonly int s_SkyboxPrecision = 64;
         private static readonly int s_SkyboxResolution = 2048;
@@ -63,7 +64,7 @@ namespace SpaceOpera.View.Scenes
             var interactiveModel = 
                 new InteractiveModel(
                     model, 
-                    new Disk(new(0, -s_GalaxyScale * 700, 0), Vector3.UnitY, r), 
+                    new Disk(s_GalaxyScale * s_GalaxyFloor, Vector3.UnitY, r), 
                     galaxyController);
             var camera = new SubjectiveCamera3d(s_SkyboxRadius + 10);
             camera.OnCameraChange += (s, e) => model.Dirty();

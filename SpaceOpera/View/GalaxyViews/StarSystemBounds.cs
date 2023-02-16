@@ -10,7 +10,6 @@ namespace SpaceOpera.View.GalaxyViews
         private static readonly float s_RadiusBuffer = 1f;
         private static readonly float s_EdgeResolution = 0.02f * MathHelper.Pi;
         private static readonly int s_OutEdgeIndex = 0;
-        private static readonly Vector3 s_BoundsOffset = new(0f, -700f, 0f);
 
         public static SpaceSubRegionBounds ComputeBounds(StarSystem starSystem, float galaxyRadius, float scale)
         {
@@ -37,8 +36,7 @@ namespace SpaceOpera.View.GalaxyViews
                 outerEdges[s_OutEdgeIndex] = new(a);
             }
 
-            return SpaceSubRegionBounds.FromEdges(
-                scale * (starSystem.Position + s_BoundsOffset), Vector3.UnitY, edges, outerEdges);
+            return SpaceSubRegionBounds.FromEdges(scale * starSystem.Position, Vector3.UnitY, edges, outerEdges);
         }
 
         private static SpaceSubRegionBounds.Edge[] ComputeEdges(
@@ -155,7 +153,7 @@ namespace SpaceOpera.View.GalaxyViews
 
         private static Vector3 ToVector3(Vector2 v)
         {
-            return new Vector3(v.X, 0, v.Y) + s_BoundsOffset;
+            return new Vector3(v.X, 0, v.Y);
         }
     }
 }

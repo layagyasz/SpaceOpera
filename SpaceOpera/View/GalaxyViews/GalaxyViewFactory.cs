@@ -18,6 +18,7 @@ namespace SpaceOpera.View.GalaxyViews
         private static readonly Color4 s_RegionBorderColor = new(0.4f, 0.4f, 0.4f, 1f);
         private static readonly float s_RegionBorderWidth = 128f;
         private static readonly Color4 s_RegionColor = new(0, 0, 0, 0);
+        private static readonly Vector3 s_RegionTranslation = new(0f, -700f, 0f);
 
         private static readonly float s_StarScale = 4096f;
 
@@ -27,18 +28,21 @@ namespace SpaceOpera.View.GalaxyViews
         private static readonly float s_TransitScale = 96f;
 
         public StarViewFactory StarViewFactory { get; }
-        public RenderShader RegionShader { get; }
+        public RenderShader BorderShader { get; }
+        public RenderShader FillShader { get; }
         public RenderShader TransitShader { get; }
         public RenderShader PinShader { get; }
 
         public GalaxyViewFactory(
             StarViewFactory starViewFactory,
-            RenderShader regionShader, 
+            RenderShader borderShader, 
+            RenderShader fillShader,
             RenderShader transitShader,
             RenderShader pinShader)
         {
             StarViewFactory = starViewFactory;
-            RegionShader = regionShader;
+            BorderShader = borderShader;
+            FillShader = fillShader;
             TransitShader = transitShader;
             PinShader = pinShader;
         }
@@ -48,7 +52,10 @@ namespace SpaceOpera.View.GalaxyViews
             var bounds = SpaceSubRegionBounds.CreateBounds(
                 galaxy.Systems, x => StarSystemBounds.ComputeBounds(x, galaxy.Radius, scale), x => x.Neighbors!);
             var regionBuffer = SpaceRegionView.Create(
-                RegionShader,
+                Matrix4.CreateTranslation(scale * s_RegionTranslation),
+                BorderShader,
+                Matrix4.CreateTranslation(scale * s_RegionTranslation),
+                FillShader,
                 new HashSet<SpaceSubRegionBounds>(bounds.Values), 
                 s_RegionBorderColor,
                 s_RegionColor,

@@ -11,34 +11,55 @@ namespace SpaceOpera.View
     public class SpaceRegionView : GraphicsResource, IRenderable
     {
         private static readonly float s_Alpha = 0.25f;
-        private static readonly float s_FillOffset = -0.0001f;
 
-        private VertexBuffer<Vertex3>? _vertices;
-        private readonly RenderShader _shader;
+        private Matrix4 _outlineTransform;
+        private VertexBuffer<Vertex3>? _outline;
+        private readonly RenderShader _outlineShader;
+        private Matrix4 _fillTransform;
+        private VertexBuffer<Vertex3>? _fill;
+        private readonly RenderShader _fillShader;
 
-        public SpaceRegionView(VertexBuffer<Vertex3> vertices, RenderShader shader)
+        public SpaceRegionView(
+            Matrix4 outlineTransform,
+            VertexBuffer<Vertex3> outline, 
+            RenderShader outlineShader,
+            Matrix4 fillTransform,
+            VertexBuffer<Vertex3> fill, 
+            RenderShader fillShader)
         {
-            _vertices = vertices;
-            _shader = shader;
+            _outlineTransform = outlineTransform;
+            _outline = outline;
+            _outlineShader = outlineShader;
+            _fillTransform = fillTransform;
+            _fill = fill;
+            _fillShader = fillShader;
         }
 
         public static SpaceRegionView Create(
-            RenderShader shader,
+            Matrix4 outlineTransform,
+            RenderShader outlineShader,
+            Matrix4 fillTransform,
+            RenderShader fillShader,
             ISet<SpaceSubRegionBounds> subRegions,
             Color4 borderColor,
             Color4 color,
             float borderWidth,
             bool mergeSubRegions = true)
         {
-            var vertices = new ArrayList<Vertex3>();
-            TraceBounds(vertices, subRegions, borderColor, color, borderWidth, mergeSubRegions);
-            var buffer = new VertexBuffer<Vertex3>(PrimitiveType.Triangles);
-            buffer.Buffer(vertices.GetData(), 0, vertices.Count);
-            return new SpaceRegionView(buffer, shader);
+            var outlineVertices = new ArrayList<Vertex3>();
+            var fillVertices = new ArrayList<Vertex3>();
+            TraceBounds(outlineVertices, fillVertices, subRegions, borderColor, color, borderWidth, mergeSubRegions);
+            var outlineBuffer = new VertexBuffer<Vertex3>(PrimitiveType.Triangles);
+            outlineBuffer.Buffer(outlineVertices.GetData(), 0, outlineVertices.Count);
+            var fillBuffer = new VertexBuffer<Vertex3>(PrimitiveType.Triangles);
+            fillBuffer.Buffer(fillVertices.GetData(), 0, fillVertices.Count);
+            return new SpaceRegionView(
+                outlineTransform, outlineBuffer, outlineShader, fillTransform, fillBuffer, fillShader);
         }
 
         public static void TraceBounds(
-            ArrayList<Vertex3> vertices,
+            ArrayList<Vertex3> outline,
+            ArrayList<Vertex3> fill,
             ISet<SpaceSubRegionBounds> subRegions,
             Color4 borderColor,
             Color4 color,
@@ -55,10 +76,9 @@ namespace SpaceOpera.View
                     {
                         if (color.A > 0)
                         {
-                            var offset = s_FillOffset * bounds.Axis;
-                            vertices.Add(new(bounds.Center + offset, color, new()));
-                            vertices.Add(new(edge.Segment.Value.Left + offset, color, new()));
-                            vertices.Add(new(edge.Segment.Value.Right + offset, color, new()));
+                            fill.Add(new(bounds.Center, color, new()));
+                            fill.Add(new(edge.Segment.Value.Left, color, new()));
+                            fill.Add(new(edge.Segment.Value.Right, color, new()));
                         }
                         if (!mergeSubRegions || !subRegions.Contains(bounds.Neighbors![i]))
                         {
@@ -88,7 +108,7 @@ namespace SpaceOpera.View
                                     : bounds.OuterEdges[edge.RightOuterEdge]!.GetSegment(0),
                                 rightInner,
                                 borderColor,
-                                vertices);
+                                outline);
                         }
                     }
                 }
@@ -110,10 +130,9 @@ namespace SpaceOpera.View
 
                         if (color.A > 0)
                         {
-                            var offset = s_FillOffset * bounds.Axis;
-                            vertices.Add(new(bounds.Center + offset, color, new()));
-                            vertices.Add(new(segment.Left + offset, color, new()));
-                            vertices.Add(new(segment.Right + offset, color, new()));
+                            fill.Add(new(bounds.Center, color, new()));
+                            fill.Add(new(segment.Left, color, new()));
+                            fill.Add(new(segment.Right, color, new()));
                         }
 
                         bool leftInner =
@@ -135,7 +154,7 @@ namespace SpaceOpera.View
                                 ? rightEdge!.Segment!.Value : bounds.OuterEdges[i]!.GetSegment(j + 1),
                             rightInner,
                             borderColor,
-                            vertices);
+                            outline);
                     }
                 }
             }
@@ -147,15 +166,20 @@ namespace SpaceOpera.View
 
         public void Draw(RenderTarget target, UiContext context)
         {
-            target.Draw(_vertices!, 0, _vertices!.Length, new(BlendMode.Alpha, _shader));
+            target.PushModelMatrix(_fillTransform);
+            target.Draw(_fill!, 0, _fill!.Length, new(BlendMode.Alpha, _fillShader));
+            target.PopModelMatrix();
+            target.PushModelMatrix(_outlineTransform);
+            target.Draw(_outline!, 0, _outline!.Length, new(BlendMode.Alpha, _outlineShader));
+            target.PopModelMatrix();
         }
 
         public void Update(long delta) { }
 
         protected override void DisposeImpl()
         {
-            _vertices!.Dispose();
-            _vertices = null;
+            _outline!.Dispose();
+            _outline = null;
         }
 
         private static int GetOuterLeftEdge(Edge[] neighbors, int edge)
