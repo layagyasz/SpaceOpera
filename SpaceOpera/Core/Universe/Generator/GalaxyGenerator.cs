@@ -112,13 +112,13 @@ namespace SpaceOpera.Core.Universe.Generator
         }
 
         private static float StarDensityFn(uint arms, float rotation, float angle, float radius)
-        {
+        { 
             if (radius > 1)
             {
                 return 0;
             }
-            return MathF.Pow(Math.Max(
-                (MathF.Cos(angle * arms + radius * rotation) + 1) * MathF.Sqrt(1 - radius), 1 - radius), 2);
+            return Math.Max(
+                (0.5f * MathF.Cos(angle * arms + radius * rotation) + 1) * MathF.Sqrt(1 - radius), 1 - radius);
         }
 
         private static float TransitDensityFn(float density, float standardDeviations)

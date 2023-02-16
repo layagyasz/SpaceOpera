@@ -17,6 +17,8 @@ using Cardamom.ImageProcessing.Pipelines.Nodes;
 using Cardamom.ImageProcessing.Pipelines;
 using Cardamom.Utils.Suppliers;
 using Cardamom.ImageProcessing;
+using SpaceOpera.Controller.Scenes;
+using Cardamom.Ui.Elements;
 
 namespace SpaceOpera.View.Scenes
 {
@@ -55,15 +57,21 @@ namespace SpaceOpera.View.Scenes
 
         public IScene Create(Galaxy galaxy)
         {
+            float r = s_GalaxyScale * galaxy.Radius;
             var model = GalaxyViewFactory.CreateModel(galaxy, s_GalaxyScale);
+            var galaxyController = GalaxyModelController.Create(galaxy, s_GalaxyScale);
+            var interactiveModel = 
+                new InteractiveModel(
+                    model, 
+                    new Disk(new(0, -s_GalaxyScale * 700, 0), Vector3.UnitY, r), 
+                    galaxyController);
             var camera = new SubjectiveCamera3d(s_SkyboxRadius + 10);
             camera.OnCameraChange += (s, e) => model.Dirty();
             camera.SetDistance(0.05f);
             camera.SetPitch(-0.125f * MathHelper.Pi);
             camera.SetYaw(MathHelper.PiOver2);
-            float r = s_GalaxyScale * galaxy.Radius;
             var controller =
-                new PassthroughController(
+                new SceneController(
                     new GalaxyCameraController(camera)
                     {
                         Radius = r,
@@ -71,9 +79,10 @@ namespace SpaceOpera.View.Scenes
                         MouseWheelSensitivity = 0.02f * r,
                         PitchRange = new(-MathHelper.PiOver2 + 0.01f, -0.125f * MathHelper.Pi),
                         DistanceRange = new(0.05f, r)
-                    });
+                    },
+                    galaxyController);
             _skyBox ??= CreateSkybox();
-            return new GalaxyScene(controller, camera, model, _skyBox);
+            return new GalaxyScene(controller, camera, interactiveModel, _skyBox);
         }
 
         public IScene Create(StellarBody stellarBody)

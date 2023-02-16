@@ -2,6 +2,7 @@
   {
     "Key": "design-template-infantry",
     "Type": "Infantry",
+    "Structure": "structure-training-facility",
     "Tags": [ "Infantry" ],
     "Segments": [
       {

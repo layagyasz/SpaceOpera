@@ -8,7 +8,7 @@ namespace SpaceOpera.View.Scenes.Highlights
 {
     public class HighlightLayer<TSubRegion> : IRenderable where TSubRegion : notnull
     {
-        class SingleHighlightLayer : IRenderable
+        class SingleHighlightLayer : GraphicsResource, IRenderable
         {
             public ICompositeHighlight Highlight { get; }
        
@@ -17,7 +17,7 @@ namespace SpaceOpera.View.Scenes.Highlights
             private readonly float _borderWidth;
             private readonly RenderShader _shader;
 
-            private readonly Dictionary<IHighlight, IRenderable> _highlights = new();
+            private readonly Dictionary<IHighlight, SpaceRegionView> _highlights = new();
 
             private SingleHighlightLayer(
                 ICompositeHighlight highlight,
@@ -71,7 +71,16 @@ namespace SpaceOpera.View.Scenes.Highlights
 
             public void Update(long delta) { }
 
-            private IRenderable ComputeHighlight(IHighlight highlight)
+            protected override void DisposeImpl()
+            {
+                foreach (var highlight in _highlights.Values)
+                {
+                    highlight.Dispose();
+                }
+                _highlights.Clear();
+            }
+
+            private SpaceRegionView ComputeHighlight(IHighlight highlight)
             {
                 return SpaceRegionView.Create(
                     _shader, 
@@ -84,6 +93,10 @@ namespace SpaceOpera.View.Scenes.Highlights
             private void HandleHighlightUpdate(object? sender, EventArgs e)
             {
                 var highlight = (IHighlight)sender!;
+                if (_highlights.TryGetValue(highlight, out var current))
+                {
+                    current.Dispose();
+                }
                 _highlights[highlight] = ComputeHighlight(highlight);
             }
         }
@@ -115,6 +128,7 @@ namespace SpaceOpera.View.Scenes.Highlights
         {
             if (_layers.TryGetValue(layer, out var highlight))
             {
+                highlight.Dispose();
                 highlight.Unhook();
                 _layers.Remove(layer);
             }

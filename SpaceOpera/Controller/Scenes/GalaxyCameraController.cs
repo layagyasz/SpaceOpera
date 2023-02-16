@@ -3,11 +3,11 @@ using Cardamom.Mathematics;
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui;
 using Cardamom.Window;
-using OpenTK.Windowing.Common;
-using OpenTK.Windowing.GraphicsLibraryFramework;
 using OpenTK.Mathematics;
+using OpenTK.Windowing.GraphicsLibraryFramework;
+using OpenTK.Windowing.Common;
 
-namespace SpaceOpera.View.GalaxyViews
+namespace SpaceOpera.Controller.Scenes
 {
     public class GalaxyCameraController : IElementController
     {
@@ -85,7 +85,7 @@ namespace SpaceOpera.View.GalaxyViews
         {
             if (e.Button == MouseButton.Left)
             {
-                ChangeFocus(2 * _camera.Distance * new Vector3(_camera.AspectRatio * e.NdcDelta.X, 0, -e.NdcDelta.Y)); 
+                ChangeFocus(2 * _camera.Distance * new Vector3(_camera.AspectRatio * e.NdcDelta.X, 0, -e.NdcDelta.Y));
                 return true;
             }
             return false;

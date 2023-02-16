@@ -4,7 +4,7 @@ using Cardamom.Mathematics.Geometry;
 using Cardamom.Ui;
 using Cardamom.Ui.Controller.Element;
 using OpenTK.Mathematics;
-using SpaceOpera.View.GalaxyViews;
+using Cardamom.Ui.Elements;
 
 namespace SpaceOpera.View.Scenes
 {
@@ -14,14 +14,15 @@ namespace SpaceOpera.View.Scenes
         public IControlledElement? Parent { get; set; }
         public ICamera Camera { get; }
 
-        private readonly GalaxyModel _galaxyModel;
+        private readonly InteractiveModel _galaxyModel;
         private readonly Skybox _skybox;
 
-        public GalaxyScene(IElementController controller, ICamera camera, GalaxyModel galaxyModel, Skybox skybox)
+        public GalaxyScene(IElementController controller, ICamera camera, InteractiveModel galaxyModel, Skybox skybox)
         {
             Controller = controller;
             Camera = camera;
             _galaxyModel = galaxyModel;
+            _galaxyModel.Parent = this;
             _skybox = skybox;
         }
 

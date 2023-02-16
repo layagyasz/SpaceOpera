@@ -5,13 +5,15 @@ namespace SpaceOpera.Core.Universe
         private static readonly float s_BoltzmanConstant = 5.6704e-8f;
 
         public string Name { get; private set; } = string.Empty;
+        public string Type { get; }
         public float Temperature { get; }
         public float Radius { get; }
         public float Mass { get; }
         public float Luminosity { get; }
 
-        public Star(float temperature, float radius, float mass)
+        public Star(string type, float temperature, float radius, float mass)
         {
+            Type = type;
             Temperature = temperature;
             Radius = radius;
             Mass = mass;

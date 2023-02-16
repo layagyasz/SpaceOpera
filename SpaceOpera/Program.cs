@@ -5,6 +5,8 @@ using Cardamom.Window;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Desktop;
 using OpenTK.Windowing.GraphicsLibraryFramework;
+using SpaceOpera.Controller;
+using SpaceOpera.Controller.Scenes;
 using SpaceOpera.Core;
 using SpaceOpera.View;
 
@@ -67,8 +69,12 @@ namespace SpaceOpera
             {
                 throw new ArgumentException();
             }
-
-            var screen = new SceneScreen(new NoOpController<Screen>(), Enumerable.Empty<IUiLayer>(), scene);
+            var gameController = new GameController(logger);
+            if (scene.Controller is ISceneController sceneController)
+            {
+                sceneController.Interacted += (s, e) => gameController.HandleInteraction(e);
+            }
+            var screen = new SceneScreen(gameController, Enumerable.Empty<IUiLayer>(), scene);
             ui.SetRoot(screen);
             ui.Start();
         }

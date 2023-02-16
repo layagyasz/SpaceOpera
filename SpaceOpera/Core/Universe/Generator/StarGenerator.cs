@@ -14,6 +14,7 @@ namespace SpaceOpera.Core.Universe.Generator
         public Star Generate(GeneratorContext context)
         {
             return new Star(
+                Name,
                 TemperatureSampler!.Generate(context.Random), 
                 Constants.SolarRadius * RadiusSampler!.Generate(context.Random),
                 Constants.SolarMass * MassSampler!.Generate(context.Random));
