@@ -5,6 +5,8 @@ using Cardamom.Ui;
 using Cardamom.Ui.Controller.Element;
 using OpenTK.Mathematics;
 using Cardamom.Ui.Elements;
+using SpaceOpera.View.Scenes.Highlights;
+using SpaceOpera.Core.Universe;
 
 namespace SpaceOpera.View.Scenes
 {
@@ -15,14 +17,21 @@ namespace SpaceOpera.View.Scenes
         public ICamera Camera { get; }
 
         private readonly InteractiveModel _galaxyModel;
+        private readonly HighlightLayer<StarSystem> _highlightLayer;
         private readonly Skybox _skybox;
 
-        public GalaxyScene(IElementController controller, ICamera camera, InteractiveModel galaxyModel, Skybox skybox)
+        public GalaxyScene(
+            IElementController controller,
+            ICamera camera, 
+            InteractiveModel galaxyModel,
+            HighlightLayer<StarSystem> highlightLayer,
+            Skybox skybox)
         {
             Controller = controller;
             Camera = camera;
             _galaxyModel = galaxyModel;
             _galaxyModel.Parent = this;
+            _highlightLayer = highlightLayer;
             _skybox = skybox;
         }
 
@@ -49,6 +58,7 @@ namespace SpaceOpera.View.Scenes
             context.Register(this);
 
             _skybox.Draw(target, context);
+            _highlightLayer.Draw(target, context);
             _galaxyModel.Draw(target, context);
 
             target.PopProjectionMatrix();

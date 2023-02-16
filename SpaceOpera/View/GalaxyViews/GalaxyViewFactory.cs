@@ -15,11 +15,6 @@ namespace SpaceOpera.View.GalaxyViews
         private static readonly float s_PinY = -700f;
         private static readonly float s_PinScale = 8f;
 
-        private static readonly Color4 s_RegionBorderColor = new(0.4f, 0.4f, 0.4f, 1f);
-        private static readonly float s_RegionBorderWidth = 128f;
-        private static readonly Color4 s_RegionColor = new(0, 0, 0, 0);
-        private static readonly Vector3 s_RegionTranslation = new(0f, -700f, 0f);
-
         private static readonly float s_StarScale = 4096f;
 
         private static readonly Color4 s_TransitColor = new(0.5f, 0.5f, 0.7f, 1f);
@@ -28,40 +23,21 @@ namespace SpaceOpera.View.GalaxyViews
         private static readonly float s_TransitScale = 96f;
 
         public StarViewFactory StarViewFactory { get; }
-        public RenderShader BorderShader { get; }
-        public RenderShader FillShader { get; }
         public RenderShader TransitShader { get; }
         public RenderShader PinShader { get; }
 
         public GalaxyViewFactory(
             StarViewFactory starViewFactory,
-            RenderShader borderShader, 
-            RenderShader fillShader,
             RenderShader transitShader,
             RenderShader pinShader)
         {
             StarViewFactory = starViewFactory;
-            BorderShader = borderShader;
-            FillShader = fillShader;
             TransitShader = transitShader;
             PinShader = pinShader;
         }
 
         public GalaxyModel CreateModel(Galaxy galaxy, float scale)
         {
-            var bounds = SpaceSubRegionBounds.CreateBounds(
-                galaxy.Systems, x => StarSystemBounds.ComputeBounds(x, galaxy.Radius, scale), x => x.Neighbors!);
-            var regionBuffer = SpaceRegionView.Create(
-                Matrix4.CreateTranslation(scale * s_RegionTranslation),
-                BorderShader,
-                Matrix4.CreateTranslation(scale * s_RegionTranslation),
-                FillShader,
-                new HashSet<SpaceSubRegionBounds>(bounds.Values), 
-                s_RegionBorderColor,
-                s_RegionColor,
-                scale * s_RegionBorderWidth,
-                /* mergeSubRegions= */ false);
-
             ArrayList<Vertex3> transits = new(2 * galaxy.Systems.Count);
             foreach (var transit in galaxy.GetTransits())
             {
@@ -97,7 +73,6 @@ namespace SpaceOpera.View.GalaxyViews
                 StarViewFactory.CreateView(galaxy.Systems.Select(x => x.Star),
                     galaxy.Systems.Select(x => scale * x.Position),
                     s_StarScale * scale),
-                regionBuffer,
                 new(transitBuffer, TransitShader),
                 new(pinBuffer, PinShader, scale * s_PinScale, scale * s_PinDashLength));
         }

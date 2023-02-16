@@ -25,8 +25,6 @@ namespace SpaceOpera.View
             var galaxyViewFactory = 
                 new GalaxyViewFactory(
                     starViewFactory,
-                    viewData.GameResources!.GetShader("shader-border"),
-                    viewData.GameResources!.GetShader("shader-default-no-tex"),
                     viewData.GameResources!.GetShader("shader-transit"), 
                     viewData.GameResources!.GetShader("shader-pin"));
             var stellarBodyViewFactory =
@@ -44,7 +42,9 @@ namespace SpaceOpera.View
                     stellarBodyViewFactory,
                     starViewFactory,
                     viewData.HumanEyeSensitivity!,
-                    viewData.GameResources!.GetShader("shader-default")), 
+                    viewData.GameResources!.GetShader("shader-default"),
+                    viewData.GameResources!.GetShader("shader-border"),
+                    viewData.GameResources!.GetShader("shader-default-no-tex")), 
                 stellarBodyViewFactory);
         }
     }

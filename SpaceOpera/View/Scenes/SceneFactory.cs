@@ -19,6 +19,7 @@ using Cardamom.Utils.Suppliers;
 using Cardamom.ImageProcessing;
 using SpaceOpera.Controller.Scenes;
 using Cardamom.Ui.Elements;
+using SpaceOpera.View.Scenes.Highlights;
 
 namespace SpaceOpera.View.Scenes
 {
@@ -26,6 +27,8 @@ namespace SpaceOpera.View.Scenes
     {
         private static readonly float s_GalaxyScale = 0.0001f;
         private static readonly Vector3 s_GalaxyFloor = new(0f, -700f, 0f);
+        private static readonly float s_GalaxyRegionBorderWidth = 128f;
+
         private static readonly float s_SkyboxRadius = 1100;
         private static readonly int s_SkyboxPrecision = 64;
         private static readonly int s_SkyboxResolution = 2048;
@@ -41,19 +44,25 @@ namespace SpaceOpera.View.Scenes
         public StarViewFactory StarViewFactory { get; }
         public SpectrumSensitivity HumanEyeSensitivity { get; }
         public RenderShader SkyboxShader { get; }
+        public RenderShader BorderShader { get; }
+        public RenderShader FillShader { get; }
 
         public SceneFactory(
             GalaxyViewFactory galaxyViewFactory,
             StellarBodyViewFactory stellarBodyViewFactory,
             StarViewFactory starViewFactory,
             SpectrumSensitivity humanEyeSensitivity,
-            RenderShader skyboxShader)
+            RenderShader skyboxShader, 
+            RenderShader borderShader, 
+            RenderShader fillShader)
         {
             GalaxyViewFactory = galaxyViewFactory;
             StellarBodyViewFactory = stellarBodyViewFactory;
             StarViewFactory = starViewFactory;
             HumanEyeSensitivity = humanEyeSensitivity;
             SkyboxShader = skyboxShader;
+            BorderShader = borderShader;
+            FillShader = fillShader;
         }
 
         public IScene Create(Galaxy galaxy)
@@ -71,6 +80,27 @@ namespace SpaceOpera.View.Scenes
             camera.SetDistance(0.05f);
             camera.SetPitch(-0.125f * MathHelper.Pi);
             camera.SetYaw(MathHelper.PiOver2);
+
+            var bounds = SpaceSubRegionBounds.CreateBounds(
+                galaxy.Systems,
+                x => StarSystemBounds.ComputeBounds(x, galaxy.Radius, s_GalaxyScale), x => x.Neighbors!);
+            var highlight =
+                new HighlightLayer<StarSystem>(
+                    galaxy.Systems,
+                    bounds,
+                    s_GalaxyScale * s_GalaxyRegionBorderWidth,
+                    new()
+                    {
+                        { HighlightLayerName.Background, Matrix4.CreateTranslation(s_GalaxyScale * s_GalaxyFloor) }
+                    },
+                    BorderShader, 
+                    new()
+                    {
+                        { HighlightLayerName.Background, Matrix4.CreateTranslation(s_GalaxyScale * s_GalaxyFloor) }
+                    }, 
+                    FillShader);
+            highlight.SetLayer(HighlightLayerName.Background, SimpleHighlight.Wrap(new SubRegionHighlight()));
+
             var controller =
                 new SceneController(
                     new GalaxyCameraController(camera)
@@ -83,7 +113,7 @@ namespace SpaceOpera.View.Scenes
                     },
                     galaxyController);
             _skyBox ??= CreateSkybox();
-            return new GalaxyScene(controller, camera, interactiveModel, _skyBox);
+            return new GalaxyScene(controller, camera, interactiveModel, highlight, _skyBox);
         }
 
         public IScene Create(StellarBody stellarBody)

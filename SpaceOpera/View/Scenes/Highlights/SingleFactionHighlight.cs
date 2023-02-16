@@ -8,6 +8,8 @@ namespace SpaceOpera.View.Scenes.Highlights
     {
         public EventHandler<EventArgs>? OnUpdated { get; set; }
 
+        public bool Merge => true;
+        public float BorderWidth => 1f;
         public Faction Faction { get; }
         public Color4 BorderColor { get; }
         public Color4 Color { get; }

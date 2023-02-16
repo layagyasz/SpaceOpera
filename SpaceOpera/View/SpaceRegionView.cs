@@ -44,7 +44,7 @@ namespace SpaceOpera.View
             Color4 borderColor,
             Color4 color,
             float borderWidth,
-            bool mergeSubRegions = true)
+            bool mergeSubRegions)
         {
             var outlineVertices = new ArrayList<Vertex3>();
             var fillVertices = new ArrayList<Vertex3>();
@@ -206,7 +206,7 @@ namespace SpaceOpera.View
             return -1;
         }
 
-        private static int GetNextValidEdge(SpaceSubRegionBounds.Edge[] edges, int startIndex, int increment)
+        private static int GetNextValidEdge(Edge[] edges, int startIndex, int increment)
         {
             int i = startIndex % edges.Length;
             while (true)

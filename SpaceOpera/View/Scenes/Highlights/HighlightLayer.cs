@@ -111,7 +111,8 @@ namespace SpaceOpera.View.Scenes.Highlights
                     _range.Where(x => highlight.Contains(x)).Select(x => _boundsMap[x]).ToImmutableHashSet(),
                     highlight.BorderColor, 
                     highlight.Color, 
-                    _borderWidth);
+                    _borderWidth * highlight.BorderWidth,
+                    highlight.Merge);
             }
 
             private void HandleHighlightUpdate(object? sender, EventArgs e)
