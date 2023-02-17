@@ -109,6 +109,11 @@ namespace SpaceOpera.Core.Universe.Generator
             return new(surface[0].GetTexture(), surface[2].GetTexture(), surface[1].GetTexture());
         }
 
+        public bool IsHomogenous()
+        {
+            return _biomes.Aggregate(0, (x, y) => x | (y.Biome!.IsTraversable ? 2 : 1)) != 3;
+        }
+
         private static Classify.Classification CreateClassification(BiomeOption option, Color4 color)
         {
             return new Classify.Classification()

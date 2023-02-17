@@ -143,26 +143,34 @@ namespace SpaceOpera.Core.Universe.Generator
                 regionWrappers.Add(region);
             }
 
+            bool homogenous = SurfaceGenerator.IsHomogenous();
             foreach (var partition in 
                 SeededGraphPartition.Compute<RegionWrapper, SubRegionWrapper>(regionWrappers, x => true))
             {
                 var region = partition.Seed;
-                var partitioned =
-                    partition.Nodes
-                        .Where(x => x.Region.Biome.IsTraversable != region.Origin.Region.Biome.IsTraversable)
-                        .ToHashSet();
-                region.Children = new(partition.Nodes);
-                if (partitioned.Count > 0)
+                if (homogenous)
                 {
-                    region.Children.RemoveWhere(partitioned.Contains);
-                    var newWrapper =
-                        new RegionWrapper(
-                            partitioned.ArgMax(
-                                x => -MathUtils.ArcLength(region.Origin.Region.Center, x.Region.Center, radius))!)
-                        {
-                            Children = partitioned
-                        };
-                    regionWrappers.Add(newWrapper);
+                    region.Children = new(partition.Nodes);
+                }
+                else
+                {
+                    var partitioned =
+                        partition.Nodes
+                            .Where(x => x.Region.Biome.IsTraversable != region.Origin.Region.Biome.IsTraversable)
+                            .ToHashSet();
+                    region.Children = new(partition.Nodes);
+                    if (partitioned.Count > 0)
+                    {
+                        region.Children.RemoveWhere(partitioned.Contains);
+                        var newWrapper =
+                            new RegionWrapper(
+                                partitioned.ArgMax(
+                                    x => -MathUtils.ArcLength(region.Origin.Region.Center, x.Region.Center, radius))!)
+                            {
+                                Children = partitioned
+                            };
+                        regionWrappers.Add(newWrapper);
+                    }
                 }
             }
             if (regionWrappers.Count > regionCount)

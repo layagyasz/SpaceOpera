@@ -6,9 +6,9 @@
     "Range": [ 2000, 9000 ]
   },
   "Density": 3530,
-  "SubRegionDensity": 0.000004,
+  "SubRegionDensity": 0.000002,
   "RegionDensity": 0.0000002,
-  "StructureNodeDensity": 2500,
+  "StructureNodeDensity": 5000,
   "AtmosphereGenerator": {
     "RegionDensity": 0.000175,
     "TotalPressureSampler": {

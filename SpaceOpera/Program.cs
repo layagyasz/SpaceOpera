@@ -38,7 +38,7 @@ namespace SpaceOpera
             {
                 var planetGenerator =
                     coreData.GalaxyGenerator!.StarSystemGenerator!.StellarBodySelector!.Options
-                        .First(x => x.Generator!.Key == "planet-generator-volcanic").Generator!;
+                        .First(x => x.Generator!.Key == "planet-generator-terran").Generator!;
                 var orbitGenerator = coreData.GalaxyGenerator!.StarSystemGenerator!.OrbitGenerator!;
                 var starGenerator =
                     coreData.GalaxyGenerator!.StarSystemGenerator!.StarGenerators
