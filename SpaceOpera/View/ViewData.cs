@@ -3,6 +3,7 @@ using Cardamom.Collections;
 using Cardamom.Json;
 using Cardamom.Json.OpenTK;
 using SpaceOpera.Core.Universe.Spectra;
+using SpaceOpera.View.FactionViews;
 using SpaceOpera.View.StellarBodyViews;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -15,7 +16,10 @@ namespace SpaceOpera.View
         public GameResources? GameResources { get; set; }
 
         [JsonConverter(typeof(FromFileJsonConverter))]
-        public Library<BiomeRenderDetails> BiomeRenderDetails { get; set; } = new();
+        public BannerViewFactory? Banners { get; set; }
+
+        [JsonConverter(typeof(FromFileJsonConverter))]
+        public Library<BiomeRenderDetails> Biomes { get; set; } = new();
 
         [JsonConverter(typeof(FromFileJsonConverter))]
         public SpectrumSensitivity? HumanEyeSensitivity { get; set; }

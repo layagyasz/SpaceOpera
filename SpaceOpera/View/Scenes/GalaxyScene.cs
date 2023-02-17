@@ -10,14 +10,14 @@ using SpaceOpera.Core.Universe;
 
 namespace SpaceOpera.View.Scenes
 {
-    public class GalaxyScene : IScene
+    public class GalaxyScene : GraphicsResource, IGameScene
     {
         public IElementController Controller { get; }
         public IControlledElement? Parent { get; set; }
         public ICamera Camera { get; }
 
-        private readonly InteractiveModel _galaxyModel;
-        private readonly HighlightLayer<StarSystem> _highlightLayer;
+        private InteractiveModel? _galaxyModel;
+        private HighlightLayer<StarSystem>? _highlightLayer;
         private readonly Skybox _skybox;
 
         public GalaxyScene(
@@ -35,20 +35,12 @@ namespace SpaceOpera.View.Scenes
             _skybox = skybox;
         }
 
-        public void Initialize()
+        protected override void DisposeImpl()
         {
-            _galaxyModel.Initialize();
-            Controller.Bind(this);
-        }
-
-        public void ResizeContext(Vector3 bounds)
-        {
-            Camera.SetAspectRatio(bounds.X / bounds.Y);
-        }
-
-        public float? GetRayIntersection(Ray3 ray)
-        {
-            return float.MaxValue;
+            _galaxyModel!.Dispose();
+            _galaxyModel = null;
+            _highlightLayer!.Dispose();
+            _highlightLayer = null;
         }
 
         public void Draw(RenderTarget target, UiContext context)
@@ -58,16 +50,39 @@ namespace SpaceOpera.View.Scenes
             context.Register(this);
 
             _skybox.Draw(target, context);
-            _highlightLayer.Draw(target, context);
-            _galaxyModel.Draw(target, context);
+            _highlightLayer!.Draw(target, context);
+            _galaxyModel!.Draw(target, context);
 
             target.PopProjectionMatrix();
             target.PopViewMatrix();
         }
 
+        public float? GetRayIntersection(Ray3 ray)
+        {
+            return float.MaxValue;
+        }
+
+        public void Initialize()
+        {
+            _galaxyModel!.Initialize();
+            _highlightLayer!.Initialize();
+            Controller.Bind(this);
+        }
+
+        public void ResizeContext(Vector3 bounds)
+        {
+            Camera.SetAspectRatio(bounds.X / bounds.Y);
+        }
+
+        public void SetHighlight(HighlightLayerName layer, ICompositeHighlight highlight)
+        {
+            _highlightLayer!.SetLayer(layer, highlight);
+        }
+
         public void Update(long delta)
         {
-            _galaxyModel.Update(delta);
+            _galaxyModel!.Update(delta);
+            _highlightLayer!.Update(delta);
         }
     }
 }

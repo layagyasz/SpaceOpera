@@ -57,10 +57,13 @@
     <None Update="Resources\Core\Generators\StellarBody\Cytherean.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\View\Banners.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\View\HumanEyeSensitivity.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\BiomeRenderDetails.json">
+    <None Update="Resources\View\Biomes.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Core\Biomes.json">

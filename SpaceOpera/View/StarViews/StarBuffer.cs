@@ -53,7 +53,7 @@ namespace SpaceOpera.View.StarViews
                 _buffer!, 
                 0, 
                 _buffer!.Length, 
-                new RenderResources(BlendMode.Alpha, _shader) { IsPretransformed = true });
+                new RenderResources(BlendMode.Alpha, _shader) { IsPretransformed = true, EnableDepthTest = false });
         }
 
         public void Update(long delta)

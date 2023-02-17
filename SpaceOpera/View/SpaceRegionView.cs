@@ -12,33 +12,25 @@ namespace SpaceOpera.View
     {
         private static readonly float s_Alpha = 0.25f;
 
-        private Matrix4 _outlineTransform;
         private VertexBuffer<Vertex3>? _outline;
         private readonly RenderShader _outlineShader;
-        private Matrix4 _fillTransform;
         private VertexBuffer<Vertex3>? _fill;
         private readonly RenderShader _fillShader;
 
         public SpaceRegionView(
-            Matrix4 outlineTransform,
             VertexBuffer<Vertex3> outline, 
             RenderShader outlineShader,
-            Matrix4 fillTransform,
             VertexBuffer<Vertex3> fill, 
             RenderShader fillShader)
         {
-            _outlineTransform = outlineTransform;
             _outline = outline;
             _outlineShader = outlineShader;
-            _fillTransform = fillTransform;
             _fill = fill;
             _fillShader = fillShader;
         }
 
         public static SpaceRegionView Create(
-            Matrix4 outlineTransform,
             RenderShader outlineShader,
-            Matrix4 fillTransform,
             RenderShader fillShader,
             ISet<SpaceSubRegionBounds> subRegions,
             Color4 borderColor,
@@ -53,8 +45,7 @@ namespace SpaceOpera.View
             outlineBuffer.Buffer(outlineVertices.GetData(), 0, outlineVertices.Count);
             var fillBuffer = new VertexBuffer<Vertex3>(PrimitiveType.Triangles);
             fillBuffer.Buffer(fillVertices.GetData(), 0, fillVertices.Count);
-            return new SpaceRegionView(
-                outlineTransform, outlineBuffer, outlineShader, fillTransform, fillBuffer, fillShader);
+            return new SpaceRegionView(outlineBuffer, outlineShader, fillBuffer, fillShader);
         }
 
         public static void TraceBounds(
@@ -166,12 +157,9 @@ namespace SpaceOpera.View
 
         public void Draw(RenderTarget target, UiContext context)
         {
-            target.PushModelMatrix(_fillTransform);
-            target.Draw(_fill!, 0, _fill!.Length, new(BlendMode.Alpha, _fillShader));
-            target.PopModelMatrix();
-            target.PushModelMatrix(_outlineTransform);
-            target.Draw(_outline!, 0, _outline!.Length, new(BlendMode.Alpha, _outlineShader));
-            target.PopModelMatrix();
+            target.Draw(_fill!, 0, _fill!.Length, new(BlendMode.Alpha, _fillShader) { EnableDepthMask = false });
+            target.Draw(
+                _outline!, 0, _outline!.Length, new(BlendMode.Alpha, _outlineShader) { EnableDepthMask = false });
         }
 
         public void Update(long delta) { }

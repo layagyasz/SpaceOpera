@@ -1,5 +1,6 @@
 ﻿using Cardamom.Collections;
 using SpaceOpera.Core;
+using SpaceOpera.View.FactionViews;
 using SpaceOpera.View.GalaxyViews;
 using SpaceOpera.View.Scenes;
 using SpaceOpera.View.StarViews;
@@ -11,11 +12,16 @@ namespace SpaceOpera.View
     {
         public SceneFactory SceneFactory { get; }
         public StellarBodyViewFactory StellarBodyViewFactory { get; }
+        public BannerViewFactory BannerViewFactory { get; }
 
-        private ViewFactory(SceneFactory sceneFactory, StellarBodyViewFactory stellarBodyViewFactory)
+        private ViewFactory(
+            SceneFactory sceneFactory,
+            StellarBodyViewFactory stellarBodyViewFactory,
+            BannerViewFactory bannerViewFactory)
         {
             SceneFactory = sceneFactory;
             StellarBodyViewFactory = stellarBodyViewFactory;
+            BannerViewFactory = bannerViewFactory;
         }
 
         public static ViewFactory Create(ViewData viewData, CoreData coreData)
@@ -29,7 +35,7 @@ namespace SpaceOpera.View
                     viewData.GameResources!.GetShader("shader-pin"));
             var stellarBodyViewFactory =
                 new StellarBodyViewFactory(
-                    viewData.BiomeRenderDetails.ToDictionary(x => coreData.Biomes[x.Key], x => x.Value),
+                    viewData.Biomes.ToDictionary(x => coreData.Biomes[x.Key], x => x.Value),
                     coreData.GalaxyGenerator!.StarSystemGenerator!.StellarBodySelector!.Options
                         .Select(x => x.Generator!)
                         .ToLibrary(x => x.Key, x => x),
@@ -45,7 +51,8 @@ namespace SpaceOpera.View
                     viewData.GameResources!.GetShader("shader-default"),
                     viewData.GameResources!.GetShader("shader-border"),
                     viewData.GameResources!.GetShader("shader-default-no-tex")), 
-                stellarBodyViewFactory);
+                stellarBodyViewFactory,
+                viewData.Banners!);
         }
     }
 }

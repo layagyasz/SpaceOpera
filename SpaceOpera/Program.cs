@@ -9,6 +9,7 @@ using SpaceOpera.Controller;
 using SpaceOpera.Controller.Scenes;
 using SpaceOpera.Core;
 using SpaceOpera.View;
+using SpaceOpera.View.Scenes;
 
 namespace SpaceOpera
 {
@@ -30,8 +31,9 @@ namespace SpaceOpera
             var viewFactory = ViewFactory.Create(viewData, coreData);
 
             var generatorContext = new GeneratorContext(logger, new());
-            IScene scene;
-            int mode = 3;
+            IGameScene scene;
+            GameController controller;
+            int mode = 4;
             if (mode == 1)
             {
                 var planetGenerator =
@@ -46,6 +48,7 @@ namespace SpaceOpera
                         orbitGenerator.Generate(starGenerator.Generate(generatorContext), 1f, generatorContext), 
                         generatorContext);
                 scene = viewFactory.SceneFactory.Create(planet);
+                controller = new GameController(null, viewFactory, logger);
             }
             else if (mode == 2)
             {
@@ -55,6 +58,7 @@ namespace SpaceOpera
             {
                 var galaxy = coreData.GalaxyGenerator!.Generate(generatorContext);
                 scene = viewFactory.SceneFactory.Create(galaxy);
+                controller = new GameController(null, viewFactory, logger);
             }
             else if (mode == 4)
             {
@@ -64,17 +68,15 @@ namespace SpaceOpera
                     coreData.PoliticsGenerator!.Faction!.Generate(playerCulture, playerBanner, generatorContext);
                 var world = WorldGenerator.Generate(playerCulture, playerFaction, coreData, generatorContext);
                 scene = viewFactory.SceneFactory.Create(world.Galaxy);
+                controller = new GameController(world, viewFactory, logger);
             }
             else
             {
                 throw new ArgumentException();
             }
-            var gameController = new GameController(logger);
-            if (scene.Controller is ISceneController sceneController)
-            {
-                sceneController.Interacted += (s, e) => gameController.HandleInteraction(e);
-            }
-            var screen = new SceneScreen(gameController, Enumerable.Empty<IUiLayer>(), scene);
+            var screen = new GameScreen(controller, Enumerable.Empty<IUiLayer>());
+            screen.Initialize();
+            controller.ChangeScene(scene);
             ui.SetRoot(screen);
             ui.Start();
         }

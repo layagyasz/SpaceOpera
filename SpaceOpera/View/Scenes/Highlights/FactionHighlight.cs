@@ -20,7 +20,7 @@ namespace SpaceOpera.View.Scenes.Highlights
                 world.GetFactions()
                     .Select(
                         x => new SingleFactionHighlight(
-                            x, bannerViewFactory.GetForeground(x.Banner), bannerViewFactory.GetBackground(x.Banner)))
+                            x, bannerViewFactory.GetPrimaryColor(x.Banner), bannerViewFactory.GetSecondaryColor(x.Banner)))
                     .ToList();
         }
 

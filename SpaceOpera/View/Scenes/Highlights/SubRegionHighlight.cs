@@ -8,8 +8,15 @@ namespace SpaceOpera.View.Scenes.Highlights
 
         public bool Merge => false;
         public float BorderWidth => 1f;
-        public Color4 BorderColor => new(0.4f, 0.4f, 0.4f, 1f);
+        public Color4 BorderColor => new(0.2f, 0.2f, 0.2f, 1f);
         public Color4 Color => new(0f, 0f, 0f, 0f);
+
+        private SubRegionHighlight() { }
+
+        public static SubRegionHighlight Create()
+        {
+            return new();
+        }
 
         public bool Contains(object @object)
         {

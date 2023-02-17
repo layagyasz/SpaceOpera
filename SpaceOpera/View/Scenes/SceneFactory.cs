@@ -65,7 +65,7 @@ namespace SpaceOpera.View.Scenes
             FillShader = fillShader;
         }
 
-        public IScene Create(Galaxy galaxy)
+        public IGameScene Create(Galaxy galaxy)
         {
             float r = s_GalaxyScale * galaxy.Radius;
             var model = GalaxyViewFactory.CreateModel(galaxy, s_GalaxyScale);
@@ -89,17 +89,9 @@ namespace SpaceOpera.View.Scenes
                     galaxy.Systems,
                     bounds,
                     s_GalaxyScale * s_GalaxyRegionBorderWidth,
-                    new()
-                    {
-                        { HighlightLayerName.Background, Matrix4.CreateTranslation(s_GalaxyScale * s_GalaxyFloor) }
-                    },
+                    Matrix4.CreateTranslation(s_GalaxyScale * s_GalaxyFloor),
                     BorderShader, 
-                    new()
-                    {
-                        { HighlightLayerName.Background, Matrix4.CreateTranslation(s_GalaxyScale * s_GalaxyFloor) }
-                    }, 
                     FillShader);
-            highlight.SetLayer(HighlightLayerName.Background, SimpleHighlight.Wrap(new SubRegionHighlight()));
 
             var controller =
                 new SceneController(
@@ -116,7 +108,7 @@ namespace SpaceOpera.View.Scenes
             return new GalaxyScene(controller, camera, interactiveModel, highlight, _skyBox);
         }
 
-        public IScene Create(StellarBody stellarBody)
+        public IGameScene Create(StellarBody stellarBody)
         {
             var model = StellarBodyViewFactory.CreateModel(stellarBody);
             var camera = new SubjectiveCamera3d(s_SkyboxRadius + 10);

@@ -1,5 +1,6 @@
 {
   "GameResources": "Resources/GameResources.json",
-  "BiomeRenderDetails": "Resources/View/BiomeRenderDetails.json",
+  "Banners": "Resources/View/Banners.json",
+  "Biomes": "Resources/View/Biomes.json",
   "HumanEyeSensitivity": "Resources/View/HumanEyeSensitivity.json"
 }

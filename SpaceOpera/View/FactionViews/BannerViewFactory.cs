@@ -5,14 +5,16 @@ namespace SpaceOpera.View.FactionViews
 {
     public class BannerViewFactory
     {
-        public Color4 GetBackground(Banner banner)
+        public Color4[] Colors { get; set; } = Array.Empty<Color4>();
+
+        public Color4 GetSecondaryColor(Banner banner)
         {
-            throw new NotImplementedException();
+            return Colors[banner.SecondaryColor];
         }
 
-        public Color4 GetForeground(Banner banner)
+        public Color4 GetPrimaryColor(Banner banner)
         {
-            throw new NotImplementedException();
+            return Colors[banner.PrimaryColor];
         }
     }
 }

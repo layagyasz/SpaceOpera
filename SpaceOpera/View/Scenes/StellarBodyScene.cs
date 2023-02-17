@@ -4,12 +4,13 @@ using Cardamom.Mathematics.Geometry;
 using Cardamom.Ui;
 using Cardamom.Ui.Controller.Element;
 using OpenTK.Mathematics;
+using SpaceOpera.View.Scenes.Highlights;
 using SpaceOpera.View.StarViews;
 using SpaceOpera.View.StellarBodyViews;
 
 namespace SpaceOpera.View.Scenes
 {
-    public class StellarBodyScene : GraphicsResource, IScene
+    public class StellarBodyScene : GraphicsResource, IGameScene
     {
         private static readonly float s_StarSpeed = 0.00005f * MathF.PI;
 
@@ -17,7 +18,7 @@ namespace SpaceOpera.View.Scenes
         public IControlledElement? Parent { get; set; }
         public ICamera Camera { get; }
 
-        private readonly StellarBodyModel _stellarBodyModel;
+        private StellarBodyModel? _stellarBodyModel;
         private readonly RenderShader _surfaceShader;
         private readonly RenderShader _atmosphereShader;
         private readonly float _luminance;
@@ -48,20 +49,12 @@ namespace SpaceOpera.View.Scenes
             _skybox = skybox;
         }
 
-        public void Initialize()
+        protected override void DisposeImpl()
         {
-            _stellarBodyModel.Initialize();
-            Controller.Bind(this);
-        }
-
-        public void ResizeContext(Vector3 bounds)
-        {
-            Camera.SetAspectRatio(bounds.X / bounds.Y);
-        }
-
-        public float? GetRayIntersection(Ray3 ray)
-        {
-            return float.MaxValue;
+            _star!.Dispose();
+            _star = null;
+            _stellarBodyModel!.Dispose();
+            _stellarBodyModel = null;
         }
 
         public void Draw(RenderTarget target, UiContext context)
@@ -81,7 +74,7 @@ namespace SpaceOpera.View.Scenes
             var lightPosition = (new Vector4(starPosition, 1) * sceneMatrix).Xyz;
             _surfaceShader.SetVector3("light_position", lightPosition);
             _surfaceShader.SetVector3("eye_position", Camera.Position);
-            _surfaceShader.SetColor("light_color",  _star!.Get(0).Color);
+            _surfaceShader.SetColor("light_color", _star!.Get(0).Color);
             _surfaceShader.SetFloat("light_luminance", _luminance);
             _surfaceShader.SetFloat("light_attenuation", _attenuation);
             _surfaceShader.SetFloat("ambient", 0.5f);
@@ -92,22 +85,34 @@ namespace SpaceOpera.View.Scenes
             _atmosphereShader.SetFloat("light_luminance", _luminance);
             _atmosphereShader.SetFloat("light_attenuation", _attenuation);
 
-            _stellarBodyModel.Draw(target, context);
+            _stellarBodyModel!.Draw(target, context);
 
             target.PopProjectionMatrix();
             target.PopViewMatrix();
         }
 
+        public float? GetRayIntersection(Ray3 ray)
+        {
+            return float.MaxValue;
+        }
+
+        public void Initialize()
+        {
+            _stellarBodyModel!.Initialize();
+            Controller.Bind(this);
+        }
+
+        public void ResizeContext(Vector3 bounds)
+        {
+            Camera.SetAspectRatio(bounds.X / bounds.Y);
+        }
+
+        public void SetHighlight(HighlightLayerName layer, ICompositeHighlight highlight) { }
+
         public void Update(long delta)
         {
             _rotation += delta;
-            _stellarBodyModel.Update(delta);
-        }
-
-        protected override void DisposeImpl()
-        {
-            _star!.Dispose();
-            _star = null;
+            _stellarBodyModel!.Update(delta);
         }
     }
 }
