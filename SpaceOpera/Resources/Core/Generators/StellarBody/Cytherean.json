@@ -22,31 +22,31 @@
     "HeightOutput": "denormalize",
     "HeightChannel": "Green",
     "Generators": {
-      "stellar-body-generator-volcanic-temperature-seed": {
+      "stellar-body-generator-cytherean-temperature-seed": {
         "Type": "Cardamom.Utils.Generators.Numeric.SeedGenerator, Cardamom",
         "Object": {}
       },
-      "stellar-body-generator-volcanic-height-seed": {
+      "stellar-body-generator-cytherean-height-seed": {
         "Type": "Cardamom.Utils.Generators.Numeric.SeedGenerator, Cardamom",
         "Object": {}
       },
-      "stellar-body-generator-volcanic-rockiness-seed": {
+      "stellar-body-generator-cytherean-rockiness-seed": {
         "Type": "Cardamom.Utils.Generators.Numeric.SeedGenerator, Cardamom",
         "Object": {}
       },
-      "stellar-body-generator-volcanic-temperature-offset": {
+      "stellar-body-generator-cytherean-temperature-offset": {
         "Type": "Cardamom.Utils.Generators.Numeric.FloatGenerator, Cardamom",
         "Object": {
           "Range": [ 0, 1 ]
         }
       },
-      "stellar-body-generator-volcanic-height-offset": {
+      "stellar-body-generator-cytherean-height-offset": {
         "Type": "Cardamom.Utils.Generators.Numeric.FloatGenerator, Cardamom",
         "Object": {
           "Range": [ 0, 1 ]
         }
       },
-      "stellar-body-generator-volcanic-rockiness-offset": {
+      "stellar-body-generator-cytherean-rockiness-offset": {
         "Type": "Cardamom.Utils.Generators.Numeric.FloatGenerator, Cardamom",
         "Object": {
           "Range": [ 0, 1 ]
@@ -55,32 +55,32 @@
     },
     "Parameters": [
       {
-        "$id": "stellar-body-generator-volcanic-temperature-seed",
+        "$id": "stellar-body-generator-cytherean-temperature-seed",
         "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Int32], Cardamom",
         "Object": {}
       },
       {
-        "$id": "stellar-body-generator-volcanic-height-seed",
+        "$id": "stellar-body-generator-cytherean-height-seed",
         "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Int32], Cardamom",
         "Object": {}
       },
       {
-        "$id": "stellar-body-generator-volcanic-rockiness-seed",
+        "$id": "stellar-body-generator-cytherean-rockiness-seed",
         "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Int32], Cardamom",
         "Object": {}
       },
       {
-        "$id": "stellar-body-generator-volcanic-temperature-offset",
+        "$id": "stellar-body-generator-cytherean-temperature-offset",
         "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
         "Object": {}
       },
       {
-        "$id": "stellar-body-generator-volcanic-height-offset",
+        "$id": "stellar-body-generator-cytherean-height-offset",
         "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
         "Object": {}
       },
       {
-        "$id": "stellar-body-generator-volcanic-rockiness-offset",
+        "$id": "stellar-body-generator-cytherean-rockiness-offset",
         "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
         "Object": {}
       }
@@ -96,7 +96,7 @@
           },
           "Parameters": {
             "Seed": {
-              "$ref": "stellar-body-generator-barren-temperature-seed"
+              "$ref": "stellar-body-generator-cytherean-temperature-seed"
             },
             "Frequency": {
               "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
@@ -116,7 +116,7 @@
           "Output": "temperature",
           "Parameters": {
             "Seed": {
-              "$ref": "stellar-body-generator-volcanic-height-seed"
+              "$ref": "stellar-body-generator-cytherean-height-seed"
             }
           },
           "Frequency": {
@@ -136,7 +136,7 @@
           "Output": "height",
           "Parameters": {
             "Seed": {
-              "$ref": "stellar-body-generator-volcanic-rockiness-seed"
+              "$ref": "stellar-body-generator-cytherean-rockiness-seed"
             },
             "Frequency": {
               "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
@@ -244,13 +244,13 @@
               "Type": "Cardamom.Utils.Suppliers.Vector.Vector4ComponentwiseSupplier, Cardamom",
               "Object": {
                 "X": {
-                  "$ref": "stellar-body-generator-volcanic-temperature-offset"
+                  "$ref": "stellar-body-generator-cytherean-temperature-offset"
                 },
                 "Y": {
-                  "$ref": "stellar-body-generator-volcanic-height-offset"
+                  "$ref": "stellar-body-generator-cytherean-height-offset"
                 },
                 "Z": {
-                  "$ref": "stellar-body-generator-volcanic-rockiness-offset"
+                  "$ref": "stellar-body-generator-cytherean-rockiness-offset"
                 }
               }
             }
@@ -274,7 +274,7 @@
         "BlendRange": 0.25
       },
       {
-        "Biome": "biome-volcanic-mountains",
+        "Biome": "biome-barren-mountains",
         "Center": [ 0, 0, 1, 0 ],
         "AxisWeight": [ 0, 1, 1, 0 ],
         "BlendRange": 0.5

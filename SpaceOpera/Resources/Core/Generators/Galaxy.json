@@ -43,6 +43,11 @@
           "ThermalRange": [ 273, 373 ]
         },
         {
+          "Generator": "Resources/Core/Generators/StellarBody/Halic.json",
+          "Weight": 1,
+          "ThermalRange": [ 273, 373 ]
+        },
+        {
           "Generator": "Resources/Core/Generators/StellarBody/Cytherean.json",
           "Weight": 0.125
         }

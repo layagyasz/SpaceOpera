@@ -38,31 +38,31 @@
     "HeightOutput": "denormalize",
     "HeightChannel": "Green",
     "Generators": {
-      "stellar-body-generator-gaia-temperature-seed": {
+      "stellar-body-generator-terran-temperature-seed": {
         "Type": "Cardamom.Utils.Generators.Numeric.SeedGenerator, Cardamom",
         "Object": {}
       },
-      "stellar-body-generator-gaia-height-seed": {
+      "stellar-body-generator-terran-height-seed": {
         "Type": "Cardamom.Utils.Generators.Numeric.SeedGenerator, Cardamom",
         "Object": {}
       },
-      "stellar-body-generator-gaia-moisture-seed": {
+      "stellar-body-generator-terran-moisture-seed": {
         "Type": "Cardamom.Utils.Generators.Numeric.SeedGenerator, Cardamom",
         "Object": {}
       },
-      "stellar-body-generator-gaia-temperature-offset": {
+      "stellar-body-generator-terran-temperature-offset": {
         "Type": "Cardamom.Utils.Generators.Numeric.FloatGenerator, Cardamom",
         "Object": {
           "Range": [ -0.5, 1.5 ]
         }
       },
-      "stellar-body-generator-gaia-height-offset": {
+      "stellar-body-generator-terran-height-offset": {
         "Type": "Cardamom.Utils.Generators.Numeric.FloatGenerator, Cardamom",
         "Object": {
           "Range": [ 0, 1 ]
         }
       },
-      "stellar-body-generator-gaia-moisture-offset": {
+      "stellar-body-generator-terran-moisture-offset": {
         "Type": "Cardamom.Utils.Generators.Numeric.FloatGenerator, Cardamom",
         "Object": {
           "Range": [ -0.5, 1.5 ]
@@ -71,32 +71,32 @@
     },
     "Parameters": [
       {
-        "$id": "stellar-body-generator-gaia-temperature-seed",
+        "$id": "stellar-body-generator-terran-temperature-seed",
         "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Int32], Cardamom",
         "Object": {}
       },
       {
-        "$id": "stellar-body-generator-gaia-height-seed",
+        "$id": "stellar-body-generator-terran-height-seed",
         "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Int32], Cardamom",
         "Object": {}
       },
       {
-        "$id": "stellar-body-generator-gaia-moisture-seed",
+        "$id": "stellar-body-generator-terran-moisture-seed",
         "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Int32], Cardamom",
         "Object": {}
       },
       {
-        "$id": "stellar-body-generator-gaia-temperature-offset",
+        "$id": "stellar-body-generator-terran-temperature-offset",
         "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
         "Object": {}
       },
       {
-        "$id": "stellar-body-generator-gaia-height-offset",
+        "$id": "stellar-body-generator-terran-height-offset",
         "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
         "Object": {}
       },
       {
-        "$id": "stellar-body-generator-gaia-moisture-offset",
+        "$id": "stellar-body-generator-terran-moisture-offset",
         "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
         "Object": {}
       }
@@ -112,7 +112,7 @@
           },
           "Parameters": {
             "Seed": {
-              "$ref": "stellar-body-generator-barren-temperature-seed"
+              "$ref": "stellar-body-generator-terran-temperature-seed"
             },
             "Frequency": {
               "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
@@ -132,7 +132,7 @@
           "Output": "temperature",
           "Parameters": {
             "Seed": {
-              "$ref": "stellar-body-generator-gaia-height-seed"
+              "$ref": "stellar-body-generator-terran-height-seed"
             },
             "Frequency": {
               "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
@@ -152,7 +152,7 @@
           "Output": "height",
           "Parameters": {
             "Seed": {
-              "$ref": "stellar-body-generator-gaia-moisture-seed"
+              "$ref": "stellar-body-generator-terran-moisture-seed"
             },
             "Frequency": {
               "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
@@ -260,13 +260,13 @@
               "Type": "Cardamom.Utils.Suppliers.Vector.Vector4ComponentwiseSupplier, Cardamom",
               "Object": {
                 "X": {
-                  "$ref": "stellar-body-generator-gaia-temperature-offset"
+                  "$ref": "stellar-body-generator-terran-temperature-offset"
                 },
                 "Y": {
-                  "$ref": "stellar-body-generator-gaia-height-offset"
+                  "$ref": "stellar-body-generator-terran-height-offset"
                 },
                 "Z": {
-                  "$ref": "stellar-body-generator-gaia-moisture-offset"
+                  "$ref": "stellar-body-generator-terran-moisture-offset"
                 }
               }
             }

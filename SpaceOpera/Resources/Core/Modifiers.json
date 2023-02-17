@@ -152,6 +152,19 @@
     ]
   },
   {
+    "$id": "modifier-biome-halic",
+    "Name": "Halic",
+    "Modifiers": [
+      {
+        "Type": "ResourceGeneration",
+        "Material": "material-halics",
+        "Modifier": {
+          "Bonus": 1
+        }
+      }
+    ]
+  },
+  {
     "$id": "modifier-biome-inorganic",
     "Name": "Inorganic",
     "Modifiers": [

@@ -87,6 +87,11 @@
     "Roughness": 0
   },
   {
+    "$id": "biome-salt-flat",
+    "Color": "#eee7dd",
+    "Roughness": 0.1
+  },
+  {
     "$id": "biome-savanna",
     "Color": "#716151",
     "Roughness": 0.25

@@ -129,6 +129,15 @@
     "IsTraversable": false
   },
   {
+    "$id": "biome-salt-flat",
+    "Name": "Savanna",
+    "IsHabitable": true,
+    "IsTraversable": true,
+    "Modifiers": [
+      "modifier-biome-halic"
+    ]
+  },
+  {
     "$id": "biome-savanna",
     "Name": "Savanna",
     "IsHabitable": true,
