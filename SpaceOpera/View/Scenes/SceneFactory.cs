@@ -22,6 +22,7 @@ using Cardamom.Ui.Elements;
 using SpaceOpera.View.Scenes.Highlights;
 using SpaceOpera.View.Common;
 using SpaceOpera.View.StarSystemViews;
+using SpaceOpera.Core;
 
 namespace SpaceOpera.View.Scenes
 {
@@ -118,14 +119,13 @@ namespace SpaceOpera.View.Scenes
             return new GalaxyScene(controller, camera, interactiveModel, highlight, _skyBox);
         }
 
-        public IGameScene Create(StarSystem starSystem)
+        public IGameScene Create(StarSystem starSystem, StarCalendar calendar)
         {
             var starBuffer = 
                 StarViewFactory.CreateView(
                     Enumerable.Repeat(starSystem.Star, 1),
                     Enumerable.Repeat(new Vector3(), 1),
                     s_StarSystemSceneStarScale);
-
 
             var camera = new SubjectiveCamera3d(s_SkyboxRadius + 10);
             camera.OnCameraChange += (s, e) => starBuffer.Dirty();
@@ -142,7 +142,6 @@ namespace SpaceOpera.View.Scenes
                     0.5f * MathF.Log((starSystem.Orbiters[i].Orbit.GetAverageDistance() + 1)
                     * (starSystem.Orbiters[i + 1].Orbit.GetAverageDistance() + 1));
             }
-            Console.WriteLine(string.Join(",", distances));
             var rigs = new StarSubSystemRig[starSystem.Orbiters.Count];
             for (int i=0; i<starSystem.Orbiters.Count; ++i)
             {
@@ -150,8 +149,9 @@ namespace SpaceOpera.View.Scenes
                 rigs[i] = 
                     StarSystemViewFactory.Create(
                         starSystem.OrbitalRegions[i],
-                        MathF.Log(0.5f * starSystem. Orbiters[i].Orbit.MajorAxis + 1),
-                        Math.Min(distances[i + 1] - d, d - distances[i]),
+                        calendar,
+                        MathF.Log(0.5f * starSystem.Orbiters[i].Orbit.MajorAxis + 1),
+                        Math.Min(distances[i + 1] - d, d - distances[i]) / starSystem.Orbiters[i].Orbit.MajorAxis,
                         s_StarSystemScale);
             }
 

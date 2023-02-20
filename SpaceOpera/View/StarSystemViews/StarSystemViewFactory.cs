@@ -2,6 +2,7 @@
 using Cardamom.Mathematics;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
+using SpaceOpera.Core;
 using SpaceOpera.Core.Universe;
 using SpaceOpera.View.Common;
 using SpaceOpera.View.Scenes.Highlights;
@@ -33,9 +34,10 @@ namespace SpaceOpera.View.StarSystemViews
             PinShader = pinShader;
         }
 
-        public StarSubSystemRig Create(SolarOrbitRegion orbit, float semiMajorAxis, float radius, float scale)
+        public StarSubSystemRig Create(
+            SolarOrbitRegion orbit, StarCalendar calendar, float orbitScale, float radius, float scale)
         {
-            return new(orbit.LocalOrbit.StellarBody.Orbit, Create(orbit, radius, scale), semiMajorAxis);
+            return new(orbit.LocalOrbit.StellarBody, calendar, Create(orbit, radius, scale), orbitScale);
         }
 
         public StarSubSystemView Create(SolarOrbitRegion orbit, float radius, float scale)

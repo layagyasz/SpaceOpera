@@ -8,13 +8,15 @@ namespace SpaceOpera.Core.Universe
         public float MajorAxis { get; }
         public float MinorAxis { get; }
         public float Eccentricity { get; }
+        public float TimeOffset { get; }
 
-        public Orbit(Star focus, float majorAxis, float eccentricity)
+        public Orbit(Star focus, float majorAxis, float eccentricity, float timeOffset)
         {
             Focus = focus;
             MajorAxis = majorAxis;
             MinorAxis = majorAxis * MathF.Sqrt(eccentricity * eccentricity + 1);
             Eccentricity = eccentricity;
+            TimeOffset = timeOffset;
         }
 
         public float GetAverageDistance()
@@ -35,7 +37,7 @@ namespace SpaceOpera.Core.Universe
 
         public float GetDistance(float angle)
         {
-            return (MajorAxis / 2) * (1 - Eccentricity * Eccentricity) / (1 + Eccentricity * MathF.Cos(angle));
+            return 0.5f * MajorAxis * (1 - Eccentricity * Eccentricity) / (1 + Eccentricity * MathF.Cos(angle));
         }
     }
 }

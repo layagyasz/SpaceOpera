@@ -1,3 +1,4 @@
+using OpenTK.Mathematics;
 using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Politics;
 
@@ -56,9 +57,46 @@ namespace SpaceOpera.Core.Universe
                     - Radius);
         }
 
-        public double GetHighOrbitAltitude()
+        public float GetHighOrbitAltitude()
         {
             return 4 * GetGeosynchronousOrbitAltitude();
+        }
+
+        public float GetSolarOrbitDistance(float angle)
+        {
+            return Orbit.GetDistance(angle);
+        }
+
+        public Vector3 GetSolarOrbitPosition(float angle)
+        {
+            var d = GetSolarOrbitDistance(angle);
+            return new(d * MathF.Cos(angle), 0, d * MathF.Sin(angle));
+        }
+
+        public float GetSolarOrbitProgression(float angle, float precision, int accuracy)
+        {
+            float e = angle;
+            float f = e - Orbit.Eccentricity * MathF.Sin(angle) - angle;
+
+            int i = 0;
+            while ((Math.Abs(f) > precision) && (i < accuracy))
+            {
+                e = e - f / (1f - Orbit.Eccentricity * MathF.Cos(e));
+                f = e - Orbit.Eccentricity * MathF.Sin(e) - angle;
+                ++i;
+            }
+
+            float sin = MathF.Sin(e);
+            float cos = MathF.Cos(e);
+            float fak = MathF.Sqrt(1f - Orbit.Eccentricity * Orbit.Eccentricity);
+            return MathF.Atan2(fak * sin, cos - Orbit.Eccentricity);
+        }
+
+        public float GetYearLengthInMillis()
+        {
+            return 2 * MathHelper.Pi * MathF.Sqrt(
+                MathF.Pow(1000 * Orbit.MajorAxis / (2 * Constants.AstralUnit), 3)
+                / (Constants.GravitationalConstant * Orbit.Focus.Mass));
         }
 
         public int GetSize()

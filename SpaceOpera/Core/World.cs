@@ -55,19 +55,25 @@ namespace SpaceOpera.Core
             AutoDesigner = new(coreData.DesignTemplates.Values);
         }
 
-        public ITickable GetTickable()
+        public IUpdateable GetUpdater()
         {
             var ticks = new List<ITickable>
             {
                 Economy
             };
             ticks.AddRange(_factions);
-            return new CompositeTickable() {
+
+            return new CompositeUpdateable()
+            { 
                 Calendar,
-                new ActionTickable(() => BattleManager.Tick(Random)),
-                new ActionTickable(() => _fleetManager.Tick(this)),
-                new ActionTickable(_projectManager.Tick),
-                new CycleTickable(new CompositeTickable(ticks), 30)
+                new TickUpdateable(
+                    new CompositeTickable() {
+                        new ActionTickable(() => BattleManager.Tick(Random)),
+                        new ActionTickable(() => _fleetManager.Tick(this)),
+                        new ActionTickable(_projectManager.Tick),
+                        new CycleTickable(new CompositeTickable(ticks), 30)
+                    }, 
+                    1000)
             };
         }
 

@@ -2,33 +2,38 @@ using SpaceOpera.Core.Advanceable;
 
 namespace SpaceOpera.Core
 {
-    public class StarCalendar : ITickable
+    public class StarCalendar : IUpdateable
     {
-        public int StarDate { get; private set; }
+        private long _millis;
 
-        public StarCalendar(int startDate)
+        public StarCalendar(long millis)
         {
-            StarDate = startDate;
+            _millis = millis;
         }
 
-        public void Tick()
+        public void Update(long delta)
         {
-            StarDate++;
+            _millis += delta;
         }
 
-        public int GetDayOfMonth()
+        public long GetDayOfMonth()
         {
-            return StarDate % 30;
+            return _millis % 30000;
         }
 
-        public int GetMonthOfYear()
+        public long GetMillis()
         {
-            return (StarDate / 30) % 12;
+            return _millis;
         }
 
-        public int GetYear()
+        public long GetMonthOfYear()
         {
-            return StarDate / 360;
+            return _millis / 30000 % 12;
+        }
+
+        public long GetYear()
+        {
+            return _millis / 360000;
         }
     }
 }

@@ -28,8 +28,8 @@ namespace SpaceOpera.View.StarSystemViews
 
         public void Draw(RenderTarget target, UiContext context)
         {
-            _highlightLayer!.Draw(target, context);
             _pinBuffer!.Draw(target, context);
+            _highlightLayer!.Draw(target, context);
         }
 
         public void Initialize()

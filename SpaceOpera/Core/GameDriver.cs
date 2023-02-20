@@ -1,19 +1,19 @@
-﻿using Cardamom.Utils.Suppliers;
-using SpaceOpera.Core.Advanceable;
+﻿using SpaceOpera.Core.Advanceable;
 using SpaceOpera.Core.Orders;
+using System.Diagnostics;
 
 namespace SpaceOpera.Core
 {
     public class GameDriver
     {
-        public World World { get; }
+        public World? World { get; }
 
-        private readonly ITickable _tickable;
+        private readonly IUpdateable _updater;
 
-        public GameDriver(World world)
+        public GameDriver(World? world, IUpdateable updater)
         {
             World = world;
-            _tickable = world.GetTickable();
+            _updater = updater;
         }
 
         public ValidationFailureReason Execute(IOrder order)
@@ -23,7 +23,7 @@ namespace SpaceOpera.Core
             {
                 return validation;
             }
-            order.Execute(World);
+            order.Execute(World!);
             return ValidationFailureReason.None;
         }
 
@@ -35,16 +35,15 @@ namespace SpaceOpera.Core
 
         private void TickThread()
         {
-            var timer = new TimedSupplier<Action>(Tick, 1000);
+            Stopwatch stopwatch = Stopwatch.StartNew();
+            long elapsed = 0;
             while (true)
             {
-                timer.Get().Invoke();
+                long frameElapsed = stopwatch.ElapsedMilliseconds;
+                long delta = frameElapsed - elapsed;
+                _updater.Update(delta);
+                elapsed = frameElapsed;
             }
-        }
-
-        private void Tick()
-        {
-            _tickable.Tick();
         }
     }
 }

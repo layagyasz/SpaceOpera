@@ -1,6 +1,6 @@
 namespace SpaceOpera.Core.Advanceable
 {
-    class CycleTickable : ITickable
+    public class CycleTickable : ITickable
     {
         public int CycleLength { get; }
 

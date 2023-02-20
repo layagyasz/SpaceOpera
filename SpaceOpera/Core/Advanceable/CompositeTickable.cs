@@ -1,6 +1,6 @@
 namespace SpaceOpera.Core.Advanceable
 {
-    class CompositeTickable : ITickable, IEnumerable<ITickable>
+    public class CompositeTickable : ITickable, IEnumerable<ITickable>
     {
         private readonly List<ITickable> _tickables;
 

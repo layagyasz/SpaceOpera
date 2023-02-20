@@ -1,12 +1,10 @@
 using Cardamom.Logging;
 using Cardamom.Ui;
-using Cardamom.Ui.Controller;
 using Cardamom.Window;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Desktop;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using SpaceOpera.Controller;
-using SpaceOpera.Controller.Scenes;
 using SpaceOpera.Core;
 using SpaceOpera.View;
 using SpaceOpera.View.Scenes;
@@ -31,8 +29,10 @@ namespace SpaceOpera
             var viewFactory = ViewFactory.Create(viewData, coreData);
 
             var generatorContext = new GeneratorContext(logger, new());
+            var calendar = new StarCalendar(0);
             IGameScene scene;
             GameController controller;
+            GameDriver driver;
             int mode = 2;
             if (mode == 1)
             {
@@ -49,18 +49,21 @@ namespace SpaceOpera
                         generatorContext);
                 scene = viewFactory.SceneFactory.Create(planet);
                 controller = new GameController(null, viewFactory, logger);
+                driver = new(null, calendar);
             }
             else if (mode == 2)
             {
                 var system = coreData.GalaxyGenerator!.StarSystemGenerator!.Generate(new(), generatorContext);
-                scene = viewFactory.SceneFactory.Create(system);
+                scene = viewFactory.SceneFactory.Create(system, calendar);
                 controller = new GameController(null, viewFactory, logger);
+                driver = new(null, calendar);
             }
             else if (mode == 3)
             {
                 var galaxy = coreData.GalaxyGenerator!.Generate(generatorContext);
                 scene = viewFactory.SceneFactory.Create(galaxy);
                 controller = new GameController(null, viewFactory, logger);
+                driver = new(null, calendar);
             }
             else if (mode == 4)
             {
@@ -71,12 +74,14 @@ namespace SpaceOpera
                 var world = WorldGenerator.Generate(playerCulture, playerFaction, coreData, generatorContext);
                 scene = viewFactory.SceneFactory.Create(world.Galaxy);
                 controller = new GameController(world, viewFactory, logger);
+                driver = new(world, world.GetUpdater());
             }
             else
             {
                 throw new ArgumentException();
             }
             var screen = new GameScreen(controller, Enumerable.Empty<IUiLayer>());
+            driver.Start();
             screen.Initialize();
             controller.ChangeScene(scene);
             ui.SetRoot(screen);
