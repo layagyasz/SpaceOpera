@@ -1,7 +1,7 @@
 ﻿using Cardamom.Mathematics.Geometry;
 using OpenTK.Mathematics;
 
-namespace SpaceOpera.View
+namespace SpaceOpera.View.Common
 {
     public class SpaceSubRegionBounds
     {

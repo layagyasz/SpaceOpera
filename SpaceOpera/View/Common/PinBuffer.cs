@@ -2,7 +2,7 @@
 using Cardamom.Ui;
 using OpenTK.Mathematics;
 
-namespace SpaceOpera.View.GalaxyViews
+namespace SpaceOpera.View.Common
 {
     public class PinBuffer : GraphicsResource, IRenderable
     {

@@ -39,12 +39,12 @@
         },
         {
           "Generator": "Resources/Core/Generators/StellarBody/Terran.json",
-          "Weight": 1,
+          "Weight": 0.5,
           "ThermalRange": [ 273, 373 ]
         },
         {
           "Generator": "Resources/Core/Generators/StellarBody/Halic.json",
-          "Weight": 1,
+          "Weight": 0.5,
           "ThermalRange": [ 273, 373 ]
         },
         {

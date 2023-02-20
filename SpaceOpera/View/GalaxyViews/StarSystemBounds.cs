@@ -2,6 +2,7 @@
 using Cardamom.Mathematics.Geometry;
 using OpenTK.Mathematics;
 using SpaceOpera.Core.Universe;
+using SpaceOpera.View.Common;
 
 namespace SpaceOpera.View.GalaxyViews
 {

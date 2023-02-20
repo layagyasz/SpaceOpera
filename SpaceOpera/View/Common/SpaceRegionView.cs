@@ -4,9 +4,9 @@ using Cardamom.Mathematics.Geometry;
 using Cardamom.Ui;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
-using static SpaceOpera.View.SpaceSubRegionBounds;
+using static SpaceOpera.View.Common.SpaceSubRegionBounds;
 
-namespace SpaceOpera.View
+namespace SpaceOpera.View.Common
 {
     public class SpaceRegionView : GraphicsResource, IRenderable
     {
@@ -18,9 +18,9 @@ namespace SpaceOpera.View
         private readonly RenderShader _fillShader;
 
         public SpaceRegionView(
-            VertexBuffer<Vertex3> outline, 
+            VertexBuffer<Vertex3> outline,
             RenderShader outlineShader,
-            VertexBuffer<Vertex3> fill, 
+            VertexBuffer<Vertex3> fill,
             RenderShader fillShader)
         {
             _outline = outline;
@@ -89,13 +89,13 @@ namespace SpaceOpera.View
                             AddEdge(
                                 borderWidth,
                                 bounds.NeighborEdges[i].Segment!.Value,
-                                edge.LeftOuterEdge == -1 
-                                    ? bounds.NeighborEdges[leftIndex].Segment!.Value 
+                                edge.LeftOuterEdge == -1
+                                    ? bounds.NeighborEdges[leftIndex].Segment!.Value
                                     : bounds.OuterEdges[edge.LeftOuterEdge]!.GetSegment(
                                         bounds.OuterEdges[edge.LeftOuterEdge]!.Count - 2),
                                 leftInner,
-                                edge.RightOuterEdge == -1 
-                                    ? bounds.NeighborEdges[rightIndex].Segment!.Value 
+                                edge.RightOuterEdge == -1
+                                    ? bounds.NeighborEdges[rightIndex].Segment!.Value
                                     : bounds.OuterEdges[edge.RightOuterEdge]!.GetSegment(0),
                                 rightInner,
                                 borderColor,
@@ -129,20 +129,23 @@ namespace SpaceOpera.View
                         bool leftInner =
                             !mergeSubRegions ||
                             leftEdge == null ||
-                            (j != 0 && !subRegions.Contains(bounds.Neighbors![leftIndex]));
+                            j != 0 && !subRegions.Contains(bounds.Neighbors![leftIndex]);
                         bool rightInner =
                             !mergeSubRegions ||
-                            rightEdge == null || 
-                                (j != bounds.OuterEdges[i]!.Count - 1) 
+                            rightEdge == null ||
+                                j != bounds.OuterEdges[i]!.Count - 1
                                     && !subRegions.Contains(bounds.Neighbors![rightIndex]);
+                        var leftSegment = 
+                            leftEdge?.Segment ?? bounds.OuterEdges[i]!.GetSegment(bounds.OuterEdges[i]!.Count - 2);
+                        var rightSegment = rightEdge?.Segment ?? bounds.OuterEdges[i]!.GetSegment(0);
 
                         AddEdge(
                             borderWidth,
                             segment,
-                            j == 0 ? leftEdge!.Segment!.Value : bounds.OuterEdges[i]!.GetSegment(j - 1),
+                            j == 0 ? leftSegment : bounds.OuterEdges[i]!.GetSegment(j - 1),
                             leftInner,
-                            j == bounds.OuterEdges[i]!.Count - 2 
-                                ? rightEdge!.Segment!.Value : bounds.OuterEdges[i]!.GetSegment(j + 1),
+                            j == bounds.OuterEdges[i]!.Count - 2
+                                ? rightSegment : bounds.OuterEdges[i]!.GetSegment(j + 1),
                             rightInner,
                             borderColor,
                             outline);

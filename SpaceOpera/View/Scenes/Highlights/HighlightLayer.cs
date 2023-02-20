@@ -2,6 +2,7 @@ using Cardamom.Collections;
 using Cardamom.Graphics;
 using Cardamom.Ui;
 using OpenTK.Mathematics;
+using SpaceOpera.View.Common;
 using System.Collections.Immutable;
 
 namespace SpaceOpera.View.Scenes.Highlights

@@ -1,6 +1,7 @@
 ﻿using Cardamom.Graphics;
 using Cardamom.Ui;
 using OpenTK.Mathematics;
+using SpaceOpera.View.Common;
 using SpaceOpera.View.StarViews;
 
 namespace SpaceOpera.View.GalaxyViews

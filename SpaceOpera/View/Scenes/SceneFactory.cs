@@ -20,6 +20,8 @@ using Cardamom.ImageProcessing;
 using SpaceOpera.Controller.Scenes;
 using Cardamom.Ui.Elements;
 using SpaceOpera.View.Scenes.Highlights;
+using SpaceOpera.View.Common;
+using SpaceOpera.View.StarSystemViews;
 
 namespace SpaceOpera.View.Scenes
 {
@@ -29,18 +31,24 @@ namespace SpaceOpera.View.Scenes
         private static readonly Vector3 s_GalaxyFloor = new(0f, -700f, 0f);
         private static readonly float s_GalaxyRegionBorderWidth = 128f;
 
+        private static readonly float s_LightPower = 1f;
+        private static readonly Interval s_LuminanceRange = new(0.1f, float.MaxValue);
+
         private static readonly float s_SkyboxRadius = 1100;
         private static readonly int s_SkyboxPrecision = 64;
         private static readonly int s_SkyboxResolution = 2048;
-        private static readonly float s_StarScale = 1024;
-        private static readonly Vector3 s_StarPosition = new(0, 0, -1000);
-        private static readonly float s_LightPower = 1f;
-        private static readonly Interval s_LuminanceRange = new(0.1f, float.MaxValue);
+
+        private static readonly float s_StarSystemScale = 2f;
+        private static readonly float s_StarSystemSceneStarScale = 0.25f;
+
+        private static readonly float s_StellarBodySceneStarScale = 1024;
+        private static readonly Vector3 s_StellarBodySceneStarPosition = new(0, 0, -1000);
 
         private static Skybox? _skyBox;
 
         public GalaxyViewFactory GalaxyViewFactory { get; }
         public StellarBodyViewFactory StellarBodyViewFactory { get; }
+        public StarSystemViewFactory StarSystemViewFactory { get; }
         public StarViewFactory StarViewFactory { get; }
         public SpectrumSensitivity HumanEyeSensitivity { get; }
         public RenderShader SkyboxShader { get; }
@@ -50,6 +58,7 @@ namespace SpaceOpera.View.Scenes
         public SceneFactory(
             GalaxyViewFactory galaxyViewFactory,
             StellarBodyViewFactory stellarBodyViewFactory,
+            StarSystemViewFactory starSystemViewFactory,
             StarViewFactory starViewFactory,
             SpectrumSensitivity humanEyeSensitivity,
             RenderShader skyboxShader, 
@@ -58,6 +67,7 @@ namespace SpaceOpera.View.Scenes
         {
             GalaxyViewFactory = galaxyViewFactory;
             StellarBodyViewFactory = stellarBodyViewFactory;
+            StarSystemViewFactory = starSystemViewFactory;
             StarViewFactory = starViewFactory;
             HumanEyeSensitivity = humanEyeSensitivity;
             SkyboxShader = skyboxShader;
@@ -108,6 +118,59 @@ namespace SpaceOpera.View.Scenes
             return new GalaxyScene(controller, camera, interactiveModel, highlight, _skyBox);
         }
 
+        public IGameScene Create(StarSystem starSystem)
+        {
+            var starBuffer = 
+                StarViewFactory.CreateView(
+                    Enumerable.Repeat(starSystem.Star, 1),
+                    Enumerable.Repeat(new Vector3(), 1),
+                    s_StarSystemSceneStarScale);
+
+
+            var camera = new SubjectiveCamera3d(s_SkyboxRadius + 10);
+            camera.OnCameraChange += (s, e) => starBuffer.Dirty();
+            camera.SetDistance(0.05f);
+            camera.SetPitch(-0.125f * MathHelper.Pi);
+            camera.SetYaw(MathHelper.PiOver2);
+
+            var distances = new float[starSystem.Orbiters.Count + 1];
+            distances[0] = MathF.Log(starSystem.InnerBoundary + 1);
+            distances[^1] = MathF.Log(starSystem.OuterBoundary + 1);
+            for (int i=0; i<starSystem.Orbiters.Count - 1; ++i)
+            {
+                distances[i + 1] =
+                    0.5f * MathF.Log((starSystem.Orbiters[i].Orbit.GetAverageDistance() + 1)
+                    * (starSystem.Orbiters[i + 1].Orbit.GetAverageDistance() + 1));
+            }
+            Console.WriteLine(string.Join(",", distances));
+            var rigs = new StarSubSystemRig[starSystem.Orbiters.Count];
+            for (int i=0; i<starSystem.Orbiters.Count; ++i)
+            {
+                var d = MathF.Log(starSystem.Orbiters[i].Orbit.GetAverageDistance() + 1);
+                rigs[i] = 
+                    StarSystemViewFactory.Create(
+                        starSystem.OrbitalRegions[i],
+                        MathF.Log(0.5f * starSystem. Orbiters[i].Orbit.MajorAxis + 1),
+                        Math.Min(distances[i + 1] - d, d - distances[i]),
+                        s_StarSystemScale);
+            }
+
+            var r = MathF.Log(s_StarSystemScale * starSystem.TransitLimit + 1);
+            var controller =
+                new SceneController(
+                    new GalaxyCameraController(camera)
+                    {
+                        Radius = r,
+                        KeySensitivity = 0.0004f * r,
+                        MouseWheelSensitivity = 0.02f * r,
+                        PitchRange = new(-MathHelper.PiOver2 + 0.01f, -0.125f * MathHelper.Pi),
+                        DistanceRange = new(0.05f, r)
+                    },
+                    new StarSystemController());
+            _skyBox ??= CreateSkybox();
+            return new StarSystemScene(controller, camera, starBuffer, rigs, _skyBox);
+        }
+
         public IGameScene Create(StellarBody stellarBody)
         {
             var model = StellarBodyViewFactory.CreateModel(stellarBody);
@@ -136,8 +199,8 @@ namespace SpaceOpera.View.Scenes
                 logDistance * logDistance / (1000 * 1000),
                 StarViewFactory.CreateView(
                     Enumerable.Repeat(stellarBody.Orbit.Focus, 1), 
-                    Enumerable.Repeat(s_StarPosition, 1), 
-                    s_StarScale / (MathF.Log(stellarBody.Orbit.MajorAxis) + 1)),
+                    Enumerable.Repeat(s_StellarBodySceneStarPosition, 1), 
+                    s_StellarBodySceneStarScale / (MathF.Log(stellarBody.Orbit.MajorAxis) + 1)),
                 _skyBox);
         }
 

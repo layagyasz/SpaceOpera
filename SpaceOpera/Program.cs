@@ -33,7 +33,7 @@ namespace SpaceOpera
             var generatorContext = new GeneratorContext(logger, new());
             IGameScene scene;
             GameController controller;
-            int mode = 1;
+            int mode = 2;
             if (mode == 1)
             {
                 var planetGenerator =
@@ -52,7 +52,9 @@ namespace SpaceOpera
             }
             else if (mode == 2)
             {
-                throw new ArgumentException("Star system view not yet implemented");
+                var system = coreData.GalaxyGenerator!.StarSystemGenerator!.Generate(new(), generatorContext);
+                scene = viewFactory.SceneFactory.Create(system);
+                controller = new GameController(null, viewFactory, logger);
             }
             else if (mode == 3)
             {
