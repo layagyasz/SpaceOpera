@@ -115,7 +115,8 @@ namespace SpaceOpera.View.Common
                     var leftEdge = leftIndex > -1 ? bounds.NeighborEdges[leftIndex] : null;
                     var rightEdge = rightIndex > -1 ? bounds.NeighborEdges[rightIndex] : null;
 
-                    for (int j = 0; j < bounds.OuterEdges[i]!.Count - 1; ++j)
+                    int count = bounds.OuterEdges[i]!.Count - (bounds.OuterEdges[i]!.IsLoop ? 0 : 1);
+                    for (int j = 0; j < count; ++j)
                     {
                         var segment = bounds.OuterEdges[i]!.GetSegment(j);
 
@@ -144,8 +145,7 @@ namespace SpaceOpera.View.Common
                             segment,
                             j == 0 ? leftSegment : bounds.OuterEdges[i]!.GetSegment(j - 1),
                             leftInner,
-                            j == bounds.OuterEdges[i]!.Count - 2
-                                ? rightSegment : bounds.OuterEdges[i]!.GetSegment(j + 1),
+                            j == count - 1 ? rightSegment : bounds.OuterEdges[i]!.GetSegment(j + 1),
                             rightInner,
                             borderColor,
                             outline);

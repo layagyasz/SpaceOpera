@@ -39,11 +39,13 @@ namespace SpaceOpera.View.StarSystemViews
 
         public void Draw(RenderTarget target, UiContext context)
         {
-            target.PushModelMatrix(
-                Matrix4.CreateTranslation(
-                    _scale * _stellarBody.GetSolarOrbitPosition(
-                        _stellarBody.GetSolarOrbitProgression(
-                            _offset + _step * _calendar.GetMillis(), s_OrbitPrecision, s_OrbitAccuracy))));
+            var positionPolar = 
+                _stellarBody.GetSolarOrbitPosition(
+                    _stellarBody.GetSolarOrbitProgression(
+                        _offset + _step * _calendar.GetMillis(), s_OrbitPrecision, s_OrbitAccuracy));
+            positionPolar.Radius = _scale * MathF.Log(positionPolar.Radius + 1);
+            var positionCartesian = positionPolar.AsCartesian();
+            target.PushModelMatrix(Matrix4.CreateTranslation(positionCartesian.X, 0, positionCartesian.Y));
             _view!.Draw(target, context);
             target.PopModelMatrix();
         }

@@ -13,13 +13,15 @@ namespace SpaceOpera.View.StarSystemViews
     {
         private static readonly float s_BorderWidth = 0.01f;
 
-        private static readonly float s_LocalOrbitScale = 0.25f;
+        private static readonly float s_LocalOrbitScale = 0.5f;
         private static readonly float s_LocalOrbitY = -0.1f;
 
         private static readonly Color4 s_PinColor = new(0.7f, 0.7f, 0.7f, 1f);
         private static readonly float s_PinDashLength = 0.01f;
         private static readonly Interval s_PinYRange = new(-0.25f, -0.05f);
-        private static readonly float s_PinScale = 0.001f;
+        private static readonly float s_PinScale = 0.0004f;
+
+        private static readonly Interval s_RadiusRange = new(0.1f, float.PositiveInfinity);
 
         private static readonly float s_SolarOrbitY = -0.25f;
 
@@ -35,9 +37,9 @@ namespace SpaceOpera.View.StarSystemViews
         }
 
         public StarSubSystemRig Create(
-            SolarOrbitRegion orbit, StarCalendar calendar, float orbitScale, float radius, float scale)
+            SolarOrbitRegion orbit, StarCalendar calendar, float radius, float scale)
         {
-            return new(orbit.LocalOrbit.StellarBody, calendar, Create(orbit, radius, scale), orbitScale);
+            return new(orbit.LocalOrbit.StellarBody, calendar, Create(orbit, radius, scale), scale);
         }
 
         public StarSubSystemView Create(SolarOrbitRegion orbit, float radius, float scale)
@@ -48,6 +50,7 @@ namespace SpaceOpera.View.StarSystemViews
             var pinBuffer = new VertexBuffer<Vertex3>(PrimitiveType.Lines);
             pinBuffer.Buffer(pin, 0, 2);
 
+            radius = s_RadiusRange.Clamp(radius);
             var bounds = new Dictionary<INavigable, SpaceSubRegionBounds>
             {
                 { orbit, OrbitBounds.ComputeBounds(scale * s_SolarOrbitY, radius, scale) },

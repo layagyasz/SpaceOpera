@@ -34,6 +34,36 @@ namespace SpaceOpera.View
             vertices.Add(new(segment.FarLeft, color, new(0, 1)));
         }
 
+        public static void AddVertices(
+            ArrayList<Vertex3> vertices, Color4 color, Line3 line, Vector3 axis, float width, bool center)
+        {
+            for (int i=0; i<line.Count - (line.IsLoop ? 0 : 1); ++i)
+            {
+                var segment = line.GetSegment(i);
+                Vector3 left;
+                Vector3 right;
+                if (line.IsLoop || i > 0)
+                {
+                    var l = line.GetSegment(i - 1);
+                    left = (l.Left - l.Right).Normalized() + (segment.Right - segment.Left).Normalized();
+                }
+                else
+                {
+                    left = Vector3.Cross(segment.Right - segment.Left, axis);
+                }
+                if (line.IsLoop || i < line.Count - 2)
+                {
+                    var r = line.GetSegment(i + 1);
+                    right = (r.Right - r.Left).Normalized() + (segment.Left - segment.Right).Normalized();
+                }
+                else
+                {
+                    right = Vector3.Cross(segment.Left - segment.Right, axis);
+                }
+                AddVertices(vertices, CreateSegment(segment.Left, segment.Right, left, right, width, center), color);
+            }
+        }
+
         public static WideSegment CreateSegment(
             Ray3 ray, float length, Vector3 nearDirection, Vector3 farDirection, float width, bool center)
         {

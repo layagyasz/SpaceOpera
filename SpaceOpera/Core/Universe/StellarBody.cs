@@ -1,3 +1,4 @@
+using Cardamom.Mathematics.Coordinates;
 using OpenTK.Mathematics;
 using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Politics;
@@ -67,10 +68,9 @@ namespace SpaceOpera.Core.Universe
             return Orbit.GetDistance(angle);
         }
 
-        public Vector3 GetSolarOrbitPosition(float angle)
+        public Polar2 GetSolarOrbitPosition(float angle)
         {
-            var d = GetSolarOrbitDistance(angle);
-            return new(d * MathF.Cos(angle), 0, d * MathF.Sin(angle));
+            return new(GetSolarOrbitDistance(angle), angle);
         }
 
         public float GetSolarOrbitProgression(float angle, float precision, int accuracy)

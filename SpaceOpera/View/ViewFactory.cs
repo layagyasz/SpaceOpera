@@ -54,7 +54,8 @@ namespace SpaceOpera.View
                     viewData.HumanEyeSensitivity!,
                     viewData.GameResources!.GetShader("shader-default"),
                     viewData.GameResources!.GetShader("shader-border"),
-                    viewData.GameResources!.GetShader("shader-default-no-tex")), 
+                    viewData.GameResources!.GetShader("shader-default-no-tex"),
+                    viewData.GameResources!.GetShader("shader-transit")), 
                 stellarBodyViewFactory,
                 viewData.Banners!);
         }

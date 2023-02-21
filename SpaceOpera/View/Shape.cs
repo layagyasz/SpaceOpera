@@ -22,15 +22,14 @@ namespace SpaceOpera.View
             return points.ToArray();
         }
 
-        public static Vector2[] GetCirclePoints(Func<float, float> RadiusFn, float Resolution)
+        public static Vector2[] GetCirclePoints(Func<float, float> radiusFn, float resolution)
         {
-            var points = new Vector2[(int)(2 * Math.PI / Resolution) + 2];
-            for (int i = 0; i < points.Length - 1; ++i)
+            var points = new Vector2[(int)(2 * Math.PI / resolution) + 1];
+            for (int i = 0; i < points.Length; ++i)
             {
-                float angle = Resolution * i;
-                points[i] = RadiusFn(angle) * new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
+                float angle = resolution * i;
+                points[i] = radiusFn(angle) * new Vector2(MathF.Cos(angle), MathF.Sin(angle));
             }
-            points[points.Length - 1] = points[0];
             return points;
         }
     }

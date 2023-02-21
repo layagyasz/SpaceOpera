@@ -4,6 +4,7 @@ using Cardamom.Mathematics.Geometry;
 using Cardamom.Ui;
 using Cardamom.Ui.Controller.Element;
 using OpenTK.Mathematics;
+using SpaceOpera.View.Common;
 using SpaceOpera.View.Scenes.Highlights;
 using SpaceOpera.View.StarSystemViews;
 using SpaceOpera.View.StarViews;
@@ -18,6 +19,7 @@ namespace SpaceOpera.View.Scenes
 
         private StarBuffer? _starBuffer;
         private StarSubSystemRig[]? _subSystems;
+        private TransitBuffer? _guidelines;
         private readonly Skybox _skybox;
 
         public StarSystemScene(
@@ -25,12 +27,14 @@ namespace SpaceOpera.View.Scenes
             ICamera camera, 
             StarBuffer starBuffer,
             StarSubSystemRig[] subSystems,
+            TransitBuffer guidelines,
             Skybox skybox)
         {
             Controller = controller;
             Camera = camera;
             _starBuffer = starBuffer;
             _subSystems = subSystems;
+            _guidelines = guidelines;
             _skybox = skybox;
         }
 
@@ -43,6 +47,8 @@ namespace SpaceOpera.View.Scenes
                 subSystem.Dispose();
             }
             _subSystems = null;
+            _guidelines!.Dispose();
+            _guidelines = null;
         }
 
         public void Draw(RenderTarget target, UiContext context)
@@ -56,6 +62,7 @@ namespace SpaceOpera.View.Scenes
             {
                 subSystem.Draw(target, context);
             }
+            _guidelines!.Draw(target, context);
             _starBuffer!.Draw(target, context);
 
             target.PopProjectionMatrix();
