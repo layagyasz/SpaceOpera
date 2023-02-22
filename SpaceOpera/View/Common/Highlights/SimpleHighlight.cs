@@ -1,4 +1,4 @@
-namespace SpaceOpera.View.Scenes.Highlights
+namespace SpaceOpera.View.Common.Highlights
 {
     public class SimpleHighlight : ICompositeHighlight
     {

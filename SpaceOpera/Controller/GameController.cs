@@ -4,8 +4,8 @@ using Cardamom.Ui.Controller;
 using SpaceOpera.Controller.Scenes;
 using SpaceOpera.Core;
 using SpaceOpera.View;
+using SpaceOpera.View.Common.Highlights;
 using SpaceOpera.View.Scenes;
-using SpaceOpera.View.Scenes.Highlights;
 
 namespace SpaceOpera.Controller
 {

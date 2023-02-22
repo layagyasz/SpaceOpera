@@ -1,7 +1,7 @@
 using SpaceOpera.Core;
 using SpaceOpera.View.FactionViews;
 
-namespace SpaceOpera.View.Scenes.Highlights
+namespace SpaceOpera.View.Common.Highlights
 {
     public class FactionHighlight : ICompositeHighlight
     {

@@ -6,7 +6,7 @@ using Cardamom.Ui.Controller.Element;
 using OpenTK.Mathematics;
 using SpaceOpera.Core.Universe;
 using SpaceOpera.View.Common;
-using SpaceOpera.View.Scenes.Highlights;
+using SpaceOpera.View.Common.Highlights;
 using SpaceOpera.View.StarSystemViews;
 using SpaceOpera.View.StarViews;
 

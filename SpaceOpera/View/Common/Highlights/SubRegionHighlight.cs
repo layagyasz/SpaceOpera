@@ -1,6 +1,6 @@
 ﻿using OpenTK.Mathematics;
 
-namespace SpaceOpera.View.Scenes.Highlights
+namespace SpaceOpera.View.Common.Highlights
 {
     public class SubRegionHighlight : IHighlight
     {

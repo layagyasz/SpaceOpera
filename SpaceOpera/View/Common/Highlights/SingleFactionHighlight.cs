@@ -2,7 +2,7 @@ using OpenTK.Mathematics;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Universe;
 
-namespace SpaceOpera.View.Scenes.Highlights
+namespace SpaceOpera.View.Common.Highlights
 {
     public class SingleFactionHighlight : IHighlight
     {

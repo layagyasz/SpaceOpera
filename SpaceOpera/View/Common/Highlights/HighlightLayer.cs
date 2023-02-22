@@ -5,7 +5,7 @@ using OpenTK.Mathematics;
 using SpaceOpera.View.Common;
 using System.Collections.Immutable;
 
-namespace SpaceOpera.View.Scenes.Highlights
+namespace SpaceOpera.View.Common.Highlights
 {
     public class HighlightLayer<TSubRegion> : GraphicsResource, IRenderable where TSubRegion : notnull
     {
