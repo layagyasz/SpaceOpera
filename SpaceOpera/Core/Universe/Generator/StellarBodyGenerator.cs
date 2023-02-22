@@ -87,7 +87,8 @@ namespace SpaceOpera.Core.Universe.Generator
             float radius = RadiusSampler!.Generate(random);
             int subRegionCount =
                 Math.Min(
-                    StellarBodySurfaceGenerator.MaxSubRegions, 
+                    context.StellarBodySurfaceGeneratorResources.Resolution 
+                        * context.StellarBodySurfaceGeneratorResources.Resolution, 
                     (int)Math.Ceiling(4 * SubRegionDensity * Math.PI * radius * radius));
 
             Vector3[] centers = new Vector3[subRegionCount];
@@ -108,7 +109,7 @@ namespace SpaceOpera.Core.Universe.Generator
             centers[subRegionCount - 1] = new(0, 1, 0);
 
             var parameters = SurfaceGenerator!.Generate(random);
-            Biome[] biomes = SurfaceGenerator!.Get(parameters, centers);
+            Biome[] biomes = SurfaceGenerator!.Get(parameters, centers, context.StellarBodySurfaceGeneratorResources);
             List<SubRegionWrapper> subRegionWrappers = new();
             for (int i=0;i<subRegionCount;++i)
             {

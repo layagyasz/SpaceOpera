@@ -9,6 +9,7 @@ using SpaceOpera.Core.Universe.Generator;
 using OpenTK.Graphics.OpenGL4;
 using SpaceOpera.Core.Universe.Spectra;
 using Cardamom.Mathematics.Color;
+using Cardamom.Logging;
 
 namespace SpaceOpera.View.StellarBodyViews
 {
@@ -22,19 +23,24 @@ namespace SpaceOpera.View.StellarBodyViews
         public RenderShader SurfaceShader { get; }
         public RenderShader AtmosphereShader { get; }
         public SpectrumSensitivity HumanEyeSensitivity { get; }
+        public StellarBodySurfaceGeneratorResources StellarBodySurfaceGeneratorResources { get; }
+        public ILogger Logger { get; }
 
         public StellarBodyViewFactory(
             Dictionary<Biome, BiomeRenderDetails> biomeRenderDetails,
             Library<StellarBodyGenerator> stellarBodyGenerators,
             RenderShader surfaceShader,
             RenderShader atmosphereShader,
-            SpectrumSensitivity humanEyeSensitivity)
+            SpectrumSensitivity humanEyeSensitivity,
+            ILogger logger)
         {
             BiomeRenderDetails = biomeRenderDetails;
             StellarBodyGenerators = stellarBodyGenerators;
             SurfaceShader = surfaceShader;
             AtmosphereShader = atmosphereShader;
             HumanEyeSensitivity = humanEyeSensitivity;
+            StellarBodySurfaceGeneratorResources = StellarBodySurfaceGeneratorResources.CreateHighRes();
+            Logger = logger;
         }
 
         public StellarBodyModel CreateModel(StellarBody stellarBody)
@@ -55,7 +61,9 @@ namespace SpaceOpera.View.StellarBodyViews
                     .GenerateSurface(
                         stellarBody.Parameters,
                         x => BiomeRenderDetails[x].GetColor(peakColor, scatteredColor),
-                        x => BiomeRenderDetails[x].GetLighting());
+                        x => BiomeRenderDetails[x].GetLighting(),
+                        StellarBodySurfaceGeneratorResources,
+                        Logger);
             var surface = CreateSphere(scale * stellarBody.Radius, s_SphereHighResSubdivisions, Color4.White);
             var atmosphere = 
                 CreateSphere(

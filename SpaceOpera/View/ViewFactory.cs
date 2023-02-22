@@ -1,4 +1,5 @@
 ﻿using Cardamom.Collections;
+using Cardamom.Logging;
 using SpaceOpera.Core;
 using SpaceOpera.View.FactionViews;
 using SpaceOpera.View.GalaxyViews;
@@ -24,7 +25,7 @@ namespace SpaceOpera.View
             BannerViewFactory = bannerViewFactory;
         }
 
-        public static ViewFactory Create(ViewData viewData, CoreData coreData)
+        public static ViewFactory Create(ViewData viewData, CoreData coreData, ILogger logger)
         {
             var starViewFactory = 
                 new StarViewFactory(viewData.GameResources!.GetShader("shader-star"), viewData.HumanEyeSensitivity!);
@@ -41,7 +42,8 @@ namespace SpaceOpera.View
                         .ToLibrary(x => x.Key, x => x),
                     viewData.GameResources!.GetShader("shader-light3"),
                     viewData.GameResources!.GetShader("shader-atmosphere"),
-                    viewData.HumanEyeSensitivity!); ;
+                    viewData.HumanEyeSensitivity!,
+                    logger);
             return new(
                 new(
                     galaxyViewFactory, 

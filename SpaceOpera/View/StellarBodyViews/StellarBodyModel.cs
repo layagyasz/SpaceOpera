@@ -63,6 +63,7 @@ namespace SpaceOpera.View.StellarBodyViews
         protected override void DisposeImpl()
         {
             _surfaceModel!.Buffer.Dispose();
+            _surfaceModel!.Material.Dispose();
             _surfaceModel = null;
             _atmosphereModel!.Dispose();
             _atmosphereModel = null;

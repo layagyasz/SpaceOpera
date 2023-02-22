@@ -6,6 +6,7 @@ using OpenTK.Windowing.Desktop;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using SpaceOpera.Controller;
 using SpaceOpera.Core;
+using SpaceOpera.Core.Universe.Generator;
 using SpaceOpera.View;
 using SpaceOpera.View.Scenes;
 
@@ -26,14 +27,15 @@ namespace SpaceOpera
             var logger = new Logger(new ConsoleBackend(), LogLevel.Info);
             var coreData = CoreData.LoadFrom("Resources/Core/CoreData.json", logger);
             var viewData = ViewData.LoadFrom("Resources/View/ViewData.json");
-            var viewFactory = ViewFactory.Create(viewData, coreData);
+            var viewFactory = ViewFactory.Create(viewData, coreData, logger);
 
-            var generatorContext = new GeneratorContext(logger, new());
+            var generatorContext = 
+                new GeneratorContext(logger, StellarBodySurfaceGeneratorResources.CreateForGenerator(), new());
             var calendar = new StarCalendar(0);
             IGameScene scene;
             GameController controller;
             GameDriver driver;
-            int mode = 2;
+            int mode = 1;
             if (mode == 1)
             {
                 var planetGenerator =

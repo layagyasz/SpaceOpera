@@ -5,6 +5,7 @@ using Cardamom.ImageProcessing.Filters;
 using Cardamom.ImageProcessing.Pipelines;
 using Cardamom.ImageProcessing.Pipelines.Nodes;
 using Cardamom.Json;
+using Cardamom.Logging;
 using Cardamom.Utils.Generators.Generic;
 using Cardamom.Utils.Suppliers;
 using OpenTK.Mathematics;
@@ -16,30 +17,26 @@ namespace SpaceOpera.Core.Universe.Generator
     [BuilderClass(typeof(Builder))]
     public class StellarBodySurfaceGenerator
     {
-        private static readonly int s_TexSize = 64;
-        private static Texture? s_PositionTex;
-        private static readonly ICanvasProvider s_BiomeCanvasProvider = 
-            new CachingCanvasProvider(new(s_TexSize, s_TexSize), Color4.Black);
-
-        private static readonly int s_SurfaceSize = 2048;
-        private static ICanvasProvider? s_SurfaceCanvaseProvider;
-
-        public static int MaxSubRegions => s_TexSize * s_TexSize;
+        private static readonly float s_RoughnessDivisor = 4096f;
 
         private readonly Dictionary<string, IGenerator> _generators;
         private readonly Library<Cardamom.Utils.Suppliers.Generic.IConstantSupplier> _parameters;
         private readonly List<BiomeOption> _biomes;
         private readonly Pipeline _biomeIdPipeline;
         private readonly Pipeline _surfacePipeline;
+        private readonly IConstantSupplier<Vector2> _scaleParameter;
+        private readonly IConstantSupplier<float> _roughnessParameter;
         private readonly IConstantSupplier<IEnumerable<Classify.Classification>> _surfaceDiffuseParameter;
         private readonly IConstantSupplier<IEnumerable<Classify.Classification>> _surfaceLightingParameter;
 
         private StellarBodySurfaceGenerator(
             Dictionary<string, IGenerator> generators,
             Library<Cardamom.Utils.Suppliers.Generic.IConstantSupplier> parameters,
-            IEnumerable<BiomeOption> biomes, 
+            IEnumerable<BiomeOption> biomes,
             Pipeline biomeIdPipeline,
             Pipeline surfacePipeline,
+            IConstantSupplier<Vector2> scaleParameter,
+            IConstantSupplier<float> roughnessParameter,
             IConstantSupplier<IEnumerable<Classify.Classification>> surfaceDiffuseParameter,
             IConstantSupplier<IEnumerable<Classify.Classification>> surfaceLightingParameter)
         {
@@ -48,6 +45,8 @@ namespace SpaceOpera.Core.Universe.Generator
             _biomes = biomes.ToList();
             _biomeIdPipeline = biomeIdPipeline;
             _surfacePipeline = surfacePipeline;
+            _scaleParameter = scaleParameter;
+            _roughnessParameter = roughnessParameter;
             _surfaceDiffuseParameter = surfaceDiffuseParameter;
             _surfaceLightingParameter = surfaceLightingParameter;
         }
@@ -57,38 +56,46 @@ namespace SpaceOpera.Core.Universe.Generator
             return _generators.ToLibrary(x => x.Key, x => x.Value.Generate<object>(random));
         }
 
-        public Biome[] Get(Library<object> parameterValues, Vector3[] positions)
+        public Biome[] Get(
+            Library<object> parameterValues, Vector3[] positions, StellarBodySurfaceGeneratorResources resources)
         {
-            var data = new Color4[s_TexSize, s_TexSize];
+            var data = new Color4[resources.Resolution, resources.Resolution];
             for (int i=0; i<positions.Length; ++i)
             {
                 var p = positions[i];
-                data[i % s_TexSize, i / s_TexSize] = new(p.X, p.Y, p.Z, 1);
+                data[i % resources.Resolution, i / resources.Resolution] = new(p.X, p.Y, p.Z, 1);
             }
-            s_PositionTex ??= Texture.Create(new(s_TexSize, s_TexSize));
-            s_PositionTex.Update(new(0, 0), data);
+            var canvases = resources.GetCanvasProvider();
+            var input = canvases.Get();
+            var tex = input.GetTexture();
+            tex.Update(new(0, 0), data);
             foreach (var parameter in parameterValues)
             {
                 _parameters[parameter.Key].Set(parameter.Value);
             }
-            var output = _biomeIdPipeline.Run(s_BiomeCanvasProvider, new Canvas(s_PositionTex));
+            var output = _biomeIdPipeline.Run(canvases, input);
             data = output[0].GetTexture().GetData();
 
             var result = new Biome[positions.Length];
             for (int i=0;i<positions.Length; ++i)
             {
-                result[i] = _biomes[(int)data[i % s_TexSize, i / s_TexSize].R].Biome!;
+                result[i] = _biomes[(int)data[i % resources.Resolution, i / resources.Resolution].R].Biome!;
             }
-            s_BiomeCanvasProvider.Return(output[0]);
+            canvases.Return(input);
+            canvases.Return(output[0]);
             return result;
         }
 
         public Material GenerateSurface(
-            Dictionary<string, object> parameterValues, Func<Biome, Color4> diffuseFn, Func<Biome, Color4> lightingFn)
+            Dictionary<string, object> parameterValues, 
+            Func<Biome, Color4> diffuseFn, 
+            Func<Biome, Color4> lightingFn,
+            StellarBodySurfaceGeneratorResources resources,
+            ILogger logger)
         {
             foreach (var parameter in parameterValues)
             {
-                Console.WriteLine($"{parameter.Key} = {parameter.Value}");
+                logger.AtInfo().Log($"{parameter.Key} = {parameter.Value}");
                 _parameters[parameter.Key].Set(parameter.Value);
             }
 
@@ -102,10 +109,10 @@ namespace SpaceOpera.Core.Universe.Generator
             }
             _surfaceDiffuseParameter.Set(diffuse);
             _surfaceLightingParameter.Set(lighting);
+            _scaleParameter.Set(new Vector2(1f / resources.Resolution, 1f / resources.Resolution));
+            _roughnessParameter.Set(1f *  resources.Resolution / s_RoughnessDivisor);
 
-            s_SurfaceCanvaseProvider ??= 
-                new CachingCanvasProvider(new(s_SurfaceSize, s_SurfaceSize), new(0.5f, 0.5f, 1, 1));
-            var surface = _surfacePipeline.Run(s_SurfaceCanvaseProvider);
+            var surface = _surfacePipeline.Run(resources.GetCanvasProvider());
             return new(surface[0].GetTexture(), surface[2].GetTexture(), surface[1].GetTexture());
         }
 
@@ -160,6 +167,8 @@ namespace SpaceOpera.Core.Universe.Generator
                             }));
                 biomePipeline.AddOutput("biome");
 
+                var scaleParameter = new ConstantSupplier<Vector2>();
+                var roughnessParameter = new ConstantSupplier<float>();
                 var diffuseParameter = new ConstantSupplier<IEnumerable<Classify.Classification>>();
                 var lightingParameter = new ConstantSupplier<IEnumerable<Classify.Classification>>();
                 var surfacePipeline = Pipeline!.Clone();
@@ -173,8 +182,7 @@ namespace SpaceOpera.Core.Universe.Generator
                             .SetParameters(
                                 new GradientNode.Parameters()
                                 {
-                                    Scale = ConstantSupplier<Vector2>.Create(
-                                        new Vector2(1f / s_SurfaceSize, 1f / s_SurfaceSize)),
+                                    Scale = scaleParameter,
                                     Gradient = ConstantSupplier<Matrix4x2>.Create(
                                         new Matrix4x2(new(1, 0), new(0, 1), new(), new()))
                                 }))
@@ -218,7 +226,7 @@ namespace SpaceOpera.Core.Universe.Generator
                                 .SetParameters(
                                     new SobelNode.Parameters()
                                     {
-                                        Roughness = new ConstantSupplier<float>(1f * s_SurfaceSize / 4096)
+                                        Roughness = roughnessParameter
                                     }));
                 }
                 else
@@ -233,6 +241,8 @@ namespace SpaceOpera.Core.Universe.Generator
                     BiomeOptions,
                     biomePipeline.Build(),
                     surfacePipeline.Build(),
+                    scaleParameter,
+                    roughnessParameter,
                     diffuseParameter,
                     lightingParameter);
             }
