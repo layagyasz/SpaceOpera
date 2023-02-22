@@ -1,7 +1,9 @@
 ﻿using Cardamom.Graphics;
 using Cardamom.Mathematics;
+using Cardamom.Mathematics.Geometry;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
+using SpaceOpera.Controller.Scenes;
 using SpaceOpera.Core;
 using SpaceOpera.Core.Universe;
 using SpaceOpera.View.Common;
@@ -39,11 +41,6 @@ namespace SpaceOpera.View.StarSystemViews
         public StarSubSystemRig Create(
             SolarOrbitRegion orbit, StarCalendar calendar, float radius, float scale)
         {
-            return new(orbit.LocalOrbit.StellarBody, calendar, Create(orbit, radius, scale), scale);
-        }
-
-        public StarSubSystemView Create(SolarOrbitRegion orbit, float radius, float scale)
-        {
             Vertex3[] pin = new Vertex3[2];
             pin[0] = new(scale * new Vector3(0, s_PinYRange.Minimum, 0), s_PinColor, new());
             pin[1] = new(scale * new Vector3(0, s_PinYRange.Maximum, 0), s_PinColor, new());
@@ -53,11 +50,22 @@ namespace SpaceOpera.View.StarSystemViews
             radius = s_RadiusRange.Clamp(radius);
             var bounds = new Dictionary<INavigable, SpaceSubRegionBounds>
             {
-                { orbit, StarSystemSubRegionBounds.ComputeBounds(new(), s_SolarOrbitY, radius, scale) },
-                { 
+                { orbit, StarSystemSubRegionBounds.ComputeBounds(new(0, s_SolarOrbitY, 0), radius, scale) },
+                {
                     orbit.LocalOrbit,
-                    StarSystemSubRegionBounds.ComputeBounds(new(), s_LocalOrbitY, s_LocalOrbitScale * radius, scale) 
+                    StarSystemSubRegionBounds.ComputeBounds(
+                        new(0, s_LocalOrbitY, 0), s_LocalOrbitScale * radius, scale)
                 }
+            };
+            var interactors = new SubRegionInteractor[]
+            {
+                new(
+                    new SubRegionController(orbit),
+                    new Disk(scale * new Vector3(0, s_SolarOrbitY, 0), Vector3.UnitY, scale * radius)),
+                new(
+                    new SubRegionController(orbit.LocalOrbit),
+                    new Disk(
+                        scale * new Vector3(0, s_LocalOrbitY, 0), Vector3.UnitY, scale * s_LocalOrbitScale * radius))
             };
             var highlight =
                 new HighlightLayer<INavigable>(
@@ -67,7 +75,13 @@ namespace SpaceOpera.View.StarSystemViews
                     Matrix4.Identity,
                     BorderShader,
                     FillShader);
-            return new(highlight, new(pinBuffer, PinShader, scale * s_PinScale, scale * s_PinDashLength));
+            return new(
+                new RigController(interactors.Select(x => x.Controller).Cast<ISceneController>().ToArray()),
+                orbit.LocalOrbit.StellarBody,
+                calendar, 
+                new(highlight, new(pinBuffer, PinShader, scale * s_PinScale, scale * s_PinDashLength)),
+                interactors,
+                scale);
         }
     }
 }

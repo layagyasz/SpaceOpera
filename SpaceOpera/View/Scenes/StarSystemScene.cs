@@ -21,15 +21,17 @@ namespace SpaceOpera.View.Scenes
         private StarBuffer? _starBuffer;
         private StarSubSystemRig[]? _subSystems;
         private TransitBuffer? _guidelines;
+        private readonly SubRegionInteractor[] _interactors;
         private HighlightLayer<INavigable>? _highlightLayer;
         private readonly Skybox _skybox;
 
         public StarSystemScene(
             IElementController controller,
-            ICamera camera, 
+            ICamera camera,
             StarBuffer starBuffer,
             StarSubSystemRig[] subSystems,
             TransitBuffer guidelines,
+            SubRegionInteractor[] interactors,
             HighlightLayer<INavigable> highlightLayer,
             Skybox skybox)
         {
@@ -37,7 +39,12 @@ namespace SpaceOpera.View.Scenes
             Camera = camera;
             _starBuffer = starBuffer;
             _subSystems = subSystems;
+            foreach (var subSystem in subSystems)
+            {
+                subSystem.Parent = this;
+            }
             _guidelines = guidelines;
+            _interactors = interactors;
             _highlightLayer = highlightLayer;
             _skybox = skybox;
         }
@@ -62,6 +69,10 @@ namespace SpaceOpera.View.Scenes
             target.PushViewMatrix(Camera.GetViewMatrix());
             target.PushProjection(Camera.GetProjection());
             context.Register(this);
+            foreach (var interactor in _interactors)
+            {
+                context.Register(interactor);
+            }
 
             _skybox.Draw(target, context);
             foreach (var subSystem in _subSystems!)

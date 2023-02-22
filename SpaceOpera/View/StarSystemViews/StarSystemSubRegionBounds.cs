@@ -8,7 +8,7 @@ namespace SpaceOpera.View.StarSystemViews
     {
         private static readonly float s_EdgeResolution = 0.02f * MathHelper.Pi;
 
-        public static SpaceSubRegionBounds ComputeBounds(Vector3 center, float y, float radius, float scale)
+        public static SpaceSubRegionBounds ComputeBounds(Vector3 center, float radius, float scale)
         {
             return SpaceSubRegionBounds.FromEdges(
                 scale * center,
@@ -18,7 +18,7 @@ namespace SpaceOpera.View.StarSystemViews
                 {
                     new(
                         Shape.GetCirclePoints(x => radius, s_EdgeResolution)
-                            .Select(x => scale * (center + new Vector3(x.X, y, x.Y)))
+                            .Select(x => scale * (center + new Vector3(x.X, 0, x.Y)))
                             .ToArray(), 
                         /* isLoop= */ true)
                 });

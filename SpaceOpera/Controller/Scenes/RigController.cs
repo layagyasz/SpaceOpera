@@ -4,19 +4,29 @@ using OpenTK.Windowing.Common;
 
 namespace SpaceOpera.Controller.Scenes
 {
-    public class StarSystemController : ISceneController
+    public class RigController : ISceneController
     {
         public EventHandler<UiInteractionEventArgs>? Interacted { get; set; }
         public EventHandler<MouseButtonClickEventArgs>? Clicked { get; set; }
         public EventHandler<EventArgs>? Focused { get; set; }
 
-        public StarSystemController() { }
+        private readonly ISceneController[] _subControllers;
+
+        public RigController(params ISceneController[] subControllers)
+        {
+            _subControllers = subControllers;
+            foreach (var subController in subControllers)
+            {
+                subController.Interacted += HandleInteraction;
+            }
+        }
+
 
         public void Bind(object @object) { }
 
         public void Unbind() { }
 
-        public bool HandleKeyDown(KeyDownEventArgs e)
+        public virtual bool HandleKeyDown(KeyDownEventArgs e)
         {
             return false;
         }
@@ -41,12 +51,12 @@ namespace SpaceOpera.Controller.Scenes
             return false;
         }
 
-        public bool HandleMouseButtonDragged(MouseButtonDragEventArgs e)
+        public virtual bool HandleMouseButtonDragged(MouseButtonDragEventArgs e)
         {
             return false;
         }
 
-        public bool HandleMouseWheelScrolled(MouseWheelEventArgs e)
+        public virtual bool HandleMouseWheelScrolled(MouseWheelEventArgs e)
         {
             return false;
         }
@@ -69,6 +79,11 @@ namespace SpaceOpera.Controller.Scenes
         public bool HandleFocusLeft()
         {
             return false;
+        }
+
+        private void HandleInteraction(object? sender, UiInteractionEventArgs e)
+        {
+            Interacted?.Invoke(this, e);
         }
     }
 }

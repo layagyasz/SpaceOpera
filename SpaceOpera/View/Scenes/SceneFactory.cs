@@ -181,6 +181,29 @@ namespace SpaceOpera.View.Scenes
             }
 
             var r = s_StarSystemScale * MathF.Log(starSystem.TransitLimit + 1);
+            var guidelineBuffer = new VertexBuffer<Vertex3>(PrimitiveType.Triangles);
+            guidelineBuffer.Buffer(guidelines.GetData(), 0, guidelines.Count);
+
+            var transitDistance = 0.5f * (distances[^1] + distances[^2]);
+            var transitRadius = 0.5f * (distances[^1] - distances[^2]);
+            var bounds = new Dictionary<INavigable, SpaceSubRegionBounds>();
+            var interactors = new SubRegionInteractor[starSystem.Transits.Count];
+            int t = 0;
+            foreach (var transit in starSystem.Transits)
+            {
+                var position = transitDistance * new Vector3(MathF.Cos(transit.Key), 0, MathF.Sin(transit.Key));
+                bounds.Add(
+                    transit.Value,
+                    StarSystemSubRegionBounds.ComputeBounds(
+                        position,
+                        transitRadius,
+                        s_StarSystemScale));
+                interactors[t++] =
+                    new(
+                        new SubRegionController(transit.Value),
+                        new Disk(s_StarSystemScale * position, Vector3.UnitY, s_StarSystemScale * transitRadius));
+            }
+
             var controller =
                 new SceneController(
                     new GalaxyCameraController(camera)
@@ -191,23 +214,11 @@ namespace SpaceOpera.View.Scenes
                         PitchRange = new(-MathHelper.PiOver2 + 0.01f, -0.125f * MathHelper.Pi),
                         DistanceRange = new(0.05f, r)
                     },
-                    new StarSystemController());
-            var guidelineBuffer = new VertexBuffer<Vertex3>(PrimitiveType.Triangles);
-            guidelineBuffer.Buffer(guidelines.GetData(), 0, guidelines.Count);
+                    Enumerable.Concat(
+                        interactors.Select(x => x.Controller), 
+                        rigs.Select(x => x.Controller))
+                    .Cast<ISceneController>().ToArray());
 
-            var transitDistance = 0.5f * (distances[^1] + distances[^2]);
-            var transitRadius = 0.5f * (distances[^1] - distances[^2]);
-            var bounds = new Dictionary<INavigable, SpaceSubRegionBounds>();
-            foreach (var transit in starSystem.Transits)
-            {
-                bounds.Add(
-                    transit.Value,
-                    StarSystemSubRegionBounds.ComputeBounds(
-                        transitDistance * new Vector3(MathF.Cos(transit.Key), 0, MathF.Sin(transit.Key)),
-                        0,
-                        transitRadius,
-                        s_StarSystemScale));
-            }
             _skyBox ??= CreateSkybox();
             return new StarSystemScene(
                 controller,
@@ -215,6 +226,7 @@ namespace SpaceOpera.View.Scenes
                 starBuffer,
                 rigs,
                 new(guidelineBuffer, GuidelineShader),
+                interactors,
                 new(
                     starSystem.Transits.Values,
                     bounds,
