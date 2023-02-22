@@ -20,7 +20,7 @@
       "star-generator-brown-dwarf": 600000,
       "star-generator-white-dwarf": 800000
     },
-    "TransitLimit": 2.5,
+    "TransitLimit": 4,
     "StellarBodyDensity": 0.1,
     "ViableThermalRange": [ 0, 500 ],
     "ViableGravitationalRange": [ 3, 40000 ],

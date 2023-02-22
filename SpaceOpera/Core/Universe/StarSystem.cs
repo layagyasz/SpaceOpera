@@ -15,7 +15,7 @@ namespace SpaceOpera.Core.Universe
         public List<StellarBody> Orbiters { get; }
         public List<SolarOrbitRegion> OrbitalRegions { get; }
         public List<StarSystem>? Neighbors { get; private set; }
-        public SortedList<double, TransitRegion> Transits { get; private set; }
+        public SortedList<float, TransitRegion> Transits { get; private set; }
 
         public StarSystem(
             Vector3 position,
@@ -31,8 +31,8 @@ namespace SpaceOpera.Core.Universe
             OuterBoundary = outerBoundary;
             TransitLimit = transitLimit;
             Orbiters = orbiters.ToList();
-            OrbitalRegions = orbiters.Select(x => new SolarOrbitRegion(new LocalOrbitRegion(x))).ToList();
-            Transits = new SortedList<double, TransitRegion>();
+            OrbitalRegions = orbiters.Select(x => new SolarOrbitRegion(new(x))).ToList();
+            Transits = new();
         }
 
         public void AddTransit(StarSystem neighbor)
@@ -41,7 +41,7 @@ namespace SpaceOpera.Core.Universe
             {
                 throw new ArgumentException(string.Format("{0} is not a neighbor of {1}", neighbor, this));
             }
-            Transits.Add(MathUtils.Theta(Position.Xz, neighbor.Position.Xz), new TransitRegion(neighbor));
+            Transits.Add(MathUtils.Theta(Position.Xz, neighbor.Position.Xz), new(neighbor));
         }
 
         public bool ContainsFaction(Faction faction)

@@ -4,6 +4,7 @@ using Cardamom.Mathematics.Geometry;
 using Cardamom.Ui;
 using Cardamom.Ui.Controller.Element;
 using OpenTK.Mathematics;
+using SpaceOpera.Core.Universe;
 using SpaceOpera.View.Common;
 using SpaceOpera.View.Scenes.Highlights;
 using SpaceOpera.View.StarSystemViews;
@@ -20,6 +21,7 @@ namespace SpaceOpera.View.Scenes
         private StarBuffer? _starBuffer;
         private StarSubSystemRig[]? _subSystems;
         private TransitBuffer? _guidelines;
+        private HighlightLayer<INavigable>? _highlightLayer;
         private readonly Skybox _skybox;
 
         public StarSystemScene(
@@ -28,6 +30,7 @@ namespace SpaceOpera.View.Scenes
             StarBuffer starBuffer,
             StarSubSystemRig[] subSystems,
             TransitBuffer guidelines,
+            HighlightLayer<INavigable> highlightLayer,
             Skybox skybox)
         {
             Controller = controller;
@@ -35,6 +38,7 @@ namespace SpaceOpera.View.Scenes
             _starBuffer = starBuffer;
             _subSystems = subSystems;
             _guidelines = guidelines;
+            _highlightLayer = highlightLayer;
             _skybox = skybox;
         }
 
@@ -49,6 +53,8 @@ namespace SpaceOpera.View.Scenes
             _subSystems = null;
             _guidelines!.Dispose();
             _guidelines = null;
+            _highlightLayer!.Dispose();
+            _highlightLayer = null;
         }
 
         public void Draw(RenderTarget target, UiContext context)
@@ -62,6 +68,7 @@ namespace SpaceOpera.View.Scenes
             {
                 subSystem.Draw(target, context);
             }
+            _highlightLayer!.Draw(target, context);
             _guidelines!.Draw(target, context);
             _starBuffer!.Draw(target, context);
 
@@ -91,6 +98,7 @@ namespace SpaceOpera.View.Scenes
 
         public void SetHighlight(HighlightLayerName layer, ICompositeHighlight highlight)
         {
+            _highlightLayer!.SetLayer(layer, highlight);
             foreach (var subSystem in _subSystems!)
             {
                 subSystem.SetHighlight(layer, highlight);

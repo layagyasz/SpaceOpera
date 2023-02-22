@@ -53,7 +53,8 @@ namespace SpaceOpera
             }
             else if (mode == 2)
             {
-                var system = coreData.GalaxyGenerator!.StarSystemGenerator!.Generate(new(), generatorContext);
+                var galaxy = coreData.GalaxyGenerator!.Generate(generatorContext);
+                var system = galaxy.Systems[0];
                 scene = viewFactory.SceneFactory.Create(system, calendar);
                 controller = new GameController(null, viewFactory, logger);
                 driver = new(null, calendar);

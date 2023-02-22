@@ -53,10 +53,10 @@ namespace SpaceOpera.View.StarSystemViews
             radius = s_RadiusRange.Clamp(radius);
             var bounds = new Dictionary<INavigable, SpaceSubRegionBounds>
             {
-                { orbit, OrbitBounds.ComputeBounds(scale * s_SolarOrbitY, radius, scale) },
+                { orbit, StarSystemSubRegionBounds.ComputeBounds(new(), s_SolarOrbitY, radius, scale) },
                 { 
                     orbit.LocalOrbit,
-                    OrbitBounds.ComputeBounds(scale * s_LocalOrbitY, s_LocalOrbitScale * radius, scale) 
+                    StarSystemSubRegionBounds.ComputeBounds(new(), s_LocalOrbitY, s_LocalOrbitScale * radius, scale) 
                 }
             };
             var highlight =
