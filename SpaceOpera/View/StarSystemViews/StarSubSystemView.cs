@@ -4,22 +4,27 @@ using OpenTK.Mathematics;
 using SpaceOpera.Core.Universe;
 using SpaceOpera.View.Common;
 using SpaceOpera.View.Common.Highlights;
+using SpaceOpera.View.StellarBodyViews;
 
 namespace SpaceOpera.View.StarSystemViews
 {
     public class StarSubSystemView : GraphicsResource, IRenderable
     {
+        private StellarBodyModel? _model;
         private HighlightLayer<INavigable>? _highlightLayer;
         private PinBuffer? _pinBuffer;
 
-        public StarSubSystemView(HighlightLayer<INavigable> highlightLayer, PinBuffer buffer)
+        public StarSubSystemView(StellarBodyModel model, HighlightLayer<INavigable> highlightLayer, PinBuffer buffer)
         {
+            _model = model;
             _highlightLayer = highlightLayer;
             _pinBuffer = buffer;
         }
 
         protected override void DisposeImpl()
         {
+            _model!.Dispose();
+            _model = null;
             _highlightLayer!.Dispose();
             _highlightLayer = null;
             _pinBuffer!.Dispose();
@@ -28,6 +33,7 @@ namespace SpaceOpera.View.StarSystemViews
 
         public void Draw(RenderTarget target, UiContext context)
         {
+            _model!.Draw(target, context);
             _pinBuffer!.Draw(target, context);
             _highlightLayer!.Draw(target, context);
         }

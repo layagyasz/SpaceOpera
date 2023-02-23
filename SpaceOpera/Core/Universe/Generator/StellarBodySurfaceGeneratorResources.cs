@@ -28,6 +28,11 @@ namespace SpaceOpera.Core.Universe.Generator
             return new(2048);
         }
 
+        public static StellarBodySurfaceGeneratorResources CreateLowRes()
+        {
+            return new(256);
+        }
+
         protected override void DisposeImpl()
         {
             _canvases!.Dispose();

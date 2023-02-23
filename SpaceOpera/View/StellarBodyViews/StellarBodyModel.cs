@@ -9,6 +9,8 @@ namespace SpaceOpera.View.StellarBodyViews
     {
         private static readonly int s_AtmospherePrecision = 10;
 
+        public float Radius => _scale * _stellarBody.Radius;
+
         private readonly StellarBody _stellarBody;
         private readonly float _scale;
         private Model<VertexLit3>? _surfaceModel;
@@ -41,6 +43,8 @@ namespace SpaceOpera.View.StellarBodyViews
 
         public void Draw(RenderTarget target, UiContext context)
         {
+            _atmosphereShader.SetVector3(
+                "center_position", (new Vector4(0f, 0f, 0f, 1f) * target.GetModelMatrix()).Xyz);
             _atmosphereShader.SetFloat("outer_radius", _scale * _stellarBody.Atmosphere.Radius);
             _atmosphereShader.SetFloat("inner_radius", _scale * _stellarBody.Radius);
             _atmosphereShader.SetFloat("atmosphere_density", _stellarBody.Atmosphere.Density);
@@ -52,7 +56,7 @@ namespace SpaceOpera.View.StellarBodyViews
                 _atmosphereModel!, 
                 0,
                 _atmosphereModel!.Length, 
-                new RenderResources(BlendMode.Alpha, _atmosphereShader));
+                new RenderResources(BlendMode.Alpha, _atmosphereShader) { EnableDepthMask = false });
         }
 
         public void Update(long delta)

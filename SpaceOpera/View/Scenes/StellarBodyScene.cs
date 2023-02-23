@@ -4,6 +4,7 @@ using Cardamom.Mathematics.Geometry;
 using Cardamom.Ui;
 using Cardamom.Ui.Controller.Element;
 using OpenTK.Mathematics;
+using SpaceOpera.View.Common;
 using SpaceOpera.View.Common.Highlights;
 using SpaceOpera.View.StarViews;
 using SpaceOpera.View.StellarBodyViews;
@@ -21,8 +22,7 @@ namespace SpaceOpera.View.Scenes
         private StellarBodyModel? _stellarBodyModel;
         private readonly RenderShader _surfaceShader;
         private readonly RenderShader _atmosphereShader;
-        private readonly float _luminance;
-        private readonly float _attenuation;
+        private readonly Light _light;
         private StarBuffer? _star;
         private readonly Skybox _skybox;
         private long _rotation = 0;
@@ -33,8 +33,7 @@ namespace SpaceOpera.View.Scenes
             StellarBodyModel stellarBodyModel,
             RenderShader surfaceShader,
             RenderShader atmosphereShader,
-            float luminance,
-            float attenuation,
+            Light light,
             StarBuffer star,
             Skybox skybox)
         {
@@ -43,8 +42,7 @@ namespace SpaceOpera.View.Scenes
             _stellarBodyModel = stellarBodyModel;
             _surfaceShader = surfaceShader;
             _atmosphereShader = atmosphereShader;
-            _luminance = luminance;
-            _attenuation = attenuation;
+            _light = light;
             _star = star;
             _skybox = skybox;
         }
@@ -74,16 +72,15 @@ namespace SpaceOpera.View.Scenes
             var lightPosition = (new Vector4(starPosition, 1) * sceneMatrix).Xyz;
             _surfaceShader.SetVector3("light_position", lightPosition);
             _surfaceShader.SetVector3("eye_position", Camera.Position);
-            _surfaceShader.SetColor("light_color", _star!.Get(0).Color);
-            _surfaceShader.SetFloat("light_luminance", _luminance);
-            _surfaceShader.SetFloat("light_attenuation", _attenuation);
+            _surfaceShader.SetColor("light_color", _light.Color);
+            _surfaceShader.SetFloat("light_luminance", _light.Luminance);
+            _surfaceShader.SetFloat("light_attenuation", _light.Attenuation);
             _surfaceShader.SetFloat("ambient", 0.5f);
-            _atmosphereShader.SetVector3("center_position", new());
             _atmosphereShader.SetVector3("light_position", lightPosition);
             _atmosphereShader.SetVector3("eye_position", Camera.Position);
             _atmosphereShader.SetColor("light_color", _star!.Get(0).Color);
-            _atmosphereShader.SetFloat("light_luminance", _luminance);
-            _atmosphereShader.SetFloat("light_attenuation", _attenuation);
+            _atmosphereShader.SetFloat("light_luminance", _light.Luminance);
+            _atmosphereShader.SetFloat("light_attenuation", _light.Attenuation);
 
             _stellarBodyModel!.Draw(target, context);
 

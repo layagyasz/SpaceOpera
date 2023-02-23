@@ -1,5 +1,4 @@
-﻿using Cardamom.Collections;
-using Cardamom.Graphics;
+﻿using Cardamom.Graphics;
 using Cardamom.Graphics.Camera;
 using Cardamom.ImageProcessing;
 using Cardamom.ImageProcessing.Pipelines.Nodes;
@@ -193,6 +192,9 @@ namespace SpaceOpera.View.Scenes
                 controller,
                 camera,
                 model,
+                StellarBodyViewFactory.SurfaceShader,
+                StellarBodyViewFactory.AtmosphereShader,
+                new(new(), model.GetLightColor(), GetLuminance(starSystem.Star), 1f / s_StarSystemScale),
                 rigs,
                 interactors,
                 new(
@@ -207,7 +209,7 @@ namespace SpaceOpera.View.Scenes
 
         public IGameScene Create(StellarBody stellarBody)
         {
-            var model = StellarBodyViewFactory.CreateModel(stellarBody);
+            var model = StellarBodyViewFactory.Create(stellarBody, 1f, true);
             var camera = new SubjectiveCamera3d(s_SkyboxRadius + 10);
             camera.SetDistance(2);
             camera.SetYaw(MathHelper.PiOver2);
@@ -222,6 +224,11 @@ namespace SpaceOpera.View.Scenes
                         DistanceRange = new(1.1f, 10)
                     });
             float logDistance = MathF.Log(stellarBody.Orbit.GetAverageDistance() + 1);
+            var star =
+                StarViewFactory.CreateView(
+                    Enumerable.Repeat(stellarBody.Orbit.Focus, 1),
+                    Enumerable.Repeat(s_StellarBodySceneStarPosition, 1),
+                    s_StellarBodySceneStarScale / (MathF.Log(stellarBody.Orbit.MajorAxis) + 1));
             _skyBox ??= CreateSkybox();
             return new StellarBodyScene(
                 controller, 
@@ -229,12 +236,12 @@ namespace SpaceOpera.View.Scenes
                 model,
                 StellarBodyViewFactory.SurfaceShader,
                 StellarBodyViewFactory.AtmosphereShader,
-                s_LuminanceRange.Clamp(s_LightPower * MathF.Log(stellarBody.Orbit.Focus.Luminosity + 1)),
-                logDistance * logDistance / (1000 * 1000),
-                StarViewFactory.CreateView(
-                    Enumerable.Repeat(stellarBody.Orbit.Focus, 1), 
-                    Enumerable.Repeat(s_StellarBodySceneStarPosition, 1), 
-                    s_StellarBodySceneStarScale / (MathF.Log(stellarBody.Orbit.MajorAxis) + 1)),
+                new(
+                    new(), 
+                    star.Get(0).Color, 
+                    GetLuminance(stellarBody.Orbit.Focus),
+                    logDistance * logDistance / (1000 * 1000)),
+                star,
                 _skyBox);
         }
 
@@ -293,6 +300,11 @@ namespace SpaceOpera.View.Scenes
             var output = pipeline.Run(canvases)[0].GetTexture();
 
             return new(new(vertices, PrimitiveType.Triangles), output, SkyboxShader);
+        }
+
+        private static float GetLuminance(Star star)
+        {
+            return s_LuminanceRange.Clamp(s_LightPower * MathF.Log(star.Luminosity + 1));
         }
     }
 }

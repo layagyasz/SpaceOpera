@@ -32,8 +32,13 @@ namespace SpaceOpera.View.StarSystemViews
 
         public void Draw(RenderTarget target, UiContext context)
         {
-            _star!.Draw(target, context);
             _guidelines!.Draw(target, context);
+            _star!.Draw(target, context);
+        }
+
+        public Color4 GetLightColor()
+        {
+            return _star!.Get(0).Color;
         }
 
         public void Initialize()

@@ -50,6 +50,7 @@ namespace SpaceOpera.View
                     stellarBodyViewFactory,
                     new(
                         starViewFactory,
+                        stellarBodyViewFactory,
                         viewData.GameResources!.GetShader("shader-transit"),
                         viewData.GameResources!.GetShader("shader-border"),
                         viewData.GameResources!.GetShader("shader-default-no-tex"),

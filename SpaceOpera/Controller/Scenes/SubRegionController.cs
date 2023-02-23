@@ -11,9 +11,9 @@ namespace SpaceOpera.Controller.Scenes
         public EventHandler<MouseButtonClickEventArgs>? Clicked { get; set; }
         public EventHandler<EventArgs>? Focused { get; set; }
 
-        private readonly INavigable _subRegion;
+        private readonly object _subRegion;
 
-        public SubRegionController(INavigable subRegion)
+        public SubRegionController(object subRegion)
         {
             _subRegion = subRegion;
         }

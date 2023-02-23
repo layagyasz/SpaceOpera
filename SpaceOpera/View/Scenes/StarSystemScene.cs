@@ -18,6 +18,9 @@ namespace SpaceOpera.View.Scenes
         public ICamera Camera { get; set; }
 
         private StarSystemModel? _model;
+        private readonly RenderShader _surfaceShader;
+        private readonly RenderShader _atmosphereShader;
+        private readonly Light _light;
         private StarSubSystemRig[]? _subSystems;
         private readonly SubRegionInteractor[] _interactors;
         private HighlightLayer<INavigable>? _highlightLayer;
@@ -27,6 +30,9 @@ namespace SpaceOpera.View.Scenes
             IElementController controller,
             ICamera camera,
             StarSystemModel model,
+            RenderShader surfaceShader,
+            RenderShader atmosphereShader,
+            Light light,
             StarSubSystemRig[] subSystems,
             SubRegionInteractor[] interactors,
             HighlightLayer<INavigable> highlightLayer,
@@ -35,6 +41,9 @@ namespace SpaceOpera.View.Scenes
             Controller = controller;
             Camera = camera;
             _model = model;
+            _surfaceShader = surfaceShader;
+            _atmosphereShader = atmosphereShader;
+            _light = light;
             _subSystems = subSystems;
             foreach (var subSystem in subSystems)
             {
@@ -67,6 +76,18 @@ namespace SpaceOpera.View.Scenes
             {
                 context.Register(interactor);
             }
+
+            _surfaceShader.SetVector3("light_position", _light.Position);
+            _surfaceShader.SetVector3("eye_position", Camera.Position);
+            _surfaceShader.SetColor("light_color",_light.Color);
+            _surfaceShader.SetFloat("light_luminance", _light.Luminance);
+            _surfaceShader.SetFloat("light_attenuation", _light.Attenuation);
+            _surfaceShader.SetFloat("ambient", 0.5f);
+            _atmosphereShader.SetVector3("light_position", _light.Position);
+            _atmosphereShader.SetVector3("eye_position", Camera.Position);
+            _atmosphereShader.SetColor("light_color", _light.Color);
+            _atmosphereShader.SetFloat("light_luminance", _light.Luminance);
+            _atmosphereShader.SetFloat("light_attenuation", _light.Attenuation);
 
             _skybox.Draw(target, context);
             foreach (var subSystem in _subSystems!)

@@ -15,15 +15,18 @@ namespace SpaceOpera.View.StellarBodyViews
 {
     public class StellarBodyViewFactory
     {
-        private readonly static float s_AtmosphericScattering = 4f;
-        private readonly static int s_SphereHighResSubdivisions = 64;
+        private readonly static Vector3 s_AtmosphericScattering = 4f * new Vector3(0.1066f, 0.3244f, 0.6830f);
+        private readonly static float s_DefaultRadiusInv = 0.000166667f;
+        private readonly static int s_SphereSubdivisionsHighRes = 64;
+        private readonly static int s_SphereSubdivisionsLowRes = 8;
 
         public Dictionary<Biome, BiomeRenderDetails> BiomeRenderDetails { get; }
         public Library<StellarBodyGenerator> StellarBodyGenerators { get; }
         public RenderShader SurfaceShader { get; }
         public RenderShader AtmosphereShader { get; }
         public SpectrumSensitivity HumanEyeSensitivity { get; }
-        public StellarBodySurfaceGeneratorResources StellarBodySurfaceGeneratorResources { get; }
+        public StellarBodySurfaceGeneratorResources ResourcesHighRes { get; }
+        public StellarBodySurfaceGeneratorResources ResourcesLowRes { get; }
         public ILogger Logger { get; }
 
         public StellarBodyViewFactory(
@@ -39,13 +42,14 @@ namespace SpaceOpera.View.StellarBodyViews
             SurfaceShader = surfaceShader;
             AtmosphereShader = atmosphereShader;
             HumanEyeSensitivity = humanEyeSensitivity;
-            StellarBodySurfaceGeneratorResources = StellarBodySurfaceGeneratorResources.CreateHighRes();
+            ResourcesHighRes = StellarBodySurfaceGeneratorResources.CreateHighRes();
+            ResourcesLowRes = StellarBodySurfaceGeneratorResources.CreateLowRes();
             Logger = logger;
         }
 
-        public StellarBodyModel CreateModel(StellarBody stellarBody)
+        public StellarBodyModel Create(StellarBody stellarBody, float scale, bool highRes)
         {
-            float scale = 1f / stellarBody.Radius;
+            scale *= MathF.Log(s_DefaultRadiusInv * stellarBody.Radius + 1) / stellarBody.Radius;
             var spectrum = new BlackbodySpectrum(stellarBody.Orbit.Focus.Temperature);
             var peakWavelength =
                 Math.Min(
@@ -62,17 +66,20 @@ namespace SpaceOpera.View.StellarBodyViews
                         stellarBody.Parameters,
                         x => BiomeRenderDetails[x].GetColor(peakColor, scatteredColor),
                         x => BiomeRenderDetails[x].GetLighting(),
-                        StellarBodySurfaceGeneratorResources,
+                        highRes ? ResourcesHighRes : ResourcesLowRes,
                         Logger);
-            var surface = CreateSphere(scale * stellarBody.Radius, s_SphereHighResSubdivisions, Color4.White);
+            var surface = CreateSphere(
+                scale * stellarBody.Radius,
+                highRes ? s_SphereSubdivisionsHighRes : s_SphereSubdivisionsLowRes, 
+                Color4.White);
             var atmosphere = 
                 CreateSphere(
-                    scale * stellarBody.Atmosphere.Radius, 
-                    s_SphereHighResSubdivisions,
+                    scale * stellarBody.Atmosphere.Radius,
+                    highRes ? s_SphereSubdivisionsHighRes : s_SphereSubdivisionsLowRes,
                     new Color4(
-                        s_AtmosphericScattering * 0.1066f,
-                        s_AtmosphericScattering * 0.3244f, 
-                        s_AtmosphericScattering * 0.6830f,
+                        s_AtmosphericScattering.X,
+                        s_AtmosphericScattering.Y, 
+                        s_AtmosphericScattering.Z,
                         1f));
             return new StellarBodyModel(
                 stellarBody, scale, new(surface, SurfaceShader, material), atmosphere, AtmosphereShader);
