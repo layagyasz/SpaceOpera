@@ -40,14 +40,8 @@ namespace SpaceOpera.View.Scenes
         private static readonly int s_SkyboxResolution = 2048;
 
         private static readonly float s_StarSystemBorderWidth = 0.01f;
-        private static readonly float s_StarSystemGuidelineScale = 0.0048f;
-        private static readonly Color4 s_StarSystemGuidelineColor = new(0.7f, 0.5f, 0.5f, 1f);
-        private static readonly float s_StarSystemGuidelineResolution = 0.02f * MathHelper.Pi;
-        private static readonly Color4 s_StarSystemOrbitColor = new(0.5f, 0.5f, 0.7f, 1f);
         private static readonly float s_StarSystemScale = 2f;
-        private static readonly float s_StarSystemSceneStarScale = 0.5f;
         
-
         private static readonly float s_StellarBodySceneStarScale = 1024;
         private static readonly Vector3 s_StellarBodySceneStarPosition = new(0, 0, -1000);
 
@@ -61,7 +55,6 @@ namespace SpaceOpera.View.Scenes
         public RenderShader SkyboxShader { get; }
         public RenderShader BorderShader { get; }
         public RenderShader FillShader { get; }
-        public RenderShader GuidelineShader { get; }
 
         public SceneFactory(
             GalaxyViewFactory galaxyViewFactory,
@@ -71,8 +64,7 @@ namespace SpaceOpera.View.Scenes
             SpectrumSensitivity humanEyeSensitivity,
             RenderShader skyboxShader, 
             RenderShader borderShader, 
-            RenderShader fillShader,
-            RenderShader guidelineShader)
+            RenderShader fillShader)
         {
             GalaxyViewFactory = galaxyViewFactory;
             StellarBodyViewFactory = stellarBodyViewFactory;
@@ -82,7 +74,6 @@ namespace SpaceOpera.View.Scenes
             SkyboxShader = skyboxShader;
             BorderShader = borderShader;
             FillShader = fillShader;
-            GuidelineShader = guidelineShader;
         }
 
         public IGameScene Create(Galaxy galaxy)
@@ -130,22 +121,19 @@ namespace SpaceOpera.View.Scenes
 
         public IGameScene Create(StarSystem starSystem, StarCalendar calendar)
         {
-            var starBuffer = 
-                StarViewFactory.CreateView(
-                    Enumerable.Repeat(starSystem.Star, 1),
-                    Enumerable.Repeat(new Vector3(), 1),
-                    s_StarSystemScale * s_StarSystemSceneStarScale);
+            var model = StarSystemViewFactory.Create(starSystem, s_StarSystemScale);
 
             var camera = new SubjectiveCamera3d(s_SkyboxRadius + 10);
-            camera.OnCameraChange += (s, e) => starBuffer.Dirty();
+            camera.OnCameraChange += (s, e) => model.Dirty();
             camera.SetDistance(0.05f);
             camera.SetPitch(-0.125f * MathHelper.Pi);
             camera.SetYaw(MathHelper.PiOver2);
 
-            var distances = new float[starSystem.Orbiters.Count + 2];
+            var distances = new float[starSystem.Orbiters.Count + 1];
+            var outerLimit = MathF.Log(starSystem.OuterBoundary + 1);
+            var transitLimit = MathF.Log(starSystem.TransitLimit + 1);
             distances[0] = MathF.Log(starSystem.InnerBoundary + 1);
-            distances[^2] = MathF.Log(starSystem.OuterBoundary + 1);
-            distances[^1] = MathF.Log(starSystem.TransitLimit + 1);
+            distances[^1] = outerLimit;
             for (int i=0; i<starSystem.Orbiters.Count - 1; ++i)
             {
                 distances[i + 1] =
@@ -153,10 +141,6 @@ namespace SpaceOpera.View.Scenes
                     * (starSystem.Orbiters[i + 1].Orbit.GetAverageDistance() + 1));
             }
             var rigs = new StarSubSystemRig[starSystem.Orbiters.Count];
-            var guidelines = new ArrayList<Vertex3>();
-            AddGuideline(guidelines, s_StarSystemScale * distances[0], s_StarSystemGuidelineColor);
-            AddGuideline(guidelines, s_StarSystemScale * distances[^1], s_StarSystemGuidelineColor);
-            AddGuideline(guidelines, s_StarSystemScale * distances[^2], s_StarSystemGuidelineColor);
             for (int i=0; i<starSystem.Orbiters.Count; ++i)
             {
                 var d = MathF.Log(starSystem.Orbiters[i].Orbit.GetAverageDistance() + 1);
@@ -166,26 +150,11 @@ namespace SpaceOpera.View.Scenes
                         calendar,
                         Math.Min(distances[i + 1] - d, d - distances[i]),
                         s_StarSystemScale);
-                Utils.AddVertices(
-                    guidelines,
-                    s_StarSystemOrbitColor,
-                    new Line3(
-                        Shape.GetCirclePoints(
-                            x => s_StarSystemScale * MathF.Log(starSystem.Orbiters[i].GetSolarOrbitDistance(x) + 1),
-                            s_StarSystemGuidelineResolution)
-                            .Select(x => new Vector3(x.X, 0, x.Y)).ToArray(),
-                        true),
-                    Vector3.UnitY, 
-                    s_StarSystemScale * s_StarSystemGuidelineScale, 
-                    true);
             }
 
             var r = s_StarSystemScale * MathF.Log(starSystem.TransitLimit + 1);
-            var guidelineBuffer = new VertexBuffer<Vertex3>(PrimitiveType.Triangles);
-            guidelineBuffer.Buffer(guidelines.GetData(), 0, guidelines.Count);
-
-            var transitDistance = 0.5f * (distances[^1] + distances[^2]);
-            var transitRadius = 0.5f * (distances[^1] - distances[^2]);
+            var transitDistance = 0.5f * (outerLimit + transitLimit);
+            var transitRadius = 0.5f * (transitLimit - outerLimit);
             var bounds = new Dictionary<INavigable, SpaceSubRegionBounds>();
             var interactors = new SubRegionInteractor[starSystem.Transits.Count];
             int t = 0;
@@ -223,9 +192,8 @@ namespace SpaceOpera.View.Scenes
             return new StarSystemScene(
                 controller,
                 camera,
-                starBuffer,
+                model,
                 rigs,
-                new(guidelineBuffer, GuidelineShader),
                 interactors,
                 new(
                     starSystem.Transits.Values,
@@ -235,20 +203,6 @@ namespace SpaceOpera.View.Scenes
                     BorderShader, 
                     FillShader),
                 _skyBox);
-        }
-
-        private static void AddGuideline(ArrayList<Vertex3> vertices, float radius, Color4 color)
-        {
-            Utils.AddVertices(
-                vertices,
-                color,
-                new Line3(
-                    Shape.GetCirclePoints(x => radius, s_StarSystemGuidelineResolution)
-                        .Select(x => new Vector3(x.X, 0, x.Y)).ToArray(),
-                    true),
-                Vector3.UnitY,
-                s_StarSystemScale * s_StarSystemGuidelineScale,
-                true);
         }
 
         public IGameScene Create(StellarBody stellarBody)

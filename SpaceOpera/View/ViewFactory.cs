@@ -49,6 +49,8 @@ namespace SpaceOpera.View
                     galaxyViewFactory, 
                     stellarBodyViewFactory,
                     new(
+                        starViewFactory,
+                        viewData.GameResources!.GetShader("shader-transit"),
                         viewData.GameResources!.GetShader("shader-border"),
                         viewData.GameResources!.GetShader("shader-default-no-tex"),
                         viewData.GameResources!.GetShader("shader-pin")),
@@ -56,8 +58,7 @@ namespace SpaceOpera.View
                     viewData.HumanEyeSensitivity!,
                     viewData.GameResources!.GetShader("shader-default"),
                     viewData.GameResources!.GetShader("shader-border"),
-                    viewData.GameResources!.GetShader("shader-default-no-tex"),
-                    viewData.GameResources!.GetShader("shader-transit")), 
+                    viewData.GameResources!.GetShader("shader-default-no-tex")), 
                 stellarBodyViewFactory,
                 viewData.Banners!);
         }

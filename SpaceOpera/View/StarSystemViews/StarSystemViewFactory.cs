@@ -1,4 +1,5 @@
-﻿using Cardamom.Graphics;
+﻿using Cardamom.Collections;
+using Cardamom.Graphics;
 using Cardamom.Mathematics;
 using Cardamom.Mathematics.Geometry;
 using OpenTK.Graphics.OpenGL4;
@@ -8,6 +9,7 @@ using SpaceOpera.Core;
 using SpaceOpera.Core.Universe;
 using SpaceOpera.View.Common;
 using SpaceOpera.View.Common.Highlights;
+using SpaceOpera.View.StarViews;
 
 namespace SpaceOpera.View.StarSystemViews
 {
@@ -15,27 +17,65 @@ namespace SpaceOpera.View.StarSystemViews
     {
         private static readonly float s_BorderWidth = 0.01f;
 
+        private static readonly float s_GuidelineScale = 0.0048f;
+        private static readonly Color4 s_GuidelineColor = new(0.7f, 0.5f, 0.5f, 1f);
+        private static readonly float s_GuidelineResolution = 0.02f * MathHelper.Pi;
         private static readonly float s_LocalOrbitScale = 0.5f;
         private static readonly float s_LocalOrbitY = -0.1f;
-
+        private static readonly Color4 s_OrbitColor = new(0.5f, 0.5f, 0.7f, 1f);
         private static readonly Color4 s_PinColor = new(0.7f, 0.7f, 0.7f, 1f);
         private static readonly float s_PinDashLength = 0.01f;
         private static readonly Interval s_PinYRange = new(-0.25f, -0.05f);
         private static readonly float s_PinScale = 0.0004f;
+        private static readonly float s_StarScale = 0.5f;
+
 
         private static readonly Interval s_RadiusRange = new(0.1f, float.PositiveInfinity);
 
         private static readonly float s_SolarOrbitY = -0.25f;
 
+        public StarViewFactory StarViewFactory { get; }
+        public RenderShader GuidelineShader { get; }
         public RenderShader BorderShader { get; }
         public RenderShader FillShader { get; }
         public RenderShader PinShader { get; }
 
-        public StarSystemViewFactory(RenderShader borderShader, RenderShader fillShader, RenderShader pinShader)
+        public StarSystemViewFactory(
+            StarViewFactory starViewFactory,
+            RenderShader guidelineShader,
+            RenderShader borderShader, 
+            RenderShader fillShader,
+            RenderShader pinShader)
         {
+            StarViewFactory = starViewFactory;
+            GuidelineShader = guidelineShader;
             BorderShader = borderShader;
             FillShader = fillShader;
             PinShader = pinShader;
+        }
+
+        public StarSystemModel Create(StarSystem starSystem, float scale)
+        {
+            var starBuffer =
+                StarViewFactory.CreateView(
+                    Enumerable.Repeat(starSystem.Star, 1),
+                    Enumerable.Repeat(new Vector3(), 1),
+                    scale * s_StarScale);
+            var guidelines = new ArrayList<Vertex3>();
+            AddGuideline(guidelines, x => scale * MathF.Log(starSystem.InnerBoundary + 1), s_GuidelineColor, scale);
+            AddGuideline(guidelines, x => scale * MathF.Log(starSystem.TransitLimit + 1), s_GuidelineColor, scale);
+            AddGuideline(guidelines, x => scale * MathF.Log(starSystem.OuterBoundary + 1), s_GuidelineColor, scale);
+            for (int i = 0; i < starSystem.Orbiters.Count; ++i)
+            {
+                AddGuideline(
+                    guidelines, 
+                    x => scale * MathF.Log(starSystem.Orbiters[i].GetSolarOrbitDistance(x) + 1),
+                    s_OrbitColor, 
+                    scale);
+            }
+            var guidelineBuffer = new VertexBuffer<Vertex3>(PrimitiveType.Triangles);
+            guidelineBuffer.Buffer(guidelines.GetData(), 0, guidelines.Count);
+            return new(starBuffer, new(guidelineBuffer, GuidelineShader));
         }
 
         public StarSubSystemRig Create(
@@ -82,6 +122,21 @@ namespace SpaceOpera.View.StarSystemViews
                 new(highlight, new(pinBuffer, PinShader, scale * s_PinScale, scale * s_PinDashLength)),
                 interactors,
                 scale);
+        }
+
+        private static void AddGuideline(
+            ArrayList<Vertex3> vertices, Func<float, float> radiusFn, Color4 color, float scale)
+        {
+            Utils.AddVertices(
+                vertices,
+                color,
+                new Line3(
+                    Shape.GetCirclePoints(radiusFn, s_GuidelineResolution)
+                        .Select(x => new Vector3(x.X, 0, x.Y)).ToArray(),
+                    true),
+                Vector3.UnitY,
+                scale * s_GuidelineScale,
+                true);
         }
     }
 }

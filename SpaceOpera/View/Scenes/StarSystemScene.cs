@@ -8,7 +8,6 @@ using SpaceOpera.Core.Universe;
 using SpaceOpera.View.Common;
 using SpaceOpera.View.Common.Highlights;
 using SpaceOpera.View.StarSystemViews;
-using SpaceOpera.View.StarViews;
 
 namespace SpaceOpera.View.Scenes
 {
@@ -18,9 +17,8 @@ namespace SpaceOpera.View.Scenes
         public IControlledElement? Parent { get; set; }
         public ICamera Camera { get; set; }
 
-        private StarBuffer? _starBuffer;
+        private StarSystemModel? _model;
         private StarSubSystemRig[]? _subSystems;
-        private TransitBuffer? _guidelines;
         private readonly SubRegionInteractor[] _interactors;
         private HighlightLayer<INavigable>? _highlightLayer;
         private readonly Skybox _skybox;
@@ -28,22 +26,20 @@ namespace SpaceOpera.View.Scenes
         public StarSystemScene(
             IElementController controller,
             ICamera camera,
-            StarBuffer starBuffer,
+            StarSystemModel model,
             StarSubSystemRig[] subSystems,
-            TransitBuffer guidelines,
             SubRegionInteractor[] interactors,
             HighlightLayer<INavigable> highlightLayer,
             Skybox skybox)
         {
             Controller = controller;
             Camera = camera;
-            _starBuffer = starBuffer;
+            _model = model;
             _subSystems = subSystems;
             foreach (var subSystem in subSystems)
             {
                 subSystem.Parent = this;
             }
-            _guidelines = guidelines;
             _interactors = interactors;
             _highlightLayer = highlightLayer;
             _skybox = skybox;
@@ -51,15 +47,13 @@ namespace SpaceOpera.View.Scenes
 
         protected override void DisposeImpl()
         {
-            _starBuffer!.Dispose();
-            _starBuffer = null;
+            _model!.Dispose();
+            _model = null;
             foreach (var subSystem in _subSystems!)
             {
                 subSystem.Dispose();
             }
             _subSystems = null;
-            _guidelines!.Dispose();
-            _guidelines = null;
             _highlightLayer!.Dispose();
             _highlightLayer = null;
         }
@@ -80,8 +74,7 @@ namespace SpaceOpera.View.Scenes
                 subSystem.Draw(target, context);
             }
             _highlightLayer!.Draw(target, context);
-            _guidelines!.Draw(target, context);
-            _starBuffer!.Draw(target, context);
+            _model!.Draw(target, context);
 
             target.PopProjectionMatrix();
             target.PopViewMatrix();
@@ -94,7 +87,7 @@ namespace SpaceOpera.View.Scenes
 
         public void Initialize()
         {
-            _starBuffer!.Initialize();
+            _model!.Initialize();
             foreach (var subSystem in _subSystems!)
             {
                 subSystem.Initialize();
