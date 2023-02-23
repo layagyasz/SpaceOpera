@@ -18,17 +18,19 @@ namespace SpaceOpera.View.StarSystemViews
     {
         private static readonly float s_BorderWidth = 0.01f;
         private static readonly float s_GuidelineScale = 0.0048f;
-        private static readonly Color4 s_GuidelineColor = new(0.7f, 0.5f, 0.5f, 1f);
+        private static readonly Color4 s_GuidelineGoldilocksColor = new(0.5f, 0.7f, 0.5f, 1f);
+        private static readonly Color4 s_GuidelineTransitColor = new(0.7f, 0.5f, 0.7f, 1f);
+        private static readonly Color4 s_GuidelineViableColor = new(0.7f, 0.5f, 0.5f, 1f);
         private static readonly float s_GuidelineResolution = 0.02f * MathHelper.Pi;
         private static readonly float s_LocalOrbitScale = 0.5f;
         private static readonly float s_LocalOrbitY = -0.1f;
         private static readonly Color4 s_OrbitColor = new(0.5f, 0.5f, 0.7f, 1f);
         private static readonly Color4 s_PinColor = new(0.7f, 0.7f, 0.7f, 1f);
         private static readonly float s_PinDashLength = 0.01f;
-        private static readonly Interval s_PinYRange = new(-0.25f, -0.05f);
+        private static readonly Interval s_PinYRange = new(-0.25f, 0f);
         private static readonly float s_PinScale = 0.0004f;
         private static readonly float s_StarScale = 2f;
-        private static readonly float s_StellarBodyScale = 0.04f;
+        private static readonly float s_StellarBodyScale = 0.01f;
 
 
         private static readonly Interval s_RadiusRange = new(0.1f, float.PositiveInfinity);
@@ -66,9 +68,11 @@ namespace SpaceOpera.View.StarSystemViews
                     Enumerable.Repeat(new Vector3(), 1),
                     scale * s_StarScale);
             var guidelines = new ArrayList<Vertex3>();
-            AddGuideline(guidelines, x => scale * MathF.Log(starSystem.InnerBoundary + 1), s_GuidelineColor, scale);
-            AddGuideline(guidelines, x => scale * MathF.Log(starSystem.TransitLimit + 1), s_GuidelineColor, scale);
-            AddGuideline(guidelines, x => scale * MathF.Log(starSystem.OuterBoundary + 1), s_GuidelineColor, scale);
+            AddGuideline(guidelines, starSystem.ViableRange.Maximum, s_GuidelineViableColor, scale);
+            AddGuideline(guidelines, starSystem.ViableRange.Minimum, s_GuidelineViableColor, scale);
+            AddGuideline(guidelines, starSystem.GoldilocksRange.Minimum, s_GuidelineGoldilocksColor, scale);
+            AddGuideline(guidelines, starSystem.GoldilocksRange.Maximum, s_GuidelineGoldilocksColor, scale);
+            AddGuideline(guidelines, starSystem.TransitLimit, s_GuidelineTransitColor, scale);
             for (int i = 0; i < starSystem.Orbiters.Count; ++i)
             {
                 AddGuideline(
@@ -132,6 +136,15 @@ namespace SpaceOpera.View.StarSystemViews
                     new(pinBuffer, PinShader, scale * s_PinScale, scale * s_PinDashLength)),
                 interactors,
                 scale);
+        }
+
+        private static void AddGuideline(ArrayList<Vertex3> vertices, float radius, Color4 color, float scale)
+        {
+            if (!float.IsNaN(radius))
+            {
+                var r = scale * MathF.Log(radius + 1);
+                AddGuideline(vertices, x => r, color, scale);
+            }
         }
 
         private static void AddGuideline(

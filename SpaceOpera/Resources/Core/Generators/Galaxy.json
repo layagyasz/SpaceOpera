@@ -20,7 +20,7 @@
       "star-generator-brown-dwarf": 600000,
       "star-generator-white-dwarf": 800000
     },
-    "TransitLimit": 4,
+    "TransitLimit": 2,
     "StellarBodyDensity": 0.1,
     "ViableThermalRange": [ 0, 500 ],
     "ViableGravitationalRange": [ 3, 40000 ],
@@ -39,12 +39,12 @@
         },
         {
           "Generator": "Resources/Core/Generators/StellarBody/Terran.json",
-          "Weight": 0.5,
+          "Weight": 1,
           "ThermalRange": [ 273, 373 ]
         },
         {
           "Generator": "Resources/Core/Generators/StellarBody/Halic.json",
-          "Weight": 0.5,
+          "Weight": 1,
           "ThermalRange": [ 273, 373 ]
         },
         {

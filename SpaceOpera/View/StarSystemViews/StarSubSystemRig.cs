@@ -46,7 +46,7 @@ namespace SpaceOpera.View.StarSystemViews
             }
             _scale = scale;
             _offset = MathHelper.TwoPi * stellarBody.Orbit.TimeOffset;
-            _step = MathHelper.TwoPi * 0.001f * s_GameYearInMillis / stellarBody.GetYearLengthInMillis();
+            _step = -MathHelper.TwoPi * 0.001f * s_GameYearInMillis / stellarBody.GetYearLengthInMillis();
         }
 
         protected override void DisposeImpl()

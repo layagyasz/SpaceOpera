@@ -18,7 +18,7 @@ namespace SpaceOpera.View.StellarBodyViews
         private readonly static Vector3 s_AtmosphericScattering = 4f * new Vector3(0.1066f, 0.3244f, 0.6830f);
         private readonly static float s_DefaultRadiusInv = 0.000166667f;
         private readonly static int s_SphereSubdivisionsHighRes = 64;
-        private readonly static int s_SphereSubdivisionsLowRes = 8;
+        private readonly static int s_SphereSubdivisionsLowRes = 16;
 
         public Dictionary<Biome, BiomeRenderDetails> BiomeRenderDetails { get; }
         public Library<StellarBodyGenerator> StellarBodyGenerators { get; }

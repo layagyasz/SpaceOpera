@@ -1,3 +1,4 @@
+using Cardamom.Mathematics;
 using Cardamom.Mathematics.Comparers;
 using OpenTK.Mathematics;
 using SpaceOpera.Core.Politics;
@@ -9,8 +10,8 @@ namespace SpaceOpera.Core.Universe
         public string Name { get; private set; } = string.Empty;
         public Vector3 Position { get; }
         public Star Star { get; }
-        public float InnerBoundary { get; }
-        public float OuterBoundary { get; }
+        public Interval ViableRange { get; }
+        public Interval GoldilocksRange { get; }
         public float TransitLimit { get; }
         public List<StellarBody> Orbiters { get; }
         public List<SolarOrbitRegion> OrbitalRegions { get; }
@@ -20,15 +21,15 @@ namespace SpaceOpera.Core.Universe
         public StarSystem(
             Vector3 position,
             Star star, 
-            float innerBoundary,
-            float outerBoundary, 
+            Interval viableRange,
+            Interval goldilocksRange,
             float transitLimit,
             IEnumerable<StellarBody> orbiters)
         {
             Position = position;
             Star = star;
-            InnerBoundary = innerBoundary;
-            OuterBoundary = outerBoundary;
+            ViableRange = viableRange;
+            GoldilocksRange = goldilocksRange;
             TransitLimit = transitLimit;
             Orbiters = orbiters.ToList();
             OrbitalRegions = orbiters.Select(x => new SolarOrbitRegion(new(x))).ToList();

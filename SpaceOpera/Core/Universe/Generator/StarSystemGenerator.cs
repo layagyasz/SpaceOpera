@@ -10,6 +10,8 @@ namespace SpaceOpera.Core.Universe.Generator
 {
     public class StarSystemGenerator
     {
+        private static Interval s_GoldilocksThermalRange = new(273f, 373f);
+
         [JsonConverter(typeof(FromFileJsonConverter))]
         public List<StarGenerator> StarGenerators { get; set; } = new();
         [JsonConverter(typeof(ReferenceDictionaryJsonConverter))]
@@ -37,7 +39,12 @@ namespace SpaceOpera.Core.Universe.Generator
             if (innerBoundary > outerBoundary)
             {
                 return new StarSystem(
-                    position, star, float.NaN, outerBoundary, transitLimit, Enumerable.Empty<StellarBody>());
+                    position, 
+                    star,
+                    new(float.NaN, outerBoundary),
+                    new(float.NaN, float.NaN), 
+                    transitLimit, 
+                    Enumerable.Empty<StellarBody>());
             }
 
             float numBodiesMean = StellarBodyDensity * (outerBoundary - innerBoundary);
@@ -56,7 +63,17 @@ namespace SpaceOpera.Core.Universe.Generator
                 orbiters.Add(stellarBody);
             }
             orbiters.Sort((x, y) => x.Orbit.GetAverageDistance().CompareTo(y.Orbit.GetAverageDistance()));
-            return new StarSystem(position, star, innerBoundary, outerBoundary, transitLimit, orbiters);
+            return new StarSystem(
+                position, 
+                star, 
+                new(innerBoundary, outerBoundary), 
+                Interval.Intersection(
+                    new(innerBoundary, outerBoundary), 
+                    new(
+                        GetDistanceForTemperature(star, s_GoldilocksThermalRange.Maximum),
+                        GetDistanceForTemperature(star, s_GoldilocksThermalRange.Minimum))),
+                transitLimit,
+                orbiters);
         }
 
         private static float GetDistanceForTemperature(Star star, float temperature)

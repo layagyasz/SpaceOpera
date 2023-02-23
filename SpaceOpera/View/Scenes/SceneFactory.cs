@@ -40,7 +40,8 @@ namespace SpaceOpera.View.Scenes
 
         private static readonly float s_StarSystemBorderWidth = 0.01f;
         private static readonly float s_StarSystemScale = 2f;
-        
+
+        private static readonly Interval s_StellarBodyCameraZoomRange = new(1.1f, 10f);
         private static readonly float s_StellarBodySceneStarScale = 1024;
         private static readonly Vector3 s_StellarBodySceneStarPosition = new(0, 0, -1000);
 
@@ -122,16 +123,10 @@ namespace SpaceOpera.View.Scenes
         {
             var model = StarSystemViewFactory.Create(starSystem, s_StarSystemScale);
 
-            var camera = new SubjectiveCamera3d(s_SkyboxRadius + 10);
-            camera.OnCameraChange += (s, e) => model.Dirty();
-            camera.SetDistance(0.05f);
-            camera.SetPitch(-0.125f * MathHelper.Pi);
-            camera.SetYaw(MathHelper.PiOver2);
-
             var distances = new float[starSystem.Orbiters.Count + 1];
-            var outerLimit = MathF.Log(starSystem.OuterBoundary + 1);
+            var outerLimit = MathF.Log(starSystem.ViableRange.Maximum + 1);
             var transitLimit = MathF.Log(starSystem.TransitLimit + 1);
-            distances[0] = MathF.Log(starSystem.InnerBoundary + 1);
+            distances[0] = MathF.Log(starSystem.ViableRange.Minimum + 1);
             distances[^1] = outerLimit;
             for (int i=0; i<starSystem.Orbiters.Count - 1; ++i)
             {
@@ -172,6 +167,11 @@ namespace SpaceOpera.View.Scenes
                         new Disk(s_StarSystemScale * position, Vector3.UnitY, s_StarSystemScale * transitRadius));
             }
 
+            var camera = new SubjectiveCamera3d(s_SkyboxRadius + 10);
+            camera.OnCameraChange += (s, e) => model.Dirty();
+            camera.SetDistance(r);
+            camera.SetPitch(-MathHelper.PiOver2 + 0.01f);
+            camera.SetYaw(MathHelper.PiOver2);
             var controller =
                 new SceneController(
                     new GalaxyCameraController(camera)
@@ -211,17 +211,20 @@ namespace SpaceOpera.View.Scenes
         {
             var model = StellarBodyViewFactory.Create(stellarBody, 1f, true);
             var camera = new SubjectiveCamera3d(s_SkyboxRadius + 10);
-            camera.SetDistance(2);
+            camera.SetDistance(2 * model.Radius);
             camera.SetYaw(MathHelper.PiOver2);
             var controller =
                 new PassthroughController(
-                    new SubjectiveCamera3dController(camera, 1f)
+                    new SubjectiveCamera3dController(camera, model.Radius)
                     {
                         KeySensitivity = 0.0005f,
                         MouseSensitivity = MathHelper.Pi,
                         MouseWheelSensitivity = 0.1f,
                         PitchRange = new(-MathHelper.PiOver2 + 0.01f, MathHelper.PiOver2 - 0.01f),
-                        DistanceRange = new(1.1f, 10)
+                        DistanceRange = 
+                            new(
+                                s_StellarBodyCameraZoomRange.Minimum * model.Radius, 
+                                s_StellarBodyCameraZoomRange.Maximum * model.Radius)
                     });
             float logDistance = MathF.Log(stellarBody.Orbit.GetAverageDistance() + 1);
             var star =
