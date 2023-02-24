@@ -26,6 +26,7 @@ namespace SpaceOpera.Core.Universe.Generator
         private readonly Pipeline _surfacePipeline;
         private readonly IConstantSupplier<Vector2> _scaleParameter;
         private readonly IConstantSupplier<float> _roughnessParameter;
+        private readonly IConstantSupplier<IEnumerable<Classify.Classification>> _biomeParameter;
         private readonly IConstantSupplier<IEnumerable<Classify.Classification>> _surfaceDiffuseParameter;
         private readonly IConstantSupplier<IEnumerable<Classify.Classification>> _surfaceLightingParameter;
 
@@ -37,6 +38,7 @@ namespace SpaceOpera.Core.Universe.Generator
             Pipeline surfacePipeline,
             IConstantSupplier<Vector2> scaleParameter,
             IConstantSupplier<float> roughnessParameter,
+            IConstantSupplier<IEnumerable<Classify.Classification>> biomeParameter,
             IConstantSupplier<IEnumerable<Classify.Classification>> surfaceDiffuseParameter,
             IConstantSupplier<IEnumerable<Classify.Classification>> surfaceLightingParameter)
         {
@@ -47,6 +49,7 @@ namespace SpaceOpera.Core.Universe.Generator
             _surfacePipeline = surfacePipeline;
             _scaleParameter = scaleParameter;
             _roughnessParameter = roughnessParameter;
+            _biomeParameter = biomeParameter;
             _surfaceDiffuseParameter = surfaceDiffuseParameter;
             _surfaceLightingParameter = surfaceLightingParameter;
         }
@@ -57,7 +60,10 @@ namespace SpaceOpera.Core.Universe.Generator
         }
 
         public Biome[] Get(
-            Library<object> parameterValues, Vector3[] positions, StellarBodySurfaceGeneratorResources resources)
+            float temperature, 
+            Library<object> parameterValues,
+            Vector3[] positions,
+            StellarBodySurfaceGeneratorResources resources)
         {
             var data = new Color4[resources.Resolution, resources.Resolution];
             for (int i=0; i<positions.Length; ++i)
@@ -73,6 +79,16 @@ namespace SpaceOpera.Core.Universe.Generator
             {
                 _parameters[parameter.Key].Set(parameter.Value);
             }
+            var biome = new List<Classify.Classification>();
+            for (int i = 0; i < _biomes.Count; ++i)
+            {
+                var option = _biomes[i];
+                if (_biomes[i].ThermalRange.Contains(temperature))
+                {
+                    biome.Add(CreateClassification(option, new(i, i, i, 1f)));
+                }
+            }
+            _biomeParameter.Set(biome);
             var output = _biomeIdPipeline.Run(canvases, input);
             data = output[0].GetTexture().GetData();
 
@@ -87,6 +103,7 @@ namespace SpaceOpera.Core.Universe.Generator
         }
 
         public Material GenerateSurface(
+            float temperature,
             Dictionary<string, object> parameterValues, 
             Func<Biome, Color4> diffuseFn, 
             Func<Biome, Color4> lightingFn,
@@ -104,8 +121,11 @@ namespace SpaceOpera.Core.Universe.Generator
             for (int i = 0; i < _biomes.Count; ++i)
             {
                 var option = _biomes[i];
-                diffuse.Add(CreateClassification(option, diffuseFn(option.Biome!)));
-                lighting.Add(CreateClassification(option, lightingFn(option.Biome!)));
+                if (option.ThermalRange.Contains(temperature))
+                {
+                    diffuse.Add(CreateClassification(option, diffuseFn(option.Biome!)));
+                    lighting.Add(CreateClassification(option, lightingFn(option.Biome!)));
+                }
             }
             _surfaceDiffuseParameter.Set(diffuse);
             _surfaceLightingParameter.Set(lighting);
@@ -116,9 +136,11 @@ namespace SpaceOpera.Core.Universe.Generator
             return new(surface[0].GetTexture(), surface[2].GetTexture(), surface[1].GetTexture());
         }
 
-        public bool IsHomogenous()
+        public bool IsHomogenous(float temperature)
         {
-            return _biomes.Aggregate(0, (x, y) => x | (y.Biome!.IsTraversable ? 2 : 1)) != 3;
+            return _biomes
+                .Where(x => x.ThermalRange.Contains(temperature))
+                .Aggregate(0, (x, y) => x | (y.Biome!.IsTraversable ? 2 : 1)) != 3;
         }
 
         private static Classify.Classification CreateClassification(BiomeOption option, Color4 color)
@@ -147,12 +169,7 @@ namespace SpaceOpera.Core.Universe.Generator
             {
                 var biomePipeline = Pipeline!.Clone();
                 biomePipeline.AddNode(new InputNode.Builder().SetKey("position").SetIndex(0));
-                var classifications = new List<Classify.Classification>();
-                for (int i=0; i<BiomeOptions!.Count; ++i)
-                {
-                    var option = BiomeOptions[i];
-                    classifications.Add(CreateClassification(option, new(i, i, i, 1)));
-                }
+                var biomeParameter = new ConstantSupplier<IEnumerable<Classify.Classification>>();
                 biomePipeline.AddNode(
                     new ClassifyNode.Builder()
                         .SetKey("biome")
@@ -161,9 +178,7 @@ namespace SpaceOpera.Core.Universe.Generator
                         .SetParameters(
                             new ClassifyNode.Parameters()
                             {
-                                Classifications = 
-                                    ConstantSupplier<IEnumerable<Classify.Classification>>
-                                        .Create<IEnumerable<Classify.Classification>>(classifications)
+                                Classifications = biomeParameter
                             }));
                 biomePipeline.AddOutput("biome");
 
@@ -243,6 +258,7 @@ namespace SpaceOpera.Core.Universe.Generator
                     surfacePipeline.Build(),
                     scaleParameter,
                     roughnessParameter,
+                    biomeParameter,
                     diffuseParameter,
                     lightingParameter);
             }

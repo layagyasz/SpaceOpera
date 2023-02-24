@@ -1,3 +1,4 @@
+using MathNet.Numerics;
 using OpenTK.Mathematics;
 
 namespace SpaceOpera.Core.Universe
@@ -38,6 +39,12 @@ namespace SpaceOpera.Core.Universe
         public float GetDistance(float angle)
         {
             return 0.5f * MajorAxis * (1 - Eccentricity * Eccentricity) / (1 + Eccentricity * MathF.Cos(angle));
+        }
+
+        public float GetStellarTemperature()
+        {
+            return 3 * Focus.Temperature * MathF.Sqrt(Focus.Radius) 
+                / (4 * MathF.Sqrt(GetAverageDistance() / Constants.AstralUnit));
         }
     }
 }

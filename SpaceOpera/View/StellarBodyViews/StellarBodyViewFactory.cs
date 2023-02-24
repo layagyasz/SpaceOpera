@@ -63,6 +63,7 @@ namespace SpaceOpera.View.StellarBodyViews
             var material = StellarBodyGenerators[stellarBody.Type]
                 .SurfaceGenerator!
                     .GenerateSurface(
+                        stellarBody.Orbit.GetStellarTemperature(),
                         stellarBody.Parameters,
                         x => BiomeRenderDetails[x].GetColor(peakColor, scatteredColor),
                         x => BiomeRenderDetails[x].GetLighting(),

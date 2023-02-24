@@ -338,6 +338,7 @@
     "BiomeOptions": [
       {
         "Biome": "biome-ice-barren",
+        "ThermalRange": [ 0, 273 ],
         "Center": [ 0, 0, 0, 0 ],
         "AxisWeight": [ 1, 0, 0, 0 ],
         "Weight": 8,

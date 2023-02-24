@@ -108,8 +108,10 @@ namespace SpaceOpera.Core.Universe.Generator
             result.Neighbors.Add(result.EdgeIndices);
             centers[subRegionCount - 1] = new(0, 1, 0);
 
+            var temp = orbit.GetStellarTemperature();
             var parameters = SurfaceGenerator!.Generate(random);
-            Biome[] biomes = SurfaceGenerator!.Get(parameters, centers, context.StellarBodySurfaceGeneratorResources);
+            Biome[] biomes = 
+                SurfaceGenerator!.Get(temp, parameters, centers, context.StellarBodySurfaceGeneratorResources);
             List<SubRegionWrapper> subRegionWrappers = new();
             for (int i=0;i<subRegionCount;++i)
             {
@@ -144,7 +146,7 @@ namespace SpaceOpera.Core.Universe.Generator
                 regionWrappers.Add(region);
             }
 
-            bool homogenous = SurfaceGenerator.IsHomogenous();
+            bool homogenous = SurfaceGenerator.IsHomogenous(temp);
             foreach (var partition in 
                 SeededGraphPartition.Compute<RegionWrapper, SubRegionWrapper>(regionWrappers, x => true))
             {
