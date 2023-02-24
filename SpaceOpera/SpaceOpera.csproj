@@ -51,6 +51,9 @@
     <None Update="Resources\Core\Designs\Ship\Ship.Classification.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\Core\Generators\StellarBody\Ferrous.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\Core\Generators\StellarBody\Halic.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

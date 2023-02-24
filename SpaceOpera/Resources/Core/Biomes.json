@@ -38,6 +38,16 @@
     ]
   },
   {
+    "$id": "biome-ferrous",
+    "Name": "Ferrous",
+    "IsHabitable": false,
+    "IsTraversable": true,
+    "Modifiers": [
+      "modifier-biome-barren",
+      "modifier-biome-inorganic"
+    ]
+  },
+  {
     "$id": "biome-ferrous-plains",
     "Name": "Ferrous Plains",
     "IsHabitable": false,
@@ -98,6 +108,16 @@
     ]
   },
   {
+    "$id": "biome-ice-ferrous",
+    "Name": "Ice",
+    "IsHabitable": false,
+    "IsTraversable": true,
+    "Modifiers": [
+      "modifier-biome-barren",
+      "modifier-biome-inorganic"
+    ]
+  },
+  {
     "$id": "biome-jungle",
     "Name": "Jungle",
     "IsHabitable": true,
@@ -124,6 +144,12 @@
   },
   {
     "$id": "biome-ocean",
+    "Name": "Ocean",
+    "IsHabitable": true,
+    "IsTraversable": false
+  },
+  {
+    "$id": "biome-ocean-ferrous",
     "Name": "Ocean",
     "IsHabitable": true,
     "IsTraversable": false

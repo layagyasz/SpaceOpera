@@ -50,6 +50,10 @@
         {
           "Generator": "Resources/Core/Generators/StellarBody/Cytherean.json",
           "Weight": 0.125
+        },
+        {
+          "Generator": "Resources/Core/Generators/StellarBody/Ferrous.json",
+          "Weight": 0.125
         }
       ]
     }

@@ -15,6 +15,13 @@
     "Roughness": 0.25
   },
   {
+    "$id": "biome-ferrous",
+    "Color": "#da7758",
+    "SpecularCoefficient": 0.25,
+    "SpecularFactor": 128,
+    "Roughness": 1
+  },
+  {
     "$id": "biome-ferrous-mountains",
     "Color": "#a76a55",
     "Roughness": 1
@@ -59,6 +66,13 @@
     "Roughness": 0.1
   },
   {
+    "$id": "biome-ice-ferrous",
+    "Color": "#f6ea8d",
+    "SpecularCoefficient": 1,
+    "SpecularFactor": 128,
+    "Roughness": 0.1
+  },
+  {
     "$id": "biome-jungle",
     "ColorMode": "SolarPeakOutput",
     "SolarColorTransform": {
@@ -84,6 +98,13 @@
     "SpecularCoefficient": 2,
     "SpecularFactor": 128,
     "Color": "#1b3755",
+    "Roughness": 0
+  },
+  {
+    "$id": "biome-ocean-ferrous",
+    "SpecularCoefficient": 2,
+    "SpecularFactor": 128,
+    "Color": "#743116",
     "Roughness": 0
   },
   {
