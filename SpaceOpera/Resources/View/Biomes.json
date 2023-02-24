@@ -41,6 +41,20 @@
     "Roughness": 0.25
   },
   {
+    "$id": "biome-hematite-mountains",
+    "Color": "#020202",
+    "SpecularCoefficient": 0.25,
+    "SpecularFactor": 128,
+    "Roughness": 1
+  },
+  {
+    "$id": "biome-hematite-plains",
+    "Color": "#7c7c7c",
+    "SpecularCoefficient": 0.1,
+    "SpecularFactor": 128,
+    "Roughness": 0.25
+  },
+  {
     "$id": "biome-forest",
     "ColorMode": "SolarPeakOutput",
     "SolarColorTransform": {
@@ -104,6 +118,18 @@
       "Lightness": 0.56
     },
     "Roughness": 0.25
+  },
+  {
+    "$id": "biome-malachite-mountains",
+    "Color": "#007000",
+    "SpecularCoefficient": 0.25,
+    "SpecularFactor": 128,
+    "Roughness": 1
+  },
+  {
+    "$id": "biome-malachite-plains",
+    "Color": "#49744e",
+    "Roughness": 0.1
   },
   {
     "$id": "biome-methane-band",

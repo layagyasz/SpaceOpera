@@ -86,6 +86,26 @@
     ]
   },
   {
+    "$id": "biome-hematite-plains",
+    "Name": "Hematite Plains",
+    "IsHabitable": false,
+    "IsTraversable": true,
+    "Modifiers": [
+      "modifier-biome-barren",
+      "modifier-biome-inorganic"
+    ]
+  },
+  {
+    "$id": "biome-hematite-mountains",
+    "Name": "Hematite Mountains",
+    "IsHabitable": false,
+    "IsTraversable": true,
+    "Modifiers": [
+      "modifier-biome-barren",
+      "modifier-biome-inorganic"
+    ]
+  },
+  {
     "$id": "biome-forest",
     "Name": "Forest",
     "IsHabitable": true,
@@ -158,6 +178,26 @@
     "Name": "Jungle",
     "IsHabitable": true,
     "IsTraversable": true
+  },
+  {
+    "$id": "biome-malachite-plains",
+    "Name": "Malachite Plains",
+    "IsHabitable": false,
+    "IsTraversable": true,
+    "Modifiers": [
+      "modifier-biome-barren",
+      "modifier-biome-inorganic"
+    ]
+  },
+  {
+    "$id": "biome-malachite-mountains",
+    "Name": "Malachite Mountains",
+    "IsHabitable": false,
+    "IsTraversable": true,
+    "Modifiers": [
+      "modifier-biome-barren",
+      "modifier-biome-inorganic"
+    ]
   },
   {
     "$id": "biome-methane-band",
