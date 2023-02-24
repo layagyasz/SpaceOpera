@@ -35,12 +35,12 @@ namespace SpaceOpera
             IGameScene scene;
             GameController controller;
             GameDriver driver;
-            int mode = 1;
+            int mode = 2;
             if (mode == 1)
             {
                 var planetGenerator =
                     coreData.GalaxyGenerator!.StarSystemGenerator!.StellarBodySelector!.Options
-                        .First(x => x.Generator!.Key == "planet-generator-ferrous").Generator!;
+                        .First(x => x.Generator!.Key == "planet-generator-carbide").Generator!;
                 var orbitGenerator = coreData.GalaxyGenerator!.StarSystemGenerator!.OrbitGenerator!;
                 var starGenerator =
                     coreData.GalaxyGenerator!.StarSystemGenerator!.StarGenerators

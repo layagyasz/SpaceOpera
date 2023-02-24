@@ -54,6 +54,10 @@
         {
           "Generator": "Resources/Core/Generators/StellarBody/Ferrous.json",
           "Weight": 0.125
+        },
+        {
+          "Generator": "Resources/Core/Generators/StellarBody/Carbide.json",
+          "Weight": 0.05
         }
       ]
     }

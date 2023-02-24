@@ -15,6 +15,15 @@
     "Roughness": 0.25
   },
   {
+    "$id": "biome-carbide-plains",
+    "Color": "#5a3724",
+    "Roughness": 0.25
+  },
+  {
+    "$id": "biome-carbide-mountains",
+    "Color": "#202020"
+  },
+  {
     "$id": "biome-ferrous",
     "Color": "#da7758",
     "SpecularCoefficient": 0.25,
@@ -59,6 +68,20 @@
     "Roughness": 0.1
   },
   {
+    "$id": "biome-ice-alkane",
+    "Color": "#8daac9",
+    "SpecularCoefficient": 1,
+    "SpecularFactor": 128,
+    "Roughness": 0.1
+  },
+  {
+    "$id": "biome-ice-carbide",
+    "Color": "#ccac99",
+    "SpecularCoefficient": 0.25,
+    "SpecularFactor": 128,
+    "Roughness": 0.1
+  },
+  {
     "$id": "biome-ice-barren",
     "Color": "#f0f8ff",
     "SpecularCoefficient": 1,
@@ -98,6 +121,13 @@
     "SpecularCoefficient": 2,
     "SpecularFactor": 128,
     "Color": "#1b3755",
+    "Roughness": 0
+  },
+  {
+    "$id": "biome-ocean-carbide",
+    "SpecularCoefficient": 0.5,
+    "SpecularFactor": 128,
+    "Color": "#7a4e33",
     "Roughness": 0
   },
   {

@@ -38,6 +38,24 @@
     ]
   },
   {
+    "$id": "biome-carbide-plains",
+    "Name": "Carbide Plains",
+    "IsHabitable": false,
+    "IsTraversable": true,
+    "Modifiers": [
+      "modifier-biome-barren"
+    ]
+  },
+  {
+    "$id": "biome-carbide-mountains",
+    "Name": "Carbide Mountains",
+    "IsHabitable": false,
+    "IsTraversable": true,
+    "Modifiers": [
+      "modifier-biome-barren"
+    ]
+  },
+  {
     "$id": "biome-ferrous",
     "Name": "Ferrous",
     "IsHabitable": false,
@@ -98,6 +116,15 @@
     ]
   },
   {
+    "$id": "biome-ice-alkane",
+    "Name": "Ice",
+    "IsHabitable": false,
+    "IsTraversable": true,
+    "Modifiers": [
+      "modifier-biome-barren"
+    ]
+  },
+  {
     "$id": "biome-ice-barren",
     "Name": "Ice",
     "IsHabitable": false,
@@ -105,6 +132,15 @@
     "Modifiers": [
       "modifier-biome-barren",
       "modifier-biome-inorganic"
+    ]
+  },
+  {
+    "$id": "biome-ice-carbide",
+    "Name": "Ice",
+    "IsHabitable": false,
+    "IsTraversable": true,
+    "Modifiers": [
+      "modifier-biome-barren"
     ]
   },
   {
@@ -144,6 +180,12 @@
   },
   {
     "$id": "biome-ocean",
+    "Name": "Ocean",
+    "IsHabitable": true,
+    "IsTraversable": false
+  },
+  {
+    "$id": "biome-ocean-carbide",
     "Name": "Ocean",
     "IsHabitable": true,
     "IsTraversable": false

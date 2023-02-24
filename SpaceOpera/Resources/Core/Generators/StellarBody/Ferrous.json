@@ -13,8 +13,8 @@
     "RegionDensity": 0.000175,
     "TotalPressureSampler": {
       "$type": "Normal",
-      "Mean": 0.006,
-      "StandardDeviation": 0.01
+      "Mean": 0.06,
+      "StandardDeviation": 0.1
     },
     "PartialPressureSamplers": {
       "material-carbox-gas": {
@@ -338,6 +338,7 @@
     "BiomeOptions": [
       {
         "Biome": "biome-ice-ferrous",
+        "ThermalRange": [ 0, 376 ],
         "Center": [ 0, 0, 0, 0 ],
         "AxisWeight": [ 1, 0, 0, 0 ],
         "Weight": 8,
@@ -345,6 +346,7 @@
       },
       {
         "Biome": "biome-ocean-ferrous",
+        "ThermalRange": [ 252, 480 ],
         "Center": [ 0, 0, 0, 0 ],
         "AxisWeight": [ 0, 1, 0, 0 ],
         "Weight": 32,
