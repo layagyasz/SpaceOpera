@@ -194,7 +194,11 @@ namespace SpaceOpera.View.Scenes
                 model,
                 StellarBodyViewFactory.SurfaceShader,
                 StellarBodyViewFactory.AtmosphereShader,
-                new(new(), model.GetLightColor(), GetLuminance(starSystem.Star), 1f / s_StarSystemScale),
+                new(
+                    new(), 
+                    model.GetLightColor(), 
+                    GetLuminance(starSystem.Star), 
+                    1f / (s_StarSystemScale * s_StarSystemScale)),
                 rigs,
                 interactors,
                 new(
@@ -214,7 +218,7 @@ namespace SpaceOpera.View.Scenes
             camera.SetDistance(2 * model.Radius);
             camera.SetYaw(MathHelper.PiOver2);
             var controller =
-                new PassthroughController(
+                new SceneController(
                     new SubjectiveCamera3dController(camera, model.Radius)
                     {
                         KeySensitivity = 0.0005f,

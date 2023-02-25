@@ -38,7 +38,6 @@ namespace SpaceOpera.View
 
         public void SetScene(IGameScene scene)
         {
-            Scene?.Dispose();
             Scene = scene;
             Scene.ResizeContext(_bounds);
         }

@@ -58,7 +58,7 @@ namespace SpaceOpera.Controller.Scenes
         {
             Clicked?.Invoke(this, e);
             var system = _systems.GetClosest(new HyperVector(e.Position.X, e.Position.Z));
-            Interacted?.Invoke(this, UiInteractionEventArgs.Click(system, e.Button));
+            Interacted?.Invoke(this, UiInteractionEventArgs.Create(system, e.Button));
             return true;
         }
 

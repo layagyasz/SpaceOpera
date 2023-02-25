@@ -32,10 +32,10 @@ namespace SpaceOpera
             var generatorContext = 
                 new GeneratorContext(logger, StellarBodySurfaceGeneratorResources.CreateForGenerator(), new());
             var calendar = new StarCalendar(0);
-            IGameScene scene;
+            object scene;
             GameController controller;
             GameDriver driver;
-            int mode = 2;
+            int mode = 3;
             if (mode == 1)
             {
                 var planetGenerator =
@@ -49,22 +49,22 @@ namespace SpaceOpera
                     planetGenerator.Generate(
                         orbitGenerator.Generate(starGenerator.Generate(generatorContext), 1f, generatorContext), 
                         generatorContext);
-                scene = viewFactory.SceneFactory.Create(planet);
-                controller = new GameController(null, viewFactory, logger);
+                scene = planet;
+                controller = new GameController(ui, null, viewFactory, logger);
                 driver = new(null, calendar);
             }
             else if (mode == 2)
             {
                 var system = coreData.GalaxyGenerator!.StarSystemGenerator!.Generate(new(), generatorContext);
-                scene = viewFactory.SceneFactory.Create(system, calendar);
-                controller = new GameController(null, viewFactory, logger);
+                scene = system;
+                controller = new GameController(ui, null, viewFactory, logger);
                 driver = new(null, calendar);
             }
             else if (mode == 3)
             {
                 var galaxy = coreData.GalaxyGenerator!.Generate(generatorContext);
-                scene = viewFactory.SceneFactory.Create(galaxy);
-                controller = new GameController(null, viewFactory, logger);
+                scene = galaxy;
+                controller = new GameController(ui, null, viewFactory, logger);
                 driver = new(null, calendar);
             }
             else if (mode == 4)
@@ -74,8 +74,8 @@ namespace SpaceOpera
                 var playerFaction =
                     coreData.PoliticsGenerator!.Faction!.Generate(playerCulture, playerBanner, generatorContext);
                 var world = WorldGenerator.Generate(playerCulture, playerFaction, coreData, generatorContext);
-                scene = viewFactory.SceneFactory.Create(world.Galaxy);
-                controller = new GameController(world, viewFactory, logger);
+                scene = world.Galaxy;
+                controller = new GameController(ui, world, viewFactory, logger);
                 driver = new(world, world.GetUpdater());
             }
             else
@@ -85,7 +85,7 @@ namespace SpaceOpera
             var screen = new GameScreen(controller, Enumerable.Empty<IUiLayer>());
             driver.Start();
             screen.Initialize();
-            controller.ChangeScene(scene);
+            controller.PushScene(scene);
             ui.SetRoot(screen);
             ui.Start();
         }

@@ -5,45 +5,48 @@ namespace SpaceOpera.Controller
     public class UiInteractionEventArgs
     {
         public List<object> Objects { get; }
-        public UiInteractionType Type { get; }
+        public MouseButton? Button { get; }
+        public Keys? Key { get; }
 
-        private UiInteractionEventArgs(IEnumerable<object> Objects, UiInteractionType Type)
+        private UiInteractionEventArgs(IEnumerable<object> objects, MouseButton? button, Keys? key)
         {
-            this.Objects = Objects.ToList();
-            this.Type = Type;
+            Objects = objects.ToList();
+            Button = button;
+            Key = key;
         }
 
-        public static UiInteractionEventArgs Create(object Object, UiInteractionType Type)
+        public static UiInteractionEventArgs Create(object @object, MouseButton button)
         {
-            return new UiInteractionEventArgs(Enumerable.Repeat(Object, 1), Type);
+            return new(Enumerable.Repeat(@object, 1), button, null);
         }
 
-        public static UiInteractionEventArgs Create<T>(IEnumerable<T> Objects, UiInteractionType Type)
+        public static UiInteractionEventArgs Create<T>(IEnumerable<T> objects, MouseButton button)
         {
-            return new UiInteractionEventArgs(Objects.Cast<object>(), Type);
+            return new(objects.Cast<object>(), button, null);
         }
 
-        public static UiInteractionEventArgs Click(object Object, MouseButton button)
+        public static UiInteractionEventArgs Create(object @object, Keys key)
         {
-            return Create(Object, ToInteractionType(button));
+            return new(Enumerable.Repeat(@object, 1), null, key);
+        }
+
+        public static UiInteractionEventArgs Create<T>(IEnumerable<T> objects, Keys key)
+        {
+            return new(objects.Cast<object>(), null, key);
+        }
+
+        public object? GetOnlyObject()
+        {
+            return Objects.Count == 1 ? Objects[0] : null;
         }
 
         public override string ToString()
         {
             return string.Format(
-                "[UiInteractionEventArgs: Objects={0}, Type={1}]",
+                "[UiInteractionEventArgs: Objects={0}, Button={1}, Key={2}]",
                 string.Join(",", Objects.Select(x => x.GetType())),
-                Type);
-        }
-
-        private static UiInteractionType ToInteractionType(MouseButton button)
-        {
-            return button switch
-            {
-                MouseButton.Left => UiInteractionType.Click,
-                MouseButton.Right => UiInteractionType.RightClick,
-                _ => UiInteractionType.Unknown,
-            };
+                Button,
+                Key);
         }
     }
 }

@@ -31,7 +31,7 @@ namespace SpaceOpera.Controller.Scenes
             return false;
         }
 
-        public bool HandleTextEntered(TextEnteredEventArgs e)
+        public virtual bool HandleTextEntered(TextEnteredEventArgs e)
         {
             return false;
         }

@@ -19,6 +19,12 @@ namespace SpaceOpera.Controller.Scenes
             return _cameraController.HandleKeyDown(e);
         }
 
+        public override bool HandleTextEntered(TextEnteredEventArgs e)
+        {
+            Interacted?.Invoke(this, UiInteractionEventArgs.Create(Enumerable.Empty<object>(), e.Key));
+            return true;
+        }
+
         public override bool HandleMouseButtonDragged(MouseButtonDragEventArgs e)
         {
             return _cameraController.HandleMouseButtonDragged(e);

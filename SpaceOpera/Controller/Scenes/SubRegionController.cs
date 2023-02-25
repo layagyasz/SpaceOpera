@@ -45,7 +45,7 @@ namespace SpaceOpera.Controller.Scenes
         public bool HandleMouseButtonClicked(MouseButtonClickEventArgs e)
         {
             Clicked?.Invoke(this, e);
-            Interacted?.Invoke(this, UiInteractionEventArgs.Click(_subRegion, e.Button));
+            Interacted?.Invoke(this, UiInteractionEventArgs.Create(_subRegion, e.Button));
             return true;
         }
 
