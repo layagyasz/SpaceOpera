@@ -356,43 +356,31 @@
         "Biome": "biome-ferrous",
         "Center": [ 0, 0, 0, 0 ],
         "AxisWeight": [ 0, 0, 1, 0 ],
-        "BlendRange": 2.0
+        "BlendRange": 1.0
       },
       {
         "Biome": "biome-ferrous-plains",
-        "Center": [ 0, 0, 0.33, 0 ],
-        "AxisWeight": [ 0, 1, 1, 0 ],
+        "Center": [ 0, 1, 0.5, 0 ],
+        "AxisWeight": [ 0, 0.25, 2, 0 ],
         "BlendRange": 0.4
       },
       {
         "Biome": "biome-ferrous-mountains",
-        "Center": [ 0, 1, 0.33, 0 ],
-        "AxisWeight": [ 0, 2, 0.5, 0 ],
-        "BlendRange": 0.4
-      },
-      {
-        "Biome": "biome-malachite-plains",
-        "Center": [ 0, 0, 0.67, 0 ],
-        "AxisWeight": [ 0, 1, 4, 0 ],
-        "BlendRange": 0.4
-      },
-      {
-        "Biome": "biome-malachite-mountains",
-        "Center": [ 0, 1, 0.67, 0 ],
+        "Center": [ 0, 1, 0.5, 0 ],
         "AxisWeight": [ 0, 2, 2, 0 ],
         "BlendRange": 0.4
       },
       {
         "Biome": "biome-hematite-plains",
-        "Center": [ 0, 0, 1, 0 ],
-        "AxisWeight": [ 0, 1, 0.5, 0 ],
-        "BlendRange": 0.6
+        "Center": [ 0, 1, 1, 0 ],
+        "AxisWeight": [ 0, 0.25, 1, 0 ],
+        "BlendRange": 0.4
       },
       {
         "Biome": "biome-hematite-mountains",
         "Center": [ 0, 1, 1, 0 ],
-        "AxisWeight": [ 0, 1, 0.5, 0 ],
-        "BlendRange": 0.6
+        "AxisWeight": [ 0, 2, 2, 0 ],
+        "BlendRange": 0.4
       }
     ]
   }

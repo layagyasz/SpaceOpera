@@ -110,6 +110,7 @@ namespace SpaceOpera.Core.Universe.Generator
             StellarBodySurfaceGeneratorResources resources,
             ILogger logger)
         {
+            logger.AtInfo().Log($"stellar-temperature = {temperature}");
             foreach (var parameter in parameterValues)
             {
                 logger.AtInfo().Log($"{parameter.Key} = {parameter.Value}");
