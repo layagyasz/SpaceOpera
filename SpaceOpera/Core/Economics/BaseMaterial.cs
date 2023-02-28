@@ -6,6 +6,6 @@
         public string Name { get; set; } = string.Empty;
         public float Mass { get; set; }
         public float Size { get; set; }
-        public MaterialType Type { get; set; }
+        public MaterialType Type { get; set; } = MaterialType.MaterialContinuous;
     }
 }

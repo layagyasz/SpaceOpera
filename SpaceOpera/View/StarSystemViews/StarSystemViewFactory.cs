@@ -66,7 +66,8 @@ namespace SpaceOpera.View.StarSystemViews
                 StarViewFactory.CreateView(
                     Enumerable.Repeat(starSystem.Star, 1),
                     Enumerable.Repeat(new Vector3(), 1),
-                    scale * s_StarScale);
+                    scale * s_StarScale,
+                    /* depthTest= */ true);
             var guidelines = new ArrayList<Vertex3>();
             AddGuideline(guidelines, starSystem.ViableRange.Maximum, s_GuidelineViableColor, scale);
             AddGuideline(guidelines, starSystem.ViableRange.Minimum, s_GuidelineViableColor, scale);

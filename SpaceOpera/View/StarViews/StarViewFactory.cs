@@ -23,7 +23,8 @@ namespace SpaceOpera.View.StarViews
             HumanEyeSensitivity = humanEyeSensitivity;
         }
 
-        public StarBuffer CreateView(IEnumerable<Star> stars, IEnumerable<Vector3> positions, float scale)
+        public StarBuffer CreateView(
+            IEnumerable<Star> stars, IEnumerable<Vector3> positions, float scale, bool depthTest)
         {
             var vertices = new VertexPseudo3[stars.Count()];
             var starEnumerator = stars.GetEnumerator();
@@ -33,7 +34,7 @@ namespace SpaceOpera.View.StarViews
             {
                 vertices[i++] = CreateVertex(starEnumerator.Current, positionEnumerator.Current, scale);
             }
-            return new StarBuffer(vertices, StarShader);
+            return new StarBuffer(vertices, StarShader, depthTest);
         }
 
         private VertexPseudo3 CreateVertex(Star star, Vector3 position, float scale)

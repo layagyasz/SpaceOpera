@@ -13,8 +13,8 @@
     "RegionDensity": 0.000175,
     "TotalPressureSampler": {
       "$type": "Normal",
-      "Mean": 0.06,
-      "StandardDeviation": 0.1
+      "Mean": 0.006,
+      "StandardDeviation": 0.01
     },
     "PartialPressureSamplers": {
       "material-carbox-gas": {
@@ -64,7 +64,7 @@
       "stellar-body-generator-ferrous-oxide-offset": {
         "Type": "Cardamom.Utils.Generators.Numeric.FloatGenerator, Cardamom",
         "Object": {
-          "Range": [ -0.5, 1.5 ]
+          "Range": [ 0, 1.5 ]
         }
       }
     },
@@ -362,25 +362,25 @@
         "Biome": "biome-ferrous-plains",
         "Center": [ 0, 1, 0.5, 0 ],
         "AxisWeight": [ 0, 0.25, 2, 0 ],
-        "BlendRange": 0.4
+        "BlendRange": 0.5
       },
       {
         "Biome": "biome-ferrous-mountains",
         "Center": [ 0, 1, 0.5, 0 ],
         "AxisWeight": [ 0, 2, 2, 0 ],
-        "BlendRange": 0.4
+        "BlendRange": 0.5
       },
       {
         "Biome": "biome-hematite-plains",
         "Center": [ 0, 1, 1, 0 ],
         "AxisWeight": [ 0, 0.25, 1, 0 ],
-        "BlendRange": 0.4
+        "BlendRange": 0.5
       },
       {
         "Biome": "biome-hematite-mountains",
         "Center": [ 0, 1, 1, 0 ],
         "AxisWeight": [ 0, 2, 2, 0 ],
-        "BlendRange": 0.4
+        "BlendRange": 0.5
       }
     ]
   }

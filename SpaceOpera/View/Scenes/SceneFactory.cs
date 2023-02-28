@@ -235,7 +235,8 @@ namespace SpaceOpera.View.Scenes
                 StarViewFactory.CreateView(
                     Enumerable.Repeat(stellarBody.Orbit.Focus, 1),
                     Enumerable.Repeat(s_StellarBodySceneStarPosition, 1),
-                    s_StellarBodySceneStarScale / (MathF.Log(stellarBody.Orbit.MajorAxis) + 1));
+                    s_StellarBodySceneStarScale / (MathF.Log(stellarBody.Orbit.MajorAxis) + 1),
+                    /* depthTest= */ false);
             _skyBox ??= CreateSkybox();
             return new StellarBodyScene(
                 controller, 

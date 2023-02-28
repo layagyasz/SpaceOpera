@@ -25,7 +25,7 @@
   },
   {
     "$id": "biome-ferrous",
-    "Color": "#da7758",
+    "Color": "#bcbcbc",
     "SpecularCoefficient": 0.25,
     "SpecularFactor": 128,
     "Roughness": 1

@@ -35,7 +35,7 @@ namespace SpaceOpera
             object scene;
             GameController controller;
             GameDriver driver;
-            int mode = 3;
+            int mode = 4;
             if (mode == 1)
             {
                 var planetGenerator =

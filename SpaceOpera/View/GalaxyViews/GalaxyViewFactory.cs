@@ -72,7 +72,8 @@ namespace SpaceOpera.View.GalaxyViews
             return new GalaxyModel(
                 StarViewFactory.CreateView(galaxy.Systems.Select(x => x.Star),
                     galaxy.Systems.Select(x => scale * x.Position),
-                    s_StarScale * scale),
+                    s_StarScale * scale,
+                    /* depthTest= */ false),
                 new(transitBuffer, TransitShader),
                 new(pinBuffer, PinShader, scale * s_PinScale, scale * s_PinDashLength));
         }

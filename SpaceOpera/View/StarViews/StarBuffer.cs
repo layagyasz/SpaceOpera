@@ -14,16 +14,18 @@ namespace SpaceOpera.View.StarViews
         private readonly VertexPseudo3[] _zBuffer;
         private VertexBuffer<VertexPseudo3>? _buffer;
         private readonly RenderShader _shader;
+        private readonly bool _depthTest;
 
         private bool _dirty;
         private float _cycle;
 
-        public StarBuffer(VertexPseudo3[] vertices, RenderShader shader)
+        public StarBuffer(VertexPseudo3[] vertices, RenderShader shader, bool depthTest)
         {
             _vertices = vertices;
             _zBuffer = new VertexPseudo3[_vertices.Length];
             _buffer = new(PrimitiveType.Points);
             _shader = shader;
+            _depthTest = depthTest;
             Dirty();
         }
 
@@ -53,7 +55,11 @@ namespace SpaceOpera.View.StarViews
                 _buffer!, 
                 0, 
                 _buffer!.Length, 
-                new RenderResources(BlendMode.Alpha, _shader) { IsPretransformed = true });
+                new RenderResources(BlendMode.Alpha, _shader)
+                { 
+                    IsPretransformed = true, 
+                    EnableDepthTest = _depthTest 
+                });
         }
 
         public void Update(long delta)

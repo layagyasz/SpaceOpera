@@ -55,7 +55,6 @@ namespace SpaceOpera.Controller
             {
                 _scenes.Push(_screen.Scene);
             }
-            _logger.AtInfo().Log($"{_scenes.Count}");
             ChangeSceneTo(sceneObject, /* cleanUp= */ false);
         }
 
@@ -63,7 +62,6 @@ namespace SpaceOpera.Controller
         {
             if(_scenes.TryPop(out var scene))
             {
-                _logger.AtInfo().Log($"{_scenes.Count}");
                 ChangeSceneTo(scene, /* cleanUp= */ true);
             }
         }

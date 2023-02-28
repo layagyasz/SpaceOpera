@@ -182,6 +182,7 @@
     <Folder Include="Resources\Core\Designs\ShipWeapon\" />
     <Folder Include="Resources\Core\Designs\ShipShield\" />
     <Folder Include="Resources\Core\Designs\Ship\" />
+    <Folder Include="Resources\View\Icons\" />
   </ItemGroup>
 
 </Project>
