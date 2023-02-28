@@ -1,3 +1,6 @@
 {
-  "Shaders": "Resources/View/Shaders/Shaders.json"
+  "Shaders": "Resources/View/Shaders/Shaders.json",
+  "Textures": {
+    "Volumes": [ "Resources/View/Textures.json" ]
+  }
 }
