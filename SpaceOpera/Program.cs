@@ -8,7 +8,6 @@ using SpaceOpera.Controller;
 using SpaceOpera.Core;
 using SpaceOpera.Core.Universe.Generator;
 using SpaceOpera.View;
-using SpaceOpera.View.Scenes;
 
 namespace SpaceOpera
 {
@@ -28,6 +27,7 @@ namespace SpaceOpera
             var coreData = CoreData.LoadFrom("Resources/Core/CoreData.json", logger);
             var viewData = ViewData.LoadFrom("Resources/View/ViewData.json");
             var viewFactory = ViewFactory.Create(viewData, coreData, logger);
+            viewData.GameResources!.DumpTextures();
 
             var generatorContext = 
                 new GeneratorContext(logger, StellarBodySurfaceGeneratorResources.CreateForGenerator(), new());
@@ -35,7 +35,7 @@ namespace SpaceOpera
             object scene;
             GameController controller;
             GameDriver driver;
-            int mode = 4;
+            int mode = 1;
             if (mode == 1)
             {
                 var planetGenerator =
@@ -82,7 +82,7 @@ namespace SpaceOpera
             {
                 throw new ArgumentException();
             }
-            var screen = new GameScreen(controller, Enumerable.Empty<IUiLayer>());
+            var screen = viewFactory.CreateGameScreen(controller);
             driver.Start();
             screen.Initialize();
             controller.PushScene(scene);

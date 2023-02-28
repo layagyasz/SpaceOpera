@@ -2,5 +2,6 @@
   "Shaders": "Resources/View/Shaders/Shaders.json",
   "Textures": {
     "Volumes": [ "Resources/View/Textures.json" ]
-  }
+  },
+  "Classes": [ "Resources/View/Style/Overlay.json" ]
 }

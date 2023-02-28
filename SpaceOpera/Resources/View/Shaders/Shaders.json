@@ -56,5 +56,12 @@
       "Vertex": "Resources/View/Shaders/default.vert",
       "Fragment": "Resources/View/Shaders/transit.frag"
     }
+  },
+  {
+    "$id": "shader-ui",
+    "Element": {
+      "Vertex": "Resources/View/Shaders/ui.vert",
+      "Fragment": "Resources/View/Shaders/ui.frag"
+    }
   }
 ]

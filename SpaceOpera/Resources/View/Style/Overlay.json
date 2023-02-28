@@ -1,0 +1,122 @@
+[
+  {
+    "$id": "ui-element",
+    "Default": {
+      "BorderColor": [ "#ffffff88" ],
+      "BorderWidth": [ 1 ],
+      "BackgroundShader": {
+        "$ref": "shader-ui"
+      }
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "BorderColor": [ "#ffffffaa" ]
+        }
+      }
+    ]
+  },
+  {
+    "$id": "overlay-empire-container",
+    "Parent": {
+      "$ref": "ui-element"
+    },
+    "Default": {
+      "Size": [ "DynamicContents", "DynamicContents" ],
+      "Margin": [ 8 ],
+      "Padding": [ 2 ],
+      "BackgroundColor": [ "#00000088" ],
+      "CornerRadius": [
+        [ 16, 16 ]
+      ]
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "BackgroundColor": [ "#000000aa" ]
+        }
+      }
+    ]
+  },
+  {
+    "$id": "overlay-empire-button",
+    "Parent": {
+      "$ref": "ui-element"
+    },
+    "Default": {
+      "Size": [ 48, 48 ],
+      "Margin": [ 2 ],
+      "CornerRadius": [
+        [ 12, 12 ]
+      ]
+    }
+  },
+  {
+    "$id": "overlay-empire-research",
+    "Parent": {
+      "$ref": "overlay-empire-button"
+    },
+    "Default": {
+      "BackgroundColor": [ "#00ffff88" ],
+      "BorderColor": [ "#00ffff88" ],
+      "Texture": {
+        "$ref": "icon-research"
+      }
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "BackgroundColor": [ "#00ffffaa" ],
+          "BorderColor": [ "#00ffffaa" ]
+        }
+      }
+    ]
+  },
+  {
+    "$id": "overlay-empire-designer",
+    "Parent": {
+      "$ref": "overlay-empire-button"
+    },
+    "Default": {
+      "BackgroundColor": [ "#ffff0088" ],
+      "BorderColor": [ "#ffff0088" ],
+      "Texture": {
+        "$ref": "icon-designer"
+      }
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "BackgroundColor": [ "#ffff00aa" ],
+          "BorderColor": [ "#ffff00aa" ]
+        }
+      }
+    ]
+  },
+  {
+    "$id": "overlay-empire-military",
+    "Parent": {
+      "$ref": "overlay-empire-button"
+    },
+    "Default": {
+      "BackgroundColor": [ "#ff000088" ],
+      "BorderColor": [ "#ff000088" ],
+      "Texture": {
+        "$ref": "icon-military"
+      }
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "BackgroundColor": [ "#ff0000aa" ],
+          "BorderColor": [ "#ff0000aa" ]
+        }
+      }
+    ]
+  }
+]

@@ -1,8 +1,11 @@
 ﻿using Cardamom.Collections;
 using Cardamom.Logging;
+using Cardamom.Ui;
+using SpaceOpera.Controller;
 using SpaceOpera.Core;
 using SpaceOpera.View.FactionViews;
 using SpaceOpera.View.GalaxyViews;
+using SpaceOpera.View.Overlay;
 using SpaceOpera.View.Scenes;
 using SpaceOpera.View.StarViews;
 using SpaceOpera.View.StellarBodyViews;
@@ -11,15 +14,18 @@ namespace SpaceOpera.View
 {
     public class ViewFactory
     {
+        public UiElementFactory UiElementFactory { get; }
         public SceneFactory SceneFactory { get; }
         public StellarBodyViewFactory StellarBodyViewFactory { get; }
         public BannerViewFactory BannerViewFactory { get; }
 
         private ViewFactory(
+            UiElementFactory uiElementFactory,
             SceneFactory sceneFactory,
             StellarBodyViewFactory stellarBodyViewFactory,
             BannerViewFactory bannerViewFactory)
         {
+            UiElementFactory = uiElementFactory;
             SceneFactory = sceneFactory;
             StellarBodyViewFactory = stellarBodyViewFactory;
             BannerViewFactory = bannerViewFactory;
@@ -45,6 +51,7 @@ namespace SpaceOpera.View
                     viewData.HumanEyeSensitivity!,
                     logger);
             return new(
+                new(viewData.GameResources),
                 new(
                     galaxyViewFactory, 
                     stellarBodyViewFactory,
@@ -62,6 +69,11 @@ namespace SpaceOpera.View
                     viewData.GameResources!.GetShader("shader-default-no-tex")), 
                 stellarBodyViewFactory,
                 viewData.Banners!);
+        }
+
+        public GameScreen CreateGameScreen(GameController controller)
+        {
+            return new(controller, new List<IUiLayer>() { EmpireOverlay.Create(UiElementFactory) });
         }
     }
 }

@@ -1,5 +1,5 @@
 {
-  "GameResources": "Resources/GameResources.json",
+  "GameResources": "Resources/View/GameResources.json",
   "Banners": "Resources/View/Banners.json",
   "Biomes": "Resources/View/Biomes.json",
   "HumanEyeSensitivity": "Resources/View/HumanEyeSensitivity.json"
