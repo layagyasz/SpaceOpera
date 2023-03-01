@@ -19,15 +19,10 @@ namespace SpaceOpera.View
             Scene?.Draw(target, context);
             target.Flatten();
             context.Flatten();
-            foreach (var layer in _uiLayers)
+            foreach (var layer in UiLayers)
             {
                 layer.Draw(target, context);
             }
-        }
-
-        public override void Initialize()
-        {
-            base.Initialize();
         }
 
         public override void ResizeContext(Vector3 bounds)

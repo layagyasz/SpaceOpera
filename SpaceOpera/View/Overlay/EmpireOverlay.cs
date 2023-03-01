@@ -1,39 +1,46 @@
 ﻿using Cardamom.Ui;
+using Cardamom.Ui.Controller;
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
+using SpaceOpera.Controller.Overlay;
 
 namespace SpaceOpera.View.Overlay
 {
-    public class EmpireOverlay : UiSerialContainer, IUiLayer
+    public class EmpireOverlay : UiGroupLayer, IUiLayer
     {
-        public IUiElement ResearchButton { get; }
-        public IUiElement DesignerButton { get; }
-        public IUiElement MilitaryButton { get; }
-        
-        private EmpireOverlay(
-            Class @class,
-            IElementController controller,
-            IUiElement researchButton,
-            IUiElement designerButton, 
-            IUiElement militaryButton)
-            : base(@class, controller, Orientation.Horizontal)
+        private UiSerialContainer _container;
+
+        private EmpireOverlay(IController controller, UiSerialContainer container)
+            : base(controller)
         {
-            ResearchButton = researchButton;
-            Add(researchButton);
-            DesignerButton = designerButton;
-            Add(designerButton);
-            MilitaryButton = militaryButton;
-            Add(militaryButton);
+            _container = container;
+            Add(container);
+        }
+
+        public IEnumerable<IUiElement> GetButtons()
+        {
+            return _container;
         }
 
         public static EmpireOverlay Create(UiElementFactory uiElementFactory)
         {
             return new(
-                uiElementFactory.GetClass("overlay-empire-container"),
-                new ButtonController(),
-                uiElementFactory.CreateSimpleButton("overlay-empire-research", new()).Item1,
-                uiElementFactory.CreateSimpleButton("overlay-empire-designer", new()).Item1,
-                uiElementFactory.CreateSimpleButton("overlay-empire-military", new()).Item1);
+                new EmpireOverlayController(),
+                uiElementFactory.CreateTableRow(
+                    "overlay-empire-container", 
+                    new List<IUiElement>()
+                    {
+                        new SimpleUiElement(
+                            uiElementFactory.GetClass("overlay-empire-research"),
+                            new OverlayButtonController(OverlayButtonId.Research)),
+                        new SimpleUiElement(
+                            uiElementFactory.GetClass("overlay-empire-designer"),
+                            new OverlayButtonController(OverlayButtonId.Designer)),
+                        new SimpleUiElement(
+                            uiElementFactory.GetClass("overlay-empire-military"),
+                            new OverlayButtonController(OverlayButtonId.Military))
+                    }, 
+                    new ButtonController()));
         }
     }
 }

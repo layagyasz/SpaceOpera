@@ -3,11 +3,13 @@ using Cardamom.Logging;
 using Cardamom.Ui;
 using Cardamom.Ui.Controller;
 using OpenTK.Windowing.GraphicsLibraryFramework;
+using SpaceOpera.Controller.Overlay;
 using SpaceOpera.Controller.Scenes;
 using SpaceOpera.Core;
 using SpaceOpera.Core.Universe;
 using SpaceOpera.View;
 using SpaceOpera.View.Common.Highlights;
+using SpaceOpera.View.Overlay;
 using SpaceOpera.View.Scenes;
 
 namespace SpaceOpera.Controller
@@ -47,8 +49,27 @@ namespace SpaceOpera.Controller
         public void Bind(object @object)
         {
             _screen = @object as GameScreen;
+            foreach (var layer in _screen!.UiLayers)
+            {
+                if (layer.Controller is IOverlayController controller)
+                {
+                    controller.ButtonClicked += HandleButton;
+                }
+            }
         }
-        
+
+        public void Unbind()
+        {
+            _screen = null;
+            foreach (var layer in _screen!.UiLayers)
+            {
+                if (layer.Controller is IOverlayController controller)
+                {
+                    controller.ButtonClicked -= HandleButton;
+                }
+            }
+        }
+
         public void PushScene(object sceneObject)
         {
             if (_screen?.Scene != null)
@@ -110,9 +131,9 @@ namespace SpaceOpera.Controller
             _window.SetFocus(scene);
         }
 
-        public void Unbind()
+        public void HandleButton(object? sender, ElementEventArgs<OverlayButtonId> e)
         {
-            _screen = null;
+            _logger.AtInfo().Log(e.ToString());
         }
 
         public void HandleInteraction(object? sender, UiInteractionEventArgs e)

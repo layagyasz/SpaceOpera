@@ -27,7 +27,6 @@ namespace SpaceOpera
             var coreData = CoreData.LoadFrom("Resources/Core/CoreData.json", logger);
             var viewData = ViewData.LoadFrom("Resources/View/ViewData.json");
             var viewFactory = ViewFactory.Create(viewData, coreData, logger);
-            viewData.GameResources!.DumpTextures();
 
             var generatorContext = 
                 new GeneratorContext(logger, StellarBodySurfaceGeneratorResources.CreateForGenerator(), new());
@@ -84,9 +83,8 @@ namespace SpaceOpera
             }
             var screen = viewFactory.CreateGameScreen(controller);
             driver.Start();
-            screen.Initialize();
-            controller.PushScene(scene);
             ui.SetRoot(screen);
+            controller.PushScene(scene);
             ui.Start();
         }
     }
