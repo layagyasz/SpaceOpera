@@ -1,0 +1,75 @@
+[
+  {
+    "$id": "ui-element",
+    "Default": {
+      "BackgroundColor": [ "#00000088" ],
+      "BorderColor": [ "#ffffff88" ],
+      "BorderWidth": [ 1 ],
+      "BackgroundShader": {
+        "$ref": "shader-ui"
+      },
+      "FontFace": {
+        "$ref": "font-abel"
+      },
+      "Color": "#ffffff88",
+      "Shader": {
+        "$ref": "shader-default"
+      },
+      "DisableScissor": true
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "BackgroundColor": [ "#000000aa" ],
+          "BorderColor": [ "#ffffffaa" ],
+          "Color": "#ffffffaa"
+        }
+      }
+    ]
+  },
+  {
+    "$id": "pane-standard",
+    "Parent": {
+      "$ref": "ui-element"
+    },
+    "Default": {
+      "Size": [ 900, 700 ],
+      "Padding": [ 4 ],
+      "CornerRadius": [
+        [ 16, 16 ]
+      ]
+    }
+  },
+  {
+    "$id": "pane-standard-title",
+    "Parent": {
+      "$ref": "ui-element"
+    },
+    "Default": {
+      "Size": [ 812, 64 ],
+      "Padding": [ 16 ],
+      "Margin": [ 4 ],
+      "CornerRadius": [
+        [ 8, 8 ]
+      ],
+      "FontSize": 32
+    }
+  },
+  {
+    "$id": "pane-standard-close",
+    "Parent": {
+      "$ref": "ui-element"
+    },
+    "Default": {
+      "Size": [ 64, 64 ],
+      "Padding": [ 4, 16, 4, 16 ],
+      "Margin": [ 4 ],
+      "CornerRadius": [
+        [ 8, 8 ]
+      ],
+      "FontSize": 32,
+      "Align": "Center"
+    }
+  }
+]

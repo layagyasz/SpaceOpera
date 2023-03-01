@@ -1,6 +1,6 @@
-﻿namespace SpaceOpera.View.Overlay
+﻿namespace SpaceOpera.View.Panes
 {
-    public enum OverlayButtonId
+    public enum GamePaneId
     {
         None,
         Design,

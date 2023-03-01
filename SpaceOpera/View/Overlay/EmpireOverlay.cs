@@ -35,7 +35,7 @@ namespace SpaceOpera.View.Overlay
                             new OverlayButtonController(OverlayButtonId.Research)),
                         new SimpleUiElement(
                             uiElementFactory.GetClass("overlay-empire-designer"),
-                            new OverlayButtonController(OverlayButtonId.Designer)),
+                            new OverlayButtonController(OverlayButtonId.Design)),
                         new SimpleUiElement(
                             uiElementFactory.GetClass("overlay-empire-military"),
                             new OverlayButtonController(OverlayButtonId.Military))

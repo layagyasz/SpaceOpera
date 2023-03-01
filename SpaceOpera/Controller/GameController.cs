@@ -2,6 +2,7 @@
 using Cardamom.Logging;
 using Cardamom.Ui;
 using Cardamom.Ui.Controller;
+using OpenTK.Mathematics;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using SpaceOpera.Controller.Overlay;
 using SpaceOpera.Controller.Scenes;
@@ -10,6 +11,7 @@ using SpaceOpera.Core.Universe;
 using SpaceOpera.View;
 using SpaceOpera.View.Common.Highlights;
 using SpaceOpera.View.Overlay;
+using SpaceOpera.View.Panes;
 using SpaceOpera.View.Scenes;
 
 namespace SpaceOpera.Controller
@@ -22,17 +24,20 @@ namespace SpaceOpera.Controller
         private readonly UiWindow _window;
         private readonly World? _world;
         private readonly ViewFactory _viewFactory;
+        private readonly PaneSet _paneSet;
         private readonly ILogger _logger;
         private GameScreen? _screen;
+        private PaneLayerController? _paneLayerController;
 
         private Stack<IGameScene> _scenes = new();
         private EnumMap<HighlightLayerName, ICompositeHighlight> _currentHighlights;
 
-        public GameController(UiWindow window, World? world, ViewFactory viewFactory, ILogger logger)
+        public GameController(UiWindow window, World? world, ViewFactory viewFactory, PaneSet paneSet, ILogger logger)
         {
             _window = window;
             _world = world;
             _viewFactory = viewFactory;
+            _paneSet = paneSet;
             _logger = logger;
 
             _currentHighlights = new()
@@ -49,24 +54,20 @@ namespace SpaceOpera.Controller
         public void Bind(object @object)
         {
             _screen = @object as GameScreen;
-            foreach (var layer in _screen!.UiLayers)
+            _paneLayerController = _screen!.PaneLayer.Controller as PaneLayerController;
+            if (_screen!.EmpireOverlay.Controller is IOverlayController controller)
             {
-                if (layer.Controller is IOverlayController controller)
-                {
-                    controller.ButtonClicked += HandleButton;
-                }
+                controller.ButtonClicked += HandleButton;
             }
         }
 
         public void Unbind()
         {
             _screen = null;
-            foreach (var layer in _screen!.UiLayers)
+            _paneLayerController = null;
+            if (_screen!.EmpireOverlay.Controller is IOverlayController controller)
             {
-                if (layer.Controller is IOverlayController controller)
-                {
-                    controller.ButtonClicked -= HandleButton;
-                }
+                controller.ButtonClicked -= HandleButton;
             }
         }
 
@@ -134,6 +135,10 @@ namespace SpaceOpera.Controller
         public void HandleButton(object? sender, ElementEventArgs<OverlayButtonId> e)
         {
             _logger.AtInfo().Log(e.ToString());
+            _paneLayerController!.Clear();
+            var pane = _paneSet.Get(GetPane(e.Element));
+            pane.Position = 0.5f * new Vector3(_window.RenderWindow.GetViewPort().Size - pane.Size.Xy);
+            _paneLayerController!.Add(pane);
         }
 
         public void HandleInteraction(object? sender, UiInteractionEventArgs e)
@@ -157,6 +162,17 @@ namespace SpaceOpera.Controller
                     ChangeSceneTo(transit.TransitSystem, /* cleanUp= */ true);
                 }
             }
+        }
+        
+        private static GamePaneId GetPane(OverlayButtonId id)
+        {
+            return id switch
+            {
+                OverlayButtonId.Design => GamePaneId.Design,
+                OverlayButtonId.Military => GamePaneId.Military,
+                OverlayButtonId.Research => GamePaneId.Research,
+                _ => GamePaneId.None,
+            };
         }
     }
 }

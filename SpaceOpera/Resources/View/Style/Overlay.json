@@ -1,23 +1,5 @@
 [
   {
-    "$id": "ui-element",
-    "Default": {
-      "BorderColor": [ "#ffffff88" ],
-      "BorderWidth": [ 1 ],
-      "BackgroundShader": {
-        "$ref": "shader-ui"
-      }
-    },
-    "States": [
-      {
-        "State": [ "Hover" ],
-        "Attributes": {
-          "BorderColor": [ "#ffffffaa" ]
-        }
-      }
-    ]
-  },
-  {
     "$id": "overlay-empire-container",
     "Parent": {
       "$ref": "ui-element"
@@ -26,19 +8,10 @@
       "Size": [ "DynamicContents", "DynamicContents" ],
       "Margin": [ 8 ],
       "Padding": [ 2 ],
-      "BackgroundColor": [ "#00000088" ],
       "CornerRadius": [
         [ 16, 16 ]
       ]
-    },
-    "States": [
-      {
-        "State": [ "Hover" ],
-        "Attributes": {
-          "BackgroundColor": [ "#000000aa" ]
-        }
-      }
-    ]
+    }
   },
   {
     "$id": "overlay-empire-button",

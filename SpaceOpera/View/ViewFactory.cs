@@ -1,11 +1,13 @@
 ﻿using Cardamom.Collections;
 using Cardamom.Logging;
 using Cardamom.Ui;
+using Cardamom.Ui.Controller;
 using SpaceOpera.Controller;
 using SpaceOpera.Core;
 using SpaceOpera.View.FactionViews;
 using SpaceOpera.View.GalaxyViews;
 using SpaceOpera.View.Overlay;
+using SpaceOpera.View.Panes;
 using SpaceOpera.View.Scenes;
 using SpaceOpera.View.StarViews;
 using SpaceOpera.View.StellarBodyViews;
@@ -73,7 +75,13 @@ namespace SpaceOpera.View
 
         public GameScreen CreateGameScreen(GameController controller)
         {
-            return new(controller, new List<IUiLayer>() { EmpireOverlay.Create(UiElementFactory) });
+            return new(
+                controller, EmpireOverlay.Create(UiElementFactory), new UiGroupLayer(new PaneLayerController()));
+        }
+
+        public PaneSet CreatePaneSet()
+        {
+            return PaneSet.Create(UiElementFactory);
         }
     }
 }
