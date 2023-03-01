@@ -1,9 +1,7 @@
 [
   {
     "$id": "overlay-empire-container",
-    "Parent": {
-      "$ref": "ui-element"
-    },
+    "Parent": "ui-element",
     "Default": {
       "Size": [ "DynamicContents", "DynamicContents" ],
       "Margin": [ 8 ],
@@ -15,9 +13,7 @@
   },
   {
     "$id": "overlay-empire-button",
-    "Parent": {
-      "$ref": "ui-element"
-    },
+    "Parent": "ui-element",
     "Default": {
       "Size": [ 48, 48 ],
       "Margin": [ 2 ],
@@ -28,15 +24,11 @@
   },
   {
     "$id": "overlay-empire-research",
-    "Parent": {
-      "$ref": "overlay-empire-button"
-    },
+    "Parent": "overlay-empire-button",
     "Default": {
       "BackgroundColor": [ "#00ffff88" ],
       "BorderColor": [ "#00ffff88" ],
-      "Texture": {
-        "$ref": "icon-research"
-      }
+      "Texture": "icon-research"
     },
     "States": [
       {
@@ -50,15 +42,11 @@
   },
   {
     "$id": "overlay-empire-designer",
-    "Parent": {
-      "$ref": "overlay-empire-button"
-    },
+    "Parent": "overlay-empire-button",
     "Default": {
       "BackgroundColor": [ "#ffff0088" ],
       "BorderColor": [ "#ffff0088" ],
-      "Texture": {
-        "$ref": "icon-designer"
-      }
+      "Texture": "icon-designer"
     },
     "States": [
       {
@@ -72,15 +60,11 @@
   },
   {
     "$id": "overlay-empire-military",
-    "Parent": {
-      "$ref": "overlay-empire-button"
-    },
+    "Parent": "overlay-empire-button",
     "Default": {
       "BackgroundColor": [ "#ff000088" ],
       "BorderColor": [ "#ff000088" ],
-      "Texture": {
-        "$ref": "icon-military"
-      }
+      "Texture": "icon-military"
     },
     "States": [
       {

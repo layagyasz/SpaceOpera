@@ -5,16 +5,10 @@
       "BackgroundColor": [ "#00000088" ],
       "BorderColor": [ "#ffffff88" ],
       "BorderWidth": [ 1 ],
-      "BackgroundShader": {
-        "$ref": "shader-ui"
-      },
-      "FontFace": {
-        "$ref": "font-abel"
-      },
+      "BackgroundShader": "shader-ui",
+      "FontFace": "font-abel",
       "Color": "#ffffff88",
-      "Shader": {
-        "$ref": "shader-default"
-      },
+      "Shader": "shader-default",
       "DisableScissor": true
     },
     "States": [
@@ -30,9 +24,7 @@
   },
   {
     "$id": "pane-standard",
-    "Parent": {
-      "$ref": "ui-element"
-    },
+    "Parent": "ui-element",
     "Default": {
       "Size": [ 900, 700 ],
       "Padding": [ 4 ],
@@ -43,9 +35,7 @@
   },
   {
     "$id": "pane-standard-title",
-    "Parent": {
-      "$ref": "ui-element"
-    },
+    "Parent": "ui-element",
     "Default": {
       "Size": [ 812, 64 ],
       "Padding": [ 16 ],
@@ -58,9 +48,7 @@
   },
   {
     "$id": "pane-standard-close",
-    "Parent": {
-      "$ref": "ui-element"
-    },
+    "Parent": "ui-element",
     "Default": {
       "Size": [ 64, 64 ],
       "Padding": [ 4, 16, 4, 16 ],

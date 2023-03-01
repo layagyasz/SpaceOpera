@@ -12,12 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="S-hull">
-      <HintPath>D:\Antiquity\Antiquity\bin\Debug\S-hull.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="Resources\Core\Advancements.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -504,6 +498,12 @@
     <Folder Include="Resources\Core\Designs\ShipShield\" />
     <Folder Include="Resources\Core\Designs\Ship\" />
     <Folder Include="Resources\View\Style\Panes\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="S-hull">
+      <HintPath>..\..\Cardamom\Cardamom\S-hull.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

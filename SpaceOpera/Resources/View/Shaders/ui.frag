@@ -3,6 +3,8 @@
 #define MODE_BACKGROUND 0
 #define MODE_TEXTURE 1
 
+#define E 0.01f
+
 out vec4 out_color;
 
 in vec4 vert_color;
@@ -76,7 +78,7 @@ int get_border(vec2 pixel_coord)
             vec2(border_width[0], border_width[3]));
     }
 
-    if (pixel_coord.x < border_width[0])
+    if (pixel_coord.x < border_width[0] + E)
     {
         return 1;
     }
@@ -84,7 +86,7 @@ int get_border(vec2 pixel_coord)
     {
         return 1;
     }
-    if (pixel_coord.y < border_width[1])
+    if (pixel_coord.y < border_width[1] + E)
     {
         return 1;
     }
