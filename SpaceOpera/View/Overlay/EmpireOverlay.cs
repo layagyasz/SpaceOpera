@@ -6,21 +6,10 @@ using SpaceOpera.Controller.Overlay;
 
 namespace SpaceOpera.View.Overlay
 {
-    public class EmpireOverlay : UiGroupLayer, IUiLayer
+    public class EmpireOverlay : UiComponent
     {
-        private UiSerialContainer _container;
-
         private EmpireOverlay(IController controller, UiSerialContainer container)
-            : base(controller)
-        {
-            _container = container;
-            Add(container);
-        }
-
-        public IEnumerable<IUiElement> GetButtons()
-        {
-            return _container;
-        }
+            : base(controller, container) { }
 
         public static EmpireOverlay Create(UiElementFactory uiElementFactory)
         {

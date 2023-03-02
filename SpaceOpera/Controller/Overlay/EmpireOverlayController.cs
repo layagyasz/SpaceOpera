@@ -1,4 +1,5 @@
-﻿using SpaceOpera.View.Overlay;
+﻿using Cardamom.Ui;
+using SpaceOpera.View.Overlay;
 
 namespace SpaceOpera.Controller.Overlay
 {
@@ -11,7 +12,8 @@ namespace SpaceOpera.Controller.Overlay
         public void Bind(object @object)
         {
             _overlay = @object as EmpireOverlay;
-            foreach (var controller in _overlay!.GetButtons().Select(x => x.Controller).Cast<IOverlayController>())
+            foreach (var controller 
+                in _overlay!.Cast<IUiElement>().Select(x => x.Controller).Cast<IOverlayController>())
             {
                 controller.ButtonClicked += HandleClick;
             }
@@ -19,7 +21,8 @@ namespace SpaceOpera.Controller.Overlay
 
         public void Unbind()
         {
-            foreach (var controller in _overlay!.GetButtons().Select(x => x.Controller).Cast<IOverlayController>())
+            foreach (var controller 
+                in _overlay!.Cast<IUiElement>().Select(x => x.Controller).Cast<IOverlayController>())
             {
                 controller.ButtonClicked -= HandleClick;
             }

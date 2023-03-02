@@ -1,6 +1,7 @@
 ﻿using Cardamom.Graphics;
 using Cardamom.Ui;
 using Cardamom.Ui.Controller;
+using Cardamom.Ui.Elements;
 using OpenTK.Mathematics;
 using SpaceOpera.View.Overlay;
 using SpaceOpera.View.Scenes;
@@ -11,12 +12,12 @@ namespace SpaceOpera.View
     {
         public IController Controller { get; }
         public EmpireOverlay EmpireOverlay { get; }
-        public IUiLayer PaneLayer { get; }
+        public UiGroup PaneLayer { get; }
 
         public IGameScene? Scene { get; private set; }
         private Vector3 _bounds;
 
-        public GameScreen(IController controller, EmpireOverlay empireOverlay, IUiLayer paneLayer)
+        public GameScreen(IController controller, EmpireOverlay empireOverlay, UiGroup paneLayer)
         {
             Controller = controller;
             EmpireOverlay = empireOverlay;
