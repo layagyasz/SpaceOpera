@@ -53,7 +53,7 @@ namespace SpaceOpera.View
         {
             var pane = _paneSet.Get(id);
             pane.Position = 0.5f * (_bounds - pane.Size);
-            ((PaneLayerController)_paneLayer.Controller).Add(pane);
+            _paneLayer.Add(pane);
         }
 
         public void ResizeContext(Vector3 bounds)
