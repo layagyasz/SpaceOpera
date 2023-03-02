@@ -51,7 +51,7 @@ namespace SpaceOpera.Controller
         public void Bind(object @object)
         {
             _screen = @object as GameScreen;
-            if (_screen!.EmpireOverlay.Controller is IOverlayController controller)
+            if (_screen!.EmpireOverlay.ComponentController is IOverlayController controller)
             {
                 controller.ButtonClicked += HandleButton;
             }
@@ -60,7 +60,7 @@ namespace SpaceOpera.Controller
         public void Unbind()
         {
             _screen = null;
-            if (_screen!.EmpireOverlay.Controller is IOverlayController controller)
+            if (_screen!.EmpireOverlay.ComponentController is IOverlayController controller)
             {
                 controller.ButtonClicked -= HandleButton;
             }

@@ -1,5 +1,12 @@
 [
   {
+    "$id": "ui-container",
+    "Default": {
+      "BackgroundColor": [ "#00000000" ],
+      "BackgroundShader": "shader-ui"
+    }
+  },
+  {
     "$id": "ui-element",
     "Default": {
       "BackgroundColor": [ "#00000088" ],
@@ -19,8 +26,32 @@
           "BorderColor": [ "#ffffffaa" ],
           "Color": "#ffffffaa"
         }
+      },
+      {
+        "State": [ "Toggle" ],
+        "Attributes": {
+          "BackgroundColor": [ "#ff880088" ]
+        }
+      },
+      {
+        "State": [ "Toggle", "Hover" ],
+        "Attributes": {
+          "BackgroundColor": [ "#ff8800aa" ]
+        }
       }
     ]
+  },
+  {
+    "$id": "ui-element-basic",
+    "Parent": "ui-element",
+    "Default": {
+      "CornerRadius": [
+        [ 14, 14 ]
+      ],
+      "FontSize": 14,
+      "Padding": [ 8 ],
+      "Margin": [ 2 ]
+    }
   },
   {
     "$id": "pane-standard",
@@ -57,6 +88,24 @@
         [ 8, 8 ]
       ],
       "FontSize": 32,
+      "Align": "Center"
+    }
+  },
+  {
+    "$id": "pane-tab-container",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 884, 32 ],
+      "Padding": [ 2 ],
+      "Margin": [ 4 ],
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "pane-tab-option",
+    "Parent": "ui-element-basic",
+    "Default": {
+      "Size": [ 128, 28 ],
       "Align": "Center"
     }
   }
