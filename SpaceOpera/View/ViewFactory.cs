@@ -77,12 +77,10 @@ namespace SpaceOpera.View
         public GameScreen CreateGameScreen(GameController controller)
         {
             return new(
-                controller, EmpireOverlay.Create(UiElementFactory), new UiGroup(new PaneLayerController()));
-        }
-
-        public PaneSet CreatePaneSet()
-        {
-            return PaneSet.Create(UiElementFactory);
+                controller,
+                EmpireOverlay.Create(UiElementFactory),
+                PaneSet.Create(UiElementFactory),
+                new UiGroup(new PaneLayerController()));
         }
     }
 }

@@ -4,6 +4,7 @@ using Cardamom.Ui.Controller;
 using Cardamom.Ui.Elements;
 using OpenTK.Mathematics;
 using SpaceOpera.View.Overlay;
+using SpaceOpera.View.Panes;
 using SpaceOpera.View.Scenes;
 
 namespace SpaceOpera.View
@@ -12,16 +13,24 @@ namespace SpaceOpera.View
     {
         public IController Controller { get; }
         public EmpireOverlay EmpireOverlay { get; }
-        public UiGroup PaneLayer { get; }
+
+        private PaneSet _paneSet;
+        private UiGroup _paneLayer;
 
         public IGameScene? Scene { get; private set; }
         private Vector3 _bounds;
 
-        public GameScreen(IController controller, EmpireOverlay empireOverlay, UiGroup paneLayer)
+        public GameScreen(IController controller, EmpireOverlay empireOverlay, PaneSet paneSet, UiGroup paneLayer)
         {
             Controller = controller;
             EmpireOverlay = empireOverlay;
-            PaneLayer = paneLayer;
+            _paneSet = paneSet;
+            _paneLayer = paneLayer;
+        }
+
+        public void ClearPanes()
+        {
+            _paneLayer.Clear();
         }
 
         public void Draw(RenderTarget target, UiContext context)
@@ -30,14 +39,21 @@ namespace SpaceOpera.View
             target.Flatten();
             context.Flatten();
             EmpireOverlay.Draw(target, context);
-            PaneLayer.Draw(target, context);
+            _paneLayer.Draw(target, context);
         }
 
         public void Initialize()
         {
             Controller.Bind(this);
             EmpireOverlay.Initialize();
-            PaneLayer.Initialize();
+            _paneLayer.Initialize();
+        }
+
+        public void OpenPane(GamePaneId id)
+        {
+            var pane = _paneSet.Get(id);
+            pane.Position = 0.5f * (_bounds - pane.Size);
+            ((PaneLayerController)_paneLayer.Controller).Add(pane);
         }
 
         public void ResizeContext(Vector3 bounds)
@@ -56,7 +72,7 @@ namespace SpaceOpera.View
         {
             Scene?.Update(delta);
             EmpireOverlay.Update(delta);
-            PaneLayer.Update(delta);
+            _paneLayer.Update(delta);
         }
     }
 }
