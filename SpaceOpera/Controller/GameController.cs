@@ -7,6 +7,7 @@ using OpenTK.Windowing.GraphicsLibraryFramework;
 using SpaceOpera.Controller.Overlay;
 using SpaceOpera.Controller.Scenes;
 using SpaceOpera.Core;
+using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Universe;
 using SpaceOpera.View;
 using SpaceOpera.View.Common.Highlights;
@@ -23,6 +24,7 @@ namespace SpaceOpera.Controller
 
         private readonly UiWindow _window;
         private readonly World? _world;
+        private readonly Faction _faction;
         private readonly ViewFactory _viewFactory;
         private readonly ILogger _logger;
         private GameScreen? _screen;
@@ -30,10 +32,11 @@ namespace SpaceOpera.Controller
         private Stack<IGameScene> _scenes = new();
         private EnumMap<HighlightLayerName, ICompositeHighlight> _currentHighlights;
 
-        public GameController(UiWindow window, World? world, ViewFactory viewFactory, ILogger logger)
+        public GameController(UiWindow window, World? world, Faction faction, ViewFactory viewFactory, ILogger logger)
         {
             _window = window;
             _world = world;
+            _faction = faction;
             _viewFactory = viewFactory;
             _logger = logger;
 
@@ -131,7 +134,9 @@ namespace SpaceOpera.Controller
         {
             _logger.AtInfo().Log(e.ToString());
             _screen!.ClearPanes();
-            _screen!.OpenPane(GetPane(e.Element));
+            var pane = _screen!.GetPane(GetPane(e.Element));
+            pane.Populate(_world, _faction);
+            _screen!.OpenPane(pane);
         }
 
         public void HandleInteraction(object? sender, UiInteractionEventArgs e)

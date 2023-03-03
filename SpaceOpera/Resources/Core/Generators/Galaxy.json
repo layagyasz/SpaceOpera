@@ -3,7 +3,7 @@
   "Arms": 4,
   "Rotation": 8,
   "CoreRadius": 0,
-  "StarCount": 250,
+  "StarCount": 50,
   "TransitDensity": 0.05,
   "StarSystemGenerator": {
     "StarGenerators": "Resources/Core/Generators/Stars.json",

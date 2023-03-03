@@ -9,13 +9,17 @@ using SpaceOpera.View.Scenes;
 
 namespace SpaceOpera.View
 {
-    public class GameScreen : IRenderable
+    public class GameScreen : IRenderable, IDynamic
     {
+        private static readonly long s_RefreshTime = 1000;
+
         public IController Controller { get; }
         public EmpireOverlay EmpireOverlay { get; }
 
         private PaneSet _paneSet;
         private UiGroup _paneLayer;
+
+        private long _time;
 
         public IGameScene? Scene { get; private set; }
         private Vector3 _bounds;
@@ -42,6 +46,11 @@ namespace SpaceOpera.View
             _paneLayer.Draw(target, context);
         }
 
+        public GamePane GetPane(GamePaneId id)
+        {
+            return _paneSet.Get(id);
+        }
+
         public void Initialize()
         {
             Controller.Bind(this);
@@ -49,11 +58,21 @@ namespace SpaceOpera.View
             _paneLayer.Initialize();
         }
 
-        public void OpenPane(GamePaneId id)
+        public void OpenPane(GamePane pane)
         {
-            var pane = _paneSet.Get(id);
             pane.Position = 0.5f * (_bounds - pane.Size);
             _paneLayer.Add(pane);
+        }
+
+        public void Refresh()
+        {
+            foreach (var pane in _paneLayer)
+            {
+                if (pane is IDynamic dynamic)
+                {
+                    dynamic.Refresh();
+                }
+            }
         }
 
         public void ResizeContext(Vector3 bounds)
@@ -70,6 +89,14 @@ namespace SpaceOpera.View
 
         public void Update(long delta)
         {
+            _time += delta;
+            if (_time > s_RefreshTime)
+            {
+                _time = 0;
+                Refresh();
+            }
+
+
             Scene?.Update(delta);
             EmpireOverlay.Update(delta);
             _paneLayer.Update(delta);

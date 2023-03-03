@@ -1,0 +1,42 @@
+[
+  {
+    "$id": "design-pane",
+    "Parent": "pane-standard"
+  },
+  {
+    "$id": "design-pane-title",
+    "Parent": "pane-standard-title"
+  },
+  {
+    "$id": "design-pane-close",
+    "Parent": "pane-standard-close"
+  },
+  {
+    "$id": "design-pane-tab-container",
+    "Parent": "pane-tab-container"
+  },
+  {
+    "$id": "design-pane-tab-option",
+    "Parent": "pane-tab-option"
+  },
+  {
+    "$id": "design-pane-body",
+    "Parent": "pane-body"
+  },
+  {
+    "$id": "design-pane-design-table",
+    "Parent": "design-pane-body",
+    "Default": {
+      "Size": [ 880, 572 ],
+      "Margin": [ 4 ],
+      "Padding": [ 2 ]
+    }
+  },
+  {
+    "$id": "design-pane-component-row",
+    "Parent": "ui-element-basic",
+    "Default": {
+      "Size": [ 874, 28 ]
+    }
+  }
+]

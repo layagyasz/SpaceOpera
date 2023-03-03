@@ -108,5 +108,12 @@
       "Size": [ 128, 28 ],
       "Align": "Center"
     }
+  },
+  {
+    "$id": "pane-body",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 884, 580 ]
+    }
   }
 ]

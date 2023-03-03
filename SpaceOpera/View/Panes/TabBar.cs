@@ -19,7 +19,7 @@ namespace SpaceOpera.View.Panes
             }
         }
 
-        public static UiComponent Create(
+        public static UiCompoundComponent Create(
             IEnumerable<Definition> definitions, Class containerClass, Class tabOptionClass)
         {
             var container = 
@@ -30,7 +30,7 @@ namespace SpaceOpera.View.Panes
                 container.Add(
                     new TextUiElement(tabOptionClass, new OptionController<object>(definition.Key!), definition.Text));
             }
-            return new UiComponent(new RadioController<object>("tab-bar"), container);
+            return new UiCompoundComponent(new RadioController<object>("tab-bar"), container);
         }
     }
 }

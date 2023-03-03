@@ -3,7 +3,7 @@ using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
 using SpaceOpera.Controller.Panes;
 
-namespace SpaceOpera.View.Panes.Military
+namespace SpaceOpera.View.Panes.MilitaryPanes
 {
     public class MilitaryPane : GamePane
     {
@@ -20,10 +20,18 @@ namespace SpaceOpera.View.Panes.Military
         private static readonly string s_CloseClass = "pane-standard-close";
         private static readonly string s_TabContainerClassName = "pane-tab-container";
         private static readonly string s_TabOptionClassName = "pane-tab-option";
+        private static readonly string s_BodyClassName = "pane-body";
 
         public MilitaryPane(
-            IElementController controller, Class @class, IUiElement header, IUiElement closeButton, UiComponent tabs)
-            : base(controller, @class, header, closeButton, tabs) { }
+            IElementController controller,
+            Class @class,
+            IUiElement header,
+            IUiElement closeButton,
+            UiCompoundComponent tabs, 
+            IUiContainer body)
+            : base(controller, @class, header, closeButton, tabs, body) { }
+
+        public override void Populate(params object?[] args) { }
 
         public override void SetTab(object id) { }
 
@@ -41,7 +49,8 @@ namespace SpaceOpera.View.Panes.Military
                         new(TabId.Fleet, "Fleet")
                     },
                     uiElementFactory.GetClass(s_TabContainerClassName),
-                    uiElementFactory.GetClass(s_TabOptionClassName)));
+                    uiElementFactory.GetClass(s_TabOptionClassName)),
+                uiElementFactory.CreateTable(s_BodyClassName, Enumerable.Empty<IUiElement>()).Item1);
         }
     }
 }

@@ -36,6 +36,7 @@ namespace SpaceOpera.Controller.Panes
         private void HandleTabChange(object? sender, ValueChangedEventArgs<string, object> e)
         {
             _pane!.SetTab(e.Value);
+            _pane!.Refresh();
         }
     }
 }

@@ -6,7 +6,7 @@ using SpaceOpera.Controller.Overlay;
 
 namespace SpaceOpera.View.Overlay
 {
-    public class EmpireOverlay : UiComponent
+    public class EmpireOverlay : UiCompoundComponent
     {
         private EmpireOverlay(IController controller, UiSerialContainer container)
             : base(controller, container) { }

@@ -3,7 +3,7 @@ using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
 using SpaceOpera.Controller.Panes;
 
-namespace SpaceOpera.View.Panes.Research
+namespace SpaceOpera.View.Panes.ResearchPanes
 {
     public class ResearchPane : GamePane
     {
@@ -19,10 +19,18 @@ namespace SpaceOpera.View.Panes.Research
         private static readonly string s_CloseClass = "pane-standard-close";
         private static readonly string s_TabContainerClassName = "pane-tab-container";
         private static readonly string s_TabOptionClassName = "pane-tab-option";
+        private static readonly string s_BodyClassName = "pane-body";
 
         public ResearchPane(
-            IElementController controller, Class @class, IUiElement header, IUiElement closeButton, UiComponent tabs)
-            : base(controller, @class, header, closeButton, tabs) { }
+            IElementController controller, 
+            Class @class,
+            IUiElement header, 
+            IUiElement closeButton,
+            UiCompoundComponent tabs, 
+            IUiContainer body)
+            : base(controller, @class, header, closeButton, tabs, body) { }
+
+        public override void Populate(params object?[] args) { }
 
         public override void SetTab(object id) { }
 
@@ -39,7 +47,8 @@ namespace SpaceOpera.View.Panes.Research
                         new(TabId.Current, "Current")
                     },
                     uiElementFactory.GetClass(s_TabContainerClassName),
-                    uiElementFactory.GetClass(s_TabOptionClassName)));
+                    uiElementFactory.GetClass(s_TabOptionClassName)),
+                uiElementFactory.CreateTable(s_BodyClassName, Enumerable.Empty<IUiElement>()).Item1);
         }
     }
 }

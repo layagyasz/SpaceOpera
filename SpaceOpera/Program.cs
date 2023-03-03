@@ -31,10 +31,14 @@ namespace SpaceOpera
             var generatorContext = 
                 new GeneratorContext(logger, StellarBodySurfaceGeneratorResources.CreateForGenerator(), new());
             var calendar = new StarCalendar(0);
+            var playerCulture = coreData.PoliticsGenerator!.Culture!.Generate(generatorContext);
+            var playerBanner = coreData.PoliticsGenerator!.Banner!.Generate(generatorContext);
+            var playerFaction =
+                coreData.PoliticsGenerator!.Faction!.Generate(playerCulture, playerBanner, generatorContext);
             object scene;
             GameController controller;
             GameDriver driver;
-            int mode = 1;
+            int mode = 4;
             if (mode == 1)
             {
                 var planetGenerator =
@@ -49,32 +53,28 @@ namespace SpaceOpera
                         orbitGenerator.Generate(starGenerator.Generate(generatorContext), 1f, generatorContext), 
                         generatorContext);
                 scene = planet;
-                controller = new GameController(ui, null, viewFactory, logger);
+                controller = new GameController(ui, null, playerFaction, viewFactory, logger);
                 driver = new(null, calendar);
             }
             else if (mode == 2)
             {
                 var system = coreData.GalaxyGenerator!.StarSystemGenerator!.Generate(new(), generatorContext);
                 scene = system;
-                controller = new GameController(ui, null, viewFactory, logger);
+                controller = new GameController(ui, null, playerFaction,viewFactory, logger);
                 driver = new(null, calendar);
             }
             else if (mode == 3)
             {
                 var galaxy = coreData.GalaxyGenerator!.Generate(generatorContext);
                 scene = galaxy;
-                controller = new GameController(ui, null, viewFactory, logger);
+                controller = new GameController(ui, null, playerFaction, viewFactory, logger);
                 driver = new(null, calendar);
             }
             else if (mode == 4)
             {
-                var playerCulture = coreData.PoliticsGenerator!.Culture!.Generate(generatorContext);
-                var playerBanner = coreData.PoliticsGenerator!.Banner!.Generate(generatorContext);
-                var playerFaction =
-                    coreData.PoliticsGenerator!.Faction!.Generate(playerCulture, playerBanner, generatorContext);
                 var world = WorldGenerator.Generate(playerCulture, playerFaction, coreData, generatorContext);
                 scene = world.Galaxy;
-                controller = new GameController(ui, world, viewFactory, logger);
+                controller = new GameController(ui, world, playerFaction, viewFactory, logger);
                 driver = new(world, world.GetUpdater());
             }
             else

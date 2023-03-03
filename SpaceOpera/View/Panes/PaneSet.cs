@@ -1,7 +1,7 @@
 ﻿using Cardamom.Ui;
-using SpaceOpera.View.Panes.Design;
-using SpaceOpera.View.Panes.Military;
-using SpaceOpera.View.Panes.Research;
+using SpaceOpera.View.Panes.DesignPanes;
+using SpaceOpera.View.Panes.MilitaryPanes;
+using SpaceOpera.View.Panes.ResearchPanes;
 
 namespace SpaceOpera.View.Panes
 {
@@ -35,7 +35,7 @@ namespace SpaceOpera.View.Panes
 
         public static PaneSet Create(UiElementFactory uiElementFactory)
         {
-            var design = DesignPane.Create(uiElementFactory);
+            var design = new DesignPane(uiElementFactory);
             design.Initialize();
             var military = MilitaryPane.Create(uiElementFactory);
             military.Initialize();
