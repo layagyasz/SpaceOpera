@@ -1,9 +1,12 @@
 ﻿using Cardamom;
 using Cardamom.Collections;
 using Cardamom.Json;
+using Cardamom.Json.Collections;
 using Cardamom.Json.OpenTK;
+using Cardamom.Logging;
 using SpaceOpera.Core.Universe.Spectra;
 using SpaceOpera.View.FactionViews;
+using SpaceOpera.View.Icons;
 using SpaceOpera.View.StellarBodyViews;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -24,7 +27,10 @@ namespace SpaceOpera.View
         [JsonConverter(typeof(FromFileJsonConverter))]
         public SpectrumSensitivity? HumanEyeSensitivity { get; set; }
 
-        public static ViewData LoadFrom(string path)
+        [JsonConverter(typeof(FromMultipleFileJsonConverter))]
+        public Library<IconAtom> Icons { get; set; } = new();
+
+        public static ViewData LoadFrom(string path, ILogger logger)
         {
             JsonSerializerOptions options = new()
             {
@@ -33,7 +39,15 @@ namespace SpaceOpera.View
             options.Converters.Add(new ColorJsonConverter());
             options.Converters.Add(new Vector2JsonConverter());
             options.Converters.Add(new Vector2iJsonConverter());
-            return JsonSerializer.Deserialize<ViewData>(File.ReadAllText(path), options)!;
+            var data = JsonSerializer.Deserialize<ViewData>(File.ReadAllText(path), options)!;
+            logger = logger.ForType(typeof(ViewData)).AtInfo();
+            logger.Log("Loaded");
+            logger.Log($"\t{data.GameResources != null} GameResources");
+            logger.Log($"\t{data.Banners != null} Banners");
+            logger.Log($"\t{data.Biomes.Count} Biomes");
+            logger.Log($"\t{data.HumanEyeSensitivity != null} HumanEyeSensitivity");
+            logger.Log($"\t{data.Icons.Count} Icons");
+            return data;
         }
     }
 }

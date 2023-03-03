@@ -7,6 +7,7 @@ using SpaceOpera.Controller;
 using SpaceOpera.Core;
 using SpaceOpera.View.FactionViews;
 using SpaceOpera.View.GalaxyViews;
+using SpaceOpera.View.Icons;
 using SpaceOpera.View.Overlay;
 using SpaceOpera.View.Panes;
 using SpaceOpera.View.Scenes;
@@ -21,17 +22,20 @@ namespace SpaceOpera.View
         public SceneFactory SceneFactory { get; }
         public StellarBodyViewFactory StellarBodyViewFactory { get; }
         public BannerViewFactory BannerViewFactory { get; }
+        public IconFactory IconFactory { get; set; }
 
         private ViewFactory(
             UiElementFactory uiElementFactory,
             SceneFactory sceneFactory,
             StellarBodyViewFactory stellarBodyViewFactory,
-            BannerViewFactory bannerViewFactory)
+            BannerViewFactory bannerViewFactory,
+            IconFactory iconFactory)
         {
             UiElementFactory = uiElementFactory;
             SceneFactory = sceneFactory;
             StellarBodyViewFactory = stellarBodyViewFactory;
             BannerViewFactory = bannerViewFactory;
+            IconFactory = iconFactory;
         }
 
         public static ViewFactory Create(ViewData viewData, CoreData coreData, ILogger logger)
@@ -53,8 +57,9 @@ namespace SpaceOpera.View
                     viewData.GameResources!.GetShader("shader-atmosphere"),
                     viewData.HumanEyeSensitivity!,
                     logger);
+            UiElementFactory uiElementFactory = new(viewData.GameResources);
             return new(
-                new(viewData.GameResources),
+                uiElementFactory,
                 new(
                     galaxyViewFactory, 
                     stellarBodyViewFactory,
@@ -71,7 +76,8 @@ namespace SpaceOpera.View
                     viewData.GameResources!.GetShader("shader-border"),
                     viewData.GameResources!.GetShader("shader-default-no-tex")), 
                 stellarBodyViewFactory,
-                viewData.Banners!);
+                viewData.Banners!,
+                new(viewData.Icons, uiElementFactory));
         }
 
         public GameScreen CreateGameScreen(GameController controller)

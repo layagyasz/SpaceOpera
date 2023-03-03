@@ -2,5 +2,6 @@
   "GameResources": "Resources/View/GameResources.json",
   "Banners": "Resources/View/Banners.json",
   "Biomes": "Resources/View/Biomes.json",
-  "HumanEyeSensitivity": "Resources/View/HumanEyeSensitivity.json"
+  "HumanEyeSensitivity": "Resources/View/HumanEyeSensitivity.json",
+  "Icons": [ "Resources/View/Designs::*.Icons.json" ]
 }

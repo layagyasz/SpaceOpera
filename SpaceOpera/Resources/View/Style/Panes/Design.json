@@ -21,13 +21,16 @@
   },
   {
     "$id": "design-pane-body",
-    "Parent": "pane-body"
+    "Parent": "pane-body",
+    "Default": {
+      "Size": [ 892, 580 ]
+    }
   },
   {
     "$id": "design-pane-design-table",
     "Parent": "design-pane-body",
     "Default": {
-      "Size": [ 880, 572 ],
+      "Size": [ 884, 572 ],
       "Margin": [ 4 ],
       "Padding": [ 2 ]
     }
@@ -36,7 +39,7 @@
     "$id": "design-pane-component-row",
     "Parent": "ui-element-basic",
     "Default": {
-      "Size": [ 874, 28 ]
+      "Size": [ 876, 28 ]
     }
   }
 ]

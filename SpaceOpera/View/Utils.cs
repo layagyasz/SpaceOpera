@@ -64,6 +64,19 @@ namespace SpaceOpera.View
             }
         }
 
+        public static Vertex3[] CreateRect(Box2 bounds, Color4 color, Box2i? textureBounds)
+        {
+            Box2i tex = textureBounds ?? new();
+            return new Vertex3[] {
+                new(new(bounds.Min), color, tex.Min),
+                new(new(bounds.Max.X, bounds.Min.Y, 0), color, new(tex.Max.X, tex.Min.Y)),
+                new(new(bounds.Min.X, bounds.Max.Y, 0), color, new(tex.Min.X, tex.Max.Y)),
+                new(new(bounds.Min.X, bounds.Max.Y, 0), color, new(tex.Min.X, tex.Max.Y)),
+                new(new(bounds.Max.X, bounds.Min.Y, 0), color, new(tex.Max.X, tex.Min.Y)),
+                new(new(bounds.Max), color, tex.Max)
+            };
+        }
+
         public static WideSegment CreateSegment(
             Ray3 ray, float length, Vector3 nearDirection, Vector3 farDirection, float width, bool center)
         {

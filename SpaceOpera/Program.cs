@@ -25,7 +25,7 @@ namespace SpaceOpera
 
             var logger = new Logger(new ConsoleBackend(), LogLevel.Info);
             var coreData = CoreData.LoadFrom("Resources/Core/CoreData.json", logger);
-            var viewData = ViewData.LoadFrom("Resources/View/ViewData.json");
+            var viewData = ViewData.LoadFrom("Resources/View/ViewData.json", logger);
             var viewFactory = ViewFactory.Create(viewData, coreData, logger);
 
             var generatorContext = 

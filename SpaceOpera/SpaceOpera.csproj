@@ -66,6 +66,9 @@
     <None Update="Resources\View\Banners.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\View\Designs\ShipShield\ShipShield.Icons.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\View\Fonts.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -500,6 +503,7 @@
     <Folder Include="Resources\Core\Designs\ShipWeapon\" />
     <Folder Include="Resources\Core\Designs\ShipShield\" />
     <Folder Include="Resources\Core\Designs\Ship\" />
+    <Folder Include="Resources\View\Designs\ShipShield\" />
     <Folder Include="Resources\View\Style\Panes\" />
   </ItemGroup>
 
