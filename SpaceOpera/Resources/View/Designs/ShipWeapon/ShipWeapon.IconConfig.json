@@ -1,0 +1,35 @@
+[
+  {
+    "ComponentType": "ShipWeapon",
+    "Layers": [
+      {
+        "$type": "FromComponent",
+        "Color": {
+          "FromComponent": "ShipWeaponAmmunition"
+        },
+        "ComponentType": "ShipWeaponAssembly"
+      },
+      {
+        "$type": "FromComponent",
+        "Color": {
+          "FromComponent": "ShipWeaponAmmunition"
+        },
+        "ComponentType": "ShipWeaponFireControl"
+      },
+      {
+        "$type": "FromComponent",
+        "Color": {
+          "FromComponent": "ShipWeaponAmmunition"
+        },
+        "ComponentType": "ShipWeaponMount"
+      },
+      {
+        "$type": "FromComponent",
+        "Color": {
+          "FromComponent": "ShipWeaponAmmunition"
+        },
+        "ComponentType": "ShipWeaponWeight"
+      }
+    ]
+  }
+]

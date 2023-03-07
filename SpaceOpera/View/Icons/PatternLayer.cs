@@ -22,6 +22,11 @@ namespace SpaceOpera.View.Icons
             {
                 return new PatternLayer(Vertices, shaders.NoTexture);
             }
+
+            public IIconLayerDefinition WithColor(Color4 color)
+            {
+                return new Definition(color, Vertices);
+            }
         }
 
         private readonly Vector2[] _points;

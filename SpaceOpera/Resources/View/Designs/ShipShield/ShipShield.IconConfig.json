@@ -1,0 +1,35 @@
+[
+  {
+    "ComponentType": "ShipShield",
+    "Layers": [
+      {
+        "$type": "FromComponent",
+        "Color": {
+          "FromComponent": "ShieldEmitter"
+        },
+        "ComponentType": "ShieldCapacitor"
+      },
+      {
+        "$type": "FromComponent",
+        "Color": {
+          "FromComponent": "ShieldEmitter"
+        },
+        "ComponentType": "ShieldPowerSupply"
+      },
+      {
+        "$type": "FromComponent",
+        "Color": {
+          "FromComponent": "ShieldEmitter"
+        },
+        "ComponentType": "ShieldMount"
+      },
+      {
+        "$type": "FromComponent",
+        "Color": {
+          "FromComponent": "ShieldEmitter"
+        },
+        "ComponentType": "ShieldWeight"
+      }
+    ]
+  }
+]

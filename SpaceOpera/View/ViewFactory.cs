@@ -77,7 +77,10 @@ namespace SpaceOpera.View
                     viewData.GameResources!.GetShader("shader-default-no-tex")), 
                 stellarBodyViewFactory,
                 viewData.Banners!,
-                new(viewData.Icons, uiElementFactory));
+                new(
+                    viewData.Icons, 
+                    viewData.DesignedComponentIconConfigs.ToEnumMap(x => x.ComponentType, x => x),
+                    uiElementFactory));
         }
 
         public GameScreen CreateGameScreen(GameController controller)

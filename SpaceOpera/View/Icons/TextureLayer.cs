@@ -24,6 +24,11 @@ namespace SpaceOpera.View.Icons
                 return new TextureLayer(
                     Utils.CreateRect(new(), Color, tex.TextureView), tex.Texture!, shaders.Texture);
             }
+
+            public IIconLayerDefinition WithColor(Color4 color)
+            {
+                return new Definition(color, Texture);
+            }
         }
 
         private readonly Vertex3[] _vertices;

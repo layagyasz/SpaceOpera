@@ -30,6 +30,9 @@ namespace SpaceOpera.View
         [JsonConverter(typeof(FromMultipleFileJsonConverter))]
         public Library<IconAtom> Icons { get; set; } = new();
 
+        [JsonConverter(typeof(FromMultipleFileJsonConverter))]
+        public List<DesignedComponentIconConfig> DesignedComponentIconConfigs { get; set; } = new();
+
         public static ViewData LoadFrom(string path, ILogger logger)
         {
             JsonSerializerOptions options = new()
@@ -47,6 +50,7 @@ namespace SpaceOpera.View
             logger.Log($"\t{data.Biomes.Count} Biomes");
             logger.Log($"\t{data.HumanEyeSensitivity != null} HumanEyeSensitivity");
             logger.Log($"\t{data.Icons.Count} Icons");
+            logger.Log($"\t{data.DesignedComponentIconConfigs.Count} DesignedComponentIconConfigs");
             return data;
         }
     }
