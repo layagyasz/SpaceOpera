@@ -1,5 +1,6 @@
 ﻿using Cardamom;
 using Cardamom.Collections;
+using Cardamom.Graphics;
 using Cardamom.Ui;
 using Cardamom.Ui.Controller.Element;
 using OpenTK.Mathematics;
@@ -11,9 +12,9 @@ namespace SpaceOpera.View.Icons
     {
         private readonly Library<IconAtom> _atoms;
         private readonly EnumMap<ComponentType, DesignedComponentIconConfig> _configs;
-        private readonly Dictionary<Type, Func<object, IEnumerable<IIconLayerDefinition>>> _definitionMap;
+        private readonly Dictionary<Type, Func<object, IEnumerable<IconLayer.Definition>>> _definitionMap;
         private readonly UiElementFactory _uiElementFactory;
-        private readonly IconShaders _shaders;
+        private readonly RenderShader _shader;
 
         public IconFactory(
             Library<IconAtom> atoms, 
@@ -28,29 +29,26 @@ namespace SpaceOpera.View.Icons
                 { typeof(DesignedComponent), GetDesignedComponentDefinition }
             };
             _uiElementFactory = uiElementFactory;
-            _shaders =
-                new(
-                    _uiElementFactory.GetShader("shader-default-no-tex"), 
-                    _uiElementFactory.GetShader("shader-default"));
+            _shader = _uiElementFactory.GetShader("shader-default");
         }
 
         public Icon Create(Class @class, IElementController controller, object @object)
         {
-            return new(@class, controller, GetDefinition(@object).Select(x => x.Create(_shaders, _uiElementFactory)));
+            return new(@class, controller, GetDefinition(@object).Select(x => x.Create(_shader, _uiElementFactory)));
         }
 
-        public IEnumerable<IIconLayerDefinition> GetDefinition(object @object)
+        public IEnumerable<IconLayer.Definition> GetDefinition(object @object)
         {
             return _definitionMap[@object.GetType()](@object);
         }
 
-        private IEnumerable<IIconLayerDefinition> GetAtomicDefinition(object @object)
+        private IEnumerable<IconLayer.Definition> GetAtomicDefinition(object @object)
         {
             var key = @object as IKeyed;
             yield return _atoms[key!.Key].ToDefinition();
         }
 
-        private IEnumerable<IIconLayerDefinition> GetDesignedComponentDefinition(object @object)
+        private IEnumerable<IconLayer.Definition> GetDesignedComponentDefinition(object @object)
         {
             var component = @object as DesignedComponent;
             // TODO: Use faction's banner colors.

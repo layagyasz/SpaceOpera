@@ -9,9 +9,9 @@ namespace SpaceOpera.View.Icons
         public Color4 Color { get; set; }
         public string Texture { get; set; } = string.Empty;
 
-        public IIconLayerDefinition ToDefinition()
+        public IconLayer.Definition ToDefinition()
         {
-            return new TextureLayer.Definition(Color, Texture);
+            return new(Color, Texture);
         }
     }
 }

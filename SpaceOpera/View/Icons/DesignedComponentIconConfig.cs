@@ -19,7 +19,7 @@ namespace SpaceOpera.View.Icons
         public interface ILayerConfig
         {
             ColorConfig Color { get; }
-            IEnumerable<IIconLayerDefinition> CreateLayers(
+            IEnumerable<IconLayer.Definition> CreateLayers(
                 DesignedComponent component, Color4 color, IconFactory iconFactory);
         }
 
@@ -28,7 +28,7 @@ namespace SpaceOpera.View.Icons
             public ColorConfig Color { get; set; }
             public ComponentType Component { get; set; }
 
-            public IEnumerable<IIconLayerDefinition> CreateLayers(
+            public IEnumerable<IconLayer.Definition> CreateLayers(
                 DesignedComponent component, Color4 color, IconFactory iconFactory)
             {
                 var c = component.Components.Where(x => x.Slot.Type.Contains(Component)).FirstOrDefault()!.Component;
@@ -47,14 +47,14 @@ namespace SpaceOpera.View.Icons
             public ColorConfig Color { get; set; }
             public List<TagLayerOption> Options { get; set; } = new();
 
-            public IEnumerable<IIconLayerDefinition> CreateLayers(
+            public IEnumerable<IconLayer.Definition> CreateLayers(
                 DesignedComponent component, Color4 color, IconFactory iconFactory)
             {
                 foreach (var option in Options)
                 {
                     if (option.Tags.Count == 0 || option.Tags.IsSubsetOf(component.Tags))
                     {
-                        yield return new TextureLayer.Definition(color, option.Texture);
+                        yield return new(color, option.Texture);
                         break;
                     }
                 }
@@ -64,7 +64,7 @@ namespace SpaceOpera.View.Icons
         public ComponentType ComponentType { get; set; }
         public List<ILayerConfig> Layers { get; set; } = new();
 
-        public IEnumerable<IIconLayerDefinition> CreateDefinition(
+        public IEnumerable<IconLayer.Definition> CreateDefinition(
             DesignedComponent component, Color4 factionColor, IconFactory iconFactory)
         {
             foreach (var layer in Layers)

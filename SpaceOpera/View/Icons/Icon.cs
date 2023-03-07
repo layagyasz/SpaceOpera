@@ -9,9 +9,9 @@ namespace SpaceOpera.View.Icons
     public class Icon : ClassedUiElement
     {
         private Vector2 _size;
-        private readonly List<IIconLayer> _layers;
+        private readonly List<IconLayer> _layers;
 
-        public Icon(Class @class, IElementController controller, IEnumerable<IIconLayer> layers)
+        public Icon(Class @class, IElementController controller, IEnumerable<IconLayer> layers)
             : base(@class, controller)
         {
             _layers = layers.ToList();
