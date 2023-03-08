@@ -7,28 +7,28 @@
         "Color": {
           "FromComponent": "ShieldEmitter"
         },
-        "ComponentType": "ShieldCapacitor"
+        "Component": "ShieldCapacitor"
       },
       {
         "$type": "FromComponent",
         "Color": {
           "FromComponent": "ShieldEmitter"
         },
-        "ComponentType": "ShieldPowerSupply"
+        "Component": "ShieldPowerSupply"
       },
       {
         "$type": "FromComponent",
         "Color": {
           "FromComponent": "ShieldEmitter"
         },
-        "ComponentType": "ShieldMount"
+        "Component": "ShieldMount"
       },
       {
         "$type": "FromComponent",
         "Color": {
           "FromComponent": "ShieldEmitter"
         },
-        "ComponentType": "ShieldWeight"
+        "Component": "ShieldWeight"
       }
     ]
   }

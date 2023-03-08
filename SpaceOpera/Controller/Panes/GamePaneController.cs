@@ -2,13 +2,16 @@
 using Cardamom.Ui.Controller;
 using Cardamom.Ui.Controller.Element;
 using OpenTK.Windowing.GraphicsLibraryFramework;
+using SpaceOpera.Controller.Components;
 using SpaceOpera.View.Panes;
 
 namespace SpaceOpera.Controller.Panes
 {
-    public class GamePaneController : PaneController
+    public class GamePaneController : PaneController, IActionController
     {
-        private GamePane? _pane;
+        public EventHandler<UiInteractionEventArgs>? Interacted { get; set; }
+
+        protected GamePane? _pane;
 
         public override void Bind(object @object)
         {

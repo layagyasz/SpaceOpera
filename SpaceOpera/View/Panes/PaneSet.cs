@@ -1,4 +1,5 @@
 ﻿using Cardamom.Ui;
+using SpaceOpera.View.Icons;
 using SpaceOpera.View.Panes.DesignPanes;
 using SpaceOpera.View.Panes.MilitaryPanes;
 using SpaceOpera.View.Panes.ResearchPanes;
@@ -20,22 +21,25 @@ namespace SpaceOpera.View.Panes
 
         public GamePane Get(GamePaneId id)
         {
-            switch (id)
+            return id switch
             {
-                case GamePaneId.Design:
-                    return Design;
-                case GamePaneId.Military:
-                    return Military;
-                case GamePaneId.Research:
-                    return Research;
-                default:
-                    throw new ArgumentException($"Unsupported pane id: {id}");
-            }
+                GamePaneId.Design => Design,
+                GamePaneId.Military => Military,
+                GamePaneId.Research => Research,
+                _ => throw new ArgumentException($"Unsupported pane id: {id}"),
+            };
         }
 
-        public static PaneSet Create(UiElementFactory uiElementFactory)
+        public IEnumerable<GamePane> GetPanes()
         {
-            var design = new DesignPane(uiElementFactory);
+            yield return Design;
+            yield return Military;
+            yield return Research;
+        }
+
+        public static PaneSet Create(UiElementFactory uiElementFactory, IconFactory iconFactory)
+        {
+            var design = new DesignPane(uiElementFactory, iconFactory);
             design.Initialize();
             var military = MilitaryPane.Create(uiElementFactory);
             military.Initialize();

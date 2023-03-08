@@ -1,11 +1,13 @@
 ﻿using Cardamom.Ui;
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
-using SpaceOpera.Controller.Panes;
+using SpaceOpera.Controller.Components;
+using SpaceOpera.Controller.Panes.DesignPanes;
 using SpaceOpera.Core;
 using SpaceOpera.Core.Designs;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.View.Components;
+using SpaceOpera.View.Icons;
 
 namespace SpaceOpera.View.Panes.DesignPanes
 {
@@ -25,12 +27,14 @@ namespace SpaceOpera.View.Panes.DesignPanes
         private Faction? _faction;
         private ComponentType _componentType;
 
-        public DesignPane(UiElementFactory uiElementFactory)
+        public IUiContainer DesignTable { get; }
+
+        public DesignPane(UiElementFactory uiElementFactory, IconFactory iconFactory)
             : base(
-                new GamePaneController(),
+                new DesignPaneController(),
                 uiElementFactory.GetClass(s_ClassName),
                 uiElementFactory.CreateTextButton(s_TitleClassName, s_Title).Item1,
-                uiElementFactory.CreateTextButton(s_CloseClass, "X").Item1, 
+                uiElementFactory.CreateSimpleButton(s_CloseClass).Item1, 
                 TabBar<ComponentType>.Create(
                 new List<TabBar<ComponentType>.Definition>()
                 {
@@ -43,15 +47,15 @@ namespace SpaceOpera.View.Panes.DesignPanes
                 new DynamicUiContainer(
                     uiElementFactory.GetClass(s_BodyClassName), new NoOpElementController<UiContainer>())) 
         {
-            var table =
+            DesignTable =
                 new DynamicUiSerialContainer<Design, DesignRow>(
                     uiElementFactory.GetClass(s_DesignTableClassName), 
-                    new TableController(),
+                    new ActionTableController(),
                     UiSerialContainer.Orientation.Vertical,
                     GetRange,
-                    x => DesignRow.Create(x, uiElementFactory),
+                    x => DesignRow.Create(x, uiElementFactory, iconFactory),
                     Comparer<Design>.Create((x, y) => x.Name.CompareTo(y.Name)));
-            AddToBody(table);
+            AddToBody(DesignTable);
         }
 
         public override void Populate(params object?[] args)

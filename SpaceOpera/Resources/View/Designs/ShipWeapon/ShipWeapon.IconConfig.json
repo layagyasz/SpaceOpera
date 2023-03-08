@@ -7,28 +7,28 @@
         "Color": {
           "FromComponent": "ShipWeaponAmmunition"
         },
-        "ComponentType": "ShipWeaponAssembly"
+        "Component": "ShipWeaponAssembly"
       },
       {
         "$type": "FromComponent",
         "Color": {
           "FromComponent": "ShipWeaponAmmunition"
         },
-        "ComponentType": "ShipWeaponFireControl"
+        "Component": "ShipWeaponFireControl"
       },
       {
         "$type": "FromComponent",
         "Color": {
           "FromComponent": "ShipWeaponAmmunition"
         },
-        "ComponentType": "ShipWeaponMount"
+        "Component": "ShipWeaponMount"
       },
       {
         "$type": "FromComponent",
         "Color": {
           "FromComponent": "ShipWeaponAmmunition"
         },
-        "ComponentType": "ShipWeaponWeight"
+        "Component": "ShipWeaponWeight"
       }
     ]
   }

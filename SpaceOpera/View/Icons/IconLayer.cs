@@ -44,7 +44,12 @@ namespace SpaceOpera.View.Icons
 
             public Definition WithColor(Color4 color)
             {
-                return new(Vertices, color, Texture);
+                var vertices = new Vertex3[Vertices.Length];
+                for (int i = 0; i < vertices.Length; ++i)
+                {
+                    vertices[i] = new(Vertices[i].Position, color, Vertices[i].TexCoords);
+                }
+                return new(vertices, color, Texture);
             }
         }
 

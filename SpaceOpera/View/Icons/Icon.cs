@@ -15,6 +15,7 @@ namespace SpaceOpera.View.Icons
             : base(@class, controller)
         {
             _layers = layers.ToList();
+            SetAttributes(@class.Get(Class.State.None));
         }
 
         public override void Draw(RenderTarget target, UiContext context)
@@ -22,6 +23,7 @@ namespace SpaceOpera.View.Icons
             if (Visible)
             {
                 target.PushTranslation(Position);
+                context.Register(this);
                 _layers.ForEach(x => x.Draw(target, context));
                 target.PopModelMatrix();
             }
@@ -40,6 +42,7 @@ namespace SpaceOpera.View.Icons
         {
             base.SetAttributes(attributes);
             SetAlpha(attributes.BackgroundColor[0].A);
+            SetDyamicSizeImpl(TrueSize.Xy);
         }
 
         public override void Update(long delta) { }

@@ -1,11 +1,12 @@
 ﻿using Cardamom.Ui;
+using SpaceOpera.Controller.Components;
 using SpaceOpera.View.Overlay;
 
 namespace SpaceOpera.Controller.Overlay
 {
-    public class EmpireOverlayController : IOverlayController
+    public class EmpireOverlayController : IActionController
     {
-        public EventHandler<ElementEventArgs<OverlayButtonId>>? ButtonClicked { get; set; }
+        public EventHandler<UiInteractionEventArgs>? Interacted { get; set; }
 
         private EmpireOverlay? _overlay;
 
@@ -13,25 +14,25 @@ namespace SpaceOpera.Controller.Overlay
         {
             _overlay = @object as EmpireOverlay;
             foreach (var controller 
-                in _overlay!.Cast<IUiElement>().Select(x => x.Controller).Cast<IOverlayController>())
+                in _overlay!.Cast<IUiElement>().Select(x => x.Controller).Cast<IActionController>())
             {
-                controller.ButtonClicked += HandleClick;
+                controller.Interacted += HandleInteraction;
             }
         }
 
         public void Unbind()
         {
             foreach (var controller 
-                in _overlay!.Cast<IUiElement>().Select(x => x.Controller).Cast<IOverlayController>())
+                in _overlay!.Cast<IUiElement>().Select(x => x.Controller).Cast<IActionController>())
             {
-                controller.ButtonClicked -= HandleClick;
+                controller.Interacted -= HandleInteraction;
             }
             _overlay = null;
         }
 
-        private void HandleClick(object? sender, ElementEventArgs<OverlayButtonId> e)
+        private void HandleInteraction(object? sender, UiInteractionEventArgs e)
         {
-            ButtonClicked?.Invoke(this, e);
+            Interacted?.Invoke(this, e);
         }
     }
 }

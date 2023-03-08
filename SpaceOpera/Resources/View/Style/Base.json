@@ -7,6 +7,21 @@
     }
   },
   {
+    "$id": "ui-icon",
+    "Default": {
+      "BackgroundColor": [ "#ffffff88" ],
+      "BackgroundShader": "shader-ui"
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "BackgroundColor": [ "#ffffffaa" ]
+        }
+      }
+    ]
+  },
+  {
     "$id": "ui-element",
     "Default": {
       "BackgroundColor": [ "#00000088" ],
@@ -42,16 +57,51 @@
     ]
   },
   {
+    "$id": "ui-button",
+    "Parent": "ui-element",
+    "Default": {
+      "BackgroundColor": [ "#ffffff88" ]
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "BackgroundColor": [ "#ffffffaa" ]
+        }
+      }
+    ]
+  },
+  {
     "$id": "ui-element-basic",
     "Parent": "ui-element",
     "Default": {
       "CornerRadius": [
-        [ 14, 14 ]
+        [ 12, 12 ]
       ],
       "FontSize": 14,
       "Padding": [ 8 ],
       "Margin": [ 2 ]
     }
+  },
+  {
+    "$id": "ui-element-internal",
+    "Parent": "ui-container",
+    "Default": {
+      "BackgroundColor": [ "#00000000" ],
+      "BackgroundShader": "shader-ui",
+      "FontFace": "font-abel",
+      "Color": "#ffffff88",
+      "Shader": "shader-default",
+      "DisableScissor": true
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "Color": "#ffffffaa"
+        }
+      }
+    ]
   },
   {
     "$id": "pane-standard",
@@ -79,16 +129,14 @@
   },
   {
     "$id": "pane-standard-close",
-    "Parent": "ui-element",
+    "Parent": "ui-button",
     "Default": {
       "Size": [ 64, 64 ],
-      "Padding": [ 4, 16, 4, 16 ],
       "Margin": [ 4 ],
       "CornerRadius": [
         [ 8, 8 ]
       ],
-      "FontSize": 32,
-      "Align": "Center"
+      "Texture": "icon-x"
     }
   },
   {
@@ -114,6 +162,14 @@
     "Parent": "ui-container",
     "Default": {
       "Size": [ 884, 580 ]
+    }
+  },
+  {
+    "$id": "pane-action-button",
+    "Parent": "ui-button",
+    "Default": {
+      "Size": [ 28, 28 ],
+      "CornerRadius": [ [ 4, 4 ] ]
     }
   }
 ]

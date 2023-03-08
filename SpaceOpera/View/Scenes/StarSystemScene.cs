@@ -50,6 +50,10 @@ namespace SpaceOpera.View.Scenes
                 subSystem.Parent = this;
             }
             _interactors = interactors;
+            foreach (var interactor in interactors)
+            {
+                interactor.Parent = this;
+            }
             _highlightLayer = highlightLayer;
             _skybox = skybox;
         }

@@ -88,7 +88,7 @@ namespace SpaceOpera.View
             return new(
                 controller,
                 EmpireOverlay.Create(UiElementFactory),
-                PaneSet.Create(UiElementFactory),
+                PaneSet.Create(UiElementFactory, IconFactory),
                 new UiGroup(new PaneLayerController()));
         }
     }

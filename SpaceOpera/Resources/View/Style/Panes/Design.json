@@ -1,7 +1,10 @@
 [
   {
     "$id": "design-pane",
-    "Parent": "pane-standard"
+    "Parent": "pane-standard",
+    "Default": {
+      "Size": [ 900, 700 ]
+    }
   },
   {
     "$id": "design-pane-title",
@@ -37,9 +40,41 @@
   },
   {
     "$id": "design-pane-component-row",
-    "Parent": "ui-element-basic",
+    "Parent": "ui-element",
     "Default": {
-      "Size": [ 876, 28 ]
+      "Size": [ 438, 48 ],
+      "CornerRadius": [ [ 8, 8 ] ],
+      "Padding": [ 8, 0, 8, 0 ]
+    }
+  },
+  {
+    "$id": "design-pane-component-row-icon",
+    "Parent": "ui-icon",
+    "Default": {
+      "Size": [ 48, 48 ]
+    }
+  },
+  {
+    "$id": "design-pane-component-row-text",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 338, 48 ],
+      "Padding": [ 8 ]
+    }
+  },
+  {
+    "$id": "design-pane-component-row-action-container",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 36, 48 ],
+      "Padding": [ 4, 10, 4, 10 ]
+    }
+  },
+  {
+    "$id": "design-pane-component-row-action-edit",
+    "Parent": "pane-action-button",
+    "Default": {
+      "Texture": "icon-edit"
     }
   }
 ]

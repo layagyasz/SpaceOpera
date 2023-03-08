@@ -2,6 +2,7 @@
 using Cardamom.Ui.Controller;
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
+using SpaceOpera.Controller.Components;
 using SpaceOpera.Controller.Overlay;
 
 namespace SpaceOpera.View.Overlay
@@ -21,13 +22,13 @@ namespace SpaceOpera.View.Overlay
                     {
                         new SimpleUiElement(
                             uiElementFactory.GetClass("overlay-empire-research"),
-                            new OverlayButtonController(OverlayButtonId.Research)),
+                            new ActionButtonController(ActionId.Research)),
                         new SimpleUiElement(
                             uiElementFactory.GetClass("overlay-empire-designer"),
-                            new OverlayButtonController(OverlayButtonId.Design)),
+                            new ActionButtonController(ActionId.Design)),
                         new SimpleUiElement(
                             uiElementFactory.GetClass("overlay-empire-military"),
-                            new OverlayButtonController(OverlayButtonId.Military))
+                            new ActionButtonController(ActionId.Military))
                     }, 
                     new ButtonController()));
         }

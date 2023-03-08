@@ -1,257 +1,257 @@
 [
   {
     "$id": "component-ship-shield-emitter-energy",
-    "Icon": "icon-energy",
+    "Texture": "icon-energy",
     "Color": "#ff0000"
   },
   {
     "$id": "component-ship-shield-emitter-magnetic",
-    "Icon": "icon-energy",
+    "Texture": "icon-energy",
     "Color": "#00ff00"
   },
   {
     "$id": "component-ship-shield-emitter-particle",
-    "Icon": "icon-energy",
+    "Texture": "icon-energy",
     "Color": "#888888"
   },
   {
     "$id": "component-ship-shield-emitter-plasma",
-    "Icon": "icon-energy",
+    "Texture": "icon-energy",
     "Color": "#ff00ff"
   },
   {
     "$id": "component-ship-shield-capacitor-flux-mesh-i",
-    "Icon": "icon-shield-capacitor-flux-mesh",
+    "Texture": "icon-shield-capacitor-flux-mesh",
     "Color": "#ffffff"
   },
   {
     "$id": "component-ship-shield-capacitor-flux-mesh-ii",
-    "Icon": "icon-shield-capacitor-flux-mesh",
+    "Texture": "icon-shield-capacitor-flux-mesh",
     "Color": "#ffffff"
   },
   {
     "$id": "component-ship-shield-capacitor-flux-mesh-iii",
-    "Icon": "icon-shield-capacitor-flux-mesh",
+    "Texture": "icon-shield-capacitor-flux-mesh",
     "Color": "#ffffff"
   },
   {
     "$id": "component-ship-shield-capacitor-flux-mesh-iv",
-    "Icon": "icon-shield-capacitor-flux-mesh",
+    "Texture": "icon-shield-capacitor-flux-mesh",
     "Color": "#ffffff"
   },
   {
     "$id": "component-ship-shield-capacitor-flux-field-i",
-    "Icon": "icon-shield-capacitor-flux-field",
+    "Texture": "icon-shield-capacitor-flux-field",
     "Color": "#ffffff"
   },
   {
     "$id": "component-ship-shield-capacitor-flux-field-ii",
-    "Icon": "icon-shield-capacitor-flux-field",
+    "Texture": "icon-shield-capacitor-flux-field",
     "Color": "#ffffff"
   },
   {
     "$id": "component-ship-shield-capacitor-flux-field-iii",
-    "Icon": "icon-shield-capacitor-flux-field",
+    "Texture": "icon-shield-capacitor-flux-field",
     "Color": "#ffffff"
   },
   {
     "$id": "component-ship-shield-capacitor-flux-field-iv",
-    "Icon": "icon-shield-capacitor-flux-field",
+    "Texture": "icon-shield-capacitor-flux-field",
     "Color": "#ffffff"
   },
   {
     "$id": "component-ship-shield-capacitor-flux-shell-i",
-    "Icon": "icon-shield-capacitor-flux-shell",
+    "Texture": "icon-shield-capacitor-flux-shell",
     "Color": "#ffffff"
   },
   {
     "$id": "component-ship-shield-capacitor-flux-shell-ii",
-    "Icon": "icon-shield-capacitor-flux-shell",
+    "Texture": "icon-shield-capacitor-flux-shell",
     "Color": "#ffffff"
   },
   {
     "$id": "component-ship-shield-capacitor-flux-shell-iii",
-    "Icon": "icon-shield-capacitor-flux-shell",
+    "Texture": "icon-shield-capacitor-flux-shell",
     "Color": "#ffffff"
   },
   {
     "$id": "component-ship-shield-capacitor-flux-shell-iv",
-    "Icon": "icon-shield-capacitor-flux-shell",
+    "Texture": "icon-shield-capacitor-flux-shell",
     "Color": "#ffffff"
   },
   {
     "$id": "component-ship-shield-capacitor-quantum-shell-i",
-    "Icon": "icon-shield-capacitor-quantum-shell",
+    "Texture": "icon-shield-capacitor-quantum-shell",
     "Color": "#ffffff"
   },
   {
     "$id": "component-ship-shield-capacitor-quantum-shell-ii",
-    "Icon": "icon-shield-capacitor-quantum-shell",
+    "Texture": "icon-shield-capacitor-quantum-shell",
     "Color": "#ffffff"
   },
   {
     "$id": "component-ship-shield-capacitor-quantum-shell-iii",
-    "Icon": "icon-shield-capacitor-quantum-shell",
+    "Texture": "icon-shield-capacitor-quantum-shell",
     "Color": "#ffffff"
   },
   {
     "$id": "component-ship-shield-capacitor-quantum-shell-iv",
-    "Icon": "icon-shield-capacitor-quantum-shell",
+    "Texture": "icon-shield-capacitor-quantum-shell",
     "Color": "#ffffff"
   },
   {
     "$id": "component-ship-shield-capacitor-quantum-field-i",
-    "Icon": "icon-shield-capacitor-quantum-field",
+    "Texture": "icon-shield-capacitor-quantum-field",
     "Color": "#ffffff"
   },
   {
     "$id": "component-ship-shield-capacitor-quantum-field-ii",
-    "Icon": "icon-shield-capacitor-quantum-field",
+    "Texture": "icon-shield-capacitor-quantum-field",
     "Color": "#ffffff"
   },
   {
     "$id": "component-ship-shield-capacitor-quantum-field-iii",
-    "Icon": "icon-shield-capacitor-quantum-field",
+    "Texture": "icon-shield-capacitor-quantum-field",
     "Color": "#ffffff"
   },
   {
     "$id": "component-ship-shield-capacitor-quantum-field-iv",
-    "Icon": "icon-shield-capacitor-quantum-field",
+    "Texture": "icon-shield-capacitor-quantum-field",
     "Color": "#ffffff"
   },
   {
     "$id": "component-ship-shield-capacitor-hyper-shell-i",
-    "Icon": "icon-shield-capacitor-hyper-shell",
+    "Texture": "icon-shield-capacitor-hyper-shell",
     "Color": "#ffffff"
   },
   {
     "$id": "component-ship-shield-capacitor-hyper-shell-ii",
-    "Icon": "icon-shield-capacitor-hyper-shell",
+    "Texture": "icon-shield-capacitor-hyper-shell",
     "Color": "#ffffff"
   },
   {
     "$id": "component-ship-shield-capacitor-hyper-shell-iii",
-    "Icon": "icon-shield-capacitor-hyper-shell",
+    "Texture": "icon-shield-capacitor-hyper-shell",
     "Color": "#ffffff"
   },
   {
     "$id": "component-ship-shield-capacitor-hyper-shell-iv",
-    "Icon": "icon-shield-capacitor-hyper-shell",
+    "Texture": "icon-shield-capacitor-hyper-shell",
     "Color": "#ffffff"
   },
   {
     "$id": "component-ship-shield-capacitor-hyper-mesh-i",
-    "Icon": "icon-shield-capacitor-hyper-mesh",
+    "Texture": "icon-shield-capacitor-hyper-mesh",
     "Color": "#ffffff"
   },
   {
     "$id": "component-ship-shield-capacitor-hyper-mesh-ii",
-    "Icon": "icon-shield-capacitor-hyper-mesh",
+    "Texture": "icon-shield-capacitor-hyper-mesh",
     "Color": "#ffffff"
   },
   {
     "$id": "component-ship-shield-capacitor-hyper-mesh-iii",
-    "Icon": "icon-shield-capacitor-hyper-mesh",
+    "Texture": "icon-shield-capacitor-hyper-mesh",
     "Color": "#ffffff"
   },
   {
     "$id": "component-ship-shield-capacitor-hyper-mesh-iv",
-    "Icon": "icon-shield-capacitor-hyper-mesh",
+    "Texture": "icon-shield-capacitor-hyper-mesh",
     "Color": "#ffffff"
   },
   {
     "$id": "component-ship-shield-power-supply-balanced-i",
-    "Icon": "icon-shield-power-supply-balanced",
+    "Texture": "icon-shield-power-supply-balanced",
     "Color": "#ffffff"
   },
   {
     "$id": "component-ship-shield-power-supply-balanced-ii",
-    "Icon": "icon-shield-power-supply-balanced",
+    "Texture": "icon-shield-power-supply-balanced",
     "Color": "#ffffff"
   },
   {
     "$id": "component-ship-shield-power-supply-balanced-iii",
-    "Icon": "icon-shield-power-supply-balanced",
+    "Texture": "icon-shield-power-supply-balanced",
     "Color": "#ffffff"
   },
   {
     "$id": "component-ship-shield-power-supply-balanced-iv",
-    "Icon": "icon-shield-power-supply-balanced",
+    "Texture": "icon-shield-power-supply-balanced",
     "Color": "#ffffff"
   },
   {
     "$id": "component-ship-shield-power-supply-overcharged-i",
-    "Icon": "icon-shield-power-supply-overcharged",
+    "Texture": "icon-shield-power-supply-overcharged",
     "Color": "#ff0000"
   },
   {
     "$id": "component-ship-shield-power-supply-overcharged-ii",
-    "Icon": "icon-shield-power-supply-overcharged",
+    "Texture": "icon-shield-power-supply-overcharged",
     "Color": "#ff0000"
   },
   {
     "$id": "component-ship-shield-power-supply-overcharged-iii",
-    "Icon": "icon-shield-power-supply-overcharged",
+    "Texture": "icon-shield-power-supply-overcharged",
     "Color": "#ff0000"
   },
   {
     "$id": "component-ship-shield-power-supply-overcharged-iv",
-    "Icon": "icon-shield-power-supply-overcharged",
+    "Texture": "icon-shield-power-supply-overcharged",
     "Color": "#ff0000"
   },
   {
     "$id": "component-ship-shield-power-supply-regenerative-i",
-    "Icon": "icon-shield-power-supply-regenerative",
+    "Texture": "icon-shield-power-supply-regenerative",
     "Color": "#00ff00"
   },
   {
     "$id": "component-ship-shield-power-supply-regenerative-ii",
-    "Icon": "icon-shield-power-supply-regenerative",
+    "Texture": "icon-shield-power-supply-regenerative",
     "Color": "#00ff00"
   },
   {
     "$id": "component-ship-shield-power-supply-regenerative-iii",
-    "Icon": "icon-shield-power-supply-regenerative",
+    "Texture": "icon-shield-power-supply-regenerative",
     "Color": "#00ff00"
   },
   {
     "$id": "component-ship-shield-power-supply-regenerative-iv",
-    "Icon": "icon-shield-power-supply-regenerative",
+    "Texture": "icon-shield-power-supply-regenerative",
     "Color": "#00ff00"
   },
   {
     "$id": "component-ship-shield-mount-single",
-    "Icon": "icon-shield-mount-single",
+    "Texture": "icon-shield-mount-single",
     "Color": "#ffffff"
   },
   {
     "$id": "component-ship-shield-mount-double",
-    "Icon": "icon-shield-mount-double",
+    "Texture": "icon-shield-mount-double",
     "Color": "#ffffff"
   },
   {
     "$id": "component-ship-shield-mount-quad",
-    "Icon": "icon-shield-mount-quad",
+    "Texture": "icon-shield-mount-quad",
     "Color": "#ffffff"
   },
   {
     "$id": "component-ship-shield-mount-octal",
-    "Icon": "icon-shield-mount-octal",
+    "Texture": "icon-shield-mount-octal",
     "Color": "#ffffff"
   },
   {
     "$id": "component-ship-shield-weight-light",
-    "Icon": "icon-blank",
+    "Texture": "icon-blank",
     "Color": "#ffffff"
   },
   {
     "$id": "component-ship-shield-weight-medium",
-    "Icon": "icon-shield-weight-medium",
+    "Texture": "icon-shield-weight-medium",
     "Color": "#ffffff"
   },
   {
     "$id": "component-ship-shield-weight-heavy",
-    "Icon": "icon-shield-weight-heavy",
+    "Texture": "icon-shield-weight-heavy",
     "Color": "#ffffff"
   }
 ]

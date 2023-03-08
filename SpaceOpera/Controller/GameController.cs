@@ -2,16 +2,14 @@
 using Cardamom.Logging;
 using Cardamom.Ui;
 using Cardamom.Ui.Controller;
-using OpenTK.Mathematics;
 using OpenTK.Windowing.GraphicsLibraryFramework;
-using SpaceOpera.Controller.Overlay;
+using SpaceOpera.Controller.Components;
 using SpaceOpera.Controller.Scenes;
 using SpaceOpera.Core;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Universe;
 using SpaceOpera.View;
 using SpaceOpera.View.Common.Highlights;
-using SpaceOpera.View.Overlay;
 using SpaceOpera.View.Panes;
 using SpaceOpera.View.Scenes;
 
@@ -54,18 +52,32 @@ namespace SpaceOpera.Controller
         public void Bind(object @object)
         {
             _screen = @object as GameScreen;
-            if (_screen!.EmpireOverlay.ComponentController is IOverlayController controller)
+            if (_screen!.EmpireOverlay.ComponentController is IActionController controller)
             {
-                controller.ButtonClicked += HandleButton;
+                controller.Interacted += HandleInteraction;
+            }
+            foreach (var pane in _screen.GetPanes())
+            {
+                if (pane.Controller is IActionController paneController)
+                {
+                    paneController.Interacted += HandleInteraction;
+                }
             }
         }
 
         public void Unbind()
         {
             _screen = null;
-            if (_screen!.EmpireOverlay.ComponentController is IOverlayController controller)
+            if (_screen!.EmpireOverlay.ComponentController is IActionController controller)
             {
-                controller.ButtonClicked -= HandleButton;
+                controller.Interacted -= HandleInteraction;
+            }
+            foreach (var pane in _screen.GetPanes())
+            {
+                if (pane.Controller is IActionController paneController)
+                {
+                    paneController.Interacted -= HandleInteraction;
+                }
             }
         }
 
@@ -130,21 +142,24 @@ namespace SpaceOpera.Controller
             _window.SetFocus(scene);
         }
 
-        public void HandleButton(object? sender, ElementEventArgs<OverlayButtonId> e)
-        {
-            _logger.AtInfo().Log(e.ToString());
-            _screen!.ClearPanes();
-            var pane = _screen!.GetPane(GetPane(e.Element));
-            pane.Populate(_world, _faction);
-            _screen!.OpenPane(pane);
-        }
-
         public void HandleInteraction(object? sender, UiInteractionEventArgs e)
         {
             _logger.AtInfo().Log(e.ToString());
             if (e.Key == Keys.Backspace)
             {
                 TryPopScene();
+                return;
+            }
+            if (e.Action != null)
+            {
+                var paneId = GetPane(e.Action.Value);
+                if (paneId != GamePaneId.None)
+                {
+                    _screen!.ClearPanes();
+                    var pane = _screen!.GetPane(paneId);
+                    pane.Populate(_world, _faction);
+                    _screen!.OpenPane(pane);
+                }
                 return;
             }
             var @object = e.GetOnlyObject();
@@ -162,13 +177,13 @@ namespace SpaceOpera.Controller
             }
         }
         
-        private static GamePaneId GetPane(OverlayButtonId id)
+        private static GamePaneId GetPane(ActionId id)
         {
             return id switch
             {
-                OverlayButtonId.Design => GamePaneId.Design,
-                OverlayButtonId.Military => GamePaneId.Military,
-                OverlayButtonId.Research => GamePaneId.Research,
+                ActionId.Design => GamePaneId.Design,
+                ActionId.Military => GamePaneId.Military,
+                ActionId.Research => GamePaneId.Research,
                 _ => GamePaneId.None,
             };
         }

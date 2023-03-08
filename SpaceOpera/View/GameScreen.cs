@@ -51,6 +51,11 @@ namespace SpaceOpera.View
             return _paneSet.Get(id);
         }
 
+        public IEnumerable<GamePane> GetPanes()
+        {
+            return _paneSet.GetPanes();
+        }
+
         public void Initialize()
         {
             Controller.Bind(this);

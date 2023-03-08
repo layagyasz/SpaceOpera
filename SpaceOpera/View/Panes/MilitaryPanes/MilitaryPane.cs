@@ -41,7 +41,7 @@ namespace SpaceOpera.View.Panes.MilitaryPanes
                 new GamePaneController(),
                 uiElementFactory.GetClass(s_ClassName),
                 uiElementFactory.CreateTextButton(s_TitleClassName, s_Title).Item1, 
-                uiElementFactory.CreateTextButton(s_CloseClass, "X").Item1,
+                uiElementFactory.CreateSimpleButton(s_CloseClass).Item1,
                 TabBar<TabId>.Create(
                     new List<TabBar<TabId>.Definition>() 
                     { 
