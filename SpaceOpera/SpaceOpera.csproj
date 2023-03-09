@@ -128,6 +128,15 @@
     <None Update="Resources\Core\Recipes.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\View\Icons\ammunition-beam.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\View\Icons\ammunition-pulse.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\View\Icons\ammunition-shell.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\View\Icons\anti-air.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

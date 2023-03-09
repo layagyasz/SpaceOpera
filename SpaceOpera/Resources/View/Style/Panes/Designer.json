@@ -40,5 +40,77 @@
       "Padding": [ 2 ],
       "CornerRadius": [ [ 12, 12 ] ]
     }
+  },
+  {
+    "$id": "designer-pane-segment-container",
+    "Parent": "ui-element",
+    "Default": {
+      "Size": [ 430, "DynamicContents" ],
+      "Margin": [ 2 ],
+      "Padding": [ 8, 4, 8, 4 ],
+      "CornerRadius": [ [ 8, 8 ] ]
+    }
+  },
+  {
+    "$id": "designer-pane-segment-configuration-select-wrapper",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 414, 32 ]
+    }
+  },
+  {
+    "$id": "designer-pane-segment-configuration-select",
+    "Parent": "ui-element-basic",
+    "Default": {
+      "Size": [ 256, 28 ]
+    }
+  },
+  {
+    "$id": "designer-pane-segment-configuration-select-dropbox",
+    "Parent": "ui-element-basic",
+    "Default": {
+      "Size": [ 256, "DynamicContents" ]
+    }
+  },
+  {
+    "$id": "designer-pane-segment-configuration-select-option",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 256, 28 ],
+      "Padding": [ 8 ],
+      "Margin": [ 2 ]
+    }
+  },
+  {
+    "$id": "designer-pane-segment-component-table",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 414, "DynamicContents" ]
+    }
+  },
+  {
+    "$id": "designer-pane-segment-component-row",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 414, 56 ],
+      "Padding": [ 2 ]
+    }
+  },
+  {
+    "$id": "designer-pane-segment-component-cell",
+    "Parent": "ui-element",
+    "Default": {
+      "Size": [ 50, 50 ],
+      "Margin": [ 2 ],
+      "Padding": [ 2 ],
+      "CornerRadius": [ [ 8, 8 ] ]
+    }
+  },
+  {
+    "$id": "designer-pane-segment-component-icon",
+    "Parent": "ui-icon",
+    "Default": {
+      "Size": [ 46, 46 ]
+    }
   }
 ]

@@ -1,7 +1,6 @@
 ﻿using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
 using Cardamom.Ui;
-using SpaceOpera.Controller.Panes.DesignPanes;
 using SpaceOpera.Core.Designs;
 using SpaceOpera.View.Icons;
 using Cardamom.Ui.Controller;
@@ -23,6 +22,9 @@ namespace SpaceOpera.View.Panes.DesignPanes
         public IUiContainer ComponentOptionTable { get; }
         public IUiContainer SegmentTable { get; }
 
+        private readonly UiElementFactory _uiElementFactory;
+        private readonly IconFactory _iconFactory;
+
         private World? _world;
         private Faction? _faction;
         private DesignTemplate? _template;
@@ -38,6 +40,9 @@ namespace SpaceOpera.View.Panes.DesignPanes
                     new NoOpElementController<UiSerialContainer>(), 
                     UiSerialContainer.Orientation.Horizontal))
         {
+            _uiElementFactory = uiElementFactory;
+            _iconFactory = iconFactory;
+
             ComponentOptionTable =
                 new UiCompoundComponent(
                     new RadioController<IComponent>("component"),
@@ -58,10 +63,21 @@ namespace SpaceOpera.View.Panes.DesignPanes
 
         public override void Populate(params object?[] args)
         {
+            var design = args[2] as Design;
+
             _world = args[0] as World;
             _faction = args[1] as Faction;
-            _template = ((Design)args[2]!).Configuration.Template;
+            _template = design!.Configuration.Template;
             SetTitle(EnumMapper.ToString(_template.Type));
+
+            SegmentTable.Clear();
+            foreach (var segment in design.Configuration.GetSegments())
+            {
+                var segmentRow = new DesignerSegmentRow(segment.Template, _uiElementFactory, _iconFactory);
+                segmentRow.Initialize();
+                segmentRow.Populate(segment.Configuration, segment.GetComponents());
+                SegmentTable.Add(segmentRow);
+            }
         }
     }
 }
