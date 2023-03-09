@@ -1,0 +1,44 @@
+[
+  {
+    "$id": "designer-pane",
+    "Parent": "pane-standard",
+    "Default": {
+      "Size": [ 900, 700 ]
+    }
+  },
+  {
+    "$id": "designer-pane-title",
+    "Parent": "pane-standard-title"
+  },
+  {
+    "$id": "designer-pane-close",
+    "Parent": "pane-standard-close"
+  },
+  {
+    "$id": "designer-pane-body",
+    "Parent": "pane-body-no-tabs",
+    "Default": {
+      "Size": [ 892, 620 ]
+    }
+  },
+  {
+    "$id": "designer-pane-component-option-table",
+    "Parent": "ui-element",
+    "Default": {
+      "Size": [ 215, 612 ],
+      "Margin": [ 4 ],
+      "Padding": [ 2 ],
+      "CornerRadius": [ [ 12, 12 ] ]
+    }
+  },
+  {
+    "$id": "designer-pane-segment-table",
+    "Parent": "ui-element",
+    "Default": {
+      "Size": [ 438, 612 ],
+      "Margin": [ 4 ],
+      "Padding": [ 2 ],
+      "CornerRadius": [ [ 12, 12 ] ]
+    }
+  }
+]

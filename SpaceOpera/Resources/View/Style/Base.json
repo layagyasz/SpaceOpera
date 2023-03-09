@@ -161,7 +161,14 @@
     "$id": "pane-body",
     "Parent": "ui-container",
     "Default": {
-      "Size": [ 884, 580 ]
+      "Size": [ 892, 580 ]
+    }
+  },
+  {
+    "$id": "pane-body-no-tabs",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 892, 620 ]
     }
   },
   {

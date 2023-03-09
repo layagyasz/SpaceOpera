@@ -5,7 +5,7 @@ using SpaceOpera.Controller.Panes;
 
 namespace SpaceOpera.View.Panes.MilitaryPanes
 {
-    public class MilitaryPane : GamePane
+    public class MilitaryPane : MultiTabGamePane
     {
         public enum TabId
         {
@@ -25,7 +25,7 @@ namespace SpaceOpera.View.Panes.MilitaryPanes
         public MilitaryPane(
             IElementController controller,
             Class @class,
-            IUiElement header,
+            TextUiElement header,
             IUiElement closeButton,
             UiCompoundComponent tabs, 
             IUiContainer body)
@@ -40,7 +40,7 @@ namespace SpaceOpera.View.Panes.MilitaryPanes
             return new(
                 new GamePaneController(),
                 uiElementFactory.GetClass(s_ClassName),
-                uiElementFactory.CreateTextButton(s_TitleClassName, s_Title).Item1, 
+                new TextUiElement(uiElementFactory.GetClass(s_TitleClassName), new ButtonController(), s_Title), 
                 uiElementFactory.CreateSimpleButton(s_CloseClass).Item1,
                 TabBar<TabId>.Create(
                     new List<TabBar<TabId>.Definition>() 

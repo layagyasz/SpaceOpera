@@ -6,6 +6,7 @@ using OpenTK.Windowing.GraphicsLibraryFramework;
 using SpaceOpera.Controller.Components;
 using SpaceOpera.Controller.Scenes;
 using SpaceOpera.Core;
+using SpaceOpera.Core.Designs;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Universe;
 using SpaceOpera.View;
@@ -150,19 +151,21 @@ namespace SpaceOpera.Controller
                 TryPopScene();
                 return;
             }
+            var @object = e.GetOnlyObject();
             if (e.Action != null)
             {
+                if (@object is Design)
+                {
+                    OpenPane(GamePaneId.Designer, _world!, _faction, @object);
+                    return;
+                }
                 var paneId = GetPane(e.Action.Value);
                 if (paneId != GamePaneId.None)
                 {
-                    _screen!.ClearPanes();
-                    var pane = _screen!.GetPane(paneId);
-                    pane.Populate(_world, _faction);
-                    _screen!.OpenPane(pane);
+                    OpenPane(paneId, _world!, _faction);
                 }
                 return;
             }
-            var @object = e.GetOnlyObject();
             if (@object != null)
             {
                 if (s_SceneTypes.Contains(@object.GetType()))
@@ -175,6 +178,14 @@ namespace SpaceOpera.Controller
                     ChangeSceneTo(transit.TransitSystem, /* cleanUp= */ true);
                 }
             }
+        }
+
+        private void OpenPane(GamePaneId paneId, params object[] args)
+        {
+            _screen!.ClearPanes();
+            var pane = _screen!.GetPane(paneId);
+            pane.Populate(args);
+            _screen!.OpenPane(pane);
         }
         
         private static GamePaneId GetPane(ActionId id)

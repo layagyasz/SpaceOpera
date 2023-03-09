@@ -4,6 +4,7 @@
     {
         None,
         Design,
+        Designer,
         Military,
         Research
     }

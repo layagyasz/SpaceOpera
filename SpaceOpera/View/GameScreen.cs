@@ -46,12 +46,12 @@ namespace SpaceOpera.View
             _paneLayer.Draw(target, context);
         }
 
-        public GamePane GetPane(GamePaneId id)
+        public IGamePane GetPane(GamePaneId id)
         {
             return _paneSet.Get(id);
         }
 
-        public IEnumerable<GamePane> GetPanes()
+        public IEnumerable<IGamePane> GetPanes()
         {
             return _paneSet.GetPanes();
         }
@@ -63,7 +63,7 @@ namespace SpaceOpera.View
             _paneLayer.Initialize();
         }
 
-        public void OpenPane(GamePane pane)
+        public void OpenPane(IGamePane pane)
         {
             pane.Position = 0.5f * (_bounds - pane.Size);
             _paneLayer.Add(pane);

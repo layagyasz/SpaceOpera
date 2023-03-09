@@ -11,7 +11,7 @@ using SpaceOpera.View.Icons;
 
 namespace SpaceOpera.View.Panes.DesignPanes
 {
-    public class DesignPane : GamePane
+    public class DesignPane : MultiTabGamePane
     {
         private static readonly string s_Title = "Designs";
 
@@ -33,7 +33,7 @@ namespace SpaceOpera.View.Panes.DesignPanes
             : base(
                 new DesignPaneController(),
                 uiElementFactory.GetClass(s_ClassName),
-                uiElementFactory.CreateTextButton(s_TitleClassName, s_Title).Item1,
+                new TextUiElement(uiElementFactory.GetClass(s_TitleClassName), new ButtonController(), s_Title),
                 uiElementFactory.CreateSimpleButton(s_CloseClass).Item1, 
                 TabBar<ComponentType>.Create(
                 new List<TabBar<ComponentType>.Definition>()

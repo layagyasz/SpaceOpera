@@ -4,17 +4,17 @@ using Cardamom.Ui.Elements;
 
 namespace SpaceOpera.View.Panes
 {
-    public abstract class GamePane : UiContainer, IDynamic
+    public abstract class MultiTabGamePane : UiContainer, IGamePane
     {
-        public IUiElement Header { get; }
+        public TextUiElement Header { get; }
         public IUiElement CloseButton { get; }
         public UiCompoundComponent Tabs { get; }
         public IUiContainer Body { get; }
 
-        public GamePane(
+        public MultiTabGamePane(
             IElementController controller, 
-            Class @class, 
-            IUiElement header, 
+            Class @class,
+            TextUiElement header, 
             IUiElement closeButton, 
             UiCompoundComponent tabs,
             IUiContainer body) 
@@ -50,5 +50,10 @@ namespace SpaceOpera.View.Panes
         public abstract void Populate(params object?[] args);
 
         public abstract void SetTab(object id);
+
+        public void SetTitle(string title)
+        {
+            Header.SetText(title);
+        }
     }
 }

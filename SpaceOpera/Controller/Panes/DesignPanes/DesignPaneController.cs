@@ -3,7 +3,7 @@ using SpaceOpera.View.Panes.DesignPanes;
 
 namespace SpaceOpera.Controller.Panes.DesignPanes
 {
-    public class DesignPaneController : GamePaneController
+    public class DesignPaneController : MultiTabGamePaneController
     {
         public override void Bind(object @object)
         {
