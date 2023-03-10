@@ -28,7 +28,7 @@ namespace SpaceOpera.View.Panes
             foreach (var definition in definitions)
             {
                 container.Add(
-                    new TextUiElement(tabOptionClass, new OptionController<object>(definition.Key!), definition.Text));
+                    new TextUiElement(tabOptionClass, new OptionElementController<object>(definition.Key!), definition.Text));
             }
             return new UiCompoundComponent(new RadioController<object>("tab-bar"), container);
         }

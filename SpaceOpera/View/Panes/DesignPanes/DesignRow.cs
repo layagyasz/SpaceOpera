@@ -20,7 +20,7 @@ namespace SpaceOpera.View.Panes.DesignPanes
 
         private readonly List<IUiElement> _actions;
 
-        private DesignRow(Class @class, Design design, Icon icon, IUiElement text, params IUiElement[] actions)
+        private DesignRow(Class @class, Design design, Icon icon, IUiElement text, params IUiContainer[] actions)
             : base(@class, new ActionRowController<Design>(design), Orientation.Horizontal)
         {
             Key = design;
@@ -30,7 +30,7 @@ namespace SpaceOpera.View.Panes.DesignPanes
             {
                 Add(action);
             }
-            _actions = actions.ToList();
+            _actions = actions.SelectMany(x => x).ToList();
         }
 
         public IEnumerable<IUiElement> GetActions()
@@ -49,7 +49,8 @@ namespace SpaceOpera.View.Panes.DesignPanes
                     design.Components.First()),
                 uiElementFactory.CreateTextButton(s_ComponentRowTextClassName, design.Name).Item1,
                 new UiWrapper(
-                    uiElementFactory.GetClass(s_ComponentRowActionContainer), 
+                    uiElementFactory.GetClass(s_ComponentRowActionContainer),
+                    new ButtonController(),
                     new SimpleUiElement(
                         uiElementFactory.GetClass(s_ComponentRowActionEdit), 
                         new ActionButtonController(ActionId.Edit))));

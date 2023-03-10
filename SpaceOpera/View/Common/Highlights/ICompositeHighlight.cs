@@ -2,7 +2,7 @@
 {
     public interface ICompositeHighlight
     {
-        public EventHandler<ElementEventArgs<IHighlight>>? OnHighlightAdded { get; set; }
+        public EventHandler<ValueEventArgs<IHighlight>>? OnHighlightAdded { get; set; }
         IEnumerable<IHighlight> GetHighlights();
     }
 }

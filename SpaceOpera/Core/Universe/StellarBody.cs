@@ -7,7 +7,7 @@ namespace SpaceOpera.Core.Universe
 {
     public class StellarBody
     {
-        public EventHandler<ElementEventArgs<Division>>? OnDivisionAdded { get; set; }
+        public EventHandler<ValueEventArgs<Division>>? OnDivisionAdded { get; set; }
 
         public string Name { get; private set; } = string.Empty;
         public string Type { get; }
@@ -109,7 +109,7 @@ namespace SpaceOpera.Core.Universe
             Name = name;
         }
 
-        private void HandleDivisionAdded(object? sender, ElementEventArgs<Division> e)
+        private void HandleDivisionAdded(object? sender, ValueEventArgs<Division> e)
         {
             OnDivisionAdded?.Invoke(this, e);
         }

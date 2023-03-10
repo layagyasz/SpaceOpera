@@ -27,8 +27,34 @@
     "Default": {
       "Size": [ 215, 612 ],
       "Margin": [ 4 ],
-      "Padding": [ 2 ],
-      "CornerRadius": [ [ 12, 12 ] ]
+      "Padding": [ 4 ],
+      "CornerRadius": [ [ 12, 12 ] ],
+      "DisableScissor": false
+    }
+  },
+  {
+    "$id": "designer-pane-component-option-row",
+    "Parent": "ui-element",
+    "Default": {
+      "Size": [ 203, 48 ],
+      "CornerRadius": [ [ 8, 8 ] ],
+      "Padding": [ 8, 0, 8, 0 ],
+      "Margin": [ 2 ]
+    }
+  },
+  {
+    "$id": "designer-pane-component-option-row-icon",
+    "Parent": "ui-icon",
+    "Default": {
+      "Size": [ 48, 48 ]
+    }
+  },
+  {
+    "$id": "designer-pane-component-option-row-text",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 139, 48 ],
+      "Padding": [ 8 ]
     }
   },
   {
@@ -45,8 +71,8 @@
     "$id": "designer-pane-segment-container",
     "Parent": "ui-element",
     "Default": {
-      "Size": [ 430, "DynamicContents" ],
-      "Margin": [ 2 ],
+      "Size": [ 426, "DynamicContents" ],
+      "Margin": [ 4 ],
       "Padding": [ 8, 4, 8, 4 ],
       "CornerRadius": [ [ 8, 8 ] ]
     }
@@ -55,7 +81,7 @@
     "$id": "designer-pane-segment-configuration-select-wrapper",
     "Parent": "ui-container",
     "Default": {
-      "Size": [ 414, 32 ]
+      "Size": [ 410, 32 ]
     }
   },
   {
@@ -85,14 +111,14 @@
     "$id": "designer-pane-segment-component-table",
     "Parent": "ui-container",
     "Default": {
-      "Size": [ 414, "DynamicContents" ]
+      "Size": [ 410, "DynamicContents" ]
     }
   },
   {
     "$id": "designer-pane-segment-component-row",
     "Parent": "ui-container",
     "Default": {
-      "Size": [ 414, 56 ],
+      "Size": [ 410, 56 ],
       "Padding": [ 2 ]
     }
   },

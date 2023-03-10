@@ -11,8 +11,9 @@ namespace SpaceOpera.View.Panes.DesignPanes
         private readonly IconFactory _iconFactory;
         private readonly Class _iconClass;
 
-        public DesignerComponentCell(Class @class, IconFactory iconFactory, Class iconClass)
-            : base(@class, new ButtonController())
+        public DesignerComponentCell(
+            Class @class, IElementController controller, IconFactory iconFactory, Class iconClass)
+            : base(@class, controller)
         {
             _iconFactory = iconFactory;
             _iconClass = iconClass;
@@ -23,7 +24,7 @@ namespace SpaceOpera.View.Panes.DesignPanes
             Clear();
             if (component != null)
             {
-                var icon = _iconFactory.Create(_iconClass, new ButtonController(), component);
+                var icon = _iconFactory.Create(_iconClass, new InlayController(), component);
                 icon.Initialize();
                 Add(icon);
             }

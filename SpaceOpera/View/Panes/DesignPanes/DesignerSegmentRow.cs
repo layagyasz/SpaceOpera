@@ -2,12 +2,13 @@
 using Cardamom.Ui;
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
+using SpaceOpera.Controller.Panes.DesignPanes;
 using SpaceOpera.Core.Designs;
 using SpaceOpera.View.Icons;
 
 namespace SpaceOpera.View.Panes.DesignPanes
 {
-    public class DesignerSegmentRow : UiSerialContainer
+    public class DesignerSegmentRow : UiCompoundComponent
     {
         private static readonly string s_ClassName = "designer-pane-segment-container";
         private static readonly string s_ConfigurationSelectWrapperClassName =
@@ -24,15 +25,23 @@ namespace SpaceOpera.View.Panes.DesignPanes
 
         private static readonly int s_ComponentRowElementCount = 8;
 
+        public EventHandler<ElementEventArgs>? CellAdded { get; set; }
+        public EventHandler<ElementEventArgs>? CellRemoved { get; set; }
+
         public IUiElement ConfigurationSelect { get; }
         public IUiContainer ComponentTable { get; }
-        public List<IUiElement> ComponentCells { get; }
+        public List<DesignerComponentCell> ComponentCells { get; }
 
         private readonly UiElementFactory _uiElementFactory;
         private readonly IconFactory _iconFactory;
 
         public DesignerSegmentRow(SegmentTemplate template, UiElementFactory uiElementFactory, IconFactory iconFactory)
-            : base(uiElementFactory.GetClass(s_ClassName), new ButtonController(), Orientation.Vertical)
+            : base(
+                  new DesignerSegmentRowController(),
+                  new UiSerialContainer(
+                      uiElementFactory.GetClass(s_ClassName), 
+                      new ButtonController(),
+                      UiSerialContainer.Orientation.Vertical))
         {
             _uiElementFactory = uiElementFactory;
             _iconFactory = iconFactory;
@@ -44,13 +53,17 @@ namespace SpaceOpera.View.Panes.DesignPanes
                     template.ConfigurationOptions.Select(
                         x => uiElementFactory.CreateSelectOption(
                             s_ConfigurationSelectDropOptionClassName, x, x.Name).Item1)).Item1;
-            Add(new UiWrapper(uiElementFactory.GetClass(s_ConfigurationSelectWrapperClassName), ConfigurationSelect));
+            Add(
+                new UiWrapper(
+                    uiElementFactory.GetClass(s_ConfigurationSelectWrapperClassName), 
+                    new ButtonController(), 
+                    ConfigurationSelect));
 
             ComponentTable = 
                 new UiSerialContainer(
                     uiElementFactory.GetClass(s_ComponentTableClassName), 
                     new ButtonController(),
-                    Orientation.Vertical);
+                    UiSerialContainer.Orientation.Vertical);
             Add(ComponentTable);
 
             ComponentCells = new();
@@ -58,21 +71,28 @@ namespace SpaceOpera.View.Panes.DesignPanes
 
         public void Populate(SegmentConfiguration configuration, MultiMap<DesignSlot, IComponent> components)
         {
+            foreach (var cell in ComponentCells)
+            {
+                CellRemoved?.Invoke(this, new(cell));
+            }
             ComponentCells.Clear();
             ComponentTable.Clear();
 
-            var cells = new List<IUiElement>();
+            var cells = new List<DesignerComponentCell>();
             foreach (var configSlot in configuration.Slots)
             {
                 var c = components[configSlot].ToList();
                 for (int i = 0; i < configSlot.Count; ++i)
                 {
+                    var controller = new DesignerComponentCellController(configSlot);
                     var slot = 
                         new DesignerComponentCell(
                             _uiElementFactory.GetClass(s_ComponentCellClassName),
+                            controller,
                             _iconFactory, 
                             _uiElementFactory.GetClass(s_ComponentIconClassName));
-                    slot.SetComponent(c[i]);
+                    slot.Initialize();
+                    controller.SetValue(c[i]);
                     cells.Add(slot);
                 }
             }
@@ -83,13 +103,13 @@ namespace SpaceOpera.View.Panes.DesignPanes
                     new UiSerialContainer(
                         _uiElementFactory.GetClass(s_ComponentRowClassName), 
                         new ButtonController(), 
-                        Orientation.Horizontal);
-                foreach (var cell in  chunk)
+                        UiSerialContainer.Orientation.Horizontal);
+                row.Initialize();
+                foreach (var cell in chunk)
                 {
                     row.Add(cell);
-                    cell.Initialize();
+                    CellAdded?.Invoke(this, new(cell));
                 }
-                row.Initialize();
                 ComponentTable.Add(row);
             }
             ComponentCells.AddRange(cells);

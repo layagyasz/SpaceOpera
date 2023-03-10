@@ -7,6 +7,7 @@ using Cardamom.Ui.Controller;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.Core;
 using SpaceOpera.Controller.Panes;
+using SpaceOpera.Controller.Panes.DesignPanes;
 
 namespace SpaceOpera.View.Panes.DesignPanes
 {
@@ -19,8 +20,8 @@ namespace SpaceOpera.View.Panes.DesignPanes
         private static readonly string s_ComponentOptionTableClassName = "designer-pane-component-option-table";
         private static readonly string s_SegmentTableClassName = "designer-pane-segment-table";
 
-        public IUiContainer ComponentOptionTable { get; }
-        public IUiContainer SegmentTable { get; }
+        public UiCompoundComponent ComponentOptionTable { get; }
+        public UiCompoundComponent SegmentTable { get; }
 
         private readonly UiElementFactory _uiElementFactory;
         private readonly IconFactory _iconFactory;
@@ -31,7 +32,7 @@ namespace SpaceOpera.View.Panes.DesignPanes
 
         public DesignerPane(UiElementFactory uiElementFactory, IconFactory iconFactory)
             : base(
-                new GamePaneController(),
+                new DesignerPaneController(),
                 uiElementFactory.GetClass(s_ClassName),
                 new TextUiElement(uiElementFactory.GetClass(s_TitleClassName), new ButtonController(), string.Empty),
                 uiElementFactory.CreateSimpleButton(s_CloseClass).Item1,
@@ -53,7 +54,7 @@ namespace SpaceOpera.View.Panes.DesignPanes
             AddToBody(ComponentOptionTable);
             SegmentTable =
                 new UiCompoundComponent(
-                    new RadioController<IComponent>("component"),
+                    new DesignerSegmentTableController(),
                     new UiSerialContainer(
                         uiElementFactory.GetClass(s_SegmentTableClassName),
                         new TableController(),
@@ -70,6 +71,7 @@ namespace SpaceOpera.View.Panes.DesignPanes
             _template = design!.Configuration.Template;
             SetTitle(EnumMapper.ToString(_template.Type));
 
+            ComponentOptionTable.Clear();
             SegmentTable.Clear();
             foreach (var segment in design.Configuration.GetSegments())
             {
@@ -77,6 +79,20 @@ namespace SpaceOpera.View.Panes.DesignPanes
                 segmentRow.Initialize();
                 segmentRow.Populate(segment.Configuration, segment.GetComponents());
                 SegmentTable.Add(segmentRow);
+            }
+        }
+
+        public void SetSlot(DesignSlot? slot)
+        {
+            ComponentOptionTable.Clear();
+            if (slot != null)
+            {
+                foreach (var component in _world!.GetComponentsFor(_faction!).Where(x => x.FitsSlot(slot.Value)))
+                {
+                    var option = DesignerComponentOption.Create(component, _uiElementFactory, _iconFactory);
+                    option.Initialize();
+                    ComponentOptionTable.Add(option);
+                }
             }
         }
     }

@@ -7,7 +7,7 @@ namespace SpaceOpera.Core.Universe
 {
     public class StellarBodyRegion
     {
-        public EventHandler<ElementEventArgs<Division>>? OnDivisionAdded { get; set; }
+        public EventHandler<ValueEventArgs<Division>>? OnDivisionAdded { get; set; }
 
         public string Name { get; private set; } = string.Empty;
         public StellarBodySubRegion Center { get; }
@@ -88,7 +88,7 @@ namespace SpaceOpera.Core.Universe
                 .SelectMany(x => x.Neighbors!).Select(x => x.ParentRegion!).Where(x => x != this).Distinct();
         }
 
-        private void HandleDivisionAdded(object? sender, ElementEventArgs<Division> e)
+        private void HandleDivisionAdded(object? sender, ValueEventArgs<Division> e)
         {
             OnDivisionAdded?.Invoke(this, e);
         }

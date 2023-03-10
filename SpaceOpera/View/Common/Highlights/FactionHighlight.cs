@@ -5,7 +5,7 @@ namespace SpaceOpera.View.Common.Highlights
 {
     public class FactionHighlight : ICompositeHighlight
     {
-        public EventHandler<ElementEventArgs<IHighlight>>? OnHighlightAdded { get; set; }
+        public EventHandler<ValueEventArgs<IHighlight>>? OnHighlightAdded { get; set; }
 
         public World World { get; }
         public BannerViewFactory BannerViewFactory { get; }

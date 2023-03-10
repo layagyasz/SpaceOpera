@@ -7,7 +7,7 @@ namespace SpaceOpera.Core.Universe
 {
     public class StellarBodySubRegion : INavigable
     {
-        public EventHandler<ElementEventArgs<Division>>? OnDivisionAdded { get; set; }
+        public EventHandler<ValueEventArgs<Division>>? OnDivisionAdded { get; set; }
 
         public int Id { get; }
         public string Name => ParentRegion!.Name;
@@ -55,7 +55,7 @@ namespace SpaceOpera.Core.Universe
         public void AddDivision(Division division)
         {
             _divisions.Add(division);
-            OnDivisionAdded?.Invoke(this, new ElementEventArgs<Division>(division));
+            OnDivisionAdded?.Invoke(this, new ValueEventArgs<Division>(division));
         }
 
         public void RemoveDivision(Division division)

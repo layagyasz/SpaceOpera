@@ -1,10 +1,10 @@
 ﻿namespace SpaceOpera
 {
-    public struct ElementEventArgs<T>
+    public struct ValueEventArgs<T>
     {
         public T Element { get; }
 
-        public ElementEventArgs(T element)
+        public ValueEventArgs(T element)
         {
             Element = element;
         }
