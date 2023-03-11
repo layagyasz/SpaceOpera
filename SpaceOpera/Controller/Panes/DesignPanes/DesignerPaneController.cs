@@ -49,7 +49,7 @@ namespace SpaceOpera.Controller.Panes.DesignPanes
             _activeCell?.SetSelected(true);
         }
 
-        private void HandleComponentSelected(object? sender, ValueChangedEventArgs<string, IComponent> e)
+        private void HandleComponentSelected(object? sender, ValueChangedEventArgs<string, IComponent?> e)
         {
             _activeCell?.SetValue(e.Value);
         }

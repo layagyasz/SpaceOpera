@@ -69,9 +69,9 @@ namespace SpaceOpera.Controller.Panes.DesignPanes
             UnbindCell((DesignerComponentCell)e.Element);
         }
 
-        private void HandleConfigurationChanged(object? sender, ValueChangedEventArgs<string, SegmentConfiguration> e)
+        private void HandleConfigurationChanged(object? sender, ValueChangedEventArgs<string, SegmentConfiguration?> e)
         {
-            ConfigurationChanged?.Invoke(this, new(_row!, e.Value));
+            ConfigurationChanged?.Invoke(this, new(_row!, e.Value!));
         }
     }
 }

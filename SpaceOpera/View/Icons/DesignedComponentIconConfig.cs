@@ -16,6 +16,7 @@ namespace SpaceOpera.View.Icons
 
         [JsonDerivedType(typeof(ComponentLayerConfig), "FromComponent")]
         [JsonDerivedType(typeof(TagLayerConfig), "FromTag")]
+        [JsonDerivedType(typeof(StaticLayerConfig), "Static")]
         public interface ILayerConfig
         {
             ColorConfig Color { get; }
@@ -36,12 +37,27 @@ namespace SpaceOpera.View.Icons
             }
         }
 
+        public class StaticLayerConfig : ILayerConfig
+        {
+            public ColorConfig Color { get; set; }
+            public List<string> Textures { get; set; } = new();
+
+            public IEnumerable<IconLayer.Definition> CreateLayers(
+                DesignedComponent component, Color4 color, IconFactory iconFactory)
+            {
+                foreach (var texture in Textures)
+                {
+                    yield return new(color, texture);
+                }
+            }
+        }
+
         public class TagLayerConfig : ILayerConfig
         {
             public class TagLayerOption
             {
                 public EnumSet<ComponentTag> Tags { get; set; } = new();
-                public string Texture { get; set; } = string.Empty;
+                public List<string> Textures { get; set; } = new();
             }
 
             public ColorConfig Color { get; set; }
@@ -52,9 +68,12 @@ namespace SpaceOpera.View.Icons
             {
                 foreach (var option in Options)
                 {
-                    if (option.Tags.Count == 0 || option.Tags.IsSubsetOf(component.Tags))
+                    if (option.Tags.IsSubsetOf(component.Tags))
                     {
-                        yield return new(color, option.Texture);
+                        foreach (var texture in option.Textures)
+                        {
+                            yield return new(color, texture);
+                        }
                         break;
                     }
                 }

@@ -1,0 +1,14 @@
+[
+  {
+    "ComponentType": "Ship",
+    "Layers": [
+      {
+        "$type": "Static",
+        "Color": {
+          "FromFaction": true
+        },
+        "Textures": [ "icon-ship" ]
+      }
+    ]
+  }
+]

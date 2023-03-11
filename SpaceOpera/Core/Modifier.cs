@@ -10,7 +10,7 @@ namespace SpaceOpera.Core
 
         public Modifier Combine()
         {
-            return new Modifier()
+            return new()
             {
                 Constant = (1 + Bonus) * Constant
             };
@@ -23,31 +23,31 @@ namespace SpaceOpera.Core
 
         public override string ToString()
         {
-            bool showConstant = Math.Abs(Constant) < float.Epsilon;
-            bool showBonus = Math.Abs(Bonus) < float.Epsilon;
+            bool showConstant = Math.Abs(Constant) > float.Epsilon;
+            bool showBonus = Math.Abs(Bonus) > float.Epsilon;
             if (showConstant && showBonus)
             {
-                return String.Format("{0:N2} ({1})", Constant, FormatBonusString(Bonus));
+                return string.Format("{0:N2} ({1})", Constant, FormatBonusString(Bonus));
             }
             if (!showConstant && showBonus)
             {
                 return FormatBonusString(Bonus);
             }
-            return String.Format("{0:N2}", Constant);
+            return string.Format("{0:N2}", Constant);
         }
 
         private string FormatBonusString(float Bonus)
         {
             if (Bonus < 0)
             {
-                return String.Format("{0:P0}", Bonus);
+                return string.Format("{0:P0}", Bonus);
             }
-            return String.Format("+{0:P0}", Bonus);
+            return string.Format("+{0:P0}", Bonus);
         }
 
         public static Modifier operator +(Modifier left, Modifier right)
         {
-            return new Modifier()
+            return new()
             {
                 Constant = left.Constant + right.Constant,
                 Bonus = (1 + left.Bonus) * (1 + right.Bonus) - 1
@@ -56,7 +56,7 @@ namespace SpaceOpera.Core
 
         public static Modifier operator *(float left, Modifier right)
         {
-            return new Modifier()
+            return new()
             {
                 Constant = left * right.Constant,
                 Bonus = left * right.Bonus

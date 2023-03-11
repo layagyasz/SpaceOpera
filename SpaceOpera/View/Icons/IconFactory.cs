@@ -5,6 +5,7 @@ using Cardamom.Ui;
 using Cardamom.Ui.Controller.Element;
 using OpenTK.Mathematics;
 using SpaceOpera.Core.Designs;
+using SpaceOpera.Core.Military;
 
 namespace SpaceOpera.View.Icons
 {
@@ -26,7 +27,8 @@ namespace SpaceOpera.View.Icons
             _definitionMap = new()
             {
                 { typeof(BaseComponent),  GetAtomicDefinition },
-                { typeof(DesignedComponent), GetDesignedComponentDefinition }
+                { typeof(DesignedComponent), GetDesignedComponentDefinition },
+                { typeof(Unit), GetDesignedComponentDefinition }
             };
             _uiElementFactory = uiElementFactory;
             _shader = _uiElementFactory.GetShader("shader-default");
