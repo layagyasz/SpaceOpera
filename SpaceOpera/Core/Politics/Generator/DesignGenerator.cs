@@ -22,12 +22,16 @@ namespace SpaceOpera.Core.Politics.Generator
                 {
                     continue;
                 }
-                var designConfig = 
-                    world.AutoDesigner.CreateSeries(parameters.Key, world.GetComponentsFor(faction), context.Random);
-                designConfig.SetName(faction.NameGenerator.GenerateNameFor(designConfig, context.Random));
-                var design = world.DesignBuilder.Build(designConfig);
-                world.AddDesign(design);
-                world.AddLicense(new(faction, design));
+                for (int i = 0; i < parameters.Value; ++i)
+                {
+                    var designConfig =
+                        world.AutoDesigner.CreateSeries(
+                            parameters.Key, world.GetComponentsFor(faction), context.Random);
+                    designConfig.SetName(faction.NameGenerator.GenerateNameFor(designConfig, context.Random));
+                    var design = world.DesignBuilder.Build(designConfig);
+                    world.AddDesign(design);
+                    world.AddLicense(new(faction, design));
+                }
             }
         }
     }

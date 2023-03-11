@@ -1,14 +1,14 @@
 [
   {
-    "Key": "design-template-battalion-template",
+    "$id": "design-template-battalion-template",
     "Type": "BattalionTemplate",
     "Segments": [
       {
-        "Key": "design-template-segment-battalion-core",
+        "$id": "design-template-segment-battalion-core",
         "Name": "Core",
         "ConfigurationOptions": [
           {
-            "Key": "design-template-segment-battalion-infantry",
+            "$id": "design-template-segment-battalion-infantry",
             "Name": "Infantry",
             "Slots": [
               {

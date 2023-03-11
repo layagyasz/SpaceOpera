@@ -1,16 +1,16 @@
 [
   {
-    "Key": "design-template-infantry",
+    "$id": "design-template-infantry",
     "Type": "Infantry",
     "Structure": "structure-training-facility",
     "Tags": [ "Infantry" ],
     "Segments": [
       {
-        "Key": "design-template-segment-infantry-platform",
+        "$id": "design-template-segment-infantry-platform",
         "Name": "Platform",
         "ConfigurationOptions": [
           {
-            "Key": "design-template-segment-infantry-platform-standard",
+            "$id": "design-template-segment-infantry-platform-standard",
             "Name": "Standard",
             "Slots": [
               {
@@ -24,11 +24,11 @@
         ]
       },
       {
-        "Key": "design-template-segment-infantry-equipment",
+        "$id": "design-template-segment-infantry-equipment",
         "Name": "Equipment",
         "ConfigurationOptions": [
           {
-            "Key": "design-template-segment-infantry-equipment-standard",
+            "$id": "design-template-segment-infantry-equipment-standard",
             "Name": "Standard",
             "Slots": [
               {

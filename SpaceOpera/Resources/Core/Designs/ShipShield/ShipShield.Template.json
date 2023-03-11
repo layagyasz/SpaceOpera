@@ -1,6 +1,6 @@
 [
   {
-    "Key": "design-template-ship-shield",
+    "$id": "design-template-ship-shield",
     "Type": "ShipShield",
     "Sizes": {
       "Small": {
@@ -63,11 +63,11 @@
     },
     "Segments": [
       {
-        "Key": "design-template-segment-ship-shield-components",
+        "$id": "design-template-segment-ship-shield-components",
         "Name": "Components",
         "ConfigurationOptions": [
           {
-            "Key": "design-template-segment-ship-shield-components-standard",
+            "$id": "design-template-segment-ship-shield-components-standard",
             "Name": "Standard",
             "Slots": [
               {

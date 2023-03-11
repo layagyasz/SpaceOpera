@@ -1,6 +1,6 @@
 [
   {
-    "Key": "design-template-ship-weapon",
+    "$id": "design-template-ship-weapon",
     "Type": "ShipWeapon",
     "Sizes": {
       "SMALL": {
@@ -63,11 +63,11 @@
     },
     "Segments": [
       {
-        "Key": "design-template-segment-ship-weapon-components",
+        "$id": "design-template-segment-ship-weapon-components",
         "Name": "Components",
         "ConfigurationOptions": [
           {
-            "Key": "design-template-segment-ship-weapon-components-standard",
+            "$id": "design-template-segment-ship-weapon-components-standard",
             "Name": "Standard",
             "Slots": [
               {

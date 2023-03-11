@@ -56,6 +56,6 @@ void main()
 
     vec4 diffuse_color = vert_color * texture(diffuse_texture, vert_tex_coord);
     float l = light_luminance / (light_attenuation * dot(light_direction, light_direction));
-    vec4 c = diffuse_color * (ambient + luminance) + diffuse_color * l * light_color * (diffuse + specular);
+    vec4 c = diffuse_color * (ambient + luminance) + l * light_color * (diffuse_color * diffuse + specular);
     out_color = vec4(clamp(c.rgb, 0, 1), 1);
 }

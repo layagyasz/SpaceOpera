@@ -5,6 +5,7 @@ using Cardamom.Json;
 using Cardamom.Json.Collections;
 using Cardamom.Json.OpenTK;
 using Cardamom.Logging;
+using Cardamom.Trackers;
 using SpaceOpera.Core.Advancement;
 using SpaceOpera.Core.Designs;
 using SpaceOpera.Core.Economics;
@@ -90,6 +91,8 @@ namespace SpaceOpera.Core
             options.Converters.Add(new Vector4JsonConverter());
             options.Converters.Add(new Vector2iJsonConverter());
             options.Converters.Add(new Matrix4JsonConverter());
+            options.Converters.Add(
+                new ReferenceDictionaryJsonConverter().CreateConverter(typeof(MultiQuantity<IMaterial>), options)!);
             var data = JsonSerializer.Deserialize<CoreData>(File.ReadAllText(path), options)!;
             logger = logger.ForType(typeof(CoreData)).AtInfo();
             logger.Log("Loaded");

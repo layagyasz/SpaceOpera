@@ -1,14 +1,14 @@
 [
   {
-    "Key": "design-template-division-template",
+    "$id": "design-template-division-template",
     "Type": "DivisionTemplate",
     "Segments": [
       {
-        "Key": "design-template-segment-division-core",
+        "$id": "design-template-segment-division-core",
         "Name": "Core",
         "ConfigurationOptions": [
           {
-            "Key": "design-template-segment-division-binary",
+            "$id": "design-template-segment-division-binary",
             "Name": "Binary",
             "Slots": [
               {
@@ -26,7 +26,7 @@
             ]
           },
           {
-            "Key": "design-template-segment-division-triangular",
+            "$id": "design-template-segment-division-triangular",
             "Name": "Triangular",
             "Slots": [
               {
@@ -44,7 +44,7 @@
             ]
           },
           {
-            "Key": "design-template-segment-division-rectangular",
+            "$id": "design-template-segment-division-rectangular",
             "Name": "Rectangular",
             "Slots": [
               {

@@ -1,0 +1,218 @@
+[
+  {
+    "$id": "component-ship-armor-alumite-light",
+    "Name": "Alumite Armor (L)",
+    "Slot": {
+      "Type": "ShipArmor"
+    },
+    "Attributes": {
+      "ArmorCoverage": {
+        "Constant": 1
+      },
+      "ArmorProtection": {
+        "Constant": 25.6
+      },
+      "ArmorThickness": {
+        "Constant": 25.6
+      }
+    },
+    "ReferenceMaterial": {
+      "MaterialReference1": {
+        "material-alumite-metal": 0.5
+      }
+    }
+  },
+  {
+    "$id": "component-ship-armor-alumite-medium",
+    "Name": "Alumite Armor",
+    "Slot": {
+      "Type": "ShipArmor"
+    },
+    "Attributes": {
+      "ArmorCoverage": {
+        "Constant": 1
+      },
+      "ArmorProtection": {
+        "Constant": 51.2
+      },
+      "ArmorThickness": {
+        "Constant": 51.2
+      }
+    },
+    "ReferenceMaterial": {
+      "MaterialReference1": {
+        "material-alumite-metal": 1
+      }
+    }
+  },
+  {
+    "$id": "component-ship-armor-alumite-heavy",
+    "Name": "Alumite Armor (H)",
+    "Slot": {
+      "Type": "ShipArmor"
+    },
+    "Attributes": {
+      "ArmorCoverage": {
+        "Constant": 1
+      },
+      "ArmorProtection": {
+        "Constant": 102.4
+      },
+      "ArmorThickness": {
+        "Constant": 102.4
+      }
+    },
+    "ReferenceMaterial": {
+      "MaterialReference1": {
+        "material-alumite-metal": 2
+      }
+    }
+  },
+  {
+    "$id": "component-ship-cargo-s",
+    "Name": "Cargo Hold (S)",
+    "Slot": {
+      "Type": "ShipInternal",
+      "Size": "Small"
+    },
+    "Attributes": {
+      "CargoSpace": {
+        "Constant": 1000
+      }
+    }
+  },
+  {
+    "$id": "component-ship-cargo-m",
+    "Name": "Cargo Hold (M)",
+    "Slot": {
+      "Type": "ShipInternal",
+      "Size": "Medium"
+    },
+    "Attributes": {
+      "CargoSpace": {
+        "Constant": 2000
+      }
+    }
+  },
+  {
+    "$id": "component-ship-cargo-l",
+    "Name": "Cargo Hold (L)",
+    "Slot": {
+      "Type": "ShipInternal",
+      "Size": "Large"
+    },
+    "Attributes": {
+      "CargoSpace": {
+        "Constant": 4000
+      }
+    }
+  },
+  {
+    "$id": "component-ship-construction-alumite",
+    "Name": "Alumite Construction",
+    "Slot": {
+      "Type": "ShipConstruction"
+    },
+    "Attributes": {
+      "Hitpoints": {
+        "Bonus": -0.2
+      }
+    },
+    "ReferenceMaterial": {
+      "MaterialReference0": {
+        "material-alumite-metal": 1
+      }
+    }
+  },
+  {
+    "$id": "component-ship-hangar-s",
+    "Name": "Hangar (S)",
+    "Slot": {
+      "Type": "ShipHangar",
+      "Size": "Small"
+    },
+    "Attributes": {
+      "HangarSpace": {
+        "Constant": 4
+      }
+    }
+  },
+  {
+    "$id": "component-ship-hangar-m",
+    "Name": "Hangar (M)",
+    "Slot": {
+      "Type": "ShipHangar",
+      "Size": "Medium"
+    },
+    "Attributes": {
+      "HangarSpace": {
+        "Constant": 8
+      }
+    }
+  },
+  {
+    "$id": "component-ship-hangar-l",
+    "Name": "Hangar (L)",
+    "Slot": {
+      "Type": "ShipHangar",
+      "Size": "Large"
+    },
+    "Attributes": {
+      "HangarSpace": {
+        "Constant": 16
+      }
+    }
+  },
+  {
+    "$id": "component-ship-point-defense",
+    "Name": "Point Defense",
+    "Slot": {
+      "Type": "ShipPointDefense"
+    },
+    "Attributes": {
+      "WeaponPenetration": {
+        "Constant": 8
+      },
+      "WeaponAccuracy": {
+        "Constant": 300
+      },
+      "WeaponTracking": {
+        "Constant": 600
+      }
+    },
+    "Damage": {
+      "Kinetic": {
+        "Constant": 3200
+      },
+      "Energy": {
+        "Constant": 3200
+      }
+    }
+  },
+  {
+    "$id": "component-ship-missile",
+    "Name": "Missile Battery",
+    "Slot": {
+      "Type": "ShipMissile"
+    },
+    "Attributes": {
+      "WeaponPenetration": {
+        "Constant": 96
+      },
+      "WeaponAccuracy": {
+        "Constant": 600
+      },
+      "WeaponTracking": {
+        "Constant": 150
+      }
+    },
+    "Damage": {
+      "Energy": {
+        "Constant": 3200
+      },
+      "Kinetic": {
+        "Constant": 3200
+      }
+    }
+  }
+]

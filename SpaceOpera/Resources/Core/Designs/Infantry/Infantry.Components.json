@@ -1,6 +1,6 @@
 [
   {
-    "Key": "component-infantry-platform-human",
+    "$id": "component-infantry-platform-human",
     "Name": "Human",
     "Slot": {
       "Type": "InfantryPlatform"
@@ -15,7 +15,7 @@
     }
   },
   {
-    "Key": "component-personal-weapon-kinetic",
+    "$id": "component-personal-weapon-kinetic",
     "Name": "Personal Weapon (Kinetic)",
     "Slot": {
       "Type": "PersonalWeapon"
@@ -43,7 +43,7 @@
     }
   },
   {
-    "Key": "component-personal-weapon-laser",
+    "$id": "component-personal-weapon-laser",
     "Name": "Personal Weapon (Laser)",
     "Slot": {
       "Type": "PersonalWeapon"
@@ -71,7 +71,7 @@
     }
   },
   {
-    "Key": "component-personal-weapon-plasma",
+    "$id": "component-personal-weapon-plasma",
     "Name": "Personal Weapon (Plasma)",
     "Slot": {
       "Type": "PersonalWeapon"
@@ -99,7 +99,7 @@
     }
   },
   {
-    "Key": "component-personal-armor-alumite",
+    "$id": "component-personal-armor-alumite",
     "Name": "Personal Armor (Alumite)",
     "Slot": {
       "Type": "PersonalArmor"
@@ -122,7 +122,7 @@
     }
   },
   {
-    "Key": "component-personal-armor-duralumin",
+    "$id": "component-personal-armor-duralumin",
     "Name": "Personal Armor (Duralumin)",
     "Slot": {
       "Type": "PersonalArmor"
@@ -145,7 +145,7 @@
     }
   },
   {
-    "Key": "component-personal-armor-durasteel",
+    "$id": "component-personal-armor-durasteel",
     "Name": "Personal Armor (Durasteel)",
     "Slot": {
       "Type": "PersonalArmor"
@@ -168,14 +168,14 @@
     }
   },
   {
-    "Key": "component-personal-armor-none",
+    "$id": "component-personal-armor-none",
     "Name": "None",
     "Slot": {
       "Type": "PersonalArmor"
     }
   },
   {
-    "Key": "component-personal-shield-energy-field",
+    "$id": "component-personal-shield-energy-field",
     "Name": "Personal Energy Field",
     "Slot": {
       "Type": "PersonalShield"
@@ -198,7 +198,7 @@
     }
   },
   {
-    "Key": "component-personal-shield-energy-shell",
+    "$id": "component-personal-shield-energy-shell",
     "Name": "Personal Energy Shell",
     "Slot": {
       "Type": "PersonalShield"
@@ -221,7 +221,7 @@
     }
   },
   {
-    "Key": "component-personal-shield-energy-shield",
+    "$id": "component-personal-shield-energy-shield",
     "Name": "Personal Energy Shield",
     "Slot": {
       "Type": "PersonalShield"
@@ -244,7 +244,7 @@
     }
   },
   {
-    "Key": "component-personal-shield-none",
+    "$id": "component-personal-shield-none",
     "Name": "None",
     "Slot": {
       "Type": "PersonalShield"
