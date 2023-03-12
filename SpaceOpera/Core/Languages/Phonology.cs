@@ -34,7 +34,8 @@ namespace SpaceOpera.Core.Languages
 
         public override string ToString()
         {
-            return string.Format("[Phology]\n[Onset]\n{0}\n[Nucleus]\n{1}\n[Offset]\n{2}", _onset, _nucleus, _offset);
+            return string.Format(
+                "[Phonology]\n[Onset]\n{0}\n[Nucleus]\n{1}\n[Offset]\n{2}", _onset, _nucleus, _offset);
         }
 
         private float GetEntropy()

@@ -50,5 +50,15 @@ namespace SpaceOpera.Core.Languages
                 + Types.Min(x => other.Types.Min(y => PhonemeUtils.Distance(x, y)))
                 + Positions.Min(x => other.Positions.Min(y => PhonemeUtils.Distance(x, y)));
         }
+
+        public override string ToString()
+        {
+            return string.Format(
+                "[PhonemeRange: Classes={0}, Voices={1}, Types={2}, Positions={3}",
+                string.Join(",", Classes),
+                string.Join(",", Voices),
+                string.Join(",", Types), 
+                string.Join(",", Positions));
+        }
     }
 }

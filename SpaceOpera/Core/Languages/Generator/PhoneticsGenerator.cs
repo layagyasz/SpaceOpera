@@ -5,7 +5,7 @@ namespace SpaceOpera.Core.Languages.Generator
 {
     public class PhoneticsGenerator
     {
-        private static readonly ISampler s_FrequencyDropoff = new UniformSampler(new(0.1f, 0.9f));
+        private static readonly ISampler s_FrequencyDropoff = new UniformSampler(new(0.8f, 0.9f));
 
         public List<Phoneme> Phonemes { get; set; } = new();
         public IndependentSelector<PhonemeRange>? Exclusions { get; set; }
@@ -13,17 +13,17 @@ namespace SpaceOpera.Core.Languages.Generator
         public Phonetics Generate(GeneratorContext context)
         {
             var random = context.Random;
-            var exlcusions = new List<PhonemeRange>();
+            var exclusions = new List<PhonemeRange>();
 
             foreach (var newRange in Exclusions!.Select(random))
             {
-                exlcusions.Add(newRange);
+                exclusions.Add(newRange);
             }
 
             var phonemes = new List<Phoneme>();
             foreach (var phoneme in Phonemes)
             {
-                if(exlcusions.All(x => !x.Contains(phoneme.Range)))
+                if(exclusions.All(x => !x.Contains(phoneme.Range)))
                 {
                     phonemes.Add(phoneme);
                 }

@@ -15,5 +15,10 @@ namespace SpaceOpera.Core.Languages
         {
             return Pattern == Phoneme;
         }
+
+        public override string ToString()
+        {
+            return $"{Symbol} ({Pattern})";
+        }
     }
 }

@@ -23,7 +23,7 @@ namespace SpaceOpera.Core.Languages
             return string.Format(
                 "[Orthography]\n{0}",
                 string.Join(
-                    "\n", OrthographyMatchers.Select(x => string.Format("{0} => {1}", x.Pattern.Symbol, x.Symbol))));
+                    "\n", OrthographyMatchers.Select(x => string.Format("{0} => {1}", x.Pattern, x))));
         }
     }
 }

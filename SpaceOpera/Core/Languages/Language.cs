@@ -14,7 +14,7 @@ namespace SpaceOpera.Core.Languages
             Phonetics = phonetics;
             Orthography = orthography;
             Phonology = phonology;
-            WordLengthSampler = new UniformSampler(new(32 / phonology.Entropy, 40 / phonology.Entropy));
+            WordLengthSampler = new NormalSampler(40 / phonology.Entropy, 8 / phonology.Entropy);
         }
 
         public string GenerateLetter(Random random)
@@ -29,7 +29,8 @@ namespace SpaceOpera.Core.Languages
             bool requireOnset = false;
             for (int i=0; i<Math.Max(1, Math.Round(WordLengthSampler!.Generate(random))); ++i)
             {
-                phonemes.AddRange(Phonology!.GenerateSyllable(random, requireOnset, out bool _));
+                phonemes.AddRange(Phonology!.GenerateSyllable(random, requireOnset, out bool voidOffset));
+                requireOnset = voidOffset;
             }
             return string.Join("", Orthography!.Transcribe(phonemes, random));
         }
