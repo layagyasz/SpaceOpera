@@ -36,8 +36,8 @@
           {
             "$id": "design-template-segment-fore-auxiliary-s",
             "Name": "Auxiliary Fore (S)",
-            "Tags": [ "SmallSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "SmallSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 1
@@ -67,8 +67,8 @@
           {
             "$id": "design-template-segment-fore-auxiliary-m",
             "Name": "Auxiliary Fore (M)",
-            "Tags": [ "MediumSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "MediumSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 2
@@ -98,8 +98,8 @@
           {
             "$id": "design-template-segment-fore-auxiliary-l",
             "Name": "Auxiliary Fore (L)",
-            "Tags": [ "LargeSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "LargeSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 4
@@ -129,8 +129,8 @@
           {
             "$id": "design-template-segment-fore-battleship-l",
             "Name": "Battleship Fore (L)",
-            "Tags": [ "Battleship", "LargeSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "Battleship", "LargeSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 4
@@ -166,8 +166,8 @@
           {
             "$id": "design-template-segment-ship-fore-carrier-m",
             "Name": "Carrier Fore (M)",
-            "Tags": [ "Carrier", "MediumSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "Carrier", "MediumSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 2
@@ -203,8 +203,8 @@
           {
             "$id": "design-template-segment-ship-fore-carrier-l",
             "Name": "Carrier Fore (L)",
-            "Tags": [ "Carrier", "LargeSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "Carrier", "LargeSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 4
@@ -240,8 +240,8 @@
           {
             "$id": "design-template-segment-fore-destroyer-m",
             "Name": "Destroyer Fore (M)",
-            "Tags": [ "Destroyer", "MediumSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "Destroyer", "MediumSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 2
@@ -277,8 +277,8 @@
           {
             "$id": "design-template-segment-fore-destroyer-l",
             "Name": "Destroyer Fore (L)",
-            "Tags": [ "Destroyer", "LargeSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "Destroyer", "LargeSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 4
@@ -314,8 +314,8 @@
           {
             "$id": "design-template-segment-fore-escort-s",
             "Name": "Escort Fore (S)",
-            "Tags": [ "Escort", "SmallSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "Escort", "SmallSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 1
@@ -351,8 +351,8 @@
           {
             "$id": "design-template-segment-fore-escort-m",
             "Name": "Escort Fore (M)",
-            "Tags": [ "Escort", "MediumSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "Escort", "MediumSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 2
@@ -388,8 +388,8 @@
           {
             "$id": "design-template-segment-fore-escort-l",
             "Name": "Escort Fore (L)",
-            "Tags": [ "Escort", "LargeSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "Escort", "LargeSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 4
@@ -425,8 +425,8 @@
           {
             "$id": "design-template-segment-fore-frigate-m",
             "Name": "Frigate Fore (M)",
-            "Tags": [ "Frigate", "MediumSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "Frigate", "MediumSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 2
@@ -462,8 +462,8 @@
           {
             "$id": "design-template-segment-fore-frigate-l",
             "Name": "Frigate Fore (L)",
-            "Tags": [ "Frigate", "LargeSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "Frigate", "LargeSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 4
@@ -499,8 +499,8 @@
           {
             "$id": "design-template-segment-fore-patrol-s",
             "Name": "Patrol Fore (S)",
-            "Tags": [ "Patrol", "SmallSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "Patrol", "SmallSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 1
@@ -536,8 +536,8 @@
           {
             "$id": "design-template-segment-fore-patrol-m",
             "Name": "Patrol Fore (M)",
-            "Tags": [ "Patrol", "MediumSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "Patrol", "MediumSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 2
@@ -573,8 +573,8 @@
           {
             "$id": "design-template-segment-fore-patrol-l",
             "Name": "Patrol Fore (L)",
-            "Tags": [ "Patrol", "LargeSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "Patrol", "LargeSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 4
@@ -616,8 +616,8 @@
           {
             "$id": "design-template-segment-core-auxiliary-s",
             "Name": "Auxiliary Core (S)",
-            "Tags": [ "SmallSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "SmallSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 2
@@ -647,8 +647,8 @@
           {
             "$id": "design-template-segment-core-auxiliary-m",
             "Name": "Auxiliary Core (M)",
-            "Tags": [ "MediumSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "MediumSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 4
@@ -678,8 +678,8 @@
           {
             "$id": "design-template-segment-core-auxiliary-l",
             "Name": "Auxiliary Core (L)",
-            "Tags": [ "LargeSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "LargeSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 8
@@ -709,8 +709,8 @@
           {
             "$id": "design-template-segment-core-battleship-m",
             "Name": "Battleship Core (M)",
-            "Tags": [ "Battleship", "MediumSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "Battleship", "MediumSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 4
@@ -746,8 +746,8 @@
           {
             "$id": "design-template-segment-core-battleship-l",
             "Name": "Battleship Core (L)",
-            "Tags": [ "Battleship", "LargeSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "Battleship", "LargeSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 8
@@ -783,8 +783,8 @@
           {
             "$id": "design-template-segment-core-carrier-s",
             "Name": "Carrier Core (S)",
-            "Tags": [ "Carrier", "SmallSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "Carrier", "SmallSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 2
@@ -820,8 +820,8 @@
           {
             "$id": "design-template-segment-core-carrier-m",
             "Name": "Carrier Core (M)",
-            "Tags": [ "Carrier", "MediumSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "Carrier", "MediumSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 4
@@ -857,8 +857,8 @@
           {
             "$id": "design-template-segment-core-carrier-l",
             "Name": "Carrier Core (L)",
-            "Tags": [ "Carrier", "LargeSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "Carrier", "LargeSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 8
@@ -894,8 +894,8 @@
           {
             "$id": "design-template-segment-core-destroyer-s",
             "Name": "Destroyer Core (S)",
-            "Tags": [ "Destroyer", "SmallSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "Destroyer", "SmallSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 2
@@ -931,8 +931,8 @@
           {
             "$id": "design-template-segment-core-destroyer-m",
             "Name": "Destroyer Core (M)",
-            "Tags": [ "Destroyer", "MediumSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "Destroyer", "MediumSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 4
@@ -968,8 +968,8 @@
           {
             "$id": "design-template-segment-core-destroyer-l",
             "Name": "Destroyer Core (L)",
-            "Tags": [ "Destroyer", "LargeSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "Destroyer", "LargeSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 8
@@ -1005,8 +1005,8 @@
           {
             "$id": "design-template-segment-core-escort-s",
             "Name": "Escort Core (S)",
-            "Tags": [ "Escort", "SmallSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "Escort", "SmallSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 2
@@ -1048,8 +1048,8 @@
           {
             "$id": "design-template-segment-core-escort-m",
             "Name": "Escort Core (M)",
-            "Tags": [ "Escort", "MediumSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "Escort", "MediumSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 4
@@ -1091,8 +1091,8 @@
           {
             "$id": "design-template-segment-core-escort-l",
             "Name": "Escort Core (L)",
-            "Tags": [ "Escort", "LargeSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "Escort", "LargeSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 8
@@ -1134,8 +1134,8 @@
           {
             "$id": "design-template-segment-core-frigate-s",
             "Name": "Frigate Core (S)",
-            "Tags": [ "Frigate", "SmallSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "Frigate", "SmallSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 2
@@ -1171,8 +1171,8 @@
           {
             "$id": "design-template-segment-core-frigate-m",
             "Name": "Frigate Core (M)",
-            "Tags": [ "Frigate", "MediumSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "Frigate", "MediumSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 4
@@ -1208,8 +1208,8 @@
           {
             "$id": "design-template-segment-core-frigate-l",
             "Name": "Frigate Core (L)",
-            "Tags": [ "Frigate", "LargeSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "Frigate", "LargeSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 8
@@ -1245,8 +1245,8 @@
           {
             "$id": "design-template-segment-core-patrol-s",
             "Name": "Patrol Core (S)",
-            "Tags": [ "Patrol", "SmallSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "Patrol", "SmallSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 2
@@ -1282,8 +1282,8 @@
           {
             "$id": "design-template-segment-core-patrol-m",
             "Name": "Patrol Core (M)",
-            "Tags": [ "Patrol", "MediumSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "Patrol", "MediumSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 4
@@ -1319,8 +1319,8 @@
           {
             "$id": "design-template-segment-core-patrol-l",
             "Name": "Patrol Core (L)",
-            "Tags": [ "Patrol", "LargeSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "Patrol", "LargeSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 8
@@ -1368,8 +1368,8 @@
           {
             "$id": "design-template-segment-aft-auxiliary-s",
             "Name": "Auxiliary Aft (S)",
-            "Tags": [ "SmallSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "SmallSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 1
@@ -1399,8 +1399,8 @@
           {
             "$id": "design-template-segment-aft-auxiliary-m",
             "Name": "Auxiliary Aft (M)",
-            "Tags": [ "MediumSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "MediumSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 2
@@ -1430,8 +1430,8 @@
           {
             "$id": "design-template-segment-aft-auxiliary-l",
             "Name": "Auxiliary Aft (L)",
-            "Tags": [ "LargeSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "LargeSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 4
@@ -1461,8 +1461,8 @@
           {
             "$id": "design-template-segment-aft-battleship-l",
             "Name": "Battleship Aft (L)",
-            "Tags": [ "Battleship", "LargeSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "Battleship", "LargeSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 4
@@ -1498,8 +1498,8 @@
           {
             "$id": "design-template-segment-ship-aft-carrier-m",
             "Name": "Carrier Aft (M)",
-            "Tags": [ "Carrier", "MediumSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "Carrier", "MediumSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 2
@@ -1535,8 +1535,8 @@
           {
             "$id": "design-template-segment-ship-aft-carrier-l",
             "Name": "Carrier Aft (L)",
-            "Tags": [ "Carrier", "LargeSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "Carrier", "LargeSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 4
@@ -1572,8 +1572,8 @@
           {
             "$id": "design-template-segment-aft-destroyer-m",
             "Name": "Destroyer Aft (M)",
-            "Tags": [ "Destroyer", "MediumSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "Destroyer", "MediumSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 2
@@ -1609,8 +1609,8 @@
           {
             "$id": "design-template-segment-aft-destroyer-l",
             "Name": "Destroyer Aft (L)",
-            "Tags": [ "Destroyer", "LargeSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "Destroyer", "LargeSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 4
@@ -1646,8 +1646,8 @@
           {
             "$id": "design-template-segment-aft-escort-s",
             "Name": "Escort Aft (S)",
-            "Tags": [ "Escort", "SmallSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "Escort", "SmallSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 1
@@ -1683,8 +1683,8 @@
           {
             "$id": "design-template-segment-aft-escort-m",
             "Name": "Escort Aft (M)",
-            "Tags": [ "Escort", "MediumSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "Escort", "MediumSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 2
@@ -1720,8 +1720,8 @@
           {
             "$id": "design-template-segment-aft-escort-l",
             "Name": "Escort Aft (L)",
-            "Tags": [ "Escort", "LargeSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "Escort", "LargeSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 4
@@ -1757,8 +1757,8 @@
           {
             "$id": "design-template-segment-aft-frigate-m",
             "Name": "Frigate Aft (M)",
-            "Tags": [ "Frigate", "MediumSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "Frigate", "MediumSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 2
@@ -1794,8 +1794,8 @@
           {
             "$id": "design-template-segment-aft-frigate-l",
             "Name": "Frigate Aft (L)",
-            "Tags": [ "Frigate", "LargeSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "Frigate", "LargeSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 4
@@ -1831,8 +1831,8 @@
           {
             "$id": "design-template-segment-aft-patrol-s",
             "Name": "Patrol Aft (S)",
-            "Tags": [ "Patrol", "SmallSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "Patrol", "SmallSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 1
@@ -1868,8 +1868,8 @@
           {
             "$id": "design-template-segment-aft-patrol-m",
             "Name": "Patrol Aft (M)",
-            "Tags": [ "Patrol", "MediumSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "Patrol", "MediumSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 2
@@ -1905,8 +1905,8 @@
           {
             "$id": "design-template-segment-aft-patrol-l",
             "Name": "Patrol Aft (L)",
-            "Tags": [ "Patrol", "LargeSize" ],
             "IntrinsicComponent": {
+              "Tags": [ "Patrol", "LargeSize" ],
               "Attributes": {
                 "Command": {
                   "Constant": 4

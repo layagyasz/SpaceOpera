@@ -39,7 +39,7 @@ namespace SpaceOpera
 
             var generatorContext =
                 new GeneratorContext(logger, StellarBodySurfaceGeneratorResources.CreateForGenerator(), new());
-            RunMode mode = RunMode.TestLanguage;
+            RunMode mode = RunMode.Full;
             if (mode == RunMode.TestLanguage)
             {
                 var language = coreData.PoliticsGenerator!.Culture!.Language!.Generate(generatorContext);

@@ -32,7 +32,7 @@ namespace SpaceOpera.Core.Politics
             return ComponentNameGenerator.GenerateNameFor(ToArgs(stellarBodyRegion), Language, random);
         }
 
-        public string GenerateNameFor(DesignConfiguration design, Random random)
+        public string GenerateNameFor(Design design, Random random)
         {
             return ComponentNameGenerator.GenerateNameFor(ToArgs(design), Language, random);
         }
@@ -54,27 +54,27 @@ namespace SpaceOpera.Core.Politics
 
         private static NameGeneratorArgs GetFactionArgs()
         {
-            return new NameGeneratorArgs(NameType.Faction);
+            return new(NameType.Faction);
         }
 
         private NameGeneratorArgs GetFleetArgs()
         {
-            return new NameGeneratorArgs(NameType.Fleet) { SequenceNumber = _fleetIdGenerator.Generate() };
+            return new(NameType.Fleet) { SequenceNumber = _fleetIdGenerator.Generate() };
         }
 
         private static NameGeneratorArgs GetStarArgs()
         {
-            return new NameGeneratorArgs(NameType.Star);
+            return new(NameType.Star);
         }
 
         private static NameGeneratorArgs ToArgs(StarSystem starSystem)
         {
-            return new NameGeneratorArgs(NameType.StarSystem) { ParentName = starSystem.Star.Name };
+            return new(NameType.StarSystem) { ParentName = starSystem.Star.Name };
         }
 
         private static NameGeneratorArgs ToArgs(StellarBody stellarBody, StarSystem starSystem)
         {
-            return new NameGeneratorArgs(NameType.StellarBody)
+            return new(NameType.StellarBody)
             {
                 ParentName = starSystem.Star.Name,
                 SequenceNumber = starSystem.Orbiters.IndexOf(stellarBody) + 1
@@ -83,12 +83,12 @@ namespace SpaceOpera.Core.Politics
 
         private static NameGeneratorArgs ToArgs(StellarBodyRegion stellarBodyRegion)
         {
-            return new NameGeneratorArgs(NameType.StellarBodyRegion);
+            return new(NameType.StellarBodyRegion);
         }
 
-        private static NameGeneratorArgs ToArgs(DesignConfiguration design)
+        private static NameGeneratorArgs ToArgs(Design design)
         {
-            return new NameGeneratorArgs(ToNameType(design.Template.Type)) { Tags = design.GetTags().ToList() };
+            return new(ToNameType(design.Configuration.Template.Type)) { Tags = design.Tags };
         }
 
         public static NameType ToNameType(ComponentType type)

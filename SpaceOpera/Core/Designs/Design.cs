@@ -21,5 +21,10 @@ namespace SpaceOpera.Core.Designs
             Components = components.ToList();
             Recipes = recipes.ToList();
         }
+
+        public void SetName(string name)
+        {
+            Configuration.SetName(name);
+        }
     }
 }
