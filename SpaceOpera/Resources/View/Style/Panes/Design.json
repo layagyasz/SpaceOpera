@@ -51,7 +51,8 @@
     "$id": "design-pane-component-row-icon",
     "Parent": "ui-icon",
     "Default": {
-      "Size": [ 48, 48 ]
+      "Size": [ 44, 44 ],
+      "Margin": [ 2 ]
     }
   },
   {

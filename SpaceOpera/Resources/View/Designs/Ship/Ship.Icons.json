@@ -51,7 +51,7 @@
   },
   {
     "$id": "component-ship-point-defense",
-    "Texture": "icon-blank",
+    "Texture": "icon-empty",
     "Color": "#ff0000"
   },
   {

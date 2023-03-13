@@ -1,5 +1,3 @@
-using System.Diagnostics;
-
 namespace SpaceOpera.Core.Designs
 {
     public class ComponentClassifier

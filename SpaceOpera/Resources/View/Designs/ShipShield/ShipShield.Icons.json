@@ -241,7 +241,7 @@
   },
   {
     "$id": "component-ship-shield-weight-light",
-    "Texture": "icon-blank",
+    "Texture": "icon-empty",
     "Color": "#ffffff"
   },
   {

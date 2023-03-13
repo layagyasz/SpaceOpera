@@ -22,7 +22,7 @@ namespace SpaceOpera.View.Icons
         {
             if (Visible)
             {
-                target.PushTranslation(Position);
+                target.PushTranslation(Position + LeftMargin);
                 context.Register(this);
                 _layers.ForEach(x => x.Draw(target, context));
                 target.PopModelMatrix();

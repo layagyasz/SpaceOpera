@@ -248,7 +248,7 @@
   },
   {
     "$id": "component-ship-weapon-weight-light",
-    "Texture": "icon-blank",
+    "Texture": "icon-empty",
     "Color": "#ffffff"
   },
   {

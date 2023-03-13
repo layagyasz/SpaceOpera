@@ -8,6 +8,102 @@
           "FromFaction": true
         },
         "Textures": [ "icon-ship" ]
+      },
+      {
+        "$type": "FromTag",
+        "Color": {
+          "FromFaction": true
+        },
+        "Options": [
+          {
+            "Tags": [ "Battleship" ],
+            "Textures": [ "icon-letter-b-left" ]
+          },
+          {
+            "Tags": [ "Carrier" ],
+            "Textures": [ "icon-letter-c-left" ]
+          },
+          {
+            "Tags": [ "Cruiser" ],
+            "Textures": [ "icon-letter-c-left" ]
+          },
+          {
+            "Tags": [ "Destroyer" ],
+            "Textures": [ "icon-letter-d-left" ]
+          },
+          {
+            "Tags": [ "Escort" ],
+            "Textures": [ "icon-letter-e-left" ]
+          },
+          {
+            "Tags": [ "Freighter" ],
+            "Textures": [ "icon-letter-k-left" ]
+          },
+          {
+            "Tags": [ "Frigate" ],
+            "Textures": [ "icon-letter-f-left" ]
+          },
+          {
+            "Tags": [ "Patrol" ],
+            "Textures": [ "icon-letter-p-left" ]
+          },
+          {
+            "Tags": [ "Transport" ],
+            "Textures": [ "icon-letter-t-left" ]
+          }
+        ]
+      },
+      {
+        "$type": "FromTag",
+        "Color": {
+          "FromFaction": true
+        },
+        "Options": [
+          {
+            "Tags": [ "Carrier" ],
+            "Textures": [ "icon-letter-v-right" ]
+          },
+          {
+            "Tags": [ "Light" ],
+            "Textures": [ "icon-letter-l-right" ]
+          },
+          {
+            "Tags": [ "Heavy" ],
+            "Textures": [ "icon-letter-b-right" ]
+          },
+          {
+            "Tags": [ "Battleship" ],
+            "Textures": [ "icon-letter-b-right" ]
+          },
+          {
+            "Tags": [ "Cruiser" ],
+            "Textures": [ "icon-letter-c-right" ]
+          },
+          {
+            "Tags": [ "Destroyer" ],
+            "Textures": [ "icon-letter-d-right" ]
+          },
+          {
+            "Tags": [ "Escort" ],
+            "Textures": [ "icon-letter-e-right" ]
+          },
+          {
+            "Tags": [ "Freighter" ],
+            "Textures": [ "icon-letter-k-right" ]
+          },
+          {
+            "Tags": [ "Frigate" ],
+            "Textures": [ "icon-letter-f-right" ]
+          },
+          {
+            "Tags": [ "Patrol" ],
+            "Textures": [ "icon-letter-p-right" ]
+          },
+          {
+            "Tags": [ "Transport" ],
+            "Textures": [ "icon-letter-t-right" ]
+          }
+        ]
       }
     ]
   }
