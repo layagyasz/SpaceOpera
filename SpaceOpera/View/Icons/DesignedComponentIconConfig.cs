@@ -1,6 +1,7 @@
 ﻿using Cardamom.Collections;
 using OpenTK.Mathematics;
 using SpaceOpera.Core.Designs;
+using SpaceOpera.View.FactionViews;
 using System.Text.Json.Serialization;
 
 namespace SpaceOpera.View.Icons
@@ -9,7 +10,7 @@ namespace SpaceOpera.View.Icons
     {
         public struct ColorConfig
         {
-            public bool FromFaction { get; set; }
+            public BannerColor FromFaction { get; set; }
             public ComponentType FromComponent { get; set; }
             public Color4 Constant { get; set; }
         }
@@ -84,7 +85,7 @@ namespace SpaceOpera.View.Icons
         public List<ILayerConfig> Layers { get; set; } = new();
 
         public IEnumerable<IconLayer.Definition> CreateDefinition(
-            DesignedComponent component, Color4 factionColor, IconFactory iconFactory)
+            DesignedComponent component, BannerColorSet factionColor, IconFactory iconFactory)
         {
             foreach (var layer in Layers)
             {
@@ -97,11 +98,11 @@ namespace SpaceOpera.View.Icons
         }
 
         private static Color4 SelectColor(
-            ColorConfig config, DesignedComponent component, Color4 factionColor, IconFactory iconFactory)
+            ColorConfig config, DesignedComponent component, BannerColorSet factionColor, IconFactory iconFactory)
         {
-            if (config.FromFaction)
+            if (config.FromFaction != BannerColor.None)
             {
-                return factionColor;
+                return factionColor.Get(config.FromFaction);
             }
             if (config.FromComponent != ComponentType.Unknown)
             {

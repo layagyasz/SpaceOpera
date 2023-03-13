@@ -5,14 +5,21 @@
       {
         "$type": "Static",
         "Color": {
-          "FromFaction": true
+          "FromFaction": "Primary"
+        },
+        "Textures": [ "icon-blank" ]
+      },
+      {
+        "$type": "Static",
+        "Color": {
+          "FromFaction": "Secondary"
         },
         "Textures": [ "icon-ship" ]
       },
       {
         "$type": "FromTag",
         "Color": {
-          "FromFaction": true
+          "FromFaction": "Symbol"
         },
         "Options": [
           {
@@ -56,7 +63,7 @@
       {
         "$type": "FromTag",
         "Color": {
-          "FromFaction": true
+          "FromFaction": "Symbol"
         },
         "Options": [
           {

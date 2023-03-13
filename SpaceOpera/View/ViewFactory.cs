@@ -78,6 +78,7 @@ namespace SpaceOpera.View
                 stellarBodyViewFactory,
                 viewData.Banners!,
                 new(
+                    viewData.Banners!,
                     viewData.Icons, 
                     viewData.DesignedComponentIconConfigs.ToEnumMap(x => x.ComponentType, x => x),
                     uiElementFactory));

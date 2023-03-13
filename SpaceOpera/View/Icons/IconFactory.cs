@@ -3,25 +3,32 @@ using Cardamom.Collections;
 using Cardamom.Graphics;
 using Cardamom.Ui;
 using Cardamom.Ui.Controller.Element;
-using OpenTK.Mathematics;
 using SpaceOpera.Core.Designs;
 using SpaceOpera.Core.Military;
+using SpaceOpera.Core.Politics;
+using SpaceOpera.View.FactionViews;
 
 namespace SpaceOpera.View.Icons
 {
     public class IconFactory
     {
+        private readonly BannerViewFactory _bannerViewFactory;
         private readonly Library<IconAtom> _atoms;
         private readonly EnumMap<ComponentType, DesignedComponentIconConfig> _configs;
         private readonly Dictionary<Type, Func<object, IEnumerable<IconLayer.Definition>>> _definitionMap;
         private readonly UiElementFactory _uiElementFactory;
         private readonly RenderShader _shader;
 
-        public IconFactory(
-            Library<IconAtom> atoms, 
-            EnumMap<ComponentType, DesignedComponentIconConfig> configs, 
-            UiElementFactory uiElementFactory)
+        private readonly BannerColorSet _factionColor;
+
+        private IconFactory(
+            BannerViewFactory bannerViewFactory,
+            Library<IconAtom> atoms,
+            EnumMap<ComponentType, DesignedComponentIconConfig> configs,
+            UiElementFactory uiElementFactory,
+            BannerColorSet factionColor)
         {
+            _bannerViewFactory = bannerViewFactory;
             _atoms = atoms;
             _configs = configs;
             _definitionMap = new()
@@ -32,7 +39,15 @@ namespace SpaceOpera.View.Icons
             };
             _uiElementFactory = uiElementFactory;
             _shader = _uiElementFactory.GetShader("shader-default");
+            _factionColor = factionColor;
         }
+
+        public IconFactory(
+            BannerViewFactory bannerViewFactory,
+            Library<IconAtom> atoms,
+            EnumMap<ComponentType, DesignedComponentIconConfig> configs,
+            UiElementFactory uiElementFactory)
+            : this(bannerViewFactory, atoms, configs, uiElementFactory, BannerColorSet.Default) { }
 
         public Icon Create(Class @class, IElementController controller, object @object)
         {
@@ -44,6 +59,12 @@ namespace SpaceOpera.View.Icons
             return _definitionMap[@object.GetType()](@object);
         }
 
+        public IconFactory ForFaction(Faction faction)
+        {
+            return new(
+                _bannerViewFactory, _atoms, _configs, _uiElementFactory, _bannerViewFactory.Get(faction.Banner));
+        }
+
         private IEnumerable<IconLayer.Definition> GetAtomicDefinition(object @object)
         {
             var key = @object as IKeyed;
@@ -53,8 +74,7 @@ namespace SpaceOpera.View.Icons
         private IEnumerable<IconLayer.Definition> GetDesignedComponentDefinition(object @object)
         {
             var component = @object as DesignedComponent;
-            // TODO: Use faction's banner colors.
-            return _configs[component!.Slot.Type].CreateDefinition(component, Color4.Black, this);
+            return _configs[component!.Slot.Type].CreateDefinition(component, _factionColor, this);
         }
     }
 }

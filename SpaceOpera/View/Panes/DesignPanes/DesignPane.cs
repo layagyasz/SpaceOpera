@@ -27,6 +27,8 @@ namespace SpaceOpera.View.Panes.DesignPanes
         private Faction? _faction;
         private ComponentType _componentType;
 
+        private IconFactory _iconFactory;
+
         public IUiContainer DesignTable { get; }
 
         public DesignPane(UiElementFactory uiElementFactory, IconFactory iconFactory)
@@ -47,13 +49,14 @@ namespace SpaceOpera.View.Panes.DesignPanes
                 new DynamicUiContainer(
                     uiElementFactory.GetClass(s_BodyClassName), new NoOpElementController<UiContainer>())) 
         {
+            _iconFactory = iconFactory;
             DesignTable =
                 new DynamicUiSerialContainer<Design, DesignRow>(
                     uiElementFactory.GetClass(s_DesignTableClassName), 
                     new ActionTableController(),
                     UiSerialContainer.Orientation.Vertical,
                     GetRange,
-                    x => DesignRow.Create(x, uiElementFactory, iconFactory),
+                    x => DesignRow.Create(x, uiElementFactory, ref _iconFactory),
                     Comparer<Design>.Create((x, y) => x.Name.CompareTo(y.Name)));
             AddToBody(DesignTable);
         }
@@ -62,6 +65,7 @@ namespace SpaceOpera.View.Panes.DesignPanes
         {
             _world = args[0] as World;
             _faction = args[1] as Faction;
+            _iconFactory = _iconFactory.ForFaction(_faction!);
             Refresh();
         }
 

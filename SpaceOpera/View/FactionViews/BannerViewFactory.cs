@@ -7,14 +7,21 @@ namespace SpaceOpera.View.FactionViews
     {
         public Color4[] Colors { get; set; } = Array.Empty<Color4>();
 
-        public Color4 GetSecondaryColor(Banner banner)
+        public BannerColorSet Get(Banner banner)
         {
-            return Colors[banner.SecondaryColor];
+            return new(
+                Get(banner, BannerColor.Primary), Get(banner, BannerColor.Secondary), Get(banner, BannerColor.Symbol));
         }
 
-        public Color4 GetPrimaryColor(Banner banner)
+        public Color4 Get(Banner banner, BannerColor color)
         {
-            return Colors[banner.PrimaryColor];
+            return color switch
+            {
+                BannerColor.Primary => Colors[banner.PrimaryColor],
+                BannerColor.Secondary => Colors[banner.SecondaryColor],
+                BannerColor.Symbol => Colors[banner.SymbolColor],
+                _ => throw new ArgumentException($"Unsupported color {color}"),
+            };
         }
     }
 }

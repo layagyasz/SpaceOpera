@@ -24,7 +24,7 @@ namespace SpaceOpera.View.Panes.DesignPanes
         public UiCompoundComponent SegmentTable { get; }
 
         private readonly UiElementFactory _uiElementFactory;
-        private readonly IconFactory _iconFactory;
+        private IconFactory _iconFactory;
 
         private World? _world;
         private Faction? _faction;
@@ -68,6 +68,7 @@ namespace SpaceOpera.View.Panes.DesignPanes
 
             _world = args[0] as World;
             _faction = args[1] as Faction;
+            _iconFactory = _iconFactory.ForFaction(_faction!);
             _template = design!.Configuration.Template;
             SetTitle(EnumMapper.ToString(_template.Type));
 
