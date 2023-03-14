@@ -1,0 +1,14 @@
+[
+  {
+    "ComponentType": "Infantry",
+    "Layers": [
+      {
+        "$type": "FromComponent",
+        "Color": {
+          "FromComponent": "PersonalWeapon"
+        },
+        "Component": "InfantryPlatform"
+      }
+    ]
+  }
+]

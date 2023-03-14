@@ -3,9 +3,10 @@
     public enum GamePaneId
     {
         None,
-        Design,
+        Equipment,
         Designer,
         Military,
+        MilitaryOrganization,
         Research
     }
 }

@@ -24,8 +24,11 @@ namespace SpaceOpera.View.Overlay
                             uiElementFactory.GetClass("overlay-empire-research"),
                             new ActionButtonController(ActionId.Research)),
                         new SimpleUiElement(
-                            uiElementFactory.GetClass("overlay-empire-designer"),
-                            new ActionButtonController(ActionId.Design)),
+                            uiElementFactory.GetClass("overlay-empire-equipment"),
+                            new ActionButtonController(ActionId.Equipment)),
+                        new SimpleUiElement(
+                            uiElementFactory.GetClass("overlay-empire-military-organization"),
+                            new ActionButtonController(ActionId.MilitaryOrganization)),
                         new SimpleUiElement(
                             uiElementFactory.GetClass("overlay-empire-military"),
                             new ActionButtonController(ActionId.Military))

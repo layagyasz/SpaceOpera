@@ -34,7 +34,9 @@ namespace SpaceOpera.View.Icons
             _definitionMap = new()
             {
                 { typeof(BaseComponent),  GetAtomicDefinition },
+                { typeof(BattalionTemplate), GetDesignedComponentDefinition },
                 { typeof(DesignedComponent), GetDesignedComponentDefinition },
+                { typeof(DivisionTemplate), GetDesignedComponentDefinition },
                 { typeof(Unit), GetDesignedComponentDefinition }
             };
             _uiElementFactory = uiElementFactory;

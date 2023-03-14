@@ -41,7 +41,7 @@
     ]
   },
   {
-    "$id": "overlay-empire-designer",
+    "$id": "overlay-empire-equipment",
     "Parent": "overlay-empire-button",
     "Default": {
       "BackgroundColor": [ "#ffff0088" ],
@@ -54,6 +54,24 @@
         "Attributes": {
           "BackgroundColor": [ "#ffff00aa" ],
           "BorderColor": [ "#ffff00aa" ]
+        }
+      }
+    ]
+  },
+  {
+    "$id": "overlay-empire-military-organization",
+    "Parent": "overlay-empire-button",
+    "Default": {
+      "BackgroundColor": [ "#ff880088" ],
+      "BorderColor": [ "#ff880088" ],
+      "Texture": "icon-organization"
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "BackgroundColor": [ "#ff8800aa" ],
+          "BorderColor": [ "#ff8800aa" ]
         }
       }
     ]

@@ -1,0 +1,86 @@
+[
+  {
+    "ComponentType": "BattalionTemplate",
+    "Layers": [
+      {
+        "$type": "Static",
+        "Color": {
+          "FromFaction": "Primary"
+        },
+        "Textures": [ "icon-blank" ]
+      },
+      {
+        "$type": "FromTag",
+        "Color": {
+          "FromFaction": "Secondary"
+        },
+        "Options": [
+          {
+            "Tags": [ "Light" ],
+            "Textures": [ "icon-light" ]
+          },
+          {
+            "Tags": [ "Medium" ],
+            "Textures": [ "icon-medium" ]
+          },
+          {
+            "Tags": [ "Heavy" ],
+            "Textures": [ "icon-heavy" ]
+          }
+        ]
+      },
+      {
+        "$type": "FromTag",
+        "Color": {
+          "FromFaction": "Secondary"
+        },
+        "Options": [
+          {
+            "Tags": [ "Motorized" ],
+            "Textures": [ "icon-motorized" ]
+          },
+          {
+            "Tags": [ "Mechanized" ],
+            "Textures": [ "icon-mechanized" ]
+          },
+          {
+            "Tags": [ "SelfPropelled" ],
+            "Textures": [ "icon-self-propelled" ]
+          }
+        ]
+      },
+      {
+        "$type": "FromTag",
+        "Color": {
+          "FromFaction": "Secondary"
+        },
+        "Options": [
+          {
+            "Tags": [ "AntiAir" ],
+            "Textures": [ "icon-anti-air" ]
+          },
+          {
+            "Tags": [ "AntiArmor" ],
+            "Textures": [ "icon-anti-armor" ]
+          },
+          {
+            "Tags": [ "Artillery" ],
+            "Textures": [ "icon-artillery" ]
+          },
+          {
+            "Tags": [ "Engineer" ],
+            "Textures": [ "icon-engineer" ]
+          },
+          {
+            "Tags": [ "Infantry" ],
+            "Textures": [ "icon-infantry" ]
+          },
+          {
+            "Tags": [ "Tank" ],
+            "Textures": [ "icon-mechanized" ]
+          }
+        ]
+      }
+    ]
+  }
+]

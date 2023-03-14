@@ -192,8 +192,9 @@ namespace SpaceOpera.Controller
         {
             return id switch
             {
-                ActionId.Design => GamePaneId.Design,
+                ActionId.Equipment => GamePaneId.Equipment,
                 ActionId.Military => GamePaneId.Military,
+                ActionId.MilitaryOrganization => GamePaneId.MilitaryOrganization,
                 ActionId.Research => GamePaneId.Research,
                 _ => GamePaneId.None,
             };

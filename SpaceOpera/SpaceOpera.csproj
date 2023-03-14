@@ -68,6 +68,18 @@
     <None Update="Resources\View\Banners.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\View\Designs\BattalionTemplate\BattalionTemplate.IconConfig.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\View\Designs\DivisionTemplate\DivisionTemplate.IconConfig.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\View\Designs\Infantry\Infantry.IconConfig.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\View\Designs\Infantry\Infantry.Icons.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\View\Designs\ShipShield\ShipShield.IconConfig.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -344,6 +356,9 @@
     <None Update="Resources\View\Icons\ore.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\View\Icons\organization.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\View\Icons\person.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -568,6 +583,7 @@
     <Folder Include="Resources\Core\Designs\ShipWeapon\" />
     <Folder Include="Resources\Core\Designs\ShipShield\" />
     <Folder Include="Resources\Core\Designs\Ship\" />
+    <Folder Include="Resources\View\Designs\Infantry\" />
     <Folder Include="Resources\View\Designs\Ship\" />
     <Folder Include="Resources\View\Designs\ShipWeapon\" />
     <Folder Include="Resources\View\Designs\ShipShield\" />

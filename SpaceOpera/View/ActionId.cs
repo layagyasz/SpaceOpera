@@ -5,8 +5,9 @@
         None,
 
         // Overlay buttons
-        Design,
+        Equipment,
         Military,
+        MilitaryOrganization,
         Research,
 
         // Element actions

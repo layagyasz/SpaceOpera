@@ -144,7 +144,7 @@
   },
   {
     "$id": "biome-ocean",
-    "SpecularCoefficient": 2,
+    "SpecularCoefficient": 1,
     "SpecularFactor": 128,
     "Color": "#1b3755",
     "Roughness": 0
@@ -158,7 +158,7 @@
   },
   {
     "$id": "biome-ocean-ferrous",
-    "SpecularCoefficient": 2,
+    "SpecularCoefficient": 1,
     "SpecularFactor": 128,
     "Color": "#743116",
     "Roughness": 0

@@ -11,7 +11,7 @@ using SpaceOpera.View.Icons;
 
 namespace SpaceOpera.View.Panes.DesignPanes
 {
-    public class DesignPane : MultiTabGamePane
+    public abstract class DesignPane : MultiTabGamePane
     {
         private static readonly string s_Title = "Designs";
 
@@ -31,21 +31,17 @@ namespace SpaceOpera.View.Panes.DesignPanes
 
         public IUiContainer DesignTable { get; }
 
-        public DesignPane(UiElementFactory uiElementFactory, IconFactory iconFactory)
+        protected DesignPane(
+            UiElementFactory uiElementFactory, IconFactory iconFactory, IEnumerable<ComponentType> componentTypes)
             : base(
                 new DesignPaneController(),
                 uiElementFactory.GetClass(s_ClassName),
                 new TextUiElement(uiElementFactory.GetClass(s_TitleClassName), new ButtonController(), s_Title),
                 uiElementFactory.CreateSimpleButton(s_CloseClass).Item1, 
                 TabBar<ComponentType>.Create(
-                new List<TabBar<ComponentType>.Definition>()
-                {
-                    new(ComponentType.Ship, "Ship"),
-                    new(ComponentType.ShipWeapon, "Ship Weapon"),
-                    new(ComponentType.ShipShield, "Ship Shield")
-                },
-                uiElementFactory.GetClass(s_TabContainerClassName),
-                uiElementFactory.GetClass(s_TabOptionClassName)),
+                    componentTypes.Select(x => new TabBar<ComponentType>.Definition(x, EnumMapper.ToString(x))),
+                    uiElementFactory.GetClass(s_TabContainerClassName),
+                    uiElementFactory.GetClass(s_TabOptionClassName)),
                 new DynamicUiContainer(
                     uiElementFactory.GetClass(s_BodyClassName), new NoOpElementController<UiContainer>())) 
         {
