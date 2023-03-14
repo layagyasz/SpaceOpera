@@ -1,4 +1,5 @@
 using SpaceOpera.Core.Economics;
+using System.Drawing;
 
 namespace SpaceOpera.Core.Designs
 {
@@ -25,6 +26,11 @@ namespace SpaceOpera.Core.Designs
         public void SetName(string name)
         {
             Configuration.SetName(name);
+            foreach (var component in Components)
+            {
+                component.Name = 
+                    string.Format("{0} ({1})", name, StringUtils.FormatEnumChar(component.Slot.Size.ToString()));
+            }
         }
     }
 }

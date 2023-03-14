@@ -8,6 +8,8 @@ using SpaceOpera.Core.Politics;
 using SpaceOpera.Core;
 using SpaceOpera.Controller.Panes;
 using SpaceOpera.Controller.Panes.DesignPanes;
+using Cardamom.Collections;
+using System.Security.Cryptography.X509Certificates;
 
 namespace SpaceOpera.View.Panes.DesignPanes
 {
@@ -79,8 +81,23 @@ namespace SpaceOpera.View.Panes.DesignPanes
                 var segmentRow = new DesignerSegmentRow(segment.Template, _uiElementFactory, _iconFactory);
                 segmentRow.Initialize();
                 segmentRow.Populate(segment.Configuration, segment.GetComponents());
+                ((SelectController<SegmentConfiguration>)segmentRow.ConfigurationSelect.Controller)
+                    .SetValue(segment.Configuration);
                 SegmentTable.Add(segmentRow);
             }
+        }
+
+        public void SetSegmentConfiguration(DesignerSegmentRow segmentRow, SegmentConfiguration configuration)
+        {
+            var defaultComponents = new MultiMap<DesignSlot, IComponent>();
+            foreach (var slot in configuration.Slots)
+            {
+                defaultComponents.Add(
+                    slot,
+                    Enumerable.Repeat(
+                        _world!.GetComponentsFor(_faction!).Where(x => x.FitsSlot(slot)).First(), slot.Count));
+            }
+            segmentRow.Populate(configuration, defaultComponents);
         }
 
         public void SetSlot(DesignSlot? slot)

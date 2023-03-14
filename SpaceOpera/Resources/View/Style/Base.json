@@ -100,6 +100,18 @@
         "Attributes": {
           "Color": "#ffffffaa"
         }
+      },
+      {
+        "State": [ "Toggle" ],
+        "Attributes": {
+          "BackgroundColor": [ "#ff880088" ]
+        }
+      },
+      {
+        "State": [ "Toggle", "Hover" ],
+        "Attributes": {
+          "BackgroundColor": [ "#ff8800aa" ]
+        }
       }
     ]
   },

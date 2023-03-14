@@ -20,20 +20,22 @@ namespace SpaceOpera.Controller.Panes.DesignPanes
             _componentTableController.ValueChanged += HandleComponentSelected;
             _segmentTableController = (DesignerSegmentTableController)pane.SegmentTable.ComponentController;
             _segmentTableController!.CellSelected += HandleCellSelected;
+            _segmentTableController!.ConfigurationChanged += HandleConfigurationChanged;
         }
 
         public override void Unbind()
         {
             var pane = (DesignerPane)_pane!;
+            _componentTableController!.ValueChanged -= HandleComponentSelected;
             _componentTableController = null;
             _segmentTableController!.CellSelected -= HandleCellSelected;
+            _segmentTableController!.ConfigurationChanged -= HandleConfigurationChanged;
             _segmentTableController = null;
             base.Unbind();
         }
 
         private void HandleCellSelected(object? sender, ValueEventArgs<IElementController> e)
         {
-            Console.WriteLine($"{sender} {e}");
             _activeCell?.SetSelected(false);
             _activeCell = null;
             var newCell = e.Element as DesignerComponentCellController;
@@ -52,6 +54,18 @@ namespace SpaceOpera.Controller.Panes.DesignPanes
         private void HandleComponentSelected(object? sender, ValueChangedEventArgs<string, IComponent?> e)
         {
             _activeCell?.SetValue(e.Value);
+        }
+
+        private void HandleConfigurationChanged(
+            object? sender, ValueChangedEventArgs<DesignerSegmentRow, SegmentConfiguration> e)
+        {
+            var pane = (DesignerPane)_pane!;
+            if (_activeCell != null && e.Key.ComponentCells.Select(x => x.Controller).Contains(_activeCell))
+            {
+                _activeCell = null;
+                pane.SetSlot(null);
+            }
+            pane.SetSegmentConfiguration(e.Key, e.Value);
         }
     }
 }

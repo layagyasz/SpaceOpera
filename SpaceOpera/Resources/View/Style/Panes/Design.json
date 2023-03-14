@@ -44,7 +44,8 @@
     "Default": {
       "Size": [ 438, 48 ],
       "CornerRadius": [ [ 8, 8 ] ],
-      "Padding": [ 8, 0, 8, 0 ]
+      "Padding": [ 8, 0, 8, 0 ],
+      "Margin": [ 2 ]
     }
   },
   {

@@ -95,7 +95,8 @@
     "$id": "designer-pane-segment-configuration-select-dropbox",
     "Parent": "ui-element-basic",
     "Default": {
-      "Size": [ 256, "DynamicContents" ]
+      "Size": [ 256, "DynamicContents" ],
+      "Padding": [ 0, 12, 0, 12 ]
     }
   },
   {
@@ -104,29 +105,31 @@
     "Default": {
       "Size": [ 256, 28 ],
       "Padding": [ 8 ],
-      "Margin": [ 2 ]
+      "Margin": [ 0 ]
     }
   },
   {
     "$id": "designer-pane-segment-component-table",
     "Parent": "ui-container",
     "Default": {
-      "Size": [ 410, "DynamicContents" ]
+      "Size": [ 410, "DynamicContents" ],
+      "DisableScissor": true
     }
   },
   {
     "$id": "designer-pane-segment-component-row",
     "Parent": "ui-container",
     "Default": {
-      "Size": [ 410, 56 ],
-      "Padding": [ 2 ]
+      "Size": [ 410, 54 ],
+      "Padding": [ 2 ],
+      "DisableScissor": true
     }
   },
   {
     "$id": "designer-pane-segment-component-cell",
     "Parent": "ui-element",
     "Default": {
-      "Size": [ 50, 50 ],
+      "Size": [ 46, 46 ],
       "Margin": [ 2 ],
       "Padding": [ 2 ],
       "CornerRadius": [ [ 8, 8 ] ]
@@ -136,7 +139,7 @@
     "$id": "designer-pane-segment-component-icon",
     "Parent": "ui-icon",
     "Default": {
-      "Size": [ 46, 46 ]
+      "Size": [ 42, 42 ]
     }
   }
 ]
