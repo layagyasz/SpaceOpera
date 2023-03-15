@@ -37,7 +37,6 @@ namespace SpaceOpera.View
                 ComponentType.ShipInternal => "Ship Internal",
                 ComponentType.ShipJumpDrive => "Ship Jump Drive",
                 ComponentType.ShipMissile => "Ship Missile",
-                ComponentType.ShipPointDefense => "Ship Point Defense",
                 ComponentType.ShipPowercore => "Ship Powercore",
                 ComponentType.ShipShield => "Ship Shield",
                 ComponentType.ShipThruster => "Ship Thruster",

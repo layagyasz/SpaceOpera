@@ -170,32 +170,6 @@
     }
   },
   {
-    "$id": "component-ship-point-defense",
-    "Name": "Point Defense",
-    "Slot": {
-      "Type": "ShipPointDefense"
-    },
-    "Attributes": {
-      "WeaponPenetration": {
-        "Constant": 8
-      },
-      "WeaponAccuracy": {
-        "Constant": 300
-      },
-      "WeaponTracking": {
-        "Constant": 600
-      }
-    },
-    "Damage": {
-      "Kinetic": {
-        "Constant": 3200
-      },
-      "Energy": {
-        "Constant": 3200
-      }
-    }
-  },
-  {
     "$id": "component-ship-missile",
     "Name": "Missile Battery",
     "Slot": {

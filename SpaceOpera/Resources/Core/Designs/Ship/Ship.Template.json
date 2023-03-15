@@ -44,6 +44,9 @@
                 },
                 "Threat": {
                   "Constant": 1
+                },
+                "Hitpoints": {
+                  "Constant": 8000
                 }
               },
               "MaterialReferenceCost": {
@@ -57,7 +60,7 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Small" ],
                 "Count": 2,
                 "Weight": 1
@@ -75,6 +78,9 @@
                 },
                 "Threat": {
                   "Constant": 2
+                },
+                "Hitpoints": {
+                  "Constant": 16000
                 }
               },
               "MaterialReferenceCost": {
@@ -88,7 +94,7 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Medium" ],
                 "Count": 2,
                 "Weight": 1
@@ -106,6 +112,9 @@
                 },
                 "Threat": {
                   "Constant": 4
+                },
+                "Hitpoints": {
+                  "Constant": 32000
                 }
               },
               "MaterialReferenceCost": {
@@ -119,7 +128,7 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Large" ],
                 "Count": 2,
                 "Weight": 1
@@ -137,6 +146,9 @@
                 },
                 "Threat": {
                   "Constant": 4
+                },
+                "Hitpoints": {
+                  "Constant": 32000
                 }
               },
               "MaterialReferenceCost": {
@@ -156,7 +168,7 @@
                 "Weight": 1
               },
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Large" ],
                 "Count": 1,
                 "Weight": 1
@@ -174,6 +186,9 @@
                 },
                 "Threat": {
                   "Constant": 2
+                },
+                "Hitpoints": {
+                  "Constant": 16000
                 }
               },
               "MaterialReferenceCost": {
@@ -193,7 +208,7 @@
                 "Weight": 1
               },
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Medium" ],
                 "Count": 1,
                 "Weight": 1
@@ -211,6 +226,9 @@
                 },
                 "Threat": {
                   "Constant": 4
+                },
+                "Hitpoints": {
+                  "Constant": 32000
                 }
               },
               "MaterialReferenceCost": {
@@ -230,7 +248,7 @@
                 "Weight": 1
               },
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Large" ],
                 "Count": 1,
                 "Weight": 1
@@ -248,6 +266,9 @@
                 },
                 "Threat": {
                   "Constant": 2
+                },
+                "Hitpoints": {
+                  "Constant": 16000
                 }
               },
               "MaterialReferenceCost": {
@@ -267,7 +288,7 @@
                 "Weight": 1
               },
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Medium" ],
                 "Count": 1,
                 "Weight": 1
@@ -285,6 +306,9 @@
                 },
                 "Threat": {
                   "Constant": 4
+                },
+                "Hitpoints": {
+                  "Constant": 32000
                 }
               },
               "MaterialReferenceCost": {
@@ -304,7 +328,7 @@
                 "Weight": 1
               },
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Large" ],
                 "Count": 1,
                 "Weight": 1
@@ -322,6 +346,9 @@
                 },
                 "Threat": {
                   "Constant": 1
+                },
+                "Hitpoints": {
+                  "Constant": 8000
                 }
               },
               "MaterialReferenceCost": {
@@ -335,13 +362,13 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipPointDefense" ],
-                "Size": [],
+                "Type": [ "ShipWeapon" ],
+                "Size": [ "PointDefense" ],
                 "Count": 1,
                 "Weight": 1
               },
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Small" ],
                 "Count": 1,
                 "Weight": 1
@@ -359,6 +386,9 @@
                 },
                 "Threat": {
                   "Constant": 2
+                },
+                "Hitpoints": {
+                  "Constant": 16000
                 }
               },
               "MaterialReferenceCost": {
@@ -372,13 +402,13 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipPointDefense" ],
-                "Size": [],
+                "Type": [ "ShipWeapon" ],
+                "Size": [ "PointDefense" ],
                 "Count": 2,
                 "Weight": 1
               },
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Medium" ],
                 "Count": 1,
                 "Weight": 1
@@ -396,6 +426,9 @@
                 },
                 "Threat": {
                   "Constant": 4
+                },
+                "Hitpoints": {
+                  "Constant": 32000
                 }
               },
               "MaterialReferenceCost": {
@@ -409,13 +442,13 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipPointDefense" ],
-                "Size": [],
+                "Type": [ "ShipWeapon" ],
+                "Size": [ "PointDefense" ],
                 "Count": 4,
                 "Weight": 1
               },
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Large" ],
                 "Count": 1,
                 "Weight": 1
@@ -433,6 +466,9 @@
                 },
                 "Threat": {
                   "Constant": 2
+                },
+                "Hitpoints": {
+                  "Constant": 16000
                 }
               },
               "MaterialReferenceCost": {
@@ -452,7 +488,7 @@
                 "Weight": 1
               },
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Medium" ],
                 "Count": 1,
                 "Weight": 1
@@ -470,6 +506,9 @@
                 },
                 "Threat": {
                   "Constant": 4
+                },
+                "Hitpoints": {
+                  "Constant": 32000
                 }
               },
               "MaterialReferenceCost": {
@@ -489,7 +528,7 @@
                 "Weight": 1
               },
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Large" ],
                 "Count": 1,
                 "Weight": 1
@@ -507,6 +546,9 @@
                 },
                 "Threat": {
                   "Constant": 1
+                },
+                "Hitpoints": {
+                  "Constant": 8000
                 }
               },
               "MaterialReferenceCost": {
@@ -526,7 +568,7 @@
                 "Weight": 1
               },
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Small" ],
                 "Count": 1,
                 "Weight": 1
@@ -544,6 +586,9 @@
                 },
                 "Threat": {
                   "Constant": 2
+                },
+                "Hitpoints": {
+                  "Constant": 16000
                 }
               },
               "MaterialReferenceCost": {
@@ -563,7 +608,7 @@
                 "Weight": 1
               },
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Medium" ],
                 "Count": 1,
                 "Weight": 1
@@ -581,6 +626,9 @@
                 },
                 "Threat": {
                   "Constant": 4
+                },
+                "Hitpoints": {
+                  "Constant": 32000
                 }
               },
               "MaterialReferenceCost": {
@@ -600,7 +648,7 @@
                 "Weight": 1
               },
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Large" ],
                 "Count": 1,
                 "Weight": 1
@@ -624,6 +672,9 @@
                 },
                 "Threat": {
                   "Constant": 2
+                },
+                "Hitpoints": {
+                  "Constant": 16000
                 }
               },
               "MaterialReferenceCost": {
@@ -637,7 +688,7 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Small" ],
                 "Count": 4,
                 "Weight": 1
@@ -655,6 +706,9 @@
                 },
                 "Threat": {
                   "Constant": 4
+                },
+                "Hitpoints": {
+                  "Constant": 32000
                 }
               },
               "MaterialReferenceCost": {
@@ -668,7 +722,7 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Medium" ],
                 "Count": 4,
                 "Weight": 1
@@ -686,6 +740,9 @@
                 },
                 "Threat": {
                   "Constant": 8
+                },
+                "Hitpoints": {
+                  "Constant": 64000
                 }
               },
               "MaterialReferenceCost": {
@@ -699,7 +756,7 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Large" ],
                 "Count": 4,
                 "Weight": 1
@@ -717,6 +774,9 @@
                 },
                 "Threat": {
                   "Constant": 4
+                },
+                "Hitpoints": {
+                  "Constant": 32000
                 }
               },
               "MaterialReferenceCost": {
@@ -736,7 +796,7 @@
                 "Weight": 1
               },
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Medium" ],
                 "Count": 2,
                 "Weight": 1
@@ -754,6 +814,9 @@
                 },
                 "Threat": {
                   "Constant": 8
+                },
+                "Hitpoints": {
+                  "Constant": 64000
                 }
               },
               "MaterialReferenceCost": {
@@ -773,7 +836,7 @@
                 "Weight": 1
               },
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Large" ],
                 "Count": 2,
                 "Weight": 1
@@ -791,6 +854,9 @@
                 },
                 "Threat": {
                   "Constant": 2
+                },
+                "Hitpoints": {
+                  "Constant": 16000
                 }
               },
               "MaterialReferenceCost": {
@@ -810,7 +876,7 @@
                 "Weight": 1
               },
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Small" ],
                 "Count": 2,
                 "Weight": 1
@@ -828,6 +894,9 @@
                 },
                 "Threat": {
                   "Constant": 4
+                },
+                "Hitpoints": {
+                  "Constant": 32000
                 }
               },
               "MaterialReferenceCost": {
@@ -847,7 +916,7 @@
                 "Weight": 1
               },
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Medium" ],
                 "Count": 2,
                 "Weight": 1
@@ -865,6 +934,9 @@
                 },
                 "Threat": {
                   "Constant": 8
+                },
+                "Hitpoints": {
+                  "Constant": 64000
                 }
               },
               "MaterialReferenceCost": {
@@ -884,7 +956,7 @@
                 "Weight": 1
               },
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Large" ],
                 "Count": 2,
                 "Weight": 1
@@ -902,6 +974,9 @@
                 },
                 "Threat": {
                   "Constant": 2
+                },
+                "Hitpoints": {
+                  "Constant": 16000
                 }
               },
               "MaterialReferenceCost": {
@@ -921,7 +996,7 @@
                 "Weight": 1
               },
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Small" ],
                 "Count": 2,
                 "Weight": 1
@@ -939,6 +1014,9 @@
                 },
                 "Threat": {
                   "Constant": 4
+                },
+                "Hitpoints": {
+                  "Constant": 32000
                 }
               },
               "MaterialReferenceCost": {
@@ -958,7 +1036,7 @@
                 "Weight": 1
               },
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Medium" ],
                 "Count": 2,
                 "Weight": 1
@@ -976,6 +1054,9 @@
                 },
                 "Threat": {
                   "Constant": 8
+                },
+                "Hitpoints": {
+                  "Constant": 64000
                 }
               },
               "MaterialReferenceCost": {
@@ -995,7 +1076,7 @@
                 "Weight": 1
               },
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Large" ],
                 "Count": 2,
                 "Weight": 1
@@ -1013,6 +1094,9 @@
                 },
                 "Threat": {
                   "Constant": 2
+                },
+                "Hitpoints": {
+                  "Constant": 16000
                 }
               },
               "MaterialReferenceCost": {
@@ -1026,8 +1110,8 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipPointDefense" ],
-                "Size": [],
+                "Type": [ "ShipWeapon" ],
+                "Size": [ "PointDefense" ],
                 "Count": 1,
                 "Weight": 1
               },
@@ -1038,7 +1122,7 @@
                 "Weight": 1
               },
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Small" ],
                 "Count": 2,
                 "Weight": 1
@@ -1056,6 +1140,9 @@
                 },
                 "Threat": {
                   "Constant": 4
+                },
+                "Hitpoints": {
+                  "Constant": 32000
                 }
               },
               "MaterialReferenceCost": {
@@ -1069,8 +1156,8 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipPointDefense" ],
-                "Size": [],
+                "Type": [ "ShipWeapon" ],
+                "Size": [ "PointDefense" ],
                 "Count": 2,
                 "Weight": 1
               },
@@ -1081,7 +1168,7 @@
                 "Weight": 1
               },
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Medium" ],
                 "Count": 2,
                 "Weight": 1
@@ -1099,6 +1186,9 @@
                 },
                 "Threat": {
                   "Constant": 8
+                },
+                "Hitpoints": {
+                  "Constant": 64000
                 }
               },
               "MaterialReferenceCost": {
@@ -1112,8 +1202,8 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipPointDefense" ],
-                "Size": [],
+                "Type": [ "ShipWeapon" ],
+                "Size": [ "PointDefense" ],
                 "Count": 4,
                 "Weight": 1
               },
@@ -1124,7 +1214,7 @@
                 "Weight": 1
               },
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Small" ],
                 "Count": 2,
                 "Weight": 1
@@ -1142,6 +1232,9 @@
                 },
                 "Threat": {
                   "Constant": 2
+                },
+                "Hitpoints": {
+                  "Constant": 16000
                 }
               },
               "MaterialReferenceCost": {
@@ -1161,7 +1254,7 @@
                 "Weight": 1
               },
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Small" ],
                 "Count": 2,
                 "Weight": 1
@@ -1179,6 +1272,9 @@
                 },
                 "Threat": {
                   "Constant": 4
+                },
+                "Hitpoints": {
+                  "Constant": 32000
                 }
               },
               "MaterialReferenceCost": {
@@ -1198,7 +1294,7 @@
                 "Weight": 1
               },
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Medium" ],
                 "Count": 2,
                 "Weight": 1
@@ -1216,6 +1312,9 @@
                 },
                 "Threat": {
                   "Constant": 8
+                },
+                "Hitpoints": {
+                  "Constant": 64000
                 }
               },
               "MaterialReferenceCost": {
@@ -1235,7 +1334,7 @@
                 "Weight": 1
               },
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Large" ],
                 "Count": 2,
                 "Weight": 1
@@ -1253,6 +1352,9 @@
                 },
                 "Threat": {
                   "Constant": 2
+                },
+                "Hitpoints": {
+                  "Constant": 16000
                 }
               },
               "MaterialReferenceCost": {
@@ -1272,7 +1374,7 @@
                 "Weight": 1
               },
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Small" ],
                 "Count": 2,
                 "Weight": 1
@@ -1290,6 +1392,9 @@
                 },
                 "Threat": {
                   "Constant": 4
+                },
+                "Hitpoints": {
+                  "Constant": 32000
                 }
               },
               "MaterialReferenceCost": {
@@ -1309,7 +1414,7 @@
                 "Weight": 1
               },
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Medium" ],
                 "Count": 2,
                 "Weight": 1
@@ -1327,6 +1432,9 @@
                 },
                 "Threat": {
                   "Constant": 8
+                },
+                "Hitpoints": {
+                  "Constant": 64000
                 }
               },
               "MaterialReferenceCost": {
@@ -1352,7 +1460,7 @@
                 "Weight": 1
               },
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Large" ],
                 "Count": 2,
                 "Weight": 1
@@ -1376,6 +1484,9 @@
                 },
                 "Threat": {
                   "Constant": 1
+                },
+                "Hitpoints": {
+                  "Constant": 8000
                 }
               },
               "MaterialReferenceCost": {
@@ -1389,7 +1500,7 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Small" ],
                 "Count": 2,
                 "Weight": 1
@@ -1407,6 +1518,9 @@
                 },
                 "Threat": {
                   "Constant": 2
+                },
+                "Hitpoints": {
+                  "Constant": 16000
                 }
               },
               "MaterialReferenceCost": {
@@ -1420,7 +1534,7 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Medium" ],
                 "Count": 2,
                 "Weight": 1
@@ -1438,6 +1552,9 @@
                 },
                 "Threat": {
                   "Constant": 4
+                },
+                "Hitpoints": {
+                  "Constant": 32000
                 }
               },
               "MaterialReferenceCost": {
@@ -1451,7 +1568,7 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Large" ],
                 "Count": 2,
                 "Weight": 1
@@ -1469,6 +1586,9 @@
                 },
                 "Threat": {
                   "Constant": 4
+                },
+                "Hitpoints": {
+                  "Constant": 32000
                 }
               },
               "MaterialReferenceCost": {
@@ -1488,7 +1608,7 @@
                 "Weight": 1
               },
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Large" ],
                 "Count": 1,
                 "Weight": 1
@@ -1506,6 +1626,9 @@
                 },
                 "Threat": {
                   "Constant": 2
+                },
+                "Hitpoints": {
+                  "Constant": 16000
                 }
               },
               "MaterialReferenceCost": {
@@ -1525,7 +1648,7 @@
                 "Weight": 1
               },
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Medium" ],
                 "Count": 1,
                 "Weight": 1
@@ -1543,6 +1666,9 @@
                 },
                 "Threat": {
                   "Constant": 4
+                },
+                "Hitpoints": {
+                  "Constant": 32000
                 }
               },
               "MaterialReferenceCost": {
@@ -1562,7 +1688,7 @@
                 "Weight": 1
               },
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Large" ],
                 "Count": 1,
                 "Weight": 1
@@ -1580,6 +1706,9 @@
                 },
                 "Threat": {
                   "Constant": 2
+                },
+                "Hitpoints": {
+                  "Constant": 16000
                 }
               },
               "MaterialReferenceCost": {
@@ -1599,7 +1728,7 @@
                 "Weight": 1
               },
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Medium" ],
                 "Count": 1,
                 "Weight": 1
@@ -1617,6 +1746,9 @@
                 },
                 "Threat": {
                   "Constant": 4
+                },
+                "Hitpoints": {
+                  "Constant": 32000
                 }
               },
               "MaterialReferenceCost": {
@@ -1636,7 +1768,7 @@
                 "Weight": 1
               },
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Large" ],
                 "Count": 1,
                 "Weight": 1
@@ -1654,6 +1786,9 @@
                 },
                 "Threat": {
                   "Constant": 1
+                },
+                "Hitpoints": {
+                  "Constant": 8000
                 }
               },
               "MaterialReferenceCost": {
@@ -1667,13 +1802,13 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipPointDefense" ],
-                "Size": [],
+                "Type": [ "ShipWeapon" ],
+                "Size": [ "PointDefense" ],
                 "Count": 1,
                 "Weight": 1
               },
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Small" ],
                 "Count": 1,
                 "Weight": 1
@@ -1691,6 +1826,9 @@
                 },
                 "Threat": {
                   "Constant": 2
+                },
+                "Hitpoints": {
+                  "Constant": 16000
                 }
               },
               "MaterialReferenceCost": {
@@ -1704,13 +1842,13 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipPointDefense" ],
-                "Size": [],
+                "Type": [ "ShipWeapon" ],
+                "Size": [ "PointDefense" ],
                 "Count": 2,
                 "Weight": 1
               },
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Medium" ],
                 "Count": 1,
                 "Weight": 1
@@ -1728,6 +1866,9 @@
                 },
                 "Threat": {
                   "Constant": 4
+                },
+                "Hitpoints": {
+                  "Constant": 32000
                 }
               },
               "MaterialReferenceCost": {
@@ -1741,13 +1882,13 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipPointDefense" ],
-                "Size": [],
+                "Type": [ "ShipWeapon" ],
+                "Size": [ "PointDefense" ],
                 "Count": 4,
                 "Weight": 1
               },
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Large" ],
                 "Count": 1,
                 "Weight": 1
@@ -1765,6 +1906,9 @@
                 },
                 "Threat": {
                   "Constant": 2
+                },
+                "Hitpoints": {
+                  "Constant": 16000
                 }
               },
               "MaterialReferenceCost": {
@@ -1784,7 +1928,7 @@
                 "Weight": 1
               },
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Medium" ],
                 "Count": 1,
                 "Weight": 1
@@ -1802,6 +1946,9 @@
                 },
                 "Threat": {
                   "Constant": 4
+                },
+                "Hitpoints": {
+                  "Constant": 32000
                 }
               },
               "MaterialReferenceCost": {
@@ -1821,7 +1968,7 @@
                 "Weight": 1
               },
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Large" ],
                 "Count": 1,
                 "Weight": 1
@@ -1839,6 +1986,9 @@
                 },
                 "Threat": {
                   "Constant": 1
+                },
+                "Hitpoints": {
+                  "Constant": 8000
                 }
               },
               "MaterialReferenceCost": {
@@ -1858,7 +2008,7 @@
                 "Weight": 1
               },
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Small" ],
                 "Count": 1,
                 "Weight": 1
@@ -1876,6 +2026,9 @@
                 },
                 "Threat": {
                   "Constant": 2
+                },
+                "Hitpoints": {
+                  "Constant": 16000
                 }
               },
               "MaterialReferenceCost": {
@@ -1895,7 +2048,7 @@
                 "Weight": 1
               },
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Medium" ],
                 "Count": 1,
                 "Weight": 1
@@ -1913,6 +2066,9 @@
                 },
                 "Threat": {
                   "Constant": 4
+                },
+                "Hitpoints": {
+                  "Constant": 32000
                 }
               },
               "MaterialReferenceCost": {
@@ -1932,7 +2088,7 @@
                 "Weight": 1
               },
               {
-                "Type": [ "ShipInternal" ],
+                "Type": [ "ShipInternal", "ShipShield" ],
                 "Size": [ "Large" ],
                 "Count": 1,
                 "Weight": 1

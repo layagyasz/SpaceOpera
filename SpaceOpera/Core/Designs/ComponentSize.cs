@@ -6,6 +6,7 @@ namespace SpaceOpera.Core.Designs
     public enum ComponentSize
     {
         Unknown,
+        PointDefense,
         Small,
         Medium,
         Large,

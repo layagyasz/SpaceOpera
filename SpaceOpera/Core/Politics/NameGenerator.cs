@@ -100,7 +100,6 @@ namespace SpaceOpera.Core.Politics
                 ComponentType.BattalionTemplate => NameType.BattalionTemplate,
                 ComponentType.DivisionTemplate => NameType.DivisionTemplate,
                 ComponentType.ShipWeapon 
-                    or ComponentType.ShipPointDefense
                     or ComponentType.ShipMissile 
                     or ComponentType.PersonalWeapon => NameType.Weapon,
                 ComponentType.ShipShield => NameType.Shield,

@@ -50,11 +50,6 @@
     "Color": "#ffff00"
   },
   {
-    "$id": "component-ship-point-defense",
-    "Texture": "icon-empty",
-    "Color": "#ff0000"
-  },
-  {
     "$id": "component-ship-missile",
     "Texture": "icon-missile",
     "Color": "#ff0000"

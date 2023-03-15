@@ -41,7 +41,6 @@ namespace SpaceOpera.Core.Designs
         ShipInternal,
         ShipJumpDrive,
         ShipMissile,
-        ShipPointDefense,
         ShipPowercore,
         ShipShield,
         ShipThruster,

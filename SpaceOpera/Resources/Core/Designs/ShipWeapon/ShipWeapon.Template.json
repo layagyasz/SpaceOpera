@@ -3,7 +3,26 @@
     "$id": "design-template-ship-weapon",
     "Type": "ShipWeapon",
     "Sizes": {
-      "SMALL": {
+      "PointDefense": {
+        "Attributes": {
+          "MaterialCost": {
+            "Bonus": 0
+          },
+          "ProductionCost": {
+            "Bonus": 0
+          },
+          "WeaponDamage": {
+            "Bonus": -0.5
+          },
+          "WeaponPenetration": {
+            "Bonus": 0
+          },
+          "WeaponTracking": {
+            "Bonus": 0.5
+          }
+        }
+      },
+      "Small": {
         "Attributes": {
           "MaterialCost": {
             "Bonus": 0
@@ -22,7 +41,7 @@
           }
         }
       },
-      "MEDIUM": {
+      "Medium": {
         "Attributes": {
           "MaterialCost": {
             "Bonus": 1
@@ -41,7 +60,7 @@
           }
         }
       },
-      "LARGE": {
+      "Large": {
         "Attributes": {
           "MaterialCost": {
             "Bonus": 3
