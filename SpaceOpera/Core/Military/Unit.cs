@@ -1,10 +1,11 @@
 ﻿using Cardamom.Collections;
 using Cardamom.Trackers;
 using SpaceOpera.Core.Designs;
+using SpaceOpera.Core.Economics;
 
 namespace SpaceOpera.Core.Military
 {
-    public class Unit : DesignedComponent
+    public class Unit : DesignedMaterial
     {
         private static readonly EnumSet<ComponentType> s_ArmorTypes = 
             new(ComponentType.PersonalArmor, ComponentType.ShipArmor);
