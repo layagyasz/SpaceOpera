@@ -2,7 +2,7 @@
 {
     public interface IDescriber
     {
-        void Describe(IEnumerable<object> objects, InfoPanel infoPanel);
+        void DescribeAll(IEnumerable<object> objects, InfoPanel infoPanel);
         void Describe(object @object, InfoPanel infoPanel);
     }
 }

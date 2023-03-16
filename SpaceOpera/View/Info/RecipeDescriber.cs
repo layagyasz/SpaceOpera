@@ -5,9 +5,9 @@ namespace SpaceOpera.View.Info
 {
     public class RecipeDescriber : IDescriber
     {
-        public void Describe(IEnumerable<object> objects, InfoPanel infoPanel)
+        public void DescribeAll(IEnumerable<object> objects, InfoPanel infoPanel)
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException();
         }
 
         public void Describe(object @object, InfoPanel infoPanel)

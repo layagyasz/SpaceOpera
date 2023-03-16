@@ -31,7 +31,10 @@ namespace SpaceOpera.View.Panes.MilitaryPanes
             IUiContainer body)
             : base(controller, @class, header, closeButton, tabs, body) { }
 
-        public override void Populate(params object?[] args) { }
+        public override void Populate(params object?[] args) 
+        {
+            Populated?.Invoke(this, EventArgs.Empty);
+        }
 
         public override void SetTab(object id) { }
 

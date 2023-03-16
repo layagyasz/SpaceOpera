@@ -36,7 +36,7 @@ namespace SpaceOpera.Core
             return string.Format("{0:N2}", Constant);
         }
 
-        private string FormatBonusString(float Bonus)
+        private static string FormatBonusString(float Bonus)
         {
             if (Bonus < 0)
             {

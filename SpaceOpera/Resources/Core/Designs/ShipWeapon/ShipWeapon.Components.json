@@ -165,6 +165,12 @@
     "Attributes": {
       "WeaponPenetration": {
         "Constant": 40
+      },
+      "WeaponAccuracy": {
+        "Constant": 300
+      },
+      "WeaponTracking": {
+        "Constant": 300
       }
     },
     "Damage": {

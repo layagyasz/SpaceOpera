@@ -6,6 +6,8 @@ namespace SpaceOpera.View.Panes
 {
     public abstract class SimpleGamePane : UiContainer, IGamePane
     {
+        public EventHandler<EventArgs>? Populated { get; set; }
+
         public TextUiElement Header { get; }
         public IUiElement CloseButton { get; }
         public IUiContainer Body { get; }

@@ -12,10 +12,13 @@ namespace SpaceOpera.Controller.Panes.DesignPanes
 
         private DesignerComponentCellController? _activeCell;
 
+        private Design? _design;
+
         public override void Bind(object @object)
         {
             base.Bind(@object);
             var pane = (DesignerPane)_pane!;
+            pane.Populated += HandlePopulated;
             _componentTableController = (RadioController<IComponent>)pane.ComponentOptionTable.ComponentController;
             _componentTableController.ValueChanged += HandleComponentSelected;
             _segmentTableController = (DesignerSegmentTableController)pane.SegmentTable.ComponentController;
@@ -26,6 +29,7 @@ namespace SpaceOpera.Controller.Panes.DesignPanes
         public override void Unbind()
         {
             var pane = (DesignerPane)_pane!;
+            pane.Populated -= HandlePopulated;
             _componentTableController!.ValueChanged -= HandleComponentSelected;
             _componentTableController = null;
             _segmentTableController!.CellSelected -= HandleCellSelected;
@@ -53,12 +57,17 @@ namespace SpaceOpera.Controller.Panes.DesignPanes
 
         private void HandleComponentSelected(object? sender, ValueChangedEventArgs<string, IComponent?> e)
         {
-            _activeCell?.SetValue(e.Value);
+            if (_activeCell != null)
+            {
+                _activeCell.SetValue(e.Value);
+                Update();
+            }
         }
 
         private void HandleConfigurationChanged(
             object? sender, ValueChangedEventArgs<DesignerSegmentRow, SegmentConfiguration> e)
         {
+            Console.WriteLine("set config");
             var pane = (DesignerPane)_pane!;
             if (_activeCell != null && e.Key.ComponentCells.Select(x => x.Controller).Contains(_activeCell))
             {
@@ -66,6 +75,19 @@ namespace SpaceOpera.Controller.Panes.DesignPanes
                 pane.SetSlot(null);
             }
             pane.SetSegmentConfiguration(e.Key, e.Value);
+            Update();
+        }
+
+        private void HandlePopulated(object? sender, EventArgs e)
+        {
+            Update();
+        }
+
+        private void Update()
+        {
+            var pane = (DesignerPane)_pane!;
+            _design = pane.GetDesignBuilder().Build(new(pane.GetTemplate(), _segmentTableController!.GetSegments()));
+            pane.SetInfo(_design);
         }
     }
 }

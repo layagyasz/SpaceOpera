@@ -21,6 +21,10 @@ namespace SpaceOpera.Core.Designs
             MaterialCost = ComputeMaterialCosts(GetAttribute(ComponentAttribute.MaterialCost), components);
             Damage = ComputeDamage(GetAttribute(ComponentAttribute.WeaponDamage), components);
             DamageResist = ComputeDamageResist(GetAttribute(ComponentAttribute.DamageResist), components);
+            // Override consumed attributes
+            Attributes[ComponentAttribute.MaterialCost] = Modifier.Zero;
+            Attributes[ComponentAttribute.WeaponDamage] = Modifier.Zero;
+            Attributes[ComponentAttribute.DamageResist] = Modifier.Zero;
         }
 
         public MultiQuantity<IMaterial> GetMaterialCost()
@@ -39,43 +43,34 @@ namespace SpaceOpera.Core.Designs
             Dictionary<MaterialReference, MultiQuantity<IMaterial>> referenceMaterials = new();
             foreach (var component in components.Select(x => x.Component))
             {
-                if (component.ReferenceMaterial != null)
+                foreach (var referenceMaterial in component.ReferenceMaterial)
                 {
-                    foreach (var referenceMaterial in component.ReferenceMaterial)
-                    {
-                        referenceMaterials.Add(referenceMaterial.Key, referenceMaterial.Value);
-                    }
+                    referenceMaterials.Add(referenceMaterial.Key, referenceMaterial.Value);
                 }
             }
 
             Dictionary<IMaterial, Modifier> materials = new();
             foreach (var component in components)
             {
-                if (component.Component.ReferenceMaterialCost != null)
+                foreach (var cost in component.Component.ReferenceMaterialCost)
                 {
-                    foreach (var cost in component.Component.ReferenceMaterialCost)
+                    foreach (var material in referenceMaterials[cost.Key])
                     {
-                        foreach (var material in referenceMaterials[cost.Key])
-                        {
-                            AddCost(materials, material.Key, material.Value * cost.Value);
-                        }
+                        AddCost(materials, material.Key, material.Value * cost.Value);
                     }
                 }
-                if (component.Component.MaterialCost != null)
+                if (component.Component is DesignedMaterial)
                 {
-                    if (component.Component is DesignedMaterial)
+                    AddCost(
+                        materials, 
+                        (IMaterial)component.Component, 
+                        new Modifier() { Constant = component.Slot.Weight });
+                }
+                else
+                {
+                    foreach (var cost in component.Component.MaterialCost)
                     {
-                        AddCost(
-                            materials, 
-                            (IMaterial)component.Component, 
-                            new Modifier() { Constant = component.Slot.Weight });
-                    }
-                    else
-                    {
-                        foreach (var cost in component.Component.MaterialCost)
-                        {
-                            AddCost(materials, cost.Key, component.Slot.Weight * cost.Value);
-                        }
+                        AddCost(materials, cost.Key, component.Slot.Weight * cost.Value);
                     }
                 }
             }
@@ -125,10 +120,6 @@ namespace SpaceOpera.Core.Designs
 
             foreach (var map in maps)
             {
-                if (map == null)
-                {
-                    continue;
-                }
                 foreach (var entry in map)
                 {
                     values[entry.Key] += entry.Value;

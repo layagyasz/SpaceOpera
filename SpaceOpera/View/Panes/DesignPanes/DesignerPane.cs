@@ -6,10 +6,9 @@ using SpaceOpera.View.Icons;
 using Cardamom.Ui.Controller;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.Core;
-using SpaceOpera.Controller.Panes;
 using SpaceOpera.Controller.Panes.DesignPanes;
 using Cardamom.Collections;
-using System.Security.Cryptography.X509Certificates;
+using SpaceOpera.View.Info;
 
 namespace SpaceOpera.View.Panes.DesignPanes
 {
@@ -21,9 +20,22 @@ namespace SpaceOpera.View.Panes.DesignPanes
         private static readonly string s_BodyClassName = "designer-pane-body";
         private static readonly string s_ComponentOptionTableClassName = "designer-pane-component-option-table";
         private static readonly string s_SegmentTableClassName = "designer-pane-segment-table";
+        private static readonly InfoPanelStyle s_InfoPaneStyle = 
+            new(
+                "designer-pane-info-container", 
+                null,
+                null,
+                null,
+                "designer-pane-info-row",
+                "designer-pane-info-heading",
+                "designer-pane-info-value", 
+                "designer-pane-info-material-cell", 
+                "designer-pane-info-material-icon", 
+                "designer-pane-info-material-text");
 
         public UiCompoundComponent ComponentOptionTable { get; }
         public UiCompoundComponent SegmentTable { get; }
+        public InfoPanel InfoPanel { get; }
 
         private readonly UiElementFactory _uiElementFactory;
         private IconFactory _iconFactory;
@@ -54,6 +66,7 @@ namespace SpaceOpera.View.Panes.DesignPanes
                         new TableController(),
                         UiSerialContainer.Orientation.Vertical));
             AddToBody(ComponentOptionTable);
+
             SegmentTable =
                 new UiCompoundComponent(
                     new DesignerSegmentTableController(),
@@ -62,6 +75,19 @@ namespace SpaceOpera.View.Panes.DesignPanes
                         new TableController(),
                         UiSerialContainer.Orientation.Vertical));
             AddToBody(SegmentTable);
+
+            InfoPanel = new(s_InfoPaneStyle, uiElementFactory, iconFactory);
+            AddToBody(InfoPanel);
+        }
+
+        public DesignBuilder GetDesignBuilder()
+        {
+            return _world!.DesignBuilder;
+        }
+
+        public DesignTemplate GetTemplate()
+        {
+            return _template!;
         }
 
         public override void Populate(params object?[] args)
@@ -85,6 +111,13 @@ namespace SpaceOpera.View.Panes.DesignPanes
                     .SetValue(segment.Configuration);
                 SegmentTable.Add(segmentRow);
             }
+            Populated?.Invoke(this, EventArgs.Empty);
+        }
+
+        public void SetInfo(object @object)
+        {
+            InfoPanel.Clear();
+            new DesignDescriber().Describe(@object, InfoPanel);
         }
 
         public void SetSegmentConfiguration(DesignerSegmentRow segmentRow, SegmentConfiguration configuration)

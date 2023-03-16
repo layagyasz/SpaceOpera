@@ -3,6 +3,9 @@
   "Banners": "Resources/View/Banners.json",
   "Biomes": "Resources/View/Biomes.json",
   "HumanEyeSensitivity": "Resources/View/HumanEyeSensitivity.json",
-  "Icons": [ "Resources/View/Designs::*.Icons.json" ],
+  "Icons": [
+    "Resources/View/Materials.json",
+    "Resources/View/Designs::*.Icons.json"
+  ],
   "DesignedComponentIconConfigs": [ "Resources/View/Designs::*.IconConfig.json" ]
 }

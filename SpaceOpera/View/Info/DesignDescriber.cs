@@ -1,8 +1,8 @@
-using SpaceOpera.Core.Economics;
+﻿using SpaceOpera.Core.Designs;
 
 namespace SpaceOpera.View.Info
 {
-    public class StructureDescriber : IDescriber
+    public class DesignDescriber : IDescriber
     {
         public void DescribeAll(IEnumerable<object> objects, InfoPanel infoPanel)
         {
@@ -11,9 +11,8 @@ namespace SpaceOpera.View.Info
 
         public void Describe(object @object, InfoPanel infoPanel)
         {
-            var structure = (Structure)@object;
-            infoPanel.AddTitle(@object, structure.Name);
-            infoPanel.AddQuantities("Cost", structure.Cost.GetQuantities());
+            var design = (Design)@object;
+            new ComponentDescriber(true).DescribeAll(design.Components, infoPanel);
         }
     }
 }

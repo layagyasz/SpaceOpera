@@ -5,7 +5,7 @@ namespace SpaceOpera.View.Info
 {
     public class UnitDescriber : IDescriber
     {
-        public void Describe(IEnumerable<object> objects, InfoPanel infoPanel)
+        public void DescribeAll(IEnumerable<object> objects, InfoPanel infoPanel)
         {
             Describe(objects.First(), infoPanel);
         }

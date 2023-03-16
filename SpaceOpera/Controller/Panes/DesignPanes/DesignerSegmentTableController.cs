@@ -38,6 +38,16 @@ namespace SpaceOpera.Controller.Panes.DesignPanes
             _table = null;
         }
 
+        public IEnumerable<Segment> GetSegments()
+        {
+            foreach (
+                var row in _table!
+                    .Select(x => ((DesignerSegmentRow)x).ComponentController).Cast<DesignerSegmentRowController>())
+            {
+                yield return row.GetSegment();
+            }
+        }
+
         private void BindElement(DesignerSegmentRow row)
         {
             var controller = (DesignerSegmentRowController)row.ComponentController;

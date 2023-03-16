@@ -4,6 +4,7 @@ using Cardamom.Graphics;
 using Cardamom.Ui;
 using Cardamom.Ui.Controller.Element;
 using SpaceOpera.Core.Designs;
+using SpaceOpera.Core.Economics;
 using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.View.FactionViews;
@@ -34,6 +35,7 @@ namespace SpaceOpera.View.Icons
             _definitionMap = new()
             {
                 { typeof(BaseComponent),  GetAtomicDefinition },
+                { typeof(BaseMaterial), GetAtomicDefinition },
                 { typeof(BattalionTemplate), GetDesignedComponentDefinition },
                 { typeof(DesignedComponent), GetDesignedComponentDefinition },
                 { typeof(DivisionTemplate), GetDesignedComponentDefinition },

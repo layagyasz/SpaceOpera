@@ -12,6 +12,16 @@
           {
             "$id": "design-template-segment-construction-standard",
             "Name": "Standard",
+            "IntrinsicComponent": {
+              "Attributes": {
+                "MaterialCost": {
+                  "Constant": 1
+                },
+                "ProductionCost": {
+                  "Constant": 1
+                }
+              }
+            },
             "Slots": [
               {
                 "Type": [ "ShipConstruction" ],
@@ -49,7 +59,7 @@
                   "Constant": 8000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 250
                 },
@@ -83,7 +93,7 @@
                   "Constant": 16000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 500
                 },
@@ -117,12 +127,12 @@
                   "Constant": 32000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 1000
                 },
                 "MaterialReference1": {
-                  "Constant": 250
+                  "Constant": 500
                 }
               }
             },
@@ -151,7 +161,7 @@
                   "Constant": 32000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 1000
                 },
@@ -191,7 +201,7 @@
                   "Constant": 16000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 500
                 },
@@ -231,7 +241,7 @@
                   "Constant": 32000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 1000
                 },
@@ -271,7 +281,7 @@
                   "Constant": 16000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 500
                 },
@@ -311,7 +321,7 @@
                   "Constant": 32000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 1000
                 },
@@ -351,7 +361,7 @@
                   "Constant": 8000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 250
                 },
@@ -391,7 +401,7 @@
                   "Constant": 16000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 500
                 },
@@ -431,7 +441,7 @@
                   "Constant": 32000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 1000
                 },
@@ -471,7 +481,7 @@
                   "Constant": 16000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 500
                 },
@@ -511,7 +521,7 @@
                   "Constant": 32000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 1000
                 },
@@ -551,7 +561,7 @@
                   "Constant": 8000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 250
                 },
@@ -591,7 +601,7 @@
                   "Constant": 16000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 500
                 },
@@ -631,7 +641,7 @@
                   "Constant": 32000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 1000
                 },
@@ -677,7 +687,7 @@
                   "Constant": 16000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 500
                 },
@@ -711,7 +721,7 @@
                   "Constant": 32000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 1000
                 },
@@ -745,7 +755,7 @@
                   "Constant": 64000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 2000
                 },
@@ -779,7 +789,7 @@
                   "Constant": 32000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 1000
                 },
@@ -819,7 +829,7 @@
                   "Constant": 64000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 2000
                 },
@@ -859,7 +869,7 @@
                   "Constant": 16000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 500
                 },
@@ -899,7 +909,7 @@
                   "Constant": 32000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 1000
                 },
@@ -939,7 +949,7 @@
                   "Constant": 64000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 2000
                 },
@@ -979,7 +989,7 @@
                   "Constant": 16000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 500
                 },
@@ -1019,7 +1029,7 @@
                   "Constant": 32000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 1000
                 },
@@ -1059,7 +1069,7 @@
                   "Constant": 64000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 2000
                 },
@@ -1099,7 +1109,7 @@
                   "Constant": 16000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 500
                 },
@@ -1145,7 +1155,7 @@
                   "Constant": 32000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 1000
                 },
@@ -1191,7 +1201,7 @@
                   "Constant": 64000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 2000
                 },
@@ -1237,7 +1247,7 @@
                   "Constant": 16000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 500
                 },
@@ -1277,7 +1287,7 @@
                   "Constant": 32000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 1000
                 },
@@ -1317,7 +1327,7 @@
                   "Constant": 64000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 2000
                 },
@@ -1357,7 +1367,7 @@
                   "Constant": 16000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 500
                 },
@@ -1397,7 +1407,7 @@
                   "Constant": 32000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 1000
                 },
@@ -1437,7 +1447,7 @@
                   "Constant": 64000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 2000
                 },
@@ -1489,7 +1499,7 @@
                   "Constant": 8000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 250
                 },
@@ -1523,7 +1533,7 @@
                   "Constant": 16000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 500
                 },
@@ -1557,12 +1567,12 @@
                   "Constant": 32000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 1000
                 },
                 "MaterialReference1": {
-                  "Constant": 250
+                  "Constant": 500
                 }
               }
             },
@@ -1591,7 +1601,7 @@
                   "Constant": 32000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 1000
                 },
@@ -1631,7 +1641,7 @@
                   "Constant": 16000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 500
                 },
@@ -1671,7 +1681,7 @@
                   "Constant": 32000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 1000
                 },
@@ -1711,7 +1721,7 @@
                   "Constant": 16000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 500
                 },
@@ -1751,7 +1761,7 @@
                   "Constant": 32000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 1000
                 },
@@ -1791,7 +1801,7 @@
                   "Constant": 8000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 250
                 },
@@ -1831,7 +1841,7 @@
                   "Constant": 16000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 500
                 },
@@ -1871,7 +1881,7 @@
                   "Constant": 32000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 1000
                 },
@@ -1911,7 +1921,7 @@
                   "Constant": 16000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 500
                 },
@@ -1951,7 +1961,7 @@
                   "Constant": 32000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 1000
                 },
@@ -1991,7 +2001,7 @@
                   "Constant": 8000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 250
                 },
@@ -2031,7 +2041,7 @@
                   "Constant": 16000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 500
                 },
@@ -2071,7 +2081,7 @@
                   "Constant": 32000
                 }
               },
-              "MaterialReferenceCost": {
+              "ReferenceMaterialCost": {
                 "MaterialReference0": {
                   "Constant": 1000
                 },

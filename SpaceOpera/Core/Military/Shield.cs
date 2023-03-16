@@ -2,7 +2,7 @@
 
 namespace SpaceOpera.Core.Military
 {
-    public readonly struct Shield
+    public class Shield
     {
         public UnitIntervalValue Absorption { get; }
         public float Capacity { get; }

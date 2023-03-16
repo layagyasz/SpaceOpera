@@ -63,6 +63,7 @@ namespace SpaceOpera.View.Panes.DesignPanes
             _faction = args[1] as Faction;
             _iconFactory = _iconFactory.ForFaction(_faction!);
             Refresh();
+            Populated?.Invoke(this, EventArgs.Empty);
         }
 
         public override void SetTab(object id)

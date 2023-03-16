@@ -88,6 +88,19 @@
           {
             "$id": "design-template-segment-ship-weapon-components-standard",
             "Name": "Standard",
+            "IntrinsicComponent": {
+              "Attributes": {
+                "MaterialCost": {
+                  "Constant": 1
+                },
+                "ProductionCost": {
+                  "Constant": 1
+                },
+                "WeaponDamage": {
+                  "Constant": 1
+                }
+              }
+            },
             "Slots": [
               {
                 "Type": [ "ShipWeaponAmmunition" ],

@@ -1,9 +1,11 @@
-﻿using Cardamom.Ui;
+﻿using Cardamom.Collections;
+using Cardamom.Ui;
 using Cardamom.Ui.Controller;
 using Cardamom.Ui.Controller.Element;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using SpaceOpera.Core.Designs;
 using SpaceOpera.View.Panes.DesignPanes;
+using System.Security.Cryptography.X509Certificates;
 
 namespace SpaceOpera.Controller.Panes.DesignPanes
 {
@@ -39,6 +41,21 @@ namespace SpaceOpera.Controller.Panes.DesignPanes
             _row!.CellRemoved -= HandleCellRemoved;
             _row!.CellAdded -= HandleCellAdded;
             _row = null;
+        }
+
+        public Segment GetSegment()
+        {
+            var components = new MultiMap<DesignSlot, IComponent>();
+            foreach (
+                var cell in _row!.ComponentCells.Select(x => x.Controller).Cast<DesignerComponentCellController>())
+            {
+                components.Add(cell.Key, cell.GetValue()!);
+            }
+            return new(
+                _row!.Template,
+                ((IFormElementController<string, SegmentConfiguration>)
+                    _row!.ConfigurationSelect.Controller).GetValue()!,
+                components);
         }
 
         private void BindCell(DesignerComponentCell cell)

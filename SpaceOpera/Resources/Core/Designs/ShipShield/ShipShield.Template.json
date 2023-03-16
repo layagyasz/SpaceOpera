@@ -69,6 +69,16 @@
           {
             "$id": "design-template-segment-ship-shield-components-standard",
             "Name": "Standard",
+            "IntrinsicComponent": {
+              "Attributes": {
+                "MaterialCost": {
+                  "Constant": 1
+                },
+                "ProductionCost": {
+                  "Constant": 1
+                }
+              }
+            },
             "Slots": [
               {
                 "Type": [ "ShieldEmitter" ],

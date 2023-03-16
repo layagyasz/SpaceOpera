@@ -141,5 +141,60 @@
     "Default": {
       "Size": [ 42, 42 ]
     }
+  },
+  {
+    "$id": "designer-pane-info-container",
+    "Parent": "ui-element",
+    "Default": {
+      "Size": [ 215, 612 ],
+      "Margin": [ 4 ],
+      "Padding": [ 4 ],
+      "CornerRadius": [ [ 12, 12 ] ],
+      "DisableScissor": false
+    }
+  },
+  {
+    "$id": "designer-pane-info-row",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 207, 20 ]
+    }
+  },
+  {
+    "$id": "designer-pane-info-heading",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ "DynamicContents", 20 ],
+      "FontSize": 10,
+      "Padding": [ 4 ]
+    }
+  },
+  {
+    "$id": "designer-pane-info-value",
+    "Parent": "designer-pane-info-heading"
+  },
+  {
+    "$id": "designer-pane-info-material-cell",
+    "Parent": "designer-pane-info-heading",
+    "Default": {
+      "Padding": [ 0 ]
+    }
+  },
+  {
+    "$id": "designer-pane-info-material-icon",
+    "Parent": "ui-icon",
+    "Default": {
+      "Size": [ 16, 16 ],
+      "Margin": [ 2 ]
+    }
+  },
+  {
+    "$id": "designer-pane-info-material-text",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ "DynamicContents", 20 ],
+      "FontSize": 10,
+      "Padding": [ 4 ]
+    }
   }
 ]

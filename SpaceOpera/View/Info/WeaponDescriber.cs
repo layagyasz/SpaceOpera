@@ -4,7 +4,7 @@ namespace SpaceOpera.View.Info
 {
     public class WeaponDescriber : IDescriber
     {
-        public void Describe(IEnumerable<object> objects, InfoPanel infoPanel)
+        public void DescribeAll(IEnumerable<object> objects, InfoPanel infoPanel)
         {
             var weapon = objects.First();
 
@@ -25,7 +25,7 @@ namespace SpaceOpera.View.Info
 
         public void Describe(object @object, InfoPanel infoPanel)
         {
-            Describe(Enumerable.Repeat(@object, 1), infoPanel);
+            DescribeAll(Enumerable.Repeat(@object, 1), infoPanel);
         }
     }
 }

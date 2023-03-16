@@ -28,6 +28,7 @@ namespace SpaceOpera.View.Panes.DesignPanes
         public EventHandler<ElementEventArgs>? CellAdded { get; set; }
         public EventHandler<ElementEventArgs>? CellRemoved { get; set; }
 
+        public SegmentTemplate Template { get; }
         public IUiElement ConfigurationSelect { get; }
         public IUiContainer ComponentTable { get; }
         public List<DesignerComponentCell> ComponentCells { get; }
@@ -43,6 +44,7 @@ namespace SpaceOpera.View.Panes.DesignPanes
                       new ButtonController(),
                       UiSerialContainer.Orientation.Vertical))
         {
+            Template = template;
             _uiElementFactory = uiElementFactory;
             _iconFactory = iconFactory;
 

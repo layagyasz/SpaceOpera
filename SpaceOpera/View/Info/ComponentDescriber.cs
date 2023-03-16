@@ -14,12 +14,12 @@ namespace SpaceOpera.View.Info
 
         public bool IncludeBaseInfo { get; }
 
-        public ComponentDescriber(bool IncludeBaseInfo)
+        public ComponentDescriber(bool includeBaseInfo)
         {
-            this.IncludeBaseInfo = IncludeBaseInfo;
+            IncludeBaseInfo = includeBaseInfo;
         }
 
-        public void Describe(IEnumerable<object> objects, InfoPanel infoPanel)
+        public void DescribeAll(IEnumerable<object> objects, InfoPanel infoPanel)
         {
             var component = (IComponent)objects.First()!;
 
@@ -27,21 +27,21 @@ namespace SpaceOpera.View.Info
             {
                 case ComponentType.BattalionTemplate:
                 case ComponentType.DivisionTemplate:
-                    new FormationTemplateDescriber().Describe(objects.Cast<IFormationTemplate>().ToList(), infoPanel);
+                    new FormationTemplateDescriber().DescribeAll(objects.Cast<IFormationTemplate>().ToList(), infoPanel);
                     return;
                 case ComponentType.Infantry:
                 case ComponentType.Ship:
-                    new UnitDescriber().Describe(objects.Cast<Unit>().ToList(), infoPanel);
+                    new UnitDescriber().DescribeAll(objects.Cast<Unit>().ToList(), infoPanel);
                     return;
                 case ComponentType.PersonalWeapon:
                 case ComponentType.ShipWeapon:
                 case ComponentType.ShipMissile:
                     new WeaponDescriber()
-                        .Describe(objects.Cast<IComponent>().Select(Weapon.FromComponent).ToList(), infoPanel);
+                        .DescribeAll(objects.Cast<IComponent>().Select(Weapon.FromComponent).ToList(), infoPanel);
                     return;
                 case ComponentType.ShipShield:
                     new ShieldDescriber()
-                        .Describe(objects.Cast<IComponent>().Select(Shield.FromComponent).ToList(), infoPanel);
+                        .DescribeAll(objects.Cast<IComponent>().Select(Shield.FromComponent).ToList(), infoPanel);
                     return;
             }
 
@@ -58,7 +58,7 @@ namespace SpaceOpera.View.Info
 
         public void Describe(object @object, InfoPanel infoPanel)
         {
-            Describe(Enumerable.Repeat(@object, 1), infoPanel);
+            DescribeAll(Enumerable.Repeat(@object, 1), infoPanel);
         }
     }
 }

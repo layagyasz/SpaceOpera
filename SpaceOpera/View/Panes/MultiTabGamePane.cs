@@ -6,6 +6,8 @@ namespace SpaceOpera.View.Panes
 {
     public abstract class MultiTabGamePane : UiContainer, IGamePane
     {
+        public EventHandler<EventArgs>? Populated { get; set; }
+
         public TextUiElement Header { get; }
         public IUiElement CloseButton { get; }
         public UiCompoundComponent Tabs { get; }

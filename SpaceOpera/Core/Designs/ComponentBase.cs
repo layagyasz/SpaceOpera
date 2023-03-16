@@ -26,10 +26,6 @@ namespace SpaceOpera.Core.Designs
 
         public float GetAttribute(ComponentAttribute attribute)
         {
-            if (Attributes == null)
-            {
-                return 0;
-            }
             return Attributes[attribute].GetTotal();
         }
 
