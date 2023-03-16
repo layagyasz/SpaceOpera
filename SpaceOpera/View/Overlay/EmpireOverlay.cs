@@ -4,16 +4,34 @@ using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
 using SpaceOpera.Controller.Components;
 using SpaceOpera.Controller.Overlay;
+using SpaceOpera.Core;
 
 namespace SpaceOpera.View.Overlay
 {
-    public class EmpireOverlay : UiCompoundComponent
+    public class EmpireOverlay : UiCompoundComponent, IDynamic
     {
-        private EmpireOverlay(IController controller, UiSerialContainer container)
-            : base(controller, container) { }
-
-        public static EmpireOverlay Create(UiElementFactory uiElementFactory)
+        public CalendarOverlay CalendarOverlay { get; }
+        
+        private EmpireOverlay(IController controller, UiSerialContainer container, CalendarOverlay calendarOverlay)
+            : base(controller, container)
         {
+            CalendarOverlay = calendarOverlay;
+        }
+
+        public void Refresh()
+        {
+            foreach (var item in this)
+            {
+                if (item is IDynamic dynamic)
+                {
+                    dynamic.Refresh();
+                }
+            }
+        }
+
+        public static EmpireOverlay Create(UiElementFactory uiElementFactory, StarCalendar calendar)
+        {
+            var calendarOverlay = CalendarOverlay.Create(uiElementFactory, calendar);
             return new(
                 new EmpireOverlayController(),
                 uiElementFactory.CreateTableRow(
@@ -31,9 +49,11 @@ namespace SpaceOpera.View.Overlay
                             new ActionButtonController(ActionId.MilitaryOrganization)),
                         new SimpleUiElement(
                             uiElementFactory.GetClass("overlay-empire-military"),
-                            new ActionButtonController(ActionId.Military))
+                            new ActionButtonController(ActionId.Military)),
+                        calendarOverlay
                     }, 
-                    new ButtonController()));
+                    new ButtonController()),
+                calendarOverlay);
         }
     }
 }

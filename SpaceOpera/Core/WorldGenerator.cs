@@ -20,7 +20,7 @@ namespace SpaceOpera.Core
                     coreData,
                     context.Random,
                     galaxy,
-                    new StarCalendar(/* StartDate= */ 1440000),
+                    new StarCalendar(/* StartDate= */ 900000000),
                     navigationMap);
             logger.Log("Generate politics");
             coreData.PoliticsGenerator!.Generate(world, playerCulture, playerFaction, context);

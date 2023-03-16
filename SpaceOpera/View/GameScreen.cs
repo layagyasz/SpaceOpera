@@ -60,6 +60,7 @@ namespace SpaceOpera.View
         {
             Controller.Bind(this);
             EmpireOverlay.Initialize();
+            EmpireOverlay.CalendarOverlay.SetGameSpeed(ActionId.GameSpeedNormal);
             _paneLayer.Initialize();
         }
 
@@ -71,6 +72,7 @@ namespace SpaceOpera.View
 
         public void Refresh()
         {
+            EmpireOverlay.Refresh();
             foreach (var pane in _paneLayer)
             {
                 if (pane is IDynamic dynamic)
@@ -90,6 +92,7 @@ namespace SpaceOpera.View
         {
             Scene = scene;
             Scene.ResizeContext(_bounds);
+            EmpireOverlay.Parent = Scene;
         }
 
         public void Update(long delta)

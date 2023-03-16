@@ -37,10 +37,11 @@ namespace SpaceOpera.Core.Military
 
             Armor = BuildComponent(Components, s_ArmorTypes, Armor.FromComponent, Armor.Combine);
             Shield = BuildComponent(Components, s_ShieldTypes, Shield.FromComponent, Shield.Combine);
-            Weapons = components
-                .Where(x => s_WeaponTypes.Contains(x.Component.Slot.Type))
-                .Select(x => Count<Weapon>.Create(Weapon.FromComponent(x.Component), x.Slot.Count))
-                .ToMultiCount(x => x.Key, x => x.Value);
+            Weapons = 
+                components
+                    .Where(x => s_WeaponTypes.Contains(x.Component.Slot.Type))
+                    .GroupBy(x => x.Component)
+                    .ToMultiCount(x => Weapon.FromComponent(x.Key), x => x.Count());
         }
 
         private static T BuildComponent<T>(

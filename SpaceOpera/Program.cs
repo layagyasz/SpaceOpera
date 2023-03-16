@@ -73,35 +73,36 @@ namespace SpaceOpera
                         orbitGenerator.Generate(starGenerator.Generate(generatorContext), 1f, generatorContext), 
                         generatorContext);
                 scene = planet;
-                controller = new GameController(ui, null, playerFaction, viewFactory, logger);
                 driver = new(null, calendar);
+                controller = new GameController(ui, null, driver, playerFaction, viewFactory, logger);
             }
             else if (mode == RunMode.TestSolarSystem)
             {
                 var system = coreData.GalaxyGenerator!.StarSystemGenerator!.Generate(new(), generatorContext);
                 scene = system;
-                controller = new GameController(ui, null, playerFaction,viewFactory, logger);
                 driver = new(null, calendar);
+                controller = new GameController(ui, null, driver, playerFaction,viewFactory, logger);
             }
             else if (mode == RunMode.TestGalaxy)
             {
                 var galaxy = coreData.GalaxyGenerator!.Generate(generatorContext);
                 scene = galaxy;
-                controller = new GameController(ui, null, playerFaction, viewFactory, logger);
                 driver = new(null, calendar);
+                controller = new GameController(ui, null, driver, playerFaction, viewFactory, logger);
             }
             else if (mode == RunMode.Full)
             {
                 var world = WorldGenerator.Generate(playerCulture, playerFaction, coreData, generatorContext);
                 scene = world.Galaxy;
-                controller = new GameController(ui, world, playerFaction, viewFactory, logger);
                 driver = new(world, world.GetUpdater());
+                controller = new GameController(ui, world, driver, playerFaction, viewFactory, logger);
+                calendar = world.Calendar;
             }
             else
             {
                 throw new ArgumentException();
             }
-            var screen = viewFactory.CreateGameScreen(controller);
+            var screen = viewFactory.CreateGameScreen(controller, calendar);
             driver.Start();
             ui.SetRoot(screen);
             controller.PushScene(scene);

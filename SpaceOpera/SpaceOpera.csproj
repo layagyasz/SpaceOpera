@@ -485,6 +485,15 @@
     <None Update="Resources\View\Icons\spaceport.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\View\Icons\speed-fast.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\View\Icons\speed-normal.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\View\Icons\speed-pause.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\View\Icons\stone-pile.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

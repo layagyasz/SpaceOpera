@@ -23,6 +23,7 @@ namespace SpaceOpera.Controller
 
         private readonly UiWindow _window;
         private readonly World? _world;
+        private readonly GameDriver _driver;
         private readonly Faction _faction;
         private readonly ViewFactory _viewFactory;
         private readonly ILogger _logger;
@@ -31,10 +32,12 @@ namespace SpaceOpera.Controller
         private Stack<IGameScene> _scenes = new();
         private EnumMap<HighlightLayerName, ICompositeHighlight> _currentHighlights;
 
-        public GameController(UiWindow window, World? world, Faction faction, ViewFactory viewFactory, ILogger logger)
+        public GameController(
+            UiWindow window, World? world, GameDriver driver, Faction faction, ViewFactory viewFactory, ILogger logger)
         {
             _window = window;
             _world = world;
+            _driver = driver;
             _faction = faction;
             _viewFactory = viewFactory;
             _logger = logger;
@@ -159,6 +162,11 @@ namespace SpaceOpera.Controller
                     OpenPane(GamePaneId.Designer, _world!, _faction, @object);
                     return;
                 }
+                var gameSpeed = GetGameSpeed(e.Action.Value);
+                if (gameSpeed != null)
+                {
+                    _driver.SetGameSpeed(gameSpeed.Value);
+                }
                 var paneId = GetPane(e.Action.Value);
                 if (paneId != GamePaneId.None)
                 {
@@ -197,6 +205,17 @@ namespace SpaceOpera.Controller
                 ActionId.MilitaryOrganization => GamePaneId.MilitaryOrganization,
                 ActionId.Research => GamePaneId.Research,
                 _ => GamePaneId.None,
+            };
+        }
+
+        private static int? GetGameSpeed(ActionId id)
+        {
+            return id switch
+            {
+                ActionId.GameSpeedPause => 0,
+                ActionId.GameSpeedNormal => 1,
+                ActionId.GameSpeedFast => 8,
+                _ => null,
             };
         }
     }

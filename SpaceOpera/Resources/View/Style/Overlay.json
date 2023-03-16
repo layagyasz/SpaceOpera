@@ -7,7 +7,7 @@
       "Margin": [ 8 ],
       "Padding": [ 2 ],
       "CornerRadius": [
-        [ 16, 16 ]
+        [ 14, 14 ]
       ]
     }
   },
@@ -15,10 +15,10 @@
     "$id": "overlay-empire-button",
     "Parent": "ui-element",
     "Default": {
-      "Size": [ 48, 48 ],
+      "Size": [ 40, 40 ],
       "Margin": [ 2 ],
       "CornerRadius": [
-        [ 12, 12 ]
+        [ 10, 10 ]
       ]
     }
   },
@@ -90,6 +90,86 @@
         "Attributes": {
           "BackgroundColor": [ "#ff0000aa" ],
           "BorderColor": [ "#ff0000aa" ]
+        }
+      }
+    ]
+  },
+  {
+    "$id": "overlay-empire-calendar-container",
+    "Parent": "ui-element",
+    "Default": {
+      "Size": [ "DynamicContents", "DynamicContents" ],
+      "Padding": [ 2 ],
+      "Margin": [ 2 ],
+      "CornerRadius": [ [ 8, 8 ] ]
+    }
+  },
+  {
+    "$id": "overlay-empire-calendar-text",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 96, 32 ],
+      "FontSize": 12,
+      "Padding": [ 0, 10, 0, 0 ],
+      "Align": "Center"
+    }
+  },
+  {
+    "$id": "overlay-empire-calendar-pause",
+    "Parent": "pane-action-button",
+    "Default": {
+      "Size": [ 32, 32 ],
+      "Margin": [ 2 ],
+      "BackgroundColor": [ "#ffff0088" ],
+      "BorderColor": [ "#ffff0088" ],
+      "Texture": "icon-speed-pause"
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "BackgroundColor": [ "#ffff00aa" ],
+          "BorderColor": [ "#ffff00aa" ]
+        }
+      }
+    ]
+  },
+  {
+    "$id": "overlay-empire-calendar-normal",
+    "Parent": "pane-action-button",
+    "Default": {
+      "Size": [ 32, 32 ],
+      "Margin": [ 2 ],
+      "BackgroundColor": [ "#00ff0088" ],
+      "BorderColor": [ "#00ff0088" ],
+      "Texture": "icon-speed-normal"
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "BackgroundColor": [ "#00ff00aa" ],
+          "BorderColor": [ "#00ff00aa" ]
+        }
+      }
+    ]
+  },
+  {
+    "$id": "overlay-empire-calendar-fast",
+    "Parent": "pane-action-button",
+    "Default": {
+      "Size": [ 32, 32 ],
+      "Margin": [ 2 ],
+      "BackgroundColor": [ "#0088ff88" ],
+      "BorderColor": [ "#0088ff88" ],
+      "Texture": "icon-speed-fast"
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "BackgroundColor": [ "#0088ffaa" ],
+          "BorderColor": [ "#0088ffaa" ]
         }
       }
     ]

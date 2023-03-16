@@ -8,6 +8,7 @@ namespace SpaceOpera.Core
     {
         public World? World { get; }
 
+        private int _gameSpeed = 1;
         private readonly IUpdateable _updater;
 
         public GameDriver(World? world, IUpdateable updater)
@@ -27,6 +28,11 @@ namespace SpaceOpera.Core
             return ValidationFailureReason.None;
         }
 
+        public void SetGameSpeed(int gameSpeed)
+        {
+            _gameSpeed = gameSpeed;
+        }
+
         public void Start()
         {
             var thread = new Thread(TickThread);
@@ -41,7 +47,7 @@ namespace SpaceOpera.Core
             {
                 long frameElapsed = stopwatch.ElapsedMilliseconds;
                 long delta = frameElapsed - elapsed;
-                _updater.Update(delta);
+                _updater.Update(_gameSpeed * delta);
                 elapsed = frameElapsed;
             }
         }

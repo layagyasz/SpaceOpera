@@ -84,11 +84,11 @@ namespace SpaceOpera.View
                     uiElementFactory));
         }
 
-        public GameScreen CreateGameScreen(GameController controller)
+        public GameScreen CreateGameScreen(GameController controller, StarCalendar calendar)
         {
             return new(
                 controller,
-                EmpireOverlay.Create(UiElementFactory),
+                EmpireOverlay.Create(UiElementFactory, calendar),
                 PaneSet.Create(UiElementFactory, IconFactory),
                 new UiGroup(new PaneLayerController()));
         }

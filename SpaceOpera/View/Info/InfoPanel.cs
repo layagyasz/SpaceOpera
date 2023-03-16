@@ -81,7 +81,7 @@ namespace SpaceOpera.View.Info
                         IconFactory.Create(
                             UiElementFactory.GetClass(Style.MaterialIconClass!), new InlayController(), count.Key),
                         UiElementFactory.CreateTextButton(
-                            Style.MaterialTextClass!, string.Format("{0}", count.Value)).Item1
+                            Style.MaterialTextClass!, string.Format("{0:N0}", count.Value)).Item1
                     },
                     new InlayController()));
             }
@@ -103,7 +103,7 @@ namespace SpaceOpera.View.Info
                         IconFactory.Create(
                             UiElementFactory.GetClass(Style.MaterialIconClass!), new InlayController(), quantity.Key),
                         UiElementFactory.CreateTextButton(
-                            Style.MaterialTextClass!, string.Format("{0}", quantity.Value)).Item1
+                            Style.MaterialTextClass!, string.Format("{0:N0}", quantity.Value)).Item1
                     },
                     new InlayController()));
             }

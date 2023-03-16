@@ -24,8 +24,9 @@ namespace SpaceOpera.View.StarSystemViews
         private readonly SubRegionInteractor[] _interactors;
         private readonly float _scale;
 
-        private readonly float _offset;
-        private readonly float _step;
+        private readonly double _offset;
+        private readonly double _step;
+        private readonly long _yearLength;
 
         public StarSubSystemRig(
             IElementController controller,
@@ -46,7 +47,8 @@ namespace SpaceOpera.View.StarSystemViews
             }
             _scale = scale;
             _offset = MathHelper.TwoPi * stellarBody.Orbit.TimeOffset;
-            _step = -MathHelper.TwoPi * 0.001f * s_GameYearInMillis / stellarBody.GetYearLengthInMillis();
+            _yearLength = (long)stellarBody.GetYearLengthInMillis();
+            _step = -Math.PI * 0.002 * s_GameYearInMillis / _yearLength;
         }
 
         protected override void DisposeImpl()
@@ -60,7 +62,9 @@ namespace SpaceOpera.View.StarSystemViews
             var positionPolar = 
                 _stellarBody.GetSolarOrbitPosition(
                     _stellarBody.GetSolarOrbitProgression(
-                        _offset + _step * _calendar.GetMillis(), s_OrbitPrecision, s_OrbitAccuracy));
+                        (float)(_offset + _step * (_calendar.GetMillis() % _yearLength)),
+                        s_OrbitPrecision,
+                        s_OrbitAccuracy));
             positionPolar.Radius = _scale * MathF.Log(positionPolar.Radius + 1);
             var positionCartesian = positionPolar.AsCartesian();
             target.PushModelMatrix(Matrix4.CreateTranslation(positionCartesian.X, 0, positionCartesian.Y));

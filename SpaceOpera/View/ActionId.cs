@@ -10,6 +10,10 @@
         MilitaryOrganization,
         Research,
 
+        GameSpeedPause,
+        GameSpeedNormal,
+        GameSpeedFast,
+
         // Element actions
         Edit
     }
