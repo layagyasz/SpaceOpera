@@ -86,19 +86,19 @@ namespace SpaceOpera.Core.Designs
         private static EnumMap<ComponentAttribute, Modifier> ComputeAttributes(
             IEnumerable<ComponentAndSlot> components)
         {
-            return CombineModifiers(1, components.Select(x => x.Component.Attributes));
+            return CombineModifiers(1, components.Select(x => (x.Slot.Weight, x.Component.Attributes)));
         }
 
         private static EnumMap<DamageType, Modifier> ComputeDamage(
             float modifier, IEnumerable<ComponentAndSlot> components)
         {
-            return CombineModifiers(modifier, components.Select(x => x.Component.Damage));
+            return CombineModifiers(modifier, components.Select(x => (x.Slot.Weight, x.Component.Damage)));
         }
 
         private static EnumMap<DamageType, Modifier> ComputeDamageResist(
             float modifier, IEnumerable<ComponentAndSlot> components)
         {
-            return CombineModifiers(modifier, components.Select(x =>  x.Component.DamageResist));
+            return CombineModifiers(modifier, components.Select(x =>  (x.Slot.Weight, x.Component.DamageResist)));
         }
 
         private static void AddCost(Dictionary<IMaterial, Modifier> materials, IMaterial material, Modifier modifier)
@@ -114,15 +114,15 @@ namespace SpaceOpera.Core.Designs
         }
 
         private static EnumMap<TKey, Modifier> CombineModifiers<TKey>(
-            float modifier, IEnumerable<EnumMap<TKey, Modifier>> maps) where TKey : Enum
+            float modifier, IEnumerable<(int, EnumMap<TKey, Modifier>)> maps) where TKey : Enum
         {
             EnumMap<TKey, Modifier> values = new();
 
             foreach (var map in maps)
             {
-                foreach (var entry in map)
+                foreach (var entry in map.Item2)
                 {
-                    values[entry.Key] += entry.Value;
+                    values[entry.Key] += map.Item1 * entry.Value;
                 }
             }
 

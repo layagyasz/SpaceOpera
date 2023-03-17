@@ -165,19 +165,23 @@
     "Parent": "ui-element-internal",
     "Default": {
       "Size": [ "DynamicContents", 20 ],
-      "FontSize": 10,
+      "FontSize": 12,
       "Padding": [ 4 ]
     }
   },
   {
     "$id": "designer-pane-info-value",
-    "Parent": "designer-pane-info-heading"
+    "Parent": "designer-pane-info-heading",
+    "Default": {
+      "Margin": [ 12, 0, 0, 0 ]
+    }
   },
   {
     "$id": "designer-pane-info-material-cell",
     "Parent": "designer-pane-info-heading",
     "Default": {
-      "Padding": [ 0 ]
+      "Padding": [ 0 ],
+      "Margin": [ 12, 0, 0, 0 ]
     }
   },
   {
@@ -193,7 +197,7 @@
     "Parent": "ui-element-internal",
     "Default": {
       "Size": [ "DynamicContents", 20 ],
-      "FontSize": 10,
+      "FontSize": 12,
       "Padding": [ 4 ]
     }
   }

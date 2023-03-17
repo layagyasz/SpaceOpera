@@ -7,7 +7,7 @@
     },
     "Attributes": {
       "ShieldCapacity": {
-        "Constant": 32000
+        "Constant": 2000
       },
       "ShieldAbsorption": {
         "Constant": 100
@@ -25,7 +25,7 @@
     },
     "Attributes": {
       "ShieldCapacity": {
-        "Constant": 32000
+        "Constant": 2000
       },
       "ShieldAbsorption": {
         "Constant": 100
@@ -43,7 +43,7 @@
     },
     "Attributes": {
       "ShieldCapacity": {
-        "Constant": 32000
+        "Constant": 2000
       },
       "ShieldAbsorption": {
         "Constant": 100
@@ -61,7 +61,7 @@
     },
     "Attributes": {
       "ShieldCapacity": {
-        "Constant": 32000
+        "Constant": 2000
       },
       "ShieldAbsorption": {
         "Constant": 100

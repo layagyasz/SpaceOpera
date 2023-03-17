@@ -6,13 +6,12 @@ namespace SpaceOpera.View.Info
     {
         public void DescribeAll(IEnumerable<object> objects, InfoPanel infoPanel)
         {
-            throw new NotSupportedException();
+            Describe(objects.First(), infoPanel);
         }
 
         public void Describe(object @object, InfoPanel infoPanel)
         {
             var formation = (IFormationTemplate)@object;
-            infoPanel.AddTitle(@object, formation.Name);
             foreach (var unit in formation.Composition)
             {
                 infoPanel.AddValue(unit.Key.Name, string.Format("{0}", unit.Value));

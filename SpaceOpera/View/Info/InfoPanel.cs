@@ -41,73 +41,63 @@ namespace SpaceOpera.View.Info
 
         public void AddHeader(string text)
         {
-            AddRow(Style.RowClass!, new List<IUiElement>()
-            {
-                UiElementFactory.CreateTextButton(Style.RowHeadingClass!, text).Item1,
-            });
+            InitializeAndAdd(UiElementFactory.CreateTextButton(Style.RowHeadingClass!, text).Item1);
         }
 
         public void AddValue(string name, string value)
         {
-            AddRow(Style.RowClass!, new List<IUiElement>()
-            {
-                UiElementFactory.CreateTextButton(Style.RowHeadingClass!, name).Item1,
-                UiElementFactory.CreateTextButton(Style.RowValueClass!, value).Item1
-            });
+            InitializeAndAdd(UiElementFactory.CreateTextButton(Style.RowHeadingClass!, name).Item1);
+            InitializeAndAdd(UiElementFactory.CreateTextButton(Style.RowValueClass!, value).Item1);
         }
 
         public void AddValues<T>(string name, IEnumerable<T> values, string format)
         {
-            AddRow(Style.RowClass!, new List<IUiElement>()
+            InitializeAndAdd(UiElementFactory.CreateTextButton(Style.RowHeadingClass!, name).Item1);
+            foreach (var value in values)
             {
-                UiElementFactory.CreateTextButton(Style.RowHeadingClass!, name).Item1,
-                UiElementFactory.CreateTextButton(
-                    Style.RowValueClass!, string.Join("/", values.Select(x => string.Format(format, x)))).Item1
-            });
+                InitializeAndAdd(
+                    UiElementFactory.CreateTextButton(Style.RowValueClass!, string.Format(format, value)).Item1);
+            }
         }
 
         public void AddCounts<V>(string countText, IEnumerable<Count<V>> counts) where V : IKeyed
         {
-            var items = new List<IUiElement>()
-            {
-                UiElementFactory.CreateTextButton(Style.RowHeadingClass!, countText).Item1,
-            };
+            InitializeAndAdd(UiElementFactory.CreateTextButton(Style.RowHeadingClass!, countText).Item1);
             foreach (var count in counts)
             {
-                items.Add(UiElementFactory.CreateTableRow(
-                    Style.MaterialCellClass!, 
-                    new List<IUiElement>()
-                    {
-                        IconFactory.Create(
-                            UiElementFactory.GetClass(Style.MaterialIconClass!), new InlayController(), count.Key),
-                        UiElementFactory.CreateTextButton(
-                            Style.MaterialTextClass!, string.Format("{0:N0}", count.Value)).Item1
-                    },
-                    new InlayController()));
+                InitializeAndAdd(
+                    UiElementFactory.CreateTableRow(
+                        Style.MaterialCellClass!, 
+                        new List<IUiElement>()
+                        {
+                            IconFactory.Create(
+                                UiElementFactory.GetClass(Style.MaterialIconClass!), new InlayController(), count.Key),
+                            UiElementFactory.CreateTextButton(
+                                Style.MaterialTextClass!, string.Format("{0:N0}", count.Value)).Item1
+                        },
+                        new InlayController()));
             }
-            AddRow(Style.RowClass!, items);
         }
 
         public void AddQuantities<V>(string quantityText, IEnumerable<Quantity<V>> quantities) where V : IKeyed
         {
-            var items = new List<IUiElement>()
-            {
-                UiElementFactory.CreateTextButton(Style.RowHeadingClass!, quantityText).Item1,
-            };
+            InitializeAndAdd(UiElementFactory.CreateTextButton(Style.RowHeadingClass!, quantityText).Item1);
             foreach (var quantity in quantities)
             {
-                items.Add(UiElementFactory.CreateTableRow(
-                    Style.MaterialCellClass!,
-                    new List<IUiElement>()
-                    {
-                        IconFactory.Create(
-                            UiElementFactory.GetClass(Style.MaterialIconClass!), new InlayController(), quantity.Key),
-                        UiElementFactory.CreateTextButton(
-                            Style.MaterialTextClass!, string.Format("{0:N0}", quantity.Value)).Item1
-                    },
-                    new InlayController()));
+                InitializeAndAdd(
+                    UiElementFactory.CreateTableRow(
+                        Style.MaterialCellClass!,
+                        new List<IUiElement>()
+                        {
+                            IconFactory.Create(
+                                UiElementFactory.GetClass(Style.MaterialIconClass!),
+                                new InlayController(),
+                                quantity.Key),
+                            UiElementFactory.CreateTextButton(
+                                Style.MaterialTextClass!, string.Format("{0:N0}", quantity.Value)).Item1
+                        },
+                        new InlayController()));
             }
-            AddRow(Style.RowClass!, items);
         }
 
         public void AddBreak()
@@ -120,6 +110,12 @@ namespace SpaceOpera.View.Info
             var row = UiElementFactory.CreateTableRow(rowClass, cells, new InlayController());
             row.Initialize();
             Add(row);
+        }
+
+        private void InitializeAndAdd(IUiElement element)
+        {
+            element.Initialize();
+            Add(element);
         }
     }
 }

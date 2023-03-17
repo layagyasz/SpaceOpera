@@ -12,6 +12,13 @@
           {
             "$id": "design-template-segment-infantry-platform-standard",
             "Name": "Standard",
+            "IntrinsicComponent": {
+              "Attributes": {
+                "MaterialCost": {
+                  "Constant": 1
+                }
+              }
+            },
             "Slots": [
               {
                 "Type": [ "InfantryPlatform" ],

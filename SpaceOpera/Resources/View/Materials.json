@@ -231,17 +231,17 @@
   },
   {
     "$id": "material-personal-shield-energy-field",
-    "Texture": "icon-shield-field",
+    "Texture": "icon-shield-capacitor-flux-field",
     "Color": "#00ffff"
   },
   {
     "$id": "material-personal-shield-energy-shell",
-    "Texture": "icon-shield-shell",
+    "Texture": "icon-shield-capacitor-hyper-mesh",
     "Color": "#00ffff"
   },
   {
     "$id": "material-personal-shield-energy-shield",
-    "Texture": "icon-shield-shield",
+    "Texture": "icon-shield-capacitor-quantum-shell",
     "Color": "#00ffff"
   },
   {

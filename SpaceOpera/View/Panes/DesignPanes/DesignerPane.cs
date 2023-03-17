@@ -111,6 +111,7 @@ namespace SpaceOpera.View.Panes.DesignPanes
                     .SetValue(segment.Configuration);
                 SegmentTable.Add(segmentRow);
             }
+            InfoPanel.SetOffset(0);
             Populated?.Invoke(this, EventArgs.Empty);
         }
 

@@ -67,7 +67,6 @@ namespace SpaceOpera.Controller.Panes.DesignPanes
         private void HandleConfigurationChanged(
             object? sender, ValueChangedEventArgs<DesignerSegmentRow, SegmentConfiguration> e)
         {
-            Console.WriteLine("set config");
             var pane = (DesignerPane)_pane!;
             if (_activeCell != null && e.Key.ComponentCells.Select(x => x.Controller).Contains(_activeCell))
             {

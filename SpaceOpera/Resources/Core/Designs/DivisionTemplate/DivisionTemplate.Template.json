@@ -10,6 +10,13 @@
           {
             "$id": "design-template-segment-division-binary",
             "Name": "Binary",
+            "IntrinsicComponent": {
+              "Attributes": {
+                "MaterialCost": {
+                  "Constant": 1
+                }
+              }
+            },
             "Slots": [
               {
                 "Type": [ "BattalionTemplate" ],
@@ -28,6 +35,13 @@
           {
             "$id": "design-template-segment-division-triangular",
             "Name": "Triangular",
+            "IntrinsicComponent": {
+              "Attributes": {
+                "MaterialCost": {
+                  "Constant": 1
+                }
+              }
+            },
             "Slots": [
               {
                 "Type": [ "BattalionTemplate" ],
@@ -46,6 +60,13 @@
           {
             "$id": "design-template-segment-division-rectangular",
             "Name": "Rectangular",
+            "IntrinsicComponent": {
+              "Attributes": {
+                "MaterialCost": {
+                  "Constant": 1
+                }
+              }
+            },
             "Slots": [
               {
                 "Type": [ "BattalionTemplate" ],

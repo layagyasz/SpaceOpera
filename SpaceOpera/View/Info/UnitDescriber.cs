@@ -50,9 +50,6 @@ namespace SpaceOpera.View.Info
                 new WeaponDescriber().Describe(weapon.Key, infoPanel);
                 infoPanel.AddBreak();
             }
-
-            infoPanel.AddValue("Production Cost", unit.ProductionCost.ToString("N0"));
-            infoPanel.AddQuantities("Cost", unit.GetMaterialCost().GetQuantities());
         }
 
         private IEnumerable<KeyValuePair<string, string>> GetCapabilities(Unit Unit)
