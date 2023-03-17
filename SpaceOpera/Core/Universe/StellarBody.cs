@@ -63,33 +63,33 @@ namespace SpaceOpera.Core.Universe
             return 4 * GetGeosynchronousOrbitAltitude();
         }
 
-        public float GetSolarOrbitDistance(float angle)
+        public double GetSolarOrbitDistance(double angle)
         {
             return Orbit.GetDistance(angle);
         }
 
-        public Polar2 GetSolarOrbitPosition(float angle)
+        public Polar2 GetSolarOrbitPosition(double angle)
         {
-            return new(GetSolarOrbitDistance(angle), angle);
+            return new((float)GetSolarOrbitDistance(angle), (float)angle);
         }
 
-        public float GetSolarOrbitProgression(float angle, float precision, int accuracy)
+        public double GetSolarOrbitProgression(double angle, float precision, int accuracy)
         {
-            float e = angle;
-            float f = e - Orbit.Eccentricity * MathF.Sin(angle) - angle;
+            double e = angle;
+            double f = e - Orbit.Eccentricity * Math.Sin(angle) - angle;
 
             int i = 0;
             while ((Math.Abs(f) > precision) && (i < accuracy))
             {
-                e = e - f / (1f - Orbit.Eccentricity * MathF.Cos(e));
-                f = e - Orbit.Eccentricity * MathF.Sin(e) - angle;
+                e = e - f / (1f - Orbit.Eccentricity * Math.Cos(e));
+                f = e - Orbit.Eccentricity * Math.Sin(e) - angle;
                 ++i;
             }
 
-            float sin = MathF.Sin(e);
-            float cos = MathF.Cos(e);
-            float fak = MathF.Sqrt(1f - Orbit.Eccentricity * Orbit.Eccentricity);
-            return MathF.Atan2(fak * sin, cos - Orbit.Eccentricity);
+            double sin = Math.Sin(e);
+            double cos = Math.Cos(e);
+            double fak = Math.Sqrt(1f - Orbit.Eccentricity * Orbit.Eccentricity);
+            return Math.Atan2(fak * sin, cos - Orbit.Eccentricity);
         }
 
         public float GetYearLengthInMillis()

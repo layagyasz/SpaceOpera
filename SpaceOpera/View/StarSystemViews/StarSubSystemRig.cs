@@ -46,7 +46,7 @@ namespace SpaceOpera.View.StarSystemViews
                 interactor.Parent = this;
             }
             _scale = scale;
-            _offset = MathHelper.TwoPi * stellarBody.Orbit.TimeOffset;
+            _offset = 2 * Math.PI * stellarBody.Orbit.TimeOffset;
             _yearLength = (long)stellarBody.GetYearLengthInMillis();
             _step = -Math.PI * 0.002 * s_GameYearInMillis / _yearLength;
         }
@@ -62,7 +62,7 @@ namespace SpaceOpera.View.StarSystemViews
             var positionPolar = 
                 _stellarBody.GetSolarOrbitPosition(
                     _stellarBody.GetSolarOrbitProgression(
-                        (float)(_offset + _step * (_calendar.GetMillis() % _yearLength)),
+                        _offset + _step * (_calendar.GetMillis() % _yearLength),
                         s_OrbitPrecision,
                         s_OrbitAccuracy));
             positionPolar.Radius = _scale * MathF.Log(positionPolar.Radius + 1);

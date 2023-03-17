@@ -30,15 +30,15 @@ namespace SpaceOpera.Core.Universe
             return 0.5f * (float)Math.PI * (MajorAxis + MinorAxis);
         }
 
-        public Vector2 GetPoint(float angle)
+        public Vector2d GetPoint(double angle)
         {
             var d = GetDistance(angle);
-            return new Vector2(d * MathF.Cos(angle), d * MathF.Sin(angle));
+            return new Vector2d(d * Math.Cos(angle), d * Math.Sin(angle));
         }
 
-        public float GetDistance(float angle)
+        public double GetDistance(double angle)
         {
-            return 0.5f * MajorAxis * (1 - Eccentricity * Eccentricity) / (1 + Eccentricity * MathF.Cos(angle));
+            return 0.5f * MajorAxis * (1 - Eccentricity * Eccentricity) / (1 + Eccentricity * Math.Cos(angle));
         }
 
         public float GetStellarTemperature()

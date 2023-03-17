@@ -78,7 +78,7 @@ namespace SpaceOpera.View.StarSystemViews
             {
                 AddGuideline(
                     guidelines, 
-                    x => scale * MathF.Log(starSystem.Orbiters[i].GetSolarOrbitDistance(x) + 1),
+                    x => scale * MathF.Log((float)starSystem.Orbiters[i].GetSolarOrbitDistance(x) + 1),
                     s_OrbitColor, 
                     scale);
             }
