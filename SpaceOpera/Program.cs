@@ -15,6 +15,7 @@ namespace SpaceOpera
     {
         enum RunMode
         {
+            CompileSymbols,
             TestLanguage,
             TestStellarBody,
             TestSolarSystem,
@@ -24,6 +25,20 @@ namespace SpaceOpera
 
         static void Main()
         {
+            RunMode mode = RunMode.Full;
+            if (mode == RunMode.CompileSymbols)
+            {
+                int i = 0;
+                var dir = "Resources/View/Symbols/";
+                var prefix = "symbol";
+                foreach (var file in Directory.GetFiles(".", "*.png"))
+                {
+                    var newName = $"{prefix}-{i++}.png";
+                    File.Move(file, dir + newName);
+                }
+                return;
+            }
+
             var monitor = Monitors.GetPrimaryMonitor();
             var window =
                 new RenderWindow("SpaceOpera", new Vector2i(monitor.HorizontalResolution, monitor.VerticalResolution));
@@ -39,7 +54,6 @@ namespace SpaceOpera
 
             var generatorContext =
                 new GeneratorContext(logger, StellarBodySurfaceGeneratorResources.CreateForGenerator(), new());
-            RunMode mode = RunMode.Full;
             if (mode == RunMode.TestLanguage)
             {
                 var language = coreData.PoliticsGenerator!.Culture!.Language!.Generate(generatorContext);
