@@ -49,7 +49,7 @@ namespace SpaceOpera.View.Panes.DesignPanes
             DesignTable =
                 new DynamicUiSerialContainer<Design, DesignRow>(
                     uiElementFactory.GetClass(s_DesignTableClassName), 
-                    new ActionTableController(),
+                    new ActionTableController(10f),
                     UiSerialContainer.Orientation.Vertical,
                     GetRange,
                     x => DesignRow.Create(x, uiElementFactory, ref _iconFactory),

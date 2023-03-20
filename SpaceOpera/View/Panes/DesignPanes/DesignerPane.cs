@@ -63,7 +63,7 @@ namespace SpaceOpera.View.Panes.DesignPanes
                     new RadioController<IComponent>("component"),
                     new UiSerialContainer(
                         uiElementFactory.GetClass(s_ComponentOptionTableClassName),
-                        new TableController(),
+                        new TableController(10f),
                         UiSerialContainer.Orientation.Vertical));
             AddToBody(ComponentOptionTable);
 
@@ -72,7 +72,7 @@ namespace SpaceOpera.View.Panes.DesignPanes
                     new DesignerSegmentTableController(),
                     new UiSerialContainer(
                         uiElementFactory.GetClass(s_SegmentTableClassName),
-                        new TableController(),
+                        new TableController(0f),
                         UiSerialContainer.Orientation.Vertical));
             AddToBody(SegmentTable);
 

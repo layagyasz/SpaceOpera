@@ -19,7 +19,7 @@ namespace SpaceOpera.View.Info
             IconFactory iconFactory)
             : base(
                   uiElementFactory.GetClass(style.ContainerClass!),
-                  new ScrollingTableController(10f), 
+                  new TableController(10f), 
                   Orientation.Vertical)
         {
             Style = style;

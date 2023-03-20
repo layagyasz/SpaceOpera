@@ -7,6 +7,9 @@ namespace SpaceOpera.Controller.Components
     {
         public EventHandler<UiInteractionEventArgs>? Interacted { get; set; }
 
+        public ActionTableController(float scrollSpeed)
+            : base(scrollSpeed) { }
+
         public override void BindElement(IUiElement element)
         {
             base.BindElement(element);
