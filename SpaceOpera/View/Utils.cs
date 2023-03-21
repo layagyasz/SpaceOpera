@@ -3,6 +3,8 @@ using static Cardamom.Mathematics.Extensions;
 using OpenTK.Mathematics;
 using Cardamom.Graphics;
 using Cardamom.Collections;
+using static System.Net.Mime.MediaTypeNames;
+using System.Drawing;
 
 namespace SpaceOpera.View
 {
@@ -62,6 +64,18 @@ namespace SpaceOpera.View
                 }
                 AddVertices(vertices, CreateSegment(segment.Left, segment.Right, left, right, width, center), color);
             }
+        }
+
+        public static Vector2[] CreateRect(Box2 bounds)
+        {
+            return new Vector2[] {
+                bounds.Min,
+                new(bounds.Max.X, bounds.Min.Y),
+                new(bounds.Min.X, bounds.Max.Y),
+                new(bounds.Min.X, bounds.Max.Y),
+                new(bounds.Max.X, bounds.Min.Y),
+                bounds.Max
+            };
         }
 
         public static Vertex3[] CreateRect(Box2 bounds, Color4 color, Box2i? textureBounds)

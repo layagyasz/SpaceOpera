@@ -6,11 +6,24 @@ namespace SpaceOpera.View.FactionViews
 {
     public class BannerViewFactory
     {
+        private static readonly float s_SymbolSize = 0.8f;
+
+        public string SymbolPrefix { get; set; } = string.Empty;
+        public string PatternPrefix { get; set; } = string.Empty;
+        public string BaseTexture { get; set; } = string.Empty;
         public Color4[] Colors { get; set; } = Array.Empty<Color4>();
 
         public IEnumerable<IconLayer.Definition> Create(Banner banner)
         {
-            return Enumerable.Empty<IconLayer.Definition>();
+            var colors = Get(banner);
+            yield return new(colors.Primary, BaseTexture);
+            yield return new(colors.Secondary, PatternPrefix + banner.Pattern.ToString());
+            var min = 0.5f - 0.5f * s_SymbolSize;
+            var max = 1 - min;
+            yield return new(
+                Utils.CreateRect(new(new(min, min), new(max, max))), 
+                colors.Symbol, 
+                SymbolPrefix + banner.Symbol.ToString());
         }
 
         public BannerColorSet Get(Banner banner)

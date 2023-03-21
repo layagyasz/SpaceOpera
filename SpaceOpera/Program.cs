@@ -29,8 +29,8 @@ namespace SpaceOpera
             if (mode == RunMode.CompileSymbols)
             {
                 int i = 0;
-                var dir = "Resources/View/Symbols/";
-                var prefix = "symbol";
+                var dir = "Resources/View/Patterns/";
+                var prefix = "pattern";
                 foreach (var file in Directory.GetFiles(".", "*.png"))
                 {
                     var newName = $"{prefix}-{i++}.png";

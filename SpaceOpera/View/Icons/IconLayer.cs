@@ -9,18 +9,29 @@ namespace SpaceOpera.View.Icons
     {
         public class Definition
         {
-            public Vertex3[] Vertices { get; set; }
+            private static readonly Vector2[] s_UnitTriangles =
+                new Vector2[]
+                    {
+                        new(0,0),
+                        new(1,0),
+                        new(0,1),
+                        new(0,1),
+                        new(1,0),
+                        new(1,1)
+                    };
+
+            public Vector2[] Vertices { get; set; }
             public Color4 Color { get; set; }
             public string Texture { get; set; }
 
             public Definition(Color4 color, string texture)
             {
-                Vertices = Utils.CreateRect(new(new(), new(1, 1)), color, new(new(), new(1, 1)));
+                Vertices = s_UnitTriangles;
                 Color = color;
                 Texture = texture;
             }
 
-            public Definition(Vertex3[] vertices, Color4 color, string texture)
+            public Definition(Vector2[] vertices, Color4 color, string texture)
             {
                 Vertices = vertices;
                 Color = color;
@@ -35,21 +46,16 @@ namespace SpaceOpera.View.Icons
                 {
                     vertices[i] =
                         new(
-                            Vertices[i].Position, 
-                            Vertices[i].Color, 
-                            tex.TextureView.Min + Vertices[i].TexCoords * tex.TextureView.Size);
+                            new(Vertices[i]), 
+                            Color, 
+                            tex.TextureView.Min + s_UnitTriangles[i] * tex.TextureView.Size);
                 }
                 return new IconLayer(vertices, tex.Texture!, shader);
             }
 
             public Definition WithColor(Color4 color)
             {
-                var vertices = new Vertex3[Vertices.Length];
-                for (int i = 0; i < vertices.Length; ++i)
-                {
-                    vertices[i] = new(Vertices[i].Position, color, Vertices[i].TexCoords);
-                }
-                return new(vertices, color, Texture);
+                return new(Vertices, color, Texture);
             }
         }
 

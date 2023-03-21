@@ -1,4 +1,7 @@
 {
+  "SymbolPrefix": "symbol-",
+  "PatternPrefix": "pattern-",
+  "BaseTexture": "icon-blank",
   "Colors": [
     "#ff0000",
     "#ff8c00",

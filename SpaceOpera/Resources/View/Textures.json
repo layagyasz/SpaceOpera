@@ -12,7 +12,10 @@
     "ElementSize": [ 256, 256 ],
     "Textures": {
       "Prefix": "",
-      "Implicit": [ "Resources/View/Symbols/*.png" ]
+      "Implicit": [
+        "Resources/View/Symbols/*.png",
+        "Resources/View/Patterns/*.png"
+      ]
     }
   }
 ]
