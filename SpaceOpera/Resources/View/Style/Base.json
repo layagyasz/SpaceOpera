@@ -25,6 +25,7 @@
     "$id": "ui-element",
     "Default": {
       "BackgroundColor": [ "#00000088" ],
+      "ForegroundColor": "#ffffff88",
       "BorderColor": [ "#ffffff88" ],
       "BorderWidth": [ 1 ],
       "BackgroundShader": "shader-ui",
@@ -38,6 +39,7 @@
         "State": [ "Hover" ],
         "Attributes": {
           "BackgroundColor": [ "#000000aa" ],
+          "ForegroundColor": "#ffffffaa",
           "BorderColor": [ "#ffffffaa" ],
           "Color": "#ffffffaa"
         }
@@ -52,21 +54,6 @@
         "State": [ "Toggle", "Hover" ],
         "Attributes": {
           "BackgroundColor": [ "#ff8800aa" ]
-        }
-      }
-    ]
-  },
-  {
-    "$id": "ui-button",
-    "Parent": "ui-element",
-    "Default": {
-      "BackgroundColor": [ "#ffffff88" ]
-    },
-    "States": [
-      {
-        "State": [ "Hover" ],
-        "Attributes": {
-          "BackgroundColor": [ "#ffffffaa" ]
         }
       }
     ]
@@ -141,7 +128,7 @@
   },
   {
     "$id": "pane-standard-close",
-    "Parent": "ui-button",
+    "Parent": "ui-element",
     "Default": {
       "Size": [ 64, 64 ],
       "Margin": [ 4 ],
@@ -185,7 +172,7 @@
   },
   {
     "$id": "pane-action-button",
-    "Parent": "ui-button",
+    "Parent": "ui-element",
     "Default": {
       "Size": [ 28, 28 ],
       "CornerRadius": [ [ 4, 4 ] ]

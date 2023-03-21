@@ -13,7 +13,7 @@ in vec3 vert_internal_coord;
 
 layout(binding = 0) uniform settings
 {
-    int mode;
+    vec4 foreground_color;
     float border_width[4];
     vec4 border_color[4];
     vec2 corner_radius[4];
@@ -106,10 +106,11 @@ void main()
             break;
         case 0:
             ivec2 texture_size = textureSize(texture0, 0);
+            vec4 tex_color = foreground_color * texture(texture0, vert_tex_coord / texture_size);
             out_color = 
-                mode == MODE_TEXTURE
-                    ? vert_color * texture(texture0, vert_tex_coord / texture_size) 
-                    : vert_color;
+                vec4(
+                (1 - tex_color.a) * vert_color.rgb + tex_color.a * tex_color.rgb, 
+                (1 - tex_color.a) * vert_color.a + tex_color.a);
             break;
         case 1:
             out_color = 
