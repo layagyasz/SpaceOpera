@@ -11,45 +11,47 @@ namespace SpaceOpera.View.Panes
         public TextUiElement Header { get; }
         public IUiElement CloseButton { get; }
         public UiCompoundComponent Tabs { get; }
-        public IUiContainer Body { get; }
+        public IUiElement? Body { get; private set; }
 
         public MultiTabGamePane(
             IElementController controller, 
             Class @class,
             TextUiElement header, 
             IUiElement closeButton, 
-            UiCompoundComponent tabs,
-            IUiContainer body) 
+            UiCompoundComponent tabs)
             : base(@class, controller)
         {
             Header = header;
             CloseButton = closeButton;
             Tabs = tabs;
-            Body = body;
 
             Add(header);
             closeButton.Position = new(header.Size.X, 0, 0);
             Add(closeButton);
             tabs.Position = new(0, header.Size.Y, 0);
             Add(tabs);
-            body.Position = new(0, tabs.Size.Y + tabs.Position.Y, 0);
-            Add(body);
-        }
-
-        public void AddToBody(IUiElement element)
-        {
-            Body.Add(element);
         }
 
         public void Refresh()
         {
-            if (Body is IDynamic body)
+            if (Body != null && Body is IDynamic body)
             {
                 body.Refresh();
             }
         }
 
         public abstract void Populate(params object?[] args);
+
+        public void SetBody(IUiElement body)
+        {
+            if (Body != null)
+            {
+                Remove(Body);
+            }
+            body.Position = new(0, Tabs.Size.Y + Tabs.Position.Y, 0);
+            Add(body);
+            Body = body;
+        }
 
         public abstract void SetTab(object id);
 

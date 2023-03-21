@@ -1,11 +1,17 @@
 ﻿using OpenTK.Mathematics;
 using SpaceOpera.Core.Politics;
+using SpaceOpera.View.Icons;
 
 namespace SpaceOpera.View.FactionViews
 {
     public class BannerViewFactory
     {
         public Color4[] Colors { get; set; } = Array.Empty<Color4>();
+
+        public IEnumerable<IconLayer.Definition> Create(Banner banner)
+        {
+            return Enumerable.Empty<IconLayer.Definition>();
+        }
 
         public BannerColorSet Get(Banner banner)
         {

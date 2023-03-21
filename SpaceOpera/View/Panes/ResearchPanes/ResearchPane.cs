@@ -26,9 +26,8 @@ namespace SpaceOpera.View.Panes.ResearchPanes
             Class @class,
             TextUiElement header, 
             IUiElement closeButton,
-            UiCompoundComponent tabs, 
-            IUiContainer body)
-            : base(controller, @class, header, closeButton, tabs, body) { }
+            UiCompoundComponent tabs)
+            : base(controller, @class, header, closeButton, tabs) { }
 
         public override void Populate(params object?[] args)
         {
@@ -50,8 +49,7 @@ namespace SpaceOpera.View.Panes.ResearchPanes
                         new(TabId.Current, "Current")
                     },
                     uiElementFactory.GetClass(s_TabContainerClassName),
-                    uiElementFactory.GetClass(s_TabOptionClassName)),
-                uiElementFactory.CreateTable(s_BodyClassName, Enumerable.Empty<IUiElement>()).Item1);
+                    uiElementFactory.GetClass(s_TabOptionClassName)));
         }
     }
 }

@@ -58,7 +58,7 @@ namespace SpaceOpera.View.Panes
             var equipment = new EquipmentPane(uiElementFactory, iconFactory);
             equipment.Initialize();
 
-            var military = MilitaryPane.Create(uiElementFactory);
+            var military = new MilitaryPane(uiElementFactory, iconFactory);
             military.Initialize();
 
             var militaryOrganization = new MilitaryOrganizationPane(uiElementFactory, iconFactory);

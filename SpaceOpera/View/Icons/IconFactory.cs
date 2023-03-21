@@ -39,6 +39,8 @@ namespace SpaceOpera.View.Icons
                 { typeof(BattalionTemplate), GetDesignedComponentDefinition },
                 { typeof(DesignedComponent), GetDesignedComponentDefinition },
                 { typeof(DivisionTemplate), GetDesignedComponentDefinition },
+                { typeof(Faction), GetBannerDefinition },
+                { typeof(Fleet), GetFormationDefinition },
                 { typeof(Unit), GetDesignedComponentDefinition }
             };
             _uiElementFactory = uiElementFactory;
@@ -75,10 +77,20 @@ namespace SpaceOpera.View.Icons
             yield return _atoms[key!.Key].ToDefinition();
         }
 
+        private IEnumerable<IconLayer.Definition> GetBannerDefinition(object @object)
+        {
+            return _bannerViewFactory.Create(((Faction)@object).Banner);
+        }
+
         private IEnumerable<IconLayer.Definition> GetDesignedComponentDefinition(object @object)
         {
             var component = @object as DesignedComponent;
             return _configs[component!.Slot.Type].CreateDefinition(component, _factionColor, this);
+        }
+
+        private IEnumerable<IconLayer.Definition> GetFormationDefinition(object @object)
+        {
+            return GetBannerDefinition(((IFormation)@object).Faction);
         }
     }
 }

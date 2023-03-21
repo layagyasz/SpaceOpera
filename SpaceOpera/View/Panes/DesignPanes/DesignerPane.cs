@@ -49,14 +49,16 @@ namespace SpaceOpera.View.Panes.DesignPanes
                 new DesignerPaneController(),
                 uiElementFactory.GetClass(s_ClassName),
                 new TextUiElement(uiElementFactory.GetClass(s_TitleClassName), new ButtonController(), string.Empty),
-                uiElementFactory.CreateSimpleButton(s_CloseClass).Item1,
-                new UiSerialContainer(
-                    uiElementFactory.GetClass(s_BodyClassName), 
-                    new NoOpElementController<UiSerialContainer>(), 
-                    UiSerialContainer.Orientation.Horizontal))
+                uiElementFactory.CreateSimpleButton(s_CloseClass).Item1)
         {
             _uiElementFactory = uiElementFactory;
             _iconFactory = iconFactory;
+
+            var body = new 
+                UiSerialContainer(
+                    uiElementFactory.GetClass(s_BodyClassName),
+                    new NoOpElementController<UiSerialContainer>(),
+                    UiSerialContainer.Orientation.Horizontal);
 
             ComponentOptionTable =
                 new UiCompoundComponent(
@@ -65,7 +67,7 @@ namespace SpaceOpera.View.Panes.DesignPanes
                         uiElementFactory.GetClass(s_ComponentOptionTableClassName),
                         new TableController(10f),
                         UiSerialContainer.Orientation.Vertical));
-            AddToBody(ComponentOptionTable);
+            body.Add(ComponentOptionTable);
 
             SegmentTable =
                 new UiCompoundComponent(
@@ -74,10 +76,12 @@ namespace SpaceOpera.View.Panes.DesignPanes
                         uiElementFactory.GetClass(s_SegmentTableClassName),
                         new TableController(0f),
                         UiSerialContainer.Orientation.Vertical));
-            AddToBody(SegmentTable);
+            body.Add(SegmentTable);
 
             InfoPanel = new(s_InfoPaneStyle, uiElementFactory, iconFactory);
-            AddToBody(InfoPanel);
+            body.Add(InfoPanel);
+
+            SetBody(body);
         }
 
         public DesignBuilder GetDesignBuilder()

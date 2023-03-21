@@ -1,7 +1,14 @@
 ﻿using Cardamom.Ui;
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
+using SpaceOpera.Controller.Components;
 using SpaceOpera.Controller.Panes;
+using SpaceOpera.Core;
+using SpaceOpera.Core.Military;
+using SpaceOpera.Core.Politics;
+using SpaceOpera.View.Components;
+using SpaceOpera.View.Icons;
+using SpaceOpera.View.Panes.DesignPanes;
 
 namespace SpaceOpera.View.Panes.MilitaryPanes
 {
@@ -15,45 +22,77 @@ namespace SpaceOpera.View.Panes.MilitaryPanes
 
         private static readonly string s_Title = "Military";
 
-        private static readonly string s_ClassName = "pane-standard";
-        private static readonly string s_TitleClassName = "pane-standard-title";
-        private static readonly string s_CloseClass = "pane-standard-close";
-        private static readonly string s_TabContainerClassName = "pane-tab-container";
-        private static readonly string s_TabOptionClassName = "pane-tab-option";
-        private static readonly string s_BodyClassName = "pane-body";
+        private static readonly string s_ClassName = "military-pane";
+        private static readonly string s_TitleClassName = "military-pane-title";
+        private static readonly string s_CloseClass = "military-pane-close";
+        private static readonly string s_TabContainerClassName = "military-pane-tab-container";
+        private static readonly string s_TabOptionClassName = "military-pane-tab-option";
+        private static readonly string s_BodyClassName = "military-pane-body";
+        private static readonly string s_MilitaryTableClassName = "military-pane-military-table";
 
-        public MilitaryPane(
-            IElementController controller,
-            Class @class,
-            TextUiElement header,
-            IUiElement closeButton,
-            UiCompoundComponent tabs, 
-            IUiContainer body)
-            : base(controller, @class, header, closeButton, tabs, body) { }
+        private World? _world;
+        private Faction? _faction;
+        private TabId _tab;
 
-        public override void Populate(params object?[] args) 
-        {
-            Populated?.Invoke(this, EventArgs.Empty);
-        }
+        private IconFactory _iconFactory;
 
-        public override void SetTab(object id) { }
-
-        public static MilitaryPane Create(UiElementFactory uiElementFactory)
-        {
-            return new(
-                new GamePaneController(),
-                uiElementFactory.GetClass(s_ClassName),
-                new TextUiElement(uiElementFactory.GetClass(s_TitleClassName), new ButtonController(), s_Title), 
-                uiElementFactory.CreateSimpleButton(s_CloseClass).Item1,
-                TabBar<TabId>.Create(
-                    new List<TabBar<TabId>.Definition>() 
-                    { 
+        public MilitaryPane(UiElementFactory uiElementFactory, IconFactory iconFactory)
+            : base(
+                  new MultiTabGamePaneController(),
+                  uiElementFactory.GetClass(s_ClassName), 
+                  new TextUiElement(uiElementFactory.GetClass(s_TitleClassName), new ButtonController(), s_Title),
+                  uiElementFactory.CreateSimpleButton(s_CloseClass).Item1,
+                  TabBar<TabId>.Create(
+                    new List<TabBar<TabId>.Definition>()
+                    {
                         new(TabId.Army, "Army"),
                         new(TabId.Fleet, "Fleet")
                     },
                     uiElementFactory.GetClass(s_TabContainerClassName),
-                    uiElementFactory.GetClass(s_TabOptionClassName)),
-                uiElementFactory.CreateTable(s_BodyClassName, Enumerable.Empty<IUiElement>()).Item1);
+                    uiElementFactory.GetClass(s_TabOptionClassName)))
+        {
+            _iconFactory = iconFactory;
+            var body = new
+                DynamicUiContainer(
+                    uiElementFactory.GetClass(s_BodyClassName), new NoOpElementController<UiContainer>());
+            var formationTable =
+                new DynamicUiSerialContainer<IFormation, FormationRow>(
+                    uiElementFactory.GetClass(s_MilitaryTableClassName),
+                    new ActionTableController(10f),
+                    UiSerialContainer.Orientation.Vertical,
+                    GetRange,
+                    x => FormationRow.Create(x, uiElementFactory, ref _iconFactory),
+                    Comparer<IFormation>.Create((x, y) => x.Name.CompareTo(y.Name)));
+            body.Add(formationTable);
+            SetBody(body);
+        }
+
+        public override void Populate(params object?[] args)
+        {
+            _world = args[0] as World;
+            _faction = args[1] as Faction;
+            _iconFactory = _iconFactory.ForFaction(_faction!);
+            Refresh();
+            Populated?.Invoke(this, EventArgs.Empty);
+        }
+
+        public override void SetTab(object id)
+        {
+            _tab = (TabId)id;
+        }
+
+        private IEnumerable<IFormation> GetRange()
+        {
+            if (_world == null || _faction == null)
+            {
+                return Enumerable.Empty<IFormation>();
+            }
+            return _tab switch
+            {
+                TabId.Army => Enumerable.Empty<IFormation>(),
+                TabId.Fleet => _world.GetFleetsFor(_faction),
+                _ => Enumerable.Empty<IFormation>(),
+            };
         }
     }
 }

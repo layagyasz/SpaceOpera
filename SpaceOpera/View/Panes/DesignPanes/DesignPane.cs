@@ -41,11 +41,12 @@ namespace SpaceOpera.View.Panes.DesignPanes
                 TabBar<ComponentType>.Create(
                     componentTypes.Select(x => new TabBar<ComponentType>.Definition(x, EnumMapper.ToString(x))),
                     uiElementFactory.GetClass(s_TabContainerClassName),
-                    uiElementFactory.GetClass(s_TabOptionClassName)),
-                new DynamicUiContainer(
-                    uiElementFactory.GetClass(s_BodyClassName), new NoOpElementController<UiContainer>())) 
+                    uiElementFactory.GetClass(s_TabOptionClassName))) 
         {
             _iconFactory = iconFactory;
+            var body = new 
+                DynamicUiContainer(
+                    uiElementFactory.GetClass(s_BodyClassName), new NoOpElementController<UiContainer>());
             DesignTable =
                 new DynamicUiSerialContainer<Design, DesignRow>(
                     uiElementFactory.GetClass(s_DesignTableClassName), 
@@ -54,7 +55,8 @@ namespace SpaceOpera.View.Panes.DesignPanes
                     GetRange,
                     x => DesignRow.Create(x, uiElementFactory, ref _iconFactory),
                     Comparer<Design>.Create((x, y) => x.Name.CompareTo(y.Name)));
-            AddToBody(DesignTable);
+            body.Add(DesignTable);
+            SetBody(body);
         }
 
         public override void Populate(params object?[] args)
