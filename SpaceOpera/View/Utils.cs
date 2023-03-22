@@ -3,13 +3,22 @@ using static Cardamom.Mathematics.Extensions;
 using OpenTK.Mathematics;
 using Cardamom.Graphics;
 using Cardamom.Collections;
-using static System.Net.Mime.MediaTypeNames;
-using System.Drawing;
 
 namespace SpaceOpera.View
 {
     public static class Utils
     {
+        public static readonly Vector2[] UnitTriangles =
+            new Vector2[]
+            {
+                            new(0,0),
+                            new(1,0),
+                            new(0,1),
+                            new(0,1),
+                            new(1,0),
+                            new(1,1)
+            };
+
         public struct WideSegment
         {
             public Vector3 NearLeft { get; set; }

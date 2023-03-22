@@ -21,7 +21,7 @@ namespace SpaceOpera.View.Icons
         public interface ILayerConfig
         {
             ColorConfig Color { get; }
-            IEnumerable<IconLayer.Definition> CreateLayers(
+            IEnumerable<IconLayer> CreateLayers(
                 DesignedComponent component, Color4 color, IconFactory iconFactory);
         }
 
@@ -30,7 +30,7 @@ namespace SpaceOpera.View.Icons
             public ColorConfig Color { get; set; }
             public ComponentType Component { get; set; }
 
-            public IEnumerable<IconLayer.Definition> CreateLayers(
+            public IEnumerable<IconLayer> CreateLayers(
                 DesignedComponent component, Color4 color, IconFactory iconFactory)
             {
                 var c = component.Components.Where(x => x.Slot.Type.Contains(Component)).FirstOrDefault()!.Component;
@@ -43,7 +43,7 @@ namespace SpaceOpera.View.Icons
             public ColorConfig Color { get; set; }
             public List<string> Textures { get; set; } = new();
 
-            public IEnumerable<IconLayer.Definition> CreateLayers(
+            public IEnumerable<IconLayer> CreateLayers(
                 DesignedComponent component, Color4 color, IconFactory iconFactory)
             {
                 foreach (var texture in Textures)
@@ -64,7 +64,7 @@ namespace SpaceOpera.View.Icons
             public ColorConfig Color { get; set; }
             public List<TagLayerOption> Options { get; set; } = new();
 
-            public IEnumerable<IconLayer.Definition> CreateLayers(
+            public IEnumerable<IconLayer> CreateLayers(
                 DesignedComponent component, Color4 color, IconFactory iconFactory)
             {
                 foreach (var option in Options)
@@ -84,7 +84,7 @@ namespace SpaceOpera.View.Icons
         public ComponentType ComponentType { get; set; }
         public List<ILayerConfig> Layers { get; set; } = new();
 
-        public IEnumerable<IconLayer.Definition> CreateDefinition(
+        public IEnumerable<IconLayer> CreateDefinition(
             DesignedComponent component, BannerColorSet factionColor, IconFactory iconFactory)
         {
             foreach (var layer in Layers)

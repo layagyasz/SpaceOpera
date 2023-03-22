@@ -9,7 +9,7 @@ namespace SpaceOpera.View.Icons
         public Color4 Color { get; set; }
         public string Texture { get; set; } = string.Empty;
 
-        public IconLayer.Definition ToDefinition()
+        public IconLayer ToDefinition()
         {
             return new(Color, Texture);
         }

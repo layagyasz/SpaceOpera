@@ -2,19 +2,28 @@
 using Cardamom.Mathematics.Geometry;
 using Cardamom.Ui;
 using Cardamom.Ui.Controller.Element;
+using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 
 namespace SpaceOpera.View.Icons
 {
     public class Icon : ClassedUiElement
     {
-        private Vector2 _size;
-        private readonly List<IconLayer> _layers;
+        private readonly Vertex3[] _vertices;
+        private Texture? _texture;
+        private readonly RenderShader _shader;
 
-        public Icon(Class @class, IElementController controller, IEnumerable<IconLayer> layers)
+        public Icon(
+            Class @class, IElementController controller, Texture texture, RenderShader shader, float resolution)
             : base(@class, controller)
         {
-            _layers = layers.ToList();
+            _vertices = new Vertex3[6];
+            for (int i=0; i<_vertices.Length; ++i)
+            {
+                _vertices[i] = new(new(Utils.UnitTriangles[i]), Color4.White, resolution * Utils.UnitTriangles[i]);
+            }
+            _texture = texture;
+            _shader = shader;
             SetAttributes(@class.Get(Class.State.None));
         }
 
@@ -24,14 +33,18 @@ namespace SpaceOpera.View.Icons
             {
                 target.PushTranslation(Position + LeftMargin);
                 context.Register(this);
-                _layers.ForEach(x => x.Draw(target, context));
+                target.Draw(
+                    _vertices, PrimitiveType.Triangles, 0, _vertices.Length, new(BlendMode.Alpha, _shader, _texture!));
                 target.PopModelMatrix();
             }
         }
 
         public override float? GetRayIntersection(Ray3 ray)
         {
-            if (ray.Point.X >= 0 && ray.Point.Y >= 0 && ray.Point.X <= _size.X && ray.Point.Y <= _size.Y)
+            if (ray.Point.X >= 0 
+                && ray.Point.Y >= 0 
+                && ray.Point.X <= _vertices[5].Position.X 
+                && ray.Point.Y <= _vertices[5].Position.Y)
             {
                 return ray.Point.Z / ray.Direction.Z;
             }
@@ -47,17 +60,26 @@ namespace SpaceOpera.View.Icons
 
         public override void Update(long delta) { }
 
-        protected override void DisposeImpl() { }
+        protected override void DisposeImpl()
+        {
+            _texture!.Dispose();
+            _texture = null;
+        }
 
         protected override void SetDyamicSizeImpl(Vector2 size)
         {
-            _size = size;
-            _layers.ForEach(x => x.SetSize(size));
+            for (int i = 0; i < _vertices.Length; ++i)
+            {
+                _vertices[i].Position = new(size * Utils.UnitTriangles[i]);
+            }
         }
 
-        private void SetAlpha(float alpha)
+        public void SetAlpha(float alpha)
         {
-            _layers.ForEach(x => x.SetAlpha(alpha));
+            for (int i = 0; i < _vertices.Length; ++i)
+            {
+                _vertices[i].Color.A = alpha;
+            }
         }
     }
 }
