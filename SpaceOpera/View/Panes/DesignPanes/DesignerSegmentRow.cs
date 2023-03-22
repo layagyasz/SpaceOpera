@@ -78,7 +78,7 @@ namespace SpaceOpera.View.Panes.DesignPanes
                 CellRemoved?.Invoke(this, new(cell));
             }
             ComponentCells.Clear();
-            ComponentTable.Clear();
+            ComponentTable.Clear(true);
 
             var cells = new List<DesignerComponentCell>();
             foreach (var configSlot in configuration.Slots)

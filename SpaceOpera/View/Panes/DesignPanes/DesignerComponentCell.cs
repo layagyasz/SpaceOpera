@@ -21,7 +21,7 @@ namespace SpaceOpera.View.Panes.DesignPanes
 
         public void SetComponent(IComponent? component)
         {
-            Clear();
+            Clear(true);
             if (component != null)
             {
                 var icon = _iconFactory.Create(_iconClass, new InlayController(), component);

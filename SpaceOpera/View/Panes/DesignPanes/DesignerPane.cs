@@ -104,8 +104,8 @@ namespace SpaceOpera.View.Panes.DesignPanes
             _template = design!.Configuration.Template;
             SetTitle(EnumMapper.ToString(_template.Type));
 
-            ComponentOptionTable.Clear();
-            SegmentTable.Clear();
+            ComponentOptionTable.Clear(true);
+            SegmentTable.Clear(true);
             foreach (var segment in design.Configuration.GetSegments())
             {
                 var segmentRow = new DesignerSegmentRow(segment.Template, _uiElementFactory, _iconFactory);
@@ -115,13 +115,12 @@ namespace SpaceOpera.View.Panes.DesignPanes
                     .SetValue(segment.Configuration);
                 SegmentTable.Add(segmentRow);
             }
-            InfoPanel.SetOffset(0);
             Populated?.Invoke(this, EventArgs.Empty);
         }
 
         public void SetInfo(object @object)
         {
-            InfoPanel.Clear();
+            InfoPanel.Clear(true);
             new DesignDescriber().Describe(@object, InfoPanel);
         }
 
@@ -140,7 +139,7 @@ namespace SpaceOpera.View.Panes.DesignPanes
 
         public void SetSlot(DesignSlot? slot)
         {
-            ComponentOptionTable.Clear();
+            ComponentOptionTable.Clear(true);
             if (slot != null)
             {
                 foreach (var component in _world!.GetComponentsFor(_faction!).Where(x => x.FitsSlot(slot.Value)))

@@ -62,6 +62,7 @@ namespace SpaceOpera.View.Components
             var element = _currentRows[key];
             _currentRows.Remove(key);
             Remove(element);
+            element.Dispose();
         }
     }
 }
