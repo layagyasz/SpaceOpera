@@ -45,7 +45,7 @@ namespace SpaceOpera.View.Scenes
         private static readonly float s_StellarBodySceneStarScale = 1024;
         private static readonly Vector3 s_StellarBodySceneStarPosition = new(0, 0, -1000);
         private static readonly float s_StellarBodySceneSurfaceHighlightHeight = 32;
-        private static readonly float s_StellarBodySceneOrbitHeight = 1024;
+        private static readonly float s_StellarBodySceneOrbitHeightFactor = 2;
         private static readonly float s_StellarBodyBorderWidth = 0.0005f;
 
         private static Skybox? _skyBox;
@@ -219,7 +219,7 @@ namespace SpaceOpera.View.Scenes
         public IGameScene Create(StellarBody stellarBody)
         {
             var model = StellarBodyViewFactory.Create(stellarBody, 1f, true);
-            var stellarBodyController = StellarBodyModelController.Create(stellarBody);
+            var stellarBodyController = StellarBodyModelController.Create(stellarBody, model.Radius);
             var interactiveModel = new InteractiveModel(model, new Sphere(new(), model.Radius), stellarBodyController);
             var camera = new SubjectiveCamera3d(s_SkyboxRadius + 10);
             camera.SetDistance(2 * model.Radius);
@@ -250,7 +250,7 @@ namespace SpaceOpera.View.Scenes
                     x => x.SubRegions,
                     bounds,
                     s_StellarBodyBorderWidth,
-                    Matrix4.CreateScale(1 + s_StellarBodySceneOrbitHeight / stellarBody.Radius),
+                    Matrix4.CreateScale(s_StellarBodySceneOrbitHeightFactor),
                     BorderShader,
                     FillShader);
 
