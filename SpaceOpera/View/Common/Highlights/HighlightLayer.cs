@@ -2,18 +2,20 @@ using Cardamom.Collections;
 using Cardamom.Graphics;
 using Cardamom.Ui;
 using OpenTK.Mathematics;
-using SpaceOpera.View.Common;
 using System.Collections.Immutable;
 
 namespace SpaceOpera.View.Common.Highlights
 {
-    public class HighlightLayer<TSubRegion> : GraphicsResource, IRenderable where TSubRegion : notnull
+    public class HighlightLayer<TRegion, TSubRegion> : GraphicsResource, IRenderable 
+        where TRegion : notnull 
+        where TSubRegion : notnull
     {
         class SingleHighlightLayer : GraphicsResource, IRenderable
         {
             public ICompositeHighlight Highlight { get; }
        
-            private readonly ISet<TSubRegion> _range;
+            private readonly ISet<TRegion> _range;
+            private readonly Func<TRegion, IEnumerable<TSubRegion>> _regionMapFn;
             private readonly Dictionary<TSubRegion, SpaceSubRegionBounds> _boundsMap;
             private readonly float _borderWidth;
             private readonly RenderShader _outlineShader;
@@ -23,7 +25,8 @@ namespace SpaceOpera.View.Common.Highlights
 
             private SingleHighlightLayer(
                 ICompositeHighlight highlight,
-                ISet<TSubRegion> range, 
+                ISet<TRegion> range,
+                Func<TRegion, IEnumerable<TSubRegion>> regionMapFn,
                 Dictionary<TSubRegion, SpaceSubRegionBounds> boundsMap,
                 float borderWidth, 
                 RenderShader outlineShader,
@@ -31,6 +34,7 @@ namespace SpaceOpera.View.Common.Highlights
             {
                 Highlight = highlight;
                 _range = range;
+                _regionMapFn = regionMapFn;
                 _boundsMap = boundsMap;
                 _borderWidth = borderWidth;
                 _outlineShader = outlineShader;
@@ -39,7 +43,8 @@ namespace SpaceOpera.View.Common.Highlights
 
             public static SingleHighlightLayer Create(
                 ICompositeHighlight highlight,
-                ISet<TSubRegion> range,
+                ISet<TRegion> range,
+                Func<TRegion, IEnumerable<TSubRegion>> regionMapFn,
                 Dictionary<TSubRegion, SpaceSubRegionBounds> boundsMap, 
                 float borderWidth, 
                 RenderShader outlineShader,
@@ -48,7 +53,8 @@ namespace SpaceOpera.View.Common.Highlights
                 var layer = 
                     new SingleHighlightLayer(
                         highlight, 
-                        range, 
+                        range,
+                        regionMapFn,
                         boundsMap, 
                         borderWidth, 
                         outlineShader,
@@ -97,7 +103,11 @@ namespace SpaceOpera.View.Common.Highlights
                 return SpaceRegionView.Create(
                     _outlineShader,
                     _fillShader,
-                    _range.Where(x => highlight.Contains(x)).Select(x => _boundsMap[x]).ToImmutableHashSet(),
+                    _range
+                        .Where(x => highlight.Contains(x))
+                        .SelectMany(_regionMapFn)
+                        .Select(x => _boundsMap[x])
+                        .ToImmutableHashSet(),
                     highlight.BorderColor, 
                     highlight.Color, 
                     _borderWidth * highlight.BorderWidth,
@@ -115,7 +125,8 @@ namespace SpaceOpera.View.Common.Highlights
             }
         }
 
-        private readonly ISet<TSubRegion> _range;
+        private readonly ISet<TRegion> _range;
+        private readonly Func<TRegion, IEnumerable<TSubRegion>> _regionMapFn;
         private readonly Dictionary<TSubRegion, SpaceSubRegionBounds> _boundsMap;
         private readonly float _borderWidth;
         private readonly Matrix4 _position;
@@ -125,7 +136,8 @@ namespace SpaceOpera.View.Common.Highlights
         private readonly EnumMap<HighlightLayerName, SingleHighlightLayer> _layers = new();
 
         public HighlightLayer(
-            IEnumerable<TSubRegion> range,
+            IEnumerable<TRegion> range,
+            Func<TRegion, IEnumerable<TSubRegion>> regionMapFn,
             Dictionary<TSubRegion, SpaceSubRegionBounds> boundsMap,
             float borderWidth,
             Matrix4 position,
@@ -133,6 +145,7 @@ namespace SpaceOpera.View.Common.Highlights
             RenderShader fillShader)
         {
             _range = range.ToImmutableHashSet();
+            _regionMapFn = regionMapFn;
             _boundsMap = boundsMap;
             _borderWidth = borderWidth;
             _position = position;
@@ -164,9 +177,10 @@ namespace SpaceOpera.View.Common.Highlights
             ClearLayer(layer);
             _layers[layer] =
                 SingleHighlightLayer.Create(
-                    highlight, 
-                    _range, 
-                    _boundsMap, 
+                    highlight,
+                    _range,
+                    _regionMapFn,
+                    _boundsMap,
                     _borderWidth,
                     _outlineShader,
                     _fillShader);

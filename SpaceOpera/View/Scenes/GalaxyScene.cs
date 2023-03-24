@@ -17,14 +17,14 @@ namespace SpaceOpera.View.Scenes
         public ICamera Camera { get; }
 
         private InteractiveModel? _galaxyModel;
-        private HighlightLayer<StarSystem>? _highlightLayer;
+        private HighlightLayer<StarSystem, StarSystem>? _highlightLayer;
         private readonly Skybox _skybox;
 
         public GalaxyScene(
             IElementController controller,
             ICamera camera, 
             InteractiveModel galaxyModel,
-            HighlightLayer<StarSystem> highlightLayer,
+            HighlightLayer<StarSystem, StarSystem> highlightLayer,
             Skybox skybox)
         {
             Controller = controller;

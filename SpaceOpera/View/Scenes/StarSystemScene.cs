@@ -23,7 +23,7 @@ namespace SpaceOpera.View.Scenes
         private readonly Light _light;
         private StarSubSystemRig[]? _subSystems;
         private readonly SubRegionInteractor[] _interactors;
-        private HighlightLayer<INavigable>? _highlightLayer;
+        private HighlightLayer<INavigable, INavigable>? _highlightLayer;
         private readonly Skybox _skybox;
 
         public StarSystemScene(
@@ -35,7 +35,7 @@ namespace SpaceOpera.View.Scenes
             Light light,
             StarSubSystemRig[] subSystems,
             SubRegionInteractor[] interactors,
-            HighlightLayer<INavigable> highlightLayer,
+            HighlightLayer<INavigable, INavigable> highlightLayer,
             Skybox skybox)
         {
             Controller = controller;

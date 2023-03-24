@@ -44,6 +44,9 @@ namespace SpaceOpera.View.Scenes
         private static readonly Interval s_StellarBodyCameraZoomRange = new(1.1f, 10f);
         private static readonly float s_StellarBodySceneStarScale = 1024;
         private static readonly Vector3 s_StellarBodySceneStarPosition = new(0, 0, -1000);
+        private static readonly float s_StellarBodySceneSurfaceHighlightHeight = 32;
+        private static readonly float s_StellarBodySceneOrbitHeight = 1024;
+        private static readonly float s_StellarBodyBorderWidth = 0.0005f;
 
         private static Skybox? _skyBox;
 
@@ -96,8 +99,9 @@ namespace SpaceOpera.View.Scenes
                 galaxy.Systems,
                 x => StarSystemBounds.ComputeBounds(x, galaxy.Radius, s_GalaxyScale), x => x.Neighbors!);
             var highlight =
-                new HighlightLayer<StarSystem>(
+                new HighlightLayer<StarSystem, StarSystem>(
                     galaxy.Systems,
+                    Identity,
                     bounds,
                     s_GalaxyScale * s_GalaxyRegionBorderWidth,
                     Matrix4.CreateTranslation(s_GalaxyScale * s_GalaxyFloor),
@@ -185,7 +189,7 @@ namespace SpaceOpera.View.Scenes
                     Enumerable.Concat(
                         interactors.Select(x => x.Controller), 
                         rigs.Select(x => x.Controller))
-                    .Cast<ISceneController>().ToArray());
+                        .Cast<ISceneController>().ToArray());
 
             _skyBox ??= CreateSkybox();
             return new StarSystemScene(
@@ -203,6 +207,7 @@ namespace SpaceOpera.View.Scenes
                 interactors,
                 new(
                     starSystem.Transits.Values,
+                    Identity,
                     bounds,
                     s_StarSystemScale * s_StarSystemBorderWidth,
                     Matrix4.Identity,
@@ -214,9 +219,41 @@ namespace SpaceOpera.View.Scenes
         public IGameScene Create(StellarBody stellarBody)
         {
             var model = StellarBodyViewFactory.Create(stellarBody, 1f, true);
+            var stellarBodyController = StellarBodyModelController.Create(stellarBody);
+            var interactiveModel = new InteractiveModel(model, new Sphere(new(), model.Radius), stellarBodyController);
             var camera = new SubjectiveCamera3d(s_SkyboxRadius + 10);
             camera.SetDistance(2 * model.Radius);
             camera.SetYaw(MathHelper.PiOver2);
+
+            var star =
+                StarViewFactory.CreateView(
+                    Enumerable.Repeat(stellarBody.Orbit.Focus, 1),
+                    Enumerable.Repeat(s_StellarBodySceneStarPosition, 1),
+                    s_StellarBodySceneStarScale / (MathF.Log(stellarBody.Orbit.MajorAxis) + 1),
+                    /* depthTest= */ false);
+
+            var bounds = SpaceSubRegionBounds.CreateBounds(
+                stellarBody.Regions.SelectMany(x => x.SubRegions),
+                x => StellarBodySubRegionBounds.ComputeBounds(x, model.Radius), x => x.Neighbors!);
+            var surfaceHighlight =
+                new HighlightLayer<StellarBodySubRegion, StellarBodySubRegion>(
+                    stellarBody.Regions.SelectMany(x => x.SubRegions),
+                    Identity,
+                    bounds,
+                    s_StellarBodyBorderWidth,
+                    Matrix4.CreateScale(1 + s_StellarBodySceneSurfaceHighlightHeight / stellarBody.Radius),
+                    BorderShader,
+                    FillShader);
+            var orbitHighlight = 
+                new HighlightLayer<StationaryOrbitRegion, StellarBodySubRegion>(
+                    stellarBody.OrbitRegions,
+                    x => x.SubRegions,
+                    bounds,
+                    s_StellarBodyBorderWidth,
+                    Matrix4.CreateScale(1 + s_StellarBodySceneOrbitHeight / stellarBody.Radius),
+                    BorderShader,
+                    FillShader);
+
             var controller =
                 new SceneController(
                     new SubjectiveCamera3dController(camera, model.Radius)
@@ -229,19 +266,14 @@ namespace SpaceOpera.View.Scenes
                             new(
                                 s_StellarBodyCameraZoomRange.Minimum * model.Radius, 
                                 s_StellarBodyCameraZoomRange.Maximum * model.Radius)
-                    });
+                    },
+                    stellarBodyController);
             float logDistance = MathF.Log(stellarBody.Orbit.GetAverageDistance() + 1);
-            var star =
-                StarViewFactory.CreateView(
-                    Enumerable.Repeat(stellarBody.Orbit.Focus, 1),
-                    Enumerable.Repeat(s_StellarBodySceneStarPosition, 1),
-                    s_StellarBodySceneStarScale / (MathF.Log(stellarBody.Orbit.MajorAxis) + 1),
-                    /* depthTest= */ false);
             _skyBox ??= CreateSkybox();
             return new StellarBodyScene(
                 controller, 
                 camera, 
-                model,
+                interactiveModel,
                 StellarBodyViewFactory.SurfaceShader,
                 StellarBodyViewFactory.AtmosphereShader,
                 new(
@@ -250,6 +282,8 @@ namespace SpaceOpera.View.Scenes
                     GetLuminance(stellarBody.Orbit.Focus),
                     logDistance * logDistance / (1000 * 1000)),
                 star,
+                surfaceHighlight,
+                orbitHighlight,
                 _skyBox);
         }
 
@@ -313,6 +347,11 @@ namespace SpaceOpera.View.Scenes
         private static float GetLuminance(Star star)
         {
             return s_LuminanceRange.Clamp(s_LightPower * MathF.Log(star.Luminosity + 1));
+        }
+
+        private static IEnumerable<T> Identity<T>(T @object)
+        {
+            yield return @object;
         }
     }
 }

@@ -179,7 +179,10 @@ namespace SpaceOpera.Core.Politics.Generator
                 foreach (var region in partition.Nodes)
                 {
                     region.Region.SetName(state.Faction.NameGenerator.GenerateNameFor(region.Region, random));
-                    region.Region.SetSovereign(state.Faction);
+                    if (region.Region.DominantBiome.IsTraversable)
+                    {
+                        region.Region.SetSovereign(state.Faction);
+                    }
                 }
                 var hq = 
                     world.Galaxy.Systems

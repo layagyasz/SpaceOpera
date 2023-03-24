@@ -3,11 +3,12 @@ using Cardamom.Graphics.Camera;
 using Cardamom.Mathematics.Geometry;
 using Cardamom.Ui;
 using Cardamom.Ui.Controller.Element;
+using Cardamom.Ui.Elements;
 using OpenTK.Mathematics;
+using SpaceOpera.Core.Universe;
 using SpaceOpera.View.Common;
 using SpaceOpera.View.Common.Highlights;
 using SpaceOpera.View.StarViews;
-using SpaceOpera.View.StellarBodyViews;
 
 namespace SpaceOpera.View.Scenes
 {
@@ -19,31 +20,38 @@ namespace SpaceOpera.View.Scenes
         public IControlledElement? Parent { get; set; }
         public ICamera Camera { get; }
 
-        private StellarBodyModel? _stellarBodyModel;
+        private InteractiveModel? _stellarBodyModel;
         private readonly RenderShader _surfaceShader;
         private readonly RenderShader _atmosphereShader;
         private readonly Light _light;
         private StarBuffer? _star;
+        private HighlightLayer<StellarBodySubRegion, StellarBodySubRegion>? _surfaceHighlightLayer;
+        private HighlightLayer<StationaryOrbitRegion, StellarBodySubRegion>? _orbitHighlightLayer;
         private readonly Skybox _skybox;
         private long _rotation = 0;
 
         public StellarBodyScene(
             IElementController controller, 
             ICamera camera, 
-            StellarBodyModel stellarBodyModel,
+            InteractiveModel stellarBodyModel,
             RenderShader surfaceShader,
             RenderShader atmosphereShader,
             Light light,
             StarBuffer star,
+            HighlightLayer<StellarBodySubRegion, StellarBodySubRegion> surfaceHighlightLayer,
+            HighlightLayer<StationaryOrbitRegion, StellarBodySubRegion> orbitHighlightLayer,
             Skybox skybox)
         {
             Controller = controller;
             Camera = camera;
             _stellarBodyModel = stellarBodyModel;
+            _stellarBodyModel.Parent = this;
             _surfaceShader = surfaceShader;
             _atmosphereShader = atmosphereShader;
             _light = light;
             _star = star;
+            _surfaceHighlightLayer = surfaceHighlightLayer;
+            _orbitHighlightLayer = orbitHighlightLayer;
             _skybox = skybox;
         }
 
@@ -53,6 +61,10 @@ namespace SpaceOpera.View.Scenes
             _star = null;
             _stellarBodyModel!.Dispose();
             _stellarBodyModel = null;
+            _surfaceHighlightLayer!.Dispose();
+            _surfaceHighlightLayer = null;
+            _orbitHighlightLayer!.Dispose();
+            _orbitHighlightLayer = null;
         }
 
         public void Draw(RenderTarget target, UiContext context)
@@ -83,6 +95,8 @@ namespace SpaceOpera.View.Scenes
             _atmosphereShader.SetFloat("light_attenuation", _light.Attenuation);
 
             _stellarBodyModel!.Draw(target, context);
+            _surfaceHighlightLayer!.Draw(target, context);
+            _orbitHighlightLayer!.Draw(target, context);
 
             target.PopProjectionMatrix();
             target.PopViewMatrix();
@@ -104,7 +118,11 @@ namespace SpaceOpera.View.Scenes
             Camera.SetAspectRatio(bounds.X / bounds.Y);
         }
 
-        public void SetHighlight(HighlightLayerName layer, ICompositeHighlight highlight) { }
+        public void SetHighlight(HighlightLayerName layer, ICompositeHighlight highlight)
+        {
+            _surfaceHighlightLayer!.SetLayer(layer, highlight);
+            _orbitHighlightLayer!.SetLayer(layer, highlight);
+        }
 
         public void Update(long delta)
         {

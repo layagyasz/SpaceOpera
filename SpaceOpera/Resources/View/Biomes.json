@@ -26,7 +26,7 @@
   {
     "$id": "biome-ferrous",
     "Color": "#bcbcbc",
-    "SpecularCoefficient": 0.25,
+    "SpecularCoefficient": 0.1,
     "SpecularFactor": 128,
     "Roughness": 1
   },
@@ -38,20 +38,6 @@
   {
     "$id": "biome-ferrous-plains",
     "Color": "#da7758",
-    "Roughness": 0.25
-  },
-  {
-    "$id": "biome-hematite-mountains",
-    "Color": "#202020",
-    "SpecularCoefficient": 0.25,
-    "SpecularFactor": 128,
-    "Roughness": 1
-  },
-  {
-    "$id": "biome-hematite-plains",
-    "Color": "#7c7c7c",
-    "SpecularCoefficient": 0.1,
-    "SpecularFactor": 128,
     "Roughness": 0.25
   },
   {
@@ -72,6 +58,16 @@
       "Saturation": 0.31,
       "Lightness": 0.96
     },
+    "Roughness": 0.25
+  },
+  {
+    "$id": "biome-hematite-mountains",
+    "Color": "#202020",
+    "Roughness": 1
+  },
+  {
+    "$id": "biome-hematite-plains",
+    "Color": "#7c7c7c",
     "Roughness": 0.25
   },
   {
@@ -122,8 +118,6 @@
   {
     "$id": "biome-malachite-mountains",
     "Color": "#007000",
-    "SpecularCoefficient": 0.25,
-    "SpecularFactor": 128,
     "Roughness": 1
   },
   {

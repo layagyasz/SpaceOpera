@@ -120,8 +120,9 @@ namespace SpaceOpera.View.StarSystemViews
                 new(new SubRegionController(orbit.LocalOrbit.StellarBody), new Sphere(new(), stellarBody.Radius))
             };
             var highlight =
-                new HighlightLayer<INavigable>(
+                new HighlightLayer<INavigable, INavigable>(
                     bounds.Keys,
+                    Identity,
                     bounds,
                     scale * s_BorderWidth,
                     Matrix4.Identity,
@@ -161,6 +162,11 @@ namespace SpaceOpera.View.StarSystemViews
                 Vector3.UnitY,
                 scale * s_GuidelineScale,
                 true);
+        }
+
+        private static IEnumerable<T> Identity<T>(T @object)
+        {
+            yield return @object;
         }
     }
 }

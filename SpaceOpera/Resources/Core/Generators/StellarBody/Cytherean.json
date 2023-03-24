@@ -6,7 +6,7 @@
     "Range": [ 2000, 9000 ]
   },
   "Density": 3530,
-  "SubRegionDensity": 0.000002,
+  "SubRegionDensity": 0.000004,
   "RegionDensity": 0.0000002,
   "StructureNodeDensity": 5000,
   "AtmosphereGenerator": {

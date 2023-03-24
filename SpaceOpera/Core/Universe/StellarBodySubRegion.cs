@@ -13,20 +13,17 @@ namespace SpaceOpera.Core.Universe
         public string Name => ParentRegion!.Name;
         public NavigableNodeType NavigableNodeType => NavigableNodeType.Ground;
         public Vector3 Center { get; }
-        public Spherical3 SphericalCenter { get; }
         public Biome Biome { get; }
 
-        public Vector3[]? Bounds { get; private set; }
-        public List<StellarBodySubRegion>? Neighbors { get; private set; }
+        public StellarBodySubRegion[]? Neighbors { get; private set; }
         public StellarBodyRegion? ParentRegion { get; private set; }
 
         private readonly List<Division> _divisions = new();
 
-        public StellarBodySubRegion(int id, Vector3 center, Spherical3 sphericalCenter, Biome biome)
+        public StellarBodySubRegion(int id, Vector3 center, Biome biome)
         {
             Id = id;
             Center = center;
-            SphericalCenter = sphericalCenter;
             Biome = biome;
         }
 
@@ -37,19 +34,9 @@ namespace SpaceOpera.Core.Universe
 
         public void SetNeighbors(IEnumerable<StellarBodySubRegion> neighbors)
         {
-            Neighbors = neighbors.ToList();
-
-            var comparer = new ClockwiseVector3Comparer(Center, Center);
-            Neighbors.Sort((x, y) => comparer.Compare(x.Center, y.Center));
-
-            Bounds = new Vector3[Neighbors.Count];
-            for (int i = 0; i < Neighbors.Count; ++i)
-            {
-                Bounds[i] = 
-                    SphericalCenter.Radius 
-                    * ((Center + Neighbors[i].Center 
-                    + Neighbors[(i + 1) % Neighbors.Count].Center) / 3).Normalized();
-            }
+            Neighbors = neighbors.ToArray();
+            var comparer = new ClockwiseVector3Comparer(Center, Center.Normalized(), Neighbors[0].Center - Center);
+            Array.Sort(Neighbors, (x, y) => comparer.Compare(x.Center, y.Center));
         }
 
         public void AddDivision(Division division)
@@ -65,7 +52,10 @@ namespace SpaceOpera.Core.Universe
 
         public override string ToString()
         {
-            return string.Format("[StellarBodySubRegion: Id={0}]", Id);
+            return string.Format(
+                "[StellarBodySubRegion: Id={0}, Neighbors={1}]",
+                Id, 
+                string.Join(",", Neighbors?.Select(x => x.Id) ?? Enumerable.Empty<int>()));
         }
     }
 }

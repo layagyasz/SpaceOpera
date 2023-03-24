@@ -34,7 +34,7 @@ namespace SpaceOpera.View.Common
         }
 
         public static SpaceSubRegionBounds FromEdges(
-            Vector3 center, Vector3 axis, Edge[] neighborEdges, Line3[] outerEdges)
+            Vector3 center, Vector3 axis, Edge[] neighborEdges, Line3?[] outerEdges)
         {
             return new(center, axis, neighborEdges, outerEdges);
         }

@@ -96,8 +96,10 @@ namespace SpaceOpera.Core.Universe.Generator
             var projection = new StereographicProjection.Cartesian();
             for (int i = 0; i < subRegionCount - 1; ++i)
             {
-                var point =
-                    new Cylindrical3(1, MathF.Tau * random.NextSingle(), 2 * random.NextSingle() - 1).AsCartesian();
+                float z = 2 * random.NextSingle() - 1;
+                float r = MathF.Sqrt(1 - z * z);
+                float theta = MathF.Tau * random.NextSingle();
+                var point = new Vector3(r * MathF.Cos(theta), r * MathF.Sin(theta), z);
                 centers[i] = point;
                 var projected = projection.Project(point);
                 vertices.Add(new Vertex(projected.X, projected.Y));
@@ -115,9 +117,7 @@ namespace SpaceOpera.Core.Universe.Generator
             List<SubRegionWrapper> subRegionWrappers = new();
             for (int i=0;i<subRegionCount;++i)
             {
-                Vector3 center = centers[i] * (float)radius;
-                Spherical3 centerSpherical = center.AsSpherical();
-                var subRegion = new StellarBodySubRegion(i, center, centerSpherical, biomes[i]);
+                var subRegion = new StellarBodySubRegion(i, radius * centers[i], biomes[i]);
                 subRegionWrappers.Add(new SubRegionWrapper(subRegion));
             }
             
@@ -230,7 +230,7 @@ namespace SpaceOpera.Core.Universe.Generator
             foreach (var subRegion in subRegionWrappers)
             {
                 double angle = 
-                    (subRegion.Region.SphericalCenter.Azimuth + 2 * Math.PI) % (2 * Math.PI) / (2 * Math.PI);
+                    (subRegion.Region.Center.AsSpherical().Azimuth + 2 * Math.PI) % (2 * Math.PI) / (2 * Math.PI);
                 int atmosphereRegion = (int)(angle * atmosphericRegionCount);
                 atmosphereRegionMembers[atmosphereRegion].Add(subRegion.Region);
             }

@@ -67,7 +67,7 @@ namespace SpaceOpera.Controller
         {
             return string.Format(
                 "[UiInteractionEventArgs: Objects={0}, Button={1}, Key={2}, Action={3}]",
-                string.Join(",", Objects.Select(x => x.GetType())),
+                string.Join(",", Objects),
                 Button,
                 Key,
                 Action);
