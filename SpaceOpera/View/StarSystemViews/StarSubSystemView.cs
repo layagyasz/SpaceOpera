@@ -47,7 +47,7 @@ namespace SpaceOpera.View.StarSystemViews
 
         public void ResizeContext(Vector3 bounds) { }
 
-        public void SetHighlight(HighlightLayerName layer, ICompositeHighlight highlight)
+        public void SetHighlight(HighlightLayerName layer, ICompositeHighlight? highlight)
         {
             _highlightLayer!.SetLayer(layer, highlight);
         }

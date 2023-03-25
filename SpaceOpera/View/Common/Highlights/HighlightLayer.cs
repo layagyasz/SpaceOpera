@@ -105,11 +105,13 @@ namespace SpaceOpera.View.Common.Highlights
                     _fillShader,
                     _range
                         .Where(x => highlight.Contains(x))
-                        .SelectMany(_regionMapFn)
-                        .Select(x => _boundsMap[x])
-                        .ToImmutableHashSet(),
-                    highlight.BorderColor, 
-                    highlight.Color, 
+                        .SelectMany(
+                            x => 
+                                _regionMapFn(x)
+                                    .Select(y => new KeyValuePair<SpaceSubRegionBounds, object>(_boundsMap[y], x)))
+                        .ToDictionary(x => x.Key, x => x.Value),
+                    highlight.BorderColor,
+                    highlight.Color,
                     _borderWidth * highlight.BorderWidth,
                     highlight.Merge);
             }
@@ -172,18 +174,21 @@ namespace SpaceOpera.View.Common.Highlights
             }
         }
 
-        public void SetLayer(HighlightLayerName layer, ICompositeHighlight highlight)
+        public void SetLayer(HighlightLayerName layer, ICompositeHighlight? highlight)
         {
             ClearLayer(layer);
-            _layers[layer] =
-                SingleHighlightLayer.Create(
-                    highlight,
-                    _range,
-                    _regionMapFn,
-                    _boundsMap,
-                    _borderWidth,
-                    _outlineShader,
-                    _fillShader);
+            if (highlight != null)
+            {
+                _layers[layer] =
+                    SingleHighlightLayer.Create(
+                        highlight,
+                        _range,
+                        _regionMapFn,
+                        _boundsMap,
+                        _borderWidth,
+                        _outlineShader,
+                        _fillShader);
+            }
         }
 
         public void Draw(RenderTarget target, UiContext context)

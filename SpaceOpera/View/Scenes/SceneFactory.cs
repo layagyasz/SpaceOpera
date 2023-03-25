@@ -249,7 +249,7 @@ namespace SpaceOpera.View.Scenes
                     stellarBody.OrbitRegions,
                     x => x.SubRegions,
                     bounds,
-                    s_StellarBodyBorderWidth,
+                    8 * s_StellarBodyBorderWidth,
                     Matrix4.CreateScale(s_StellarBodySceneOrbitHeightFactor),
                     BorderShader,
                     FillShader);

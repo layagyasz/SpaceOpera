@@ -125,7 +125,7 @@ namespace SpaceOpera.View.Scenes
             Camera.SetAspectRatio(bounds.X / bounds.Y);
         }
 
-        public void SetHighlight(HighlightLayerName layer, ICompositeHighlight highlight)
+        public void SetHighlight(HighlightLayerName layer, ICompositeHighlight? highlight)
         {
             _highlightLayer!.SetLayer(layer, highlight);
             foreach (var subSystem in _subSystems!)

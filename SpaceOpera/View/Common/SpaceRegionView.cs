@@ -32,7 +32,7 @@ namespace SpaceOpera.View.Common
         public static SpaceRegionView Create(
             RenderShader outlineShader,
             RenderShader fillShader,
-            ISet<SpaceSubRegionBounds> subRegions,
+            IDictionary<SpaceSubRegionBounds, object> subRegions,
             Color4 borderColor,
             Color4 color,
             float borderWidth,
@@ -51,15 +51,16 @@ namespace SpaceOpera.View.Common
         public static void TraceBounds(
             ArrayList<Vertex3> outline,
             ArrayList<Vertex3> fill,
-            ISet<SpaceSubRegionBounds> subRegions,
+            IDictionary<SpaceSubRegionBounds, object> subRegions,
             Color4 borderColor,
             Color4 color,
             float borderWidth,
             bool mergeSubRegions)
         {
             color.A *= s_Alpha;
-            foreach (var bounds in subRegions)
+            foreach (var kvp in subRegions)
             {
+                var bounds = kvp.Key;
                 for (int i = 0; i < bounds.NeighborEdges.Length; ++i)
                 {
                     var edge = bounds.NeighborEdges[i];
@@ -71,20 +72,18 @@ namespace SpaceOpera.View.Common
                             fill.Add(new(edge.Segment.Value.Left, color, new()));
                             fill.Add(new(edge.Segment.Value.Right, color, new()));
                         }
-                        if (!mergeSubRegions || !subRegions.Contains(bounds.Neighbors![i]))
+                        if (DrawEdge(kvp.Value, bounds.Neighbors![i], subRegions, mergeSubRegions))
                         {
                             int leftIndex =
                                 GetNextValidEdge(bounds.NeighborEdges, i + bounds.Neighbors!.Length - 1, -1);
                             int rightIndex = GetNextValidEdge(bounds.NeighborEdges, i + 1, 1);
 
                             bool leftInner =
-                                !mergeSubRegions
-                                || !subRegions.Contains(bounds.Neighbors[leftIndex])
-                                || edge.LeftOuterEdge > -1;
+                                edge.LeftOuterEdge > -1 
+                                || DrawEdge(kvp.Value, bounds.Neighbors[leftIndex], subRegions, mergeSubRegions);
                             bool rightInner =
-                                !mergeSubRegions
-                                || !subRegions.Contains(bounds.Neighbors[rightIndex])
-                                || edge.RightOuterEdge > -1;
+                                edge.RightOuterEdge > -1
+                                || DrawEdge(kvp.Value, bounds.Neighbors[rightIndex], subRegions, mergeSubRegions);
 
                             AddEdge(
                                 borderWidth,
@@ -127,15 +126,13 @@ namespace SpaceOpera.View.Common
                             fill.Add(new(segment.Right, color, new()));
                         }
 
-                        bool leftInner =
-                            !mergeSubRegions ||
-                            leftEdge == null ||
-                            j != 0 && !subRegions.Contains(bounds.Neighbors![leftIndex]);
+                        bool leftInner = j > 0
+                            || leftEdge == null 
+                            || DrawEdge(kvp.Value, bounds.Neighbors![leftIndex], subRegions, mergeSubRegions);
                         bool rightInner =
-                            !mergeSubRegions ||
-                            rightEdge == null ||
-                                j != bounds.OuterEdges[i]!.Count - 1
-                                    && !subRegions.Contains(bounds.Neighbors![rightIndex]);
+                            j < bounds.OuterEdges[i]!.Count - 1
+                            || rightEdge == null
+                            || DrawEdge(kvp.Value, bounds.Neighbors![rightIndex], subRegions, mergeSubRegions);
                         var leftSegment = 
                             leftEdge?.Segment ?? bounds.OuterEdges[i]!.GetSegment(bounds.OuterEdges[i]!.Count - 2);
                         var rightSegment = rightEdge?.Segment ?? bounds.OuterEdges[i]!.GetSegment(0);
@@ -171,6 +168,16 @@ namespace SpaceOpera.View.Common
         {
             _outline!.Dispose();
             _outline = null;
+        }
+
+        private static bool DrawEdge(
+            object regionKey, 
+            SpaceSubRegionBounds neighbor,
+            IDictionary<SpaceSubRegionBounds, object> subRegions,
+            bool mergeSubRegions)
+        {
+            var containsNeighbor = subRegions.TryGetValue(neighbor, out var r);
+            return !containsNeighbor || !(mergeSubRegions || regionKey == r);
         }
 
         private static int GetOuterLeftEdge(Edge[] neighbors, int edge)

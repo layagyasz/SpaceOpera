@@ -30,7 +30,7 @@ namespace SpaceOpera.Controller
         private GameScreen? _screen;
 
         private Stack<IGameScene> _scenes = new();
-        private EnumMap<HighlightLayerName, ICompositeHighlight> _currentHighlights;
+        private EnumMap<HighlightLayerName, ICompositeHighlight> _currentHighlights = new();
 
         public GameController(
             UiWindow window, World? world, GameDriver driver, Faction faction, ViewFactory viewFactory, ILogger logger)
@@ -41,16 +41,6 @@ namespace SpaceOpera.Controller
             _faction = faction;
             _viewFactory = viewFactory;
             _logger = logger;
-
-            _currentHighlights = new()
-            {
-                [HighlightLayerName.Background] = SimpleHighlight.Wrap(SubRegionHighlight.Create())
-            };
-            if (world != null)
-            {
-                _currentHighlights[HighlightLayerName.Midground] =
-                    FactionHighlight.Create(world, viewFactory.BannerViewFactory);
-            }
         }
 
         public void Bind(object @object)
@@ -92,6 +82,19 @@ namespace SpaceOpera.Controller
                 _scenes.Push(_screen.Scene);
             }
             ChangeSceneTo(sceneObject, /* cleanUp= */ false);
+        }
+
+        public void SetHighlight(HighlightLayerName layer, ICompositeHighlight? highlight)
+        {
+            if (highlight == null)
+            {
+                _currentHighlights.Remove(layer);
+            }
+            else
+            {
+                _currentHighlights[layer] = highlight;
+            }
+            _screen?.Scene?.SetHighlight(layer, highlight);
         }
 
         public void TryPopScene()
@@ -138,9 +141,16 @@ namespace SpaceOpera.Controller
             {
                 sceneController.Interacted += HandleInteraction;
             }
-            foreach (var layer in _currentHighlights)
+            foreach (var layer in Enum.GetValues(typeof(HighlightLayerName)).Cast<HighlightLayerName>())
             {
-                scene.SetHighlight(layer.Key, layer.Value);
+                if (_currentHighlights.TryGetValue(layer, out var highlight))
+                {
+                    scene.SetHighlight(layer, highlight);
+                }
+                else
+                {
+                    scene.SetHighlight(layer, null);
+                }
             }
             _screen!.SetScene(scene);
             _window.SetFocus(scene);
@@ -153,6 +163,20 @@ namespace SpaceOpera.Controller
             {
                 TryPopScene();
                 return;
+            }
+            if (e.Key == Keys.D0)
+            {
+                SetHighlight(HighlightLayerName.Background, null);
+                SetHighlight(HighlightLayerName.Midground, null);
+            }
+            if (e.Key == Keys.D1)
+            {
+                SetHighlight(HighlightLayerName.Background, SimpleHighlight.Wrap(SubRegionHighlight.Create()));
+                if (_world != null)
+                {
+                    SetHighlight(
+                        HighlightLayerName.Midground, FactionHighlight.Create(_world, _viewFactory.BannerViewFactory));
+                }
             }
             var @object = e.GetOnlyObject();
             if (e.Action != null)
