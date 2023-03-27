@@ -21,7 +21,7 @@ using SpaceOpera.View.StarViews;
 using SpaceOpera.View.StellarBodyViews;
 using SpaceOpera.View.StarSystemViews;
 using SpaceOpera.View.Common;
-using SpaceOpera.View.Common.Highlights;
+using SpaceOpera.View.Highlights;
 
 namespace SpaceOpera.View.Scenes
 {

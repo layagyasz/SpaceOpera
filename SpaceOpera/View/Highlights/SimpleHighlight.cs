@@ -1,4 +1,4 @@
-namespace SpaceOpera.View.Common.Highlights
+namespace SpaceOpera.View.Highlights
 {
     public class SimpleHighlight : ICompositeHighlight
     {
@@ -8,7 +8,7 @@ namespace SpaceOpera.View.Common.Highlights
 
         private SimpleHighlight(IHighlight highlight)
         {
-            this.Highlight = highlight;
+            Highlight = highlight;
         }
 
         public static SimpleHighlight Wrap(IHighlight highlight)

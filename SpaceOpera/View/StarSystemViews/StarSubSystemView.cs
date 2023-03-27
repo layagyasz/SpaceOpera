@@ -3,7 +3,7 @@ using Cardamom.Ui;
 using OpenTK.Mathematics;
 using SpaceOpera.Core.Universe;
 using SpaceOpera.View.Common;
-using SpaceOpera.View.Common.Highlights;
+using SpaceOpera.View.Highlights;
 using SpaceOpera.View.StellarBodyViews;
 
 namespace SpaceOpera.View.StarSystemViews

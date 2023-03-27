@@ -1,5 +1,5 @@
 ﻿using Cardamom.Ui;
-using SpaceOpera.View.Common.Highlights;
+using SpaceOpera.View.Highlights;
 
 namespace SpaceOpera.View.Scenes
 {

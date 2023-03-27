@@ -2,7 +2,7 @@ using OpenTK.Mathematics;
 using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Universe;
 
-namespace SpaceOpera.View.Common.Highlights
+namespace SpaceOpera.View.Highlights
 {
     public class FleetHighlight : IHighlight
     {
@@ -35,7 +35,7 @@ namespace SpaceOpera.View.Common.Highlights
 
         public bool Contains(StarSystem starSystem)
         {
-            return starSystem.Transits.Values.Any(Contains) 
+            return starSystem.Transits.Values.Any(Contains)
                 || starSystem.OrbitalRegions.Any(Contains)
                 || starSystem.OrbitalRegions.Select(x => x.LocalOrbit).Any(Contains)
                 || starSystem.OrbitalRegions.SelectMany(x => x.LocalOrbit.StellarBody.OrbitRegions).Any(Contains);

@@ -1,7 +1,7 @@
 using SpaceOpera.Core;
 using SpaceOpera.View.FactionViews;
 
-namespace SpaceOpera.View.Common.Highlights
+namespace SpaceOpera.View.Highlights
 {
     public class FactionHighlight : ICompositeHighlight
     {
@@ -16,12 +16,12 @@ namespace SpaceOpera.View.Common.Highlights
         {
             World = world;
             BannerViewFactory = bannerViewFactory;
-            _highlights = 
+            _highlights =
                 world.GetFactions()
                     .Select(
                         x => new SingleFactionHighlight(
-                            x, 
-                            bannerViewFactory.Get(x.Banner, BannerColor.Symbol), 
+                            x,
+                            bannerViewFactory.Get(x.Banner, BannerColor.Symbol),
                             bannerViewFactory.Get(x.Banner, BannerColor.Primary)))
                     .ToList();
         }

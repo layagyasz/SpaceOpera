@@ -8,7 +8,7 @@ using SpaceOpera.Controller.Scenes;
 using SpaceOpera.Core;
 using SpaceOpera.Core.Universe;
 using SpaceOpera.View.Common;
-using SpaceOpera.View.Common.Highlights;
+using SpaceOpera.View.Highlights;
 using SpaceOpera.View.StarViews;
 using SpaceOpera.View.StellarBodyViews;
 

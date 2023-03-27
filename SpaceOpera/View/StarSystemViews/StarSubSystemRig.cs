@@ -5,7 +5,7 @@ using OpenTK.Mathematics;
 using SpaceOpera.Core;
 using SpaceOpera.Core.Universe;
 using SpaceOpera.View.Common;
-using SpaceOpera.View.Common.Highlights;
+using SpaceOpera.View.Highlights;
 
 namespace SpaceOpera.View.StarSystemViews
 {

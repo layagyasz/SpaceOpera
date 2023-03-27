@@ -2,18 +2,19 @@ using Cardamom.Collections;
 using Cardamom.Graphics;
 using Cardamom.Ui;
 using OpenTK.Mathematics;
+using SpaceOpera.View.Common;
 using System.Collections.Immutable;
 
-namespace SpaceOpera.View.Common.Highlights
+namespace SpaceOpera.View.Highlights
 {
-    public class HighlightLayer<TRegion, TSubRegion> : GraphicsResource, IRenderable 
-        where TRegion : notnull 
+    public class HighlightLayer<TRegion, TSubRegion> : GraphicsResource, IRenderable
+        where TRegion : notnull
         where TSubRegion : notnull
     {
         class SingleHighlightLayer : GraphicsResource, IRenderable
         {
             public ICompositeHighlight Highlight { get; }
-       
+
             private readonly ISet<TRegion> _range;
             private readonly Func<TRegion, IEnumerable<TSubRegion>> _regionMapFn;
             private readonly Dictionary<TSubRegion, SpaceSubRegionBounds> _boundsMap;
@@ -28,7 +29,7 @@ namespace SpaceOpera.View.Common.Highlights
                 ISet<TRegion> range,
                 Func<TRegion, IEnumerable<TSubRegion>> regionMapFn,
                 Dictionary<TSubRegion, SpaceSubRegionBounds> boundsMap,
-                float borderWidth, 
+                float borderWidth,
                 RenderShader outlineShader,
                 RenderShader fillShader)
             {
@@ -45,18 +46,18 @@ namespace SpaceOpera.View.Common.Highlights
                 ICompositeHighlight highlight,
                 ISet<TRegion> range,
                 Func<TRegion, IEnumerable<TSubRegion>> regionMapFn,
-                Dictionary<TSubRegion, SpaceSubRegionBounds> boundsMap, 
-                float borderWidth, 
+                Dictionary<TSubRegion, SpaceSubRegionBounds> boundsMap,
+                float borderWidth,
                 RenderShader outlineShader,
                 RenderShader fillShader)
             {
-                var layer = 
+                var layer =
                     new SingleHighlightLayer(
-                        highlight, 
+                        highlight,
                         range,
                         regionMapFn,
-                        boundsMap, 
-                        borderWidth, 
+                        boundsMap,
+                        borderWidth,
                         outlineShader,
                         fillShader);
                 foreach (var h in highlight.GetHighlights())
@@ -106,7 +107,7 @@ namespace SpaceOpera.View.Common.Highlights
                     _range
                         .Where(x => highlight.Contains(x))
                         .SelectMany(
-                            x => 
+                            x =>
                                 _regionMapFn(x)
                                     .Select(y => new KeyValuePair<SpaceSubRegionBounds, object>(_boundsMap[y], x)))
                         .ToDictionary(x => x.Key, x => x.Value),

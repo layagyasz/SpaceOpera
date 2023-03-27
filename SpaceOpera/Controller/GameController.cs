@@ -10,7 +10,7 @@ using SpaceOpera.Core.Designs;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Universe;
 using SpaceOpera.View;
-using SpaceOpera.View.Common.Highlights;
+using SpaceOpera.View.Highlights;
 using SpaceOpera.View.Panes;
 using SpaceOpera.View.Scenes;
 
