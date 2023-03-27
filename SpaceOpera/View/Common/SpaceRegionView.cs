@@ -114,7 +114,8 @@ namespace SpaceOpera.View.Common
                     var leftEdge = leftIndex > -1 ? bounds.NeighborEdges[leftIndex] : null;
                     var rightEdge = rightIndex > -1 ? bounds.NeighborEdges[rightIndex] : null;
 
-                    int count = bounds.OuterEdges[i]!.Count - (bounds.OuterEdges[i]!.IsLoop ? 0 : 1);
+                    bool loop = bounds.OuterEdges[i]!.IsLoop;
+                    int count = bounds.OuterEdges[i]!.Count - (loop ? 0 : 1);
                     for (int j = 0; j < count; ++j)
                     {
                         var segment = bounds.OuterEdges[i]!.GetSegment(j);
@@ -126,15 +127,18 @@ namespace SpaceOpera.View.Common
                             fill.Add(new(segment.Right, color, new()));
                         }
 
-                        bool leftInner = j > 0
+                        bool leftInner = 
+                            loop
+                            || j > 0
                             || leftEdge == null 
                             || DrawEdge(kvp.Value, bounds.Neighbors![leftIndex], subRegions, mergeSubRegions);
                         bool rightInner =
-                            j < bounds.OuterEdges[i]!.Count - 1
+                            loop
+                            || j < count - 1
                             || rightEdge == null
                             || DrawEdge(kvp.Value, bounds.Neighbors![rightIndex], subRegions, mergeSubRegions);
                         var leftSegment = 
-                            leftEdge?.Segment ?? bounds.OuterEdges[i]!.GetSegment(bounds.OuterEdges[i]!.Count - 2);
+                            leftEdge?.Segment ?? bounds.OuterEdges[i]!.GetSegment(count - 1);
                         var rightSegment = rightEdge?.Segment ?? bounds.OuterEdges[i]!.GetSegment(0);
 
                         AddEdge(

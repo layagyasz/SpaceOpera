@@ -9,7 +9,7 @@ namespace SpaceOpera.View.Common.Highlights
         public EventHandler<EventArgs>? OnUpdated { get; set; }
 
         public bool Merge => true;
-        public float BorderWidth => 1f;
+        public float BorderWidth => 4f;
         public Faction Faction { get; }
         public Color4 BorderColor { get; }
         public Color4 Color { get; }
