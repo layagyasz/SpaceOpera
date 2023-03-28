@@ -13,22 +13,28 @@ namespace SpaceOpera.View.FormationViews
     {
         private readonly Func<INavigable, T> _groupFn;
         private readonly Func<T, Vector3> _positionFn;
+        private readonly float? _offset;
         private readonly UiElementFactory _uiElementFactory;
         private readonly IconFactory _iconFactory;
 
         private readonly Dictionary<T, FormationList> _formationLists = new();
 
+        private bool _dirty;
+
         public FormationLayer(
             Func<INavigable, T> groupFn, 
-            Func<T, Vector3> positionFn, 
+            Func<T, Vector3> positionFn,
+            float? offset,
             UiElementFactory uiElementFactory, 
             IconFactory iconFactory)
             : base(new FormationLayerController<T>())
         {
             _groupFn = groupFn;
             _positionFn = positionFn;
+            _offset = offset;
             _uiElementFactory = uiElementFactory;
             _iconFactory = iconFactory;
+            Dirty();
         }
 
         public void Add(IFormation formation)
@@ -36,6 +42,23 @@ namespace SpaceOpera.View.FormationViews
             formation.Moved += HandleMove;
             Add(formation, formation.Position);
 
+        }
+
+        public void Dirty()
+        {
+            _dirty = true;
+        }
+
+        protected override void DisposeImpl()
+        {
+            foreach (var list in _formationLists.Values)
+            {
+                foreach (var formation in list.GetFormations())
+                {
+                    formation.Moved -= HandleMove;
+                }
+            }
+            base.DisposeImpl();
         }
 
         public void Remove(IFormation formation)
@@ -46,10 +69,15 @@ namespace SpaceOpera.View.FormationViews
 
         public void UpdateFromCamera(RenderTarget target, UiContext context)
         {
-            var camera = target.GetModelMatrix() * target.GetViewMatrix() * target.GetProjection().Matrix;
-            foreach (var list in _formationLists.Values)
+            if (_dirty)
             {
-                list.UpdateFromCamera(camera, context);
+                var camera = target.GetModelMatrix() * target.GetViewMatrix() * target.GetProjection().Matrix;
+                foreach (var list in _formationLists.Values)
+                {
+                    list.UpdateFromCamera(camera, context);
+                }
+                _elements.Sort((x, y) => ((FormationList)x).Position.Z.CompareTo(((FormationList)y).Position.Z));
+                _dirty = false;
             }
         }
 
@@ -69,7 +97,7 @@ namespace SpaceOpera.View.FormationViews
             var group = _groupFn(location);
             if (!_formationLists.TryGetValue(group, out var list))
             {
-                list = new FormationList(_positionFn(group), _uiElementFactory, _iconFactory);
+                list = new FormationList(_positionFn(group), _offset, _uiElementFactory, _iconFactory);
                 _formationLists.Add(group, list);
                 Add(list);
             }

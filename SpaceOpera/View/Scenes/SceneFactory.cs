@@ -32,8 +32,9 @@ namespace SpaceOpera.View.Scenes
     public class SceneFactory
     {
         private static readonly float s_GalaxyScale = 0.0001f;
+        private static readonly float s_GalaxyInfoOffset = 32f;
         private static readonly Vector3 s_GalaxyFloor = new(0f, -700f, 0f);
-        private static readonly float s_GalaxyRegionBorderWidth = 128f;
+        private static readonly float s_GalaxyRegionBorderWidth = 64f;
 
         private static readonly float s_LightPower = 1f;
         private static readonly Interval s_LuminanceRange = new(0.1f, float.MaxValue);
@@ -125,12 +126,17 @@ namespace SpaceOpera.View.Scenes
             if (world != null)
             {
                 formationLayer = new FormationLayer<StarSystem>(
-                    world.NavigationMap.GetStarSystem, x => s_GalaxyScale * x.Position, UiElementFactory, IconFactory);
+                    world.NavigationMap.GetStarSystem,
+                    x => s_GalaxyScale * x.Position,
+                    s_GalaxyInfoOffset,
+                    UiElementFactory,
+                    IconFactory);
                 foreach (var fleet in world.GetFleets())
                 {
                     formationLayer.Add(fleet);
                 }
                 controllers.Add((IActionController)formationLayer.Controller);
+                camera.OnCameraChange += (s, e) => formationLayer.Dirty();
             }
 
             var controller =

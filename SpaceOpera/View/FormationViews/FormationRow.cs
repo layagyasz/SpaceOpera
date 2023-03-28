@@ -1,5 +1,4 @@
-﻿using Cardamom.Graphics;
-using Cardamom.Ui;
+﻿using Cardamom.Ui;
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
 using SpaceOpera.Core.Military;
@@ -22,11 +21,6 @@ namespace SpaceOpera.View.FormationViews
         {
             Add(icon);
             Add(text);
-        }
-
-        public override void Draw(RenderTarget target, UiContext context)
-        {
-            base.Draw(target, context);
         }
 
         public void Add(IFormation formation)

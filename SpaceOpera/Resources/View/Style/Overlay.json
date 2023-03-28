@@ -26,16 +26,16 @@
     "$id": "overlay-empire-research",
     "Parent": "overlay-empire-button",
     "Default": {
-      "ForegroundColor": "#00ffff88",
-      "BorderColor": [ "#00ffff88" ],
+      "ForegroundColor": "#00ffffcc",
+      "BorderColor": [ "#00ffffcc" ],
       "Texture": "icon-research"
     },
     "States": [
       {
         "State": [ "Hover" ],
         "Attributes": {
-          "ForegroundColor": "#00ffffaa",
-          "BorderColor": [ "#00ffffaa" ]
+          "ForegroundColor": "#00ffff",
+          "BorderColor": [ "#00ffff" ]
         }
       }
     ]
@@ -44,16 +44,16 @@
     "$id": "overlay-empire-equipment",
     "Parent": "overlay-empire-button",
     "Default": {
-      "ForegroundColor": "#ffff0088",
-      "BorderColor": [ "#ffff0088" ],
+      "ForegroundColor": "#ffff00cc",
+      "BorderColor": [ "#ffff00cc" ],
       "Texture": "icon-designer"
     },
     "States": [
       {
         "State": [ "Hover" ],
         "Attributes": {
-          "ForegroundColor": "#ffff00aa",
-          "BorderColor": [ "#ffff00aa" ]
+          "ForegroundColor": "#ffff00",
+          "BorderColor": [ "#ffff00" ]
         }
       }
     ]
@@ -62,16 +62,16 @@
     "$id": "overlay-empire-military-organization",
     "Parent": "overlay-empire-button",
     "Default": {
-      "ForegroundColor": "#ff880088",
-      "BorderColor": [ "#ff880088" ],
+      "ForegroundColor": "#ff8800cc",
+      "BorderColor": [ "#ff8800cc" ],
       "Texture": "icon-organization"
     },
     "States": [
       {
         "State": [ "Hover" ],
         "Attributes": {
-          "ForegroundColor": "#ff8800aa",
-          "BorderColor": [ "#ff8800aa" ]
+          "ForegroundColor": "#ff8800",
+          "BorderColor": [ "#ff8800" ]
         }
       }
     ]
@@ -80,16 +80,16 @@
     "$id": "overlay-empire-military",
     "Parent": "overlay-empire-button",
     "Default": {
-      "ForegroundColor": "#ff000088",
-      "BorderColor": [ "#ff000088" ],
+      "ForegroundColor": "#ff0000cc",
+      "BorderColor": [ "#ff0000cc" ],
       "Texture": "icon-military"
     },
     "States": [
       {
         "State": [ "Hover" ],
         "Attributes": {
-          "ForegroundColor": "#ff0000aa",
-          "BorderColor": [ "#ff0000aa" ]
+          "ForegroundColor": "#ff0000",
+          "BorderColor": [ "#ff0000" ]
         }
       }
     ]
@@ -120,16 +120,16 @@
     "Default": {
       "Size": [ 32, 32 ],
       "Margin": [ 2 ],
-      "ForegroundColor": "#ffff0088",
-      "BorderColor": [ "#ffff0088" ],
+      "ForegroundColor": "#ffff00cc",
+      "BorderColor": [ "#ffff00cc" ],
       "Texture": "icon-speed-pause"
     },
     "States": [
       {
         "State": [ "Hover" ],
         "Attributes": {
-          "ForegroundColor": "#ffff00aa",
-          "BorderColor": [ "#ffff00aa" ]
+          "ForegroundColor": "#ffff00",
+          "BorderColor": [ "#ffff00" ]
         }
       }
     ]
@@ -140,16 +140,16 @@
     "Default": {
       "Size": [ 32, 32 ],
       "Margin": [ 2 ],
-      "ForegroundColor": "#00ff0088",
-      "BorderColor": [ "#00ff0088" ],
+      "ForegroundColor": "#00ff00cc",
+      "BorderColor": [ "#00ff00cc" ],
       "Texture": "icon-speed-normal"
     },
     "States": [
       {
         "State": [ "Hover" ],
         "Attributes": {
-          "ForegroundColor": "#00ff00aa",
-          "BorderColor": [ "#00ff00aa" ]
+          "ForegroundColor": "#00ff00",
+          "BorderColor": [ "#00ff00" ]
         }
       }
     ]
@@ -160,16 +160,16 @@
     "Default": {
       "Size": [ 32, 32 ],
       "Margin": [ 2 ],
-      "ForegroundColor": "#0088ff88",
-      "BorderColor": [ "#0088ff88" ],
+      "ForegroundColor": "#0088ffcc",
+      "BorderColor": [ "#0088ffcc" ],
       "Texture": "icon-speed-fast"
     },
     "States": [
       {
         "State": [ "Hover" ],
         "Attributes": {
-          "ForegroundColor": "#0088ffaa",
-          "BorderColor": [ "#0088ffaa" ]
+          "ForegroundColor": "#0088ff",
+          "BorderColor": [ "#0088ff" ]
         }
       }
     ]

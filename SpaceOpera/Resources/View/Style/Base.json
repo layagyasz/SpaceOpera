@@ -9,14 +9,14 @@
   {
     "$id": "ui-icon",
     "Default": {
-      "BackgroundColor": [ "#ffffff88" ],
+      "BackgroundColor": [ "#ffffffcc" ],
       "BackgroundShader": "shader-ui"
     },
     "States": [
       {
         "State": [ "Hover" ],
         "Attributes": {
-          "BackgroundColor": [ "#ffffffaa" ]
+          "BackgroundColor": [ "#ffffff" ]
         }
       }
     ]
@@ -25,12 +25,12 @@
     "$id": "ui-element",
     "Default": {
       "BackgroundColor": [ "#00000088" ],
-      "ForegroundColor": "#ffffff88",
-      "BorderColor": [ "#ffffff88" ],
+      "ForegroundColor": "#ffffffcc",
+      "BorderColor": [ "#ffffffcc" ],
       "BorderWidth": [ 1 ],
       "BackgroundShader": "shader-ui",
       "FontFace": "font-abel",
-      "Color": "#ffffff88",
+      "Color": "#ffffffcc",
       "Shader": "shader-default",
       "DisableScissor": true
     },
@@ -38,22 +38,22 @@
       {
         "State": [ "Hover" ],
         "Attributes": {
-          "BackgroundColor": [ "#000000aa" ],
-          "ForegroundColor": "#ffffffaa",
-          "BorderColor": [ "#ffffffaa" ],
-          "Color": "#ffffffaa"
+          "BackgroundColor": [ "#000000" ],
+          "ForegroundColor": "#ffffff",
+          "BorderColor": [ "#ffffff" ],
+          "Color": "#ffffff"
         }
       },
       {
         "State": [ "Toggle" ],
         "Attributes": {
-          "BackgroundColor": [ "#ff880088" ]
+          "BackgroundColor": [ "#ff8800cc" ]
         }
       },
       {
         "State": [ "Toggle", "Hover" ],
         "Attributes": {
-          "BackgroundColor": [ "#ff8800aa" ]
+          "BackgroundColor": [ "#ff8800" ]
         }
       }
     ]
@@ -77,7 +77,7 @@
       "BackgroundColor": [ "#00000000" ],
       "BackgroundShader": "shader-ui",
       "FontFace": "font-abel",
-      "Color": "#ffffff88",
+      "Color": "#ffffffcc",
       "Shader": "shader-default",
       "DisableScissor": true
     },
@@ -85,19 +85,19 @@
       {
         "State": [ "Hover" ],
         "Attributes": {
-          "Color": "#ffffffaa"
+          "Color": "#ffffff"
         }
       },
       {
         "State": [ "Toggle" ],
         "Attributes": {
-          "BackgroundColor": [ "#ff880088" ]
+          "BackgroundColor": [ "#ff8800cc" ]
         }
       },
       {
         "State": [ "Toggle", "Hover" ],
         "Attributes": {
-          "BackgroundColor": [ "#ff8800aa" ]
+          "BackgroundColor": [ "#ff8800" ]
         }
       }
     ]
