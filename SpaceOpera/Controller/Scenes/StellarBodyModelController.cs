@@ -1,13 +1,14 @@
 ﻿using Cardamom.Collections;
 using Cardamom.Mathematics.Coordinates;
 using Cardamom.Ui;
+using Cardamom.Ui.Controller.Element;
 using Cardamom.Window;
 using OpenTK.Windowing.Common;
 using SpaceOpera.Core.Universe;
 
 namespace SpaceOpera.Controller.Scenes
 {
-    public class StellarBodyModelController : ISceneController
+    public class StellarBodyModelController : IActionController, IElementController
     {
         public EventHandler<UiInteractionEventArgs>? Interacted { get; set; }
         public EventHandler<MouseButtonClickEventArgs>? Clicked { get; set; }

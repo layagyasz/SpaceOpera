@@ -22,6 +22,10 @@ using SpaceOpera.View.StellarBodyViews;
 using SpaceOpera.View.StarSystemViews;
 using SpaceOpera.View.Common;
 using SpaceOpera.View.Highlights;
+using SpaceOpera.Controller;
+using SpaceOpera.View.FormationViews;
+using Cardamom.Ui;
+using SpaceOpera.View.Icons;
 
 namespace SpaceOpera.View.Scenes
 {
@@ -50,6 +54,8 @@ namespace SpaceOpera.View.Scenes
 
         private static Skybox? _skyBox;
 
+        public UiElementFactory UiElementFactory { get; }
+        public IconFactory IconFactory { get; }
         public GalaxyViewFactory GalaxyViewFactory { get; }
         public StellarBodyViewFactory StellarBodyViewFactory { get; }
         public StarSystemViewFactory StarSystemViewFactory { get; }
@@ -60,6 +66,8 @@ namespace SpaceOpera.View.Scenes
         public RenderShader FillShader { get; }
 
         public SceneFactory(
+            UiElementFactory uiElementFactory,
+            IconFactory iconFactory,
             GalaxyViewFactory galaxyViewFactory,
             StellarBodyViewFactory stellarBodyViewFactory,
             StarSystemViewFactory starSystemViewFactory,
@@ -69,6 +77,8 @@ namespace SpaceOpera.View.Scenes
             RenderShader borderShader, 
             RenderShader fillShader)
         {
+            UiElementFactory = uiElementFactory;
+            IconFactory = iconFactory;
             GalaxyViewFactory = galaxyViewFactory;
             StellarBodyViewFactory = stellarBodyViewFactory;
             StarSystemViewFactory = starSystemViewFactory;
@@ -79,11 +89,14 @@ namespace SpaceOpera.View.Scenes
             FillShader = fillShader;
         }
 
-        public IGameScene Create(Galaxy galaxy)
+        public IGameScene Create(Galaxy galaxy, World? world)
         {
+            var controllers = new List<IActionController>();
+
             float r = s_GalaxyScale * galaxy.Radius;
             var model = GalaxyViewFactory.CreateModel(galaxy, s_GalaxyScale);
             var galaxyController = GalaxyModelController.Create(galaxy, s_GalaxyScale);
+            controllers.Add(galaxyController);
             var interactiveModel = 
                 new InteractiveModel(
                     model, 
@@ -108,6 +121,18 @@ namespace SpaceOpera.View.Scenes
                     BorderShader, 
                     FillShader);
 
+            FormationLayer<StarSystem>? formationLayer = null;
+            if (world != null)
+            {
+                formationLayer = new FormationLayer<StarSystem>(
+                    world.NavigationMap.GetStarSystem, x => s_GalaxyScale * x.Position, UiElementFactory, IconFactory);
+                foreach (var fleet in world.GetFleets())
+                {
+                    formationLayer.Add(fleet);
+                }
+                controllers.Add((IActionController)formationLayer.Controller);
+            }
+
             var controller =
                 new SceneController(
                     new GalaxyCameraController(camera)
@@ -118,9 +143,9 @@ namespace SpaceOpera.View.Scenes
                         PitchRange = new(-MathHelper.PiOver2 + 0.01f, -0.125f * MathHelper.Pi),
                         DistanceRange = new(0.05f, r)
                     },
-                    galaxyController);
+                    controllers.ToArray());
             _skyBox ??= CreateSkybox();
-            return new GalaxyScene(controller, camera, interactiveModel, highlight, _skyBox);
+            return new GalaxyScene(controller, camera, interactiveModel, highlight, formationLayer, _skyBox);
         }
 
         public IGameScene Create(StarSystem starSystem, StarCalendar calendar)
@@ -189,7 +214,7 @@ namespace SpaceOpera.View.Scenes
                     Enumerable.Concat(
                         interactors.Select(x => x.Controller), 
                         rigs.Select(x => x.Controller))
-                        .Cast<ISceneController>().ToArray());
+                        .Cast<IActionController>().ToArray());
 
             _skyBox ??= CreateSkybox();
             return new StarSystemScene(

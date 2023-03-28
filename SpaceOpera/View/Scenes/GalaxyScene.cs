@@ -7,6 +7,7 @@ using OpenTK.Mathematics;
 using Cardamom.Ui.Elements;
 using SpaceOpera.Core.Universe;
 using SpaceOpera.View.Highlights;
+using SpaceOpera.View.FormationViews;
 
 namespace SpaceOpera.View.Scenes
 {
@@ -18,6 +19,7 @@ namespace SpaceOpera.View.Scenes
 
         private InteractiveModel? _galaxyModel;
         private HighlightLayer<StarSystem, StarSystem>? _highlightLayer;
+        private FormationLayer<StarSystem>? _formationLayer;
         private readonly Skybox _skybox;
 
         public GalaxyScene(
@@ -25,6 +27,7 @@ namespace SpaceOpera.View.Scenes
             ICamera camera, 
             InteractiveModel galaxyModel,
             HighlightLayer<StarSystem, StarSystem> highlightLayer,
+            FormationLayer<StarSystem>? formationLayer,
             Skybox skybox)
         {
             Controller = controller;
@@ -32,6 +35,7 @@ namespace SpaceOpera.View.Scenes
             _galaxyModel = galaxyModel;
             _galaxyModel.Parent = this;
             _highlightLayer = highlightLayer;
+            _formationLayer = formationLayer;
             _skybox = skybox;
         }
 
@@ -41,6 +45,8 @@ namespace SpaceOpera.View.Scenes
             _galaxyModel = null;
             _highlightLayer!.Dispose();
             _highlightLayer = null;
+            _formationLayer?.Dispose();
+            _formationLayer = null;
         }
 
         public void Draw(RenderTarget target, UiContext context)
@@ -52,9 +58,13 @@ namespace SpaceOpera.View.Scenes
             _skybox.Draw(target, context);
             _highlightLayer!.Draw(target, context);
             _galaxyModel!.Draw(target, context);
+            _formationLayer?.UpdateFromCamera(target, context);
 
             target.PopProjectionMatrix();
             target.PopViewMatrix();
+
+            context.Flatten();
+            _formationLayer?.Draw(target, context);
         }
 
         public float? GetRayIntersection(Ray3 ray)
@@ -66,6 +76,7 @@ namespace SpaceOpera.View.Scenes
         {
             _galaxyModel!.Initialize();
             _highlightLayer!.Initialize();
+            _formationLayer?.Initialize();
             Controller.Bind(this);
         }
 
@@ -83,6 +94,7 @@ namespace SpaceOpera.View.Scenes
         {
             _galaxyModel!.Update(delta);
             _highlightLayer!.Update(delta);
+            _formationLayer?.Update(delta);
         }
     }
 }

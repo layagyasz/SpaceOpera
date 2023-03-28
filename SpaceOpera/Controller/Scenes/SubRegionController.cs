@@ -1,11 +1,11 @@
 ﻿using Cardamom.Ui;
+using Cardamom.Ui.Controller.Element;
 using Cardamom.Window;
 using OpenTK.Windowing.Common;
-using SpaceOpera.Core.Universe;
 
 namespace SpaceOpera.Controller.Scenes
 {
-    public class SubRegionController : ISceneController
+    public class SubRegionController : IActionController, IElementController
     {
         public EventHandler<UiInteractionEventArgs>? Interacted { get; set; }
         public EventHandler<MouseButtonClickEventArgs>? Clicked { get; set; }

@@ -4,6 +4,7 @@ using Cardamom.Mathematics;
 using Cardamom.Mathematics.Geometry;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
+using SpaceOpera.Controller;
 using SpaceOpera.Controller.Scenes;
 using SpaceOpera.Core;
 using SpaceOpera.Core.Universe;
@@ -129,7 +130,7 @@ namespace SpaceOpera.View.StarSystemViews
                     BorderShader,
                     FillShader);
             return new(
-                new RigController(interactors.Select(x => x.Controller).Cast<ISceneController>().ToArray()),
+                new RigController(interactors.Select(x => x.Controller).Cast<IActionController>().ToArray()),
                 orbit.LocalOrbit.StellarBody,
                 calendar, 
                 new(

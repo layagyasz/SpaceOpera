@@ -1,18 +1,19 @@
 ﻿using Cardamom.Ui;
+using Cardamom.Ui.Controller.Element;
 using Cardamom.Window;
 using OpenTK.Windowing.Common;
 
 namespace SpaceOpera.Controller.Scenes
 {
-    public class RigController : ISceneController
+    public class RigController : IActionController, IElementController
     {
         public EventHandler<UiInteractionEventArgs>? Interacted { get; set; }
         public EventHandler<MouseButtonClickEventArgs>? Clicked { get; set; }
         public EventHandler<EventArgs>? Focused { get; set; }
 
-        private readonly ISceneController[] _subControllers;
+        private readonly IActionController[] _subControllers;
 
-        public RigController(params ISceneController[] subControllers)
+        public RigController(params IActionController[] subControllers)
         {
             _subControllers = subControllers;
             foreach (var subController in subControllers)

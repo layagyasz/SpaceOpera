@@ -1,6 +1,6 @@
 ﻿using Cardamom.Ui.Controller;
 
-namespace SpaceOpera.Controller.Components
+namespace SpaceOpera.Controller
 {
     public interface IActionController : IController
     {

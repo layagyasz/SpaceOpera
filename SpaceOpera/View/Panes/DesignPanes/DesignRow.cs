@@ -33,11 +33,6 @@ namespace SpaceOpera.View.Panes.DesignPanes
             _actions = actions.SelectMany(x => x).ToList();
         }
 
-        public IEnumerable<IUiElement> GetActions()
-        {
-            return _actions;
-        }
-
         public static DesignRow Create(Design design, UiElementFactory uiElementFactory, ref IconFactory iconFactory)
         {
             return new(
@@ -54,6 +49,11 @@ namespace SpaceOpera.View.Panes.DesignPanes
                     new SimpleUiElement(
                         uiElementFactory.GetClass(s_ComponentRowActionEdit), 
                         new ActionButtonController(ActionId.Edit))));
+        }
+
+        public IEnumerable<IUiElement> GetActions()
+        {
+            return _actions;
         }
 
         public void Refresh() { }

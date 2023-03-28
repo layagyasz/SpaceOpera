@@ -1,5 +1,4 @@
-﻿using SpaceOpera.Controller.Components;
-using SpaceOpera.View.Panes.DesignPanes;
+﻿using SpaceOpera.View.Panes.DesignPanes;
 
 namespace SpaceOpera.Controller.Panes.DesignPanes
 {

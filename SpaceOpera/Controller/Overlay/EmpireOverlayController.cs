@@ -1,7 +1,6 @@
 ﻿using Cardamom.Ui;
 using Cardamom.Ui.Controller;
 using Cardamom.Ui.Elements;
-using SpaceOpera.Controller.Components;
 using SpaceOpera.View;
 using SpaceOpera.View.Overlay;
 

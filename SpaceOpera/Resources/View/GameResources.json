@@ -4,9 +4,5 @@
     "Volumes": [ "Resources/View/Textures.json" ]
   },
   "Fonts": "Resources/View/Fonts.json",
-  "Classes": [
-    "Resources/View/Style/Base.json",
-    "Resources/View/Style/Overlay.json",
-    "Resources/View/Style/Panes/*.json"
-  ]
+  "Classes": [ "Resources/View/Style/*.json" ]
 }

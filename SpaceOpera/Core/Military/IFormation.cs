@@ -6,7 +6,7 @@ namespace SpaceOpera.Core.Military
 {
     public interface IFormation
     {
-        EventHandler<MovementEventArgs>? OnMoved { get; set; }
+        EventHandler<MovementEventArgs>? Moved { get; set; }
 
         string Name { get; }
         Faction Faction { get; }

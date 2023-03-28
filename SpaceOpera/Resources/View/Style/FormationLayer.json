@@ -1,0 +1,34 @@
+[
+  {
+    "$id": "formation-layer-table",
+    "Parent": "ui-element-basic",
+    "Default": {
+      "Size": [ 256, "DynamicContents" ],
+      "Padding": [ 0, 12, 0, 12 ]
+    }
+  },
+  {
+    "$id": "formation-layer-row",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 256, 28 ],
+      "Padding": [ 0 ],
+      "Margin": [ 0 ]
+    }
+  },
+  {
+    "$id": "formation-layer-row-icon",
+    "Parent": "ui-icon",
+    "Default": {
+      "Size": [ 28, 28 ]
+    }
+  },
+  {
+    "$id": "formation-layer-row-text",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 228, 28 ],
+      "Padding": [ 8 ]
+    }
+  }
+]

@@ -1,7 +1,6 @@
 ﻿using Cardamom.Ui;
 using Cardamom.Ui.Controller.Element;
 using OpenTK.Windowing.GraphicsLibraryFramework;
-using SpaceOpera.Controller.Components;
 using SpaceOpera.View.Panes;
 
 namespace SpaceOpera.Controller.Panes

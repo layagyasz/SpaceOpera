@@ -3,7 +3,6 @@ using Cardamom.Logging;
 using Cardamom.Ui;
 using Cardamom.Ui.Controller;
 using OpenTK.Windowing.GraphicsLibraryFramework;
-using SpaceOpera.Controller.Components;
 using SpaceOpera.Controller.Scenes;
 using SpaceOpera.Core;
 using SpaceOpera.Core.Designs;
@@ -109,7 +108,7 @@ namespace SpaceOpera.Controller
         {
             if (sceneObject is Galaxy galaxy)
             {
-                ChangeSceneTo(_viewFactory.SceneFactory.Create(galaxy), cleanUp);
+                ChangeSceneTo(_viewFactory.SceneFactory.Create(galaxy, _world), cleanUp);
             }
             else if (sceneObject is StarSystem starSystem)
             {
@@ -133,11 +132,11 @@ namespace SpaceOpera.Controller
             {
                 _screen?.Scene?.Dispose();
             }
-            if (_screen?.Scene?.Controller is ISceneController oldSceneController)
+            if (_screen?.Scene?.Controller is IActionController oldSceneController)
             {
                 oldSceneController.Interacted -= HandleInteraction;
             }
-            if (scene.Controller is ISceneController sceneController)
+            if (scene.Controller is IActionController sceneController)
             {
                 sceneController.Interacted += HandleInteraction;
             }

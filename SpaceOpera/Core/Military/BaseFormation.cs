@@ -8,7 +8,7 @@ namespace SpaceOpera.Core.Military
     {
         private static readonly float s_BaseRecoherence = 0.1f;
 
-        public EventHandler<MovementEventArgs>? OnMoved { get; set; }
+        public EventHandler<MovementEventArgs>? Moved { get; set; }
 
         public string Name { get; private set; } = string.Empty;
         public Faction Faction { get; }
@@ -95,7 +95,7 @@ namespace SpaceOpera.Core.Military
         {
             var temp = Position;
             Position = position;
-            OnMoved?.Invoke(this, MovementEventArgs.Create(temp, position));
+            Moved?.Invoke(this, MovementEventArgs.Create(temp, position));
         }
     }
 }

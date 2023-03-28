@@ -8,7 +8,7 @@ namespace SpaceOpera.Controller.Scenes
     {
         private readonly IElementController _cameraController;
 
-        public SceneController(IElementController cameraController, params ISceneController[] subControllers)
+        public SceneController(IElementController cameraController, params IActionController[] subControllers)
             : base(subControllers)
         {
             _cameraController = cameraController;

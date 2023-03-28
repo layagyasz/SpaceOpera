@@ -58,9 +58,17 @@ namespace SpaceOpera.View
                     viewData.HumanEyeSensitivity!,
                     logger);
             UiElementFactory uiElementFactory = new(viewData.GameResources);
+            IconFactory iconFactory =
+                new(
+                    viewData.Banners!,
+                    viewData.Icons,
+                    viewData.DesignedComponentIconConfigs.ToEnumMap(x => x.ComponentType, x => x),
+                    uiElementFactory);
             return new(
                 uiElementFactory,
                 new(
+                    uiElementFactory,
+                    iconFactory,
                     galaxyViewFactory, 
                     stellarBodyViewFactory,
                     new(
@@ -77,11 +85,7 @@ namespace SpaceOpera.View
                     viewData.GameResources!.GetShader("shader-default-no-tex")), 
                 stellarBodyViewFactory,
                 viewData.Banners!,
-                new(
-                    viewData.Banners!,
-                    viewData.Icons, 
-                    viewData.DesignedComponentIconConfigs.ToEnumMap(x => x.ComponentType, x => x),
-                    uiElementFactory));
+                iconFactory);
         }
 
         public GameScreen CreateGameScreen(GameController controller, StarCalendar calendar)
