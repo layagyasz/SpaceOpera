@@ -44,7 +44,7 @@ namespace SpaceOpera.View.StarViews
             color.A = _random.NextSingle();
             float relativeScale = 
                 s_ScaleBounds.Clamp(s_InvLog2 * MathF.Log(star.Radius / Constants.SolarRadius + 1));
-            return new (position, color, new(scale * relativeScale, scale * relativeScale));
+            return new(position, color, new(scale * relativeScale, scale * relativeScale));
         }
     }
 }

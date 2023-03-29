@@ -32,7 +32,6 @@ namespace SpaceOpera.View.Scenes
     public class SceneFactory
     {
         private static readonly float s_GalaxyScale = 0.0001f;
-        private static readonly float s_GalaxyInfoOffset = 32f;
         private static readonly Vector3 s_GalaxyFloor = new(0f, -700f, 0f);
         private static readonly float s_GalaxyRegionBorderWidth = 64f;
 
@@ -55,42 +54,36 @@ namespace SpaceOpera.View.Scenes
 
         private static Skybox? _skyBox;
 
-        public UiElementFactory UiElementFactory { get; }
-        public IconFactory IconFactory { get; }
         public GalaxyViewFactory GalaxyViewFactory { get; }
         public StellarBodyViewFactory StellarBodyViewFactory { get; }
         public StarSystemViewFactory StarSystemViewFactory { get; }
         public StarViewFactory StarViewFactory { get; }
-        public SpectrumSensitivity HumanEyeSensitivity { get; }
+        public FormationLayerFactory FormationLayerFactory { get; }
         public RenderShader SkyboxShader { get; }
         public RenderShader BorderShader { get; }
         public RenderShader FillShader { get; }
 
         public SceneFactory(
-            UiElementFactory uiElementFactory,
-            IconFactory iconFactory,
             GalaxyViewFactory galaxyViewFactory,
             StellarBodyViewFactory stellarBodyViewFactory,
             StarSystemViewFactory starSystemViewFactory,
             StarViewFactory starViewFactory,
-            SpectrumSensitivity humanEyeSensitivity,
+            FormationLayerFactory formationLayerFactory,
             RenderShader skyboxShader, 
             RenderShader borderShader, 
             RenderShader fillShader)
         {
-            UiElementFactory = uiElementFactory;
-            IconFactory = iconFactory;
             GalaxyViewFactory = galaxyViewFactory;
             StellarBodyViewFactory = stellarBodyViewFactory;
             StarSystemViewFactory = starSystemViewFactory;
             StarViewFactory = starViewFactory;
-            HumanEyeSensitivity = humanEyeSensitivity;
+            FormationLayerFactory = formationLayerFactory;
             SkyboxShader = skyboxShader;
             BorderShader = borderShader;
             FillShader = fillShader;
         }
 
-        public IGameScene Create(Galaxy galaxy, World? world)
+        public IGameScene Create(World? world, Galaxy galaxy)
         {
             var controllers = new List<IActionController>();
 
@@ -104,7 +97,7 @@ namespace SpaceOpera.View.Scenes
                     new Disk(s_GalaxyScale * s_GalaxyFloor, Vector3.UnitY, r), 
                     galaxyController);
             var camera = new SubjectiveCamera3d(s_SkyboxRadius + 10);
-            camera.OnCameraChange += (s, e) => model.Dirty();
+            camera.Changed += (s, e) => model.Dirty();
             camera.SetDistance(0.05f);
             camera.SetPitch(-0.125f * MathHelper.Pi);
             camera.SetYaw(MathHelper.PiOver2);
@@ -122,21 +115,11 @@ namespace SpaceOpera.View.Scenes
                     BorderShader, 
                     FillShader);
 
-            FormationLayer<StarSystem>? formationLayer = null;
-            if (world != null)
+            var formationLayer = FormationLayerFactory.CreateForGalaxy(world, s_GalaxyScale);
+            if (formationLayer != null)
             {
-                formationLayer = new FormationLayer<StarSystem>(
-                    world.NavigationMap.GetStarSystem,
-                    x => s_GalaxyScale * x.Position,
-                    s_GalaxyInfoOffset,
-                    UiElementFactory,
-                    IconFactory);
-                foreach (var fleet in world.GetFleets())
-                {
-                    formationLayer.Add(fleet);
-                }
                 controllers.Add((IActionController)formationLayer.Controller);
-                camera.OnCameraChange += (s, e) => formationLayer.Dirty();
+                camera.Changed += (s, e) => formationLayer.Dirty();
             }
 
             var controller =
@@ -154,7 +137,7 @@ namespace SpaceOpera.View.Scenes
             return new GalaxyScene(controller, camera, interactiveModel, highlight, formationLayer, _skyBox);
         }
 
-        public IGameScene Create(StarSystem starSystem, StarCalendar calendar)
+        public IGameScene Create(World? world, StarSystem starSystem, StarCalendar calendar)
         {
             var model = StarSystemViewFactory.Create(starSystem, s_StarSystemScale);
 
@@ -175,6 +158,7 @@ namespace SpaceOpera.View.Scenes
                 var d = MathF.Log(starSystem.Orbiters[i].Orbit.GetAverageDistance() + 1);
                 rigs[i] = 
                     StarSystemViewFactory.Create(
+                        world,
                         starSystem.OrbitalRegions[i],
                         calendar,
                         Math.Min(distances[i + 1] - d, d - distances[i]),
@@ -203,10 +187,11 @@ namespace SpaceOpera.View.Scenes
             }
 
             var camera = new SubjectiveCamera3d(s_SkyboxRadius + 10);
-            camera.OnCameraChange += (s, e) => model.Dirty();
+            camera.Changed += (s, e) => model.Dirty();
             camera.SetDistance(r);
             camera.SetPitch(-MathHelper.PiOver2 + 0.01f);
             camera.SetYaw(MathHelper.PiOver2);
+
             var controller =
                 new SceneController(
                     new GalaxyCameraController(camera)

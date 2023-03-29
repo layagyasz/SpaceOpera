@@ -21,7 +21,7 @@ namespace SpaceOpera.View.Icons
         {
             private readonly Projection _projection = new(-1, Matrix4.CreateOrthographicOffCenter(0, 1, 0, 1, -1, 1));
 
-            public EventHandler<EventArgs>? OnCameraChange { get; set; }
+            public EventHandler<EventArgs>? Changed { get; set; }
 
             public Vector3 Position => new();
             public float AspectRatio => 1f;

@@ -108,12 +108,12 @@ namespace SpaceOpera.Controller
         {
             if (sceneObject is Galaxy galaxy)
             {
-                ChangeSceneTo(_viewFactory.SceneFactory.Create(galaxy, _world), cleanUp);
+                ChangeSceneTo(_viewFactory.SceneFactory.Create(_world, galaxy), cleanUp);
             }
             else if (sceneObject is StarSystem starSystem)
             {
                 ChangeSceneTo(
-                    _viewFactory.SceneFactory.Create(starSystem, _world?.Calendar ?? new(0)), cleanUp);
+                    _viewFactory.SceneFactory.Create(_world, starSystem, _world?.Calendar ?? new(0)), cleanUp);
             }
             else if (sceneObject is StellarBody stellarBody)
             {

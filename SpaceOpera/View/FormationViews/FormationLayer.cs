@@ -11,8 +11,7 @@ namespace SpaceOpera.View.FormationViews
 {
     public class FormationLayer<T> : UiGroup where T : notnull
     {
-        private readonly Func<INavigable, T> _groupFn;
-        private readonly Func<T, Vector3> _positionFn;
+        private readonly IFormationLayerMapper<T> _mapper;
         private readonly float? _offset;
         private readonly UiElementFactory _uiElementFactory;
         private readonly IconFactory _iconFactory;
@@ -22,15 +21,13 @@ namespace SpaceOpera.View.FormationViews
         private bool _dirty;
 
         public FormationLayer(
-            Func<INavigable, T> groupFn, 
-            Func<T, Vector3> positionFn,
+            IFormationLayerMapper<T> mapper,
             float? offset,
             UiElementFactory uiElementFactory, 
             IconFactory iconFactory)
             : base(new FormationLayerController<T>())
         {
-            _groupFn = groupFn;
-            _positionFn = positionFn;
+            _mapper = mapper;
             _offset = offset;
             _uiElementFactory = uiElementFactory;
             _iconFactory = iconFactory;
@@ -94,14 +91,17 @@ namespace SpaceOpera.View.FormationViews
             {
                 return;
             }
-            var group = _groupFn(location);
-            if (!_formationLists.TryGetValue(group, out var list))
+            var group = _mapper.MapToBucket(location);
+            if (_mapper.Contains(group))
             {
-                list = new FormationList(_positionFn(group), _offset, _uiElementFactory, _iconFactory);
-                _formationLists.Add(group, list);
-                Add(list);
+                if (!_formationLists.TryGetValue(group, out var list))
+                {
+                    list = new FormationList(_mapper.MapToPin(group), _offset, _uiElementFactory, _iconFactory);
+                    _formationLists.Add(group, list);
+                    Add(list);
+                }
+                list.Add(formation);
             }
-            list.Add(formation);
         }
 
         private void Remove(IFormation formation, INavigable? location)
@@ -110,8 +110,8 @@ namespace SpaceOpera.View.FormationViews
             {
                 return;
             }
-            var group = _groupFn(location);
-            if (_formationLists.TryGetValue(group, out var list))
+            var group = _mapper.MapToBucket(location);
+            if (_mapper.Contains(group) && _formationLists.TryGetValue(group, out var list))
             {
                 list.Remove(formation);
                 if (!list.Any())

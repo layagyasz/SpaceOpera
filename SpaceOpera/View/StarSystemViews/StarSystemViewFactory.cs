@@ -9,6 +9,7 @@ using SpaceOpera.Controller.Scenes;
 using SpaceOpera.Core;
 using SpaceOpera.Core.Universe;
 using SpaceOpera.View.Common;
+using SpaceOpera.View.FormationViews;
 using SpaceOpera.View.Highlights;
 using SpaceOpera.View.StarViews;
 using SpaceOpera.View.StellarBodyViews;
@@ -24,7 +25,6 @@ namespace SpaceOpera.View.StarSystemViews
         private static readonly Color4 s_GuidelineViableColor = new(0.7f, 0.5f, 0.5f, 1f);
         private static readonly float s_GuidelineResolution = 0.02f * MathHelper.Pi;
         private static readonly float s_LocalOrbitScale = 0.5f;
-        private static readonly float s_LocalOrbitY = -0.1f;
         private static readonly Color4 s_OrbitColor = new(0.5f, 0.5f, 0.7f, 1f);
         private static readonly Color4 s_PinColor = new(0.7f, 0.7f, 0.7f, 1f);
         private static readonly float s_PinDashLength = 0.01f;
@@ -36,10 +36,12 @@ namespace SpaceOpera.View.StarSystemViews
 
         private static readonly Interval s_RadiusRange = new(0.1f, float.PositiveInfinity);
 
+        private static readonly float s_LocalOrbitY = -0.1f;
         private static readonly float s_SolarOrbitY = -0.25f;
 
         public StarViewFactory StarViewFactory { get; }
         public StellarBodyViewFactory StellarBodyViewFactory { get; }
+        public FormationLayerFactory FormationLayerFactory { get; }
         public RenderShader GuidelineShader { get; }
         public RenderShader BorderShader { get; }
         public RenderShader FillShader { get; }
@@ -48,6 +50,7 @@ namespace SpaceOpera.View.StarSystemViews
         public StarSystemViewFactory(
             StarViewFactory starViewFactory,
             StellarBodyViewFactory stellarBodyViewFactory,
+            FormationLayerFactory formationLayerFactory,
             RenderShader guidelineShader,
             RenderShader borderShader, 
             RenderShader fillShader,
@@ -55,6 +58,7 @@ namespace SpaceOpera.View.StarSystemViews
         {
             StarViewFactory = starViewFactory;
             StellarBodyViewFactory = stellarBodyViewFactory;
+            FormationLayerFactory = formationLayerFactory;
             GuidelineShader = guidelineShader;
             BorderShader = borderShader;
             FillShader = fillShader;
@@ -89,7 +93,7 @@ namespace SpaceOpera.View.StarSystemViews
         }
 
         public StarSubSystemRig Create(
-            SolarOrbitRegion orbit, StarCalendar calendar, float radius, float scale)
+            World? world, SolarOrbitRegion orbit, StarCalendar calendar, float radius, float scale)
         {
             Vertex3[] pin = new Vertex3[2];
             pin[0] = new(scale * new Vector3(0, s_PinYRange.Minimum, 0), s_PinColor, new());
@@ -109,6 +113,7 @@ namespace SpaceOpera.View.StarSystemViews
             };
             var stellarBody = 
                 StellarBodyViewFactory.Create(orbit.LocalOrbit.StellarBody, s_StellarBodyScale * scale, false);
+            var controllers = new List<IActionController>();
             var interactors = new SubRegionInteractor[]
             {
                 new(
@@ -120,6 +125,8 @@ namespace SpaceOpera.View.StarSystemViews
                         scale * new Vector3(0, s_LocalOrbitY, 0), Vector3.UnitY, scale * s_LocalOrbitScale * radius)),
                 new(new SubRegionController(orbit.LocalOrbit.StellarBody), new Sphere(new(), stellarBody.Radius))
             };
+            controllers.AddRange(interactors.Select(x => x.Controller).Cast<IActionController>());
+
             var highlight =
                 new HighlightLayer<INavigable, INavigable>(
                     bounds.Keys,
@@ -129,13 +136,21 @@ namespace SpaceOpera.View.StarSystemViews
                     Matrix4.Identity,
                     BorderShader,
                     FillShader);
+
+            var formationLayer = FormationLayerFactory.CreateForSubSystem(world, orbit, scale);
+            if (formationLayer != null)
+            {
+                controllers.Add((IActionController)formationLayer.Controller);
+            }
+
             return new(
-                new RigController(interactors.Select(x => x.Controller).Cast<IActionController>().ToArray()),
+                new RigController(controllers.ToArray()),
                 orbit.LocalOrbit.StellarBody,
                 calendar, 
                 new(
                     stellarBody,
-                    highlight, 
+                    highlight,
+                    formationLayer,
                     new(pinBuffer, PinShader, scale * s_PinScale, scale * s_PinDashLength)),
                 interactors,
                 scale);

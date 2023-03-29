@@ -35,7 +35,7 @@ namespace SpaceOpera.Core.Universe
         {
             public INavigable Navigable { get; }
             public StarSystem StarSystem { get; }
-            public INavigable SystemNode { get; }
+            public SolarOrbitRegion? Orbit { get; }
             public float OrbitDistance { get; }
             public StellarBody? StellarBody { get; }
             public List<NavigableEdge> Edges { get; } = new();
@@ -47,13 +47,13 @@ namespace SpaceOpera.Core.Universe
             public NavigableNode(
                 INavigable navigable,
                 StarSystem starSystem, 
-                INavigable systemNode,
+                SolarOrbitRegion? orbit,
                 float orbitDistance, 
                 StellarBody? stellarBody)
             {
                 Navigable = navigable;
                 StarSystem = starSystem;
-                SystemNode = systemNode;
+                Orbit = orbit;
                 OrbitDistance = orbitDistance;
                 StellarBody = stellarBody;
             }
@@ -168,9 +168,14 @@ namespace SpaceOpera.Core.Universe
             return _nodes[navigable].StarSystem;
         }
 
-        public INavigable GetSystemNode(INavigable navigable)
+        public StellarBody? GetStellarBody(INavigable navigable)
         {
-            return _nodes[navigable].SystemNode;
+            return _nodes[navigable].StellarBody;
+        }
+
+        public SolarOrbitRegion? GetOrbit(INavigable navigable)
+        {
+            return _nodes[navigable].Orbit;
         }
 
         public static HashSet<INavigable> GetLocalOrbitNodes(
@@ -254,7 +259,7 @@ namespace SpaceOpera.Core.Universe
         private NavigableNode GetOrCreateNode(
             INavigable navigable, 
             StarSystem starSystem,
-            INavigable systemNode, 
+            SolarOrbitRegion? orbit, 
             float orbitDistance, 
             StellarBody? stellarBody)
         {
@@ -264,7 +269,7 @@ namespace SpaceOpera.Core.Universe
             }
             else
             {
-                node = new NavigableNode(navigable, starSystem, systemNode, orbitDistance, stellarBody);
+                node = new NavigableNode(navigable, starSystem, orbit, orbitDistance, stellarBody);
                 _nodes.Add(navigable, node);
                 return node;
             }
@@ -299,8 +304,8 @@ namespace SpaceOpera.Core.Universe
             if (left.StarSystem != right.StarSystem)
             {
                 distance += GetStarSystemDistance(left.StarSystem, right.StarSystem);
-                distance += (left.StarSystem.TransitLimit - left.OrbitDistance);
-                distance += (right.StarSystem.TransitLimit - right.OrbitDistance);
+                distance += left.StarSystem.TransitLimit - left.OrbitDistance;
+                distance += right.StarSystem.TransitLimit - right.OrbitDistance;
             }
             else
             {
@@ -321,9 +326,9 @@ namespace SpaceOpera.Core.Universe
                 var solarOrbitNode = 
                     GetOrCreateNode(
                         starSystem.OrbitalRegions[i], starSystem, starSystem.OrbitalRegions[i], averageDistance, null);
-                var localOrbit = starSystem.OrbitalRegions[i].LocalOrbit;
+                var orbit = starSystem.OrbitalRegions[i];
                 var localOrbitNode = 
-                    GetOrCreateNode(localOrbit, starSystem, localOrbit, averageDistance, null);
+                    GetOrCreateNode(orbit, starSystem, orbit, averageDistance, null);
 
                 var orbitDistance = .25f * circumference;
                 solarOrbitNode.Edges.Add(
@@ -339,10 +344,10 @@ namespace SpaceOpera.Core.Universe
                         {
                             var groundNode =
                                 GetOrCreateNode(
-                                    groundRegion, starSystem, localOrbit, averageDistance, starSystem.Orbiters[i]);
+                                    groundRegion, starSystem, orbit, averageDistance, starSystem.Orbiters[i]);
                             var neighborNode =
                                 GetOrCreateNode(
-                                    neighborRegion, starSystem, localOrbit, averageDistance, starSystem.Orbiters[i]);
+                                    neighborRegion, starSystem, orbit, averageDistance, starSystem.Orbiters[i]);
                             groundNode.Edges.Add(
                                 new NavigableEdge(
                                     groundNode,
@@ -356,7 +361,7 @@ namespace SpaceOpera.Core.Universe
 
                 foreach (var orbitRegion in starSystem.Orbiters[i].OrbitRegions)
                 {
-                    var orbitNode = GetOrCreateNode(orbitRegion, starSystem, localOrbit, averageDistance, null);
+                    var orbitNode = GetOrCreateNode(orbitRegion, starSystem, orbit, averageDistance, null);
                     localOrbitNode.Edges.Add(
                         new NavigableEdge(
                             localOrbitNode, 
@@ -376,7 +381,7 @@ namespace SpaceOpera.Core.Universe
                         {
                             var groundNode = 
                                 GetOrCreateNode(
-                                    groundRegion, starSystem, localOrbit, averageDistance, starSystem.Orbiters[i]);
+                                    groundRegion, starSystem, orbit, averageDistance, starSystem.Orbiters[i]);
                             orbitNode.Edges.Add(
                                 new NavigableEdge(
                                     orbitNode, 
@@ -428,13 +433,13 @@ namespace SpaceOpera.Core.Universe
             var transits = starSystem.Transits.Values;
             for (int i=0; i<transits.Count; ++i)
             {
-                var node = GetOrCreateNode(transits[i], starSystem, transits[i], starSystem.TransitLimit, null);
+                var node = GetOrCreateNode(transits[i], starSystem, null, starSystem.TransitLimit, null);
                 var other = transits[i].TransitSystem.Transits.Values.First(x => x.TransitSystem == starSystem);
                 var otherNode =
                     GetOrCreateNode(
                         other, 
                         transits[i].TransitSystem,
-                        other,
+                        null,
                         transits[i].TransitSystem.TransitLimit, 
                         null);
                 node.Edges.Add(
@@ -451,7 +456,7 @@ namespace SpaceOpera.Core.Universe
                             GetOrCreateNode(
                                 transits[(i + transits.Count - 1) % transits.Count], 
                                 starSystem,
-                                transits[(i + transits.Count - 1) % transits.Count],
+                                null,
                                 starSystem.TransitLimit,
                                 null),
                             NavigableEdgeType.Space,
@@ -466,7 +471,7 @@ namespace SpaceOpera.Core.Universe
                             GetOrCreateNode(
                                 transits[(i + 1) % transits.Count],
                                 starSystem,
-                                transits[(i + 1) % transits.Count],
+                                null,
                                 starSystem.TransitLimit,
                                 null),
                             NavigableEdgeType.Space,

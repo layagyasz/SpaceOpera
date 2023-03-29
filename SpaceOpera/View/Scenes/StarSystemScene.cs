@@ -103,6 +103,12 @@ namespace SpaceOpera.View.Scenes
 
             target.PopProjectionMatrix();
             target.PopViewMatrix();
+
+            context.Flatten();
+            foreach (var subSystem in _subSystems!)
+            {
+                subSystem.DrawFormationLayer(target, context);
+            }
         }
 
         public float? GetRayIntersection(Ray3 ray)

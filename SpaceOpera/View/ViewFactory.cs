@@ -6,6 +6,7 @@ using Cardamom.Ui.Elements;
 using SpaceOpera.Controller;
 using SpaceOpera.Core;
 using SpaceOpera.View.FactionViews;
+using SpaceOpera.View.FormationViews;
 using SpaceOpera.View.GalaxyViews;
 using SpaceOpera.View.Icons;
 using SpaceOpera.View.Overlay;
@@ -64,22 +65,22 @@ namespace SpaceOpera.View
                     viewData.Icons,
                     viewData.DesignedComponentIconConfigs.ToEnumMap(x => x.ComponentType, x => x),
                     uiElementFactory);
+            FormationLayerFactory formationLayerFactory = new(uiElementFactory, iconFactory);
             return new(
                 uiElementFactory,
                 new(
-                    uiElementFactory,
-                    iconFactory,
                     galaxyViewFactory, 
                     stellarBodyViewFactory,
                     new(
                         starViewFactory,
                         stellarBodyViewFactory,
+                        formationLayerFactory,
                         viewData.GameResources!.GetShader("shader-transit"),
                         viewData.GameResources!.GetShader("shader-border"),
                         viewData.GameResources!.GetShader("shader-default-no-tex"),
                         viewData.GameResources!.GetShader("shader-pin")),
                     starViewFactory,
-                    viewData.HumanEyeSensitivity!,
+                    formationLayerFactory,
                     viewData.GameResources!.GetShader("shader-default"),
                     viewData.GameResources!.GetShader("shader-border"),
                     viewData.GameResources!.GetShader("shader-default-no-tex")), 

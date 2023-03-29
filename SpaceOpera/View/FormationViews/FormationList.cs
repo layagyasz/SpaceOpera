@@ -64,7 +64,7 @@ namespace SpaceOpera.View.FormationViews
             if (Visible)
             {
                 var t = transformed / transformed.W;
-                float d = 20 * (1 - t.Z) - 10;
+                float d = -10 * t.Z;
                 var window = context.NdcToWindow(t.Xy);
                 if (_offset == null)
                 {

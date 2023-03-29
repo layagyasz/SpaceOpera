@@ -76,6 +76,11 @@ namespace SpaceOpera.View.StarSystemViews
             target.PopModelMatrix();
         }
 
+        public void DrawFormationLayer(RenderTarget target, UiContext context)
+        {
+            _view!.DrawFormationLayer(target, context);
+        }
+
         public void Initialize()
         {
             Controller.Bind(this);
