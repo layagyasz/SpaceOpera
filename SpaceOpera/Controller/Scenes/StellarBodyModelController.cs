@@ -26,7 +26,7 @@ namespace SpaceOpera.Controller.Scenes
             var builder = new KdTree<StellarBodySubRegion>.Builder().SetCardinality(3);
             foreach (var region in stellarBody.Regions.SelectMany(x => x.SubRegions))
             {
-                var pos = radius * region.Center.Normalized();
+                var pos = radius * region.Center;
                 builder.Add(new HyperVector(pos.X, pos.Y, pos.Z), region);
             }
             return new(builder.Build());

@@ -26,6 +26,7 @@ using SpaceOpera.Controller;
 using SpaceOpera.View.FormationViews;
 using Cardamom.Ui;
 using SpaceOpera.View.Icons;
+using Cardamom.Ui.Controller;
 
 namespace SpaceOpera.View.Scenes
 {
@@ -240,7 +241,7 @@ namespace SpaceOpera.View.Scenes
                 _skyBox);
         }
 
-        public IGameScene Create(StellarBody stellarBody)
+        public IGameScene Create(World? world, StellarBody stellarBody)
         {
             var model = StellarBodyViewFactory.Create(stellarBody, 1f, true);
             var stellarBodyController = StellarBodyModelController.Create(stellarBody, model.Radius);
@@ -278,6 +279,13 @@ namespace SpaceOpera.View.Scenes
                     BorderShader,
                     FillShader);
 
+            var formationLayer = 
+                FormationLayerFactory.CreateForStellarBody(
+                    world, 
+                    stellarBody,
+                    model.Radius * (1 + s_StellarBodySceneSurfaceHighlightHeight / stellarBody.Radius),
+                    model.Radius * s_StellarBodySceneOrbitHeightFactor);
+
             var controller =
                 new SceneController(
                     new SubjectiveCamera3dController(camera, model.Radius)
@@ -291,7 +299,8 @@ namespace SpaceOpera.View.Scenes
                                 s_StellarBodyCameraZoomRange.Minimum * model.Radius, 
                                 s_StellarBodyCameraZoomRange.Maximum * model.Radius)
                     },
-                    stellarBodyController);
+                    stellarBodyController,
+                    (IActionController)formationLayer.Controller);
             float logDistance = MathF.Log(stellarBody.Orbit.GetAverageDistance() + 1);
             _skyBox ??= CreateSkybox();
             return new StellarBodyScene(
@@ -308,6 +317,7 @@ namespace SpaceOpera.View.Scenes
                 star,
                 surfaceHighlight,
                 orbitHighlight,
+                formationLayer,
                 _skyBox);
         }
 

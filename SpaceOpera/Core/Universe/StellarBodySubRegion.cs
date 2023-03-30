@@ -35,7 +35,7 @@ namespace SpaceOpera.Core.Universe
         public void SetNeighbors(IEnumerable<StellarBodySubRegion> neighbors)
         {
             Neighbors = neighbors.ToArray();
-            var comparer = new ClockwiseVector3Comparer(Center, Center.Normalized(), Neighbors[0].Center - Center);
+            var comparer = new ClockwiseVector3Comparer(Center, Center, Neighbors[0].Center - Center);
             Array.Sort(Neighbors, (x, y) => comparer.Compare(x.Center, y.Center));
         }
 

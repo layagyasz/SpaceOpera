@@ -6,11 +6,15 @@ namespace SpaceOpera.View.FormationViews
 {
     public interface IFormationLayerMapper<T> where T : notnull
     {
-        (object, T) MapToBucket(INavigable node);
+        (object?, T) MapToBucket(INavigable node);
         Vector3 MapToPin(T bucket);
+        float? GetOffset(T bucket);
 
         public class GalaxyMapper : IFormationLayerMapper<StarSystem>
         {
+            private static readonly float s_GalaxyOffset = 32f;
+
+
             private readonly World? _world;
             private readonly Galaxy _galaxy;
             private readonly float _scale;
@@ -22,7 +26,7 @@ namespace SpaceOpera.View.FormationViews
                 _scale = scale;
             }
 
-            public (object, StarSystem) MapToBucket(INavigable node)
+            public (object?, StarSystem) MapToBucket(INavigable node)
             {
                 return (_galaxy, _world!.NavigationMap.GetStarSystem(node));
             }
@@ -31,10 +35,17 @@ namespace SpaceOpera.View.FormationViews
             {
                 return _scale * bucket.Position;
             }
+
+            public float? GetOffset(StarSystem bucket)
+            {
+                return s_GalaxyOffset;
+            }
         }
 
-        public class SubSystemRigMapper : IFormationLayerMapper<object>
+        public class StarSystemMapper : IFormationLayerMapper<object>
         {
+            private static readonly float s_StarSystemOffset = 32f;
+
             private static readonly float s_LocalOrbitY = -0.1f;
             private static readonly float s_SolarOrbitY = -0.25f;
 
@@ -43,7 +54,7 @@ namespace SpaceOpera.View.FormationViews
             private readonly float _scale;
             private readonly Dictionary<INavigable, Vector3> _transitPins;
 
-            public SubSystemRigMapper(
+            public StarSystemMapper(
                 World? world, StarSystem starSystem, float scale, Dictionary<INavigable, Vector3> transitPins)
             {
                 _world = world;
@@ -52,11 +63,15 @@ namespace SpaceOpera.View.FormationViews
                 _transitPins = transitPins;
             }
 
-            public (object, object) MapToBucket(INavigable node)
+            public (object?, object) MapToBucket(INavigable node)
             {
-                if (node is TransitRegion)
+                if (node is TransitRegion transit)
                 {
-                    return (_starSystem, node);
+                    if (_starSystem.Transits.ContainsValue(transit))
+                    {
+                        return (_starSystem, node);
+                    }
+                    return (null, node);
                 }
                 var layer = _world!.NavigationMap.GetOrbit(node)!;
                 if (node is LocalOrbitRegion || node is SolarOrbitRegion)
@@ -74,7 +89,7 @@ namespace SpaceOpera.View.FormationViews
             {
                 if (bucket is TransitRegion region)
                 {
-                    return _transitPins[region];
+                    return _scale * _transitPins[region];
                 }
                 if (bucket is SolarOrbitRegion)
                 {
@@ -89,6 +104,60 @@ namespace SpaceOpera.View.FormationViews
                     return new();
                 }
                 throw new ArgumentException($"Unsupported bucket type: [{bucket.GetType()}]");
+            }
+
+            public float? GetOffset(object bucket)
+            {
+                return s_StarSystemOffset;
+            }
+        }
+
+        public class StellarBodyMapper : IFormationLayerMapper<INavigable>
+        {
+            private readonly World? _world;
+            private readonly StellarBody _stellarBody;
+            private readonly float _surfaceRadius;
+            private readonly float _atmosphereRadius;
+
+            public StellarBodyMapper(
+                World? world, StellarBody stellarBody, float surfaceRadius, float atmosphereRadius)
+            {
+                _world = world;
+                _stellarBody = stellarBody;
+                _surfaceRadius = surfaceRadius;
+                _atmosphereRadius = atmosphereRadius;
+            }
+
+            public (object?, INavigable) MapToBucket(INavigable node)
+            {
+                if (node is StationaryOrbitRegion orbit)
+                {
+                    if (_stellarBody.OrbitRegions.Contains(orbit))
+                    {
+                        return (_stellarBody, node);
+                    }
+                    return (null, node);
+                }
+                return (_world!.NavigationMap.GetStellarBody(node), node);
+            }
+
+            public Vector3 MapToPin(INavigable bucket)
+            {
+                if (bucket is StationaryOrbitRegion orbit)
+                {
+                    return _atmosphereRadius 
+                        * new Vector3(new Vector3(MathF.Cos(orbit.Theta), 0, MathF.Sin(orbit.Theta)));
+                }
+                if (bucket is StellarBodySubRegion region)
+                {
+                    return _surfaceRadius * region.Center;
+                }
+                throw new ArgumentException($"Unsupported bucket type: [{bucket.GetType()}]");
+            }
+
+            public float? GetOffset(INavigable bucket)
+            {
+                return null;
             }
         }
     }

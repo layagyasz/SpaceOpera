@@ -116,6 +116,9 @@ namespace SpaceOpera.View.Scenes
             target.PopProjectionMatrix();
             target.PopViewMatrix();
 
+            target.Flatten();
+            context.Flatten();
+
             _formationLayer!.Draw(target, context);
         }
 

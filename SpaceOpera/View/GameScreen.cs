@@ -40,8 +40,6 @@ namespace SpaceOpera.View
         public void Draw(RenderTarget target, UiContext context)
         {
             Scene?.Draw(target, context);
-            target.Flatten();
-            context.Flatten();
             EmpireOverlay.Draw(target, context);
             _paneLayer.Draw(target, context);
         }

@@ -12,7 +12,6 @@ namespace SpaceOpera.View.FormationViews
     {
         public object Key { get; }
 
-        private readonly float? _offset;
         private readonly UiElementFactory _uiElementFactory;
         private readonly IconFactory _iconFactory;
 
@@ -22,13 +21,11 @@ namespace SpaceOpera.View.FormationViews
 
         public FormationSubLayer(
             object key,
-            float? offset,
             UiElementFactory uiElementFactory, 
             IconFactory iconFactory)
             : base(new FormationSubLayerController<T>())
         {
             Key = key;
-            _offset = offset;
             _uiElementFactory = uiElementFactory;
             _iconFactory = iconFactory;
             Dirty();
@@ -68,11 +65,11 @@ namespace SpaceOpera.View.FormationViews
             }
         }
 
-        public void Add(IFormation formation, T bucket, Vector3 pin)
+        public void Add(IFormation formation, T bucket, Vector3 pin, float? offset)
         {
             if (!_formationLists.TryGetValue(bucket, out var list))
             {
-                list = new FormationList(pin, _offset, _uiElementFactory, _iconFactory);
+                list = new FormationList(pin, offset, _uiElementFactory, _iconFactory);
                 _formationLists.Add(bucket, list);
                 Add(list);
                 Dirty();

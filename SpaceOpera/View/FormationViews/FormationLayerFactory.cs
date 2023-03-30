@@ -8,8 +8,6 @@ namespace SpaceOpera.View.FormationViews
 {
     public class FormationLayerFactory
     {
-        private static readonly float s_GalaxyOffset = 32f;
-
         public UiElementFactory UiElementFactory { get; }
         public IconFactory IconFactory { get; }
 
@@ -26,7 +24,6 @@ namespace SpaceOpera.View.FormationViews
                     new IFormationLayerMapper<StarSystem>.GalaxyMapper(world, galaxy, scale),
                     new FormationSubLayer<StarSystem>(
                         galaxy,
-                        s_GalaxyOffset,
                         UiElementFactory,
                         IconFactory));
             if (world != null)
@@ -48,7 +45,7 @@ namespace SpaceOpera.View.FormationViews
         {
             var formationLayer =
                 new FormationLayer<object>(
-                    new IFormationLayerMapper<object>.SubSystemRigMapper(world, starSystem, scale, transitPins), 
+                    new IFormationLayerMapper<object>.StarSystemMapper(world, starSystem, scale, transitPins), 
                     subLayers);
             if (world != null)
             {
@@ -62,12 +59,30 @@ namespace SpaceOpera.View.FormationViews
 
         public FormationSubLayer<object> CreateForTransits(StarSystem starSystem)
         {
-            return new(starSystem, null, UiElementFactory, IconFactory);
+            return new(starSystem, UiElementFactory, IconFactory);
         }
 
         public FormationSubLayer<object> CreateForSubSystem(SolarOrbitRegion region)
         {
-            return new(region, null, UiElementFactory, IconFactory);
+            return new(region, UiElementFactory, IconFactory);
+        }
+
+        public FormationLayer<INavigable> CreateForStellarBody(
+            World? world, StellarBody stellarBody, float surfaceRadius, float atmosphereRadius)
+        {
+            var formationLayer =
+                new FormationLayer<INavigable>(
+                    new IFormationLayerMapper<INavigable>.StellarBodyMapper(
+                        world, stellarBody, surfaceRadius, atmosphereRadius),
+                    new FormationSubLayer<INavigable>(stellarBody, UiElementFactory, IconFactory));
+            if (world != null)
+            {
+                foreach (var fleet in world.GetFleets())
+                {
+                    formationLayer.Add(fleet);
+                }
+            }
+            return formationLayer;
         }
     }
 }

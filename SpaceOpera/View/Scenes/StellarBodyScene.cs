@@ -7,6 +7,7 @@ using Cardamom.Ui.Elements;
 using OpenTK.Mathematics;
 using SpaceOpera.Core.Universe;
 using SpaceOpera.View.Common;
+using SpaceOpera.View.FormationViews;
 using SpaceOpera.View.Highlights;
 using SpaceOpera.View.StarViews;
 
@@ -27,6 +28,7 @@ namespace SpaceOpera.View.Scenes
         private StarBuffer? _star;
         private HighlightLayer<StellarBodySubRegion, StellarBodySubRegion>? _surfaceHighlightLayer;
         private HighlightLayer<StationaryOrbitRegion, StellarBodySubRegion>? _orbitHighlightLayer;
+        private FormationLayer<INavigable>? _formationLayer;
         private readonly Skybox _skybox;
         private long _rotation = 0;
 
@@ -40,10 +42,12 @@ namespace SpaceOpera.View.Scenes
             StarBuffer star,
             HighlightLayer<StellarBodySubRegion, StellarBodySubRegion> surfaceHighlightLayer,
             HighlightLayer<StationaryOrbitRegion, StellarBodySubRegion> orbitHighlightLayer,
+            FormationLayer<INavigable> formationLayer,
             Skybox skybox)
         {
             Controller = controller;
             Camera = camera;
+            Camera.Changed += HandleCameraChange;
             _stellarBodyModel = stellarBodyModel;
             _stellarBodyModel.Parent = this;
             _surfaceShader = surfaceShader;
@@ -52,11 +56,13 @@ namespace SpaceOpera.View.Scenes
             _star = star;
             _surfaceHighlightLayer = surfaceHighlightLayer;
             _orbitHighlightLayer = orbitHighlightLayer;
+            _formationLayer = formationLayer;
             _skybox = skybox;
         }
 
         protected override void DisposeImpl()
         {
+            Camera.Changed -= HandleCameraChange;
             _star!.Dispose();
             _star = null;
             _stellarBodyModel!.Dispose();
@@ -65,6 +71,8 @@ namespace SpaceOpera.View.Scenes
             _surfaceHighlightLayer = null;
             _orbitHighlightLayer!.Dispose();
             _orbitHighlightLayer = null;
+            _formationLayer!.Dispose();
+            _formationLayer = null;
         }
 
         public void Draw(RenderTarget target, UiContext context)
@@ -97,9 +105,15 @@ namespace SpaceOpera.View.Scenes
             _stellarBodyModel!.Draw(target, context);
             _surfaceHighlightLayer!.Draw(target, context);
             _orbitHighlightLayer!.Draw(target, context);
+            _formationLayer!.UpdateFromCamera(target, context);
 
             target.PopProjectionMatrix();
             target.PopViewMatrix();
+
+            _formationLayer.Draw(target, context);
+
+            target.Flatten();
+            context.Flatten();
         }
 
         public float? GetRayIntersection(Ray3 ray)
@@ -110,6 +124,7 @@ namespace SpaceOpera.View.Scenes
         public void Initialize()
         {
             _stellarBodyModel!.Initialize();
+            _formationLayer!.Initialize();
             Controller.Bind(this);
         }
 
@@ -128,6 +143,11 @@ namespace SpaceOpera.View.Scenes
         {
             _rotation += delta;
             _stellarBodyModel!.Update(delta);
+        }
+
+        private void HandleCameraChange(object? sender, EventArgs e)
+        {
+            _formationLayer!.Dirty();
         }
     }
 }

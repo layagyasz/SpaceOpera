@@ -117,7 +117,7 @@ namespace SpaceOpera.Core.Universe.Generator
             List<SubRegionWrapper> subRegionWrappers = new();
             for (int i=0;i<subRegionCount;++i)
             {
-                var subRegion = new StellarBodySubRegion(i, radius * centers[i], biomes[i]);
+                var subRegion = new StellarBodySubRegion(i, centers[i], biomes[i]);
                 subRegionWrappers.Add(new SubRegionWrapper(subRegion));
             }
             
@@ -222,6 +222,7 @@ namespace SpaceOpera.Core.Universe.Generator
             }
 
             int atmosphericRegionCount = (int)(2 * Math.PI * radius * AtmosphereGenerator!.RegionDensity) + 1;
+            float atmosphereArc = MathF.Tau / atmosphericRegionCount;
             List<List<StellarBodySubRegion>> atmosphereRegionMembers = new();
             for (int i=0; i<atmosphericRegionCount; ++i)
             {
@@ -238,8 +239,9 @@ namespace SpaceOpera.Core.Universe.Generator
             var orbitRegions = new List<StationaryOrbitRegion>();
             for (int i=0; i< atmosphericRegionCount; ++i)
             {
-                var region = new StationaryOrbitRegion(string.Format("Atmosphere {0}", i), atmosphereRegionMembers[i]);
-                orbitRegions.Add(region);
+                orbitRegions.Add(
+                    new(
+                        string.Format("Atmosphere {0}", i), (i + 0.5f) * atmosphereArc, atmosphereRegionMembers[i]));
             }
 
             float mass = 4 * Density * MathF.PI * radius * radius * radius / 3;

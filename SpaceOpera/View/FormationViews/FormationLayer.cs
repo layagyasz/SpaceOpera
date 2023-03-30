@@ -20,6 +20,7 @@ namespace SpaceOpera.View.FormationViews
             _mapper = mapper;
             _subLayers.Add(singleSubLayer.Key, singleSubLayer);
             Add(singleSubLayer);
+            Dirty();
         }
 
         public FormationLayer(IFormationLayerMapper<T> mapper, IEnumerable<FormationSubLayer<T>> subLayers)
@@ -31,6 +32,7 @@ namespace SpaceOpera.View.FormationViews
                 _subLayers.Add(subLayer.Key, subLayer);
                 Add(subLayer);
             }
+            Dirty();
         }
 
         public void Add(IFormation formation)
@@ -91,10 +93,10 @@ namespace SpaceOpera.View.FormationViews
             {
                 return;
             }
-            var group = _mapper.MapToBucket(location);
-            if (_subLayers.TryGetValue(group.Item1, out var subLayer))
+            (var layer, var bucket) = _mapper.MapToBucket(location);
+            if (layer != null && _subLayers.TryGetValue(layer, out var subLayer))
             {
-                subLayer.Add(formation, group.Item2, _mapper.MapToPin(group.Item2));
+                subLayer.Add(formation, bucket, _mapper.MapToPin(bucket), _mapper.GetOffset(bucket));
                 Dirty();
             }
         }
@@ -105,10 +107,10 @@ namespace SpaceOpera.View.FormationViews
             {
                 return;
             }
-            var group = _mapper.MapToBucket(location);
-            if (_subLayers.TryGetValue(group.Item1, out var list))
+            (var layer, var bucket) = _mapper.MapToBucket(location);
+            if (layer != null && _subLayers.TryGetValue(layer, out var list))
             {
-                list.Remove(formation, group.Item2);
+                list.Remove(formation, bucket);
             }
         }
     }

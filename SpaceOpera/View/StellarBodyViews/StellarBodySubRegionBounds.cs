@@ -10,7 +10,6 @@ namespace SpaceOpera.View.StellarBodyViews
         public static SpaceSubRegionBounds ComputeBounds(StellarBodySubRegion region, float radius)
         {
             var edges = new SpaceSubRegionBounds.Edge[region.Neighbors!.Length];
-            var normal = region.Center.Normalized();
             for (int i = 0; i < region.Neighbors.Length; ++i)
             {
                 edges[i] = 
@@ -23,7 +22,7 @@ namespace SpaceOpera.View.StellarBodyViews
                             radius * ComputeCircumcenterDeterministic(region, i).Normalized()), -1, -1);
             }
 
-            return SpaceSubRegionBounds.FromEdges(radius * normal, normal, edges, Array.Empty<Line3?>());
+            return SpaceSubRegionBounds.FromEdges(radius * region.Center, region.Center, edges, Array.Empty<Line3?>());
         }
 
         private static Vector3 ComputeCircumcenterDeterministic(StellarBodySubRegion region, int index)

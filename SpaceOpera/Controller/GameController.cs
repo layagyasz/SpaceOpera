@@ -117,7 +117,7 @@ namespace SpaceOpera.Controller
             }
             else if (sceneObject is StellarBody stellarBody)
             {
-                ChangeSceneTo(_viewFactory.SceneFactory.Create(stellarBody), cleanUp);
+                ChangeSceneTo(_viewFactory.SceneFactory.Create(_world, stellarBody), cleanUp);
             }
             else
             {
