@@ -6,6 +6,8 @@ using Cardamom.Ui.Controller.Element;
 using OpenTK.Mathematics;
 using SpaceOpera.Core.Universe;
 using SpaceOpera.View.Common;
+using SpaceOpera.View.FormationViews;
+using SpaceOpera.View.GalaxyViews;
 using SpaceOpera.View.Highlights;
 using SpaceOpera.View.StarSystemViews;
 
@@ -24,6 +26,8 @@ namespace SpaceOpera.View.Scenes
         private StarSubSystemRig[]? _subSystems;
         private readonly SubRegionInteractor[] _interactors;
         private HighlightLayer<INavigable, INavigable>? _highlightLayer;
+        private FormationLayer<object>? _formationLayer;
+        private FormationSubLayer<object>? _formationSubLayer;
         private readonly Skybox _skybox;
 
         public StarSystemScene(
@@ -36,6 +40,8 @@ namespace SpaceOpera.View.Scenes
             StarSubSystemRig[] subSystems,
             SubRegionInteractor[] interactors,
             HighlightLayer<INavigable, INavigable> highlightLayer,
+            FormationLayer<object> formationLayer,
+            FormationSubLayer<object> formationSubLayer,
             Skybox skybox)
         {
             Controller = controller;
@@ -55,6 +61,8 @@ namespace SpaceOpera.View.Scenes
                 interactor.Parent = this;
             }
             _highlightLayer = highlightLayer;
+            _formationLayer = formationLayer;
+            _formationSubLayer = formationSubLayer;
             _skybox = skybox;
         }
 
@@ -69,6 +77,9 @@ namespace SpaceOpera.View.Scenes
             _subSystems = null;
             _highlightLayer!.Dispose();
             _highlightLayer = null;
+            _formationLayer!.Dispose();
+            _formationLayer = null;
+            _formationSubLayer = null;
         }
 
         public void Draw(RenderTarget target, UiContext context)
@@ -100,15 +111,12 @@ namespace SpaceOpera.View.Scenes
             }
             _highlightLayer!.Draw(target, context);
             _model!.Draw(target, context);
+            _formationSubLayer!.UpdateFromCamera(target, context);
 
             target.PopProjectionMatrix();
             target.PopViewMatrix();
 
-            context.Flatten();
-            foreach (var subSystem in _subSystems!)
-            {
-                subSystem.DrawFormationLayer(target, context);
-            }
+            _formationLayer!.Draw(target, context);
         }
 
         public float? GetRayIntersection(Ray3 ray)
@@ -119,6 +127,7 @@ namespace SpaceOpera.View.Scenes
         public void Initialize()
         {
             _model!.Initialize();
+            _formationLayer!.Initialize();
             foreach (var subSystem in _subSystems!)
             {
                 subSystem.Initialize();
@@ -146,6 +155,12 @@ namespace SpaceOpera.View.Scenes
             {
                 subSystem.Update(delta);
             }
+        }
+
+        private void HandleCameraUpdate(object? sender, EventArgs e)
+        {
+            _model!.Dirty();
+            _formationLayer!.Dirty();
         }
     }
 }

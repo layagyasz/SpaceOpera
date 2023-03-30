@@ -1,4 +1,5 @@
 ﻿using Cardamom.Ui;
+using OpenTK.Mathematics;
 using SpaceOpera.Core;
 using SpaceOpera.Core.Universe;
 using SpaceOpera.View.Icons;
@@ -18,42 +19,55 @@ namespace SpaceOpera.View.FormationViews
             IconFactory = iconFactory;
         }
 
-        public FormationLayer<StarSystem>? CreateForGalaxy(World? world, float scale)
+        public FormationLayer<StarSystem> CreateForGalaxy(World? world, Galaxy galaxy, float scale)
         {
-            if (world == null)
-            {
-                return null;
-            }
             var formationLayer =
                 new FormationLayer<StarSystem>(
-                    new IFormationLayerMapper<StarSystem>.GalaxyMapper(world, scale),
-                    s_GalaxyOffset,
-                    UiElementFactory,
-                    IconFactory);
-            foreach (var fleet in world.GetFleets())
+                    new IFormationLayerMapper<StarSystem>.GalaxyMapper(world, galaxy, scale),
+                    new FormationSubLayer<StarSystem>(
+                        galaxy,
+                        s_GalaxyOffset,
+                        UiElementFactory,
+                        IconFactory));
+            if (world != null)
             {
-                formationLayer.Add(fleet);
+                foreach (var fleet in world.GetFleets())
+                {
+                    formationLayer.Add(fleet);
+                }
             }
             return formationLayer;
         }
 
-        public FormationLayer<object>? CreateForSubSystem(World? world, SolarOrbitRegion region, float scale)
+        public FormationLayer<object> CreateForSystem(
+            IEnumerable<FormationSubLayer<object>> subLayers, 
+            Dictionary<INavigable, Vector3> transitPins, 
+            World? world,
+            StarSystem starSystem, 
+            float scale)
         {
-            if (world == null)
-            {
-                return null;
-            }
             var formationLayer =
                 new FormationLayer<object>(
-                    new IFormationLayerMapper<object>.SubSystemRigMapper(world, region, scale),
-                    null,
-                    UiElementFactory,
-                    IconFactory);
-            foreach (var fleet in world.GetFleets())
+                    new IFormationLayerMapper<object>.SubSystemRigMapper(world, starSystem, scale, transitPins), 
+                    subLayers);
+            if (world != null)
             {
-                formationLayer.Add(fleet);
+                foreach (var fleet in world.GetFleets())
+                {
+                    formationLayer.Add(fleet);
+                }
             }
             return formationLayer;
+        }
+
+        public FormationSubLayer<object> CreateForTransits(StarSystem starSystem)
+        {
+            return new(starSystem, null, UiElementFactory, IconFactory);
+        }
+
+        public FormationSubLayer<object> CreateForSubSystem(SolarOrbitRegion region)
+        {
+            return new(region, null, UiElementFactory, IconFactory);
         }
     }
 }

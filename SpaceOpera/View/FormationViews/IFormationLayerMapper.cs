@@ -6,29 +6,25 @@ namespace SpaceOpera.View.FormationViews
 {
     public interface IFormationLayerMapper<T> where T : notnull
     {
-        bool Contains(T bucket);
-        T MapToBucket(INavigable node);
+        (object, T) MapToBucket(INavigable node);
         Vector3 MapToPin(T bucket);
 
         public class GalaxyMapper : IFormationLayerMapper<StarSystem>
         {
-            private readonly World _world;
+            private readonly World? _world;
+            private readonly Galaxy _galaxy;
             private readonly float _scale;
 
-            public GalaxyMapper(World world, float scale)
+            public GalaxyMapper(World? world, Galaxy galaxy, float scale)
             {
                 _world = world;
+                _galaxy = galaxy;
                 _scale = scale;
             }
 
-            public bool Contains(StarSystem bucket)
+            public (object, StarSystem) MapToBucket(INavigable node)
             {
-                return true;
-            }
-
-            public StarSystem MapToBucket(INavigable node)
-            {
-                return _world.NavigationMap.GetStarSystem(node);
+                return (_galaxy, _world!.NavigationMap.GetStarSystem(node));
             }
 
             public Vector3 MapToPin(StarSystem bucket)
@@ -42,49 +38,44 @@ namespace SpaceOpera.View.FormationViews
             private static readonly float s_LocalOrbitY = -0.1f;
             private static readonly float s_SolarOrbitY = -0.25f;
 
-            private readonly World _world;
-            private readonly SolarOrbitRegion _region;
+            private readonly World? _world;
+            private readonly StarSystem _starSystem;
             private readonly float _scale;
+            private readonly Dictionary<INavigable, Vector3> _transitPins;
 
-            public SubSystemRigMapper(World world, SolarOrbitRegion region, float scale)
+            public SubSystemRigMapper(
+                World? world, StarSystem starSystem, float scale, Dictionary<INavigable, Vector3> transitPins)
             {
                 _world = world;
-                _region = region;
+                _starSystem = starSystem;
                 _scale = scale;
+                _transitPins = transitPins;
             }
 
-            public bool Contains(object bucket)
+            public (object, object) MapToBucket(INavigable node)
             {
-                if (bucket is SolarOrbitRegion)
+                if (node is TransitRegion)
                 {
-                    return bucket == _region;
+                    return (_starSystem, node);
                 }
-                if (bucket is LocalOrbitRegion)
-                {
-                    return bucket == _region.LocalOrbit;
-                }
-                if (bucket is StellarBody)
-                {
-                    return bucket == _region.LocalOrbit.StellarBody;
-                }
-                return false;
-            }
-
-            public object MapToBucket(INavigable node)
-            {
+                var layer = _world!.NavigationMap.GetOrbit(node)!;
                 if (node is LocalOrbitRegion || node is SolarOrbitRegion)
                 {
-                    return node;
+                    return (layer, node);
                 }
                 if (node is StationaryOrbitRegion orbit)
                 {
-                    return _world.NavigationMap.GetOrbit(orbit)!.LocalOrbit.StellarBody;
+                    return (layer, _world!.NavigationMap.GetOrbit(orbit)!.LocalOrbit.StellarBody);
                 }
-                return _world.NavigationMap.GetStellarBody(node)!;
+                return (layer, _world!.NavigationMap.GetStellarBody(node)!);
             }
 
             public Vector3 MapToPin(object bucket)
             {
+                if (bucket is TransitRegion region)
+                {
+                    return _transitPins[region];
+                }
                 if (bucket is SolarOrbitRegion)
                 {
                     return _scale * new Vector3(0, s_SolarOrbitY, 0);
@@ -93,7 +84,7 @@ namespace SpaceOpera.View.FormationViews
                 {
                     return _scale * new Vector3(0, s_LocalOrbitY, 0);
                 }
-                if (bucket is StellarBody)
+                if (bucket is StellarBody || bucket is TransitRegion)
                 {
                     return new();
                 }

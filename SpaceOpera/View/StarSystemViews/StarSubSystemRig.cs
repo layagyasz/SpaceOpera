@@ -5,6 +5,7 @@ using OpenTK.Mathematics;
 using SpaceOpera.Core;
 using SpaceOpera.Core.Universe;
 using SpaceOpera.View.Common;
+using SpaceOpera.View.FormationViews;
 using SpaceOpera.View.Highlights;
 
 namespace SpaceOpera.View.StarSystemViews
@@ -76,9 +77,9 @@ namespace SpaceOpera.View.StarSystemViews
             target.PopModelMatrix();
         }
 
-        public void DrawFormationLayer(RenderTarget target, UiContext context)
+        public FormationSubLayer<object> GetFormationSubLayer()
         {
-            _view!.DrawFormationLayer(target, context);
+            return _view!.GetFormationSubLayer();
         }
 
         public void Initialize()

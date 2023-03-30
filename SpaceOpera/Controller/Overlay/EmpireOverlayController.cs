@@ -10,7 +10,7 @@ namespace SpaceOpera.Controller.Overlay
     {
         public EventHandler<UiInteractionEventArgs>? Interacted { get; set; }
 
-        private EmpireOverlay? _overlay;
+        private IUiContainer? _overlay;
 
         public void Bind(object @object)
         {

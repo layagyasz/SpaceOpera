@@ -92,8 +92,7 @@ namespace SpaceOpera.View.StarSystemViews
             return new(starBuffer, new(guidelineBuffer, GuidelineShader));
         }
 
-        public StarSubSystemRig Create(
-            World? world, SolarOrbitRegion orbit, StarCalendar calendar, float radius, float scale)
+        public StarSubSystemRig Create(SolarOrbitRegion orbit, StarCalendar calendar, float radius, float scale)
         {
             Vertex3[] pin = new Vertex3[2];
             pin[0] = new(scale * new Vector3(0, s_PinYRange.Minimum, 0), s_PinColor, new());
@@ -113,7 +112,6 @@ namespace SpaceOpera.View.StarSystemViews
             };
             var stellarBody = 
                 StellarBodyViewFactory.Create(orbit.LocalOrbit.StellarBody, s_StellarBodyScale * scale, false);
-            var controllers = new List<IActionController>();
             var interactors = new SubRegionInteractor[]
             {
                 new(
@@ -125,7 +123,6 @@ namespace SpaceOpera.View.StarSystemViews
                         scale * new Vector3(0, s_LocalOrbitY, 0), Vector3.UnitY, scale * s_LocalOrbitScale * radius)),
                 new(new SubRegionController(orbit.LocalOrbit.StellarBody), new Sphere(new(), stellarBody.Radius))
             };
-            controllers.AddRange(interactors.Select(x => x.Controller).Cast<IActionController>());
 
             var highlight =
                 new HighlightLayer<INavigable, INavigable>(
@@ -137,14 +134,9 @@ namespace SpaceOpera.View.StarSystemViews
                     BorderShader,
                     FillShader);
 
-            var formationLayer = FormationLayerFactory.CreateForSubSystem(world, orbit, scale);
-            if (formationLayer != null)
-            {
-                controllers.Add((IActionController)formationLayer.Controller);
-            }
-
+            var formationLayer = FormationLayerFactory.CreateForSubSystem(orbit);
             return new(
-                new RigController(controllers.ToArray()),
+                new RigController(interactors.Select(x => x.Controller).Cast<IActionController>().ToArray()),
                 orbit.LocalOrbit.StellarBody,
                 calendar, 
                 new(

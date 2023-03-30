@@ -1,17 +1,18 @@
 ﻿using Cardamom.Ui;
+using Cardamom.Ui.Controller.Element;
 using SpaceOpera.View.FormationViews;
 
 namespace SpaceOpera.Controller.FormationsViews
 {
-    public class FormationLayerController<T> : IActionController where T : notnull
+    public class FormationSubLayerController<T> : IActionController where T : notnull
     {
         public EventHandler<UiInteractionEventArgs>? Interacted { get; set; }
 
-        private FormationLayer<T>? _layer;
+        private FormationSubLayer<T>? _layer;
 
         public void Bind(object @object)
         {
-            _layer = (FormationLayer<T>)@object!;
+            _layer = (FormationSubLayer<T>)@object!;
             _layer.ElementAdded += HandleElementAdded;
             _layer.ElementRemoved += HandleElementRemoved;
             foreach (var element in _layer)
@@ -33,16 +34,16 @@ namespace SpaceOpera.Controller.FormationsViews
 
         private void BindElement(object @object)
         {
-            var element = (FormationSubLayer<T>)@object;
-            var controller = (FormationSubLayerController<T>)element.Controller;
-            controller.Interacted += HandleInteraction;
+            var element = (FormationList)@object;
+            var controller = (TableController)element.Controller;
+            controller.ElementClicked += HandleElementClicked;
         }
 
         private void UnbindElement(object @object)
         {
-            var element = (FormationSubLayer<T>)@object;
-            var controller = (FormationSubLayerController<T>)element.Controller;
-            controller.Interacted -= HandleInteraction;
+            var element = (FormationList)@object;
+            var controller = (TableController)element.Controller;
+            controller.ElementClicked -= HandleElementClicked;
         }
 
         private void HandleElementAdded(object? sender, ElementEventArgs e)
@@ -55,9 +56,10 @@ namespace SpaceOpera.Controller.FormationsViews
             UnbindElement(e);
         }
 
-        private void HandleInteraction(object? sender, UiInteractionEventArgs e)
+        private void HandleElementClicked(object? sender, ElementClickedEventArgs e)
         {
-            Interacted?.Invoke(this, e);
+            var row = (FormationRow)((ButtonController)e.Element).GetElement();
+            Interacted?.Invoke(this, UiInteractionEventArgs.Create(row.GetFormations(), e.MouseEvent.Button));
         }
     }
 }

@@ -97,7 +97,6 @@ namespace SpaceOpera.View.Scenes
                     new Disk(s_GalaxyScale * s_GalaxyFloor, Vector3.UnitY, r), 
                     galaxyController);
             var camera = new SubjectiveCamera3d(s_SkyboxRadius + 10);
-            camera.Changed += (s, e) => model.Dirty();
             camera.SetDistance(0.05f);
             camera.SetPitch(-0.125f * MathHelper.Pi);
             camera.SetYaw(MathHelper.PiOver2);
@@ -115,12 +114,8 @@ namespace SpaceOpera.View.Scenes
                     BorderShader, 
                     FillShader);
 
-            var formationLayer = FormationLayerFactory.CreateForGalaxy(world, s_GalaxyScale);
-            if (formationLayer != null)
-            {
-                controllers.Add((IActionController)formationLayer.Controller);
-                camera.Changed += (s, e) => formationLayer.Dirty();
-            }
+            var formationLayer = FormationLayerFactory.CreateForGalaxy(world, galaxy, s_GalaxyScale);
+            controllers.Add((IActionController)formationLayer.Controller);
 
             var controller =
                 new SceneController(
@@ -158,7 +153,6 @@ namespace SpaceOpera.View.Scenes
                 var d = MathF.Log(starSystem.Orbiters[i].Orbit.GetAverageDistance() + 1);
                 rigs[i] = 
                     StarSystemViewFactory.Create(
-                        world,
                         starSystem.OrbitalRegions[i],
                         calendar,
                         Math.Min(distances[i + 1] - d, d - distances[i]),
@@ -169,11 +163,13 @@ namespace SpaceOpera.View.Scenes
             var transitDistance = 0.5f * (outerLimit + transitLimit);
             var transitRadius = 0.5f * (transitLimit - outerLimit);
             var bounds = new Dictionary<INavigable, SpaceSubRegionBounds>();
+            var transitPositions = new Dictionary<INavigable, Vector3>();
             var interactors = new SubRegionInteractor[starSystem.Transits.Count];
             int t = 0;
             foreach (var transit in starSystem.Transits)
             {
                 var position = transitDistance * new Vector3(MathF.Cos(transit.Key), 0, MathF.Sin(transit.Key));
+                transitPositions.Add(transit.Value, position);
                 bounds.Add(
                     transit.Value,
                     StarSystemSubRegionBounds.ComputeBounds(
@@ -187,10 +183,23 @@ namespace SpaceOpera.View.Scenes
             }
 
             var camera = new SubjectiveCamera3d(s_SkyboxRadius + 10);
-            camera.Changed += (s, e) => model.Dirty();
             camera.SetDistance(r);
             camera.SetPitch(-MathHelper.PiOver2 + 0.01f);
             camera.SetYaw(MathHelper.PiOver2);
+
+            var formationSubLayer = FormationLayerFactory.CreateForTransits(starSystem);
+            var formationLayer =
+                FormationLayerFactory.CreateForSystem(
+                    Enumerable.Repeat(formationSubLayer, 1).Concat(rigs.Select(x => x.GetFormationSubLayer())),
+                    transitPositions, 
+                    world,
+                    starSystem,
+                    s_StarSystemScale);
+
+            var subControllers = new List<IActionController>();
+            subControllers.AddRange(interactors.Select(x => x.Controller).Cast<IActionController>());
+            subControllers.AddRange(rigs.Select(x => x.Controller).Cast<IActionController>());
+            subControllers.Add((IActionController)formationLayer.Controller);
 
             var controller =
                 new SceneController(
@@ -202,10 +211,7 @@ namespace SpaceOpera.View.Scenes
                         PitchRange = new(-MathHelper.PiOver2 + 0.01f, -0.125f * MathHelper.Pi),
                         DistanceRange = new(0.05f, r)
                     },
-                    Enumerable.Concat(
-                        interactors.Select(x => x.Controller), 
-                        rigs.Select(x => x.Controller))
-                        .Cast<IActionController>().ToArray());
+                    subControllers.ToArray());
 
             _skyBox ??= CreateSkybox();
             return new StarSystemScene(
@@ -229,6 +235,8 @@ namespace SpaceOpera.View.Scenes
                     Matrix4.Identity,
                     BorderShader, 
                     FillShader),
+                formationLayer,
+                formationSubLayer,
                 _skyBox);
         }
 

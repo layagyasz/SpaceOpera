@@ -8,6 +8,7 @@ using Cardamom.Ui.Elements;
 using SpaceOpera.Core.Universe;
 using SpaceOpera.View.Highlights;
 using SpaceOpera.View.FormationViews;
+using SpaceOpera.View.GalaxyViews;
 
 namespace SpaceOpera.View.Scenes
 {
@@ -27,11 +28,12 @@ namespace SpaceOpera.View.Scenes
             ICamera camera, 
             InteractiveModel galaxyModel,
             HighlightLayer<StarSystem, StarSystem> highlightLayer,
-            FormationLayer<StarSystem>? formationLayer,
+            FormationLayer<StarSystem> formationLayer,
             Skybox skybox)
         {
             Controller = controller;
             Camera = camera;
+            Camera.Changed += HandleCameraUpdate;
             _galaxyModel = galaxyModel;
             _galaxyModel.Parent = this;
             _highlightLayer = highlightLayer;
@@ -41,11 +43,12 @@ namespace SpaceOpera.View.Scenes
 
         protected override void DisposeImpl()
         {
+            Camera.Changed -= HandleCameraUpdate;
             _galaxyModel!.Dispose();
             _galaxyModel = null;
             _highlightLayer!.Dispose();
             _highlightLayer = null;
-            _formationLayer?.Dispose();
+            _formationLayer!.Dispose();
             _formationLayer = null;
         }
 
@@ -58,7 +61,7 @@ namespace SpaceOpera.View.Scenes
             _skybox.Draw(target, context);
             _highlightLayer!.Draw(target, context);
             _galaxyModel!.Draw(target, context);
-            _formationLayer?.UpdateFromCamera(target, context);
+            _formationLayer!.UpdateFromCamera(target, context);
 
             target.PopProjectionMatrix();
             target.PopViewMatrix();
@@ -76,7 +79,7 @@ namespace SpaceOpera.View.Scenes
         {
             _galaxyModel!.Initialize();
             _highlightLayer!.Initialize();
-            _formationLayer?.Initialize();
+            _formationLayer!.Initialize();
             Controller.Bind(this);
         }
 
@@ -94,7 +97,13 @@ namespace SpaceOpera.View.Scenes
         {
             _galaxyModel!.Update(delta);
             _highlightLayer!.Update(delta);
-            _formationLayer?.Update(delta);
+            _formationLayer!.Update(delta);
+        }
+
+        private void HandleCameraUpdate(object? sender, EventArgs e)
+        {
+            ((GalaxyModel)_galaxyModel!.GetModel()).Dirty();
+            _formationLayer!.Dirty();
         }
     }
 }

@@ -13,13 +13,13 @@ namespace SpaceOpera.View.StarSystemViews
     {
         private StellarBodyModel? _model;
         private HighlightLayer<INavigable, INavigable>? _highlightLayer;
-        private FormationLayer<object>? _formationLayer;
+        private FormationSubLayer<object>? _formationLayer;
         private PinBuffer? _pinBuffer;
 
         public StarSubSystemView(
             StellarBodyModel model,
             HighlightLayer<INavigable, INavigable> highlightLayer,
-            FormationLayer<object>? formationLayer,
+            FormationSubLayer<object> formationLayer,
             PinBuffer buffer)
         {
             _model = model;
@@ -34,7 +34,6 @@ namespace SpaceOpera.View.StarSystemViews
             _model = null;
             _highlightLayer!.Dispose();
             _highlightLayer = null;
-            _formationLayer?.Dispose();
             _formationLayer = null;
             _pinBuffer!.Dispose();
             _pinBuffer = null;
@@ -45,19 +44,18 @@ namespace SpaceOpera.View.StarSystemViews
             _model!.Draw(target, context);
             _pinBuffer!.Draw(target, context);
             _highlightLayer!.Draw(target, context);
-            _formationLayer?.Dirty();
-            _formationLayer?.UpdateFromCamera(target, context);
+            _formationLayer!.Dirty();
+            _formationLayer!.UpdateFromCamera(target, context);
         }
 
-        public void DrawFormationLayer(RenderTarget target, UiContext context)
+        public FormationSubLayer<object> GetFormationSubLayer()
         {
-            _formationLayer?.Draw(target, context);
+            return _formationLayer!;
         }
 
         public void Initialize()
         {
             _highlightLayer!.Initialize();
-            _formationLayer?.Initialize();
             _pinBuffer!.Initialize();
         }
 

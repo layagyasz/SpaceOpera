@@ -1,37 +1,36 @@
 ﻿using Cardamom.Graphics;
 using Cardamom.Ui;
 using Cardamom.Ui.Elements;
-using OpenTK.Mathematics;
 using SpaceOpera.Controller.FormationsViews;
 using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Universe;
-using SpaceOpera.View.Icons;
 
 namespace SpaceOpera.View.FormationViews
 {
     public class FormationLayer<T> : UiGroup where T : notnull
     {
         private readonly IFormationLayerMapper<T> _mapper;
-        private readonly float? _offset;
-        private readonly UiElementFactory _uiElementFactory;
-        private readonly IconFactory _iconFactory;
-
-        private readonly Dictionary<T, FormationList> _formationLists = new();
+        private readonly Dictionary<object, FormationSubLayer<T>> _subLayers = new();
 
         private bool _dirty;
 
-        public FormationLayer(
-            IFormationLayerMapper<T> mapper,
-            float? offset,
-            UiElementFactory uiElementFactory, 
-            IconFactory iconFactory)
+        public FormationLayer(IFormationLayerMapper<T> mapper, FormationSubLayer<T> singleSubLayer)
             : base(new FormationLayerController<T>())
         {
             _mapper = mapper;
-            _offset = offset;
-            _uiElementFactory = uiElementFactory;
-            _iconFactory = iconFactory;
-            Dirty();
+            _subLayers.Add(singleSubLayer.Key, singleSubLayer);
+            Add(singleSubLayer);
+        }
+
+        public FormationLayer(IFormationLayerMapper<T> mapper, IEnumerable<FormationSubLayer<T>> subLayers)
+            : base(new FormationLayerController<T>())
+        {
+            _mapper = mapper;
+            foreach (var subLayer in subLayers)
+            {
+                _subLayers.Add(subLayer.Key, subLayer);
+                Add(subLayer);
+            }
         }
 
         public void Add(IFormation formation)
@@ -44,19 +43,21 @@ namespace SpaceOpera.View.FormationViews
         public void Dirty()
         {
             _dirty = true;
+            foreach (var subLayer in _subLayers.Values)
+            {
+                subLayer.Dirty();
+            }
         }
 
         protected override void DisposeImpl()
         {
-            foreach (var list in _formationLists.Values)
+            foreach (var formation in _subLayers.Values.SelectMany(x => x.GetFormations()))
             {
-                foreach (var formation in list.GetFormations())
-                {
-                    formation.Moved -= HandleMove;
-                }
+                formation.Moved -= HandleMove;
             }
             base.DisposeImpl();
         }
+
 
         public void Remove(IFormation formation)
         {
@@ -69,11 +70,10 @@ namespace SpaceOpera.View.FormationViews
             if (_dirty)
             {
                 var camera = target.GetModelMatrix() * target.GetViewMatrix() * target.GetProjection().Matrix;
-                foreach (var list in _formationLists.Values)
+                foreach (var subLayer in _subLayers.Values)
                 {
-                    list.UpdateFromCamera(camera, context);
+                    subLayer.UpdateFromCamera(camera, context);
                 }
-                _elements.Sort((x, y) => ((FormationList)x).Position.Z.CompareTo(((FormationList)y).Position.Z));
                 _dirty = false;
             }
         }
@@ -92,15 +92,10 @@ namespace SpaceOpera.View.FormationViews
                 return;
             }
             var group = _mapper.MapToBucket(location);
-            if (_mapper.Contains(group))
+            if (_subLayers.TryGetValue(group.Item1, out var subLayer))
             {
-                if (!_formationLists.TryGetValue(group, out var list))
-                {
-                    list = new FormationList(_mapper.MapToPin(group), _offset, _uiElementFactory, _iconFactory);
-                    _formationLists.Add(group, list);
-                    Add(list);
-                }
-                list.Add(formation);
+                subLayer.Add(formation, group.Item2, _mapper.MapToPin(group.Item2));
+                Dirty();
             }
         }
 
@@ -111,15 +106,9 @@ namespace SpaceOpera.View.FormationViews
                 return;
             }
             var group = _mapper.MapToBucket(location);
-            if (_mapper.Contains(group) && _formationLists.TryGetValue(group, out var list))
+            if (_subLayers.TryGetValue(group.Item1, out var list))
             {
-                list.Remove(formation);
-                if (!list.Any())
-                {
-                    _formationLists.Remove(group);
-                    Remove(list);
-                    list.Dispose();
-                }
+                list.Remove(formation, group.Item2);
             }
         }
     }
