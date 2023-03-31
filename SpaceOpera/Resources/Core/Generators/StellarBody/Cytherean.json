@@ -110,9 +110,9 @@
               "$ref": "stellar-body-generator-cytherean-temperature-seed"
             },
             "Frequency": {
-              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[OpenTK.Mathematics.Vector3, OpenTK.Mathematics]], Cardamom",
               "Object": {
-                "Value": 2.0
+                "Value": [ 2, 2, 2 ]
               }
             }
           }
@@ -131,9 +131,9 @@
             }
           },
           "Frequency": {
-            "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
+            "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[OpenTK.Mathematics.Vector3, OpenTK.Mathematics]], Cardamom",
             "Object": {
-              "Value": 2.0
+              "Value": [ 2, 2, 2 ]
             }
           }
         },
@@ -150,9 +150,9 @@
               "$ref": "stellar-body-generator-cytherean-rockiness-seed"
             },
             "Frequency": {
-              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[OpenTK.Mathematics.Vector3, OpenTK.Mathematics]], Cardamom",
               "Object": {
-                "Value": 2.0
+                "Value": [ 2, 2, 2 ]
               }
             }
           }

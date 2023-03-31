@@ -119,9 +119,9 @@
               "$ref": "stellar-body-generator-ferrous-temperature-seed"
             },
             "Frequency": {
-              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[OpenTK.Mathematics.Vector3, OpenTK.Mathematics]], Cardamom",
               "Object": {
-                "Value": 2.0
+                "Value": [ 2, 2, 2 ]
               }
             }
           }
@@ -140,9 +140,9 @@
             }
           },
           "Frequency": {
-            "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
+            "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[OpenTK.Mathematics.Vector3, OpenTK.Mathematics]], Cardamom",
             "Object": {
-              "Value": 2.0
+              "Value": [ 2, 2, 2 ]
             }
           }
         },
@@ -159,9 +159,9 @@
               "$ref": "stellar-body-generator-ferrous-oxide-seed"
             },
             "Frequency": {
-              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[OpenTK.Mathematics.Vector3, OpenTK.Mathematics]], Cardamom",
               "Object": {
-                "Value": 2.0
+                "Value": [ 2, 2, 2 ]
               }
             }
           }
@@ -179,9 +179,9 @@
               "$ref": "stellar-body-generator-ferrous-crater-seed"
             },
             "Frequency": {
-              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[OpenTK.Mathematics.Vector3, OpenTK.Mathematics]], Cardamom",
               "Object": {
-                "Value": 1.5
+                "Value": [ 1.5, 1.5, 1.5 ]
               }
             },
             "Amplitude": {

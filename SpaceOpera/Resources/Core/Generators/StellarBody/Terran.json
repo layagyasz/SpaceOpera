@@ -115,9 +115,9 @@
               "$ref": "stellar-body-generator-terran-temperature-seed"
             },
             "Frequency": {
-              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[OpenTK.Mathematics.Vector3, OpenTK.Mathematics]], Cardamom",
               "Object": {
-                "Value": 2.0
+                "Value": [ 2, 2, 2 ]
               }
             }
           }
@@ -135,9 +135,9 @@
               "$ref": "stellar-body-generator-terran-height-seed"
             },
             "Frequency": {
-              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[OpenTK.Mathematics.Vector3, OpenTK.Mathematics]], Cardamom",
               "Object": {
-                "Value": 2.0
+                "Value": [ 2, 2, 2 ]
               }
             }
           }
@@ -155,9 +155,9 @@
               "$ref": "stellar-body-generator-terran-moisture-seed"
             },
             "Frequency": {
-              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[OpenTK.Mathematics.Vector3, OpenTK.Mathematics]], Cardamom",
               "Object": {
-                "Value": 2.0
+                "Value": [ 2, 2, 2 ]
               }
             }
           }

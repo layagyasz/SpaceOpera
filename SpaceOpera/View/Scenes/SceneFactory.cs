@@ -368,7 +368,7 @@ namespace SpaceOpera.View.Scenes
                                 new()
                                 {
                                     Seed = ConstantSupplier<int>.Create(GetHashCode()),
-                                    Frequency = ConstantSupplier<float>.Create(50f),
+                                    Frequency = ConstantSupplier<Vector3>.Create(new Vector3(50f)),
                                     Scale = ConstantSupplier<Interval>.Create(new Interval(0.09f, 0.11f))
                                 }))
                     .AddOutput("spot-noise")
