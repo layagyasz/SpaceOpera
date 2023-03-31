@@ -1,6 +1,5 @@
 ﻿using Cardamom.Graphics;
 using Cardamom.Ui;
-using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
 using OpenTK.Mathematics;
 using SpaceOpera.Controller.FormationsViews;
@@ -18,7 +17,6 @@ namespace SpaceOpera.View.FormationViews
 
         private readonly Dictionary<T, FormationList> _formationLists = new();
 
-        private IControlledElement? _parent;
         private bool _dirty;
 
         public FormationSubLayer(
@@ -53,15 +51,6 @@ namespace SpaceOpera.View.FormationViews
             _dirty = false;
         }
 
-        public void SetParent(IControlledElement parent)
-        {
-            _parent = parent;
-            foreach (var list in _formationLists.Values)
-            {
-                list.Parent = parent;
-            }
-        }
-
         public void UpdateFromCamera(RenderTarget target, UiContext context)
         {
             if (_dirty)
@@ -81,7 +70,6 @@ namespace SpaceOpera.View.FormationViews
             if (!_formationLists.TryGetValue(bucket, out var list))
             {
                 list = new FormationList(pin, offset, _uiElementFactory, _iconFactory);
-                list.Parent = _parent;
                 _formationLists.Add(bucket, list);
                 Add(list);
                 Dirty();

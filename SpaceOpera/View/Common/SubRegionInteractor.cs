@@ -1,7 +1,10 @@
 ﻿using Cardamom;
+using Cardamom.Graphics;
+using Cardamom.Logging;
 using Cardamom.Mathematics.Geometry;
 using Cardamom.Ui;
 using Cardamom.Ui.Controller.Element;
+using OpenTK.Mathematics;
 
 namespace SpaceOpera.View.Common
 {
@@ -18,6 +21,8 @@ namespace SpaceOpera.View.Common
             _hitbox = hitbox;
         }
 
+        public void Draw(RenderTarget target, UiContext context) { }
+
         public void Initialize()
         {
             Controller.Bind(this);
@@ -27,5 +32,9 @@ namespace SpaceOpera.View.Common
         {
             return _hitbox.GetRayIntersection(ray);
         }
+
+        public void ResizeContext(Vector3 bounds) { }
+
+        public void Update(long delta) { }
     }
 }

@@ -116,7 +116,7 @@ namespace SpaceOpera.View.Scenes
                     FillShader);
 
             var formationLayer = FormationLayerFactory.CreateForGalaxy(world, galaxy, s_GalaxyScale);
-            controllers.Add((IActionController)formationLayer.Controller);
+            controllers.Add((IActionController)formationLayer.GroupController);
 
             var controller =
                 new SceneController(
@@ -200,7 +200,7 @@ namespace SpaceOpera.View.Scenes
             var subControllers = new List<IActionController>();
             subControllers.AddRange(interactors.Select(x => x.Controller).Cast<IActionController>());
             subControllers.AddRange(rigs.Select(x => x.Controller).Cast<IActionController>());
-            subControllers.Add((IActionController)formationLayer.Controller);
+            subControllers.Add((IActionController)formationLayer.GroupController);
 
             var controller =
                 new SceneController(
@@ -300,7 +300,7 @@ namespace SpaceOpera.View.Scenes
                                 s_StellarBodyCameraZoomRange.Maximum * model.Radius)
                     },
                     stellarBodyController,
-                    (IActionController)formationLayer.Controller);
+                    (IActionController)formationLayer.GroupController);
             float logDistance = MathF.Log(stellarBody.Orbit.GetAverageDistance() + 1);
             _skyBox ??= CreateSkybox();
             return new StellarBodyScene(
