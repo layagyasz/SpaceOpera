@@ -58,6 +58,17 @@
         {
           "Generator": "Resources/Core/Generators/StellarBody/Carbide.json",
           "Weight": 0.05
+        },
+        {
+          "Generator": "Resources/Core/Generators/StellarBody/Jovian.json",
+          "Weight": 1,
+          "GravitationalRange": [ 0, 400 ]
+        },
+        {
+          "Generator": "Resources/Core/Generators/StellarBody/Caelean.json",
+          "Weight": 1,
+          "ThermalRange": [ 0, 95 ],
+          "GravitationalRange": [ 0, 400 ]
         }
       ]
     }

@@ -1,5 +1,10 @@
 [
   {
+    "$id": "biome-ammonium-band",
+    "Color": "#ececee",
+    "Roughness": 0
+  },
+  {
     "$id": "biome-barren-mountains",
     "Color": "#7b7b7b",
     "Roughness": 1
@@ -69,6 +74,11 @@
     "$id": "biome-hematite-plains",
     "Color": "#7c7c7c",
     "Roughness": 0.25
+  },
+  {
+    "$id": "biome-hydrogen-band",
+    "Color": "#c05b2d",
+    "Roughness": 0
   },
   {
     "$id": "biome-ice",

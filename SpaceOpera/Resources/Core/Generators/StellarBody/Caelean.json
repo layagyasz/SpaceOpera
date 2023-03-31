@@ -1,0 +1,202 @@
+{
+  "Key": "planet-generator-caelean",
+  "Name": "Caelean",
+  "RadiusSampler": {
+    "$type": "Uniform",
+    "Range": [ 20000, 30000 ]
+  },
+  "Density": 1270,
+  "SubRegionDensity": 0.0000004,
+  "RegionDensity": 0.00000002,
+  "StructureNodeDensity": 25000,
+  "AtmosphereGenerator": {
+    "RegionDensity": 0.0000175,
+    "TotalPressureSampler": {
+      "$type": "Constant",
+      "Value": 1
+    },
+    "PartialPressureSamplers": {
+      "material-alkane-gas": {
+        "$type": "Normal",
+        "Mean": 0.025,
+        "StandardDeviation": 0.005
+      }
+    }
+  },
+  "SurfaceGenerator": {
+    "Generators": {
+      "stellar-body-generator-caelean-gas-seed": {
+        "Type": "Cardamom.Utils.Generators.Numeric.SeedGenerator, Cardamom",
+        "Object": {}
+      },
+      "stellar-body-generator-caelean-gas-offset": {
+        "Type": "Cardamom.Utils.Generators.Numeric.FloatGenerator, Cardamom",
+        "Object": {
+          "Range": [ 0.5, 1.5 ]
+        }
+      },
+      "stellar-body-generator-caelean-bands": {
+        "Type": "Cardamom.Utils.Generators.Numeric.FloatGenerator, Cardamom",
+        "Object": {
+          "Range": [ 0, 8 ]
+        }
+      }
+    },
+    "Parameters": [
+      {
+        "$id": "stellar-body-generator-caelean-gas-seed",
+        "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Int32], Cardamom",
+        "Object": {}
+      },
+      {
+        "$id": "stellar-body-generator-caelean-gas-offset",
+        "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
+        "Object": {}
+      },
+      {
+        "$id": "stellar-body-generator-caelean-bands",
+        "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
+        "Object": {}
+      }
+    ],
+    "Pipeline": {
+      "Steps": [
+        {
+          "$type": "LatticeNoise",
+          "Key": "gas",
+          "Channel": [ "Red" ],
+          "Inputs": {
+            "input": "position"
+          },
+          "Parameters": {
+            "Seed": {
+              "$ref": "stellar-body-generator-caelean-gas-seed"
+            },
+            "Frequency": {
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[OpenTK.Mathematics.Vector3, OpenTK.Mathematics]], Cardamom",
+              "Object": {
+                "Value": [ 0.1, 2, 0.1 ]
+              }
+            }
+          }
+        },
+        {
+          "$type": "Denormalize",
+          "Key": "denormalize",
+          "Channel": [ "Red" ],
+          "Inputs": {
+            "input": "gas"
+          },
+          "Output": "gas"
+        },
+        {
+          "$type": "Combine",
+          "Key": "combine",
+          "Channel": [ "Red" ],
+          "Inputs": {
+            "left": "position",
+            "right": "denormalize"
+          },
+          "Parameters": {
+            "LeftTransform": {
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[OpenTK.Mathematics.Matrix4, OpenTK.Mathematics]], Cardamom",
+              "Object": {
+                "Value": [
+                  [ 0, 0, 0, 0 ],
+                  [ 1, 0, 0, 0 ],
+                  [ 0, 0, 0, 0 ],
+                  [ 0, 0, 0, 0 ]
+                ]
+              }
+            },
+            "RightTransform": {
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[OpenTK.Mathematics.Matrix4, OpenTK.Mathematics]], Cardamom",
+              "Object": {
+                "Value": [
+                  [ 0.1, 0, 0, 0 ],
+                  [ 0, 0, 0, 0 ],
+                  [ 0, 0, 0, 0 ],
+                  [ 0, 0, 0, 0 ]
+                ]
+              }
+            }
+          }
+        },
+        {
+          "$type": "WaveForm",
+          "Key": "wave-form",
+          "Channel": [ "Red" ],
+          "Inputs": {
+            "input": "combine"
+          },
+          "Output": "combine",
+          "Parameters": {
+            "WaveType": {
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[Cardamom.ImageProcessing.Filters.WaveForm+WaveType, Cardamom]], Cardamom",
+              "Object": {
+                "Value": "Cosine"
+              }
+            },
+            "Frequency": {
+              "Type": "Cardamom.Utils.Suppliers.Matrix.Matrix4DiagonalUniformSupplier, Cardamom",
+              "Object": {
+                "Diagonal": {
+                  "$ref": "stellar-body-generator-caelean-bands"
+                }
+              }
+            }
+          }
+        },
+        {
+          "$type": "Adjust",
+          "Key": "output",
+          "Channel": [ "Red" ],
+          "Inputs": {
+            "input": "wave-form"
+          },
+          "Parameters": {
+            "OverflowBehavior": {
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[Cardamom.ImageProcessing.OverflowBehavior, Cardamom]], Cardamom",
+              "Object": {
+                "Value": "Clamp"
+              }
+            },
+            "Gradient": {
+              "Type": "Cardamom.Utils.Suppliers.Matrix.Matrix4DiagonalUniformSupplier, Cardamom",
+              "Object": {
+                "Diagonal": {
+                  "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
+                  "Object": {
+                    "Value": 0.5
+                  }
+                }
+              }
+            },
+            "Bias": {
+              "Type": "Cardamom.Utils.Suppliers.Vector.Vector4ComponentwiseSupplier, Cardamom",
+              "Object": {
+                "X": {
+                  "$ref": "stellar-body-generator-caelean-gas-offset"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "BiomeOptions": [
+      {
+        "Biome": "biome-ammonium-band",
+        "Center": [ 0, 0, 0, 0 ],
+        "AxisWeight": [ 1, 0, 0, 0 ],
+        "BlendRange": 0.6
+      },
+      {
+        "Biome": "biome-methane-band",
+        "Center": [ 1, 0, 0, 0 ],
+        "AxisWeight": [ 1, 0, 0, 0 ],
+        "BlendRange": 1.2
+      }
+    ]
+  }
+}
