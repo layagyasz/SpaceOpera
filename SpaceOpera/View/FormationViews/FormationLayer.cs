@@ -1,5 +1,6 @@
 ﻿using Cardamom.Graphics;
 using Cardamom.Ui;
+using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
 using SpaceOpera.Controller.FormationsViews;
 using SpaceOpera.Core.Military;
@@ -12,6 +13,7 @@ namespace SpaceOpera.View.FormationViews
         private readonly IFormationLayerMapper<T> _mapper;
         private readonly Dictionary<object, FormationSubLayer<T>> _subLayers = new();
 
+        private IControlledElement? _parent;
         private bool _dirty;
 
         public FormationLayer(IFormationLayerMapper<T> mapper, FormationSubLayer<T> singleSubLayer)
@@ -65,6 +67,15 @@ namespace SpaceOpera.View.FormationViews
         {
             formation.Moved -= HandleMove;
             Remove(formation, formation.Position);
+        }
+
+        public void SetParent(IControlledElement parent)
+        {
+            _parent = parent;
+            foreach (var subLayer in _subLayers.Values)
+            {
+                subLayer.SetParent(parent);
+            }
         }
 
         public void UpdateFromCamera(RenderTarget target, UiContext context)

@@ -62,6 +62,7 @@ namespace SpaceOpera.View.Scenes
             }
             _highlightLayer = highlightLayer;
             _formationLayer = formationLayer;
+            _formationLayer.SetParent(this);
             _formationSubLayer = formationSubLayer;
             _skybox = skybox;
         }
