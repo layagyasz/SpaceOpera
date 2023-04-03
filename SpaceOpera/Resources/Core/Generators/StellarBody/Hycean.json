@@ -1,67 +1,68 @@
 {
-  "$id": "planet-generator-telluric",
-  "Name": "Telluric",
+  "Key": "planet-generator-hycean",
+  "Name": "Hycean",
   "RadiusSampler": {
     "$type": "Uniform",
-    "Range": [ 2000, 5000 ]
+    "Range": [ 6000, 18000 ]
   },
-  "Density": 3930,
-  "SubRegionDensity": 0.000004,
-  "RegionDensity": 0.0000001,
-  "StructureNodeDensity": 5000,
+  "Density": 5510,
+  "SubRegionDensity": 0.000002,
+  "RegionDensity": 0.00000005,
+  "StructureNodeDensity": 10000,
   "AtmosphereGenerator": {
-    "RegionDensity": 0.000175,
+    "RegionDensity": 0.00005,
     "TotalPressureSampler": {
       "$type": "Normal",
-      "Mean": 0.006,
-      "StandardDeviation": 0.01
+      "Mean": 4,
+      "StandardDeviation": 1.2
     },
     "PartialPressureSamplers": {
+      "material-alkane-gas": {
+        "$type": "Normal",
+        "Mean": 0.0001,
+        "StandardDeviation": 0.00005
+      },
       "material-carbox-gas": {
         "$type": "Normal",
-        "Mean": 0.95,
-        "StandardDeviation": 0.4
+        "Mean": 0.03,
+        "StandardDeviation": 0.01
       },
       "material-ingenon-gas": {
         "$type": "Normal",
-        "Mean": 0.02,
-        "StandardDeviation": 0.01
+        "Mean": 0.01,
+        "StandardDeviation": 0.005
       }
     }
   },
   "SurfaceGenerator": {
-    "HeightOutput": "wave-form",
+    "HeightOutput": "denormalize",
     "HeightChannel": "Green",
     "Generators": {
-      "stellar-body-generator-telluric-temperature-seed": {
+      "stellar-body-generator-hycean-temperature-seed": {
         "Type": "Cardamom.Utils.Generators.Numeric.SeedGenerator, Cardamom",
         "Object": {}
       },
-      "stellar-body-generator-telluric-rockiness-seed": {
+      "stellar-body-generator-hycean-height-seed": {
         "Type": "Cardamom.Utils.Generators.Numeric.SeedGenerator, Cardamom",
         "Object": {}
       },
-      "stellar-body-generator-telluric-ferrous-seed": {
+      "stellar-body-generator-hycean-moisture-seed": {
         "Type": "Cardamom.Utils.Generators.Numeric.SeedGenerator, Cardamom",
         "Object": {}
       },
-      "stellar-body-generator-telluric-crater-seed": {
-        "Type": "Cardamom.Utils.Generators.Numeric.SeedGenerator, Cardamom",
-        "Object": {}
-      },
-      "stellar-body-generator-telluric-temperature-offset": {
+      "stellar-body-generator-hycean-temperature-offset": {
         "Type": "Cardamom.Utils.Generators.Numeric.FloatGenerator, Cardamom",
         "Object": {
           "Range": [ -0.5, 1.5 ]
         }
       },
-      "stellar-body-generator-telluric-rockiness-offset": {
+      "stellar-body-generator-hycean-height-offset": {
         "Type": "Cardamom.Utils.Generators.Numeric.FloatGenerator, Cardamom",
         "Object": {
-          "Range": [ -0.5, 1.5 ]
+          "Range": [ 0, 0.25 ]
         }
       },
-      "stellar-body-generator-telluric-ferrous-offset": {
+      "stellar-body-generator-hycean-moisture-offset": {
         "Type": "Cardamom.Utils.Generators.Numeric.FloatGenerator, Cardamom",
         "Object": {
           "Range": [ -0.5, 1.5 ]
@@ -70,37 +71,32 @@
     },
     "Parameters": [
       {
-        "$id": "stellar-body-generator-telluric-temperature-seed",
+        "$id": "stellar-body-generator-hycean-temperature-seed",
         "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Int32], Cardamom",
         "Object": {}
       },
       {
-        "$id": "stellar-body-generator-telluric-rockiness-seed",
+        "$id": "stellar-body-generator-hycean-height-seed",
         "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Int32], Cardamom",
         "Object": {}
       },
       {
-        "$id": "stellar-body-generator-telluric-ferrous-seed",
+        "$id": "stellar-body-generator-hycean-moisture-seed",
         "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Int32], Cardamom",
         "Object": {}
       },
       {
-        "$id": "stellar-body-generator-telluric-crater-seed",
-        "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Int32], Cardamom",
-        "Object": {}
-      },
-      {
-        "$id": "stellar-body-generator-telluric-temperature-offset",
+        "$id": "stellar-body-generator-hycean-temperature-offset",
         "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
         "Object": {}
       },
       {
-        "$id": "stellar-body-generator-telluric-rockiness-offset",
+        "$id": "stellar-body-generator-hycean-height-offset",
         "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
         "Object": {}
       },
       {
-        "$id": "stellar-body-generator-telluric-ferrous-offset",
+        "$id": "stellar-body-generator-hycean-moisture-offset",
         "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
         "Object": {}
       }
@@ -116,7 +112,7 @@
           },
           "Parameters": {
             "Seed": {
-              "$ref": "stellar-body-generator-telluric-temperature-seed"
+              "$ref": "stellar-body-generator-hycean-temperature-seed"
             },
             "Frequency": {
               "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[OpenTK.Mathematics.Vector3, OpenTK.Mathematics]], Cardamom",
@@ -128,7 +124,7 @@
         },
         {
           "$type": "LatticeNoise",
-          "Key": "rockiness",
+          "Key": "height",
           "Channel": [ "Green" ],
           "Inputs": {
             "input": "position"
@@ -136,27 +132,7 @@
           "Output": "temperature",
           "Parameters": {
             "Seed": {
-              "$ref": "stellar-body-generator-telluric-rockiness-seed"
-            }
-          },
-          "Frequency": {
-            "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[OpenTK.Mathematics.Vector3, OpenTK.Mathematics]], Cardamom",
-            "Object": {
-              "Value": [ 2, 2, 2 ]
-            }
-          }
-        },
-        {
-          "$type": "LatticeNoise",
-          "Key": "ferrous",
-          "Channel": [ "Blue" ],
-          "Inputs": {
-            "input": "position"
-          },
-          "Output": "rockiness",
-          "Parameters": {
-            "Seed": {
-              "$ref": "stellar-body-generator-telluric-ferrous-seed"
+              "$ref": "stellar-body-generator-hycean-height-seed"
             },
             "Frequency": {
               "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[OpenTK.Mathematics.Vector3, OpenTK.Mathematics]], Cardamom",
@@ -167,51 +143,21 @@
           }
         },
         {
-          "$type": "SpotNoise",
-          "Key": "crater",
-          "Channel": [ "Alpha" ],
+          "$type": "LatticeNoise",
+          "Key": "moisture",
+          "Channel": [ "Blue" ],
           "Inputs": {
             "input": "position"
           },
-          "Output": "ferrous",
+          "Output": "height",
           "Parameters": {
             "Seed": {
-              "$ref": "stellar-body-generator-telluric-crater-seed"
+              "$ref": "stellar-body-generator-hycean-moisture-seed"
             },
             "Frequency": {
               "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[OpenTK.Mathematics.Vector3, OpenTK.Mathematics]], Cardamom",
               "Object": {
-                "Value": [ 1.5, 1.5, 1.5 ]
-              }
-            },
-            "Amplitude": {
-              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
-              "Object": {
-                "Value": 2
-              }
-            },
-            "Persistence": {
-              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
-              "Object": {
-                "Value": 0.9
-              }
-            },
-            "Scale": {
-              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[Cardamom.Mathematics.Interval, Cardamom]], Cardamom",
-              "Object": {
-                "Value": [ 0.2, 0.6 ]
-              }
-            },
-            "Octaves": {
-              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Int32], Cardamom",
-              "Object": {
-                "Value": 3
-              }
-            },
-            "Density": {
-              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[Cardamom.Mathematics.IntInterval, Cardamom]], Cardamom",
-              "Object": {
-                "Value": [ -3, 1 ]
+                "Value": [ 2, 2, 2 ]
               }
             }
           }
@@ -221,14 +167,13 @@
           "Key": "denormalize",
           "Channel": [ "Color" ],
           "Inputs": {
-            "input": "crater"
-          },
-          "Output": "crater"
+            "input": "moisture"
+          }
         },
         {
           "$type": "Combine",
           "Key": "combine",
-          "Channel": [ "All" ],
+          "Channel": [ "Color" ],
           "Inputs": {
             "left": "position",
             "right": "denormalize"
@@ -239,9 +184,9 @@
               "Object": {
                 "Value": [
                   [ 0, 0, 0, 0 ],
-                  [ 1, 0, 0, 0 ],
+                  [ 1, 0, 1, 0 ],
                   [ 0, 0, 0, 0 ],
-                  [ 0, 0, 0, 1 ]
+                  [ 0, 0, 0, 0 ]
                 ]
               }
             },
@@ -251,15 +196,9 @@
                 "Value": [
                   [ 0.25, 0, 0, 0 ],
                   [ 0, 1, 0, 0 ],
-                  [ 0, 0, 1, 0 ],
-                  [ 0, -0.25, 0, 0 ]
+                  [ 0, 0, 0.375, 0 ],
+                  [ 0, 0, 0, 1 ]
                 ]
-              }
-            },
-            "Bias": {
-              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[OpenTK.Mathematics.Vector4, OpenTK.Mathematics]], Cardamom",
-              "Object": {
-                "Value": [ 0, -0.25, 0, 0 ]
               }
             }
           }
@@ -267,7 +206,7 @@
         {
           "$type": "WaveForm",
           "Key": "wave-form",
-          "Channel": [ "Red" ],
+          "Channel": [ "Red", "Blue" ],
           "Inputs": {
             "input": "combine"
           },
@@ -280,14 +219,14 @@
               }
             },
             "Frequency": {
-              "Type": "Cardamom.Utils.Suppliers.Matrix.Matrix4DiagonalUniformSupplier, Cardamom",
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[OpenTK.Mathematics.Matrix4, OpenTK.Mathematics]], Cardamom",
               "Object": {
-                "Diagonal": {
-                  "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
-                  "Object": {
-                    "Value": 0.5
-                  }
-                }
+                "Value": [
+                  [ 0.5, 0, 0, 0 ],
+                  [ 0, 1, 0, 0 ],
+                  [ 0, 0, 1, 0 ],
+                  [ 0, 0, 0, 1 ]
+                ]
               }
             }
           }
@@ -307,27 +246,27 @@
               }
             },
             "Gradient": {
-              "Type": "Cardamom.Utils.Suppliers.Matrix.Matrix4DiagonalUniformSupplier, Cardamom",
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[OpenTK.Mathematics.Matrix4, OpenTK.Mathematics]], Cardamom",
               "Object": {
-                "Diagonal": {
-                  "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
-                  "Object": {
-                    "Value": 0.5
-                  }
-                }
+                "Value": [
+                  [ 0.5, 0, 0, 0 ],
+                  [ 0, 0.5, 0, 0 ],
+                  [ 0, 0, -0.5, 0 ],
+                  [ 0, 0, 0, 1 ]
+                ]
               }
             },
             "Bias": {
               "Type": "Cardamom.Utils.Suppliers.Vector.Vector4ComponentwiseSupplier, Cardamom",
               "Object": {
                 "X": {
-                  "$ref": "stellar-body-generator-telluric-temperature-offset"
+                  "$ref": "stellar-body-generator-hycean-temperature-offset"
                 },
                 "Y": {
-                  "$ref": "stellar-body-generator-telluric-rockiness-offset"
+                  "$ref": "stellar-body-generator-hycean-height-offset"
                 },
                 "Z": {
-                  "$ref": "stellar-body-generator-telluric-ferrous-offset"
+                  "$ref": "stellar-body-generator-hycean-moisture-offset"
                 }
               }
             }
@@ -337,35 +276,34 @@
     },
     "BiomeOptions": [
       {
-        "Biome": "biome-ice-barren",
-        "ThermalRange": [ 0, 273 ],
+        "Biome": "biome-ocean",
         "Center": [ 0, 0, 0, 0 ],
-        "AxisWeight": [ 1, 0, 0, 0 ],
-        "Weight": 8,
-        "BlendRange": 0.125
+        "AxisWeight": [ 0, 1, 0, 0 ],
+        "Weight": 32,
+        "BlendRange": 0.25
       },
       {
-        "Biome": "biome-barren-plains",
+        "Biome": "biome-grassland",
         "Center": [ 0, 0, 0, 0 ],
-        "AxisWeight": [ 0, 1, 1, 0 ],
+        "AxisWeight": [ 1, 0, 1, 0 ],
         "BlendRange": 1.2
       },
       {
-        "Biome": "biome-ferrous-plains",
+        "Biome": "biome-forest",
         "Center": [ 0, 0, 1, 0 ],
-        "AxisWeight": [ 0, 1, 1, 0 ],
+        "AxisWeight": [ 1, 0, 1, 0 ],
         "BlendRange": 1.2
       },
       {
-        "Biome": "biome-barren-mountains",
-        "Center": [ 0, 1, 0, 0 ],
-        "AxisWeight": [ 0, 1, 1, 0 ],
+        "Biome": "biome-savanna",
+        "Center": [ 1, 0, 0, 0 ],
+        "AxisWeight": [ 1, 0, 1, 0 ],
         "BlendRange": 1.2
       },
       {
-        "Biome": "biome-ferrous-mountains",
-        "Center": [ 0, 1, 1, 0 ],
-        "AxisWeight": [ 0, 1, 1, 0 ],
+        "Biome": "biome-jungle",
+        "Center": [ 1, 0, 1, 0 ],
+        "AxisWeight": [ 1, 0, 1, 0 ],
         "BlendRange": 1.2
       }
     ]

@@ -7,7 +7,7 @@
   },
   "Density": 3530,
   "SubRegionDensity": 0.000004,
-  "RegionDensity": 0.0000002,
+  "RegionDensity": 0.0000001,
   "StructureNodeDensity": 5000,
   "AtmosphereGenerator": {
     "RegionDensity": 0.000175,

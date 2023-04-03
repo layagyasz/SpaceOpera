@@ -7,8 +7,8 @@
   },
   "Density": 1330,
   "SubRegionDensity": 0.00000004,
-  "RegionDensity": 0.000000002,
-  "StructureNodeDensity": 250000,
+  "RegionDensity": 0.000000001,
+  "StructureNodeDensity": 1000000,
   "AtmosphereGenerator": {
     "RegionDensity": 0.0000175,
     "TotalPressureSampler": {

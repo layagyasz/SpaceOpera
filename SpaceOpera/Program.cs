@@ -77,7 +77,7 @@ namespace SpaceOpera
             {
                 var planetGenerator =
                     coreData.GalaxyGenerator!.StarSystemGenerator!.StellarBodySelector!.Options
-                        .First(x => x.Generator!.Key == "planet-generator-caelean").Generator!;
+                        .First(x => x.Generator!.Key == "planet-generator-hycean").Generator!;
                 var orbitGenerator = coreData.GalaxyGenerator!.StarSystemGenerator!.OrbitGenerator!;
                 var starGenerator =
                     coreData.GalaxyGenerator!.StarSystemGenerator!.StarGenerators

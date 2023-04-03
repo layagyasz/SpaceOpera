@@ -6,11 +6,11 @@
     "Range": [ 20000, 30000 ]
   },
   "Density": 1270,
-  "SubRegionDensity": 0.0000004,
-  "RegionDensity": 0.00000002,
-  "StructureNodeDensity": 25000,
+  "SubRegionDensity": 0.000000025,
+  "RegionDensity": 0.0000000006,
+  "StructureNodeDensity": 100000,
   "AtmosphereGenerator": {
-    "RegionDensity": 0.0000175,
+    "RegionDensity": 0.000035,
     "TotalPressureSampler": {
       "$type": "Constant",
       "Value": 1
@@ -195,7 +195,8 @@
         "Biome": "biome-methane-band",
         "Center": [ 1, 0, 0, 0 ],
         "AxisWeight": [ 1, 0, 0, 0 ],
-        "BlendRange": 1.2
+        "Weight": 2,
+        "BlendRange": 2
       }
     ]
   }
