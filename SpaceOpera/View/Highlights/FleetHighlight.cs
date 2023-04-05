@@ -10,9 +10,10 @@ namespace SpaceOpera.View.Highlights
 
         public bool Merge => true;
         public float BorderWidth => 4f;
-        public FleetDriver Fleet { get; }
         public Color4 BorderColor => Color4.White;
         public Color4 Color => new(0, 0, 0, 0);
+
+        public FleetDriver Fleet { get; }
 
         public FleetHighlight(FleetDriver fleet)
         {

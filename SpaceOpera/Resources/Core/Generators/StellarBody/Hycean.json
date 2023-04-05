@@ -10,7 +10,7 @@
   "RegionDensity": 0.00000005,
   "StructureNodeDensity": 10000,
   "AtmosphereGenerator": {
-    "RegionDensity": 0.00005,
+    "RegionDensity": 0.000085,
     "TotalPressureSampler": {
       "$type": "Normal",
       "Mean": 4,
@@ -59,7 +59,7 @@
       "stellar-body-generator-hycean-height-offset": {
         "Type": "Cardamom.Utils.Generators.Numeric.FloatGenerator, Cardamom",
         "Object": {
-          "Range": [ 0, 0.25 ]
+          "Range": [ 0, 0.15 ]
         }
       },
       "stellar-body-generator-hycean-moisture-offset": {

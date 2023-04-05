@@ -3,6 +3,7 @@ using SpaceOpera.View.Icons;
 using SpaceOpera.View.Panes.DesignPanes;
 using SpaceOpera.View.Panes.MilitaryPanes;
 using SpaceOpera.View.Panes.ResearchPanes;
+using SpaceOpera.View.Panes.StellarBodyRegionPanes;
 
 namespace SpaceOpera.View.Panes
 {
@@ -10,22 +11,25 @@ namespace SpaceOpera.View.Panes
     {
         public DesignerPane Designer { get; }
         public EquipmentPane Equipment { get; }
-        public MultiTabGamePane Military { get; }
+        public MilitaryPane Military { get; }
         public MilitaryOrganizationPane MilitaryOrganization { get; }
         public MultiTabGamePane Research { get; }
+        public StellarBodyRegionPane StellarBodyRegion { get; }
 
         private PaneSet(
             DesignerPane designer,
             EquipmentPane equipment,
-            MultiTabGamePane military, 
+            MilitaryPane military, 
             MilitaryOrganizationPane militaryOrganization,
-            MultiTabGamePane research)
+            ResearchPane research,
+            StellarBodyRegionPane stellarBodyRegion)
         {
             Designer = designer;
             Equipment = equipment;
             Military = military;
             MilitaryOrganization = militaryOrganization;
             Research = research;
+            StellarBodyRegion = stellarBodyRegion;
         }
 
         public IGamePane Get(GamePaneId id)
@@ -37,6 +41,7 @@ namespace SpaceOpera.View.Panes
                 GamePaneId.Military => Military,
                 GamePaneId.MilitaryOrganization => MilitaryOrganization,
                 GamePaneId.Research => Research,
+                GamePaneId.StellarBodyRegion => StellarBodyRegion,
                 _ => throw new ArgumentException($"Unsupported pane id: {id}"),
             };
         }
@@ -48,6 +53,7 @@ namespace SpaceOpera.View.Panes
             yield return Military;
             yield return MilitaryOrganization;
             yield return Research;
+            yield return StellarBodyRegion;
         }
 
         public static PaneSet Create(UiElementFactory uiElementFactory, IconFactory iconFactory)
@@ -66,7 +72,11 @@ namespace SpaceOpera.View.Panes
 
             var research = ResearchPane.Create(uiElementFactory);
             research.Initialize();
-            return new(designer, equipment, military, militaryOrganization, research);
+
+            var stellarBodyRegion = new StellarBodyRegionPane(uiElementFactory, iconFactory);
+            stellarBodyRegion.Initialize();
+
+            return new(designer, equipment, military, militaryOrganization, research, stellarBodyRegion);
         }
     }
 }

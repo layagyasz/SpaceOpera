@@ -7,6 +7,7 @@
         Designer,
         Military,
         MilitaryOrganization,
-        Research
+        Research,
+        StellarBodyRegion
     }
 }

@@ -1,0 +1,32 @@
+[
+  {
+    "$id": "stellar-body-region-pane",
+    "Parent": "pane-standard",
+    "Default": {
+      "Size": [ 900, 700 ]
+    }
+  },
+  {
+    "$id": "stellar-body-region-pane-title",
+    "Parent": "pane-standard-title"
+  },
+  {
+    "$id": "stellar-body-region-pane-close",
+    "Parent": "pane-standard-close"
+  },
+  {
+    "$id": "stellar-body-region-pane-tab-container",
+    "Parent": "pane-tab-container"
+  },
+  {
+    "$id": "stellar-body-region-pane-tab-option",
+    "Parent": "pane-tab-option"
+  },
+  {
+    "$id": "stellar-body-region-pane-body",
+    "Parent": "pane-body",
+    "Default": {
+      "Size": [ 892, 580 ]
+    }
+  }
+]

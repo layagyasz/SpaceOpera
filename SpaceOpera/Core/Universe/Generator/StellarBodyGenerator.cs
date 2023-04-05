@@ -188,7 +188,7 @@ namespace SpaceOpera.Core.Universe.Generator
                         regionWrappers.FirstOrDefault(
                             x => x != region 
                                 && region.Origin.Region.Biome.IsTraversable == x.Origin.Region.Biome.IsTraversable 
-                                && region.Children!.SelectMany(y => y.GetEdges())
+                                && x.Children!.SelectMany(y => y.GetEdges())
                                          .Select(x => x.End).Any(region.Children!.Contains));
                     if (regionToCombine != null)
                     {
@@ -208,7 +208,7 @@ namespace SpaceOpera.Core.Universe.Generator
             }
 
             List<StellarBodyRegion> regions = new();
-            for (int i = 0; i < regionCount;++i)
+            for (int i = 0; i < regionWrappers.Count; ++i)
             {
                 var region = 
                     new StellarBodyRegion(

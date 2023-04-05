@@ -11,6 +11,7 @@ using SpaceOpera.Core.Universe;
 using SpaceOpera.View;
 using SpaceOpera.View.Highlights;
 using SpaceOpera.View.Panes;
+using SpaceOpera.View.Panes.StellarBodyRegionPanes;
 using SpaceOpera.View.Scenes;
 
 namespace SpaceOpera.Controller
@@ -28,8 +29,8 @@ namespace SpaceOpera.Controller
         private readonly ILogger _logger;
         private GameScreen? _screen;
 
-        private Stack<IGameScene> _scenes = new();
-        private EnumMap<HighlightLayerName, ICompositeHighlight> _currentHighlights = new();
+        private readonly Stack<IGameScene> _scenes = new();
+        private readonly EnumMap<HighlightLayerName, ICompositeHighlight> _currentHighlights = new();
 
         public GameController(
             UiWindow window, World? world, GameDriver driver, Faction faction, ViewFactory viewFactory, ILogger logger)
@@ -49,6 +50,7 @@ namespace SpaceOpera.Controller
             {
                 controller.Interacted += HandleInteraction;
             }
+            _screen.PaneLayer.ElementRemoved += HandlePaneClosed;
             foreach (var pane in _screen.GetPanes())
             {
                 if (pane.Controller is IActionController paneController)
@@ -155,7 +157,7 @@ namespace SpaceOpera.Controller
             _window.SetFocus(scene);
         }
 
-        public void HandleInteraction(object? sender, UiInteractionEventArgs e)
+        private void HandleInteraction(object? sender, UiInteractionEventArgs e)
         {
             _logger.AtInfo().Log(e.ToString());
             if (e.Key == Keys.Backspace)
@@ -180,7 +182,7 @@ namespace SpaceOpera.Controller
             var @object = e.GetOnlyObject();
             if (e.Action != null)
             {
-                if (@object is Design)
+                if (@object is Design && e.Action == ActionId.Edit)
                 {
                     OpenPane(GamePaneId.Designer, _world!, _faction, @object);
                     return;
@@ -199,6 +201,14 @@ namespace SpaceOpera.Controller
             }
             if (@object != null)
             {
+                if (@object is StellarBodySubRegion subRegion && e.Button == MouseButton.Left)
+                {
+                    OpenPane(GamePaneId.StellarBodyRegion, _world!, _faction, subRegion.ParentRegion!);
+                    SetHighlight(
+                        HighlightLayerName.Foreground,
+                        SimpleHighlight.Wrap(new StellarBodyRegionHighlight(subRegion.ParentRegion!)));
+                    return;
+                }
                 if (s_SceneTypes.Contains(@object.GetType()))
                 {
                     PushScene(@object);
@@ -211,9 +221,16 @@ namespace SpaceOpera.Controller
             }
         }
 
+        private void HandlePaneClosed(object? sender, ElementEventArgs e)
+        {
+            if (e.Element is StellarBodyRegionPane)
+            {
+                SetHighlight(HighlightLayerName.Foreground, null);
+            }
+        }
+
         private void OpenPane(GamePaneId paneId, params object[] args)
         {
-            _screen!.ClearPanes();
             var pane = _screen!.GetPane(paneId);
             pane.Populate(args);
             _screen!.OpenPane(pane);

@@ -14,10 +14,11 @@ namespace SpaceOpera.View
         private static readonly long s_RefreshTime = 1000;
 
         public IController Controller { get; }
+        public UiGroup PaneLayer { get; }
+
         public EmpireOverlay EmpireOverlay { get; }
 
-        private PaneSet _paneSet;
-        private UiGroup _paneLayer;
+        private readonly PaneSet _paneSet;
 
         private long _time;
 
@@ -29,19 +30,19 @@ namespace SpaceOpera.View
             Controller = controller;
             EmpireOverlay = empireOverlay;
             _paneSet = paneSet;
-            _paneLayer = paneLayer;
+            PaneLayer = paneLayer;
         }
 
         public void ClearPanes()
         {
-            _paneLayer.Clear();
+            PaneLayer.Clear();
         }
 
         public void Draw(RenderTarget target, UiContext context)
         {
             Scene?.Draw(target, context);
             EmpireOverlay.Draw(target, context);
-            _paneLayer.Draw(target, context);
+            PaneLayer.Draw(target, context);
         }
 
         public IGamePane GetPane(GamePaneId id)
@@ -59,19 +60,23 @@ namespace SpaceOpera.View
             Controller.Bind(this);
             EmpireOverlay.Initialize();
             EmpireOverlay.CalendarOverlay.SetGameSpeed(ActionId.GameSpeedNormal);
-            _paneLayer.Initialize();
+            PaneLayer.Initialize();
         }
 
         public void OpenPane(IGamePane pane)
         {
-            pane.Position = 0.5f * (_bounds - pane.Size);
-            _paneLayer.Add(pane);
+            if (!PaneLayer.Contains(pane))
+            {
+                ClearPanes();
+                pane.Position = 0.5f * (_bounds - pane.Size);
+            }
+            PaneLayer.Add(pane);
         }
 
         public void Refresh()
         {
             EmpireOverlay.Refresh();
-            foreach (var pane in _paneLayer)
+            foreach (var pane in PaneLayer)
             {
                 if (pane is IDynamic dynamic)
                 {
@@ -105,7 +110,7 @@ namespace SpaceOpera.View
 
             Scene?.Update(delta);
             EmpireOverlay.Update(delta);
-            _paneLayer.Update(delta);
+            PaneLayer.Update(delta);
         }
     }
 }

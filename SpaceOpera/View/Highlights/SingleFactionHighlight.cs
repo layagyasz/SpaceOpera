@@ -10,9 +10,10 @@ namespace SpaceOpera.View.Highlights
 
         public bool Merge => true;
         public float BorderWidth => 4f;
-        public Faction Faction { get; }
         public Color4 BorderColor { get; }
         public Color4 Color { get; }
+
+        public Faction Faction { get; }
 
         public SingleFactionHighlight(Faction faction, Color4 borderColor, Color4 color)
         {

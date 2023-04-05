@@ -59,7 +59,7 @@
       "stellar-body-generator-terran-height-offset": {
         "Type": "Cardamom.Utils.Generators.Numeric.FloatGenerator, Cardamom",
         "Object": {
-          "Range": [ 0, 1 ]
+          "Range": [ 0, 0.5 ]
         }
       },
       "stellar-body-generator-terran-moisture-offset": {
