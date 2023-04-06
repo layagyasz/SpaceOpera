@@ -29,7 +29,7 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
         private StellarBodyRegionHolding? _holding;
         private TabId _tab;
 
-        private IconFactory _iconFactory;
+        private StructureTab _structureTab;
 
         public StellarBodyRegionPane(UiElementFactory uiElementFactory, IconFactory iconFactory)
             : base(
@@ -45,7 +45,8 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
                     uiElementFactory.GetClass(s_TabContainerClassName),
                     uiElementFactory.GetClass(s_TabOptionClassName)))
         {
-            _iconFactory = iconFactory;
+            _structureTab = new(uiElementFactory, iconFactory);
+            _structureTab.Initialize();
         }
 
         public override void Populate(params object?[] args)
@@ -57,6 +58,8 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
             {
                 _holding = _world.Economy.GetHolding(_faction, _region);
             }
+            _structureTab.Populate(_world, _holding);
+
             SetTitle(_region?.Name ?? "Unknown Region");
             Refresh();
             Populated?.Invoke(this, EventArgs.Empty);
@@ -65,6 +68,12 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
         public override void SetTab(object id)
         {
             _tab = (TabId)id;
+            switch (_tab)
+            {
+                case TabId.Structures:
+                    SetBody(_structureTab);
+                    break;
+            }
         }
     }
 }

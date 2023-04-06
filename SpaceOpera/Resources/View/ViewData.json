@@ -5,6 +5,7 @@
   "HumanEyeSensitivity": "Resources/View/HumanEyeSensitivity.json",
   "Icons": [
     "Resources/View/Materials.json",
+    "Resources/View/Structures.json",
     "Resources/View/Designs::*.Icons.json"
   ],
   "DesignedComponentIconConfigs": [ "Resources/View/Designs::*.IconConfig.json" ]

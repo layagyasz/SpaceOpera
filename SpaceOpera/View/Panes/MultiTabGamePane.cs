@@ -44,6 +44,10 @@ namespace SpaceOpera.View.Panes
 
         public void SetBody(IUiElement body)
         {
+            if (Body == body)
+            {
+                return;
+            }
             if (Body != null)
             {
                 Remove(Body);

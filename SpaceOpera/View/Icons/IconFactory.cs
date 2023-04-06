@@ -115,6 +115,7 @@ namespace SpaceOpera.View.Icons
                 { typeof(DivisionTemplate), GetDesignedComponentDefinition },
                 { typeof(Faction), GetBannerDefinition },
                 { typeof(Fleet), GetFormationDefinition },
+                { typeof(Structure), GetAtomicDefinition },
                 { typeof(Unit), GetDesignedComponentDefinition }
             };
             _uiElementFactory = uiElementFactory;

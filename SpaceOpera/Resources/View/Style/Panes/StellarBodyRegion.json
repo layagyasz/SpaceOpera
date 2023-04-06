@@ -28,5 +28,74 @@
     "Default": {
       "Size": [ 892, 580 ]
     }
+  },
+  {
+    "$id": "stellar-body-region-pane-structure-table",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 446, 580 ]
+    }
+  },
+  {
+    "$id": "stellar-body-region-pane-structure-table-row",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 446, 32 ]
+    }
+  },
+  {
+    "$id": "stellar-body-region-pane-structure-table-row-info",
+    "Parent": "ui-element-basic",
+    "Default": {
+      "Size": [ 234, 28 ],
+      "Padding": [ 14, 0, 14, 0 ],
+      "Margin": [ 2 ]
+    }
+  },
+  {
+    "$id": "stellar-body-region-pane-structure-table-row-icon",
+    "Parent": "ui-icon",
+    "Default": {
+      "Size": [ 24, 24 ],
+      "Margin": [ 2 ]
+    }
+  },
+  {
+    "$id": "stellar-body-region-pane-structure-table-row-text",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 178, 24 ],
+      "Padding": [ 8 ]
+    }
+  },
+  {
+    "$id": "stellar-body-region-pane-structure-table-row-numeric-input",
+    "Parent": "ui-element-basic",
+    "Default": {
+      "Size": [ 204, 28 ],
+      "Margin": [ 2 ],
+      "Padding": [ 14, 0, 14, 0 ]
+    }
+  },
+  {
+    "$id": "stellar-body-region-pane-structure-table-row-numeric-input-text",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 128, 24 ],
+      "Padding": [ 0, 8, 0, 8 ]
+    }
+  },
+  {
+    "$id": "stellar-body-region-pane-structure-table-row-numeric-input-subtract",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 24, 24 ],
+      "Padding": [ 0, 8, 0, 8 ],
+      "Align": "Center"
+    }
+  },
+  {
+    "$id": "stellar-body-region-pane-structure-table-row-numeric-input-add",
+    "Parent": "stellar-body-region-pane-structure-table-row-numeric-input-subtract"
   }
 ]

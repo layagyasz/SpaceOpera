@@ -1,0 +1,62 @@
+[
+  {
+    "$id": "structure-chemical-plant",
+    "Texture": "icon-chemical-plant",
+    "Color": "#48804a"
+  },
+  {
+    "$id": "structure-light-factory",
+    "Texture": "icon-factory",
+    "Color": "#48804a"
+  },
+  {
+    "$id": "structure-heavy-factory",
+    "Texture": "icon-factory",
+    "Color": "#48804a"
+  },
+  {
+    "$id": "structure-farm",
+    "Texture": "icon-farming-equipment",
+    "Color": "#48804a"
+  },
+  {
+    "$id": "structure-gas-harvester",
+    "Texture": "icon-gas-harvester",
+    "Color": "#48804a"
+  },
+  {
+    "$id": "structure-institute",
+    "Texture": "icon-institute",
+    "Color": "#48804a"
+  },
+  {
+    "$id": "structure-kiln",
+    "Texture": "icon-kiln",
+    "Color": "#48804a"
+  },
+  {
+    "$id": "structure-mine",
+    "Texture": "icon-mine",
+    "Color": "#48804a"
+  },
+  {
+    "$id": "structure-ore-refinery",
+    "Texture": "icon-refinery",
+    "Color": "#48804a"
+  },
+  {
+    "$id": "structure-shipyard",
+    "Texture": "icon-shipyard",
+    "Color": "#48804a"
+  },
+  {
+    "$id": "structure-spaceport",
+    "Texture": "icon-spaceport",
+    "Color": "#48804a"
+  },
+  {
+    "$id": "structure-training-facility",
+    "Texture": "icon-training-facility",
+    "Color": "#48804a"
+  }
+]
