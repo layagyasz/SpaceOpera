@@ -28,10 +28,12 @@ namespace SpaceOpera.Controller.Components
             _inputController = (NumericInputController<T>)_element.NumericInput.ComponentController;
             _defaultValue = _configuration.GetValue(Key);
             _inputController.SetValue(_defaultValue);
+            _inputController.ValueChanged += HandleValueChanged;
         }
 
         public void Unbind()
         {
+            _inputController!.ValueChanged -= HandleValueChanged;
             _inputController = null;
             _element!.Refreshed -= HandleRefresh;
             _element = null;
@@ -55,6 +57,11 @@ namespace SpaceOpera.Controller.Components
                 _inputController.SetValue(_defaultValue);
             }
             _inputController!.SetRange(_configuration.GetRange(Key));
+        }
+
+        private void HandleValueChanged(object? sender, ValueChangedEventArgs<T, int> e)
+        {
+            ValueChanged?.Invoke(this, e);
         }
     }
 }

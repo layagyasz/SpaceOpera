@@ -16,6 +16,7 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
             new()
             {
                 Container = "stellar-body-region-pane-structure-container",
+                Header = "stellar-body-region-pane-structure-table-header",
                 Table = "stellar-body-region-pane-structure-table",
                 Row = new()
                 {
@@ -30,7 +31,11 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
                         SubtractButton = "stellar-body-region-pane-structure-table-row-numeric-input-subtract",
                         AddButton = "stellar-body-region-pane-structure-table-row-numeric-input-add"
                     }
-                }
+                },
+                TotalContainer = "stellar-body-region-pane-structure-table-total-row",
+                TotalText = "stellar-body-region-pane-structure-table-total-text",
+                TotalNumber = "stellar-body-region-pane-structure-table-total-number",
+                Submit = "stellar-body-region-pane-structure-table-submit"
             };
 
         class StructureTableConfiguration : NumericInputTable<Structure>.IConfiguration
@@ -80,7 +85,11 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
             _structureTableConfiguration = new();
             var structureTable =
                 new NumericInputTable<Structure>(
-                    uiElementFactory, ref _iconFactory, s_StructureTableStyle, _structureTableConfiguration);
+                    "Structures",
+                    uiElementFactory,
+                    ref _iconFactory,
+                    s_StructureTableStyle,
+                    _structureTableConfiguration);
             Add(structureTable);
         }
 
