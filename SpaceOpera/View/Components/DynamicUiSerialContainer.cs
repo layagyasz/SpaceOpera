@@ -4,65 +4,23 @@ using Cardamom.Ui.Elements;
 
 namespace SpaceOpera.View.Components
 {
-    public class DynamicUiSerialContainer<TKey, TRow> : UiSerialContainer, IDynamic
-        where TKey : notnull 
-        where TRow : IKeyedUiElement<TKey>
+    public class DynamicUiSerialContainer : UiSerialContainer, IDynamic
     {
-        private readonly Dictionary<TKey, TRow> _currentRows = new();
-        private readonly Func<IEnumerable<TKey>> _rangeFn;
-        private readonly Func<TKey, TRow> _rowFn;
-        private readonly IComparer<TKey> _comparer;
+        public EventHandler<EventArgs>? Refreshed { get; set; }
 
-        public DynamicUiSerialContainer(
-            Class @class, 
-            IElementController controller,
-            Orientation orientation, 
-            Func<IEnumerable<TKey>> rangeFn,
-            Func<TKey, TRow> rowFn,
-            IComparer<TKey> comparer)
-            : base(@class, controller, orientation)
-        {
-            _rangeFn = rangeFn;
-            _rowFn = rowFn;
-            _comparer = comparer;
-        }
-
-        public void Add(TKey key)
-        {
-            var element = _rowFn(key);
-            element.Initialize();
-            _currentRows.Add(key, element);
-            Add(element);
-        }
+        public DynamicUiSerialContainer(Class @class, IElementController controller, Orientation orientation)
+            : base(@class, controller, orientation) { }
 
         public void Refresh()
         {
-            var elements = _rangeFn().ToHashSet();
-            foreach (var element in elements)
+            foreach (var element in _elements)
             {
-                if (!_currentRows.ContainsKey(element))
+                if (element is IDynamic dynamic)
                 {
-                    Add(element);
+                    dynamic.Refresh();
                 }
             }
-            foreach (var row in _currentRows.Where(x => !elements.Contains(x.Key)).ToList())
-            {
-                Remove(row.Key);
-            }
-            foreach (var row in _currentRows.Values)
-            {
-                row.Refresh();
-            }
-
-            _elements.Sort((x, y) => _comparer.Compare(((TRow)x).Key, ((TRow)y).Key));
-        }
-
-        public void Remove(TKey key)
-        {
-            var element = _currentRows[key];
-            _currentRows.Remove(key);
-            Remove(element);
-            element.Dispose();
+            Refreshed?.Invoke(this, EventArgs.Empty);
         }
     }
 }

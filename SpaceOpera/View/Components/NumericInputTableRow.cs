@@ -17,13 +17,19 @@ namespace SpaceOpera.View.Components
             public NumericInput.Style NumericInput { get; set; }
         }
 
+        public EventHandler<EventArgs>? Refreshed { get; set; }
+
         public T Key { get; }
         public NumericInput NumericInput { get; }
 
         private NumericInputTableRow(
-            Class @class, T key, IUiContainer info, NumericInput numericInput)
+            Class @class, 
+            T key,
+            NumericInputTable<T>.IConfiguration configuration,
+            IUiContainer info, 
+            NumericInput numericInput)
             : base(
-                  new NumericInputTableRowController<T>(key),
+                  new NumericInputTableRowController<T>(key, configuration),
                   new UiSerialContainer(@class, new ButtonController(), UiSerialContainer.Orientation.Horizontal))
         {
             Key = key;
@@ -32,14 +38,23 @@ namespace SpaceOpera.View.Components
             Add(numericInput);
         }
 
-        public void Refresh() { }
+        public void Refresh()
+        {
+            Refreshed?.Invoke(this, EventArgs.Empty);
+        }
 
         public static NumericInputTableRow<T> Create(
-            T key, string name, UiElementFactory uiElementFactory, ref IconFactory iconFactory, Style style)
+            T key, 
+            string name, 
+            UiElementFactory uiElementFactory, 
+            ref IconFactory iconFactory,
+            Style style, 
+            NumericInputTable<T>.IConfiguration configuration)
         {
             return new(
                 uiElementFactory.GetClass(style.Container),
                 key, 
+                configuration,
                 new UiSerialContainer(
                     uiElementFactory.GetClass(style.Info), 
                     new ButtonController(), 

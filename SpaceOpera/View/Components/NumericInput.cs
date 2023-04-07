@@ -1,4 +1,5 @@
-﻿using Cardamom.Ui;
+﻿using Cardamom.Mathematics;
+using Cardamom.Ui;
 using Cardamom.Ui.Controller;
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
@@ -39,7 +40,7 @@ namespace SpaceOpera.View.Components
         {
             return new(
                 uiElementFactory.GetClass(style.Container), 
-                new NumericInputController<T>(key),
+                new NumericInputController<T>(key, IntInterval.Unbounded),
                 new TextUiElement(uiElementFactory.GetClass(style.Text), new ButtonController(), string.Empty), 
                 uiElementFactory.CreateTextButton(style.SubtractButton, "-").Item1, 
                 uiElementFactory.CreateTextButton(style.AddButton, "+").Item1);

@@ -16,6 +16,8 @@ namespace SpaceOpera.View.Panes.DesignPanes
         private static readonly string s_ComponentRowActionContainer = "design-pane-component-row-action-container";
         private static readonly string s_ComponentRowActionEdit = "design-pane-component-row-action-edit";
 
+        public EventHandler<EventArgs>? Refreshed { get; set; }
+
         public Design Key { get; }
 
         private readonly List<IUiElement> _actions;
@@ -56,6 +58,9 @@ namespace SpaceOpera.View.Panes.DesignPanes
             return _actions;
         }
 
-        public void Refresh() { }
+        public void Refresh()
+        {
+            Refreshed?.Invoke(this, EventArgs.Empty);
+        }
     }
 }

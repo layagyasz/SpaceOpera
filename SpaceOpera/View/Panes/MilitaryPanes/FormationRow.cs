@@ -14,6 +14,8 @@ namespace SpaceOpera.View.Panes.DesignPanes
         private static readonly string s_FormationRowIconClassName = "military-pane-formation-row-icon";
         private static readonly string s_FormationRowTextClassName = "military-pane-formation-row-text";
 
+        public EventHandler<EventArgs>? Refreshed { get; set; }
+
         public IFormation Key { get; }
 
         private FormationRow(
@@ -43,6 +45,9 @@ namespace SpaceOpera.View.Panes.DesignPanes
                 uiElementFactory.CreateTextButton(s_FormationRowTextClassName, formation.Name).Item1);
         }
 
-        public void Refresh() { }
+        public void Refresh()
+        {
+            Refreshed?.Invoke(this, EventArgs.Empty);
+        }
     }
 }

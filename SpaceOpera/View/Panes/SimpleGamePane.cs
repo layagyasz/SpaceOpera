@@ -1,10 +1,11 @@
 ﻿using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui;
 using Cardamom.Ui.Elements;
+using SpaceOpera.View.Components;
 
 namespace SpaceOpera.View.Panes
 {
-    public abstract class SimpleGamePane : UiContainer, IGamePane
+    public abstract class SimpleGamePane : DynamicUiContainer, IGamePane
     {
         public EventHandler<EventArgs>? Populated { get; set; }
 
@@ -25,14 +26,6 @@ namespace SpaceOpera.View.Panes
             Add(header);
             closeButton.Position = new(header.Size.X, 0, 0);
             Add(closeButton);
-        }
-
-        public void Refresh()
-        {
-            if (Body is IDynamic body)
-            {
-                body.Refresh();
-            }
         }
 
         public abstract void Populate(params object?[] args);

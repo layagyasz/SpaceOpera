@@ -1,4 +1,5 @@
-﻿using Cardamom.Ui;
+﻿using Cardamom.Mathematics;
+using Cardamom.Ui;
 using Cardamom.Ui.Controller;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using SpaceOpera.View.Components;
@@ -13,10 +14,12 @@ namespace SpaceOpera.Controller.Components
 
         private NumericInput? _element;
         private int _value;
+        private IntInterval _range;
 
-        public NumericInputController(T key)
+        public NumericInputController(T key, IntInterval range)
         {
             Key = key;
+            _range = range;
         }
 
         public void Bind(object @object)
@@ -24,6 +27,7 @@ namespace SpaceOpera.Controller.Components
             _element = (NumericInput)@object;
             _element.SubtractButton.Controller.Clicked += HandleSubtracted;
             _element.AddButton.Controller.Clicked += HandleAdded;
+            UpdateString();
         }
 
         public void Unbind()
@@ -33,6 +37,12 @@ namespace SpaceOpera.Controller.Components
             _element = null;
         }
 
+        public void SetRange(IntInterval range)
+        {
+            _range = range;
+            SetValue(_value);
+        }
+
         public int GetValue()
         {
             return _value;
@@ -40,9 +50,13 @@ namespace SpaceOpera.Controller.Components
 
         public void SetValue(int value)
         {
-            _value = value;
-            _element!.Text.SetText(_value.ToString());
-            ValueChanged?.Invoke(this, new(Key, value));
+            int newValue = _range.Clamp(value);
+            if (_value != newValue)
+            {
+                _value = newValue;
+                UpdateString();
+                ValueChanged?.Invoke(this, new(Key, value));
+            }
         }
 
         private void HandleAdded(object? sender, MouseButtonClickEventArgs e)
@@ -55,7 +69,12 @@ namespace SpaceOpera.Controller.Components
             SetValue(_value - GetDelta(e.Modifiers));
         }
 
-        private int GetDelta(KeyModifiers modifiers)
+        private void UpdateString()
+        {
+            _element!.Text.SetText(_value.ToString());
+        }
+
+        private static int GetDelta(KeyModifiers modifiers)
         {
             bool hasCtrl = modifiers.HasFlag(KeyModifiers.Control);
             bool hasShift = modifiers.HasFlag(KeyModifiers.Shift);

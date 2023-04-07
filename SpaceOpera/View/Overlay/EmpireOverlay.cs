@@ -5,10 +5,11 @@ using Cardamom.Ui.Elements;
 using SpaceOpera.Controller.Components;
 using SpaceOpera.Controller.Overlay;
 using SpaceOpera.Core;
+using SpaceOpera.View.Components;
 
 namespace SpaceOpera.View.Overlay
 {
-    public class EmpireOverlay : UiCompoundComponent, IDynamic
+    public class EmpireOverlay : DynamicUiCompoundComponent, IDynamic
     {
         public CalendarOverlay CalendarOverlay { get; }
         
@@ -16,17 +17,6 @@ namespace SpaceOpera.View.Overlay
             : base(controller, container)
         {
             CalendarOverlay = calendarOverlay;
-        }
-
-        public void Refresh()
-        {
-            foreach (var item in this)
-            {
-                if (item is IDynamic dynamic)
-                {
-                    dynamic.Refresh();
-                }
-            }
         }
 
         public static EmpireOverlay Create(UiElementFactory uiElementFactory, StarCalendar calendar)

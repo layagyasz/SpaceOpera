@@ -48,7 +48,7 @@ namespace SpaceOpera.View.Panes.DesignPanes
                 DynamicUiContainer(
                     uiElementFactory.GetClass(s_BodyClassName), new NoOpElementController<UiContainer>());
             DesignTable =
-                new DynamicUiSerialContainer<Design, DesignRow>(
+                new DynamicKeyedTable<Design, DesignRow>(
                     uiElementFactory.GetClass(s_DesignTableClassName), 
                     new ActionTableController(10f),
                     UiSerialContainer.Orientation.Vertical,

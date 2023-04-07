@@ -6,6 +6,8 @@ namespace SpaceOpera.View.Components
 {
     public class DynamicUiContainer : UiContainer, IDynamic
     {
+        public EventHandler<EventArgs>? Refreshed { get; set; }
+
         public DynamicUiContainer(Class @class, IElementController controller) 
             : base(@class, controller) { }
 
@@ -18,6 +20,7 @@ namespace SpaceOpera.View.Components
                     dynamic.Refresh();
                 }
             }
+            Refreshed?.Invoke(this, EventArgs.Empty);
         }
     }
 }

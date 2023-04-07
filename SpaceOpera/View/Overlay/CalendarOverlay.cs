@@ -8,6 +8,8 @@ namespace SpaceOpera.View.Overlay
 {
     public class CalendarOverlay : UiCompoundComponent, IDynamic
     {
+        public EventHandler<EventArgs>? Refreshed { get; set; }
+
         private readonly TextUiElement _calendarText;
         private readonly StarCalendar _calendar;
 
@@ -22,6 +24,7 @@ namespace SpaceOpera.View.Overlay
         public void Refresh()
         {
             _calendarText.SetText(_calendar.ToString());
+            Refreshed?.Invoke(this, EventArgs.Empty);
         }
 
         public void SetGameSpeed(ActionId action)

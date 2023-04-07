@@ -13,6 +13,8 @@ namespace SpaceOpera.View
     {
         private static readonly long s_RefreshTime = 1000;
 
+        public EventHandler<EventArgs>? Refreshed { get; set; }
+
         public IController Controller { get; }
         public UiGroup PaneLayer { get; }
 
@@ -83,6 +85,7 @@ namespace SpaceOpera.View
                     dynamic.Refresh();
                 }
             }
+            Refreshed?.Invoke(this, EventArgs.Empty);
         }
 
         public void ResizeContext(Vector3 bounds)

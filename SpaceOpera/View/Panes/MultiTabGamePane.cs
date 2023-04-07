@@ -1,10 +1,11 @@
 ﻿using Cardamom.Ui;
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
+using SpaceOpera.View.Components;
 
 namespace SpaceOpera.View.Panes
 {
-    public abstract class MultiTabGamePane : UiContainer, IGamePane
+    public abstract class MultiTabGamePane : DynamicUiContainer, IGamePane
     {
         public EventHandler<EventArgs>? Populated { get; set; }
 
@@ -30,14 +31,6 @@ namespace SpaceOpera.View.Panes
             Add(closeButton);
             tabs.Position = new(0, header.Size.Y, 0);
             Add(tabs);
-        }
-
-        public void Refresh()
-        {
-            if (Body != null && Body is IDynamic body)
-            {
-                body.Refresh();
-            }
         }
 
         public abstract void Populate(params object?[] args);

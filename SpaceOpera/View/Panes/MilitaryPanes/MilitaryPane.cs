@@ -56,7 +56,7 @@ namespace SpaceOpera.View.Panes.MilitaryPanes
                 DynamicUiContainer(
                     uiElementFactory.GetClass(s_BodyClassName), new NoOpElementController<UiContainer>());
             var formationTable =
-                new DynamicUiSerialContainer<IFormation, FormationRow>(
+                new DynamicKeyedTable<IFormation, FormationRow>(
                     uiElementFactory.GetClass(s_MilitaryTableClassName),
                     new ActionTableController(10f),
                     UiSerialContainer.Orientation.Vertical,
