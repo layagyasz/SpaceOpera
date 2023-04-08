@@ -1,7 +1,6 @@
 ﻿using Cardamom.Mathematics;
 using Cardamom.Ui;
 using Cardamom.Ui.Controller;
-using Cardamom.Ui.Controller.Element;
 using SpaceOpera.View.Components;
 
 namespace SpaceOpera.Controller.Components
@@ -41,6 +40,15 @@ namespace SpaceOpera.Controller.Components
             _table!.Table.ElementRemoved -= HandleElementRemoved;
             _table!.Submit.Controller.Clicked -= HandleSubmit;
             _table = null;
+        }
+
+        public void Reset()
+        {
+            foreach (var row in _table!.Table.Cast<NumericInputTableRow<T>>())
+            {
+                ((NumericInputTableRowController<T>)row.ComponentController).Reset();
+            }
+            UpdateTotal();
         }
 
         private void BindElement(NumericInputTableRow<T> row)

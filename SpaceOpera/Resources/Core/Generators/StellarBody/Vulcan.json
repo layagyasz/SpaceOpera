@@ -1,9 +1,9 @@
 {
-  "Key": "planet-generator-cytherean",
-  "Name": "Cytherean",
+  "Key": "planet-generator-vulcan",
+  "Name": "Vulcan",
   "RadiusSampler": {
     "$type": "Uniform",
-    "Range": [ 2000, 9000 ]
+    "Range": [ 2000, 5000 ]
   },
   "Density": 3530,
   "SubRegionDensity": 0.000004,
@@ -13,8 +13,8 @@
     "RegionDensity": 0.000175,
     "TotalPressureSampler": {
       "$type": "Normal",
-      "Mean": 75,
-      "StandardDeviation": 25
+      "Mean": 0.25,
+      "StandardDeviation": 0.5
     },
     "PartialPressureSamplers": {
       "material-carbox-gas": {
@@ -33,21 +33,31 @@
     "HeightOutput": "denormalize",
     "HeightChannel": "Green",
     "Generators": {
-      "stellar-body-generator-cytherean-height-seed": {
+      "stellar-body-generator-vulcan-temperature-seed": {
         "Type": "Cardamom.Utils.Generators.Numeric.SeedGenerator, Cardamom",
         "Object": {}
       },
-      "stellar-body-generator-cytherean-rockiness-seed": {
+      "stellar-body-generator-vulcan-height-seed": {
         "Type": "Cardamom.Utils.Generators.Numeric.SeedGenerator, Cardamom",
         "Object": {}
       },
-      "stellar-body-generator-cytherean-height-offset": {
+      "stellar-body-generator-vulcan-rockiness-seed": {
+        "Type": "Cardamom.Utils.Generators.Numeric.SeedGenerator, Cardamom",
+        "Object": {}
+      },
+      "stellar-body-generator-vulcan-temperature-offset": {
         "Type": "Cardamom.Utils.Generators.Numeric.FloatGenerator, Cardamom",
         "Object": {
           "Range": [ 0, 1 ]
         }
       },
-      "stellar-body-generator-cytherean-rockiness-offset": {
+      "stellar-body-generator-vulcan-height-offset": {
+        "Type": "Cardamom.Utils.Generators.Numeric.FloatGenerator, Cardamom",
+        "Object": {
+          "Range": [ 0, 1 ]
+        }
+      },
+      "stellar-body-generator-vulcan-rockiness-offset": {
         "Type": "Cardamom.Utils.Generators.Numeric.FloatGenerator, Cardamom",
         "Object": {
           "Range": [ 0, 1 ]
@@ -56,22 +66,32 @@
     },
     "Parameters": [
       {
-        "$id": "stellar-body-generator-cytherean-height-seed",
+        "$id": "stellar-body-generator-vulcan-temperature-seed",
         "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Int32], Cardamom",
         "Object": {}
       },
       {
-        "$id": "stellar-body-generator-cytherean-rockiness-seed",
+        "$id": "stellar-body-generator-vulcan-height-seed",
         "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Int32], Cardamom",
         "Object": {}
       },
       {
-        "$id": "stellar-body-generator-cytherean-height-offset",
+        "$id": "stellar-body-generator-vulcan-rockiness-seed",
+        "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Int32], Cardamom",
+        "Object": {}
+      },
+      {
+        "$id": "stellar-body-generator-vulcan-temperature-offset",
         "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
         "Object": {}
       },
       {
-        "$id": "stellar-body-generator-cytherean-rockiness-offset",
+        "$id": "stellar-body-generator-vulcan-height-offset",
+        "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
+        "Object": {}
+      },
+      {
+        "$id": "stellar-body-generator-vulcan-rockiness-offset",
         "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
         "Object": {}
       }
@@ -80,14 +100,34 @@
       "Steps": [
         {
           "$type": "LatticeNoise",
-          "Key": "height",
-          "Channel": [ "Green" ],
+          "Key": "temperature",
+          "Channel": [ "Red" ],
           "Inputs": {
             "input": "position"
           },
           "Parameters": {
             "Seed": {
-              "$ref": "stellar-body-generator-cytherean-height-seed"
+              "$ref": "stellar-body-generator-vulcan-temperature-seed"
+            },
+            "Frequency": {
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[OpenTK.Mathematics.Vector3, OpenTK.Mathematics]], Cardamom",
+              "Object": {
+                "Value": [ 2, 2, 2 ]
+              }
+            }
+          }
+        },
+        {
+          "$type": "LatticeNoise",
+          "Key": "height",
+          "Channel": [ "Green" ],
+          "Inputs": {
+            "input": "position"
+          },
+          "Output": "temperature",
+          "Parameters": {
+            "Seed": {
+              "$ref": "stellar-body-generator-vulcan-height-seed"
             }
           },
           "Frequency": {
@@ -107,7 +147,7 @@
           "Output": "height",
           "Parameters": {
             "Seed": {
-              "$ref": "stellar-body-generator-cytherean-rockiness-seed"
+              "$ref": "stellar-body-generator-vulcan-rockiness-seed"
             },
             "Frequency": {
               "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[OpenTK.Mathematics.Vector3, OpenTK.Mathematics]], Cardamom",
@@ -214,11 +254,14 @@
             "Bias": {
               "Type": "Cardamom.Utils.Suppliers.Vector.Vector4ComponentwiseSupplier, Cardamom",
               "Object": {
+                "X": {
+                  "$ref": "stellar-body-generator-vulcan-temperature-offset"
+                },
                 "Y": {
-                  "$ref": "stellar-body-generator-cytherean-height-offset"
+                  "$ref": "stellar-body-generator-vulcan-height-offset"
                 },
                 "Z": {
-                  "$ref": "stellar-body-generator-cytherean-rockiness-offset"
+                  "$ref": "stellar-body-generator-vulcan-rockiness-offset"
                 }
               }
             }
@@ -228,10 +271,18 @@
     },
     "BiomeOptions": [
       {
-        "Biome": "biome-ocean-sulfurous",
+        "Biome": "biome-ice-barren",
+        "ThermalRange": [ 0, 273 ],
+        "Center": [ 0, 1, 0, 0 ],
+        "AxisWeight": [ 1, 2, 0, 0 ],
+        "Weight": 8,
+        "BlendRange": 0.5
+      },
+      {
+        "Biome": "biome-molten",
         "Center": [ 0, 0, 0, 0 ],
-        "AxisWeight": [ 0, 1, 0, 0 ],
-        "Weight": 32,
+        "AxisWeight": [ 0, 1, 1, 0 ],
+        "Weight": 16,
         "BlendRange": 0.25
       },
       {

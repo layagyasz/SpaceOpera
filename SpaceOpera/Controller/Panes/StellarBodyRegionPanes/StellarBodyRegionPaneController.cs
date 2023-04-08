@@ -11,6 +11,7 @@ namespace SpaceOpera.Controller.Panes.StellarBodyRegionPanes
         {
             base.Bind(@object);
             var pane = (StellarBodyRegionPane)_pane!;
+            pane.Populated += HandlePopulated;
             var structureTableController =
                 (NumericInputTableController<Structure>)pane.StructureTab.StructureTable.ComponentController;
             structureTableController.RowSelected += HandleStructureSelected;
@@ -19,17 +20,25 @@ namespace SpaceOpera.Controller.Panes.StellarBodyRegionPanes
         public override void Unbind()
         {
             var pane = (StellarBodyRegionPane)_pane!;
+            pane.Populated -= HandlePopulated;
             var structureTableController =
                 (NumericInputTableController<Structure>)pane.StructureTab.StructureTable.ComponentController;
             structureTableController.RowSelected -= HandleStructureSelected;
             base.Unbind();
+        }
+        
+        private void HandlePopulated(object? @object, EventArgs e)
+        {
+            var pane = (StellarBodyRegionPane)_pane!;
+            ((NumericInputTableController<Structure>)pane.StructureTab.StructureTable.ComponentController).Reset();
+            ((NumericInputTableController<Recipe>)pane.StructureTab.RecipeTable.ComponentController).Reset();
         }
 
         private void HandleStructureSelected(object? @object, ValueEventArgs<Structure?> e)
         {
             var pane = (StellarBodyRegionPane)_pane!;
             pane.StructureTab.SetStructure(e.Element);
-            pane.StructureTab.RecipeTable.Refresh();
+            ((NumericInputTableController<Recipe>)pane.StructureTab.RecipeTable.ComponentController).Reset();
             ((TableController)pane.StructureTab.RecipeTable.Table.Controller).Reset();
         }
     }

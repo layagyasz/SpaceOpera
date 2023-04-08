@@ -227,13 +227,19 @@
   {
     "$id": "biome-ocean-carbide",
     "Name": "Ocean",
-    "IsHabitable": true,
+    "IsHabitable": false,
     "IsTraversable": false
   },
   {
     "$id": "biome-ocean-ferrous",
     "Name": "Ocean",
-    "IsHabitable": true,
+    "IsHabitable": false,
+    "IsTraversable": false
+  },
+  {
+    "$id": "biome-ocean-sulfurous",
+    "Name": "Ocean",
+    "IsHabitable": false,
     "IsTraversable": false
   },
   {

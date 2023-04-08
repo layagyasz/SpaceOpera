@@ -168,6 +168,13 @@
     "Roughness": 0
   },
   {
+    "$id": "biome-ocean-sulfurous",
+    "Color": "#f6ea8d",
+    "SpecularCoefficient": 1,
+    "SpecularFactor": 128,
+    "Roughness": 0.1
+  },
+  {
     "$id": "biome-salt-flat",
     "Color": "#eee7dd",
     "Roughness": 0.1

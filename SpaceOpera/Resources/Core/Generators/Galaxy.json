@@ -54,6 +54,12 @@
         },
         {
           "Generator": "Resources/Core/Generators/StellarBody/Cytherean.json",
+          "Weight": 0.5,
+          "ThermalRange": [ 273, 1000000 ]
+
+        },
+        {
+          "Generator": "Resources/Core/Generators/StellarBody/Vulcan.json",
           "Weight": 0.125
         },
         {
