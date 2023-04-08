@@ -1,26 +1,42 @@
-﻿using Cardamom.Ui;
+﻿using Cardamom.Mathematics;
+using Cardamom.Ui;
 using Cardamom.Ui.Controller;
+using Cardamom.Ui.Controller.Element;
 using SpaceOpera.View.Components;
 
 namespace SpaceOpera.Controller.Components
 {
     public class NumericInputTableController<T> : IController where T : notnull
     {
+        public EventHandler<ValueEventArgs<T?>>? RowSelected { get; set; }
         public EventHandler<EventArgs>? Submitted { get; set; }
 
+        private readonly NumericInputTable<T>.IConfiguration _configuration;
+
         private NumericInputTable<T>? _table;
+        private RadioController<T>? _tableController;
+
+        public NumericInputTableController(NumericInputTable<T>.IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
 
         public void Bind(object @object)
         {
             _table = (NumericInputTable<T>)@object;
+            _table.Refreshed += HandleRefresh;
             _table.Table.ElementAdded += HandleElementAdded;
             _table.Table.ElementRemoved += HandleElementRemoved;
             _table.Submit.Controller.Clicked += HandleSubmit;
-            UpdateTotal();
+            _tableController = (RadioController<T>)_table.Table.ComponentController;
+            _tableController.ValueChanged += HandleRowSelected;
         }
 
         public void Unbind()
         {
+            _tableController!.ValueChanged -= HandleRowSelected;
+            _tableController = null;
+            _table!.Refreshed -= HandleRefresh;
             _table!.Table.ElementAdded -= HandleElementAdded;
             _table!.Table.ElementRemoved -= HandleElementRemoved;
             _table!.Submit.Controller.Clicked -= HandleSubmit;
@@ -41,6 +57,16 @@ namespace SpaceOpera.Controller.Components
         private void HandleElementRemoved(object? @object, ElementEventArgs e)
         {
             UnbindElement((NumericInputTableRow<T>)e.Element);
+        }
+
+        private void HandleRefresh(object? @object, EventArgs e)
+        {
+            UpdateTotal();
+        }
+
+        private void HandleRowSelected(object? sender, ValueChangedEventArgs<string, T?> e)
+        {
+            RowSelected?.Invoke(this, new(e.Value));
         }
 
         private void HandleSubmit(object? @object, MouseButtonClickEventArgs e)
@@ -67,7 +93,12 @@ namespace SpaceOpera.Controller.Components
                 var controller = (NumericInputTableRowController<T>)row.ComponentController;
                 total += controller.GetValue();
             }
-            _table!.Total.SetText(total.ToString());
+            _table!.Total.SetText(ToDisplayedString(total, _configuration.GetRange()));
+        }
+
+        private static string ToDisplayedString(int value, IntInterval range)
+        {
+            return range.Maximum < int.MaxValue ? $"{value}/{range.Maximum}" : value.ToString();
         }
     }
 }

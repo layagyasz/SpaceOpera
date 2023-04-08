@@ -24,25 +24,25 @@ namespace SpaceOpera.View.Overlay
             var calendarOverlay = CalendarOverlay.Create(uiElementFactory, calendar);
             return new(
                 new EmpireOverlayController(),
-                uiElementFactory.CreateTableRow(
-                    "overlay-empire-container", 
-                    new List<IUiElement>()
-                    {
-                        new SimpleUiElement(
-                            uiElementFactory.GetClass("overlay-empire-research"),
-                            new ActionButtonController(ActionId.Research)),
-                        new SimpleUiElement(
-                            uiElementFactory.GetClass("overlay-empire-equipment"),
-                            new ActionButtonController(ActionId.Equipment)),
-                        new SimpleUiElement(
-                            uiElementFactory.GetClass("overlay-empire-military-organization"),
-                            new ActionButtonController(ActionId.MilitaryOrganization)),
-                        new SimpleUiElement(
-                            uiElementFactory.GetClass("overlay-empire-military"),
-                            new ActionButtonController(ActionId.Military)),
-                        calendarOverlay
-                    }, 
-                    new ButtonController()),
+                new DynamicUiSerialContainer(
+                    uiElementFactory.GetClass("overlay-empire-container"), 
+                    new ButtonController(), 
+                    UiSerialContainer.Orientation.Horizontal)
+                {
+                    new SimpleUiElement(
+                        uiElementFactory.GetClass("overlay-empire-research"),
+                        new ActionButtonController(ActionId.Research)),
+                    new SimpleUiElement(
+                        uiElementFactory.GetClass("overlay-empire-equipment"),
+                        new ActionButtonController(ActionId.Equipment)),
+                    new SimpleUiElement(
+                        uiElementFactory.GetClass("overlay-empire-military-organization"),
+                        new ActionButtonController(ActionId.MilitaryOrganization)),
+                    new SimpleUiElement(
+                        uiElementFactory.GetClass("overlay-empire-military"),
+                        new ActionButtonController(ActionId.Military)),
+                    calendarOverlay
+                },
                 calendarOverlay);
         }
     }

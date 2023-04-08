@@ -166,7 +166,7 @@ namespace SpaceOpera.Core
             return CoreData.Advancements.Select(x => x.Value).Where(faction.HasPrerequisiteResearch);
         }
 
-        public IEnumerable<Recipe> GetRecipesFor(Faction faction)
+        public IEnumerable<Recipe> GetRecipesFor(Faction? faction)
         {
             if (faction == null)
             {

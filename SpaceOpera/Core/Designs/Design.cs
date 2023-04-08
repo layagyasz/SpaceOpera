@@ -1,4 +1,5 @@
 using SpaceOpera.Core.Economics;
+using System.ComponentModel;
 using System.Drawing;
 
 namespace SpaceOpera.Core.Designs
@@ -30,6 +31,10 @@ namespace SpaceOpera.Core.Designs
             {
                 component.Name = 
                     string.Format("{0} ({1})", name, StringUtils.FormatEnumChar(component.Slot.Size.ToString()));
+            }
+            foreach (var recipe in Recipes)
+            {
+                recipe.Name = name;
             }
         }
     }

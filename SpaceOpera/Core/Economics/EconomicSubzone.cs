@@ -60,6 +60,19 @@ namespace SpaceOpera.Core.Economics
             return 0;
         }
 
+        public int GetResourceNodes(IMaterial? resource)
+        {
+            if (resource == null)
+            {
+                return int.MaxValue;
+            }
+            if (_resourceNodes.TryGetValue(resource, out var node))
+            {
+                return node.MaxAmount;
+            }
+            return 0;
+        }
+
         public int GetAvailableStructureNodes()
         {
             return _structureNodes.Remaining;
@@ -73,6 +86,11 @@ namespace SpaceOpera.Core.Economics
         public int GetStructureCount(Structure structure)
         {
             return _structures[structure];
+        }
+
+        public int GetStructureNodes()
+        {
+            return _structureNodes.MaxAmount;
         }
 
         public void ReserveStructureNodes(Count<Structure> construction)

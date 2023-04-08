@@ -2,7 +2,6 @@
 using Cardamom.Collections;
 using Cardamom.Graphics;
 using Cardamom.Graphics.Camera;
-using Cardamom.Graphics.TexturePacking;
 using Cardamom.Ui;
 using Cardamom.Ui.Controller.Element;
 using OpenTK.Graphics.OpenGL4;
@@ -94,14 +93,11 @@ namespace SpaceOpera.View.Icons
 
         private readonly RenderTexture _rasterTexture = new(new(64, 64));
 
-        private readonly BannerColorSet _factionColor;
-
-        private IconFactory(
+        public IconFactory(
             BannerViewFactory bannerViewFactory,
             Library<IconAtom> atoms,
             EnumMap<ComponentType, DesignedComponentIconConfig> configs,
-            UiElementFactory uiElementFactory,
-            BannerColorSet factionColor)
+            UiElementFactory uiElementFactory)
         {
             _bannerViewFactory = bannerViewFactory;
             _atoms = atoms;
@@ -115,20 +111,13 @@ namespace SpaceOpera.View.Icons
                 { typeof(DivisionTemplate), GetDesignedComponentDefinition },
                 { typeof(Faction), GetBannerDefinition },
                 { typeof(Fleet), GetFormationDefinition },
+                { typeof(Recipe), GetRecipeDefinition },
                 { typeof(Structure), GetAtomicDefinition },
                 { typeof(Unit), GetDesignedComponentDefinition }
             };
             _uiElementFactory = uiElementFactory;
             _shader = _uiElementFactory.GetShader("shader-default");
-            _factionColor = factionColor;
         }
-
-        public IconFactory(
-            BannerViewFactory bannerViewFactory,
-            Library<IconAtom> atoms,
-            EnumMap<ComponentType, DesignedComponentIconConfig> configs,
-            UiElementFactory uiElementFactory)
-            : this(bannerViewFactory, atoms, configs, uiElementFactory, BannerColorSet.Default) { }
 
         public Icon Create(Class @class, IElementController controller, object @object)
         {
@@ -146,12 +135,6 @@ namespace SpaceOpera.View.Icons
             return _definitionMap[@object.GetType()](@object);
         }
 
-        public IconFactory ForFaction(Faction faction)
-        {
-            return new(
-                _bannerViewFactory, _atoms, _configs, _uiElementFactory, _bannerViewFactory.Get(faction.Banner));
-        }
-
         private IEnumerable<IconLayer> GetAtomicDefinition(object @object)
         {
             var key = @object as IKeyed;
@@ -165,13 +148,20 @@ namespace SpaceOpera.View.Icons
 
         private IEnumerable<IconLayer> GetDesignedComponentDefinition(object @object)
         {
-            var component = @object as DesignedComponent;
-            return _configs[component!.Slot.Type].CreateDefinition(component, _factionColor, this);
+            var component = (DesignedComponent)@object;
+            return _configs[component.Slot.Type].CreateDefinition(
+                component, new(Color4.White, Color4.Black, Color4.Red), this);
         }
 
         private IEnumerable<IconLayer> GetFormationDefinition(object @object)
         {
             return GetBannerDefinition(((IFormation)@object).Faction);
+        }
+
+        private IEnumerable<IconLayer> GetRecipeDefinition(object @object)
+        {
+            var recipe = (Recipe)@object;
+            return GetDefinition(recipe.Transformation.First(x => x.Value > 0).Key);
         }
 
         private Texture Rasterize(IRenderable renderable, ICamera camera)

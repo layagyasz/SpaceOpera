@@ -33,7 +33,7 @@ namespace SpaceOpera.View.Panes.DesignPanes
         }
 
         public static FormationRow Create(
-            IFormation formation, UiElementFactory uiElementFactory, ref IconFactory iconFactory)
+            IFormation formation, UiElementFactory uiElementFactory, IconFactory iconFactory)
         {
             return new(
                 uiElementFactory.GetClass(s_FormationRowClassName),

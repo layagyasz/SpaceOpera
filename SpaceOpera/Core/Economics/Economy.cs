@@ -43,7 +43,7 @@ namespace SpaceOpera.Core.Economics
             var holding = GetHolding(faction, stellarBodyRegion.Parent!);
             if (holding != null)
             {
-                return (StellarBodyRegionHolding)holding.GetSubzone(stellarBodyRegion);
+                return (StellarBodyRegionHolding?)holding.GetSubzone(stellarBodyRegion);
             }
             return null;
         }

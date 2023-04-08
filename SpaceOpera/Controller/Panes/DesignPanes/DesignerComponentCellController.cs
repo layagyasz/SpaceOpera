@@ -1,14 +1,17 @@
 ﻿using Cardamom.Ui;
+using Cardamom.Ui.Controller;
 using Cardamom.Ui.Controller.Element;
-using Cardamom.Ui.Elements;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 using SpaceOpera.Core.Designs;
 using SpaceOpera.View.Panes.DesignPanes;
 
 namespace SpaceOpera.Controller.Panes.DesignPanes
 {
     public class DesignerComponentCellController 
-        : ClassedUiElementController<UiContainer>, IOptionController<DesignSlot>
+        : ClassedUiElementController<ClassedUiElement>, IOptionController<DesignSlot>
     {
+        public EventHandler<EventArgs>? Selected { get; set; }
+
         public DesignSlot Key {get;}
 
         private DesignerComponentCell? _cell;
@@ -50,6 +53,10 @@ namespace SpaceOpera.Controller.Panes.DesignPanes
         public override bool HandleMouseButtonClicked(MouseButtonClickEventArgs e)
         {
             Clicked?.Invoke(this, e);
+            if (e.Button == MouseButton.Left)
+            {
+                Selected?.Invoke(this, EventArgs.Empty);
+            }
             return true;
         }
 
@@ -75,11 +82,6 @@ namespace SpaceOpera.Controller.Panes.DesignPanes
         {
             SetFocus(false);
             return true;
-        }
-
-        private void HandleClick(object? sender, MouseButtonClickEventArgs e)
-        {
-            Clicked?.Invoke(this, e);
         }
     }
 }

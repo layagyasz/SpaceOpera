@@ -52,9 +52,10 @@ namespace SpaceOpera.Core.Economics
             return _inventory[material];
         }
 
-        public EconomicSubzone GetSubzone(object key)
+        public EconomicSubzone? GetSubzone(object key)
         {
-            return _subzones[key];
+            _subzones.TryGetValue(key, out var result);
+            return result;
         }
 
         public IEnumerable<EconomicSubzone> GetSubzones()

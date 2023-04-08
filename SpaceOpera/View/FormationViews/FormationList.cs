@@ -36,9 +36,7 @@ namespace SpaceOpera.View.FormationViews
 
         public void Add(IFormation formation)
         {
-            var row = 
-                FormationRow.Create(
-                    formation, formation.Name, _uiElementFactory, _iconFactory.ForFaction(formation.Faction));
+            var row = FormationRow.Create(formation, formation.Name, _uiElementFactory, _iconFactory);
             row.Add(formation);
             _rows.Add(formation, row);
             Add(row);

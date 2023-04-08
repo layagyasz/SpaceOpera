@@ -1,5 +1,6 @@
 ﻿using Cardamom.Mathematics;
 using Cardamom.Ui;
+using Cardamom.Ui.Controller;
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
 using SpaceOpera.Controller.Components;
@@ -11,7 +12,8 @@ namespace SpaceOpera.View.Components
     {
         public interface IConfiguration
         {
-            IEnumerable<T> GetRange();
+            IEnumerable<T> GetKeys();
+            IntInterval GetRange();
             string GetName(T key);
             IntInterval GetRange(T key);
             int GetValue(T key);
@@ -30,7 +32,7 @@ namespace SpaceOpera.View.Components
             public string Submit { get; set; }
         }
 
-        public DynamicKeyedTable<T, NumericInputTableRow<T>> Table { get; }
+        public DynamicUiCompoundComponent Table { get; }
         public TextUiElement Total { get; }
         public IUiElement Submit { get; }
 
@@ -46,7 +48,7 @@ namespace SpaceOpera.View.Components
             Style style,
             IConfiguration configuration)
             : base(
-                  new NumericInputTableController<T>(),
+                  new NumericInputTableController<T>(configuration),
                   new DynamicUiSerialContainer(
                       uiElementFactory.GetClass(style.Container),
                       new NoOpElementController<DynamicUiSerialContainer>(),
@@ -60,13 +62,15 @@ namespace SpaceOpera.View.Components
             Add(new TextUiElement(uiElementFactory.GetClass(style.Header), new ButtonController(), header));
 
             Table =
-                new DynamicKeyedTable<T, NumericInputTableRow<T>>(
-                    uiElementFactory.GetClass(style.Table),
-                    new TableController(10f),
-                    UiSerialContainer.Orientation.Vertical,
-                    configuration.GetRange,
-                    CreateRow,
-                    _configuration.GetComparer());
+                new(
+                    new RadioController<T>("numeric-input-table-" + GetHashCode()),
+                    new DynamicKeyedTable<T, NumericInputTableRow<T>>(
+                        uiElementFactory.GetClass(style.Table),
+                        new TableController(10f),
+                        UiSerialContainer.Orientation.Vertical,
+                        configuration.GetKeys,
+                        CreateRow,
+                        _configuration.GetComparer()));
             Add(Table);
 
             Total = 
@@ -88,7 +92,7 @@ namespace SpaceOpera.View.Components
         private NumericInputTableRow<T> CreateRow(T key)
         {
             return NumericInputTableRow<T>.Create(
-                key, _configuration.GetName(key), _uiElementFactory, ref _iconFactory, _style.Row, _configuration);
+                key, _configuration.GetName(key), _uiElementFactory, _iconFactory, _style.Row, _configuration);
         }
     }
 }

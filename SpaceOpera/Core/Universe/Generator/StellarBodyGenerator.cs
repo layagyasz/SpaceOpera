@@ -181,7 +181,8 @@ namespace SpaceOpera.Core.Universe.Generator
                 regionWrappers.Sort(
                     Comparer<RegionWrapper>.Create((x, y) => x.Children!.Count.CompareTo(y.Children!.Count)));
                 var regionsToRemove = regionWrappers.Count - regionCount;
-                while (regionsToRemove > 0)
+                int limit = 0;
+                while (regionsToRemove > 0 && limit < regionWrappers.Count)
                 {
                     var region = regionWrappers[0];
                     var regionToCombine =
@@ -203,6 +204,7 @@ namespace SpaceOpera.Core.Universe.Generator
                     {
                         regionWrappers.Add(region);
                     }
+                    ++limit;
                     regionWrappers.RemoveAt(0);
                 }
             }

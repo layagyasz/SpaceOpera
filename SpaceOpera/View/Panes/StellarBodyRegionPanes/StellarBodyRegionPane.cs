@@ -7,6 +7,7 @@ using Cardamom.Ui;
 using SpaceOpera.Controller.Panes;
 using SpaceOpera.Core.Economics;
 using SpaceOpera.Core.Universe;
+using SpaceOpera.Controller.Panes.StellarBodyRegionPanes;
 
 namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
 {
@@ -29,11 +30,11 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
         private StellarBodyRegionHolding? _holding;
         private TabId _tab;
 
-        private StructureTab _structureTab;
+        public StructureTab StructureTab { get; }
 
         public StellarBodyRegionPane(UiElementFactory uiElementFactory, IconFactory iconFactory)
             : base(
-                  new MultiTabGamePaneController(),
+                  new StellarBodyRegionPaneController(),
                   uiElementFactory.GetClass(s_ClassName),
                   new TextUiElement(uiElementFactory.GetClass(s_TitleClassName), new ButtonController(), string.Empty),
                   uiElementFactory.CreateSimpleButton(s_CloseClass).Item1,
@@ -45,8 +46,8 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
                     uiElementFactory.GetClass(s_TabContainerClassName),
                     uiElementFactory.GetClass(s_TabOptionClassName)))
         {
-            _structureTab = new(uiElementFactory, iconFactory);
-            _structureTab.Initialize();
+            StructureTab = new(uiElementFactory, iconFactory);
+            StructureTab.Initialize();
         }
 
         public override void Populate(params object?[] args)
@@ -58,7 +59,7 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
             {
                 _holding = _world.Economy.GetHolding(_faction, _region);
             }
-            _structureTab.Populate(_world, _holding);
+            StructureTab.Populate(_world, _holding);
 
             SetTitle(_region?.Name ?? "Unknown Region");
             Refresh();
@@ -71,7 +72,7 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
             switch (_tab)
             {
                 case TabId.Structures:
-                    SetBody(_structureTab);
+                    SetBody(StructureTab);
                     break;
             }
         }

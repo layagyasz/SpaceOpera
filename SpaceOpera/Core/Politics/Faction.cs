@@ -65,7 +65,7 @@ namespace SpaceOpera.Core.Politics
 
         public bool HasPrerequisiteResearch(Recipe recipe)
         {
-            return recipe.Transformation.Keys.All(x => !(x is IComponent));
+            return recipe.Prerequisites.All(HasPrerequisiteResearch);
         }
 
         public void Tick()

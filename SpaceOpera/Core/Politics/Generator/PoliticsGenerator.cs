@@ -134,7 +134,7 @@ namespace SpaceOpera.Core.Politics.Generator
             }
 
             var cultures = new List<Culture>();
-            var playerHomeRegion = homeRegions.Get(random.Next(0, homeRegions.Count));
+            var playerHomeRegion = homeRegions.Get(random.NextSingle());
             PlaceCulture(playerCulture, playerHomeRegion);
             var chosenHomeRegions = new List<RegionWrapper>();
             for (int i = 0; i < Cultures; ++i)

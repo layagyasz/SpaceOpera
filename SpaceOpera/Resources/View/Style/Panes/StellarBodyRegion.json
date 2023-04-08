@@ -109,7 +109,7 @@
     "$id": "stellar-body-region-pane-structure-table-row-numeric-input",
     "Parent": "stellar-body-region-pane-structure-table-total-number",
     "Default": {
-      "Padding": [ 14, 0, 14, 0 ],
+      "Padding": [ 0 ],
       "Align": "Left"
     }
   },
@@ -117,22 +117,104 @@
     "$id": "stellar-body-region-pane-structure-table-row-numeric-input-text",
     "Parent": "ui-element-internal",
     "Default": {
-      "Size": [ 64, 24 ],
+      "Size": [ 84, 24 ],
       "Padding": [ 0, 8, 0, 8 ],
       "Align": "Center"
     }
   },
   {
     "$id": "stellar-body-region-pane-structure-table-row-numeric-input-subtract",
-    "Parent": "ui-element-internal",
+    "Parent": "ui-element-basic",
     "Default": {
       "Size": [ 24, 24 ],
-      "Padding": [ 0, 8, 0, 8 ],
-      "Align": "Center"
-    }
+      "Padding": [ 0, 5, 0, 5 ],
+      "Margin": [ 2 ],
+      "CornerRadius": [ [ 12, 12 ] ],
+      "Align": "Center",
+      "Color": "#ff8800cc",
+      "BorderColor": [ "#ff8800cc" ]
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "Color": "#ff8800",
+          "BorderColor": [ "#ff8800" ]
+        }
+      }
+    ]
   },
   {
     "$id": "stellar-body-region-pane-structure-table-row-numeric-input-add",
+    "Parent": "stellar-body-region-pane-structure-table-row-numeric-input-subtract",
+    "Default": {
+      "Color": "#0088ffcc",
+      "BorderColor": [ "#0088ffcc" ]
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "Color": "#0088ff",
+          "BorderColor": [ "#0088ff" ]
+        }
+      }
+    ]
+  },
+  {
+    "$id": "stellar-body-region-pane-recipe-table",
+    "Parent": "stellar-body-region-pane-structure-table"
+  },
+  {
+    "$id": "stellar-body-region-pane-recipe-table-header",
+    "Parent": "stellar-body-region-pane-structure-table-header"
+  },
+  {
+    "$id": "stellar-body-region-pane-recipe-table-total-row",
+    "Parent": "stellar-body-region-pane-structure-table-total-row"
+  },
+  {
+    "$id": "stellar-body-region-pane-recipe-table-total-text",
+    "Parent": "stellar-body-region-pane-structure-table-total-text"
+  },
+  {
+    "$id": "stellar-body-region-pane-recipe-table-total-number",
+    "Parent": "stellar-body-region-pane-structure-table-total-number"
+  },
+  {
+    "$id": "stellar-body-region-pane-recipe-table-submit",
+    "Parent": "stellar-body-region-pane-structure-table-submit"
+  },
+  {
+    "$id": "stellar-body-region-pane-recipe-table-row",
+    "Parent": "stellar-body-region-pane-structure-table-row"
+  },
+  {
+    "$id": "stellar-body-region-pane-recipe-table-row-info",
+    "Parent": "stellar-body-region-pane-structure-table-row-info"
+  },
+  {
+    "$id": "stellar-body-region-pane-recipe-table-row-icon",
+    "Parent": "stellar-body-region-pane-structure-table-row-icon"
+  },
+  {
+    "$id": "stellar-body-region-pane-recipe-table-row-text",
+    "Parent": "stellar-body-region-pane-structure-table-row-text"
+  },
+  {
+    "$id": "stellar-body-region-pane-recipe-table-row-numeric-input",
+    "Parent": "stellar-body-region-pane-structure-table-row-numeric-input"
+  },
+  {
+    "$id": "stellar-body-region-pane-recipe-table-row-numeric-input-text",
+    "Parent": "stellar-body-region-pane-structure-table-row-numeric-input-text"
+  },
+  {
+    "$id": "stellar-body-region-pane-recipe-table-row-numeric-input-subtract",
     "Parent": "stellar-body-region-pane-structure-table-row-numeric-input-subtract"
+  },
+  {
+    "$id": "stellar-body-region-pane-recipe-table-row-numeric-input-add",
+    "Parent": "stellar-body-region-pane-structure-table-row-numeric-input-add"
   }
 ]

@@ -143,7 +143,6 @@
     "Parent": "ui-container",
     "Default": {
       "Size": [ 884, 32 ],
-      "Padding": [ 2 ],
       "Margin": [ 4 ],
       "DisableScissor": true
     }

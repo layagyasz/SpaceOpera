@@ -35,7 +35,7 @@ namespace SpaceOpera.View.Panes.DesignPanes
             _actions = actions.SelectMany(x => x).ToList();
         }
 
-        public static DesignRow Create(Design design, UiElementFactory uiElementFactory, ref IconFactory iconFactory)
+        public static DesignRow Create(Design design, UiElementFactory uiElementFactory, IconFactory iconFactory)
         {
             return new(
                 uiElementFactory.GetClass(s_ComponentRowClassName),

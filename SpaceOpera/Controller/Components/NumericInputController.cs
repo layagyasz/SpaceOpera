@@ -41,6 +41,7 @@ namespace SpaceOpera.Controller.Components
         {
             _range = range;
             SetValue(_value);
+            UpdateString();
         }
 
         public int GetValue()
@@ -71,7 +72,7 @@ namespace SpaceOpera.Controller.Components
 
         private void UpdateString()
         {
-            _element!.Text.SetText(_value.ToString());
+            _element!.Text.SetText(ToDisplayedString(_value, _range));
         }
 
         private static int GetDelta(KeyModifiers modifiers)
@@ -91,6 +92,11 @@ namespace SpaceOpera.Controller.Components
                 return 10;
             }
             return 1;
+        }
+
+        private static string ToDisplayedString(int value, IntInterval range)
+        {
+            return range.Maximum < int.MaxValue ? $"{value}/{range.Maximum}" : value.ToString();
         }
     }
 }
