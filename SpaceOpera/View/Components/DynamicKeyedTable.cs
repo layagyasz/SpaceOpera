@@ -67,5 +67,12 @@ namespace SpaceOpera.View.Components
             Remove(element);
             element.Dispose();
         }
+
+        public void Reset()
+        {
+            Clear(true);
+            _currentRows.Clear();
+            Refresh();
+        }
     }
 }

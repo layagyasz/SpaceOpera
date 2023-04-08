@@ -89,6 +89,12 @@ namespace SpaceOpera.View.Components
             Add(Submit);
         }
 
+        public void Reset()
+        {
+            ((DynamicKeyedTable<T, NumericInputTableRow<T>>)Table.GetContainer()).Reset();
+            Refreshed?.Invoke(this, EventArgs.Empty);
+        }
+
         private NumericInputTableRow<T> CreateRow(T key)
         {
             return NumericInputTableRow<T>.Create(

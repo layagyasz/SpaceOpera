@@ -1,5 +1,4 @@
-﻿using Cardamom.Ui.Controller.Element;
-using SpaceOpera.Controller.Components;
+﻿using SpaceOpera.Controller.Components;
 using SpaceOpera.Core.Economics;
 using SpaceOpera.View.Panes.StellarBodyRegionPanes;
 
@@ -30,16 +29,15 @@ namespace SpaceOpera.Controller.Panes.StellarBodyRegionPanes
         private void HandlePopulated(object? @object, EventArgs e)
         {
             var pane = (StellarBodyRegionPane)_pane!;
-            ((NumericInputTableController<Structure>)pane.StructureTab.StructureTable.ComponentController).Reset();
-            ((NumericInputTableController<Recipe>)pane.StructureTab.RecipeTable.ComponentController).Reset();
+            pane.StructureTab.StructureTable.Reset();
+            pane.StructureTab.RecipeTable.Reset();
         }
 
         private void HandleStructureSelected(object? @object, ValueEventArgs<Structure?> e)
         {
             var pane = (StellarBodyRegionPane)_pane!;
             pane.StructureTab.SetStructure(e.Element);
-            ((NumericInputTableController<Recipe>)pane.StructureTab.RecipeTable.ComponentController).Reset();
-            ((TableController)pane.StructureTab.RecipeTable.Table.Controller).Reset();
+            pane.StructureTab.RecipeTable.Reset();
         }
     }
 }

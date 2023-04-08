@@ -42,15 +42,6 @@ namespace SpaceOpera.Controller.Components
             _table = null;
         }
 
-        public void Reset()
-        {
-            foreach (var row in _table!.Table.Cast<NumericInputTableRow<T>>())
-            {
-                ((NumericInputTableRowController<T>)row.ComponentController).Reset();
-            }
-            UpdateTotal();
-        }
-
         private void BindElement(NumericInputTableRow<T> row)
         {
             var controller = (NumericInputTableRowController<T>)row.ComponentController;

@@ -71,8 +71,8 @@ namespace SpaceOpera.View
             {
                 ClearPanes();
                 pane.Position = 0.5f * (_bounds - pane.Size);
+                PaneLayer.Add(pane);
             }
-            PaneLayer.Add(pane);
         }
 
         public void Refresh()

@@ -53,13 +53,6 @@ namespace SpaceOpera.Controller.Components
             return _inputController!.GetValue();
         }
 
-        public void Reset()
-        {
-            _defaultValue = _configuration.GetValue(Key);
-            _inputController!.SetValue(_defaultValue);
-            _inputController!.SetRange(_configuration.GetRange(Key));
-        }
-
         public void SetSelected(bool selected)
         {
             _infoController!.SetToggle(selected);
