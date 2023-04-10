@@ -1,6 +1,7 @@
 ﻿using Cardamom.Ui;
 using Cardamom.Ui.Controller.Element;
 using OpenTK.Windowing.GraphicsLibraryFramework;
+using SpaceOpera.Core.Orders;
 using SpaceOpera.View.Panes;
 
 namespace SpaceOpera.Controller.Panes
@@ -8,6 +9,7 @@ namespace SpaceOpera.Controller.Panes
     public class GamePaneController : PaneController, IActionController
     {
         public EventHandler<UiInteractionEventArgs>? Interacted { get; set; }
+        public EventHandler<IOrder>? OrderCreated { get; set; }
 
         protected IGamePane? _pane;
 

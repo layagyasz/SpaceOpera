@@ -50,6 +50,11 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
             StructureTab.Initialize();
         }
 
+        public StellarBodyRegionHolding GetHolding()
+        {
+            return _holding!;
+        }
+
         public override void Populate(params object?[] args)
         {
             _world = args[0] as World;

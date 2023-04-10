@@ -1,5 +1,6 @@
 ﻿using SpaceOpera.Controller.Components;
 using SpaceOpera.Core.Economics;
+using SpaceOpera.Core.Orders;
 using SpaceOpera.View.Panes.StellarBodyRegionPanes;
 
 namespace SpaceOpera.Controller.Panes.StellarBodyRegionPanes
@@ -14,6 +15,7 @@ namespace SpaceOpera.Controller.Panes.StellarBodyRegionPanes
             var structureTableController =
                 (NumericInputTableController<Structure>)pane.StructureTab.StructureTable.ComponentController;
             structureTableController.RowSelected += HandleStructureSelected;
+            structureTableController.Submitted += HandleStructureSubmitted;
         }
 
         public override void Unbind()
@@ -23,21 +25,35 @@ namespace SpaceOpera.Controller.Panes.StellarBodyRegionPanes
             var structureTableController =
                 (NumericInputTableController<Structure>)pane.StructureTab.StructureTable.ComponentController;
             structureTableController.RowSelected -= HandleStructureSelected;
+            structureTableController.Submitted -= HandleStructureSubmitted;
             base.Unbind();
         }
         
-        private void HandlePopulated(object? @object, EventArgs e)
+        private void HandlePopulated(object? sender, EventArgs e)
         {
             var pane = (StellarBodyRegionPane)_pane!;
-            pane.StructureTab.StructureTable.Reset();
-            pane.StructureTab.RecipeTable.Reset();
+            ((NumericInputTableController<Structure>)pane.StructureTab.StructureTable.ComponentController).Reset();
+            ((NumericInputTableController<Recipe>)pane.StructureTab.RecipeTable.ComponentController).Reset();
         }
 
-        private void HandleStructureSelected(object? @object, ValueEventArgs<Structure?> e)
+        private void HandleStructureSelected(object? sender, ValueEventArgs<Structure?> e)
         {
             var pane = (StellarBodyRegionPane)_pane!;
             pane.StructureTab.SetStructure(e.Element);
-            pane.StructureTab.RecipeTable.Reset();
+            ((NumericInputTableController<Recipe>)pane.StructureTab.RecipeTable.ComponentController).Reset();
+        }
+
+        private void HandleStructureSubmitted(object? sender, EventArgs e)
+        {
+            var pane = (StellarBodyRegionPane)_pane!;
+            var structureTableController =
+                (NumericInputTableController<Structure>)pane.StructureTab.StructureTable.ComponentController;
+            var deltas = structureTableController.GetDeltas();
+            if (deltas.Count > 0)
+            {
+                ((NumericInputTableController<Structure>)pane.StructureTab.StructureTable.ComponentController).Reset();
+                OrderCreated?.Invoke(this, new BuildOrder(pane.GetHolding(), deltas));
+            }
         }
     }
 }

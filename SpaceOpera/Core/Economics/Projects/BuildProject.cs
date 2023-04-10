@@ -13,7 +13,7 @@ namespace SpaceOpera.Core.Economics.Projects
         {
             Holding = holding;
             Construction = construction;
-            Progress = new(construction.Key.BuildTime);
+            Progress = new(construction.Key.BuildTime, /* startFull= */ false);
             Cost = construction.Value * construction.Key.Cost;
         }
 

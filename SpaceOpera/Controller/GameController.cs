@@ -3,9 +3,11 @@ using Cardamom.Logging;
 using Cardamom.Ui;
 using Cardamom.Ui.Controller;
 using OpenTK.Windowing.GraphicsLibraryFramework;
+using SpaceOpera.Controller.Panes;
 using SpaceOpera.Controller.Scenes;
 using SpaceOpera.Core;
 using SpaceOpera.Core.Designs;
+using SpaceOpera.Core.Orders;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Universe;
 using SpaceOpera.View;
@@ -53,9 +55,10 @@ namespace SpaceOpera.Controller
             _screen.PaneLayer.ElementRemoved += HandlePaneClosed;
             foreach (var pane in _screen.GetPanes())
             {
-                if (pane.Controller is IActionController paneController)
+                if (pane.Controller is GamePaneController paneController)
                 {
                     paneController.Interacted += HandleInteraction;
+                    paneController.OrderCreated += HandleOrder;
                 }
             }
         }
@@ -69,9 +72,10 @@ namespace SpaceOpera.Controller
             }
             foreach (var pane in _screen.GetPanes())
             {
-                if (pane.Controller is IActionController paneController)
+                if (pane.Controller is GamePaneController paneController)
                 {
                     paneController.Interacted -= HandleInteraction;
+                    paneController.OrderCreated -= HandleOrder;
                 }
             }
         }
@@ -156,6 +160,14 @@ namespace SpaceOpera.Controller
             _screen!.SetScene(scene);
             _window.SetFocus(scene);
         }
+        
+        private void HandleOrder(object? sender, IOrder e)
+        {
+            if (e is BuildOrder)
+            {
+                OpenPane(GamePaneId.OrderConfirmation, /* closeOpenPanes= */ false, e);
+            }
+        }
 
         private void HandleInteraction(object? sender, UiInteractionEventArgs e)
         {
@@ -182,9 +194,15 @@ namespace SpaceOpera.Controller
             var @object = e.GetOnlyObject();
             if (e.Action != null)
             {
+                if (@object is IOrder order && e.Action == ActionId.Confirm)
+                {
+                    _driver.Execute(order);
+                    _screen!.Refresh();
+                    return;
+                }
                 if (@object is Design && e.Action == ActionId.Edit)
                 {
-                    OpenPane(GamePaneId.Designer, _world!, _faction, @object);
+                    OpenPane(GamePaneId.Designer, /* closeOpenPanes= */ true, _world!, _faction, @object);
                     return;
                 }
                 var gameSpeed = GetGameSpeed(e.Action.Value);
@@ -195,7 +213,7 @@ namespace SpaceOpera.Controller
                 var paneId = GetPane(e.Action.Value);
                 if (paneId != GamePaneId.None)
                 {
-                    OpenPane(paneId, _world!, _faction);
+                    OpenPane(paneId, /* closeOpenPanes= */ true, _world!, _faction);
                 }
                 return;
             }
@@ -203,7 +221,12 @@ namespace SpaceOpera.Controller
             {
                 if (@object is StellarBodySubRegion subRegion && e.Button == MouseButton.Left)
                 {
-                    OpenPane(GamePaneId.StellarBodyRegion, _world!, _faction, subRegion.ParentRegion!);
+                    OpenPane(
+                        GamePaneId.StellarBodyRegion,
+                        /* closeOpenPanes= */ true,
+                        _world!, 
+                        _faction, 
+                        subRegion.ParentRegion!);
                     SetHighlight(
                         HighlightLayerName.Foreground,
                         SimpleHighlight.Wrap(new StellarBodyRegionHighlight(subRegion.ParentRegion!)));
@@ -229,11 +252,11 @@ namespace SpaceOpera.Controller
             }
         }
 
-        private void OpenPane(GamePaneId paneId, params object[] args)
+        private void OpenPane(GamePaneId paneId, bool closeOpenPanes, params object[] args)
         {
             var pane = _screen!.GetPane(paneId);
             pane.Populate(args);
-            _screen!.OpenPane(pane);
+            _screen!.OpenPane(pane, closeOpenPanes);
         }
         
         private static GamePaneId GetPane(ActionId id)

@@ -7,6 +7,7 @@
         Designer,
         Military,
         MilitaryOrganization,
+        OrderConfirmation,
         Research,
         StellarBodyRegion
     }

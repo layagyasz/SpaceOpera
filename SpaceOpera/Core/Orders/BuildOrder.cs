@@ -15,6 +15,16 @@ namespace SpaceOpera.Core.Orders
             Structures = structures;
         }
 
+        public MultiQuantity<IMaterial> GetTotalCost()
+        {
+            MultiQuantity<IMaterial> cost = new();
+            foreach (var structure in Structures)
+            {
+                cost.Add(structure.Value * structure.Key.Cost);
+            }
+            return cost;
+        }
+
         public ValidationFailureReason Validate()
         {
             foreach (var construction in Structures)

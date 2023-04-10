@@ -52,7 +52,7 @@ namespace SpaceOpera.View.Info
             }
         }
 
-        private IEnumerable<KeyValuePair<string, string>> GetCapabilities(Unit Unit)
+        private static IEnumerable<KeyValuePair<string, string>> GetCapabilities(Unit Unit)
         {
             if (Unit.GetAttribute(ComponentAttribute.HangarSpace) > 0)
             {

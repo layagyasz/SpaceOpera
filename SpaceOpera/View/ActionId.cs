@@ -15,6 +15,9 @@
         GameSpeedFast,
 
         // Element actions
-        Edit
+        Edit,
+
+        // Order actions
+        Confirm
     }
 }

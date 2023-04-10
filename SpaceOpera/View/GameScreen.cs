@@ -65,11 +65,14 @@ namespace SpaceOpera.View
             PaneLayer.Initialize();
         }
 
-        public void OpenPane(IGamePane pane)
+        public void OpenPane(IGamePane pane, bool closeOpenPanes)
         {
             if (!PaneLayer.Contains(pane))
             {
-                ClearPanes();
+                if (closeOpenPanes)
+                {
+                    ClearPanes();
+                }
                 pane.Position = 0.5f * (_bounds - pane.Size);
                 PaneLayer.Add(pane);
             }

@@ -20,18 +20,17 @@ namespace SpaceOpera.View.Panes.DesignPanes
         private static readonly string s_BodyClassName = "designer-pane-body";
         private static readonly string s_ComponentOptionTableClassName = "designer-pane-component-option-table";
         private static readonly string s_SegmentTableClassName = "designer-pane-segment-table";
-        private static readonly InfoPanelStyle s_InfoPaneStyle = 
-            new(
-                "designer-pane-info-container", 
-                null,
-                null,
-                null,
-                "designer-pane-info-row",
-                "designer-pane-info-heading",
-                "designer-pane-info-value", 
-                "designer-pane-info-material-cell", 
-                "designer-pane-info-material-icon", 
-                "designer-pane-info-material-text");
+        private static readonly InfoPanel.Style s_InfoPaneStyle =
+            new()
+            {
+                Container = "designer-pane-info-container",
+                Row = "designer-pane-info-row",
+                RowHeading = "designer-pane-info-heading",
+                RowValue = "designer-pane-info-value",
+                MaterialCell = "designer-pane-info-material-cell",
+                MaterialIcon = "designer-pane-info-material-icon",
+                MaterialText = "designer-pane-info-material-text"
+            };
 
         public UiCompoundComponent ComponentOptionTable { get; }
         public UiCompoundComponent SegmentTable { get; }

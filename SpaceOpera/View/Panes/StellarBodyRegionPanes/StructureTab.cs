@@ -168,7 +168,7 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
             }
         }
 
-        private IconFactory _iconFactory;
+        private readonly IconFactory _iconFactory;
         private readonly StructureTableConfiguration _structureTableConfiguration;
         private readonly RecipeTableConfiguration _recipeTableConfiguration;
 
