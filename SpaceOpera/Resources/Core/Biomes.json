@@ -248,6 +248,7 @@
     "IsHabitable": true,
     "IsTraversable": true,
     "Modifiers": [
+      "modifier-biome-barren",
       "modifier-biome-halic"
     ]
   },

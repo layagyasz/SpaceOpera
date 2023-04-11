@@ -1,14 +1,12 @@
 ﻿using Cardamom.Ui;
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
-using SpaceOpera.Controller.Components;
 using SpaceOpera.Controller.Panes;
 using SpaceOpera.Core;
 using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.View.Components;
 using SpaceOpera.View.Icons;
-using SpaceOpera.View.Panes.DesignPanes;
 
 namespace SpaceOpera.View.Panes.MilitaryPanes
 {
@@ -30,10 +28,19 @@ namespace SpaceOpera.View.Panes.MilitaryPanes
         private static readonly string s_BodyClassName = "military-pane-body";
         private static readonly string s_MilitaryTableClassName = "military-pane-military-table";
 
+        private static readonly ActionRow<IFormation>.Style s_FormationRowStyle =
+            new()
+            {
+                Container = "military-pane-formation-row",
+                Icon = "military-pane-formation-row-icon",
+                Text = "military-pane-formation-row-text"
+            };
+
         private World? _world;
         private Faction? _faction;
         private TabId _tab;
 
+        private readonly UiElementFactory _uiElementFactory;
         private readonly IconFactory _iconFactory;
 
         public MilitaryPane(UiElementFactory uiElementFactory, IconFactory iconFactory)
@@ -51,17 +58,18 @@ namespace SpaceOpera.View.Panes.MilitaryPanes
                     uiElementFactory.GetClass(s_TabContainerClassName),
                     uiElementFactory.GetClass(s_TabOptionClassName)))
         {
+            _uiElementFactory = uiElementFactory;
             _iconFactory = iconFactory;
             var body = new
                 DynamicUiContainer(
                     uiElementFactory.GetClass(s_BodyClassName), new NoOpElementController<UiContainer>());
             var formationTable =
-                new DynamicKeyedTable<IFormation, FormationRow>(
+                new DynamicKeyedTable<IFormation, ActionRow<IFormation>>(
                     uiElementFactory.GetClass(s_MilitaryTableClassName),
-                    new ActionTableController(10f),
+                    new TableController(10f),
                     UiSerialContainer.Orientation.Vertical,
                     GetRange,
-                    x => FormationRow.Create(x, uiElementFactory, _iconFactory),
+                    CreateRow,
                     Comparer<IFormation>.Create((x, y) => x.Name.CompareTo(y.Name)));
             body.Add(formationTable);
             SetBody(body);
@@ -78,6 +86,17 @@ namespace SpaceOpera.View.Panes.MilitaryPanes
         public override void SetTab(object id)
         {
             _tab = (TabId)id;
+        }
+
+        private ActionRow<IFormation> CreateRow(IFormation formation)
+        {
+            return ActionRow<IFormation>.Create(
+                formation, 
+                formation.Name,
+                _uiElementFactory, 
+                _iconFactory,
+                s_FormationRowStyle,
+                Enumerable.Empty<ActionRow<IFormation>.ActionConfiguration>());
         }
 
         private IEnumerable<IFormation> GetRange()

@@ -8,14 +8,14 @@ namespace SpaceOpera.Controller.Panes.DesignPanes
         {
             base.Bind(@object);
             var pane = _pane as DesignPane;
-            var tableController = pane!.DesignTable.Controller as IActionController;
+            var tableController = pane!.DesignTable.ComponentController as IActionController;
             tableController!.Interacted += HandleInteraction;
         }
 
         public override void Unbind()
         {
             var pane = _pane as DesignPane;
-            var tableController = pane!.DesignTable.Controller as IActionController;
+            var tableController = pane!.DesignTable.ComponentController as IActionController;
             tableController!.Interacted -= HandleInteraction;
             base.Unbind();
         }

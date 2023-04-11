@@ -8,7 +8,7 @@ namespace SpaceOpera.Core.Economics.Projects
 
         protected TimedProject(int time)
         {
-            Progress = new(time);
+            Progress = new(time, /* startFull= */ false);
         }
 
         public void Tick()

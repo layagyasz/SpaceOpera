@@ -107,6 +107,7 @@ namespace SpaceOpera.View.Icons
                 { typeof(BaseComponent),  GetAtomicDefinition },
                 { typeof(BaseMaterial), GetAtomicDefinition },
                 { typeof(BattalionTemplate), GetDesignedComponentDefinition },
+                {typeof(Design), GetDesignDefinition },
                 { typeof(DesignedComponent), GetDesignedComponentDefinition },
                 { typeof(DivisionTemplate), GetDesignedComponentDefinition },
                 { typeof(Faction), GetBannerDefinition },
@@ -144,6 +145,12 @@ namespace SpaceOpera.View.Icons
         private IEnumerable<IconLayer> GetBannerDefinition(object @object)
         {
             return _bannerViewFactory.Create(((Faction)@object).Banner);
+        }
+
+        private IEnumerable<IconLayer> GetDesignDefinition(object @object)
+        {
+            var design = (Design)@object;
+            return GetDefinition(design.Components.First());
         }
 
         private IEnumerable<IconLayer> GetDesignedComponentDefinition(object @object)

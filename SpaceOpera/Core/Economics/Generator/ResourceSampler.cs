@@ -7,7 +7,7 @@ namespace SpaceOpera.Core.Economics.Generator
 {
     public class ResourceSampler
     {
-        private static readonly float s_ClumpingConstant = .05f;
+        private static readonly float s_ClumpingConstant = .1f;
 
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public enum ResourceSamplerType
@@ -27,7 +27,7 @@ namespace SpaceOpera.Core.Economics.Generator
         {
             if (SamplerType == ResourceSamplerType.Clumped)
             {
-                return random.NextDouble() < Clumping();
+                return random.NextSingle() < Clumping();
             }
             return true;
         }

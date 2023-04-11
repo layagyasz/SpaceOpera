@@ -1,26 +1,24 @@
 ﻿using Cardamom.Ui;
-using Cardamom.Ui.Controller.Element;
+using Cardamom.Ui.Controller;
+using Cardamom.Ui.Elements;
 
 namespace SpaceOpera.Controller.Components
 {
-    public class ActionTableController : TableController, IActionController
+    public class ActionTableController : DynamicComponentControllerBase, IActionController
     {
         public EventHandler<UiInteractionEventArgs>? Interacted { get; set; }
 
-        public ActionTableController(float scrollSpeed)
-            : base(scrollSpeed) { }
-
         public override void BindElement(IUiElement element)
         {
-            base.BindElement(element);
-            var controller = element.Controller as IActionController;
+            var row = (UiCompoundComponent)element;
+            var controller = (IActionController)row.ComponentController;
             controller!.Interacted += HandleInteraction;
         }
 
         public override void UnbindElement(IUiElement element)
         {
-            base.UnbindElement(element);
-            var controller = element.Controller as IActionController;
+            var row = (UiCompoundComponent)element;
+            var controller = (IActionController)row.ComponentController;
             controller!.Interacted -= HandleInteraction;
         }
 

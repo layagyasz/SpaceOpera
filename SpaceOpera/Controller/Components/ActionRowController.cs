@@ -1,9 +1,9 @@
-﻿using Cardamom.Ui.Controller.Element;
+﻿using Cardamom.Ui.Controller;
 using SpaceOpera.View.Components;
 
 namespace SpaceOpera.Controller.Components
 {
-    public class ActionRowController<T> : ButtonController, IActionController
+    public class ActionRowController<T> : IController, IActionController
     {
         public EventHandler<UiInteractionEventArgs>? Interacted { get; set; }
 
@@ -16,9 +16,8 @@ namespace SpaceOpera.Controller.Components
             Key = key;
         }
 
-        public override void Bind(object @object)
+        public void Bind(object @object)
         {
-            base.Bind(@object);
             _row = @object as IActionRow;
             foreach (var actionController in _row!.GetActions().Select(x => x.Controller).Cast<IActionController>())
             {
@@ -26,9 +25,8 @@ namespace SpaceOpera.Controller.Components
             }
         }
 
-        public override void Unbind()
+        public void Unbind()
         {
-            base.Unbind();
             foreach (var actionController in _row!.GetActions().Select(x => x.Controller).Cast<IActionController>())
             {
                 actionController.Interacted -= HandleInteraction;
