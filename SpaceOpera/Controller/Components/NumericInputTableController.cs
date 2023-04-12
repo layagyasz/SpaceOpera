@@ -57,7 +57,7 @@ namespace SpaceOpera.Controller.Components
 
         public T GetSelected()
         {
-            return ((RadioController<T>)_table!.Table.ComponentController).GetValue();
+            return ((RadioController<T>)_table!.Table.ComponentController).GetValue()!;
         }
 
         public MultiCount<T> GetValues()

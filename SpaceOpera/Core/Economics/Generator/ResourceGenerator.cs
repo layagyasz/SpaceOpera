@@ -5,20 +5,11 @@ namespace SpaceOpera.Core.Economics.Generator
 {
     public class ResourceGenerator
     {
-        private readonly ISampler _populationSampler;
-        private readonly float _gasNodeDensity;
-        private readonly List<ResourceSampler> _resourceSamplers;
-        private readonly Dictionary<Biome, BiomeResourceGenerator> _resourceGeneratorsByBiome = new();
+        public ISampler? PopulationSampler { get; set; }
+        public float GasNodeDensity { get; set; }
+        public List<ResourceSampler> ResourceSamplers { get; set; } = new();
 
-        public ResourceGenerator(
-            ISampler populationSampler,
-            float gasNodeDensity, 
-            IEnumerable<ResourceSampler> resourceSamplers)
-        {
-            _populationSampler = populationSampler;
-            _gasNodeDensity = gasNodeDensity;
-            _resourceSamplers = resourceSamplers.ToList();
-        }
+        private readonly Dictionary<Biome, BiomeResourceGenerator> _resourceGeneratorsByBiome = new();
 
         public void Generate(World world, GeneratorContext context)
         {
@@ -47,13 +38,13 @@ namespace SpaceOpera.Core.Economics.Generator
                             atmosphereNode.Key, 
                             (int)Math.Min(
                                 region.StructureNodes,
-                                _gasNodeDensity * region.StructureNodes * atmosphereNode.Value)));
+                                GasNodeDensity * region.StructureNodes * atmosphereNode.Value)));
                 }
                 region.AddResources(resourceNodes);
                 if (region.Sovereign != null)
                 {
                     region.AddPopulation(
-                        (uint)(GetPopulationMultiplier(region.DominantBiome) * _populationSampler.Generate(random)));
+                        (uint)(GetPopulationMultiplier(region.DominantBiome) * PopulationSampler!.Generate(random)));
                 }
             }
         }
@@ -73,7 +64,7 @@ namespace SpaceOpera.Core.Economics.Generator
             _resourceGeneratorsByBiome.TryGetValue(biome, out var generator);
             if (generator == null)
             {
-                generator = new BiomeResourceGenerator(biome, _resourceSamplers);
+                generator = new BiomeResourceGenerator(biome, ResourceSamplers);
                 _resourceGeneratorsByBiome.Add(biome, generator);
             }
             return generator;

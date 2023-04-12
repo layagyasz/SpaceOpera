@@ -19,7 +19,7 @@ namespace SpaceOpera.Core.Economics
             MaterialSink = materialSink;
         }
 
-        public void CreateSovereignHolding(Faction faction, StellarBodyRegion stellarBodyRegion)
+        public StellarBodyRegionHolding CreateSovereignHolding(Faction faction, StellarBodyRegion stellarBodyRegion)
         {
             var holding = GetOrCreateHolding(faction, stellarBodyRegion.Parent!);
             var regionHolding = new StellarBodyRegionHolding(holding, stellarBodyRegion);
@@ -29,6 +29,7 @@ namespace SpaceOpera.Core.Economics
             {
                 regionHolding.AddResourceNodes(Count<ResourceNode>.Create(resource, resource.Size));
             }
+            return regionHolding;
         }
 
         public StellarBodyHolding? GetHolding(Faction faction, StellarBody stellarBody)

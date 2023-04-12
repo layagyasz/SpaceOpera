@@ -1,100 +1,102 @@
 {
-  "PopulationSampler": {
-    "$type": "Exponential",
-    "Scale": 10000000,
-    "Rate": 2
-  },
-  "GasNodeDensity": 1,
-  "ResourceSamplers": [
-    {
-      "Resource": "material-alkalite-ore",
-      "SamplerType": "Clumped",
-      "NodeDensityCoefficient": 1.2
+  "Resources": {
+    "PopulationSampler": {
+      "$type": "Exponential",
+      "Scale": 100000000,
+      "Rate": 2
     },
-    {
-      "Resource": "material-alumite-ore",
-      "SamplerType": "Clumped",
-      "NodeDensityCoefficient": 1.2
-    },
-    {
-      "Resource": "material-argentite-ore",
-      "SamplerType": "Clumped",
-      "NodeDensityCoefficient": 1.2
-    },
-    {
-      "Resource": "material-aurite-ore",
-      "SamplerType": "Clumped",
-      "NodeDensityCoefficient": 1.2
-    },
-    {
-      "Resource": "material-carbon-ignic",
-      "SamplerType": "Clumped",
-      "NodeDensityCoefficient": 1.2
-    },
-    {
-      "Resource": "material-clay",
-      "SamplerType": "Clumped",
-      "NodeDensityCoefficient": 1.2
-    },
-    {
-      "Resource": "material-crystal",
-      "SamplerType": "Clumped",
-      "NodeDensityCoefficient": 1.2
-    },
-    {
-      "Resource": "material-cuprite-ore",
-      "SamplerType": "Clumped",
-      "NodeDensityCoefficient": 1.2
-    },
-    {
-      "Resource": "material-ferrite-ore",
-      "SamplerType": "Clumped",
-      "NodeDensityCoefficient": 1.2
-    },
-    {
-      "Resource": "material-food",
-      "SamplerType": "Dispersed",
-      "NodeDensityCoefficient": 650
-    },
-    {
-      "Resource": "material-graphite",
-      "SamplerType": "Clumped",
-      "NodeDensityCoefficient": 1.2
-    },
-    {
-      "Resource": "material-gravel",
-      "SamplerType": "Clumped",
-      "NodeDensityCoefficient": 2.4
-    },
-    {
-      "Resource": "material-gravite-ore",
-      "SamplerType": "Clumped",
-      "NodeDensityCoefficient": 1.2
-    },
-    {
-      "Resource": "material-halics",
-      "SamplerType": "Clumped",
-      "NodeDensityCoefficient": 1.2
-    },
-    {
-      "Resource": "material-merite-ore",
-      "SamplerType": "Clumped",
-      "NodeDensityCoefficient": 1.2
-    },
-    {
-      "Resource": "material-ossic-stone",
-      "SamplerType": "Clumped",
-      "NodeDensityCoefficient": 1.2
-    },
-    {
-      "Resource": "material-valentulite-ore",
-      "SamplerType": "Clumped",
-      "NodeDensityCoefficient": 1.2
-    },
-    {
-      "Resource": "material-wulframite-ore",
-      "SamplerType": "Clumped",
-      "NodeDensityCoefficient": 1.2
-    }
-  ]
+    "GasNodeDensity": 1,
+    "ResourceSamplers": [
+      {
+        "Resource": "material-alkalite-ore",
+        "SamplerType": "Clumped",
+        "NodeDensityCoefficient": 1.2
+      },
+      {
+        "Resource": "material-alumite-ore",
+        "SamplerType": "Clumped",
+        "NodeDensityCoefficient": 1.2
+      },
+      {
+        "Resource": "material-argentite-ore",
+        "SamplerType": "Clumped",
+        "NodeDensityCoefficient": 1.2
+      },
+      {
+        "Resource": "material-aurite-ore",
+        "SamplerType": "Clumped",
+        "NodeDensityCoefficient": 1.2
+      },
+      {
+        "Resource": "material-carbon-ignic",
+        "SamplerType": "Clumped",
+        "NodeDensityCoefficient": 1.2
+      },
+      {
+        "Resource": "material-clay",
+        "SamplerType": "Clumped",
+        "NodeDensityCoefficient": 1.2
+      },
+      {
+        "Resource": "material-crystal",
+        "SamplerType": "Clumped",
+        "NodeDensityCoefficient": 1.2
+      },
+      {
+        "Resource": "material-cuprite-ore",
+        "SamplerType": "Clumped",
+        "NodeDensityCoefficient": 1.2
+      },
+      {
+        "Resource": "material-ferrite-ore",
+        "SamplerType": "Clumped",
+        "NodeDensityCoefficient": 1.2
+      },
+      {
+        "Resource": "material-food",
+        "SamplerType": "Dispersed",
+        "NodeDensityCoefficient": 650
+      },
+      {
+        "Resource": "material-graphite",
+        "SamplerType": "Clumped",
+        "NodeDensityCoefficient": 1.2
+      },
+      {
+        "Resource": "material-gravel",
+        "SamplerType": "Clumped",
+        "NodeDensityCoefficient": 2.4
+      },
+      {
+        "Resource": "material-gravite-ore",
+        "SamplerType": "Clumped",
+        "NodeDensityCoefficient": 1.2
+      },
+      {
+        "Resource": "material-halics",
+        "SamplerType": "Clumped",
+        "NodeDensityCoefficient": 1.2
+      },
+      {
+        "Resource": "material-merite-ore",
+        "SamplerType": "Clumped",
+        "NodeDensityCoefficient": 1.2
+      },
+      {
+        "Resource": "material-ossic-stone",
+        "SamplerType": "Clumped",
+        "NodeDensityCoefficient": 1.2
+      },
+      {
+        "Resource": "material-valentulite-ore",
+        "SamplerType": "Clumped",
+        "NodeDensityCoefficient": 1.2
+      },
+      {
+        "Resource": "material-wulframite-ore",
+        "SamplerType": "Clumped",
+        "NodeDensityCoefficient": 1.2
+      }
+    ]
+  }
 }
