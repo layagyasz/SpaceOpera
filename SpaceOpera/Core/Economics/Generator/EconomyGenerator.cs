@@ -61,24 +61,19 @@ namespace SpaceOpera.Core.Economics.Generator
                 var sink =
                     world.Economy.MaterialSink.PopulationSink.FirstOrDefault(
                         x => x.Materials.ContainsKey(output.Key));
-                // Recipe produces a sink material.
-                if (sink != null)
-                {
-                    PopulateSinkRecipe(recipe.Key, output.Key, recipe.Value, sink, world);
-                }
+                PopulateSinkRecipe(recipe.Key, output.Key, recipe.Value, world);
                 // Distribute remaining production randomly among top regions.
             }
         }
 
         private static float PopulateSinkRecipe(
-            Recipe recipe, IMaterial output, float recipeAmount, SingleMaterialSink sink, World world)
+            Recipe recipe, IMaterial output, float recipeAmount, World world)
         {
             float distributed = 0;
-            float sinkAmount = recipeAmount* sink.Materials[output];
             foreach (var stellarBody in world.Galaxy.Systems.SelectMany(x => x.Orbiters))
             {
                 var totalNeeded =
-                    sinkAmount * stellarBody.Regions.Sum(x => x.Population)
+                    recipeAmount * stellarBody.Regions.Sum(x => x.Population)
                     / (recipe.Coefficient * recipe.Transformation[output] * recipe.Structure!.MaxWorkers);
                 var totalAvailable = 
                     stellarBody.Regions

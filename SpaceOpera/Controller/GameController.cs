@@ -163,9 +163,14 @@ namespace SpaceOpera.Controller
         
         private void HandleOrder(object? sender, IOrder e)
         {
+            // Orders that require manual confirmation.
             if (e is BuildOrder)
             {
                 OpenPane(GamePaneId.OrderConfirmation, /* closeOpenPanes= */ false, e);
+            }
+            else
+            {
+                ExecuteOrder(e);
             }
         }
 
@@ -196,8 +201,7 @@ namespace SpaceOpera.Controller
             {
                 if (@object is IOrder order && e.Action == ActionId.Confirm)
                 {
-                    _driver.Execute(order);
-                    _screen!.Refresh();
+                    ExecuteOrder(order);
                     return;
                 }
                 if (@object is Design && e.Action == ActionId.Edit)
@@ -242,6 +246,13 @@ namespace SpaceOpera.Controller
                     ChangeSceneTo(transit.TransitSystem, /* cleanUp= */ true);
                 }
             }
+        }
+
+        private void ExecuteOrder(IOrder order)
+        {
+            var result = _driver.Execute(order);
+            _logger.AtInfo().Log(order.ToString() + " " + result);
+            _screen!.Refresh();
         }
 
         private void HandlePaneClosed(object? sender, ElementEventArgs e)
