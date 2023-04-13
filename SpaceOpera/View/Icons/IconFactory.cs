@@ -114,7 +114,8 @@ namespace SpaceOpera.View.Icons
                 { typeof(Fleet), GetFormationDefinition },
                 { typeof(Recipe), GetRecipeDefinition },
                 { typeof(Structure), GetAtomicDefinition },
-                { typeof(Unit), GetDesignedComponentDefinition }
+                { typeof(Unit), GetDesignedComponentDefinition },
+                { typeof(UnitGrouping), GetUnitGroupingDefinition }
             };
             _uiElementFactory = uiElementFactory;
             _shader = _uiElementFactory.GetShader("shader-default");
@@ -169,6 +170,12 @@ namespace SpaceOpera.View.Icons
         {
             var recipe = (Recipe)@object;
             return GetDefinition(recipe.Transformation.First(x => x.Value > 0).Key);
+        }
+
+        private IEnumerable<IconLayer> GetUnitGroupingDefinition(object @object)
+        {
+            var grouping = (UnitGrouping)@object;
+            return GetDefinition(grouping.Unit);
         }
 
         private Texture Rasterize(IRenderable renderable, ICamera camera)

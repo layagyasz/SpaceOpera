@@ -3,6 +3,8 @@
     public enum ActionId
     {
         None,
+        Close,
+        Select,
 
         // Overlay buttons
         Equipment,

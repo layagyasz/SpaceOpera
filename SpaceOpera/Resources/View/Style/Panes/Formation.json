@@ -1,0 +1,103 @@
+[
+  {
+    "$id": "formation-pane",
+    "Parent": "pane-standard",
+    "Default": {
+      "Size": [
+        450,
+        [ "DynamicContents", 0, 700 ]
+      ]
+    }
+  },
+  {
+    "$id": "formation-pane-formation-list",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [
+        442,
+        [ "DynamicContents", 0, 692 ]
+      ]
+    }
+  },
+  {
+    "$id": "formation-pane-formation-container",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 442, "DynamicContents" ]
+    }
+  },
+  {
+    "$id": "formation-pane-formation-unit-grouping-table",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 442, "DynamicContents" ]
+    }
+  },
+  {
+    "$id": "formation-pane-formation-header",
+    "Parent": "ui-element",
+    "Default": {
+      "Size": [ 438, 48 ],
+      "CornerRadius": [ [ 8, 8 ] ],
+      "Padding": [ 8, 0, 8, 0 ],
+      "Margin": [ 2 ]
+    }
+  },
+  {
+    "$id": "formation-pane-formation-header-icon",
+    "Parent": "ui-icon",
+    "Default": {
+      "Size": [ 44, 44 ],
+      "Margin": [ 2 ]
+    }
+  },
+  {
+    "$id": "formation-pane-formation-header-text",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 338, 48 ],
+      "Padding": [ 8 ]
+    }
+  },
+  {
+    "$id": "formation-pane-formation-header-action-container",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 36, 48 ],
+      "Padding": [ 4, 10, 4, 10 ]
+    }
+  },
+  {
+    "$id": "formation-pane-formation-header-action-close",
+    "Parent": "pane-action-button",
+    "Default": {
+      "Texture": "icon-x"
+    }
+  },
+  {
+    "$id": "formation-pane-formation-unit-grouping-row",
+    "Parent": "ui-element",
+    "Default": {
+      "Size": [ 438, 48 ],
+      "CornerRadius": [ [ 8, 8 ] ],
+      "Padding": [ 8, 0, 8, 0 ],
+      "Margin": [ 2 ]
+    }
+  },
+  {
+    "$id": "formation-pane-formation-unit-grouping-row-icon",
+    "Parent": "ui-icon",
+    "Default": {
+      "Size": [ 44, 44 ],
+      "Margin": [ 2 ]
+    }
+  },
+  {
+    "$id": "formation-pane-formation-unit-grouping-row-text",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 374, 48 ],
+      "Padding": [ 8 ]
+    }
+  }
+]

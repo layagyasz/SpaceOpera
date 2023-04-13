@@ -262,7 +262,7 @@
     "$id": "recipe-food-farm",
     "Name": "Food Farm",
     "Structure": "structure-farm",
-    "Coefficient": 5000,
+    "Coefficient": 50,
     "Transformation": {
       "material-food": 1
     },

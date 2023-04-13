@@ -5,7 +5,7 @@ using SpaceOpera.View.Components;
 
 namespace SpaceOpera.View.Panes
 {
-    public abstract class SimpleGamePane : DynamicUiContainer, IGamePane
+    public abstract class SimpleGamePane : DynamicUiContainer, IBasicGamePane
     {
         public EventHandler<EventArgs>? Populated { get; set; }
 

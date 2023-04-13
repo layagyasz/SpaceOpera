@@ -6,17 +6,17 @@ using SpaceOpera.View.Panes;
 
 namespace SpaceOpera.Controller.Panes
 {
-    public class GamePaneController : PaneController, IActionController
+    public class GamePaneController : PaneController, IGamePaneController
     {
         public EventHandler<UiInteractionEventArgs>? Interacted { get; set; }
         public EventHandler<IOrder>? OrderCreated { get; set; }
 
-        protected IGamePane? _pane;
+        protected IBasicGamePane? _pane;
 
         public override void Bind(object @object)
         {
             base.Bind(@object);
-            _pane = @object as IGamePane;
+            _pane = (IBasicGamePane)@object;
             _pane!.CloseButton.Controller.Clicked += HandleClose;
         }
 

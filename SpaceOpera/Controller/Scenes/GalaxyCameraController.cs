@@ -6,6 +6,7 @@ using Cardamom.Window;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using OpenTK.Windowing.Common;
+using System.Xml.Linq;
 
 namespace SpaceOpera.Controller.Scenes
 {
@@ -30,6 +31,11 @@ namespace SpaceOpera.Controller.Scenes
         public void Bind(object @object) { }
 
         public void Unbind() { }
+
+        public IUiElement Get()
+        {
+            throw new InvalidProgramException();
+        }
 
         public bool HandleKeyDown(KeyDownEventArgs e)
         {

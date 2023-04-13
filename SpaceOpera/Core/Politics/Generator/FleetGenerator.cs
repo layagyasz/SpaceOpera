@@ -26,9 +26,9 @@ namespace SpaceOpera.Core.Politics.Generator
             {
                 shipDesignWeights[i] /= totalCommand;
             }
-            var shipCounts = 
+            var shipCounts =
                 shipDesignWeights.Select(
-                    x => (int)(perFleetCommand / (totalCommand * shipDesignWeights.Length * x))).ToArray();
+                    x => (int)Math.Round(perFleetCommand / (totalCommand * shipDesignWeights.Length * x))).ToArray();
             var composition = new MultiCount<Unit>();
             for (int i=0; i<shipDesigns.Length; ++i)
             {

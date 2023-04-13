@@ -1,6 +1,7 @@
 ﻿using Cardamom.Ui;
 using SpaceOpera.View.Icons;
 using SpaceOpera.View.Panes.DesignPanes;
+using SpaceOpera.View.Panes.FormationPanes;
 using SpaceOpera.View.Panes.MilitaryPanes;
 using SpaceOpera.View.Panes.OrderConfirmationPanes;
 using SpaceOpera.View.Panes.ResearchPanes;
@@ -12,6 +13,7 @@ namespace SpaceOpera.View.Panes
     {
         public DesignerPane Designer { get; }
         public EquipmentPane Equipment { get; }
+        public FormationPane Formation { get; }
         public MilitaryPane Military { get; }
         public MilitaryOrganizationPane MilitaryOrganization { get; }
         public OrderConfirmationPane OrderConfirmation { get; }
@@ -21,6 +23,7 @@ namespace SpaceOpera.View.Panes
         private PaneSet(
             DesignerPane designer,
             EquipmentPane equipment,
+            FormationPane formation,
             MilitaryPane military, 
             MilitaryOrganizationPane militaryOrganization,
             OrderConfirmationPane orderConfirmation,
@@ -29,6 +32,7 @@ namespace SpaceOpera.View.Panes
         {
             Designer = designer;
             Equipment = equipment;
+            Formation = formation;
             Military = military;
             MilitaryOrganization = militaryOrganization;
             OrderConfirmation = orderConfirmation;
@@ -42,6 +46,7 @@ namespace SpaceOpera.View.Panes
             {
                 GamePaneId.Designer => Designer,
                 GamePaneId.Equipment => Equipment,
+                GamePaneId.Formation => Formation,
                 GamePaneId.Military => Military,
                 GamePaneId.MilitaryOrganization => MilitaryOrganization,
                 GamePaneId.OrderConfirmation => OrderConfirmation,
@@ -55,6 +60,7 @@ namespace SpaceOpera.View.Panes
         {
             yield return Designer;
             yield return Equipment;
+            yield return Formation;
             yield return Military;
             yield return MilitaryOrganization;
             yield return OrderConfirmation;
@@ -69,6 +75,9 @@ namespace SpaceOpera.View.Panes
 
             var equipment = new EquipmentPane(uiElementFactory, iconFactory);
             equipment.Initialize();
+
+            var formation = new FormationPane(uiElementFactory, iconFactory);
+            formation.Initialize();
 
             var military = new MilitaryPane(uiElementFactory, iconFactory);
             military.Initialize();
@@ -86,7 +95,14 @@ namespace SpaceOpera.View.Panes
             stellarBodyRegion.Initialize();
 
             return new(
-                designer, equipment, military, militaryOrganization, orderConfirmation, research, stellarBodyRegion);
+                designer,
+                equipment,
+                formation, 
+                military, 
+                militaryOrganization,
+                orderConfirmation,
+                research,
+                stellarBodyRegion);
         }
     }
 }

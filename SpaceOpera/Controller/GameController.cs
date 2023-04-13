@@ -7,6 +7,7 @@ using SpaceOpera.Controller.Panes;
 using SpaceOpera.Controller.Scenes;
 using SpaceOpera.Core;
 using SpaceOpera.Core.Designs;
+using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Orders;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Universe;
@@ -55,7 +56,7 @@ namespace SpaceOpera.Controller
             _screen.PaneLayer.ElementRemoved += HandlePaneClosed;
             foreach (var pane in _screen.GetPanes())
             {
-                if (pane.Controller is GamePaneController paneController)
+                if (pane.Controller is IGamePaneController paneController)
                 {
                     paneController.Interacted += HandleInteraction;
                     paneController.OrderCreated += HandleOrder;
@@ -72,7 +73,7 @@ namespace SpaceOpera.Controller
             }
             foreach (var pane in _screen.GetPanes())
             {
-                if (pane.Controller is GamePaneController paneController)
+                if (pane.Controller is IGamePaneController paneController)
                 {
                     paneController.Interacted -= HandleInteraction;
                     paneController.OrderCreated -= HandleOrder;
@@ -199,6 +200,10 @@ namespace SpaceOpera.Controller
             var @object = e.GetOnlyObject();
             if (e.Action != null)
             {
+                if (@object is IFormation && e.Action == ActionId.Select)
+                {
+                    OpenPane(GamePaneId.Formation, /* closeOpenPanes= */ false, e.Objects);
+                }
                 if (@object is IOrder order && e.Action == ActionId.Confirm)
                 {
                     ExecuteOrder(order);

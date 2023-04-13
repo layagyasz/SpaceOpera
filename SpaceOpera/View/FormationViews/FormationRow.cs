@@ -12,8 +12,6 @@ namespace SpaceOpera.View.FormationViews
         private static readonly string s_FormationLayerRowIconClassName = "formation-layer-row-icon";
         private static readonly string s_FormationLayerRowTextClassName = "formation-layer-row-text";
 
-        public int Count => _formations.Count;
-
         private readonly List<IFormation> _formations = new();
 
         private FormationRow(Class @class, Icon icon, IUiElement text)

@@ -6,9 +6,6 @@ namespace SpaceOpera.View.Panes
     {
         EventHandler<EventArgs>? Populated { get; set; }
 
-        IUiElement CloseButton { get; }
         void Populate(params object?[] args);
-        void SetBody(IUiElement body);
-        void SetTitle(string title);
     }
 }

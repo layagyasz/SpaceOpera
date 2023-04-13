@@ -29,8 +29,15 @@ namespace SpaceOpera.Core.Designs
             Configuration.SetName(name);
             foreach (var component in Components)
             {
-                component.Name = 
-                    string.Format("{0} ({1})", name, StringUtils.FormatEnumChar(component.Slot.Size.ToString()));
+                if (Configuration.Template.Sizes.Count == 0) 
+                {
+                    component.Name = name;
+                } 
+                else
+                {
+                    component.Name =
+                        string.Format("{0} ({1})", name, StringUtils.FormatEnumChar(component.Slot.Size.ToString()));
+                }
             }
             foreach (var recipe in Recipes)
             {

@@ -647,6 +647,9 @@
     <None Update="Resources\View\Style\Panes\Designer.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\View\Style\Panes\Formation.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\View\Style\Panes\Military.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -1,5 +1,6 @@
 ﻿using Cardamom.Ui;
 using Cardamom.Ui.Controller.Element;
+using SpaceOpera.View;
 using SpaceOpera.View.FormationViews;
 
 namespace SpaceOpera.Controller.FormationsViews
@@ -59,7 +60,7 @@ namespace SpaceOpera.Controller.FormationsViews
         private void HandleElementClicked(object? sender, ElementClickedEventArgs e)
         {
             var row = (FormationRow)((ButtonController)e.Element).GetElement();
-            Interacted?.Invoke(this, UiInteractionEventArgs.Create(row.GetFormations(), e.MouseEvent.Button));
+            Interacted?.Invoke(this, UiInteractionEventArgs.Create(row.GetFormations(), ActionId.Select));
         }
     }
 }

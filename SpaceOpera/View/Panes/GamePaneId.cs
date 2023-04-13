@@ -5,6 +5,7 @@
         None,
         Equipment,
         Designer,
+        Formation,
         Military,
         MilitaryOrganization,
         OrderConfirmation,
