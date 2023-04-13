@@ -1,6 +1,5 @@
 ﻿using Cardamom.Graphics;
 using Cardamom.Ui;
-using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
 using SpaceOpera.Controller.FormationsViews;
 using SpaceOpera.Core.Military;
@@ -36,10 +35,10 @@ namespace SpaceOpera.View.FormationViews
             Dirty();
         }
 
-        public void Add(IFormation formation)
+        public void Add(IFormationDriver driver)
         {
-            formation.Moved += HandleMove;
-            Add(formation, formation.Position);
+            driver.Moved += HandleMove;
+            Add(driver, driver.Formation.Position);
 
         }
 
@@ -54,18 +53,18 @@ namespace SpaceOpera.View.FormationViews
 
         protected override void DisposeImpl()
         {
-            foreach (var formation in _subLayers.Values.SelectMany(x => x.GetFormations()))
+            foreach (var driver in _subLayers.Values.SelectMany(x => x.GetDrivers()))
             {
-                formation.Moved -= HandleMove;
+                driver.Moved -= HandleMove;
             }
             base.DisposeImpl();
         }
 
 
-        public void Remove(IFormation formation)
+        public void Remove(IFormationDriver driver)
         {
-            formation.Moved -= HandleMove;
-            Remove(formation, formation.Position);
+            driver.Moved -= HandleMove;
+            Remove(driver, driver.Formation.Position);
         }
 
         public void UpdateFromCamera(RenderTarget target, UiContext context)
@@ -83,12 +82,12 @@ namespace SpaceOpera.View.FormationViews
 
         private void HandleMove(object? sender, MovementEventArgs e)
         {
-            IFormation formation = (IFormation)sender!;
-            Remove(formation, e.Origin);
-            Add(formation, e.Destination);
+            IFormationDriver driver = (IFormationDriver)sender!;
+            Remove(driver, e.Origin);
+            Add(driver, e.Destination);
         }
 
-        private void Add(IFormation formation, INavigable? location)
+        private void Add(IFormationDriver driver, INavigable? location)
         {
             if (location == null)
             {
@@ -97,12 +96,12 @@ namespace SpaceOpera.View.FormationViews
             (var layer, var bucket) = _mapper.MapToBucket(location);
             if (layer != null && _subLayers.TryGetValue(layer, out var subLayer))
             {
-                subLayer.Add(formation, bucket, _mapper.MapToPin(bucket), _mapper.GetOffset(bucket));
+                subLayer.Add(driver, bucket, _mapper.MapToPin(bucket), _mapper.GetOffset(bucket));
                 Dirty();
             }
         }
 
-        private void Remove(IFormation formation, INavigable? location)
+        private void Remove(IFormationDriver driver, INavigable? location)
         {
             if (location == null)
             {
@@ -111,7 +110,7 @@ namespace SpaceOpera.View.FormationViews
             (var layer, var bucket) = _mapper.MapToBucket(location);
             if (layer != null && _subLayers.TryGetValue(layer, out var list))
             {
-                list.Remove(formation, bucket);
+                list.Remove(driver, bucket);
             }
         }
     }

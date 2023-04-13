@@ -60,7 +60,7 @@ namespace SpaceOpera.Controller.FormationsViews
         private void HandleElementClicked(object? sender, ElementClickedEventArgs e)
         {
             var row = (FormationRow)((ButtonController)e.Element).GetElement();
-            Interacted?.Invoke(this, UiInteractionEventArgs.Create(row.GetFormations(), ActionId.Select));
+            Interacted?.Invoke(this, UiInteractionEventArgs.Create(row.GetDrivers(), ActionId.Select));
         }
     }
 }

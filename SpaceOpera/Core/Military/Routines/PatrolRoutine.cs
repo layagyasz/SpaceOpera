@@ -14,13 +14,13 @@ namespace SpaceOpera.Core.Military.Routines
 
             public BehaviorNodeResult<INavigable> Execute(FleetContext context)
             {
-                var currentPosition = context.Fleet.Fleet.Position;
+                var currentPosition = context.Fleet.Formation.Position;
                 var activeRegion = context.Fleet.GetActiveRegion();
                 if (_cachedDestination == null 
-                    || _cachedDestination == context.Fleet.Fleet.Position 
+                    || _cachedDestination == context.Fleet.Formation.Position 
                     || !context.Fleet.GetActiveRegion().Contains(_cachedDestination))
                 {
-                    var options = activeRegion.Where(x => x != context.Fleet.Fleet.Position).ToList();
+                    var options = activeRegion.Where(x => x != context.Fleet.Formation.Position).ToList();
                     if (options.Count == 0)
                     {
                         _cachedDestination = null;
@@ -51,7 +51,7 @@ namespace SpaceOpera.Core.Military.Routines
 
             public BehaviorNodeResult<IAction> Execute(FleetContext context)
             {
-                var currentPosition = context.Fleet.Fleet.Position;
+                var currentPosition = context.Fleet.Formation.Position;
                 var target = _target.Execute(context);
                 if (!target.Status.Complete)
                 {
@@ -65,25 +65,26 @@ namespace SpaceOpera.Core.Military.Routines
             }
         }
 
-        private class PatrolTargetNode : ISupplierNode<Fleet, FleetContext>
+        private class PatrolTargetNode : ISupplierNode<IFormation, FleetContext>
         {
-            private Fleet? _cachedTarget;
+            private IFormation? _cachedTarget;
 
-            public BehaviorNodeResult<Fleet> Execute(FleetContext context)
+            public BehaviorNodeResult<IFormation> Execute(FleetContext context)
             {
-                var currentPosition = context.Fleet.Fleet.Position;
-                var faction = context.Fleet.Fleet.Faction;
+                var currentPosition = context.Fleet.Formation.Position;
+                var faction = context.Fleet.Formation.Faction;
                 var activeRegions = context.Fleet.GetActiveRegion();
                 if (_cachedTarget == null 
                     || !activeRegions.Contains(_cachedTarget.Position) 
-                    || !context.World.BattleManager.CanEngage(context.Fleet.Fleet, _cachedTarget))
+                    || !context.World.BattleManager.CanEngage(context.Fleet.Formation, _cachedTarget))
                 {
                     var options =
                         context.World.GetFleets()
-                            .Where(x => x.Position == currentPosition)
-                            .Where(x => activeRegions.Contains(x.Position))
-                            .Where(x => x.Faction != faction)
-                            .Where(x => context.World.BattleManager.CanEngage(context.Fleet.Fleet, x))
+                            .Where(x => x.Formation.Position == currentPosition)
+                            .Where(x => activeRegions.Contains(x.Formation.Position))
+                            .Where(x => x.Formation.Faction != faction)
+                            .Where(x => context.World.BattleManager.CanEngage(context.Fleet.Formation, x.Formation))
+                            .Select(x => x.Formation)
                             .ToList();
                     if (options.Count == 0)
                     {
@@ -99,8 +100,8 @@ namespace SpaceOpera.Core.Military.Routines
                     }
                 }
                 return _cachedTarget == null
-                    ? BehaviorNodeResult<Fleet>.Incomplete()
-                    : BehaviorNodeResult<Fleet>.Complete(_cachedTarget);
+                    ? BehaviorNodeResult<IFormation>.Incomplete()
+                    : BehaviorNodeResult<IFormation>.Complete(_cachedTarget);
             }
         }
         public static ISupplierNode<IAction, FleetContext> Create()
@@ -110,10 +111,10 @@ namespace SpaceOpera.Core.Military.Routines
                 x => x.Status.Complete, BehaviorNodeResult<IAction>.NotRun()) {
                 targetBuffer.Recompute().Check(
                     (x, y) =>
-                        y.Fleet.Fleet.Position == x.Position 
-                        && y.World.GetIntelligenceFor(y.Fleet.Fleet.Faction).FleetIntelligence.IsSpotted(x))
+                        y.Fleet.Formation.Position == x.Position 
+                        && y.World.GetIntelligenceFor(y.Fleet.Formation.Faction).FleetIntelligence.IsSpotted(x))
                     .Transform(EngageAction.Create),
-                targetBuffer.Check((x, y) => y.Fleet.Fleet.Position == x.Position).Transform(SpotAction.Create),
+                targetBuffer.Check((x, y) => y.Fleet.Formation.Position == x.Position).Transform(SpotAction.Create),
                 new MoveNode(
                    new SelectorNode<BehaviorNodeResult<INavigable>, FleetContext>(
                        x => x.Status.Complete, BehaviorNodeResult<INavigable>.Incomplete())

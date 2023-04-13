@@ -3,14 +3,14 @@
     public class EngageAction : IAction
     {
         public ActionStatus Status { get; private set; } = ActionStatus.InProgress;
-        public Fleet Target { get; }
+        public IFormation Target { get; }
 
-        private EngageAction(Fleet target)
+        private EngageAction(IFormation target)
         {
             Target = target;
         }
 
-        public static IAction Create(Fleet target)
+        public static IAction Create(IFormation target)
         {
             return new EngageAction(target);
         }

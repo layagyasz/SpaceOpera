@@ -2,6 +2,6 @@
 {
     public class Intelligence
     {
-        public FleetIntelligence FleetIntelligence { get; } = new();
+        public FormationIntelligence FleetIntelligence { get; } = new();
     }
 }

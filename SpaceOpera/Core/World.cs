@@ -31,8 +31,7 @@ namespace SpaceOpera.Core
         private readonly List<Design> _designs = new();
         private readonly List<DesignLicense> _designLicenses = new();
 
-        private readonly List<Fleet> _fleets = new();
-        private readonly FleetManager _fleetManager = new();
+        private readonly FormationManager _formationManager = new();
 
         private readonly ProjectManager _projectManager = new();
 
@@ -69,7 +68,7 @@ namespace SpaceOpera.Core
                 new TickUpdateable(
                     new CompositeTickable() {
                         new ActionTickable(() => BattleManager.Tick(Random)),
-                        new ActionTickable(() => _fleetManager.Tick(this)),
+                        new ActionTickable(() => _formationManager.Tick(this)),
                         new ActionTickable(_projectManager.Tick),
                         new CycleTickable(new CompositeTickable(ticks), 30)
                     }, 
@@ -103,8 +102,7 @@ namespace SpaceOpera.Core
 
         public void AddFleet(Fleet fleet)
         {
-            _fleets.Add(fleet);
-            _fleetManager.AddFleet(fleet);
+            _formationManager.AddFleet(fleet);
         }
 
         public void AddLicense(DesignLicense license)
@@ -136,9 +134,9 @@ namespace SpaceOpera.Core
             return _designLicenses.Where(x => x.Faction == faction).Select(x => x.Design);
         }
 
-        public FleetDriver GetDriver(Fleet fleet)
+        public IFormationDriver GetDriver(IFormation formation)
         {
-            return _fleetManager.GetDriver(fleet);
+            return _formationManager.GetDriver(formation);
         }
 
         public IEnumerable<Faction> GetFactions()
@@ -146,14 +144,14 @@ namespace SpaceOpera.Core
             return _factions;
         }
 
-        public IEnumerable<Fleet> GetFleets()
+        public IEnumerable<IFormationDriver> GetFleets()
         {
-            return _fleets;
+            return _formationManager.GetDrivers().Where(x => x is FleetDriver);
         }
 
-        public IEnumerable<Fleet> GetFleetsFor(Faction faction)
+        public IEnumerable<IFormationDriver> GetFleetsFor(Faction faction)
         {
-            return _fleets.Where(x => x.Faction == faction);
+            return GetFleets().Where(x => x.Formation.Faction == faction);
         }
 
         public Intelligence GetIntelligenceFor(Faction faction)

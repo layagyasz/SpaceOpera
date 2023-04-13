@@ -11,9 +11,9 @@ namespace SpaceOpera.Core.Military.Routines
             return new SelectorNode<BehaviorNodeResult<IAction>, FleetContext>(
                 x => x.Status.Complete, BehaviorNodeResult<IAction>.Incomplete())
             {
-                new CheckContextNode<FleetContext>(x => x.Fleet.Fleet.InCombat)
+                new CheckContextNode<FleetContext>(x => x.Fleet.Formation.InCombat)
                     .AndThen(SourceNode<IAction, FleetContext>.Wrap(new CombatAction())),
-                new CheckContextNode<FleetContext>(x => !x.Fleet.Fleet.Cohesion.IsFull())
+                new CheckContextNode<FleetContext>(x => !x.Fleet.Formation.Cohesion.IsFull())
                     .AndThen(SourceNode<IAction, FleetContext>.Wrap(new RegroupAction())),
                 PatrolRoutine.Create()
             }.Adapt();

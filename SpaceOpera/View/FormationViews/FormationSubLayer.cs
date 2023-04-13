@@ -36,9 +36,9 @@ namespace SpaceOpera.View.FormationViews
             _dirty = true;
         }
 
-        public IEnumerable<IFormation> GetFormations()
+        public IEnumerable<IFormationDriver> GetDrivers()
         {
-            return _formationLists.Values.SelectMany(x => x.GetFormations());
+            return _formationLists.Values.SelectMany(x => x.GetDrivers());
         }
 
         public void UpdateFromCamera(Matrix4 camera, UiContext context)
@@ -65,7 +65,7 @@ namespace SpaceOpera.View.FormationViews
             }
         }
 
-        public void Add(IFormation formation, T bucket, Vector3 pin, float? offset)
+        public void Add(IFormationDriver driver, T bucket, Vector3 pin, float? offset)
         {
             if (!_formationLists.TryGetValue(bucket, out var list))
             {
@@ -74,14 +74,14 @@ namespace SpaceOpera.View.FormationViews
                 Add(list);
                 Dirty();
             }
-            list.Add(formation);
+            list.Add(driver);
         }
 
-        public void Remove(IFormation formation, T bucket)
+        public void Remove(IFormationDriver driver, T bucket)
         {
             if (_formationLists.TryGetValue(bucket, out var list))
             {
-                list.Remove(formation);
+                list.Remove(driver);
                 if (!list.Any())
                 {
                     _formationLists.Remove(bucket);

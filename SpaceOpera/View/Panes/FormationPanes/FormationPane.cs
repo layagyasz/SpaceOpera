@@ -39,9 +39,9 @@ namespace SpaceOpera.View.Panes.FormationPanes
         public void Populate(params object?[] args)
         {
             FormationList.Clear(/* dispose= */ true);
-            foreach (var formation in ((IEnumerable<object>)args[0]!).Cast<IFormation>())
+            foreach (var driver in ((IEnumerable<object>)args[0]!).Cast<IFormationDriver>())
             {
-                var component = new FormationComponent(formation, _uiElementFactory, _iconFactory);
+                var component = new FormationComponent(driver, _uiElementFactory, _iconFactory);
                 component.Initialize();
                 FormationList.Add(component);
             }

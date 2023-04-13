@@ -4,14 +4,14 @@ namespace SpaceOpera.Core.Military.Actions
     {
         public ActionStatus Status { get; private set; } = ActionStatus.InProgress;
 
-        public Fleet Target { get; }
+        public IFormation Target { get; }
 
-        public SpotAction(Fleet target)
+        public SpotAction(IFormation target)
         {
             Target = target;
         }
 
-        public static IAction Create(Fleet target)
+        public static IAction Create(IFormation target)
         {
             return new SpotAction(target);
         }

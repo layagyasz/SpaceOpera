@@ -6,20 +6,22 @@ using static SpaceOpera.Core.Military.SpaceOperaContext;
 
 namespace SpaceOpera.Core.Military
 {
-    public class FleetDriver
+    public class FleetDriver : IFormationDriver
     {
-        public EventHandler<EventArgs>? OnOrderUpdated { get; set; }
+        public EventHandler<MovementEventArgs>? Moved { get; set; }
+        public EventHandler<EventArgs>? OrderUpdated { get; set; }
 
-        public Fleet Fleet { get; }
+        public IFormation Formation { get; }
         public FleetAssignment Assignment { get; private set; }
         private HashSet<INavigable> _activeRegion = new();
 
         private readonly ISupplierNode<IAction, FleetContext> _ai;
         private IAction? _action;
 
-        public FleetDriver(Fleet fleet)
+        public FleetDriver(IFormation formation)
         {
-            Fleet = fleet;
+            Formation = formation;
+            Formation.Moved += HandleMove;
 
             _ai = FleetRoutine.Create();
         }
@@ -32,18 +34,18 @@ namespace SpaceOpera.Core.Military
         public void SetAssignment(FleetAssignment action)
         {
             Assignment = action;
-            OnOrderUpdated?.Invoke(this, EventArgs.Empty);
+            OrderUpdated?.Invoke(this, EventArgs.Empty);
         }
 
         public void SetActiveRegion(IEnumerable<INavigable> activeRegion)
         {
             _activeRegion = new HashSet<INavigable>(activeRegion);
-            OnOrderUpdated?.Invoke(this, EventArgs.Empty);
+            OrderUpdated?.Invoke(this, EventArgs.Empty);
         }
 
         public void Tick(SpaceOperaContext context)
         {
-            Fleet.Cohere();
+            Formation.Cohere();
             var newAction = _ai.Execute(context.ForFleet(this)).Result;
             if (newAction == null || _action == null || !newAction.Equivalent(_action))
             {
@@ -51,9 +53,14 @@ namespace SpaceOpera.Core.Military
             }
             if (_action != null)
             {
-                Console.WriteLine("{0} : {1}", Fleet.Name, _action);
+                Console.WriteLine("{0} : {1}", Formation.Name, _action);
             }
-            _action?.Progress(Fleet, context.World);
+            _action?.Progress(Formation, context.World);
+        }
+
+        private void HandleMove(object? sender, MovementEventArgs e)
+        {
+            Moved?.Invoke(this, e);
         }
     }
 }

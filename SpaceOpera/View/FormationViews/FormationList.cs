@@ -34,11 +34,11 @@ namespace SpaceOpera.View.FormationViews
             _iconFactory = iconFactory;
         }
 
-        public void Add(IFormation formation)
+        public void Add(IFormationDriver driver)
         {
-            var row = FormationRow.Create(formation, formation.Name, _uiElementFactory, _iconFactory);
-            row.Add(formation);
-            _rows.Add(formation, row);
+            var row = FormationRow.Create(driver, driver.Formation.Name, _uiElementFactory, _iconFactory);
+            row.Add(driver);
+            _rows.Add(driver, row);
             Add(row);
         }
 
@@ -55,17 +55,17 @@ namespace SpaceOpera.View.FormationViews
             base.Draw(target, context);
         }
 
-        public IEnumerable<IFormation> GetFormations()
+        public IEnumerable<IFormationDriver> GetDrivers()
         {
-            return _rows.Values.SelectMany(x => x.GetFormations());
+            return _rows.Values.SelectMany(x => x.GetDrivers());
         }
 
-        public void Remove(IFormation formation)
+        public void Remove(IFormationDriver driver)
         {
-            if (_rows.TryGetValue(formation, out var row))
+            if (_rows.TryGetValue(driver, out var row))
             {
                 Remove(row);
-                _rows.Remove(formation);
+                _rows.Remove(driver);
                 row.Dispose();
             }
         }

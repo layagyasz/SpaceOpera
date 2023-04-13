@@ -107,11 +107,12 @@ namespace SpaceOpera.View.Icons
                 { typeof(BaseComponent),  GetAtomicDefinition },
                 { typeof(BaseMaterial), GetAtomicDefinition },
                 { typeof(BattalionTemplate), GetDesignedComponentDefinition },
-                {typeof(Design), GetDesignDefinition },
+                { typeof(Design), GetDesignDefinition },
                 { typeof(DesignedComponent), GetDesignedComponentDefinition },
                 { typeof(DivisionTemplate), GetDesignedComponentDefinition },
                 { typeof(Faction), GetBannerDefinition },
                 { typeof(Fleet), GetFormationDefinition },
+                { typeof(FleetDriver), GetDriverDefinition },
                 { typeof(Recipe), GetRecipeDefinition },
                 { typeof(Structure), GetAtomicDefinition },
                 { typeof(Unit), GetDesignedComponentDefinition },
@@ -159,6 +160,12 @@ namespace SpaceOpera.View.Icons
             var component = (DesignedComponent)@object;
             return _configs[component.Slot.Type].CreateDefinition(
                 component, new(Color4.White, Color4.Black, Color4.Red), this);
+        }
+
+        private IEnumerable<IconLayer> GetDriverDefinition(object @object)
+        {
+            var driver = (IFormationDriver)@object;
+            return GetDefinition(driver.Formation);
         }
 
         private IEnumerable<IconLayer> GetFormationDefinition(object @object)

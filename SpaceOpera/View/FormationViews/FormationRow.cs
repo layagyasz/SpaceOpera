@@ -12,7 +12,7 @@ namespace SpaceOpera.View.FormationViews
         private static readonly string s_FormationLayerRowIconClassName = "formation-layer-row-icon";
         private static readonly string s_FormationLayerRowTextClassName = "formation-layer-row-text";
 
-        private readonly List<IFormation> _formations = new();
+        private readonly List<IFormationDriver> _drivers = new();
 
         private FormationRow(Class @class, Icon icon, IUiElement text)
             : base(@class, new ButtonController(), Orientation.Horizontal)
@@ -21,19 +21,19 @@ namespace SpaceOpera.View.FormationViews
             Add(text);
         }
 
-        public void Add(IFormation formation)
+        public void Add(IFormationDriver driver)
         {
-            _formations.Add(formation);
+            _drivers.Add(driver);
         }
 
-        public void Remove(IFormation formation)
+        public void Remove(IFormationDriver driver)
         {
-            _formations.Remove(formation);
+            _drivers.Remove(driver);
         }
 
-        public IEnumerable<IFormation> GetFormations()
+        public IEnumerable<IFormationDriver> GetDrivers()
         {
-            return _formations;
+            return _drivers;
         }
 
         public static FormationRow Create(

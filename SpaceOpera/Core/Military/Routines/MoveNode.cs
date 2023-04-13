@@ -23,7 +23,7 @@ namespace SpaceOpera.Core.Military.Routines
 
         public BehaviorNodeResult<IAction> Execute(FleetContext context)
         {
-            var currentPosition = context.Fleet.Fleet.Position!;
+            var currentPosition = context.Fleet.Formation.Position!;
             var destination = _destination.Execute(context);
             if (!destination.Status.Complete)
             {

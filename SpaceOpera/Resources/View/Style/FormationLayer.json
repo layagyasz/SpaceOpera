@@ -4,14 +4,14 @@
     "Parent": "ui-element-basic",
     "Default": {
       "Size": [ 256, "DynamicContents" ],
-      "Padding": [ 0, 12, 0, 12 ]
+      "Padding": [ 1, 12, 1, 12 ]
     }
   },
   {
     "$id": "formation-layer-row",
     "Parent": "ui-element-internal",
     "Default": {
-      "Size": [ 256, 28 ],
+      "Size": [ 254, 28 ],
       "Padding": [ 0 ],
       "Margin": [ 0 ]
     }
@@ -27,7 +27,7 @@
     "$id": "formation-layer-row-text",
     "Parent": "ui-element-internal",
     "Default": {
-      "Size": [ 228, 28 ],
+      "Size": [ 226, 28 ],
       "Padding": [ 8 ]
     }
   }

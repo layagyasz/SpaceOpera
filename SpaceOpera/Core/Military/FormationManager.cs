@@ -1,17 +1,22 @@
 namespace SpaceOpera.Core.Military
 {
-    public class FleetManager
+    public class FormationManager
     {
-        private readonly Dictionary<Fleet, FleetDriver> _drivers = new();
+        private readonly Dictionary<IFormation, IFormationDriver> _drivers = new();
 
         public void AddFleet(Fleet fleet)
         {
             _drivers.Add(fleet, new FleetDriver(fleet));
         }
 
-        public FleetDriver GetDriver(Fleet fleet)
+        public IEnumerable<IFormationDriver> GetDrivers()
         {
-            return _drivers[fleet];
+            return _drivers.Values;
+        }
+
+        public IFormationDriver GetDriver(IFormation formation)
+        {
+            return _drivers[formation];
         }
 
         public void Tick(World world)

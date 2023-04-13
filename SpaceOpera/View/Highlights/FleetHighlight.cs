@@ -18,7 +18,7 @@ namespace SpaceOpera.View.Highlights
         public FleetHighlight(FleetDriver fleet)
         {
             Fleet = fleet;
-            fleet.OnOrderUpdated += HandleFleetUpdate;
+            fleet.OrderUpdated += HandleFleetUpdate;
         }
 
         public bool Contains(object @object)
@@ -49,7 +49,7 @@ namespace SpaceOpera.View.Highlights
 
         public void Unhook()
         {
-            Fleet.OnOrderUpdated -= HandleFleetUpdate;
+            Fleet.OrderUpdated -= HandleFleetUpdate;
         }
 
         private void HandleFleetUpdate(object? sender, EventArgs e)

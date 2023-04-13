@@ -14,7 +14,7 @@ namespace SpaceOpera.View.Panes.FormationPanes
         private static readonly string s_ContainerClassName = "formation-pane-formation-container";
         private static readonly string s_UnitGroupingTableClassName = "formation-pane-formation-unit-grouping-table";
 
-        private static readonly ActionRow<IFormation>.Style s_HeaderStyle =
+        private static readonly ActionRow<IFormationDriver>.Style s_HeaderStyle =
             new() 
             {
                 Container = "formation-pane-formation-header",
@@ -22,13 +22,13 @@ namespace SpaceOpera.View.Panes.FormationPanes
                 Text = "formation-pane-formation-header-text",
                 ActionContainer = "formation-pane-formation-header-action-container"
             };
-        private static readonly List<ActionRow<IFormation>.ActionConfiguration> s_HeaderActions =
+        private static readonly List<ActionRow<IFormationDriver>.ActionConfiguration> s_HeaderActions =
             new()
             { 
                 new ()
                 {
                     Button = "formation-pane-formation-header-action-close",
-                    Action = ActionId.Close
+                    Action = ActionId.Unselect
                 }
             };
 
@@ -40,14 +40,14 @@ namespace SpaceOpera.View.Panes.FormationPanes
                 Text = "formation-pane-formation-unit-grouping-row-text"
             };
 
-        public IFormation Key { get; }
+        public IFormationDriver Key { get; }
         public UiCompoundComponent Header { get; }
         public UiCompoundComponent UnitGroupingTable { get; }
 
         private readonly UiElementFactory _uiElementFactory;
         private readonly IconFactory _iconFactory;
 
-        public FormationComponent(IFormation formation, UiElementFactory uiElementFactory, IconFactory iconFactory)
+        public FormationComponent(IFormationDriver driver, UiElementFactory uiElementFactory, IconFactory iconFactory)
             : base(
                   new FormationComponentController(), 
                   new DynamicUiSerialContainer(
@@ -55,13 +55,13 @@ namespace SpaceOpera.View.Panes.FormationPanes
                       new NoOpElementController<UiSerialContainer>(),
                       UiSerialContainer.Orientation.Vertical))
         {
-            Key = formation;
+            Key = driver;
             _uiElementFactory = uiElementFactory;
             _iconFactory = iconFactory;
 
             Header = 
-                ActionRow<IFormation>.Create(
-                    formation, formation.Name, uiElementFactory, iconFactory, s_HeaderStyle, s_HeaderActions);
+                ActionRow<IFormationDriver>.Create(
+                    driver, driver.Formation.Name, uiElementFactory, iconFactory, s_HeaderStyle, s_HeaderActions);
             Add(Header);
 
             UnitGroupingTable =
@@ -79,7 +79,7 @@ namespace SpaceOpera.View.Panes.FormationPanes
 
         private IEnumerable<UnitGrouping> GetRange()
         {
-            return Key.Composition;
+            return Key.Formation.Composition;
         }
 
         private ActionRow<UnitGrouping> CreateRow(UnitGrouping unitGrouping)

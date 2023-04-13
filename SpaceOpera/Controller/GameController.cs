@@ -4,7 +4,6 @@ using Cardamom.Ui;
 using Cardamom.Ui.Controller;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using SpaceOpera.Controller.Panes;
-using SpaceOpera.Controller.Scenes;
 using SpaceOpera.Core;
 using SpaceOpera.Core.Designs;
 using SpaceOpera.Core.Military;
@@ -178,17 +177,37 @@ namespace SpaceOpera.Controller
         private void HandleInteraction(object? sender, UiInteractionEventArgs e)
         {
             _logger.AtInfo().Log(e.ToString());
-            if (e.Key == Keys.Backspace)
+
+            if (HandleKeyInteraction(e.Key))
             {
-                TryPopScene();
                 return;
             }
-            if (e.Key == Keys.D0)
+
+            var representative = e.Objects.FirstOrDefault()?.GetType() ?? null;
+            if (representative == null)
+            {
+                HandleNullInteraction(e);
+            }
+            else
+            {
+                HandleObjectInteraction(representative, e);
+            }
+        }
+
+        private bool HandleKeyInteraction(Keys? key)
+        {
+            if (key == Keys.Backspace)
+            {
+                TryPopScene();
+                return true;
+            }
+            if (key == Keys.D0)
             {
                 SetHighlight(HighlightLayerName.Background, null);
                 SetHighlight(HighlightLayerName.Midground, null);
+                return true;
             }
-            if (e.Key == Keys.D1)
+            if (key == Keys.D1)
             {
                 SetHighlight(HighlightLayerName.Background, SimpleHighlight.Wrap(SubRegionHighlight.Create()));
                 if (_world != null)
@@ -196,60 +215,70 @@ namespace SpaceOpera.Controller
                     SetHighlight(
                         HighlightLayerName.Midground, FactionHighlight.Create(_world, _viewFactory.BannerViewFactory));
                 }
+                return true;
             }
-            var @object = e.GetOnlyObject();
-            if (e.Action != null)
+            return false;
+        }
+
+        private void HandleNullInteraction(UiInteractionEventArgs e)
+        {
+            if (e.Action == null)
             {
-                if (@object is IFormation && e.Action == ActionId.Select)
-                {
-                    OpenPane(GamePaneId.Formation, /* closeOpenPanes= */ false, e.Objects);
-                }
-                if (@object is IOrder order && e.Action == ActionId.Confirm)
-                {
-                    ExecuteOrder(order);
-                    return;
-                }
-                if (@object is Design && e.Action == ActionId.Edit)
-                {
-                    OpenPane(GamePaneId.Designer, /* closeOpenPanes= */ true, _world!, _faction, @object);
-                    return;
-                }
-                var gameSpeed = GetGameSpeed(e.Action.Value);
-                if (gameSpeed != null)
-                {
-                    _driver.SetGameSpeed(gameSpeed.Value);
-                }
-                var paneId = GetPane(e.Action.Value);
-                if (paneId != GamePaneId.None)
-                {
-                    OpenPane(paneId, /* closeOpenPanes= */ true, _world!, _faction);
-                }
                 return;
             }
-            if (@object != null)
+            var gameSpeed = GetGameSpeed(e.Action.Value);
+            if (gameSpeed != null)
             {
-                if (@object is StellarBodySubRegion subRegion && e.Button == MouseButton.Left)
-                {
-                    OpenPane(
-                        GamePaneId.StellarBodyRegion,
-                        /* closeOpenPanes= */ true,
-                        _world!, 
-                        _faction, 
-                        subRegion.ParentRegion!);
-                    SetHighlight(
-                        HighlightLayerName.Foreground,
-                        SimpleHighlight.Wrap(new StellarBodyRegionHighlight(subRegion.ParentRegion!)));
-                    return;
-                }
-                if (s_SceneTypes.Contains(@object.GetType()))
-                {
-                    PushScene(@object);
-                    return;
-                }
-                if (@object is TransitRegion transit)
-                {
-                    ChangeSceneTo(transit.TransitSystem, /* cleanUp= */ true);
-                }
+                _driver.SetGameSpeed(gameSpeed.Value);
+                return;
+            }
+            var paneId = GetPane(e.Action.Value);
+            if (paneId != GamePaneId.None)
+            {
+                OpenPane(paneId, /* closeOpenPanes= */ true, _world!, _faction);
+                return;
+            }
+        }
+
+        private void HandleObjectInteraction(Type type, UiInteractionEventArgs e)
+        {
+            if (type.IsAssignableTo(typeof(IFormationDriver)) && e.Action == ActionId.Select)
+            {
+                OpenPane(GamePaneId.Formation, /* closeOpenPanes= */ true, e.Objects);
+            }
+            if (type.IsAssignableTo(typeof(IOrder)) && e.Action == ActionId.Confirm)
+            {
+                ExecuteOrder((IOrder)e.GetOnlyObject()!);
+                return;
+            }
+            if (type.IsAssignableTo(typeof(Design)) && e.Action == ActionId.Edit)
+            {
+                OpenPane(GamePaneId.Designer, /* closeOpenPanes= */ true, _world!, _faction, e.GetOnlyObject()!);
+                return;
+            }
+            if (type.IsAssignableTo(typeof(StellarBodySubRegion)) && e.Button == MouseButton.Left)
+            {
+                var subRegion = (StellarBodySubRegion)e.GetOnlyObject()!;
+                OpenPane(
+                    GamePaneId.StellarBodyRegion,
+                    /* closeOpenPanes= */ true,
+                    _world!,
+                    _faction,
+                    subRegion.ParentRegion!);
+                SetHighlight(
+                    HighlightLayerName.Foreground,
+                    SimpleHighlight.Wrap(new StellarBodyRegionHighlight(subRegion.ParentRegion!)));
+                return;
+            }
+            if (s_SceneTypes.Contains(type))
+            {
+                PushScene(e.GetOnlyObject()!);
+                return;
+            }
+            if (type.IsAssignableTo(typeof(TransitRegion)))
+            {
+                var transit = (TransitRegion)e.GetOnlyObject()!;
+                ChangeSceneTo(transit.TransitSystem, /* cleanUp= */ true);
             }
         }
 

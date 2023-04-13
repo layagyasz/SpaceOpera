@@ -28,7 +28,7 @@ namespace SpaceOpera.View.Panes.MilitaryPanes
         private static readonly string s_BodyClassName = "military-pane-body";
         private static readonly string s_MilitaryTableClassName = "military-pane-military-table";
 
-        private static readonly ActionRow<IFormation>.Style s_FormationRowStyle =
+        private static readonly ActionRow<IFormationDriver>.Style s_FormationRowStyle =
             new()
             {
                 Container = "military-pane-formation-row",
@@ -64,13 +64,13 @@ namespace SpaceOpera.View.Panes.MilitaryPanes
                 DynamicUiContainer(
                     uiElementFactory.GetClass(s_BodyClassName), new NoOpElementController<UiContainer>());
             var formationTable =
-                new DynamicKeyedTable<IFormation, ActionRow<IFormation>>(
+                new DynamicKeyedTable<IFormationDriver, ActionRow<IFormationDriver>>(
                     uiElementFactory.GetClass(s_MilitaryTableClassName),
                     new TableController(10f),
                     UiSerialContainer.Orientation.Vertical,
                     GetRange,
                     CreateRow,
-                    Comparer<IFormation>.Create((x, y) => x.Name.CompareTo(y.Name)));
+                    Comparer<IFormationDriver>.Create((x, y) => x.Formation.Name.CompareTo(y.Formation.Name)));
             body.Add(formationTable);
             SetBody(body);
         }
@@ -88,28 +88,28 @@ namespace SpaceOpera.View.Panes.MilitaryPanes
             _tab = (TabId)id;
         }
 
-        private ActionRow<IFormation> CreateRow(IFormation formation)
+        private ActionRow<IFormationDriver> CreateRow(IFormationDriver driver)
         {
-            return ActionRow<IFormation>.Create(
-                formation, 
-                formation.Name,
+            return ActionRow<IFormationDriver>.Create(
+                driver,
+                driver.Formation.Name,
                 _uiElementFactory, 
                 _iconFactory,
                 s_FormationRowStyle,
-                Enumerable.Empty<ActionRow<IFormation>.ActionConfiguration>());
+                Enumerable.Empty<ActionRow<IFormationDriver>.ActionConfiguration>());
         }
 
-        private IEnumerable<IFormation> GetRange()
+        private IEnumerable<IFormationDriver> GetRange()
         {
             if (_world == null || _faction == null)
             {
-                return Enumerable.Empty<IFormation>();
+                return Enumerable.Empty<IFormationDriver>();
             }
             return _tab switch
             {
-                TabId.Army => Enumerable.Empty<IFormation>(),
+                TabId.Army => Enumerable.Empty<IFormationDriver>(),
                 TabId.Fleet => _world.GetFleetsFor(_faction),
-                _ => Enumerable.Empty<IFormation>(),
+                _ => Enumerable.Empty<IFormationDriver>(),
             };
         }
     }

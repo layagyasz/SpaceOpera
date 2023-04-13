@@ -1,6 +1,5 @@
 ﻿using Cardamom.Ui;
 using Cardamom.Ui.Controller;
-using Cardamom.Ui.Controller.Element;
 using SpaceOpera.View.Panes.FormationPanes;
 
 namespace SpaceOpera.Controller.Panes.FormationPanes
@@ -26,7 +25,7 @@ namespace SpaceOpera.Controller.Panes.FormationPanes
 
         private void HandleInteraction(object? sender, UiInteractionEventArgs e)
         {
-            if (e.Action == View.ActionId.Close)
+            if (e.Action == View.ActionId.Unselect)
             {
                 var row = _component!.Where(x => ((FormationComponent)x).Key == e.GetOnlyObject()).FirstOrDefault();
                 if (row != null)
@@ -38,10 +37,7 @@ namespace SpaceOpera.Controller.Panes.FormationPanes
                     Closed?.Invoke(this, EventArgs.Empty);
                 }
             }
-            else
-            {
-                Interacted?.Invoke(this, e);
-            }
+            Interacted?.Invoke(this, e);
         }
     }
 }
