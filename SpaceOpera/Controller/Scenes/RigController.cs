@@ -27,11 +27,6 @@ namespace SpaceOpera.Controller.Scenes
 
         public void Unbind() { }
 
-        public IUiElement Get()
-        {
-            throw new InvalidProgramException();
-        }
-
         public virtual bool HandleKeyDown(KeyDownEventArgs e)
         {
             return false;
