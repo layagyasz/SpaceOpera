@@ -4,8 +4,7 @@ namespace SpaceOpera.View.Highlights
 {
     public class SubRegionHighlight : IHighlight
     {
-        public EventHandler<EventArgs>? OnUpdated { get; set; }
-
+        public bool Dirty { get; set; }
         public bool Merge => false;
         public float BorderWidth => 1f;
         public Color4 BorderColor => new(0.2f, 0.2f, 0.2f, 1f);

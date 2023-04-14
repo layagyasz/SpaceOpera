@@ -144,6 +144,9 @@ namespace SpaceOpera.View.Scenes
         {
             _rotation += delta;
             _stellarBodyModel!.Update(delta);
+            _surfaceHighlightLayer!.Update(delta);
+            _orbitHighlightLayer!.Update(delta);
+            _formationLayer!.Update(delta);
         }
 
         private void HandleCameraChange(object? sender, EventArgs e)

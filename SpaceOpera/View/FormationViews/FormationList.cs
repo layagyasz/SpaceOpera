@@ -37,6 +37,7 @@ namespace SpaceOpera.View.FormationViews
         public void Add(IFormationDriver driver)
         {
             var row = FormationRow.Create(driver, driver.Formation.Name, _uiElementFactory, _iconFactory);
+            row.Initialize();
             row.Add(driver);
             _rows.Add(driver, row);
             Add(row);

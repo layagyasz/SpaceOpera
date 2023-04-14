@@ -62,7 +62,6 @@ namespace SpaceOpera.View.Highlights
                         fillShader);
                 foreach (var h in highlight.GetHighlights())
                 {
-                    h.OnUpdated += layer.HandleHighlightUpdate;
                     layer._highlights.Add(h, layer.ComputeHighlight(h));
                 }
                 return layer;
@@ -84,11 +83,21 @@ namespace SpaceOpera.View.Highlights
             {
                 foreach (var highlight in _highlights.Keys)
                 {
-                    highlight.OnUpdated -= HandleHighlightUpdate;
+                    highlight.Unhook();
                 }
             }
 
-            public void Update(long delta) { }
+            public void Update(long delta)
+            {
+                foreach (var highlight in _highlights.Keys)
+                {
+                    if (highlight.Dirty)
+                    {
+                        UpdateHighlght(highlight);
+                        highlight.Dirty = false;
+                    }
+                }
+            }
 
             protected override void DisposeImpl()
             {
@@ -117,9 +126,8 @@ namespace SpaceOpera.View.Highlights
                     highlight.Merge);
             }
 
-            private void HandleHighlightUpdate(object? sender, EventArgs e)
+            private void UpdateHighlght(IHighlight highlight)
             {
-                var highlight = (IHighlight)sender!;
                 if (_highlights.TryGetValue(highlight, out var current))
                 {
                     current.Dispose();
@@ -210,6 +218,12 @@ namespace SpaceOpera.View.Highlights
             }
         }
 
-        public void Update(long delta) { }
+        public void Update(long delta)
+        {
+            foreach (var layer in _layers.Values)
+            {
+                layer.Update(delta);
+            }
+        }
     }
 }

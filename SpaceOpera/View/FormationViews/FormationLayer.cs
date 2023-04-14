@@ -9,6 +9,7 @@ namespace SpaceOpera.View.FormationViews
 {
     public class FormationLayer<T> : UiGroup where T : notnull
     {
+        private readonly EventBuffer<MovementEventArgs> _events;
         private readonly IFormationLayerMapper<T> _mapper;
         private readonly Dictionary<object, FormationSubLayer<T>> _subLayers = new();
 
@@ -17,6 +18,7 @@ namespace SpaceOpera.View.FormationViews
         public FormationLayer(IFormationLayerMapper<T> mapper, FormationSubLayer<T> singleSubLayer)
             : base(new FormationLayerController<T>())
         {
+            _events = new(HandleMove);
             _mapper = mapper;
             _subLayers.Add(singleSubLayer.Key, singleSubLayer);
             Add(singleSubLayer);
@@ -26,6 +28,7 @@ namespace SpaceOpera.View.FormationViews
         public FormationLayer(IFormationLayerMapper<T> mapper, IEnumerable<FormationSubLayer<T>> subLayers)
             : base(new FormationLayerController<T>())
         {
+            _events = new(HandleMove);
             _mapper = mapper;
             foreach (var subLayer in subLayers)
             {
@@ -37,7 +40,7 @@ namespace SpaceOpera.View.FormationViews
 
         public void Add(IFormationDriver driver)
         {
-            driver.Moved += HandleMove;
+            driver.Moved += _events.QueueEvent;
             Add(driver, driver.Formation.Position);
 
         }
@@ -55,7 +58,7 @@ namespace SpaceOpera.View.FormationViews
         {
             foreach (var driver in _subLayers.Values.SelectMany(x => x.GetDrivers()))
             {
-                driver.Moved -= HandleMove;
+                driver.Moved -= _events.QueueEvent;
             }
             base.DisposeImpl();
         }
@@ -63,7 +66,7 @@ namespace SpaceOpera.View.FormationViews
 
         public void Remove(IFormationDriver driver)
         {
-            driver.Moved -= HandleMove;
+            driver.Moved -= _events.QueueEvent;
             Remove(driver, driver.Formation.Position);
         }
 
@@ -78,6 +81,12 @@ namespace SpaceOpera.View.FormationViews
                 }
                 _dirty = false;
             }
+        }
+
+        public override void Update(long delta)
+        {
+            _events.DispatchEvents();
+            base.Update(delta);
         }
 
         private void HandleMove(object? sender, MovementEventArgs e)

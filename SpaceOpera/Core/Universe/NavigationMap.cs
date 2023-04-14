@@ -323,12 +323,11 @@ namespace SpaceOpera.Core.Universe
                 var averageDistance = starSystem.OrbitalRegions[i].LocalOrbit.StellarBody.Orbit.GetAverageDistance();
                 var circumference = starSystem.OrbitalRegions[i].LocalOrbit.StellarBody.Orbit.GetCircumference();
 
-                var solarOrbitNode = 
-                    GetOrCreateNode(
-                        starSystem.OrbitalRegions[i], starSystem, starSystem.OrbitalRegions[i], averageDistance, null);
                 var orbit = starSystem.OrbitalRegions[i];
-                var localOrbitNode = 
+                var solarOrbitNode = 
                     GetOrCreateNode(orbit, starSystem, orbit, averageDistance, null);
+                var localOrbitNode = 
+                    GetOrCreateNode(orbit.LocalOrbit, starSystem, orbit, averageDistance, null);
 
                 var orbitDistance = .25f * circumference;
                 solarOrbitNode.Edges.Add(

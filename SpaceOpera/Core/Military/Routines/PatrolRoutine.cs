@@ -75,13 +75,13 @@ namespace SpaceOpera.Core.Military.Routines
                 var faction = context.Fleet.Formation.Faction;
                 var activeRegions = context.Fleet.GetActiveRegion();
                 if (_cachedTarget == null 
-                    || !activeRegions.Contains(_cachedTarget.Position) 
+                    || !activeRegions.Contains(_cachedTarget.Position!) 
                     || !context.World.BattleManager.CanEngage(context.Fleet.Formation, _cachedTarget))
                 {
                     var options =
                         context.World.GetFleets()
                             .Where(x => x.Formation.Position == currentPosition)
-                            .Where(x => activeRegions.Contains(x.Formation.Position))
+                            .Where(x => activeRegions.Contains(x.Formation.Position!))
                             .Where(x => x.Formation.Faction != faction)
                             .Where(x => context.World.BattleManager.CanEngage(context.Fleet.Formation, x.Formation))
                             .Select(x => x.Formation)

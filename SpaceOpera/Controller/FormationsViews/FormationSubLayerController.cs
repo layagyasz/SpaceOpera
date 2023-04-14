@@ -54,7 +54,7 @@ namespace SpaceOpera.Controller.FormationsViews
 
         private void HandleElementRemoved(object? sender, ElementEventArgs e)
         {
-            UnbindElement(e);
+            UnbindElement(e.Element);
         }
 
         private void HandleElementClicked(object? sender, ElementClickedEventArgs e)

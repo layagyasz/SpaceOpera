@@ -70,6 +70,7 @@ namespace SpaceOpera.View.FormationViews
             if (!_formationLists.TryGetValue(bucket, out var list))
             {
                 list = new FormationList(pin, offset, _uiElementFactory, _iconFactory);
+                list.Initialize();
                 _formationLists.Add(bucket, list);
                 Add(list);
                 Dirty();

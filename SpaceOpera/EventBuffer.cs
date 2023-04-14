@@ -1,37 +1,32 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace SpaceOpera
 {
-    class EventBuffer<T> where T : EventArgs
+    public class EventBuffer<T>
     {
-        readonly Queue<Tuple<Action<object, T>, Tuple<object, T>>> _Invocations =
-            new Queue<Tuple<Action<object, T>, Tuple<object, T>>>();
+        private readonly Queue<Tuple<object?, T>> _invocations = new();
+        private readonly Action<object?, T> _handler;
 
-        public void QueueEvent(Action<object, T> Handler, object Sender, T E)
+        public EventBuffer(Action<object?, T> handler)
         {
-            lock (_Invocations)
-            {
-                _Invocations.Enqueue(
-                    new Tuple<Action<object, T>, Tuple<object, T>>(Handler, new Tuple<object, T>(Sender, E)));
-            }
+            _handler = handler;
         }
 
-        public Action<object, T> Hook<K>(Action<object, K> Handler) where K : T
+        public void QueueEvent(object? sender, T e)
         {
-            return (Sender, E) => QueueEvent((s, e) => Handler(s, (K)e), Sender, E);
+            lock (_invocations)
+            {
+                _invocations.Enqueue(new Tuple<object?, T>(sender, e));
+            }
         }
 
         public void DispatchEvents()
         {
-            lock (_Invocations)
+            lock (_invocations)
             {
-                foreach (var invocation in _Invocations)
-                    invocation.Item1(invocation.Item2.Item1, invocation.Item2.Item2);
-                _Invocations.Clear();
+                foreach (var invocation in _invocations)
+                {
+                    _handler(invocation.Item1, invocation.Item2);
+                }
+                _invocations.Clear();
             }
         }
     }

@@ -33,7 +33,6 @@ namespace SpaceOpera.View.StarSystemViews
         public void Draw(RenderTarget target, UiContext context)
         {
             _guidelines!.Draw(target, context);
-            _star!.Dirty();
             _star!.Draw(target, context);
         }
 

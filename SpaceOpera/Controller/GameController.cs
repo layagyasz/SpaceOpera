@@ -4,6 +4,7 @@ using Cardamom.Ui;
 using Cardamom.Ui.Controller;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using SpaceOpera.Controller.Panes;
+using SpaceOpera.Controller.Subcontrollers;
 using SpaceOpera.Core;
 using SpaceOpera.Core.Designs;
 using SpaceOpera.Core.Military;
@@ -33,6 +34,9 @@ namespace SpaceOpera.Controller
 
         private readonly Stack<IGameScene> _scenes = new();
         private readonly EnumMap<HighlightLayerName, ICompositeHighlight> _currentHighlights = new();
+        private readonly HashSet<IFormationDriver> _selectedFormations = new();
+
+        private ISubcontroller? _subcontroller;
 
         public GameController(
             UiWindow window, World? world, GameDriver driver, Faction faction, ViewFactory viewFactory, ILogger logger)
@@ -160,6 +164,19 @@ namespace SpaceOpera.Controller
             _screen!.SetScene(scene);
             _window.SetFocus(scene);
         }
+
+        private void ChangeSubcontrollerTo(ISubcontroller? subcontroller)
+        {
+            if (_subcontroller != null)
+            {
+                _subcontroller.OrderCreated -= HandleOrder;
+            }
+            _subcontroller = subcontroller;
+            if (_subcontroller != null)
+            {
+                _subcontroller.OrderCreated += HandleOrder;
+            }
+        }
         
         private void HandleOrder(object? sender, IOrder e)
         {
@@ -179,6 +196,10 @@ namespace SpaceOpera.Controller
             _logger.AtInfo().Log(e.ToString());
 
             if (HandleKeyInteraction(e.Key))
+            {
+                return;
+            }
+            if (_subcontroller?.HandleInteraction(e) ?? false)
             {
                 return;
             }
@@ -244,7 +265,13 @@ namespace SpaceOpera.Controller
         {
             if (type.IsAssignableTo(typeof(IFormationDriver)) && e.Action == ActionId.Select)
             {
-                OpenPane(GamePaneId.Formation, /* closeOpenPanes= */ true, e.Objects);
+                SelectFormations(e.Objects.Cast<IFormationDriver>());
+                return;
+            }
+            if (type.IsAssignableTo(typeof(IFormationDriver)) && e.Action == ActionId.Unselect)
+            {
+                UnselectFormations(e.Objects.Cast<IFormationDriver>());
+                return;
             }
             if (type.IsAssignableTo(typeof(IOrder)) && e.Action == ActionId.Confirm)
             {
@@ -279,6 +306,36 @@ namespace SpaceOpera.Controller
             {
                 var transit = (TransitRegion)e.GetOnlyObject()!;
                 ChangeSceneTo(transit.TransitSystem, /* cleanUp= */ true);
+            }
+        }
+
+        private void SelectFormations(IEnumerable<IFormationDriver> drivers)
+        {
+            OpenPane(GamePaneId.Formation, /* closeOpenPanes= */ true, drivers);
+            _selectedFormations.Clear();
+            foreach (var driver in drivers)
+            {
+                _selectedFormations.Add(driver);
+            }
+            if (_selectedFormations.Count > 0 && _selectedFormations.First().GetType() == typeof(FleetDriver))
+            {
+                ChangeSubcontrollerTo(new FleetSubcontroller(drivers.Cast<FleetDriver>()));
+                SetHighlight(
+                    HighlightLayerName.Foreground,
+                    SimpleHighlight.Wrap(new FormationHighlight(_selectedFormations)));
+            }
+        }
+
+        private void UnselectFormations(IEnumerable<IFormationDriver> drivers)
+        {
+            foreach (var driver in drivers)
+            {
+                _selectedFormations.Remove(driver);
+            }
+            if (_selectedFormations.Count == 0)
+            {
+                ChangeSubcontrollerTo(null);
+                SetHighlight(HighlightLayerName.Foreground, null);
             }
         }
 

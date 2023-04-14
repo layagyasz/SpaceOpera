@@ -4,21 +4,23 @@ using SpaceOpera.Core.Universe;
 
 namespace SpaceOpera.View.Highlights
 {
-    public class FleetHighlight : IHighlight
+    public class FormationHighlight : IHighlight
     {
-        public EventHandler<EventArgs>? OnUpdated { get; set; }
-
+        public bool Dirty { get; set; }
         public bool Merge => true;
         public float BorderWidth => 4f;
-        public Color4 BorderColor => Color4.White;
+        public Color4 BorderColor => Color4.Yellow;
         public Color4 Color => new(0, 0, 0, 0);
 
-        public FleetDriver Fleet { get; }
+        private readonly HashSet<IFormationDriver> _drivers;
 
-        public FleetHighlight(FleetDriver fleet)
+        public FormationHighlight(IEnumerable<IFormationDriver> drivers)
         {
-            Fleet = fleet;
-            fleet.OrderUpdated += HandleFleetUpdate;
+            _drivers = new(drivers);
+            foreach (var driver in _drivers)
+            {
+                driver.OrderUpdated += HandleFleetUpdate;
+            }
         }
 
         public bool Contains(object @object)
@@ -44,17 +46,20 @@ namespace SpaceOpera.View.Highlights
 
         public bool Contains(INavigable navigable)
         {
-            return Fleet.GetActiveRegion().Contains(navigable);
+            return _drivers.Any(x => x.GetActiveRegion().Contains(navigable));
         }
 
         public void Unhook()
         {
-            Fleet.OrderUpdated -= HandleFleetUpdate;
+            foreach (var driver in _drivers)
+            {
+                driver.OrderUpdated -= HandleFleetUpdate;
+            }
         }
 
         private void HandleFleetUpdate(object? sender, EventArgs e)
         {
-            OnUpdated?.Invoke(this, e);
+            Dirty = true;
         }
     }
 }

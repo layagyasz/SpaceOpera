@@ -46,6 +46,7 @@ namespace SpaceOpera.View.Scenes
         {
             Controller = controller;
             Camera = camera;
+            Camera.Changed += HandleCameraUpdate;
             _model = model;
             _surfaceShader = surfaceShader;
             _atmosphereShader = atmosphereShader;
@@ -69,6 +70,7 @@ namespace SpaceOpera.View.Scenes
 
         protected override void DisposeImpl()
         {
+            Camera.Changed -= HandleCameraUpdate;
             _model!.Dispose();
             _model = null;
             foreach (var subSystem in _subSystems!)
@@ -159,6 +161,8 @@ namespace SpaceOpera.View.Scenes
             {
                 subSystem.Update(delta);
             }
+            _highlightLayer!.Update(delta);
+            _formationLayer!.Update(delta);
         }
 
         private void HandleCameraUpdate(object? sender, EventArgs e)

@@ -26,7 +26,7 @@ namespace SpaceOpera.Core.Military
             _ai = FleetRoutine.Create();
         }
 
-        public IEnumerable<INavigable> GetActiveRegion()
+        public ICollection<INavigable> GetActiveRegion()
         {
             return _activeRegion;
         }

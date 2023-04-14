@@ -1,4 +1,6 @@
-﻿namespace SpaceOpera.Core.Military
+﻿using SpaceOpera.Core.Universe;
+
+namespace SpaceOpera.Core.Military
 {
     public interface IFormationDriver
     {
@@ -6,6 +8,8 @@
         EventHandler<EventArgs>? OrderUpdated { get; set; }
 
         IFormation Formation { get; }
+
+        ICollection<INavigable> GetActiveRegion();
 
         void Tick(SpaceOperaContext context);
     }

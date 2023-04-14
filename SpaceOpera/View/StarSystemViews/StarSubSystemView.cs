@@ -66,6 +66,9 @@ namespace SpaceOpera.View.StarSystemViews
             _highlightLayer!.SetLayer(layer, highlight);
         }
 
-        public void Update(long delta) { }
+        public void Update(long delta)
+        {
+            _highlightLayer!.Update(delta);
+        }
     }
 }
