@@ -65,7 +65,7 @@
       "stellar-body-generator-halic-moisture-offset": {
         "Type": "Cardamom.Utils.Generators.Numeric.FloatGenerator, Cardamom",
         "Object": {
-          "Range": [ -0.5, 1 ]
+          "Range": [ 0, 1 ]
         }
       }
     },

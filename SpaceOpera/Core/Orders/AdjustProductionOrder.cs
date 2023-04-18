@@ -28,7 +28,7 @@ namespace SpaceOpera.Core.Orders
                 {
                     return ValidationFailureReason.IllegalOrder;
                 }
-                if (production.Value >  Holding.GetAvailableResourceNodes(production.Key.BoundResourceNode))
+                if (productionUsage >  Holding.GetAvailableResourceNodes(production.Key.BoundResourceNode))
                 {
                     return ValidationFailureReason.TooFewResourceNodes;
                 }

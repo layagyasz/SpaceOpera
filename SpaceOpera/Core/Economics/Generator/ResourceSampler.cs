@@ -7,7 +7,7 @@ namespace SpaceOpera.Core.Economics.Generator
 {
     public class ResourceSampler
     {
-        private static readonly float s_ClumpingConstant = .1f;
+        private static readonly float s_ClumpingConstant = .002f;
 
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public enum ResourceSamplerType

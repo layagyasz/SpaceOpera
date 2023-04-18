@@ -27,10 +27,10 @@ namespace SpaceOpera.View.Panes.DesignPanes
             new()
             {
                 Container = "design-pane-component-row",
-                Icon = "design-pane-component-row-icon",
-                Text = "design-pane-component-row-text",
                 ActionContainer = "design-pane-component-row-action-container"
             };
+        private static readonly string s_IconClassName = "design-pane-component-row-icon";
+        private static readonly string s_TextClassName = "design-pane-component-row-text";
         private static readonly List<ActionRow<Design>.ActionConfiguration> s_DesignActions =
             new()
             {
@@ -97,7 +97,16 @@ namespace SpaceOpera.View.Panes.DesignPanes
         private ActionRow<Design> CreateRow(Design design)
         {
             return ActionRow<Design>.Create(
-                design, design.Name, _uiElementFactory, _iconFactory, s_DesignRowStyle, s_DesignActions);
+                design, 
+                _uiElementFactory,
+                s_DesignRowStyle, 
+                new List<IUiElement>() 
+                {
+                    _iconFactory.Create(_uiElementFactory.GetClass(s_IconClassName), new InlayController(), design), 
+                    new TextUiElement(
+                        _uiElementFactory.GetClass(s_TextClassName), new InlayController(), design.Name)
+                }, 
+                s_DesignActions);
         }
 
         private IEnumerable<Design> GetRange()

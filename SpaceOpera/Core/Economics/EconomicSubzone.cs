@@ -26,7 +26,7 @@ namespace SpaceOpera.Core.Economics
             }
             else
             {
-                _resourceNodes.Add(nodes.Key.Resource, new(nodes.Value));
+                _resourceNodes.Add(nodes.Key.Resource, new(nodes.Value, /* startFull= */ false));
             }
         }
 

@@ -3,6 +3,7 @@ using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
 using SpaceOpera.Controller.Panes;
 using SpaceOpera.Core;
+using SpaceOpera.Core.Designs;
 using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.View.Components;
@@ -31,10 +32,10 @@ namespace SpaceOpera.View.Panes.MilitaryPanes
         private static readonly ActionRow<IFormationDriver>.Style s_FormationRowStyle =
             new()
             {
-                Container = "military-pane-formation-row",
-                Icon = "military-pane-formation-row-icon",
-                Text = "military-pane-formation-row-text"
+                Container = "military-pane-formation-row"
             };
+        private static readonly string s_IconClassName = "military-pane-formation-row-icon";
+        private static readonly string s_TextClassName = "military-pane-formation-row-text";
 
         private World? _world;
         private Faction? _faction;
@@ -92,10 +93,14 @@ namespace SpaceOpera.View.Panes.MilitaryPanes
         {
             return ActionRow<IFormationDriver>.Create(
                 driver,
-                driver.Formation.Name,
-                _uiElementFactory, 
-                _iconFactory,
+                _uiElementFactory,
                 s_FormationRowStyle,
+                new List<IUiElement>()
+                {
+                    _iconFactory.Create(_uiElementFactory.GetClass(s_IconClassName), new InlayController(), driver),
+                    new TextUiElement(
+                        _uiElementFactory.GetClass(s_TextClassName), new InlayController(), driver.Formation.Name)
+                },
                 Enumerable.Empty<ActionRow<IFormationDriver>.ActionConfiguration>());
         }
 

@@ -28,9 +28,11 @@ namespace SpaceOpera.Core.Economics.Generator
             foreach (var region in stellarBody.Regions)
             {
                 var resourceNodes = new List<ResourceNode>();
-                resourceNodes.AddRange(
-                    Generate(region.DominantBiome, random)
-                        .Select(x => new ResourceNode(x.Resource, region.SubRegions.Count * x.Size)));
+                foreach (var subRegion in region.SubRegions)
+                {
+                    resourceNodes.AddRange(
+                        Generate(subRegion.Biome, random).Select(x => new ResourceNode(x.Resource, x.Size)));
+                }
                 foreach (var atmosphereNode in stellarBody.Atmosphere.Composition.GetQuantities())
                 {
                     resourceNodes.Add(

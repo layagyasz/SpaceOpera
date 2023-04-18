@@ -18,10 +18,10 @@ namespace SpaceOpera.View.Panes.FormationPanes
             new() 
             {
                 Container = "formation-pane-formation-header",
-                Icon = "formation-pane-formation-header-icon",
-                Text = "formation-pane-formation-header-text",
                 ActionContainer = "formation-pane-formation-header-action-container"
             };
+        private static readonly string s_IconClassName = "formation-pane-formation-header-icon";
+        private static readonly string s_TextClassName = "formation-pane-formation-header-text";
         private static readonly List<ActionRow<IFormationDriver>.ActionConfiguration> s_HeaderActions =
             new()
             { 
@@ -35,10 +35,17 @@ namespace SpaceOpera.View.Panes.FormationPanes
         private static readonly ActionRow<UnitGrouping>.Style s_UnitGroupingRowStyle =
             new() 
             {
-                Container = "formation-pane-formation-unit-grouping-row",
-                Icon = "formation-pane-formation-unit-grouping-row-icon",
-                Text = "formation-pane-formation-unit-grouping-row-text"
+                Container = "formation-pane-formation-unit-grouping-row"
             };
+        private static readonly string s_UnitGroupingIconClassName = "formation-pane-formation-unit-grouping-row-icon";
+        private static readonly string s_UnitGroupingInfoClassName = "formation-pane-formation-unit-grouping-row-info";
+        private static readonly string s_UnitGroupingTextClassName = "formation-pane-formation-unit-grouping-row-text";
+        private static readonly string s_UnitGroupingStatusClassName = 
+            "formation-pane-formation-unit-grouping-row-status-container";
+        private static readonly string s_UnitGroupingHealthClassName =
+            "formation-pane-formation-unit-grouping-row-status-health";
+        private static readonly string s_UnitGroupingShieldsClassName = 
+            "formation-pane-formation-unit-grouping-row-status-shields";
 
         public IFormationDriver Key { get; }
         public UiCompoundComponent Header { get; }
@@ -61,7 +68,19 @@ namespace SpaceOpera.View.Panes.FormationPanes
 
             Header = 
                 ActionRow<IFormationDriver>.Create(
-                    driver, driver.Formation.Name, uiElementFactory, iconFactory, s_HeaderStyle, s_HeaderActions);
+                    driver, 
+                    uiElementFactory,
+                    s_HeaderStyle,
+                    new List<IUiElement>()
+                    {
+                        _iconFactory.Create(
+                            _uiElementFactory.GetClass(s_IconClassName), new InlayController(), driver),
+                        new TextUiElement(
+                            _uiElementFactory.GetClass(s_TextClassName), 
+                            new InlayController(),
+                            driver.Formation.Name)
+                    },
+                    s_HeaderActions);
             Add(Header);
 
             UnitGroupingTable =
@@ -85,11 +104,38 @@ namespace SpaceOpera.View.Panes.FormationPanes
         private ActionRow<UnitGrouping> CreateRow(UnitGrouping unitGrouping)
         {
             return ActionRow<UnitGrouping>.Create(
-                unitGrouping, 
-                unitGrouping.Unit.Name,
+                unitGrouping,
                 _uiElementFactory,
-                _iconFactory,
                 s_UnitGroupingRowStyle,
+                new List<IUiElement>()
+                {
+                    _iconFactory.Create(
+                        _uiElementFactory.GetClass(s_UnitGroupingIconClassName), new InlayController(), unitGrouping),
+                    new DynamicUiSerialContainer(
+                        _uiElementFactory.GetClass(s_UnitGroupingInfoClassName),
+                        new NoOpElementController<UiSerialContainer>(),
+                        UiSerialContainer.Orientation.Vertical)
+                    {
+                        new TextUiElement(
+                            _uiElementFactory.GetClass(s_UnitGroupingTextClassName),
+                            new InlayController(),
+                            unitGrouping.Unit.Name),
+                        new DynamicUiSerialContainer(
+                            _uiElementFactory.GetClass(s_UnitGroupingStatusClassName),
+                            new NoOpElementController<UiSerialContainer>(), 
+                            UiSerialContainer.Orientation.Vertical)
+                        {
+                            new PoolBar(
+                                _uiElementFactory.GetClass(s_UnitGroupingHealthClassName),
+                                new InlayController(), 
+                                unitGrouping.Hitpoints),
+                            new PoolBar(
+                                _uiElementFactory.GetClass(s_UnitGroupingShieldsClassName),
+                                new InlayController(), 
+                                unitGrouping.Shielding)
+                        }
+                    }
+                },
                 Enumerable.Empty<ActionRow<UnitGrouping>.ActionConfiguration>());
         }
     }
