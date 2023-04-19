@@ -1,13 +1,13 @@
 ﻿using Cardamom.Graphics;
 using Cardamom.Ui;
-using Cardamom.Ui.Elements;
 using SpaceOpera.Controller.FormationsViews;
 using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Universe;
+using SpaceOpera.View.Components;
 
 namespace SpaceOpera.View.FormationViews
 {
-    public class FormationLayer<T> : UiGroup where T : notnull
+    public class FormationLayer<T> : DynamicUiGroup where T : notnull
     {
         private readonly EventBuffer<MovementEventArgs> _events;
         private readonly IFormationLayerMapper<T> _mapper;

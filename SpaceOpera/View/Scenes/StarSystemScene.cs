@@ -7,7 +7,6 @@ using OpenTK.Mathematics;
 using SpaceOpera.Core.Universe;
 using SpaceOpera.View.Common;
 using SpaceOpera.View.FormationViews;
-using SpaceOpera.View.GalaxyViews;
 using SpaceOpera.View.Highlights;
 using SpaceOpera.View.StarSystemViews;
 
@@ -15,6 +14,8 @@ namespace SpaceOpera.View.Scenes
 {
     public class StarSystemScene : GraphicsResource, IGameScene
     {
+        public EventHandler<EventArgs>? Refreshed { get; set; }
+
         public IElementController Controller { get; }
         public IControlledElement? Parent { get; set; }
         public ICamera Camera { get; set; }
@@ -139,6 +140,12 @@ namespace SpaceOpera.View.Scenes
                 subSystem.Initialize();
             }
             Controller.Bind(this);
+        }
+
+        public void Refresh()
+        {
+            _formationLayer!.Refresh();
+            Refreshed?.Invoke(this, EventArgs.Empty);
         }
 
         public void ResizeContext(Vector3 bounds)

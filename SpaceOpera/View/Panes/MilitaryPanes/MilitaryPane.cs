@@ -3,7 +3,6 @@ using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
 using SpaceOpera.Controller.Panes;
 using SpaceOpera.Core;
-using SpaceOpera.Core.Designs;
 using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.View.Components;

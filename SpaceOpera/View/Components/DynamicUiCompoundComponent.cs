@@ -11,7 +11,7 @@ namespace SpaceOpera.View.Components
         public DynamicUiCompoundComponent(IController componentController, IUiContainer container)
             : base(componentController, container) { }
 
-        public void Refresh()
+        public virtual void Refresh()
         {
             if (_container is IDynamic dynamic)
             {

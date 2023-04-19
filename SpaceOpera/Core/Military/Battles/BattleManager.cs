@@ -85,7 +85,7 @@ namespace SpaceOpera.Core.Military.Battles
             if (currentBattle == null)
             {
                 target.EnterCombat();
-                var newBattle = new Battle();
+                var newBattle = new Battle(key.Position);
                 newBattle.Add(formation, BattleSideType.Offense);
                 newBattle.Add(target, BattleSideType.Defense);
                 _activeBattles.Add(key, newBattle);
@@ -94,6 +94,19 @@ namespace SpaceOpera.Core.Military.Battles
             {
                 currentBattle.Battle.Add(formation, ReverseSide(currentBattle.Side));
             }
+        }
+
+        public Battle? GetBattle(IFormation formation)
+        {
+            if (!formation.InCombat)
+            {
+                return null;
+            }
+            if (_activeBattles.TryGetValue(BattleKey.Create(formation.Position!), out var battle))
+            {
+                return battle.FirstOrDefault(x => x.Contains(formation));
+            }
+            return null;
         }
 
         public void Tick(Random random)
@@ -134,8 +147,6 @@ namespace SpaceOpera.Core.Military.Battles
                     {
                         newActiveBattles.Add(battlesAndKey);
                     }
-                    battle.GetReport().Print();
-                    Console.ReadLine();
                 }
             }
             _activeBattles = newActiveBattles;

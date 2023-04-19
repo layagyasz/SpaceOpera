@@ -4,11 +4,21 @@ namespace SpaceOpera.Core.Military.Battles
 {
     public class BattleSide
     {
-        public List<IFormation> Formations { get; } = new();
+        private List<IFormation> _formations = new();
 
         public void Add(IFormation Formation)
         {
-            Formations.Add(Formation);
+            _formations.Add(Formation);
+        }
+
+        public bool Contains(IFormation formation)
+        {
+            return _formations.Contains(formation);
+        }
+
+        public IEnumerable<IFormation> GetFormations()
+        {
+            return _formations;
         }
 
         public static void Damage(List<DistributedBattleAttack> attacks, BattleReport.Builder report)
@@ -60,7 +70,7 @@ namespace SpaceOpera.Core.Military.Battles
         public List<DistributedBattleAttack> GetAttacks(BattleSide opposingSide, Random random)
         {
             var result = new List<DistributedBattleAttack>();
-            foreach (var formation in Formations)
+            foreach (var formation in _formations)
             {
                 foreach (var group in formation.Composition)
                 {
@@ -73,7 +83,7 @@ namespace SpaceOpera.Core.Military.Battles
 
         public void Remove(IFormation formation)
         {
-            Formations.Remove(formation);
+            _formations.Remove(formation);
         }
 
         private static List<BattleAttack> GetPotential(IFormation formation, UnitGrouping unit, BattleSide opposingSide)
@@ -86,7 +96,7 @@ namespace SpaceOpera.Core.Military.Battles
         private static IEnumerable<BattleAttack> GetPotential(
             IFormation formation, UnitGrouping unit, Count<Weapon> weapon, BattleSide opposingSide)
         {
-            foreach (var f in opposingSide.Formations)
+            foreach (var f in opposingSide._formations)
             {
                 foreach (var group in f.Composition)
                 {

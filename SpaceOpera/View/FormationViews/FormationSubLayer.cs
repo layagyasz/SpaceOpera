@@ -1,14 +1,14 @@
 ﻿using Cardamom.Graphics;
 using Cardamom.Ui;
-using Cardamom.Ui.Elements;
 using OpenTK.Mathematics;
 using SpaceOpera.Controller.FormationsViews;
 using SpaceOpera.Core.Military;
+using SpaceOpera.View.Components;
 using SpaceOpera.View.Icons;
 
 namespace SpaceOpera.View.FormationViews
 {
-    public class FormationSubLayer<T> : UiGroup where T : notnull
+    public class FormationSubLayer<T> : DynamicUiGroup where T : notnull
     {
         public object Key { get; }
 

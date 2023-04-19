@@ -8,6 +8,7 @@ using SpaceOpera.Controller.Subcontrollers;
 using SpaceOpera.Core;
 using SpaceOpera.Core.Designs;
 using SpaceOpera.Core.Military;
+using SpaceOpera.Core.Military.Battles;
 using SpaceOpera.Core.Orders;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Universe;
@@ -263,10 +264,24 @@ namespace SpaceOpera.Controller
 
         private void HandleObjectInteraction(Type type, UiInteractionEventArgs e)
         {
-            if (type.IsAssignableTo(typeof(IFormationDriver)) && e.Action == ActionId.Select)
+            if (type.IsAssignableTo(typeof(IFormationDriver)))
             {
-                SelectFormations(e.Objects.Cast<IFormationDriver>());
-                return;
+                if (e.Action == ActionId.Select)
+                {
+                    SelectFormations(e.Objects.Cast<IFormationDriver>());
+                    return;
+                }
+                if (e.Action == ActionId.Battle)
+                {
+                    OpenPane(
+                        GamePaneId.Battle, 
+                        /* closeOpenPanes= */ true,
+                        e.Objects.Cast<IFormationDriver>()
+                            .Select(x => x.Formation)
+                            .Select(_world!.BattleManager.GetBattle)
+                            .Where(x => x != null)
+                            .FirstOrDefault());
+                }
             }
             if (type.IsAssignableTo(typeof(IFormationDriver)) && e.Action == ActionId.Unselect)
             {
@@ -354,7 +369,7 @@ namespace SpaceOpera.Controller
             }
         }
 
-        private void OpenPane(GamePaneId paneId, bool closeOpenPanes, params object[] args)
+        private void OpenPane(GamePaneId paneId, bool closeOpenPanes, params object?[] args)
         {
             var pane = _screen!.GetPane(paneId);
             pane.Populate(args);

@@ -3,12 +3,14 @@ using Cardamom.Ui;
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
 using OpenTK.Mathematics;
+using SpaceOpera.Controller.Components;
 using SpaceOpera.Core.Military;
+using SpaceOpera.View.Components;
 using SpaceOpera.View.Icons;
 
 namespace SpaceOpera.View.FormationViews
 {
-    public class FormationList : UiSerialContainer
+    public class FormationList : DynamicUiCompoundComponent
     {
         private static readonly string s_FormationLayerTableClassName = "formation-layer-table";
 
@@ -24,9 +26,11 @@ namespace SpaceOpera.View.FormationViews
         public FormationList(
             Vector3 position, float? offset, UiElementFactory uiElementFactory, IconFactory iconFactory)
             : base(
-                  uiElementFactory.GetClass(s_FormationLayerTableClassName),
-                  new TableController(0), 
-                  Orientation.Vertical)
+                  new ActionTableController(),
+                  new DynamicUiSerialContainer(
+                      uiElementFactory.GetClass(s_FormationLayerTableClassName),
+                      new TableController(0), 
+                      UiSerialContainer.Orientation.Vertical))
         {
             _pin = position;
             _offset = offset;

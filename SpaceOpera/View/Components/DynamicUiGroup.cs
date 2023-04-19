@@ -1,15 +1,13 @@
-﻿using Cardamom.Ui;
-using Cardamom.Ui.Controller.Element;
+﻿using Cardamom.Ui.Controller;
 using Cardamom.Ui.Elements;
 
 namespace SpaceOpera.View.Components
 {
-    public class DynamicUiSerialContainer : UiSerialContainer, IDynamic
+    public class DynamicUiGroup : UiGroup, IDynamic
     {
         public EventHandler<EventArgs>? Refreshed { get; set; }
 
-        public DynamicUiSerialContainer(Class @class, IElementController controller, Orientation orientation)
-            : base(@class, controller, orientation) { }
+        public DynamicUiGroup(IController controller) : base(controller) { }
 
         public virtual void Refresh()
         {

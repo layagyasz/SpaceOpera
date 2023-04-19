@@ -1,10 +1,19 @@
+using SpaceOpera.Core.Universe;
+
 namespace SpaceOpera.Core.Military.Battles
 {
     public class Battle
     {
+        public INavigable Location { get; }
+
         private readonly BattleReport.Builder _report = new();
         private readonly BattleSide _offense = new();
         private readonly BattleSide _defense = new();
+
+        public Battle(INavigable location)
+        {
+            Location = location;
+        }
 
         public void Add(IFormation formation, BattleSideType side)
         {
@@ -33,13 +42,18 @@ namespace SpaceOpera.Core.Military.Battles
             }
         }
 
+        public bool Contains(IFormation formation)
+        {
+            return _offense.Contains(formation) || _defense.Contains(formation);
+        }
+
         public BattleSideType GetBattleSide(IFormation formation)
         {
-            if (_offense.Formations.Contains(formation))
+            if (_offense.Contains(formation))
             {
                 return BattleSideType.Offense;
             }
-            if (_defense.Formations.Contains(formation))
+            if (_defense.Contains(formation))
             {
                 return BattleSideType.Defense;
             }
@@ -50,8 +64,8 @@ namespace SpaceOpera.Core.Military.Battles
         {
             return type switch
             {
-                BattleSideType.Offense => _offense.Formations,
-                BattleSideType.Defense => _defense.Formations,
+                BattleSideType.Offense => _offense.GetFormations(),
+                BattleSideType.Defense => _defense.GetFormations(),
                 _ => throw new ArgumentException($"Unsupported BattleSideType: [{type}]."),
             };
         }

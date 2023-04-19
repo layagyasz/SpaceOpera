@@ -1,0 +1,17 @@
+[
+  {
+    "$id": "battle-pane",
+    "Parent": "pane-standard",
+    "Default": {
+      "Size": [ 900, 700 ]
+    }
+  },
+  {
+    "$id": "battle-pane-title",
+    "Parent": "pane-standard-title"
+  },
+  {
+    "$id": "battle-pane-close",
+    "Parent": "pane-standard-close"
+  }
+]

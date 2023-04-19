@@ -1,5 +1,6 @@
 ﻿using Cardamom.Ui;
 using SpaceOpera.View.Icons;
+using SpaceOpera.View.Panes.BattlePanes;
 using SpaceOpera.View.Panes.DesignPanes;
 using SpaceOpera.View.Panes.FormationPanes;
 using SpaceOpera.View.Panes.MilitaryPanes;
@@ -11,6 +12,7 @@ namespace SpaceOpera.View.Panes
 {
     public class PaneSet
     {
+        public BattlePane Battle { get; }
         public DesignerPane Designer { get; }
         public EquipmentPane Equipment { get; }
         public FormationPane Formation { get; }
@@ -21,6 +23,7 @@ namespace SpaceOpera.View.Panes
         public StellarBodyRegionPane StellarBodyRegion { get; }
 
         private PaneSet(
+            BattlePane battle,
             DesignerPane designer,
             EquipmentPane equipment,
             FormationPane formation,
@@ -30,6 +33,7 @@ namespace SpaceOpera.View.Panes
             ResearchPane research,
             StellarBodyRegionPane stellarBodyRegion)
         {
+            Battle = battle;
             Designer = designer;
             Equipment = equipment;
             Formation = formation;
@@ -44,6 +48,7 @@ namespace SpaceOpera.View.Panes
         {
             return id switch
             {
+                GamePaneId.Battle => Battle,
                 GamePaneId.Designer => Designer,
                 GamePaneId.Equipment => Equipment,
                 GamePaneId.Formation => Formation,
@@ -58,6 +63,7 @@ namespace SpaceOpera.View.Panes
 
         public IEnumerable<IGamePane> GetPanes()
         {
+            yield return Battle;
             yield return Designer;
             yield return Equipment;
             yield return Formation;
@@ -70,6 +76,9 @@ namespace SpaceOpera.View.Panes
 
         public static PaneSet Create(UiElementFactory uiElementFactory, IconFactory iconFactory)
         {
+            var battle = new BattlePane(uiElementFactory, iconFactory);
+            battle.Initialize();
+
             var designer = new DesignerPane(uiElementFactory, iconFactory);
             designer.Initialize();
 
@@ -95,6 +104,7 @@ namespace SpaceOpera.View.Panes
             stellarBodyRegion.Initialize();
 
             return new(
+                battle,
                 designer,
                 equipment,
                 formation, 

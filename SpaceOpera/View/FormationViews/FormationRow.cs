@@ -1,24 +1,36 @@
 ﻿using Cardamom.Ui;
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
+using SpaceOpera.Controller.Components;
+using SpaceOpera.Controller.FormationsViews;
 using SpaceOpera.Core.Military;
+using SpaceOpera.View.Components;
 using SpaceOpera.View.Icons;
 
 namespace SpaceOpera.View.FormationViews
 {
-    public class FormationRow : UiSerialContainer
+    public class FormationRow : DynamicUiCompoundComponent, IActionRow
     {
         private static readonly string s_FormationLayerRowClassName = "formation-layer-row";
         private static readonly string s_FormationLayerRowIconClassName = "formation-layer-row-icon";
         private static readonly string s_FormationLayerRowTextClassName = "formation-layer-row-text";
+        private static readonly string s_FormationLayerRowBattleIconClassName = "formation-layer-row-battle-icon";
 
         private readonly List<IFormationDriver> _drivers = new();
+        private readonly IUiElement _battle;
 
-        private FormationRow(Class @class, Icon icon, IUiElement text)
-            : base(@class, new ButtonController(), Orientation.Horizontal)
+        private FormationRow(Class @class, Icon icon, IUiElement text, IUiElement battle)
+            : base(
+                  new FormationRowController(), 
+                  new UiSerialContainer(@class, new ButtonController(), UiSerialContainer.Orientation.Horizontal))
         {
+            _battle = battle;
+
             Add(icon);
             Add(text);
+            Add(battle);
+
+            Refresh();
         }
 
         public void Add(IFormationDriver driver)
@@ -31,9 +43,20 @@ namespace SpaceOpera.View.FormationViews
             _drivers.Remove(driver);
         }
 
+        public IEnumerable<IUiElement> GetActions()
+        {
+            yield return _battle;
+        }
+
         public IEnumerable<IFormationDriver> GetDrivers()
         {
             return _drivers;
+        }
+
+        public override void Refresh()
+        {
+            _battle.Visible = _drivers.Any(x => x.Formation.InCombat);
+            base.Refresh();
         }
 
         public static FormationRow Create(
@@ -46,7 +69,10 @@ namespace SpaceOpera.View.FormationViews
                     new InlayController(),
                     key),
                 new TextUiElement(
-                    uiElementFactory.GetClass(s_FormationLayerRowTextClassName), new InlayController(), name));
+                    uiElementFactory.GetClass(s_FormationLayerRowTextClassName), new InlayController(), name),
+                new SimpleUiElement(
+                    uiElementFactory.GetClass(s_FormationLayerRowBattleIconClassName),
+                    new ActionButtonController(ActionId.Battle)));
         }
     }
 }

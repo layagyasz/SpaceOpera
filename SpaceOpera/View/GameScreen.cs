@@ -88,6 +88,7 @@ namespace SpaceOpera.View
                     dynamic.Refresh();
                 }
             }
+            Scene?.Refresh();
             Refreshed?.Invoke(this, EventArgs.Empty);
         }
 
@@ -101,6 +102,7 @@ namespace SpaceOpera.View
         {
             Scene = scene;
             Scene.ResizeContext(_bounds);
+            Scene.Refresh();
             EmpireOverlay.Parent = Scene;
         }
 

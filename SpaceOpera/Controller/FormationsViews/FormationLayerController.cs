@@ -34,14 +34,14 @@ namespace SpaceOpera.Controller.FormationsViews
         private void BindElement(object @object)
         {
             var element = (FormationSubLayer<T>)@object;
-            var controller = (FormationSubLayerController<T>)element.GroupController;
+            var controller = (IActionController)element.GroupController;
             controller.Interacted += HandleInteraction;
         }
 
         private void UnbindElement(object @object)
         {
             var element = (FormationSubLayer<T>)@object;
-            var controller = (FormationSubLayerController<T>)element.GroupController;
+            var controller = (IActionController)element.GroupController;
             controller.Interacted -= HandleInteraction;
         }
 

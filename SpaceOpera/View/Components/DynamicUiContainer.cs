@@ -11,7 +11,7 @@ namespace SpaceOpera.View.Components
         public DynamicUiContainer(Class @class, IElementController controller) 
             : base(@class, controller) { }
 
-        public void Refresh()
+        public virtual void Refresh()
         {
             foreach (var element in _elements.Values)
             {

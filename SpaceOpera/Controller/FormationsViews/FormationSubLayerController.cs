@@ -36,15 +36,15 @@ namespace SpaceOpera.Controller.FormationsViews
         private void BindElement(object @object)
         {
             var element = (FormationList)@object;
-            var controller = (TableController)element.Controller;
-            controller.ElementClicked += HandleElementClicked;
+            var controller = (IActionController)element.ComponentController;
+            controller.Interacted += HandleInteraction;
         }
 
         private void UnbindElement(object @object)
         {
             var element = (FormationList)@object;
-            var controller = (TableController)element.Controller;
-            controller.ElementClicked -= HandleElementClicked;
+            var controller = (IActionController)element.ComponentController;
+            controller.Interacted -= HandleInteraction;
         }
 
         private void HandleElementAdded(object? sender, ElementEventArgs e)
@@ -57,10 +57,9 @@ namespace SpaceOpera.Controller.FormationsViews
             UnbindElement(e.Element);
         }
 
-        private void HandleElementClicked(object? sender, ElementClickedEventArgs e)
+        private void HandleInteraction(object? sender, UiInteractionEventArgs e)
         {
-            var row = (FormationRow)((ButtonController)e.Element).GetElement();
-            Interacted?.Invoke(this, UiInteractionEventArgs.Create(row.GetDrivers(), ActionId.Select));
+            Interacted?.Invoke(this, e);
         }
     }
 }

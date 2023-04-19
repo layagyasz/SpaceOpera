@@ -18,6 +18,7 @@
 
         // Element actions
         Edit,
+        Battle,
 
         // Order actions
         Confirm

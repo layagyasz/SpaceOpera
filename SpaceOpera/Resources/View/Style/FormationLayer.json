@@ -27,8 +27,26 @@
     "$id": "formation-layer-row-text",
     "Parent": "ui-element-internal",
     "Default": {
-      "Size": [ 226, 28 ],
+      "Size": [ 198, 28 ],
       "Padding": [ 8 ]
     }
+  },
+  {
+    "$id": "formation-layer-row-battle-icon",
+    "Parent": "ui-icon",
+    "Default": {
+      "Size": [ 28, 28 ],
+      "BackgroundColor": [ "#ffffff00" ],
+      "ForegroundColor": "#ff0000cc",
+      "Texture": "icon-battle"
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "ForegroundColor": "#ff0000"
+        }
+      }
+    ]
   }
 ]

@@ -3,8 +3,9 @@
     public enum GamePaneId
     {
         None,
-        Equipment,
+        Battle,
         Designer,
+        Equipment,
         Formation,
         Military,
         MilitaryOrganization,

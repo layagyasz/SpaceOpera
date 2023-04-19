@@ -41,7 +41,7 @@ namespace SpaceOpera.Core.Military
         {
             Hitpoints.Change(-damage);
             var p = Hitpoints.Amount / (Count.MaxAmount * Unit.Hitpoints);
-            int losses = Count.Amount - (int)(Count.MaxAmount * (1 - p * p));
+            int losses = (int)(Count.MaxAmount * (1 - p * p));
             TakeCasualties(losses);
             return losses;
         }
@@ -51,11 +51,11 @@ namespace SpaceOpera.Core.Military
             Shielding.Change(-damage.GetTotal());
         }
 
-        private void TakeCasualties(int Casualties)
+        private void TakeCasualties(int casualties)
         {
-            Count.Change(-Casualties);
-            Hitpoints.Change(-Casualties * Unit.Hitpoints);
-            Shielding.Change(-Casualties * Unit.Shield.Capacity);
+            Count.Change(-casualties);
+            Hitpoints.ChangeMax(-casualties * Unit.Hitpoints);
+            Shielding.ChangeMax(-casualties * Unit.Shield.Capacity);
         }
 
         public override string ToString()

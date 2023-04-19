@@ -17,6 +17,8 @@ namespace SpaceOpera.View.Scenes
     {
         private static readonly float s_StarSpeed = 0.00005f * MathF.PI;
 
+        public EventHandler<EventArgs>? Refreshed { get; set; }
+
         public IElementController Controller { get; }
         public IControlledElement? Parent { get; set; }
         public ICamera Camera { get; }
@@ -127,6 +129,12 @@ namespace SpaceOpera.View.Scenes
             _stellarBodyModel!.Initialize();
             _formationLayer!.Initialize();
             Controller.Bind(this);
+        }
+
+        public void Refresh()
+        {
+            _formationLayer!.Refresh();
+            Refreshed?.Invoke(this, EventArgs.Empty);
         }
 
         public void ResizeContext(Vector3 bounds)

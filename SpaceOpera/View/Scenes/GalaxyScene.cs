@@ -14,6 +14,8 @@ namespace SpaceOpera.View.Scenes
 {
     public class GalaxyScene : GraphicsResource, IGameScene
     {
+        public EventHandler<EventArgs>? Refreshed { get; set; }
+
         public IElementController Controller { get; }
         public IControlledElement? Parent { get; set; }
         public ICamera Camera { get; }
@@ -83,6 +85,12 @@ namespace SpaceOpera.View.Scenes
             _highlightLayer!.Initialize();
             _formationLayer!.Initialize();
             Controller.Bind(this);
+        }
+
+        public void Refresh()
+        {
+            _formationLayer!.Refresh();
+            Refreshed?.Invoke(this, EventArgs.Empty);
         }
 
         public void ResizeContext(Vector3 bounds)
