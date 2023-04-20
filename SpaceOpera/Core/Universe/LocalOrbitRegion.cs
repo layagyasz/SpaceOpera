@@ -6,9 +6,9 @@ namespace SpaceOpera.Core.Universe
         public NavigableNodeType NavigableNodeType => NavigableNodeType.Space;
         public StellarBody StellarBody { get; }
 
-        public LocalOrbitRegion(StellarBody StellarBody)
+        public LocalOrbitRegion(StellarBody stellarBody)
         {
-            this.StellarBody = StellarBody;
+            StellarBody = stellarBody;
         }
     }
 }

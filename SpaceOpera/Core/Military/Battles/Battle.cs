@@ -7,8 +7,8 @@ namespace SpaceOpera.Core.Military.Battles
         public INavigable Location { get; }
 
         private readonly BattleReport.Builder _report = new();
-        private readonly BattleSide _offense = new();
-        private readonly BattleSide _defense = new();
+        private readonly BattleSide _offense = new(BattleSideType.Offense);
+        private readonly BattleSide _defense = new(BattleSideType.Defense);
 
         public Battle(INavigable location)
         {
@@ -35,7 +35,7 @@ namespace SpaceOpera.Core.Military.Battles
                     throw new ArgumentException("Unsupported BattleSideType");
             }
 
-            var factionReport = _report.GetBuilderFor(formation.Faction);
+            var factionReport = _report.GetBuilderFor(side, formation.Faction);
             foreach (var group in formation.Composition)
             {
                 factionReport.GetBuilderFor(group.Unit).Add(group.Count.Amount);
@@ -104,8 +104,8 @@ namespace SpaceOpera.Core.Military.Battles
                 {
                     var defenses = _defense.GetAttacks(_offense, random);
                     var attacks = _offense.GetAttacks(_defense, random);
-                    BattleSide.Damage(attacks, _report);
-                    BattleSide.Damage(defenses, _report);
+                    _offense.Damage(attacks, _report);
+                    _defense.Damage(defenses, _report);
                 }
             }
         }

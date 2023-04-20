@@ -4,7 +4,13 @@ namespace SpaceOpera.Core.Military.Battles
 {
     public class BattleSide
     {
-        private List<IFormation> _formations = new();
+        private readonly BattleSideType _side;
+        private readonly List<IFormation> _formations = new();
+
+        public BattleSide(BattleSideType side)
+        {
+            _side = side;
+        }
 
         public void Add(IFormation Formation)
         {
@@ -21,7 +27,7 @@ namespace SpaceOpera.Core.Military.Battles
             return _formations;
         }
 
-        public static void Damage(List<DistributedBattleAttack> attacks, BattleReport.Builder report)
+        public void Damage(List<DistributedBattleAttack> attacks, BattleReport.Builder report)
         {
             foreach (var formation in attacks.GroupBy(x => x.Attack.TargetFormation))
             {
@@ -36,32 +42,38 @@ namespace SpaceOpera.Core.Military.Battles
                     }
 
                     var abs = group.GetCurrentAbsorption();
+                    Damage totalOutput = new();
                     Damage totalOnTarget = new();
                     float totalEffective = 0;
                     foreach (var attack in grouping)
                     {
+                        var raw = attack.ComputeRaw();
                         var onTarget = attack.ComputeOnTarget();
+                        var onTargetSum = onTarget.GetTotal();
                         var effective = attack.ComputeFinal(1 - abs).GetTotal();
+                        totalOutput += raw;
                         totalOnTarget += onTarget;
                         totalEffective += effective;
                         report
-                            .GetBuilderFor(attack.Attack.AttackerFormation.Faction)
+                            .GetBuilderFor(_side, attack.Attack.AttackerFormation.Faction)
                             .GetBuilderFor(attack.Attack.Attacker.Unit)
-                            .AddRawDamage(attack.ComputeRaw().GetTotal())
-                            .AddOnTargetDamage(onTarget.GetTotal())
-                            .AddEffectiveDamage(effective);
+                            .AddOutputRawDamage(raw.GetTotal())
+                            .AddOutputOnTargetDamage(onTargetSum)
+                            .AddOutputHullDamage((1 - abs) * onTargetSum)
+                            .AddOutputEffectiveDamage(effective);
                     }
                     var losses = group.DamageHitpoints(totalEffective);
                     group.DamageShield(abs * totalOnTarget);
                     lostCommand += group.Unit.Command * losses;
 
                     report
-                        .GetBuilderFor(formation.Key.Faction)
+                        .GetBuilderFor(ReverseSide(_side), formation.Key.Faction)
                         .GetBuilderFor(group.Unit)
                         .AddLosses(losses)
-                        .AddReceivedDamage(totalOnTarget.GetTotal())
-                        .AddHullDamage((1 - abs) * totalOnTarget.GetTotal())
-                        .AddTakenDamage(totalEffective);
+                        .AddInputRawDamage(totalOutput.GetTotal())
+                        .AddInputOnTargetDamage(totalOnTarget.GetTotal())
+                        .AddInputHullDamage((1 - abs) * totalOnTarget.GetTotal())
+                        .AddInputEffectiveDamage(totalEffective);
                 }
                 formation.Key.Cohesion.Change(-10 * lostCommand / currentCommand);
             }
@@ -103,6 +115,16 @@ namespace SpaceOpera.Core.Military.Battles
                     yield return BattleAttack.Create(unit, formation, group, f, weapon);
                 }
             }
+        }
+
+        private static BattleSideType ReverseSide(BattleSideType Side)
+        {
+            return Side switch
+            {
+                BattleSideType.Offense => BattleSideType.Defense,
+                BattleSideType.Defense => BattleSideType.Offense,
+                _ => BattleSideType.None,
+            };
         }
     }
 }

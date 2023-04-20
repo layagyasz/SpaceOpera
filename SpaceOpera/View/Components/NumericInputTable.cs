@@ -37,7 +37,7 @@ namespace SpaceOpera.View.Components
         public IUiElement Submit { get; }
 
         private readonly UiElementFactory _uiElementFactory;
-        private IconFactory _iconFactory;
+        private readonly IconFactory _iconFactory;
         private readonly Style _style;
         private readonly IConfiguration _configuration;
 

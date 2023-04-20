@@ -241,9 +241,7 @@ namespace SpaceOpera.Core.Universe.Generator
             var orbitRegions = new List<StationaryOrbitRegion>();
             for (int i=0; i< atmosphericRegionCount; ++i)
             {
-                orbitRegions.Add(
-                    new(
-                        string.Format("Atmosphere {0}", i), (i + 0.5f) * atmosphereArc, atmosphereRegionMembers[i]));
+                orbitRegions.Add(new($"{(char)(i + 65)}", (i + 0.5f) * atmosphereArc, atmosphereRegionMembers[i]));
             }
 
             float mass = 4 * Density * MathF.PI * radius * radius * radius / 3;

@@ -8,7 +8,7 @@ namespace SpaceOpera.Core.Universe
 
         public SolarOrbitRegion(LocalOrbitRegion localOrbit)
         {
-            this.LocalOrbit = localOrbit;
+            LocalOrbit = localOrbit;
         }
     }
 }

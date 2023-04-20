@@ -36,7 +36,9 @@ namespace SpaceOpera.Core.Military.Battles
 
         public Damage ComputePotential()
         {
-            return Weapon.Value * ComputePotentialImpl(Weapon.Key, Target.Unit, 1);
+            return Weapon.Value 
+                * ComputeOnTargetImpl(Weapon.Key, Target.Unit) 
+                * ComputeEffectiveImpl(Weapon.Key, Target.Unit, 1);
         }
 
         public Damage ComputeRaw()
@@ -46,17 +48,19 @@ namespace SpaceOpera.Core.Military.Battles
 
         public Damage ComputeOnTarget()
         {
-            return Weapon.Value * ComputeUnadjustedPotentialImpl(Weapon.Key, Target.Unit);
+            return Weapon.Value * ComputeOnTargetImpl(Weapon.Key, Target.Unit) * Weapon.Key.Damage;
         }
 
         public Damage ComputeFinal(float adjustment)
         {
-            return Weapon.Value * ComputePotentialImpl(Weapon.Key, Target.Unit, adjustment);
+            return Weapon.Value
+                * ComputeOnTargetImpl(Weapon.Key, Target.Unit) 
+                * ComputeEffectiveImpl(Weapon.Key, Target.Unit, adjustment);
         }
 
-        private static Damage ComputePotentialImpl(Weapon weapon, Unit target, float adjustment)
+        private static Damage ComputeEffectiveImpl(Weapon weapon, Unit target, float adjustment)
         {
-            var unadjustedDamage = adjustment * ComputeUnadjustedPotentialImpl(weapon, target);
+            var unadjustedDamage = weapon.Damage;
             Damage adjustedDamage;
             if (adjustment * weapon.Penetration > target.Armor.Thickness)
             {
@@ -74,12 +78,11 @@ namespace SpaceOpera.Core.Military.Battles
             return adjustedDamage.Cap(target.Hitpoints);
         }
 
-        private static Damage ComputeUnadjustedPotentialImpl(Weapon weapon, Unit target)
+        private static float ComputeOnTargetImpl(Weapon weapon, Unit target)
         {
             return
                 Math.Max(
-                    0, weapon.Accuracy.UnitValue - Math.Max(0, target.Maneuver.UnitValue - weapon.Tracking.UnitValue))
-                * weapon.Damage;
+                    0, weapon.Accuracy.UnitValue - Math.Max(0, target.Maneuver.UnitValue - weapon.Tracking.UnitValue));
         }
 
         public override string ToString()

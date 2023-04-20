@@ -1,14 +1,11 @@
 using Cardamom.Mathematics.Coordinates;
 using OpenTK.Mathematics;
-using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Politics;
 
 namespace SpaceOpera.Core.Universe
 {
     public class StellarBody
     {
-        public EventHandler<ValueEventArgs<Division>>? OnDivisionAdded { get; set; }
-
         public string Name { get; private set; } = string.Empty;
         public string Type { get; }
         public Dictionary<string, object> Parameters { get; }
@@ -38,9 +35,12 @@ namespace SpaceOpera.Core.Universe
             Regions = regions.ToList();
             OrbitRegions = orbitRegions.ToList();
 
+            foreach (var orbitRegion in OrbitRegions)
+            {
+                orbitRegion.SetParent(this);
+            }
             foreach (var region in regions)
             {
-                region.OnDivisionAdded += HandleDivisionAdded;
                 region.SetParent(this);
             }
         }
@@ -107,11 +107,6 @@ namespace SpaceOpera.Core.Universe
         public void SetName(string name)
         {
             Name = name;
-        }
-
-        private void HandleDivisionAdded(object? sender, ValueEventArgs<Division> e)
-        {
-            OnDivisionAdded?.Invoke(this, e);
         }
     }
 }

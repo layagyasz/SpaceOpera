@@ -1,14 +1,11 @@
 using Cardamom.Collections;
 using SpaceOpera.Core.Economics;
-using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Politics;
 
 namespace SpaceOpera.Core.Universe
 {
     public class StellarBodyRegion
     {
-        public EventHandler<ValueEventArgs<Division>>? OnDivisionAdded { get; set; }
-
         public string Name { get; private set; } = string.Empty;
         public StellarBodySubRegion Center { get; }
         public Biome DominantBiome { get; }
@@ -29,11 +26,6 @@ namespace SpaceOpera.Core.Universe
                     .Select(x => new KeyValuePair<Biome, int>(x.Key, x.Count()))
                     .ArgMax(x => x.Value)!.Key;
             SubRegions = subRegions.ToList();
-
-            foreach (var region in subRegions)
-            {
-                region.OnDivisionAdded += HandleDivisionAdded;
-            }
         }
 
         public void AddPopulation(uint population)
@@ -86,11 +78,6 @@ namespace SpaceOpera.Core.Universe
         {
             return SubRegions
                 .SelectMany(x => x.Neighbors!).Select(x => x.ParentRegion!).Where(x => x != this).Distinct();
-        }
-
-        private void HandleDivisionAdded(object? sender, ValueEventArgs<Division> e)
-        {
-            OnDivisionAdded?.Invoke(this, e);
         }
     }
 }

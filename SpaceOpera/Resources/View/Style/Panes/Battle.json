@@ -13,5 +13,75 @@
   {
     "$id": "battle-pane-close",
     "Parent": "pane-standard-close"
+  },
+  {
+    "$id": "battle-pane-body",
+    "Parent": "pane-body",
+    "Default": {
+      "Size": [ 892, 612 ]
+    }
+  },
+  {
+    "$id": "battle-pane-side",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 446, 612 ],
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "battle-pane-side-header",
+    "Parent": "ui-element-basic",
+    "Default": {
+      "Size": [ 442, 28 ],
+      "Align": "Center"
+    }
+  },
+  {
+    "$id": "battle-pane-side-faction-table",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 446, 580 ]
+    }
+  },
+  {
+    "$id": "battle-pane-faction-container",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 446, "DynamicContents" ]
+    }
+  },
+  {
+    "$id": "battle-pane-faction-header",
+    "Parent": "ui-element",
+    "Default": {
+      "Size": [ 442, 48 ],
+      "CornerRadius": [ [ 8, 8 ] ],
+      "Padding": [ 8, 0, 8, 0 ],
+      "Margin": [ 2 ]
+    }
+  },
+  {
+    "$id": "battle-pane-faction-header-icon",
+    "Parent": "ui-icon",
+    "Default": {
+      "Size": [ 44, 44 ],
+      "Margin": [ 2 ]
+    }
+  },
+  {
+    "$id": "battle-pane-faction-header-text",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 378, 48 ],
+      "Padding": [ 8 ]
+    }
+  },
+  {
+    "$id": "battle-pane-faction-unit-table",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 446, "DynamicContents" ]
+    }
   }
 ]

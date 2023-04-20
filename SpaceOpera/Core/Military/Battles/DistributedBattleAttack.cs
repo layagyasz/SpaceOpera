@@ -40,9 +40,9 @@ namespace SpaceOpera.Core.Military.Battles
             return s_BaseMultiplier * Effort * Attack.Attacker.Count.Amount * Attack.ComputeOnTarget();
         }
 
-        public Damage ComputeFinal(float Adjustment)
+        public Damage ComputeFinal(float adjustment)
         {
-            return s_BaseMultiplier * Effort * Attack.Attacker.Count.Amount * Attack.ComputeFinal(Adjustment);
+            return s_BaseMultiplier * Effort * Attack.Attacker.Count.Amount * Attack.ComputeFinal(adjustment);
         }
 
         public override string ToString()
