@@ -64,16 +64,16 @@ namespace SpaceOpera.Core.Military.Battles
             Damage adjustedDamage;
             if (adjustment * weapon.Penetration > target.Armor.Thickness)
             {
-                adjustedDamage = unadjustedDamage;
+                adjustedDamage = adjustment * unadjustedDamage;
             }
             else if (unadjustedDamage.GetTotal() > target.Armor.Protection)
             {
-                adjustedDamage = target.Armor.Coverage * (unadjustedDamage - target.Armor.Protection) 
+                adjustedDamage = adjustment * target.Armor.Coverage * (unadjustedDamage - target.Armor.Protection) 
                     + (1 - target.Armor.Coverage) * unadjustedDamage;
             }
             else
             {
-                adjustedDamage = (1 - target.Armor.Coverage) * unadjustedDamage;
+                adjustedDamage = adjustment * (1 - target.Armor.Coverage) * unadjustedDamage;
             }
             return adjustedDamage.Cap(target.Hitpoints);
         }

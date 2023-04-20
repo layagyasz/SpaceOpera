@@ -83,5 +83,141 @@
     "Default": {
       "Size": [ 446, "DynamicContents" ]
     }
+  },
+  {
+    "$id": "battle-pane-faction-unit-row",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 442, 86 ],
+      "CornerRadius": [ [ 8, 8 ] ],
+      "Padding": [ 8, 0, 8, 0 ],
+      "Margin": [ 2 ],
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "battle-pane-faction-unit-row-icon",
+    "Parent": "ui-icon",
+    "Default": {
+      "Size": [ 44, 44 ],
+      "Margin": [ 2, 21, 2, 21 ]
+    }
+  },
+  {
+    "$id": "battle-pane-faction-unit-row-info",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 378, 86 ],
+      "Padding": [ 0, 1, 0, 1 ],
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "battle-pane-faction-unit-row-text",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 378, 28 ],
+      "Padding": [ 8 ]
+    }
+  },
+  {
+    "$id": "battle-pane-faction-unit-row-stats",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 378, 28 ],
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "battle-pane-faction-unit-row-stats-output",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ "DynamicContents", 28 ],
+      "Color": "#8888ffcc",
+      "Padding": [ 2, 10, 2, 10 ],
+      "FontSize": 8
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "Color": "#8888ff"
+        }
+      }
+    ]
+  },
+  {
+    "$id": "battle-pane-faction-unit-row-stats-input",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ "DynamicContents", 28 ],
+      "Color": "#ff8888cc",
+      "Padding": [ 2, 10, 2, 10 ],
+      "FontSize": 8
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "Color": "#ff8888"
+        }
+      }
+    ]
+  },
+  {
+    "$id": "battle-pane-faction-unit-row-stats-damage-output-raw-icon",
+    "Parent": "damage-output-raw-icon",
+    "Default": {
+      "Size": [ 28, 28 ]
+    }
+  },
+  {
+    "$id": "battle-pane-faction-unit-row-stats-damage-output-on-target-icon",
+    "Parent": "damage-output-on-target-icon",
+    "Default": {
+      "Size": [ 28, 28 ]
+    }
+  },
+  {
+    "$id": "battle-pane-faction-unit-row-stats-damage-output-hull-icon",
+    "Parent": "damage-output-hull-icon",
+    "Default": {
+      "Size": [ 28, 28 ]
+    }
+  },
+  {
+    "$id": "battle-pane-faction-unit-row-stats-damage-output-effective-icon",
+    "Parent": "damage-output-effective-icon",
+    "Default": {
+      "Size": [ 28, 28 ]
+    }
+  },
+  {
+    "$id": "battle-pane-faction-unit-row-stats-damage-input-raw-icon",
+    "Parent": "damage-input-raw-icon",
+    "Default": {
+      "Size": [ 28, 28 ]
+    }
+  },
+  {
+    "$id": "battle-pane-faction-unit-row-stats-damage-input-on-target-icon",
+    "Parent": "damage-input-on-target-icon",
+    "Default": {
+      "Size": [ 28, 28 ]
+    }
+  },
+  {
+    "$id": "battle-pane-faction-unit-row-stats-damage-input-hull-icon",
+    "Parent": "damage-input-hull-icon",
+    "Default": {
+      "Size": [ 28, 28 ]
+    }
+  },
+  {
+    "$id": "battle-pane-faction-unit-row-stats-damage-input-effective-icon",
+    "Parent": "damage-input-effective-icon",
+    "Default": {
+      "Size": [ 28, 28 ]
+    }
   }
 ]

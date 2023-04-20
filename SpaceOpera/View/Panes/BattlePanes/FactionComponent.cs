@@ -4,6 +4,7 @@ using Cardamom.Ui;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.View.Components;
 using SpaceOpera.View.Icons;
+using SpaceOpera.Core.Military;
 
 namespace SpaceOpera.View.Panes.BattlePanes
 {
@@ -17,16 +18,19 @@ namespace SpaceOpera.View.Panes.BattlePanes
 
         public Faction Key { get; }
 
+        private readonly ReportWrapper _report;
         private readonly UiElementFactory _uiElementFactory;
         private readonly IconFactory _iconFactory;
 
-        public FactionComponent(Faction faction, UiElementFactory uiElementFactory, IconFactory iconFactory)
+        public FactionComponent(
+            Faction faction, ReportWrapper report, UiElementFactory uiElementFactory, IconFactory iconFactory)
             : base(
                 uiElementFactory.GetClass(s_Container),
                 new NoOpElementController<UiSerialContainer>(),
                 Orientation.Vertical)
         {
             Key = faction;
+            _report = report;
             _uiElementFactory = uiElementFactory;
             _iconFactory = iconFactory;
 
@@ -38,6 +42,26 @@ namespace SpaceOpera.View.Panes.BattlePanes
                     new TextUiElement(_uiElementFactory.GetClass(s_HeaderText), new InlayController(), faction.Name)
                 };
             Add(header);
+
+            var units =
+                new DynamicKeyedTable<Unit, UnitComponent>(
+                    _uiElementFactory.GetClass(s_UnitTable),
+                    new NoOpElementController<UiSerialContainer>(),
+                    Orientation.Vertical,
+                    GetRange,
+                    CreateRow,
+                    Comparer<Unit>.Create((x, y) => x.Name.CompareTo(y.Name)));
+            Add(units);
+        }
+
+        private IEnumerable<Unit> GetRange()
+        {
+            return _report.Get(Key).UnitReports.Select(x => x.Unit);
+        }
+
+        private UnitComponent CreateRow(Unit unit)
+        {
+            return new UnitComponent(Key, unit, _report, _uiElementFactory, _iconFactory);
         }
     }
 }

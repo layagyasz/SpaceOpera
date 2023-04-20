@@ -218,7 +218,7 @@ namespace SpaceOpera.Core.Military.Battles
 
                 public UnitReport Build()
                 {
-                    return new UnitReport(
+                    return new(
                         _unit,
                         _count,
                         _losses,

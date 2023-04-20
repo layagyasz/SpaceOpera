@@ -98,7 +98,8 @@ namespace SpaceOpera.Core.Military.Battles
             _formations.Remove(formation);
         }
 
-        private static List<BattleAttack> GetPotential(IFormation formation, UnitGrouping unit, BattleSide opposingSide)
+        private static List<BattleAttack> GetPotential(
+            IFormation formation, UnitGrouping unit, BattleSide opposingSide)
         {
             return unit.Unit.Weapons.GetCounts()
                 .SelectMany(x => GetPotential(formation, unit, x, opposingSide))

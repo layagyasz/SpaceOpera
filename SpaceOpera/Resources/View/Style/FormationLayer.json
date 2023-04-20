@@ -33,20 +33,9 @@
   },
   {
     "$id": "formation-layer-row-battle-icon",
-    "Parent": "ui-icon",
+    "Parent": "battle-icon",
     "Default": {
-      "Size": [ 28, 28 ],
-      "BackgroundColor": [ "#ffffff00" ],
-      "ForegroundColor": "#ff0000cc",
-      "Texture": "icon-battle"
-    },
-    "States": [
-      {
-        "State": [ "Hover" ],
-        "Attributes": {
-          "ForegroundColor": "#ff0000"
-        }
-      }
-    ]
+      "Size": [ 28, 28 ]
+    }
   }
 ]

@@ -21,35 +21,9 @@ namespace SpaceOpera.View.Panes.BattlePanes
 
         private readonly UiElementFactory _uiElementFactory;
         private readonly IconFactory _iconFactory;
-        private readonly Configuration _configuration = new();
+        private readonly ReportWrapper _report = new();
 
         private Battle? _battle;
-
-        class Configuration
-        {
-            private BattleReport? _report;
-
-            public void SetReport(BattleReport? report)
-            {
-                _report = report;
-            }
-
-            public IEnumerable<Faction> GetOffense()
-            {
-                return GetSide(BattleSideType.Offense);
-            }
-
-            public IEnumerable<Faction> GetDefense()
-            {
-                return GetSide(BattleSideType.Defense);
-            }
-
-            private IEnumerable<Faction> GetSide(BattleSideType side)
-            {
-                return _report?.FactionReports.Where(x => x.Side == side).Select(x => x.Faction) 
-                    ?? Enumerable.Empty<Faction>();
-            }
-        }
 
         public BattlePane(UiElementFactory uiElementFactory, IconFactory iconFactory)
             : base(
@@ -66,7 +40,7 @@ namespace SpaceOpera.View.Panes.BattlePanes
                     uiElementFactory.GetClass(s_SideFactionTable),
                     new TableController(10f),
                     UiSerialContainer.Orientation.Vertical,
-                    _configuration.GetOffense,
+                    _report.GetOffense,
                     CreateRow,
                     Comparer<Faction>.Create((x, y) => x.Name.CompareTo(y.Name)));
             var wrappedOffenseTable =
@@ -84,7 +58,7 @@ namespace SpaceOpera.View.Panes.BattlePanes
                     uiElementFactory.GetClass(s_SideFactionTable),
                     new TableController(10f),
                     UiSerialContainer.Orientation.Vertical,
-                    _configuration.GetDefense,
+                    _report.GetDefense,
                     CreateRow,
                     Comparer<Faction>.Create((x, y) => x.Name.CompareTo(y.Name)));
             var wrappedDefenseTable =
@@ -118,13 +92,13 @@ namespace SpaceOpera.View.Panes.BattlePanes
 
         public override void Refresh()
         {
-            _configuration.SetReport(_battle?.GetReport());
+            _report.SetReport(_battle?.GetReport());
             base.Refresh();
         }
 
         private FactionComponent CreateRow(Faction faction)
         {
-            return new FactionComponent(faction, _uiElementFactory, _iconFactory);
+            return new FactionComponent(faction, _report, _uiElementFactory, _iconFactory);
         }
     }
 }

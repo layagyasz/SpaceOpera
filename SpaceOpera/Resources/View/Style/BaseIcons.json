@@ -1,0 +1,155 @@
+[
+  {
+    "$id": "battle-icon",
+    "Parent": "ui-icon",
+    "Default": {
+      "BackgroundColor": [ "#ffffff00" ],
+      "ForegroundColor": "#ff0000cc",
+      "Texture": "icon-battle"
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "ForegroundColor": "#ff0000"
+        }
+      }
+    ]
+  },
+  {
+    "$id": "damage-output-raw-icon",
+    "Parent": "ui-icon",
+    "Default": {
+      "BackgroundColor": [ "#ffffff00" ],
+      "ForegroundColor": "#0000ffcc",
+      "Texture": "icon-damage"
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "ForegroundColor": "#0000ff"
+        }
+      }
+    ]
+  },
+  {
+    "$id": "damage-output-on-target-icon",
+    "Parent": "ui-icon",
+    "Default": {
+      "BackgroundColor": [ "#ffffff00" ],
+      "ForegroundColor": "#0000ffcc",
+      "Texture": "icon-targeting"
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "ForegroundColor": "#0000ff"
+        }
+      }
+    ]
+  },
+  {
+    "$id": "damage-output-hull-icon",
+    "Parent": "ui-icon",
+    "Default": {
+      "BackgroundColor": [ "#ffffff00" ],
+      "ForegroundColor": "#0000ffcc",
+      "Texture": "icon-shield"
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "ForegroundColor": "#0000ff"
+        }
+      }
+    ]
+  },
+  {
+    "$id": "damage-output-effective-icon",
+    "Parent": "ui-icon",
+    "Default": {
+      "BackgroundColor": [ "#ffffff00" ],
+      "ForegroundColor": "#0000ffcc",
+      "Texture": "icon-metal-plate"
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "ForegroundColor": "#0000ff"
+        }
+      }
+    ]
+  },
+  {
+    "$id": "damage-input-raw-icon",
+    "Parent": "ui-icon",
+    "Default": {
+      "BackgroundColor": [ "#ffffff00" ],
+      "ForegroundColor": "#ff0000cc",
+      "Texture": "icon-targeting"
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "ForegroundColor": "#ff0000"
+        }
+      }
+    ]
+  },
+  {
+    "$id": "damage-input-on-target-icon",
+    "Parent": "ui-icon",
+    "Default": {
+      "BackgroundColor": [ "#ffffff00" ],
+      "ForegroundColor": "#ff0000cc",
+      "Texture": "icon-targeting"
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "ForegroundColor": "#ff0000"
+        }
+      }
+    ]
+  },
+  {
+    "$id": "damage-input-hull-icon",
+    "Parent": "ui-icon",
+    "Default": {
+      "BackgroundColor": [ "#ffffff00" ],
+      "ForegroundColor": "#ff0000cc",
+      "Texture": "icon-shield"
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "ForegroundColor": "#ff0000"
+        }
+      }
+    ]
+  },
+  {
+    "$id": "damage-input-effective-icon",
+    "Parent": "ui-icon",
+    "Default": {
+      "BackgroundColor": [ "#ffffff00" ],
+      "ForegroundColor": "#ff0000cc",
+      "Texture": "icon-metal-plate"
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "ForegroundColor": "#ff0000"
+        }
+      }
+    ]
+  }
+]
