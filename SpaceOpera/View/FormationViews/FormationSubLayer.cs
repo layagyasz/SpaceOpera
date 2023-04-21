@@ -41,7 +41,7 @@ namespace SpaceOpera.View.FormationViews
             return _formationLists.Values.SelectMany(x => x.GetDrivers());
         }
 
-        public void UpdateFromCamera(Matrix4 camera, UiContext context)
+        public void UpdateFromCamera(Matrix4 camera, IUiContext context)
         {
             foreach (var list in _formationLists.Values)
             {
@@ -51,7 +51,7 @@ namespace SpaceOpera.View.FormationViews
             _dirty = false;
         }
 
-        public void UpdateFromCamera(RenderTarget target, UiContext context)
+        public void UpdateFromCamera(IRenderTarget target, IUiContext context)
         {
             if (_dirty)
             {

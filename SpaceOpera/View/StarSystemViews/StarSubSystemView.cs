@@ -39,7 +39,7 @@ namespace SpaceOpera.View.StarSystemViews
             _pinBuffer = null;
         }
 
-        public void Draw(RenderTarget target, UiContext context)
+        public void Draw(IRenderTarget target, IUiContext context)
         {
             _model!.Draw(target, context);
             _pinBuffer!.Draw(target, context);

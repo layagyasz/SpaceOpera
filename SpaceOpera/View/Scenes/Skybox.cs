@@ -21,7 +21,7 @@ namespace SpaceOpera.View.Scenes
 
         public void ResizeContext(Vector3 bounds) { }
 
-        public void Draw(RenderTarget target, UiContext context)
+        public void Draw(IRenderTarget target, IUiContext context)
         {
             target.Draw(_buffer!, 0, _buffer!.Length, new RenderResources(BlendMode.None, _shader, _texture!));
         }

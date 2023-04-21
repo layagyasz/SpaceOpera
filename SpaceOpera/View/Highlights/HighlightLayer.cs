@@ -76,7 +76,7 @@ namespace SpaceOpera.View.Highlights
 
             public void ResizeContext(Vector3 bounds) { }
 
-            public void Draw(RenderTarget target, UiContext context)
+            public void Draw(IRenderTarget target, IUiContext context)
             {
                 foreach (var highlight in _highlights.Values)
                 {
@@ -203,7 +203,7 @@ namespace SpaceOpera.View.Highlights
             }
         }
 
-        public void Draw(RenderTarget target, UiContext context)
+        public void Draw(IRenderTarget target, IUiContext context)
         {
             target.PushModelMatrix(_position);
             foreach (var layer in _layers.Values)

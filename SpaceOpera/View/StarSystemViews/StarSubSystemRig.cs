@@ -58,7 +58,7 @@ namespace SpaceOpera.View.StarSystemViews
             _view = null;
         }
 
-        public void Draw(RenderTarget target, UiContext context)
+        public void Draw(IRenderTarget target, IUiContext context)
         {
             var positionPolar = 
                 _stellarBody.GetSolarOrbitPosition(

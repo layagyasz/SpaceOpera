@@ -27,7 +27,7 @@ namespace SpaceOpera.View.Icons
             SetAttributes(@class.Get(Class.State.None));
         }
 
-        public override void Draw(RenderTarget target, UiContext context)
+        public override void Draw(IRenderTarget target, IUiContext context)
         {
             if (Visible)
             {

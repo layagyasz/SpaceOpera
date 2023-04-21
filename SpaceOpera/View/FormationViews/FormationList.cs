@@ -47,7 +47,7 @@ namespace SpaceOpera.View.FormationViews
             Add(row);
         }
 
-        public override void Draw(RenderTarget target, UiContext context)
+        public override void Draw(IRenderTarget target, IUiContext context)
         {
             if (_offset == null)
             {
@@ -75,7 +75,7 @@ namespace SpaceOpera.View.FormationViews
             }
         }
 
-        public void UpdateFromCamera(Matrix4 camera, UiContext context)
+        public void UpdateFromCamera(Matrix4 camera, IUiContext context)
         {
             var transformed = new Vector4(_pin, 1) * camera;
             Visible = transformed.Z > 0;

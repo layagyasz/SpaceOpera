@@ -21,7 +21,7 @@ namespace SpaceOpera.View.Common
             _hitbox = hitbox;
         }
 
-        public void Draw(RenderTarget target, UiContext context) { }
+        public void Draw(IRenderTarget target, IUiContext context) { }
 
         public void Initialize()
         {

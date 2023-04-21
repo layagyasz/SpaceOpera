@@ -43,7 +43,7 @@ namespace SpaceOpera.View.StarViews
 
         public void ResizeContext(Vector3 bounds) { }
 
-        public void Draw(RenderTarget target, UiContext context)
+        public void Draw(IRenderTarget target, IUiContext context)
         {
             if (_dirty)
             {

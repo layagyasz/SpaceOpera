@@ -19,7 +19,7 @@ namespace SpaceOpera.View.Common
 
         public void ResizeContext(Vector3 bounds) { }
 
-        public void Draw(RenderTarget target, UiContext context)
+        public void Draw(IRenderTarget target, IUiContext context)
         {
             target.Draw(_vertices!, 0, _vertices!.Length, new RenderResources(BlendMode.Alpha, _shader));
         }

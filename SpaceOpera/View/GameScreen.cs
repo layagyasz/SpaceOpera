@@ -40,7 +40,7 @@ namespace SpaceOpera.View
             PaneLayer.Clear();
         }
 
-        public void Draw(RenderTarget target, UiContext context)
+        public void Draw(IRenderTarget target, IUiContext context)
         {
             Scene?.Draw(target, context);
             EmpireOverlay.Draw(target, context);

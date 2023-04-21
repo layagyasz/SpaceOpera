@@ -41,7 +41,7 @@ namespace SpaceOpera.View.StellarBodyViews
             _surfaceModel!.ResizeContext(bounds);
         }
 
-        public void Draw(RenderTarget target, UiContext context)
+        public void Draw(IRenderTarget target, IUiContext context)
         {
             _atmosphereShader.SetVector3(
                 "center_position", (new Vector4(0f, 0f, 0f, 1f) * target.GetModelMatrix()).Xyz);

@@ -86,7 +86,7 @@ namespace SpaceOpera.View.Scenes
             _formationSubLayer = null;
         }
 
-        public void Draw(RenderTarget target, UiContext context)
+        public void Draw(IRenderTarget target, IUiContext context)
         {
             target.PushViewMatrix(Camera.GetViewMatrix());
             target.PushProjection(Camera.GetProjection());

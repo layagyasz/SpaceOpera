@@ -54,7 +54,7 @@ namespace SpaceOpera.View.Icons
                 _shader = shader;
             }
 
-            public void Draw(RenderTarget target, UiContext context)
+            public void Draw(IRenderTarget target, IUiContext context)
             {
                 foreach (var layer in _layers)
                 {
@@ -191,7 +191,7 @@ namespace SpaceOpera.View.Icons
             _rasterTexture.PushModelMatrix(Matrix4.Identity);
             _rasterTexture.PushViewMatrix(camera.GetViewMatrix());
             _rasterTexture.PushProjection(camera.GetProjection());
-            renderable.Draw(_rasterTexture, new());
+            renderable.Draw(_rasterTexture, new SimpleUiContext());
             _rasterTexture.PopProjectionMatrix();
             _rasterTexture.PopViewMatrix();
             _rasterTexture.PopModelMatrix();

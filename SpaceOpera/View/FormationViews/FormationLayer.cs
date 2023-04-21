@@ -70,7 +70,7 @@ namespace SpaceOpera.View.FormationViews
             Remove(driver, driver.Formation.Position);
         }
 
-        public void UpdateFromCamera(RenderTarget target, UiContext context)
+        public void UpdateFromCamera(IRenderTarget target, IUiContext context)
         {
             if (_dirty)
             {

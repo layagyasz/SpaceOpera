@@ -159,7 +159,7 @@ namespace SpaceOpera.View.Common
 
         public void ResizeContext(Vector3 context) { }
 
-        public void Draw(RenderTarget target, UiContext context)
+        public void Draw(IRenderTarget target, IUiContext context)
         {
             target.Draw(_fill!, 0, _fill!.Length, new(BlendMode.Alpha, _fillShader) { EnableDepthMask = false });
             target.Draw(

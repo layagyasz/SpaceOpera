@@ -34,7 +34,7 @@ namespace SpaceOpera.View.GalaxyViews
             _stars!.ResizeContext(bounds);
         }
         
-        public void Draw(RenderTarget target, UiContext context)
+        public void Draw(IRenderTarget target, IUiContext context)
         {
             _transits!.Draw(target, context);
             _pins!.Draw(target, context);
