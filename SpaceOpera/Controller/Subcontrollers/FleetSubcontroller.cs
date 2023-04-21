@@ -56,13 +56,16 @@ namespace SpaceOpera.Controller.Subcontrollers
                 return NavigationMap.GetLocalOrbitNodes(
                     localOrbit, new EnumSet<NavigableNodeType>(NavigableNodeType.Space));
             }
-            else if (@object is StellarBodySubRegion)
-            {
-                return new();
-            }
             else if (@object is INavigable node)
             {
-                return new() { node };
+                if (node.NavigableNodeType == NavigableNodeType.Space)
+                {
+                    return new() { node };
+                }
+                else
+                {
+                    return new();
+                }
             }
             throw new ArgumentException($"Unsupported interaction with {@object.GetType()}");
         }

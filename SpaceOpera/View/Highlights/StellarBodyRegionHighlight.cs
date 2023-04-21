@@ -9,7 +9,7 @@ namespace SpaceOpera.View.Highlights
         public bool Merge => true;
         public float BorderWidth => 4f;
         public Color4 BorderColor => Color4.Yellow;
-        public Color4 Color => new(0, 0, 0, 0);
+        public Color4 Color => Color4.Yellow;
 
         public StellarBodyRegion Region { get; }
 

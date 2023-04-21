@@ -24,6 +24,7 @@ namespace SpaceOpera.View.Scenes
         public ICamera Camera { get; }
 
         private InteractiveModel? _stellarBodyModel;
+        private readonly SubRegionInteractor _orbitInteractor;
         private readonly RenderShader _surfaceShader;
         private readonly RenderShader _atmosphereShader;
         private readonly Light _light;
@@ -38,6 +39,7 @@ namespace SpaceOpera.View.Scenes
             IElementController controller, 
             ICamera camera, 
             InteractiveModel stellarBodyModel,
+            SubRegionInteractor orbitInteractor,
             RenderShader surfaceShader,
             RenderShader atmosphereShader,
             Light light,
@@ -52,6 +54,8 @@ namespace SpaceOpera.View.Scenes
             Camera.Changed += HandleCameraChange;
             _stellarBodyModel = stellarBodyModel;
             _stellarBodyModel.Parent = this;
+            _orbitInteractor = orbitInteractor;
+            _orbitInteractor.Parent = this;
             _surfaceShader = surfaceShader;
             _atmosphereShader = atmosphereShader;
             _light = light;
@@ -110,6 +114,8 @@ namespace SpaceOpera.View.Scenes
             _orbitHighlightLayer!.Draw(target, context);
             _formationLayer!.UpdateFromCamera(target, context);
 
+            context.Register(_orbitInteractor);
+
             target.PopProjectionMatrix();
             target.PopViewMatrix();
 
@@ -127,6 +133,7 @@ namespace SpaceOpera.View.Scenes
         public void Initialize()
         {
             _stellarBodyModel!.Initialize();
+            _orbitInteractor.Initialize();
             _formationLayer!.Initialize();
             Controller.Bind(this);
         }
@@ -152,6 +159,7 @@ namespace SpaceOpera.View.Scenes
         {
             _rotation += delta;
             _stellarBodyModel!.Update(delta);
+            _orbitInteractor.Update(delta);
             _surfaceHighlightLayer!.Update(delta);
             _orbitHighlightLayer!.Update(delta);
             _formationLayer!.Update(delta);

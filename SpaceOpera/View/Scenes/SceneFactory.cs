@@ -12,21 +12,17 @@ using Cardamom.Ui.Elements;
 using Cardamom.Utils.Suppliers;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
+using SpaceOpera.Controller;
 using SpaceOpera.Controller.Scenes;
 using SpaceOpera.Core;
 using SpaceOpera.Core.Universe;
-using SpaceOpera.Core.Universe.Spectra;
 using SpaceOpera.View.GalaxyViews;
 using SpaceOpera.View.StarViews;
 using SpaceOpera.View.StellarBodyViews;
 using SpaceOpera.View.StarSystemViews;
 using SpaceOpera.View.Common;
 using SpaceOpera.View.Highlights;
-using SpaceOpera.Controller;
 using SpaceOpera.View.FormationViews;
-using Cardamom.Ui;
-using SpaceOpera.View.Icons;
-using Cardamom.Ui.Controller;
 
 namespace SpaceOpera.View.Scenes
 {
@@ -50,7 +46,8 @@ namespace SpaceOpera.View.Scenes
         private static readonly float s_StellarBodySceneStarScale = 1024;
         private static readonly Vector3 s_StellarBodySceneStarPosition = new(0, 0, -1000);
         private static readonly float s_StellarBodySceneSurfaceHighlightHeight = 32;
-        private static readonly float s_StellarBodySceneOrbitHeightFactor = 2;
+        private static readonly float s_StellarBodySceneOrbitHeightFactor = 3;
+        private static readonly float s_StellarBodySceneOrbitFormationHeightFactor = 4f;
         private static readonly float s_StellarBodyBorderWidth = 0.001f;
 
         private static Skybox? _skyBox;
@@ -246,6 +243,11 @@ namespace SpaceOpera.View.Scenes
             var model = StellarBodyViewFactory.Create(stellarBody, 1f, true);
             var stellarBodyController = StellarBodyModelController.Create(stellarBody, model.Radius);
             var interactiveModel = new InteractiveModel(model, new Sphere(new(), model.Radius), stellarBodyController);
+            var orbitController = 
+                StellarBodyOrbitController.Create(stellarBody, s_StellarBodySceneOrbitHeightFactor * model.Radius);
+            var orbitInteractor = 
+                new SubRegionInteractor(
+                    orbitController, new Sphere(new(), s_StellarBodySceneOrbitHeightFactor * model.Radius));
             var camera = new SubjectiveCamera3d(s_SkyboxRadius + 10);
             camera.SetDistance(2 * model.Radius);
             camera.SetYaw(MathHelper.PiOver2);
@@ -268,7 +270,8 @@ namespace SpaceOpera.View.Scenes
                     s_StellarBodyBorderWidth,
                     Matrix4.CreateScale(1 + s_StellarBodySceneSurfaceHighlightHeight / stellarBody.Radius),
                     BorderShader,
-                    FillShader);
+                    FillShader,
+                    /* canClearUpdates= */ false);
             var orbitHighlight = 
                 new HighlightLayer<StationaryOrbitRegion, StellarBodySubRegion>(
                     stellarBody.OrbitRegions,
@@ -284,7 +287,7 @@ namespace SpaceOpera.View.Scenes
                     world, 
                     stellarBody,
                     model.Radius * (1 + s_StellarBodySceneSurfaceHighlightHeight / stellarBody.Radius),
-                    model.Radius * s_StellarBodySceneOrbitHeightFactor);
+                    model.Radius * s_StellarBodySceneOrbitFormationHeightFactor);
 
             var controller =
                 new SceneController(
@@ -300,6 +303,7 @@ namespace SpaceOpera.View.Scenes
                                 s_StellarBodyCameraZoomRange.Maximum * model.Radius)
                     },
                     stellarBodyController,
+                    orbitController,
                     (IActionController)formationLayer.GroupController);
             float logDistance = MathF.Log(stellarBody.Orbit.GetAverageDistance() + 1);
             _skyBox ??= CreateSkybox();
@@ -307,6 +311,7 @@ namespace SpaceOpera.View.Scenes
                 controller, 
                 camera, 
                 interactiveModel,
+                orbitInteractor,
                 StellarBodyViewFactory.SurfaceShader,
                 StellarBodyViewFactory.AtmosphereShader,
                 new(

@@ -36,7 +36,7 @@ namespace SpaceOpera.View.FormationViews
             return formationLayer;
         }
 
-        public FormationLayer<object> CreateForSystem(
+        public static FormationLayer<object> CreateForSystem(
             IEnumerable<FormationSubLayer<object>> subLayers, 
             Dictionary<INavigable, Vector3> transitPins, 
             World? world,

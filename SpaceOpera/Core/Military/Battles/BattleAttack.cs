@@ -68,8 +68,8 @@ namespace SpaceOpera.Core.Military.Battles
             }
             else if (unadjustedDamage.GetTotal() > target.Armor.Protection)
             {
-                adjustedDamage = adjustment * target.Armor.Coverage * (unadjustedDamage - target.Armor.Protection) 
-                    + (1 - target.Armor.Coverage) * unadjustedDamage;
+                adjustedDamage = adjustment * (target.Armor.Coverage * (unadjustedDamage - target.Armor.Protection) 
+                    + (1 - target.Armor.Coverage) * unadjustedDamage);
             }
             else
             {

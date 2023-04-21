@@ -81,7 +81,7 @@ namespace SpaceOpera.Core.Universe
             int i = 0;
             while ((Math.Abs(f) > precision) && (i < accuracy))
             {
-                e = e - f / (1f - Orbit.Eccentricity * Math.Cos(e));
+                e -= f / (1f - Orbit.Eccentricity * Math.Cos(e));
                 f = e - Orbit.Eccentricity * Math.Sin(e) - angle;
                 ++i;
             }

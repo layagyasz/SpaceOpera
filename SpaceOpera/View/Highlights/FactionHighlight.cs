@@ -35,5 +35,10 @@ namespace SpaceOpera.View.Highlights
         {
             return _highlights;
         }
+
+        public void Unhook()
+        {
+            _highlights.ForEach(x => x.Unhook());
+        }
     }
 }

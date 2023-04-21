@@ -20,5 +20,10 @@ namespace SpaceOpera.View.Highlights
         {
             yield return Highlight;
         }
+
+        public void Unhook()
+        {
+            Highlight.Unhook();
+        }
     }
 }
