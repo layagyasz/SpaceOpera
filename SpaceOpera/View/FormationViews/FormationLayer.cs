@@ -41,7 +41,7 @@ namespace SpaceOpera.View.FormationViews
         public void Add(IFormationDriver driver)
         {
             driver.Moved += _events.QueueEvent;
-            Add(driver, driver.Formation.Position);
+            Add(driver, driver.Formation.Position, /* initialize= */ false);
 
         }
 
@@ -93,10 +93,10 @@ namespace SpaceOpera.View.FormationViews
         {
             IFormationDriver driver = (IFormationDriver)sender!;
             Remove(driver, e.Origin);
-            Add(driver, e.Destination);
+            Add(driver, e.Destination, /* initialize= */ true);
         }
 
-        private void Add(IFormationDriver driver, INavigable? location)
+        private void Add(IFormationDriver driver, INavigable? location, bool initialize)
         {
             if (location == null)
             {
@@ -105,7 +105,7 @@ namespace SpaceOpera.View.FormationViews
             (var layer, var bucket) = _mapper.MapToBucket(location);
             if (layer != null && _subLayers.TryGetValue(layer, out var subLayer))
             {
-                subLayer.Add(driver, bucket, _mapper.MapToPin(bucket), _mapper.GetOffset(bucket));
+                subLayer.Add(driver, bucket, _mapper.MapToPin(bucket), _mapper.GetOffset(bucket), initialize);
                 Dirty();
             }
         }

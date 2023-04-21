@@ -38,10 +38,13 @@ namespace SpaceOpera.View.FormationViews
             _iconFactory = iconFactory;
         }
 
-        public void Add(IFormationDriver driver)
+        public void Add(IFormationDriver driver, bool initialize)
         {
             var row = FormationRow.Create(driver, driver.Formation.Name, _uiElementFactory, _iconFactory);
-            row.Initialize();
+            if (initialize)
+            {
+                row.Initialize();
+            }
             row.Add(driver);
             _rows.Add(driver, row);
             Add(row);

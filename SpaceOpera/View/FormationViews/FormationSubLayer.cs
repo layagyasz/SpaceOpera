@@ -65,17 +65,20 @@ namespace SpaceOpera.View.FormationViews
             }
         }
 
-        public void Add(IFormationDriver driver, T bucket, Vector3 pin, float? offset)
+        public void Add(IFormationDriver driver, T bucket, Vector3 pin, float? offset, bool initialize)
         {
             if (!_formationLists.TryGetValue(bucket, out var list))
             {
                 list = new FormationList(pin, offset, _uiElementFactory, _iconFactory);
-                list.Initialize();
+                if (initialize)
+                {
+                    list.Initialize();
+                }
                 _formationLists.Add(bucket, list);
                 Add(list);
                 Dirty();
             }
-            list.Add(driver);
+            list.Add(driver, initialize);
         }
 
         public void Remove(IFormationDriver driver, T bucket)
