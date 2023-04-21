@@ -47,7 +47,7 @@ namespace SpaceOpera.View.Scenes
         private static readonly Vector3 s_StellarBodySceneStarPosition = new(0, 0, -1000);
         private static readonly float s_StellarBodySceneSurfaceHighlightHeight = 32;
         private static readonly float s_StellarBodySceneOrbitHeightFactor = 3;
-        private static readonly float s_StellarBodySceneOrbitFormationHeightFactor = 4f;
+        private static readonly float s_StellarBodySceneOrbitFormationHeightFactor = 3.5f;
         private static readonly float s_StellarBodyBorderWidth = 0.001f;
 
         private static Skybox? _skyBox;
@@ -256,7 +256,7 @@ namespace SpaceOpera.View.Scenes
                 StarViewFactory.CreateView(
                     Enumerable.Repeat(stellarBody.Orbit.Focus, 1),
                     Enumerable.Repeat(s_StellarBodySceneStarPosition, 1),
-                    s_StellarBodySceneStarScale / (MathF.Log(stellarBody.Orbit.MajorAxis) + 1),
+                    s_StellarBodySceneStarScale / (MathF.Log(stellarBody.Orbit.MajorAxis + 1)),
                     /* depthTest= */ false);
 
             var bounds = SpaceSubRegionBounds.CreateBounds(

@@ -18,6 +18,7 @@ namespace SpaceOpera.View.Scenes
 
         public IElementController Controller { get; }
         public IControlledElement? Parent { get; set; }
+        public float? OverrideDepth { get; set; }
         public ICamera Camera { get; }
 
         private InteractiveModel? _galaxyModel;
@@ -64,7 +65,7 @@ namespace SpaceOpera.View.Scenes
             _skybox.Draw(target, context);
             _highlightLayer!.Draw(target, context);
             _galaxyModel!.Draw(target, context);
-            _formationLayer!.UpdateFromCamera(target, context);
+            _formationLayer!.UpdateFromCamera(target);
 
             target.PopProjectionMatrix();
             target.PopViewMatrix();

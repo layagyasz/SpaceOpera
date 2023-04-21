@@ -45,7 +45,7 @@ namespace SpaceOpera.View.StarSystemViews
             _pinBuffer!.Draw(target, context);
             _highlightLayer!.Draw(target, context);
             _formationLayer!.Dirty();
-            _formationLayer!.UpdateFromCamera(target, context);
+            _formationLayer!.UpdateFromCamera(target);
         }
 
         public FormationSubLayer<object> GetFormationSubLayer()

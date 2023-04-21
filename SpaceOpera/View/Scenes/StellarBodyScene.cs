@@ -21,6 +21,7 @@ namespace SpaceOpera.View.Scenes
 
         public IElementController Controller { get; }
         public IControlledElement? Parent { get; set; }
+        public float? OverrideDepth { get; set; }
         public ICamera Camera { get; }
 
         private InteractiveModel? _stellarBodyModel;
@@ -112,7 +113,7 @@ namespace SpaceOpera.View.Scenes
             _stellarBodyModel!.Draw(target, context);
             _surfaceHighlightLayer!.Draw(target, context);
             _orbitHighlightLayer!.Draw(target, context);
-            _formationLayer!.UpdateFromCamera(target, context);
+            _formationLayer!.UpdateFromCamera(target);
 
             context.Register(_orbitInteractor);
 

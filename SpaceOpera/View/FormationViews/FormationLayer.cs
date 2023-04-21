@@ -1,5 +1,6 @@
 ﻿using Cardamom.Graphics;
 using Cardamom.Ui;
+using OpenTK.Mathematics;
 using SpaceOpera.Controller.FormationsViews;
 using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Universe;
@@ -70,14 +71,20 @@ namespace SpaceOpera.View.FormationViews
             Remove(driver, driver.Formation.Position);
         }
 
-        public void UpdateFromCamera(IRenderTarget target, IUiContext context)
+        public void UpdateFromCamera(IRenderTarget target)
         {
             if (_dirty)
             {
-                var camera = target.GetModelMatrix() * target.GetViewMatrix() * target.GetProjection().Matrix;
+                var sceneProjection = target.GetProjection();
+                target.PopProjectionMatrix();
+                var uiProjection = target.GetProjection().Matrix;
+                uiProjection.Invert();
+                var transform = 
+                    target.GetModelMatrix() * target.GetViewMatrix() * sceneProjection.Matrix * uiProjection;
+                target.PushProjection(sceneProjection);
                 foreach (var subLayer in _subLayers.Values)
                 {
-                    subLayer.UpdateFromCamera(camera, context);
+                    subLayer.UpdateFromCamera(transform);
                 }
                 _dirty = false;
             }

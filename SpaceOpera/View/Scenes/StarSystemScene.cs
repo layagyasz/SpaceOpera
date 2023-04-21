@@ -18,6 +18,7 @@ namespace SpaceOpera.View.Scenes
 
         public IElementController Controller { get; }
         public IControlledElement? Parent { get; set; }
+        public float? OverrideDepth { get; set; }
         public ICamera Camera { get; set; }
 
         private StarSystemModel? _model;
@@ -115,7 +116,7 @@ namespace SpaceOpera.View.Scenes
             }
             _highlightLayer!.Draw(target, context);
             _model!.Draw(target, context);
-            _formationSubLayer!.UpdateFromCamera(target, context);
+            _formationSubLayer!.UpdateFromCamera(target);
 
             target.PopProjectionMatrix();
             target.PopViewMatrix();

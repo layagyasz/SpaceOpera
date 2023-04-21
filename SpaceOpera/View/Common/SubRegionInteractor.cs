@@ -1,6 +1,5 @@
 ﻿using Cardamom;
 using Cardamom.Graphics;
-using Cardamom.Logging;
 using Cardamom.Mathematics.Geometry;
 using Cardamom.Ui;
 using Cardamom.Ui.Controller.Element;
@@ -12,6 +11,7 @@ namespace SpaceOpera.View.Common
     {
         public IElementController Controller { get; }
         public IControlledElement? Parent { get; set; }
+        public float? OverrideDepth { get; set; }
 
         private readonly ICollider3 _hitbox;
 

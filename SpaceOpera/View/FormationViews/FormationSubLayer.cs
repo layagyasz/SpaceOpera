@@ -41,24 +41,30 @@ namespace SpaceOpera.View.FormationViews
             return _formationLists.Values.SelectMany(x => x.GetDrivers());
         }
 
-        public void UpdateFromCamera(Matrix4 camera, IUiContext context)
+        public void UpdateFromCamera(Matrix4 transform)
         {
             foreach (var list in _formationLists.Values)
             {
-                list.UpdateFromCamera(camera, context);
+                list.UpdateFromCamera(transform);
             }
             _elements.Sort((x, y) => ((FormationList)x).Position.Z.CompareTo(((FormationList)y).Position.Z));
             _dirty = false;
         }
 
-        public void UpdateFromCamera(IRenderTarget target, IUiContext context)
+        public void UpdateFromCamera(IRenderTarget target)
         {
             if (_dirty)
             {
-                var camera = target.GetModelMatrix() * target.GetViewMatrix() * target.GetProjection().Matrix;
+                var sceneProjection = target.GetProjection();
+                target.PopProjectionMatrix();
+                var uiProjection = target.GetProjection().Matrix;
+                uiProjection.Invert();
+                var transform =
+                    target.GetModelMatrix() * target.GetViewMatrix() * sceneProjection.Matrix * uiProjection;
+                target.PushProjection(sceneProjection);
                 foreach (var list in _formationLists.Values)
                 {
-                    list.UpdateFromCamera(camera, context);
+                    list.UpdateFromCamera(transform);
                 }
                 _elements.Sort((x, y) => ((FormationList)x).Position.Z.CompareTo(((FormationList)y).Position.Z));
                 _dirty = false;

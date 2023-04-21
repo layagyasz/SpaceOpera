@@ -7,6 +7,7 @@ using SpaceOpera.Controller.Components;
 using SpaceOpera.Core.Military;
 using SpaceOpera.View.Components;
 using SpaceOpera.View.Icons;
+using System.Runtime.CompilerServices;
 
 namespace SpaceOpera.View.FormationViews
 {
@@ -78,17 +79,12 @@ namespace SpaceOpera.View.FormationViews
             }
         }
 
-        public void UpdateFromCamera(Matrix4 camera, IUiContext context)
+        public void UpdateFromCamera(Matrix4 transform)
         {
-            var transformed = new Vector4(_pin, 1) * camera;
-            Visible = transformed.Z > 0;
-            if (Visible)
-            {
-                var t = transformed / transformed.W;
-                float d = -10 * t.Z;
-                var window = context.NdcToWindow(t.Xy);
-                _position = new(window.X, window.Y, d, transformed.W);
-            }
+            var projected = new Vector4(_pin, 1) * transform;
+            Visible = projected.Z < 0;
+            OverrideDepth = projected.W;
+            _position = new(projected.Xyz / projected.W, projected.W);
         }
     }
 }
