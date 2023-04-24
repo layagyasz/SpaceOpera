@@ -4,7 +4,7 @@ namespace SpaceOpera.View.Highlights
 {
     public interface IHighlight
     {
-        bool Dirty { get; set; }
+        EventHandler<EventArgs>? Updated { get; set; }
         bool Merge { get; }
         float BorderWidth { get; }
         Color4 BorderColor { get; }

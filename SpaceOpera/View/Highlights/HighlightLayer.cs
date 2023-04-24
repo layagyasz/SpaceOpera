@@ -21,8 +21,8 @@ namespace SpaceOpera.View.Highlights
             private readonly float _borderWidth;
             private readonly RenderShader _outlineShader;
             private readonly RenderShader _fillShader;
-            private readonly bool _canClearUpdates;
 
+            private readonly HashSet<IHighlight> _updated = new();
             private readonly Dictionary<IHighlight, SpaceRegionView> _highlights = new();
 
             private SingleHighlightLayer(
@@ -32,8 +32,7 @@ namespace SpaceOpera.View.Highlights
                 Dictionary<TSubRegion, SpaceSubRegionBounds> boundsMap,
                 float borderWidth,
                 RenderShader outlineShader,
-                RenderShader fillShader,
-                bool canClearUpdates)
+                RenderShader fillShader)
             {
                 Highlight = highlight;
                 _range = range;
@@ -42,7 +41,6 @@ namespace SpaceOpera.View.Highlights
                 _borderWidth = borderWidth;
                 _outlineShader = outlineShader;
                 _fillShader = fillShader;
-                _canClearUpdates = canClearUpdates;
             }
 
             public static SingleHighlightLayer Create(
@@ -52,8 +50,7 @@ namespace SpaceOpera.View.Highlights
                 Dictionary<TSubRegion, SpaceSubRegionBounds> boundsMap,
                 float borderWidth,
                 RenderShader outlineShader,
-                RenderShader fillShader,
-                bool canClearUpdates)
+                RenderShader fillShader)
             {
                 var layer =
                     new SingleHighlightLayer(
@@ -63,10 +60,10 @@ namespace SpaceOpera.View.Highlights
                         boundsMap,
                         borderWidth,
                         outlineShader,
-                        fillShader,
-                        canClearUpdates);
+                        fillShader);
                 foreach (var h in highlight.GetHighlights())
                 {
+                    h.Updated += layer.HandleUpdate;
                     layer._highlights.Add(h, layer.ComputeHighlight(h));
                 }
                 return layer;
@@ -86,24 +83,22 @@ namespace SpaceOpera.View.Highlights
 
             public void Update(long delta)
             {
-                foreach (var highlight in _highlights.Keys)
+                lock (_updated)
                 {
-                    if (highlight.Dirty)
+                    foreach (var highlight in _updated)
                     {
                         UpdateHighlight(highlight);
-                        if (_canClearUpdates)
-                        {
-                            highlight.Dirty = false;
-                        }
                     }
+                    _updated.Clear();
                 }
             }
 
             protected override void DisposeImpl()
             {
-                foreach (var highlight in _highlights.Values)
+                foreach (var highlight in _highlights)
                 {
-                    highlight.Dispose();
+                    highlight.Key.Updated -= HandleUpdate;
+                    highlight.Value.Dispose();
                 }
                 _highlights.Clear();
             }
@@ -134,6 +129,14 @@ namespace SpaceOpera.View.Highlights
                 }
                 _highlights[highlight] = ComputeHighlight(highlight);
             }
+
+            private void HandleUpdate(object? sender, EventArgs e)
+            {
+                lock(_updated)
+                {
+                    _updated.Add((IHighlight)sender!);
+                }
+            }
         }
 
         private readonly ISet<TRegion> _range;
@@ -143,7 +146,6 @@ namespace SpaceOpera.View.Highlights
         private readonly Matrix4 _position;
         private readonly RenderShader _outlineShader;
         private readonly RenderShader _fillShader;
-        private readonly bool _canClearUpdates;
 
         private readonly EnumMap<HighlightLayerName, SingleHighlightLayer> _layers = new();
 
@@ -154,8 +156,7 @@ namespace SpaceOpera.View.Highlights
             float borderWidth,
             Matrix4 position,
             RenderShader outlineShader,
-            RenderShader fillShader,
-            bool canClearUpdates = true)
+            RenderShader fillShader)
         {
             _range = range.ToImmutableHashSet();
             _regionMapFn = regionMapFn;
@@ -164,7 +165,6 @@ namespace SpaceOpera.View.Highlights
             _position = position;
             _outlineShader = outlineShader;
             _fillShader = fillShader;
-            _canClearUpdates = canClearUpdates;
         }
 
         protected override void DisposeImpl()
@@ -198,8 +198,7 @@ namespace SpaceOpera.View.Highlights
                         _boundsMap,
                         _borderWidth,
                         _outlineShader,
-                        _fillShader,
-                        _canClearUpdates);
+                        _fillShader);
             }
         }
 

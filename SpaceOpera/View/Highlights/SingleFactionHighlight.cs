@@ -6,7 +6,8 @@ namespace SpaceOpera.View.Highlights
 {
     public class SingleFactionHighlight : IHighlight
     {
-        public bool Dirty { get; set; }
+        public EventHandler<EventArgs>? Updated { get; set; }
+
         public bool Merge => true;
         public float BorderWidth => 4f;
         public Color4 BorderColor { get; }

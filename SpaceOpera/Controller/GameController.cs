@@ -119,20 +119,19 @@ namespace SpaceOpera.Controller
             }
         }
 
-        private void ChangeSceneTo(object sceneObject, bool cleanUp)
+        private IGameScene CreateScene(object sceneObject)
         {
             if (sceneObject is Galaxy galaxy)
             {
-                ChangeSceneTo(_viewFactory.SceneFactory.Create(_world, galaxy), cleanUp);
+                return _viewFactory.SceneFactory.Create(_world, galaxy);
             }
             else if (sceneObject is StarSystem starSystem)
             {
-                ChangeSceneTo(
-                    _viewFactory.SceneFactory.Create(_world, starSystem, _world?.Calendar ?? new(0)), cleanUp);
+                return _viewFactory.SceneFactory.Create(_world, starSystem, _world?.Calendar ?? new(0));
             }
             else if (sceneObject is StellarBody stellarBody)
             {
-                ChangeSceneTo(_viewFactory.SceneFactory.Create(_world, stellarBody), cleanUp);
+                return _viewFactory.SceneFactory.Create(_world, stellarBody);
             }
             else
             {
@@ -140,9 +139,15 @@ namespace SpaceOpera.Controller
             }
         }
 
+        private void ChangeSceneTo(object sceneObject, bool cleanUp)
+        {
+            var scene = CreateScene(sceneObject);
+            scene.Initialize();
+            ChangeSceneTo(scene, cleanUp);
+        }
+
         private void ChangeSceneTo(IGameScene scene, bool cleanUp)
         {
-            scene.Initialize();
             if (cleanUp)
             {
                 _screen?.Scene?.Dispose();

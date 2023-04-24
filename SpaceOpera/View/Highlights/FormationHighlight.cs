@@ -6,7 +6,8 @@ namespace SpaceOpera.View.Highlights
 {
     public class FormationHighlight : IHighlight
     {
-        public bool Dirty { get; set; }
+        public EventHandler<EventArgs>? Updated { get; set; }
+
         public bool Merge => true;
         public float BorderWidth => 4f;
         public Color4 BorderColor => Color4.Yellow;
@@ -59,7 +60,7 @@ namespace SpaceOpera.View.Highlights
 
         private void HandleFleetUpdate(object? sender, EventArgs e)
         {
-            Dirty = true;
+            Updated?.Invoke(this, e);
         }
     }
 }

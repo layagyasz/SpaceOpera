@@ -2,7 +2,7 @@
 {
     public interface ICompositeHighlight
     {
-        EventHandler<ValueEventArgs<IHighlight>>? OnHighlightAdded { get; set; }
+        EventHandler<ValueEventArgs<IHighlight>>? HighlightAdded { get; set; }
         IEnumerable<IHighlight> GetHighlights();
         void Unhook();
     }

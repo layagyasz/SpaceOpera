@@ -270,8 +270,7 @@ namespace SpaceOpera.View.Scenes
                     s_StellarBodyBorderWidth,
                     Matrix4.CreateScale(1 + s_StellarBodySceneSurfaceHighlightHeight / stellarBody.Radius),
                     BorderShader,
-                    FillShader,
-                    /* canClearUpdates= */ false);
+                    FillShader);
             var orbitHighlight = 
                 new HighlightLayer<StationaryOrbitRegion, StellarBodySubRegion>(
                     stellarBody.OrbitRegions,
