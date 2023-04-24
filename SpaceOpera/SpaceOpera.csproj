@@ -53,6 +53,9 @@
     <None Update="Resources\Core\Generators\StellarBody\Carbide.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\Core\Generators\StellarBody\Chthonian.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\Core\Generators\StellarBody\Vulcan.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

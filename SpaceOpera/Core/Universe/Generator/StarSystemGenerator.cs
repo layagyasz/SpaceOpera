@@ -49,7 +49,8 @@ namespace SpaceOpera.Core.Universe.Generator
 
             float numBodiesMean = StellarBodyDensity * (outerBoundary - innerBoundary);
             int numBodies = (int)Math.Round(new NormalSampler(numBodiesMean, 0.5f * numBodiesMean).Generate(random));
-            var distanceSampler = new ReciprocalSampler(innerBoundary, outerBoundary / innerBoundary);
+            var distanceSampler =
+                new ReciprocalSampler(0.01f * (outerBoundary - innerBoundary), 100f, innerBoundary);
             var orbiters = new List<StellarBody>();
             for (int i=0; i<numBodies;++i)
             {

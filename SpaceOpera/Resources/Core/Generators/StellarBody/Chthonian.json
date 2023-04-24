@@ -1,0 +1,293 @@
+{
+  "$id": "planet-generator-chthonian",
+  "Name": "Chthonian",
+  "RadiusSampler": {
+    "$type": "Uniform",
+    "Range": [ 6000, 18000 ]
+  },
+  "Density": 44080,
+  "SubRegionDensity": 0.000001,
+  "RegionDensity": 0.000000025,
+  "StructureNodeDensity": 20000,
+  "AtmosphereGenerator": {
+    "RegionDensity": 0.0000875,
+    "TotalPressureSampler": {
+      "$type": "Reciprocal",
+      "Scale": 0.1,
+      "Rate": 1000
+    },
+    "PartialPressureSamplers": {
+      "material-alkane-gas": {
+        "$type": "Normal",
+        "Mean": 0.0001,
+        "StandardDeviation": 0.00005
+      },
+      "material-carbox-gas": {
+        "$type": "Normal",
+        "Mean": 0.03,
+        "StandardDeviation": 0.01
+      },
+      "material-ingenon-gas": {
+        "$type": "Normal",
+        "Mean": 0.01,
+        "StandardDeviation": 0.005
+      }
+    }
+  },
+  "SurfaceGenerator": {
+    "HeightOutput": "combine",
+    "HeightChannel": "Green",
+    "Generators": {
+      "stellar-body-generator-chthonian-rockiness-seed": {
+        "Type": "Cardamom.Utils.Generators.Numeric.SeedGenerator, Cardamom",
+        "Object": {}
+      },
+      "stellar-body-generator-chthonian-ferrous-seed": {
+        "Type": "Cardamom.Utils.Generators.Numeric.SeedGenerator, Cardamom",
+        "Object": {}
+      },
+      "stellar-body-generator-chthonian-crater-seed": {
+        "Type": "Cardamom.Utils.Generators.Numeric.SeedGenerator, Cardamom",
+        "Object": {}
+      },
+      "stellar-body-generator-chthonian-rockiness-offset": {
+        "Type": "Cardamom.Utils.Generators.Numeric.FloatGenerator, Cardamom",
+        "Object": {
+          "Range": [ -0.5, 1.5 ]
+        }
+      },
+      "stellar-body-generator-chthonian-ferrous-offset": {
+        "Type": "Cardamom.Utils.Generators.Numeric.FloatGenerator, Cardamom",
+        "Object": {
+          "Range": [ -0.5, 1.5 ]
+        }
+      }
+    },
+    "Parameters": [
+      {
+        "$id": "stellar-body-generator-chthonian-rockiness-seed",
+        "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Int32], Cardamom",
+        "Object": {}
+      },
+      {
+        "$id": "stellar-body-generator-chthonian-ferrous-seed",
+        "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Int32], Cardamom",
+        "Object": {}
+      },
+      {
+        "$id": "stellar-body-generator-chthonian-crater-seed",
+        "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Int32], Cardamom",
+        "Object": {}
+      },
+      {
+        "$id": "stellar-body-generator-chthonian-rockiness-offset",
+        "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
+        "Object": {}
+      },
+      {
+        "$id": "stellar-body-generator-chthonian-ferrous-offset",
+        "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
+        "Object": {}
+      }
+    ],
+    "Pipeline": {
+      "Steps": [
+        {
+          "$type": "LatticeNoise",
+          "Key": "rockiness",
+          "Channel": [ "Green" ],
+          "Inputs": {
+            "input": "position"
+          },
+          "Parameters": {
+            "Seed": {
+              "$ref": "stellar-body-generator-chthonian-rockiness-seed"
+            }
+          },
+          "Frequency": {
+            "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[OpenTK.Mathematics.Vector3, OpenTK.Mathematics]], Cardamom",
+            "Object": {
+              "Value": [ 2, 2, 2 ]
+            }
+          }
+        },
+        {
+          "$type": "LatticeNoise",
+          "Key": "ferrous",
+          "Channel": [ "Blue" ],
+          "Inputs": {
+            "input": "position"
+          },
+          "Output": "rockiness",
+          "Parameters": {
+            "Seed": {
+              "$ref": "stellar-body-generator-chthonian-ferrous-seed"
+            },
+            "Frequency": {
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[OpenTK.Mathematics.Vector3, OpenTK.Mathematics]], Cardamom",
+              "Object": {
+                "Value": [ 2, 2, 2 ]
+              }
+            }
+          }
+        },
+        {
+          "$type": "SpotNoise",
+          "Key": "crater",
+          "Channel": [ "Alpha" ],
+          "Inputs": {
+            "input": "position"
+          },
+          "Output": "ferrous",
+          "Parameters": {
+            "Seed": {
+              "$ref": "stellar-body-generator-chthonian-crater-seed"
+            },
+            "Frequency": {
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[OpenTK.Mathematics.Vector3, OpenTK.Mathematics]], Cardamom",
+              "Object": {
+                "Value": [ 1.5, 1.5, 1.5 ]
+              }
+            },
+            "Amplitude": {
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
+              "Object": {
+                "Value": 2
+              }
+            },
+            "Persistence": {
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
+              "Object": {
+                "Value": 0.9
+              }
+            },
+            "Scale": {
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[Cardamom.Mathematics.Interval, Cardamom]], Cardamom",
+              "Object": {
+                "Value": [ 0.2, 0.6 ]
+              }
+            },
+            "Octaves": {
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Int32], Cardamom",
+              "Object": {
+                "Value": 3
+              }
+            },
+            "Density": {
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[Cardamom.Mathematics.IntInterval, Cardamom]], Cardamom",
+              "Object": {
+                "Value": [ -3, 1 ]
+              }
+            }
+          }
+        },
+        {
+          "$type": "Denormalize",
+          "Key": "denormalize",
+          "Channel": [ "Color" ],
+          "Inputs": {
+            "input": "crater"
+          },
+          "Output": "crater"
+        },
+        {
+          "$type": "Combine",
+          "Key": "combine",
+          "Channel": [ "All" ],
+          "Inputs": {
+            "left": "position",
+            "right": "denormalize"
+          },
+          "Parameters": {
+            "LeftTransform": {
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[OpenTK.Mathematics.Matrix4, OpenTK.Mathematics]], Cardamom",
+              "Object": {
+                "Value": [
+                  [ 0, 0, 0, 0 ],
+                  [ 1, 0, 0, 0 ],
+                  [ 0, 0, 0, 0 ],
+                  [ 0, 0, 0, 1 ]
+                ]
+              }
+            },
+            "RightTransform": {
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[OpenTK.Mathematics.Matrix4, OpenTK.Mathematics]], Cardamom",
+              "Object": {
+                "Value": [
+                  [ 0.25, 0, 0, 0 ],
+                  [ 0, 1, 0, 0 ],
+                  [ 0, 0, 1, 0 ],
+                  [ 0, -0.25, 0, 0 ]
+                ]
+              }
+            },
+            "Bias": {
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[OpenTK.Mathematics.Vector4, OpenTK.Mathematics]], Cardamom",
+              "Object": {
+                "Value": [ 0, -0.25, 0, 0 ]
+              }
+            }
+          }
+        },
+        {
+          "$type": "Adjust",
+          "Key": "output",
+          "Channel": [ "Color" ],
+          "Inputs": {
+            "input": "combine"
+          },
+          "Parameters": {
+            "OverflowBehavior": {
+              "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[[Cardamom.ImageProcessing.OverflowBehavior, Cardamom]], Cardamom",
+              "Object": {
+                "Value": "Clamp"
+              }
+            },
+            "Gradient": {
+              "Type": "Cardamom.Utils.Suppliers.Matrix.Matrix4DiagonalUniformSupplier, Cardamom",
+              "Object": {
+                "Diagonal": {
+                  "Type": "Cardamom.Utils.Suppliers.ConstantSupplier`1[System.Single], Cardamom",
+                  "Object": {
+                    "Value": 0.5
+                  }
+                }
+              }
+            },
+            "Bias": {
+              "Type": "Cardamom.Utils.Suppliers.Vector.Vector4ComponentwiseSupplier, Cardamom",
+              "Object": {
+                "Y": {
+                  "$ref": "stellar-body-generator-chthonian-rockiness-offset"
+                },
+                "Z": {
+                  "$ref": "stellar-body-generator-chthonian-ferrous-offset"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "BiomeOptions": [
+      {
+        "Biome": "biome-barren-plains",
+        "Center": [ 0, 0, 0, 0 ],
+        "AxisWeight": [ 0, 1, 1, 0 ],
+        "BlendRange": 1.2
+      },
+      {
+        "Biome": "biome-barren-mountains",
+        "Center": [ 0, 1, 0, 0 ],
+        "AxisWeight": [ 0, 1, 1, 0 ],
+        "BlendRange": 1.2
+      },
+      {
+        "Biome": "biome-ferrous",
+        "Center": [ 0, 0, 1, 0 ],
+        "AxisWeight": [ 0, 0, 1, 0 ],
+        "BlendRange": 1.2
+      }
+    ]
+  }
+}
