@@ -12,27 +12,21 @@ namespace SpaceOpera.Core.Politics.Generator
         public void Generate(World world, Faction faction, INavigable headquarters, GeneratorContext context)
         {
             int fleets = (int)Math.Ceiling(InitialCommand / faction.GetFleetCommand());
-            float perFleetCommand = InitialCommand / fleets;
 
             var shipDesigns = 
                 world.GetDesignsFor(faction)
                     .Where(x => x.Configuration.Template.Type == ComponentType.Ship)
                     .SelectMany(x => x.Components)
                     .Cast<Unit>()
+                    .OrderBy(x => -x.Command)
                     .ToArray();
-            var shipDesignWeights = shipDesigns.Select(x => x.Command).ToArray();
-            var totalCommand = shipDesignWeights.Sum();
-            for (int i=0; i<shipDesignWeights.Length;  ++i)
-            {
-                shipDesignWeights[i] /= totalCommand;
-            }
-            var shipCounts =
-                shipDesignWeights.Select(
-                    x => (int)Math.Round(perFleetCommand / (totalCommand * shipDesignWeights.Length * x))).ToArray();
+            float perFleetCommand = InitialCommand / fleets;
             var composition = new MultiCount<Unit>();
-            for (int i=0; i<shipDesigns.Length; ++i)
+            for (int i=0; i< shipDesigns.Length; ++i)
             {
-                composition.Add(shipDesigns[i], shipCounts[i]);
+                int count = (int)Math.Round(perFleetCommand / (shipDesigns[i].Command * (shipDesigns.Length - i)));
+                composition.Add(shipDesigns[i], count);
+                perFleetCommand -= count * shipDesigns[i].Command;
             }
 
             for (int i=0; i<fleets; ++i)

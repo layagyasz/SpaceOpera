@@ -10,7 +10,7 @@
   "RegionDensity": 0.00000005,
   "StructureNodeDensity": 10000,
   "AtmosphereGenerator": {
-    "RegionDensity": 0.000085,
+    "RegionDensity": 0.0000875,
     "TotalPressureSampler": {
       "$type": "Normal",
       "Mean": 4,

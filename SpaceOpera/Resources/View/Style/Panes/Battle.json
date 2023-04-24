@@ -134,8 +134,8 @@
     "Default": {
       "Size": [ "DynamicContents", 28 ],
       "Color": "#8888ffcc",
-      "Padding": [ 2, 10, 2, 10 ],
-      "FontSize": 8
+      "Padding": [ 2, 9, 2, 9 ],
+      "FontSize": 10
     },
     "States": [
       {

@@ -11,10 +11,10 @@
         "Constant": 1
       },
       "ArmorProtection": {
-        "Constant": 25.6
+        "Constant": 1280
       },
       "ArmorThickness": {
-        "Constant": 25.6
+        "Constant": 38.4
       }
     },
     "ReferenceMaterial": {
@@ -35,10 +35,10 @@
         "Constant": 1
       },
       "ArmorProtection": {
-        "Constant": 51.2
+        "Constant": 2560
       },
       "ArmorThickness": {
-        "Constant": 51.2
+        "Constant": 76.8
       }
     },
     "ReferenceMaterial": {
@@ -59,10 +59,10 @@
         "Constant": 1
       },
       "ArmorProtection": {
-        "Constant": 102.4
+        "Constant": 5120
       },
       "ArmorThickness": {
-        "Constant": 102.4
+        "Constant": 153.6
       }
     },
     "ReferenceMaterial": {

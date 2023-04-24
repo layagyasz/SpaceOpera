@@ -60,20 +60,21 @@ namespace SpaceOpera.Core.Military.Battles
 
         private static Damage ComputeEffectiveImpl(Weapon weapon, Unit target, float adjustment)
         {
-            var unadjustedDamage = weapon.Damage;
+            var unadjustedDamage = adjustment * weapon.Damage;
             Damage adjustedDamage;
             if (adjustment * weapon.Penetration > target.Armor.Thickness)
             {
-                adjustedDamage = adjustment * unadjustedDamage;
+                adjustedDamage = unadjustedDamage;
             }
             else if (unadjustedDamage.GetTotal() > target.Armor.Protection)
             {
-                adjustedDamage = adjustment * (target.Armor.Coverage * (unadjustedDamage - target.Armor.Protection) 
-                    + (1 - target.Armor.Coverage) * unadjustedDamage);
+                adjustedDamage = 
+                    target.Armor.Coverage * (unadjustedDamage - target.Armor.Protection) 
+                    + (1 - target.Armor.Coverage) * unadjustedDamage;
             }
             else
             {
-                adjustedDamage = adjustment * (1 - target.Armor.Coverage) * unadjustedDamage;
+                adjustedDamage = (1 - target.Armor.Coverage) * unadjustedDamage;
             }
             return adjustedDamage.Cap(target.Hitpoints);
         }

@@ -132,7 +132,8 @@ namespace SpaceOpera.View.StarSystemViews
                     scale * s_BorderWidth,
                     Matrix4.Identity,
                     BorderShader,
-                    FillShader);
+                    FillShader,
+                    /* canClearUpdates= */ false);
 
             var formationLayer = FormationLayerFactory.CreateForSubSystem(orbit);
             return new(
