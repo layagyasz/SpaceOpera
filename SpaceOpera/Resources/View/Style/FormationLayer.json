@@ -3,7 +3,7 @@
     "$id": "formation-layer-table",
     "Parent": "ui-element-basic",
     "Default": {
-      "Size": [ 256, "DynamicContents" ],
+      "Size": [ 206, "DynamicContents" ],
       "Padding": [ 1, 12, 1, 12 ]
     }
   },
@@ -11,7 +11,7 @@
     "$id": "formation-layer-row",
     "Parent": "ui-element-internal",
     "Default": {
-      "Size": [ 254, 28 ],
+      "Size": [ 204, 28 ],
       "Padding": [ 0 ],
       "Margin": [ 0 ]
     }
@@ -27,7 +27,15 @@
     "$id": "formation-layer-row-text",
     "Parent": "ui-element-internal",
     "Default": {
-      "Size": [ 198, 28 ],
+      "Size": [ 128, 28 ],
+      "Padding": [ 8 ]
+    }
+  },
+  {
+    "$id": "formation-layer-row-number",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 20, 28 ],
       "Padding": [ 8 ]
     }
   },

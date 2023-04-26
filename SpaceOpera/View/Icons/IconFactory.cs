@@ -109,11 +109,11 @@ namespace SpaceOpera.View.Icons
                 { typeof(BattalionTemplate), GetDesignedComponentDefinition },
                 { typeof(Design), GetDesignDefinition },
                 { typeof(DesignedComponent), GetDesignedComponentDefinition },
-                { typeof(Division), GetFormationDefinition },
+                { typeof(Division), GetDivisionDefinition },
                 { typeof(DivisionDriver), GetDriverDefinition },
                 { typeof(DivisionTemplate), GetDesignedComponentDefinition },
                 { typeof(Faction), GetBannerDefinition },
-                { typeof(Fleet), GetFormationDefinition },
+                { typeof(Fleet), GetFleetDefinition },
                 { typeof(FleetDriver), GetDriverDefinition },
                 { typeof(Recipe), GetRecipeDefinition },
                 { typeof(Structure), GetAtomicDefinition },
@@ -159,9 +159,19 @@ namespace SpaceOpera.View.Icons
 
         private IEnumerable<IconLayer> GetDesignedComponentDefinition(object @object)
         {
+            return GetDesignedComponentDefinition(@object, new(Color4.White, Color4.Black, Color4.Red));
+        }
+
+        private IEnumerable<IconLayer> GetDesignedComponentDefinition(object @object, BannerColorSet colors)
+        {
             var component = (DesignedComponent)@object;
-            return _configs[component.Slot.Type].CreateDefinition(
-                component, new(Color4.White, Color4.Black, Color4.Red), this);
+            return _configs[component.Slot.Type].CreateDefinition(component, colors, this);
+        }
+
+        private IEnumerable<IconLayer> GetDivisionDefinition(object @object)
+        {
+            var division = (Division)@object;
+            return GetDesignedComponentDefinition(division.Template, _bannerViewFactory.Get(division.Faction.Banner));
         }
 
         private IEnumerable<IconLayer> GetDriverDefinition(object @object)
@@ -170,7 +180,7 @@ namespace SpaceOpera.View.Icons
             return GetDefinition(driver.Formation);
         }
 
-        private IEnumerable<IconLayer> GetFormationDefinition(object @object)
+        private IEnumerable<IconLayer> GetFleetDefinition(object @object)
         {
             return GetBannerDefinition(((IFormation)@object).Faction);
         }

@@ -11,23 +11,29 @@ namespace SpaceOpera.View.FormationViews
 {
     public class FormationRow : DynamicUiCompoundComponent, IActionRow
     {
-        private static readonly string s_FormationLayerRowClassName = "formation-layer-row";
-        private static readonly string s_FormationLayerRowIconClassName = "formation-layer-row-icon";
-        private static readonly string s_FormationLayerRowTextClassName = "formation-layer-row-text";
-        private static readonly string s_FormationLayerRowBattleIconClassName = "formation-layer-row-battle-icon";
+        private static readonly string s_FormationLayerRow = "formation-layer-row";
+        private static readonly string s_FormationLayerRowIcon = "formation-layer-row-icon";
+        private static readonly string s_FormationLayerRowText = "formation-layer-row-text";
+        private static readonly string s_FormationLayerRowNumber = "formation-layer-row-text";
+        private static readonly string s_FormationLayerRowBattleIcon = "formation-layer-row-battle-icon";
+
+        public int FormationCount => _drivers.Count;
 
         private readonly List<FormationDriver> _drivers = new();
+        private TextUiElement _number;
         private readonly IUiElement _battle;
 
-        private FormationRow(Class @class, Icon icon, IUiElement text, IUiElement battle)
+        private FormationRow(Class @class, Icon icon, IUiElement text, TextUiElement number, IUiElement battle)
             : base(
                   new FormationRowController(), 
                   new UiSerialContainer(@class, new ButtonController(), UiSerialContainer.Orientation.Horizontal))
         {
+            _number = number;
             _battle = battle;
 
             Add(icon);
             Add(text);
+            Add(number);
             Add(battle);
 
             Refresh();
@@ -36,11 +42,13 @@ namespace SpaceOpera.View.FormationViews
         public void Add(FormationDriver driver)
         {
             _drivers.Add(driver);
+            UpdateNumber();
         }
 
         public void Remove(FormationDriver driver)
         {
             _drivers.Remove(driver);
+            UpdateNumber();
         }
 
         public IEnumerable<IUiElement> GetActions()
@@ -59,19 +67,33 @@ namespace SpaceOpera.View.FormationViews
             base.Refresh();
         }
 
+        private void UpdateNumber()
+        {
+            if (FormationCount > 1)
+            {
+                _number.SetText(FormationCount.ToString());
+            }
+            else
+            {
+                _number.SetText(string.Empty);
+            }
+        }
+
         public static FormationRow Create(
             object key, string name, UiElementFactory uiElementFactory, IconFactory iconFactory)
         {
             return new(
-                uiElementFactory.GetClass(s_FormationLayerRowClassName),
+                uiElementFactory.GetClass(s_FormationLayerRow),
                 iconFactory.Create(
-                    uiElementFactory.GetClass(s_FormationLayerRowIconClassName),
+                    uiElementFactory.GetClass(s_FormationLayerRowIcon),
                     new InlayController(),
                     key),
                 new TextUiElement(
-                    uiElementFactory.GetClass(s_FormationLayerRowTextClassName), new InlayController(), name),
+                    uiElementFactory.GetClass(s_FormationLayerRowText), new InlayController(), name),
+                new TextUiElement(
+                    uiElementFactory.GetClass(s_FormationLayerRowNumber), new InlayController(), string.Empty),
                 new SimpleUiElement(
-                    uiElementFactory.GetClass(s_FormationLayerRowBattleIconClassName),
+                    uiElementFactory.GetClass(s_FormationLayerRowBattleIcon),
                     new ActionButtonController(ActionId.Battle)));
         }
     }

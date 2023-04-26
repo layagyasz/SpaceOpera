@@ -40,14 +40,18 @@ namespace SpaceOpera.View.FormationViews
 
         public void Add(FormationDriver driver, bool initialize)
         {
-            var row = FormationRow.Create(driver, driver.Formation.Name, _uiElementFactory, _iconFactory);
-            if (initialize)
+            (var key, string name) = GetKey(driver);
+            if (!_rows.TryGetValue(key, out var row))
             {
-                row.Initialize();
+                row = FormationRow.Create(driver, name, _uiElementFactory, _iconFactory);
+                if (initialize)
+                {
+                    row.Initialize();
+                }
+                _rows.Add(key, row);
+                Add(row);
             }
             row.Add(driver);
-            _rows.Add(driver, row);
-            Add(row);
         }
 
         public override void Draw(IRenderTarget target, IUiContext context)
@@ -70,11 +74,16 @@ namespace SpaceOpera.View.FormationViews
 
         public void Remove(FormationDriver driver)
         {
-            if (_rows.TryGetValue(driver, out var row))
+            (var key, var _) = GetKey(driver);
+            if (_rows.TryGetValue(key, out var row))
             {
-                Remove(row);
-                _rows.Remove(driver);
-                row.Dispose();
+                row.Remove(driver);
+                if (row.FormationCount == 0)
+                {
+                    Remove(row);
+                    _rows.Remove(key);
+                    row.Dispose();
+                }
             }
         }
 
@@ -84,6 +93,19 @@ namespace SpaceOpera.View.FormationViews
             Visible = projected.Z < 0;
             OverrideDepth = projected.W - 0.05f;
             _position = new(projected.Xyz / projected.W, projected.W);
+        }
+        
+        private static (object, string) GetKey(FormationDriver driver)
+        {
+            if (driver is FleetDriver fleet)
+            {
+                return (fleet, fleet.Formation.Name);
+            }
+            if (driver is DivisionDriver division)
+            {
+                return (((Division)division.Formation).Template, ((Division)division.Formation).Template.Name);
+            }
+            throw new ArgumentException(string.Format("Unsupported driver type {0}.", driver.GetType()));
         }
     }
 }
