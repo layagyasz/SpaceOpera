@@ -36,7 +36,7 @@ namespace SpaceOpera.View.FormationViews
             _dirty = true;
         }
 
-        public IEnumerable<IFormationDriver> GetDrivers()
+        public IEnumerable<FormationDriver> GetDrivers()
         {
             return _formationLists.Values.SelectMany(x => x.GetDrivers());
         }
@@ -71,7 +71,7 @@ namespace SpaceOpera.View.FormationViews
             }
         }
 
-        public void Add(IFormationDriver driver, T bucket, Vector3 pin, float? offset, bool initialize)
+        public void Add(FormationDriver driver, T bucket, Vector3 pin, float? offset, bool initialize)
         {
             if (!_formationLists.TryGetValue(bucket, out var list))
             {
@@ -87,7 +87,7 @@ namespace SpaceOpera.View.FormationViews
             list.Add(driver, initialize);
         }
 
-        public void Remove(IFormationDriver driver, T bucket)
+        public void Remove(FormationDriver driver, T bucket)
         {
             if (_formationLists.TryGetValue(bucket, out var list))
             {

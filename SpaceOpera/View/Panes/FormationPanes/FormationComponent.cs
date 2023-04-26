@@ -14,7 +14,7 @@ namespace SpaceOpera.View.Panes.FormationPanes
         private static readonly string s_ContainerClassName = "formation-pane-formation-container";
         private static readonly string s_UnitGroupingTableClassName = "formation-pane-formation-unit-grouping-table";
 
-        private static readonly ActionRow<IFormationDriver>.Style s_HeaderStyle =
+        private static readonly ActionRow<FormationDriver>.Style s_HeaderStyle =
             new() 
             {
                 Container = "formation-pane-formation-header",
@@ -22,7 +22,7 @@ namespace SpaceOpera.View.Panes.FormationPanes
             };
         private static readonly string s_IconClassName = "formation-pane-formation-header-icon";
         private static readonly string s_TextClassName = "formation-pane-formation-header-text";
-        private static readonly List<ActionRow<IFormationDriver>.ActionConfiguration> s_HeaderActions =
+        private static readonly List<ActionRow<FormationDriver>.ActionConfiguration> s_HeaderActions =
             new()
             { 
                 new ()
@@ -47,14 +47,14 @@ namespace SpaceOpera.View.Panes.FormationPanes
         private static readonly string s_UnitGroupingShieldsClassName = 
             "formation-pane-formation-unit-grouping-row-status-shields";
 
-        public IFormationDriver Key { get; }
+        public FormationDriver Key { get; }
         public UiCompoundComponent Header { get; }
         public UiCompoundComponent UnitGroupingTable { get; }
 
         private readonly UiElementFactory _uiElementFactory;
         private readonly IconFactory _iconFactory;
 
-        public FormationComponent(IFormationDriver driver, UiElementFactory uiElementFactory, IconFactory iconFactory)
+        public FormationComponent(FormationDriver driver, UiElementFactory uiElementFactory, IconFactory iconFactory)
             : base(
                   new FormationComponentController(), 
                   new DynamicUiSerialContainer(
@@ -67,7 +67,7 @@ namespace SpaceOpera.View.Panes.FormationPanes
             _iconFactory = iconFactory;
 
             Header = 
-                ActionRow<IFormationDriver>.Create(
+                ActionRow<FormationDriver>.Create(
                     driver, 
                     uiElementFactory,
                     s_HeaderStyle,

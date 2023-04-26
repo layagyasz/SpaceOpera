@@ -5,13 +5,11 @@ using SpaceOpera.Core.Universe;
 
 namespace SpaceOpera.Core.Politics.Generator
 {
-    public class FleetGenerator
+    public class SpaceForcesGenerator
     {
-        public float InitialCommand { get; set; }
-
-        public void Generate(World world, Faction faction, INavigable headquarters, GeneratorContext context)
+        public static void Generate(World world, Faction faction, INavigable headquarters, GeneratorContext context)
         {
-            int fleets = (int)Math.Ceiling(InitialCommand / faction.GetFleetCommand());
+            int fleets = (int)Math.Ceiling(faction.GetSpaceForcesCommand() / faction.GetFleetCommand());
 
             var shipDesigns = 
                 world.GetDesignsFor(faction)
@@ -20,7 +18,7 @@ namespace SpaceOpera.Core.Politics.Generator
                     .Cast<Unit>()
                     .OrderBy(x => -x.Command)
                     .ToArray();
-            float perFleetCommand = InitialCommand / fleets;
+            float perFleetCommand = faction.GetFleetCommand();
             var composition = new MultiCount<Unit>();
             for (int i=0; i< shipDesigns.Length; ++i)
             {
@@ -35,7 +33,7 @@ namespace SpaceOpera.Core.Politics.Generator
                 fleet.SetName(faction.NameGenerator.GenerateNameForFleet(context.Random));
                 fleet.Add(composition);
                 fleet.SetPosition(headquarters);
-                world.AddFleet(fleet);
+                world.FormationManager.AddFleet(fleet);
             }
         }
     }

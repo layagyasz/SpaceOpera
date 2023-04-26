@@ -7,7 +7,6 @@ using SpaceOpera.Controller.Components;
 using SpaceOpera.Core.Military;
 using SpaceOpera.View.Components;
 using SpaceOpera.View.Icons;
-using System.Runtime.CompilerServices;
 
 namespace SpaceOpera.View.FormationViews
 {
@@ -39,7 +38,7 @@ namespace SpaceOpera.View.FormationViews
             _iconFactory = iconFactory;
         }
 
-        public void Add(IFormationDriver driver, bool initialize)
+        public void Add(FormationDriver driver, bool initialize)
         {
             var row = FormationRow.Create(driver, driver.Formation.Name, _uiElementFactory, _iconFactory);
             if (initialize)
@@ -64,12 +63,12 @@ namespace SpaceOpera.View.FormationViews
             base.Draw(target, context);
         }
 
-        public IEnumerable<IFormationDriver> GetDrivers()
+        public IEnumerable<FormationDriver> GetDrivers()
         {
             return _rows.Values.SelectMany(x => x.GetDrivers());
         }
 
-        public void Remove(IFormationDriver driver)
+        public void Remove(FormationDriver driver)
         {
             if (_rows.TryGetValue(driver, out var row))
             {
@@ -83,7 +82,7 @@ namespace SpaceOpera.View.FormationViews
         {
             var projected = new Vector4(_pin, 1) * transform;
             Visible = projected.Z < 0;
-            OverrideDepth = projected.W;
+            OverrideDepth = projected.W - 0.05f;
             _position = new(projected.Xyz / projected.W, projected.W);
         }
     }

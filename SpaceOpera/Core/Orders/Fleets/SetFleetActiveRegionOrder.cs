@@ -6,10 +6,10 @@ namespace SpaceOpera.Core.Languages
 {
     public class SetFleetActiveRegionOrder : IOrder
     {
-        public FleetDriver Fleet { get; }
+        public FormationDriver Fleet { get; }
         public ISet<INavigable> ActiveRegion { get; }
 
-        public SetFleetActiveRegionOrder(FleetDriver fleet, ISet<INavigable> activeRegion)
+        public SetFleetActiveRegionOrder(FormationDriver fleet, ISet<INavigable> activeRegion)
         {
             Fleet = fleet;
             ActiveRegion = activeRegion;

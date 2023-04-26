@@ -1,5 +1,6 @@
 using SpaceOpera.Core.Designs;
 using SpaceOpera.Core.Languages;
+using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Universe;
 
 namespace SpaceOpera.Core.Politics
@@ -9,6 +10,8 @@ namespace SpaceOpera.Core.Politics
         public Language Language { get; }
         public ComponentNameGenerator ComponentNameGenerator { get; }
 
+        private readonly IIdGenerator _armyIdGenerator = new SerialIdGenerator(1);
+        private readonly IIdGenerator _divisionIdGenerator = new SerialIdGenerator(1);
         private readonly IIdGenerator _fleetIdGenerator = new SerialIdGenerator(1);
 
         public NameGenerator(Language language, ComponentNameGenerator componentNameGenerator)
@@ -37,6 +40,16 @@ namespace SpaceOpera.Core.Politics
             return ComponentNameGenerator.GenerateNameFor(ToArgs(design), Language, random);
         }
 
+        public string GenerateNameFor(DivisionTemplate divisionTemplate, Random random)
+        {
+            return ComponentNameGenerator.GenerateNameFor(ToArgs(divisionTemplate), Language, random);
+        }
+
+        public string GenerateNameForArmy(Random random)
+        {
+            return ComponentNameGenerator.GenerateNameFor(GetArmyArgs(), Language, random);
+        }
+
         public string GenerateNameForFaction(Random random)
         {
             return ComponentNameGenerator.GenerateNameFor(GetFactionArgs(), Language, random);
@@ -50,6 +63,11 @@ namespace SpaceOpera.Core.Politics
         public string GenerateNameForStar(Random random)
         {
             return ComponentNameGenerator.GenerateNameFor(GetStarArgs(), Language, random);
+        }
+
+        private NameGeneratorArgs GetArmyArgs()
+        {
+            return new(NameType.Army) { SequenceNumber = _armyIdGenerator.Generate() };
         }
 
         private static NameGeneratorArgs GetFactionArgs()
@@ -89,6 +107,15 @@ namespace SpaceOpera.Core.Politics
         private static NameGeneratorArgs ToArgs(Design design)
         {
             return new(ToNameType(design.Configuration.Template.Type)) { Tags = design.Tags };
+        }
+
+        private NameGeneratorArgs ToArgs(DivisionTemplate divisionTemplate)
+        {
+            return new(NameType.Division) 
+            { 
+                ParentName = divisionTemplate.Name,
+                SequenceNumber= _divisionIdGenerator.Generate()
+            };
         }
 
         public static NameType ToNameType(ComponentType type)

@@ -49,7 +49,7 @@
         },
         {
           "Generator": "Resources/Core/Generators/StellarBody/Hycean.json",
-          "Weight": 0.25,
+          "Weight": 0.1,
           "ThermalRange": [ 223, 373 ]
         },
         {

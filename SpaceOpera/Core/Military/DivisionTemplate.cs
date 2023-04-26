@@ -5,6 +5,7 @@ namespace SpaceOpera.Core.Military
 {
     public class DivisionTemplate : DesignedComponent, IFormationTemplate
     {
+        public float Command => GetAttribute(ComponentAttribute.Command);
         public MultiCount<Unit> Composition { get; }
 
         public DivisionTemplate(

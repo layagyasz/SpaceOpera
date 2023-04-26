@@ -1,6 +1,6 @@
 using SpaceOpera.Core.Universe;
 
-namespace SpaceOpera.Core.Military.Actions
+namespace SpaceOpera.Core.Military.Ai.Actions
 {
     public class MoveAction : IAction
     {

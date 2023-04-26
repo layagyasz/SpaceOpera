@@ -20,6 +20,7 @@ namespace SpaceOpera.Core
         public DiplomaticRelationGraph DiplomaticRelations { get; } = new();
         public Economy Economy { get; }
         public EconomyGraph EconomyGraph { get; } = new();
+        public FormationManager FormationManager { get; } = new();
         public BattleManager BattleManager { get; }
         public DesignBuilder DesignBuilder { get; }
         public AutoDesigner AutoDesigner { get; }
@@ -30,8 +31,6 @@ namespace SpaceOpera.Core
 
         private readonly List<Design> _designs = new();
         private readonly List<DesignLicense> _designLicenses = new();
-
-        private readonly FormationManager _formationManager = new();
 
         private readonly ProjectManager _projectManager = new();
 
@@ -63,15 +62,15 @@ namespace SpaceOpera.Core
             ticks.AddRange(_factions);
 
             return new CompositeUpdateable()
-            { 
+            {
                 Calendar,
                 new TickUpdateable(
                     new CompositeTickable() {
                         new ActionTickable(() => BattleManager.Tick(Random)),
-                        new ActionTickable(() => _formationManager.Tick(this)),
+                        new ActionTickable(() => FormationManager.Tick(this)),
                         new ActionTickable(_projectManager.Tick),
                         new CycleTickable(new CompositeTickable(ticks), 30)
-                    }, 
+                    },
                     1000)
             };
         }
@@ -98,11 +97,6 @@ namespace SpaceOpera.Core
             {
                 EconomyGraph.AddRecipe(recipe);
             }
-        }
-
-        public void AddFleet(Fleet fleet)
-        {
-            _formationManager.AddFleet(fleet);
         }
 
         public void AddLicense(DesignLicense license)
@@ -134,24 +128,9 @@ namespace SpaceOpera.Core
             return _designLicenses.Where(x => x.Faction == faction).Select(x => x.Design);
         }
 
-        public IFormationDriver GetDriver(IFormation formation)
-        {
-            return _formationManager.GetDriver(formation);
-        }
-
         public IEnumerable<Faction> GetFactions()
         {
             return _factions;
-        }
-
-        public IEnumerable<IFormationDriver> GetFleets()
-        {
-            return _formationManager.GetDrivers().Where(x => x is FleetDriver);
-        }
-
-        public IEnumerable<IFormationDriver> GetFleetsFor(Faction faction)
-        {
-            return GetFleets().Where(x => x.Formation.Faction == faction);
         }
 
         public Intelligence GetIntelligenceFor(Faction faction)

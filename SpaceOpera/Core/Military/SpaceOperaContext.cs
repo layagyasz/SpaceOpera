@@ -4,14 +4,14 @@ namespace SpaceOpera.Core.Military
 {
     public class SpaceOperaContext : SimpleContext
     {
-        public class FleetContext : SpaceOperaContext
+        public class FormationContext : SpaceOperaContext
         {
-            public FleetDriver Fleet { get; }
+            public FormationDriver Driver { get; }
 
-            internal FleetContext(World world, FleetDriver fleet)
+            internal FormationContext(World world, FormationDriver driver)
                 : base(world)
             {
-                this.Fleet = fleet;
+                Driver = driver;
             }
         }
 
@@ -19,12 +19,12 @@ namespace SpaceOpera.Core.Military
 
         public SpaceOperaContext(World world)
         {
-            this.World = world;
+            World = world;
         }
 
-        public FleetContext ForFleet(FleetDriver fleet)
+        public FormationContext ForFleet(FormationDriver fleet)
         {
-            return new FleetContext(World, fleet);
+            return new FormationContext(World, fleet);
         }
     }
 }

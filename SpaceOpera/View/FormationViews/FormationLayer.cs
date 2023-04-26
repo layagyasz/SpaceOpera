@@ -1,6 +1,4 @@
 ﻿using Cardamom.Graphics;
-using Cardamom.Ui;
-using OpenTK.Mathematics;
 using SpaceOpera.Controller.FormationsViews;
 using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Universe;
@@ -39,7 +37,7 @@ namespace SpaceOpera.View.FormationViews
             Dirty();
         }
 
-        public void Add(IFormationDriver driver)
+        public void Add(FormationDriver driver)
         {
             driver.Moved += _events.QueueEvent;
             Add(driver, driver.Formation.Position, /* initialize= */ false);
@@ -65,7 +63,7 @@ namespace SpaceOpera.View.FormationViews
         }
 
 
-        public void Remove(IFormationDriver driver)
+        public void Remove(FormationDriver driver)
         {
             driver.Moved -= _events.QueueEvent;
             Remove(driver, driver.Formation.Position);
@@ -98,12 +96,12 @@ namespace SpaceOpera.View.FormationViews
 
         private void HandleMove(object? sender, MovementEventArgs e)
         {
-            IFormationDriver driver = (IFormationDriver)sender!;
+            var driver = (FormationDriver)sender!;
             Remove(driver, e.Origin);
             Add(driver, e.Destination, /* initialize= */ true);
         }
 
-        private void Add(IFormationDriver driver, INavigable? location, bool initialize)
+        private void Add(FormationDriver driver, INavigable? location, bool initialize)
         {
             if (location == null)
             {
@@ -117,7 +115,7 @@ namespace SpaceOpera.View.FormationViews
             }
         }
 
-        private void Remove(IFormationDriver driver, INavigable? location)
+        private void Remove(FormationDriver driver, INavigable? location)
         {
             if (location == null)
             {

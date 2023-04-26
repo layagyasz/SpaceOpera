@@ -11,9 +11,9 @@ namespace SpaceOpera.Controller.Subcontrollers
     {
         public EventHandler<IOrder>? OrderCreated { get; set; }
 
-        private readonly HashSet<FleetDriver> _drivers;
+        private readonly HashSet<FormationDriver> _drivers;
 
-        public FleetSubcontroller(IEnumerable<FleetDriver> drivers) 
+        public FleetSubcontroller(IEnumerable<FormationDriver> drivers) 
         {
             _drivers = new(drivers);
         }

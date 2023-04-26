@@ -5,7 +5,9 @@ namespace SpaceOpera.Core.Politics
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum NameType
     {
+        Army,
         BattalionTemplate,
+        Division,
         DivisionTemplate,
         Faction,
         Fleet,

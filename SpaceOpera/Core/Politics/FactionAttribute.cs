@@ -4,6 +4,10 @@
     {
         Unknown,
 
-        FleetCommand
+        SpaceForcesCommand,
+        FleetCommand,
+        
+        LandForcesCommand,
+        ArmyCommand
     }
 }

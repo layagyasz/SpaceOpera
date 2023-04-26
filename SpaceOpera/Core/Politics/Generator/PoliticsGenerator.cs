@@ -7,7 +7,7 @@ namespace SpaceOpera.Core.Politics.Generator
 {
     public class PoliticsGenerator
     {
-        private static float s_WeightCutoff = 0.01f;
+        private static readonly float s_WeightCutoff = 0.01f;
 
         class FactionWrapper : SeededGraphPartition.ISeed<RegionWrapper>
         {
@@ -62,7 +62,6 @@ namespace SpaceOpera.Core.Politics.Generator
         public BannerGenerator? Banner { get; set; }
         public FactionGenerator? Faction { get; set; }
         public DesignGenerator? Design { get; set; }
-        public FleetGenerator? Fleet { get; set; }
         public float BaseLinkChance { get; set; }
         public int Cultures { get; set; }
         public int States { get; set; }
@@ -190,7 +189,8 @@ namespace SpaceOpera.Core.Politics.Generator
                         .SelectMany(x => x.OrbitRegions)
                         .Where(x => x.SubRegions.Contains(partition.Nodes.First().Region.Center))
                         .First();
-                Fleet!.Generate(world, state.Faction, hq, context);
+                SpaceForcesGenerator.Generate(world, state.Faction, hq, context);
+                LandForcesGenerator.Generate(world, state.Faction, partition.Nodes.First().Region.Center, context);
             }
 
             foreach (var system in world.Galaxy.Systems)

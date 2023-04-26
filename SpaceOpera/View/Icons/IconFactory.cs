@@ -109,6 +109,8 @@ namespace SpaceOpera.View.Icons
                 { typeof(BattalionTemplate), GetDesignedComponentDefinition },
                 { typeof(Design), GetDesignDefinition },
                 { typeof(DesignedComponent), GetDesignedComponentDefinition },
+                { typeof(Division), GetFormationDefinition },
+                { typeof(DivisionDriver), GetDriverDefinition },
                 { typeof(DivisionTemplate), GetDesignedComponentDefinition },
                 { typeof(Faction), GetBannerDefinition },
                 { typeof(Fleet), GetFormationDefinition },
@@ -124,7 +126,7 @@ namespace SpaceOpera.View.Icons
 
         public Icon Create(Class @class, IElementController controller, object @object)
         {
-            return 
+            return  
                 new(
                     @class, 
                     controller, 
@@ -164,7 +166,7 @@ namespace SpaceOpera.View.Icons
 
         private IEnumerable<IconLayer> GetDriverDefinition(object @object)
         {
-            var driver = (IFormationDriver)@object;
+            var driver = (FormationDriver)@object;
             return GetDefinition(driver.Formation);
         }
 

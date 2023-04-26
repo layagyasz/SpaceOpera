@@ -12,6 +12,9 @@
             "Name": "Infantry",
             "IntrinsicComponent": {
               "Attributes": {
+                "Command": {
+                  "Constant": 1
+                },
                 "MaterialCost": {
                   "Constant": 1
                 }

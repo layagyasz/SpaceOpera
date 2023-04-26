@@ -13,24 +13,41 @@
   },
   "Faction": {
     "BaseAttributes": {
-      "FleetCommand": 40
+      "SpaceForcesCommand": 120,
+      "FleetCommand": 40,
+      "LandForcesCommand": 180,
+      "ArmyCommand": 90
     },
     "ComponentName": {
       "RequiredTypes": [
-        "Ship",
-        "Infantry",
+        "Army",
         "BattalionTemplate",
+        "Division",
         "DivisionTemplate",
-        "Fleet",
         "Faction",
+        "Fleet",
+        "Infantry",
         "Shield",
-        "Weapon",
+        "Ship",
+        "Star",
+        "StarSystem",
         "StellarBody",
         "StellarBodyRegion",
-        "StarSystem",
-        "Star"
+        "Weapon"
       ],
       "NameParts": {
+        "army": [
+          {
+            "Frequency": 1,
+            "Value": {
+              "RandomValue": {
+                "StaticString": [ "army", "corps" ]
+              },
+              "Source": "Static",
+              "Filter": "String"
+            }
+          }
+        ],
         "battalion": [
           {
             "Frequency": 1,
@@ -177,6 +194,20 @@
           }
         },
         {
+          "Frequency": 0.5,
+          "Value": {
+            "SupportedTypes": [ "Division" ],
+            "Pattern": [ "sequence-number-ordinal", "parent-name" ]
+          }
+        },
+        {
+          "Frequency": 0.5,
+          "Value": {
+            "SupportedTypes": [ "Division" ],
+            "Pattern": [ "name", "division" ]
+          }
+        },
+        {
           "Frequency": 1,
           "Value": {
             "SupportedTypes": [ "DivisionTemplate" ],
@@ -209,6 +240,20 @@
           "Value": {
             "SupportedTypes": [ "Shield", "Weapon" ],
             "Pattern": [ "model", "model-number", "classification" ]
+          }
+        },
+        {
+          "Frequency": 0.5,
+          "Value": {
+            "SupportedTypes": [ "Army" ],
+            "Pattern": [ "name", "army" ]
+          }
+        },
+        {
+          "Frequency": 0.5,
+          "Value": {
+            "SupportedTypes": [ "Army" ],
+            "Pattern": [ "sequence-number-ordinal", "army" ]
           }
         },
         {
@@ -288,9 +333,6 @@
         }
       }
     ]
-  },
-  "Fleet": {
-    "InitialCommand": 120
   },
   "BaseLinkChance": 0.1,
   "Cultures": 20,

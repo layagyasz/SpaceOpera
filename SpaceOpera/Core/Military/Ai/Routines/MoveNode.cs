@@ -1,29 +1,29 @@
 using Cardamom.Collections;
 using Cardamom.Graphing.BehaviorTree;
-using SpaceOpera.Core.Military.Actions;
+using SpaceOpera.Core.Military.Ai.Actions;
 using SpaceOpera.Core.Universe;
 using static SpaceOpera.Core.Military.SpaceOperaContext;
 
-namespace SpaceOpera.Core.Military.Routines
+namespace SpaceOpera.Core.Military.Ai.Routines
 {
-    public class MoveNode : ISupplierNode<IAction, FleetContext>
+    public class MoveNode : ISupplierNode<IAction, FormationContext>
     {
-        private readonly ISupplierNode<INavigable, FleetContext> _destination;
+        private readonly ISupplierNode<INavigable, FormationContext> _destination;
         private readonly EnumSet<NavigableEdgeType> _allowedEdgeTypes;
 
         private Stack<NavigationMap.Movement>? _cachedPath;
 
         public MoveNode(
-            ISupplierNode<INavigable, FleetContext> destination,
+            ISupplierNode<INavigable, FormationContext> destination,
             EnumSet<NavigableEdgeType> allowedEdgeTypes)
         {
             _destination = destination;
             _allowedEdgeTypes = allowedEdgeTypes;
         }
 
-        public BehaviorNodeResult<IAction> Execute(FleetContext context)
+        public BehaviorNodeResult<IAction> Execute(FormationContext context)
         {
-            var currentPosition = context.Fleet.Formation.Position!;
+            var currentPosition = context.Driver.Formation.Position!;
             var destination = _destination.Execute(context);
             if (!destination.Status.Complete)
             {
@@ -41,11 +41,11 @@ namespace SpaceOpera.Core.Military.Routines
                     _cachedPath = null;
                 }
             }
-            if (_cachedPath == null 
+            if (_cachedPath == null
                 || destination.Result != _cachedPath.Last().Destination
                 || _cachedPath.Peek().Origin != currentPosition)
             {
-                _cachedPath = 
+                _cachedPath =
                     context.World.NavigationMap.FindPath(currentPosition, destination.Result, _allowedEdgeTypes);
             }
             return BehaviorNodeResult<IAction>.Complete(new MoveAction(_cachedPath.Peek()));

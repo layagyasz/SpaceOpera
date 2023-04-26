@@ -46,6 +46,7 @@ namespace SpaceOpera.View.Scenes
         private static readonly float s_StellarBodySceneStarScale = 1024;
         private static readonly Vector3 s_StellarBodySceneStarPosition = new(0, 0, -1000);
         private static readonly float s_StellarBodySceneSurfaceHighlightHeight = 32;
+        private static readonly float s_StellarBodySceneSurfaceFormationHeightFactor = 64f;
         private static readonly float s_StellarBodySceneOrbitHeightFactor = 3;
         private static readonly float s_StellarBodySceneOrbitFormationHeightFactor = 3.5f;
         private static readonly float s_StellarBodyBorderWidth = 0.001f;
@@ -285,7 +286,7 @@ namespace SpaceOpera.View.Scenes
                 FormationLayerFactory.CreateForStellarBody(
                     world, 
                     stellarBody,
-                    model.Radius * (1 + s_StellarBodySceneSurfaceHighlightHeight / stellarBody.Radius),
+                    model.Radius * (1 + s_StellarBodySceneSurfaceFormationHeightFactor / stellarBody.Radius),
                     model.Radius * s_StellarBodySceneOrbitFormationHeightFactor);
 
             var controller =

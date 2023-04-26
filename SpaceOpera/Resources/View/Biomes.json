@@ -172,7 +172,7 @@
     "Color": "#f6ea8d",
     "SpecularCoefficient": 1,
     "SpecularFactor": 128,
-    "Roughness": 0.1
+    "Roughness": 0
   },
   {
     "$id": "biome-salt-flat",

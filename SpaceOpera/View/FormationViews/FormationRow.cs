@@ -16,7 +16,7 @@ namespace SpaceOpera.View.FormationViews
         private static readonly string s_FormationLayerRowTextClassName = "formation-layer-row-text";
         private static readonly string s_FormationLayerRowBattleIconClassName = "formation-layer-row-battle-icon";
 
-        private readonly List<IFormationDriver> _drivers = new();
+        private readonly List<FormationDriver> _drivers = new();
         private readonly IUiElement _battle;
 
         private FormationRow(Class @class, Icon icon, IUiElement text, IUiElement battle)
@@ -33,12 +33,12 @@ namespace SpaceOpera.View.FormationViews
             Refresh();
         }
 
-        public void Add(IFormationDriver driver)
+        public void Add(FormationDriver driver)
         {
             _drivers.Add(driver);
         }
 
-        public void Remove(IFormationDriver driver)
+        public void Remove(FormationDriver driver)
         {
             _drivers.Remove(driver);
         }
@@ -48,7 +48,7 @@ namespace SpaceOpera.View.FormationViews
             yield return _battle;
         }
 
-        public IEnumerable<IFormationDriver> GetDrivers()
+        public IEnumerable<FormationDriver> GetDrivers()
         {
             return _drivers;
         }

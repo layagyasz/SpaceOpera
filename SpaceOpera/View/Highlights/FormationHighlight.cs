@@ -13,9 +13,9 @@ namespace SpaceOpera.View.Highlights
         public Color4 BorderColor => Color4.Yellow;
         public Color4 Color => Color4.Yellow;
 
-        private readonly HashSet<IFormationDriver> _drivers;
+        private readonly HashSet<FormationDriver> _drivers;
 
-        public FormationHighlight(IEnumerable<IFormationDriver> drivers)
+        public FormationHighlight(IEnumerable<FormationDriver> drivers)
         {
             _drivers = new(drivers);
             foreach (var driver in _drivers)

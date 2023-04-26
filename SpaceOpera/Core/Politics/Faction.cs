@@ -33,9 +33,24 @@ namespace SpaceOpera.Core.Politics
             _advancementManager.AddResearch(research, quantity);
         }
 
+        public float GetSpaceForcesCommand()
+        {
+            return _attributes[FactionAttribute.SpaceForcesCommand];
+        }
+
         public float GetFleetCommand()
         {
             return _attributes[FactionAttribute.FleetCommand];
+        }
+
+        public float GetLandForcesCommand()
+        {
+            return _attributes[FactionAttribute.LandForcesCommand];
+        }
+
+        public float GetArmyCommand()
+        {
+            return _attributes[FactionAttribute.ArmyCommand];
         }
 
         public Pool GetResearchProgress(IAdvancement Advancement)

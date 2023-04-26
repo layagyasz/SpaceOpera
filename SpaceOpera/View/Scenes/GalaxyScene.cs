@@ -73,6 +73,7 @@ namespace SpaceOpera.View.Scenes
             target.Flatten();
             context.Flatten();
             _formationLayer?.Draw(target, context);
+            context.Flatten();
         }
 
         public float? GetRayIntersection(Ray3 ray)
