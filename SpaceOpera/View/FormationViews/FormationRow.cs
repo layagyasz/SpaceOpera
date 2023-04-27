@@ -14,7 +14,7 @@ namespace SpaceOpera.View.FormationViews
         private static readonly string s_FormationLayerRow = "formation-layer-row";
         private static readonly string s_FormationLayerRowIcon = "formation-layer-row-icon";
         private static readonly string s_FormationLayerRowText = "formation-layer-row-text";
-        private static readonly string s_FormationLayerRowNumber = "formation-layer-row-text";
+        private static readonly string s_FormationLayerRowNumber = "formation-layer-row-number";
         private static readonly string s_FormationLayerRowBattleIcon = "formation-layer-row-battle-icon";
 
         public int FormationCount => _drivers.Count;

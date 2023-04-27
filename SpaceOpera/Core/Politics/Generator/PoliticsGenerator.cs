@@ -196,7 +196,11 @@ namespace SpaceOpera.Core.Politics.Generator
             foreach (var system in world.Galaxy.Systems)
             {
                 var dominantFaction = 
-                    system.Orbiters.SelectMany(x => x.Regions).GroupBy(x => x.Sovereign).ArgMax(x => x.Count())?.Key;
+                    system.Orbiters
+                        .SelectMany(x => x.Regions)
+                        .Where(x => x.Sovereign != null)
+                        .GroupBy(x => x.Sovereign)
+                        .ArgMax(x => x.Count())?.Key;
                 if (dominantFaction != null)
                 {
                     system.Star.SetName(dominantFaction.NameGenerator.GenerateNameForStar(random));

@@ -11,10 +11,10 @@ namespace SpaceOpera.Core.Military.Ai
         protected readonly ISupplierNode<IAction, FormationContext> _routine;
         protected IAssignment _assignment;
 
-        protected BaseFormationAi(ISupplierNode<IAction, FormationContext> routine, IAssignment assignment)
+        protected BaseFormationAi(ISupplierNode<IAction, FormationContext> routine)
         {
             _routine = routine;
-            _assignment = assignment;
+            _assignment = new NoAssignment();
         }
 
         public BehaviorNodeResult<IAction> Execute(FormationContext context)

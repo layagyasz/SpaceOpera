@@ -1,9 +1,9 @@
 ﻿using Cardamom.Ui;
-using Cardamom.Ui.Controller;
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
 using SpaceOpera.Controller.Components;
 using SpaceOpera.Core.Military;
+using SpaceOpera.Core.Military.Ai.Actions;
 using SpaceOpera.View.Components;
 using SpaceOpera.View.Icons;
 
@@ -19,9 +19,12 @@ namespace SpaceOpera.View.Panes.FormationPanes
                 ActionContainer = "formation-pane-formation-header-action-container"
             };
         private static readonly string s_Icon = "formation-pane-formation-header-icon";
-        private static readonly string s_Text = "formation-pane-formation-header-text";
+        private static readonly string s_Info = "formation-pane-formation-header-info";
+        private static readonly string s_Name = "formation-pane-formation-header-name";
+        private static readonly string s_CurrentAction = "formation-pane-formation-header-current-action";
         private static readonly string s_AssignmentContainer = "formation-pane-formation-header-assignment-container";
-        private static readonly List<ActionRow<FormationDriver>.ActionConfiguration> s_HeaderAssignments =
+
+        private static readonly List<ActionRow<FormationDriver>.ActionConfiguration> s_FleetAssignments =
             new()
             {
                 new()
@@ -35,6 +38,16 @@ namespace SpaceOpera.View.Panes.FormationPanes
                     Action = ActionId.Patrol
                 }
             };
+        private static readonly List<ActionRow<FormationDriver>.ActionConfiguration> s_DivisionAssignments =
+            new()
+            {
+                new()
+                {
+                    Button = "formation-pane-formation-header-assignment-none",
+                    Action = ActionId.NoAssignment
+                }
+            };
+
         private static readonly List<ActionRow<FormationDriver>.ActionConfiguration> s_HeaderActions =
             new()
             {
@@ -59,22 +72,29 @@ namespace SpaceOpera.View.Panes.FormationPanes
         {
             Key = driver;
             Add(iconFactory.Create(uiElementFactory.GetClass(s_Icon), new InlayController(), driver));
-            Add(new TextUiElement(
-                    uiElementFactory.GetClass(s_Text), new InlayController(), driver.Formation.Name));
+            Add(
+                new DynamicUiSerialContainer(
+                    uiElementFactory.GetClass(s_Info), new InlayController(), UiSerialContainer.Orientation.Vertical)
+                { 
+                    new TextUiElement(uiElementFactory.GetClass(s_Name), new InlayController(), driver.Formation.Name),
+                    new DynamicTextUiElement(
+                        uiElementFactory.GetClass(s_CurrentAction), new InlayController(), GetCurrentAction)
+                });
 
             var assignments = 
-                new UiCompoundComponent(
-                    new RadioController<ActionId>(
-                        "assignment-" + GetHashCode(), ActionIdMapper.ToActionId(driver.GetAssignment())),
+                new DynamicUiCompoundComponent(
+                    new DynamicRadioController<ActionId>(
+                        "assignment-" + GetHashCode(), GetAssignment),
                     new UiSerialContainer(
                         uiElementFactory.GetClass(s_AssignmentContainer),
                         new InlayController(),
                         UiSerialContainer.Orientation.Horizontal));
-            foreach (var assignment in s_HeaderAssignments)
+            foreach (var assignment in GetAssignments(driver))
             {
-                var a = 
+                var a =
                     new SimpleUiElement(
-                        uiElementFactory.GetClass(assignment.Button), new ActionButtonController(assignment.Action));
+                        uiElementFactory.GetClass(assignment.Button),
+                        new ActionButtonController(assignment.Action));
                 assignments.Add(a);
                 _actions.Add(a);
             }
@@ -97,6 +117,60 @@ namespace SpaceOpera.View.Panes.FormationPanes
         public IEnumerable<IUiElement> GetActions()
         {
             return _actions;
+        }
+
+        private ActionId GetAssignment()
+        {
+            return ActionIdMapper.ToActionId(Key.GetAssignment());
+        }
+
+        private string GetCurrentAction()
+        {
+            var action = Key.GetCurrentAction();
+            if (action == null)
+            {
+                return "Waiting";
+            }
+            var type = action.GetType();
+            if (type == typeof(CombatAction))
+            {
+                return "In combat";
+            }
+            if (type == typeof(EngageAction))
+            {
+                return "Engaging " + ((EngageAction)action).Target.Name;
+            }
+            if (type == typeof(IdleAction))
+            {
+                return "Awaiting orders";
+            }
+            if (type == typeof(MoveAction))
+            {
+                return "Moving to " + ((MoveAction)action).Movement.Destination.Name;
+            }
+            if (type == typeof(RegroupAction))
+            {
+                return "Regrouping";
+            }
+            if (type == typeof(SpotAction))
+            {
+                return "Spotting " + ((SpotAction)action).Target.Name;
+            }
+            return type.ToString();
+        }
+
+        private static IEnumerable<ActionRow<FormationDriver>.ActionConfiguration> GetAssignments(
+            FormationDriver driver)
+        {
+            if (driver is FleetDriver)
+            {
+                return s_FleetAssignments;
+            }
+            if (driver is DivisionDriver)
+            {
+                return s_DivisionAssignments;
+            }
+            return Enumerable.Empty<ActionRow<FormationDriver>.ActionConfiguration>();
         }
     }
 }

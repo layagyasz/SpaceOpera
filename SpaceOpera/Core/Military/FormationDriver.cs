@@ -25,6 +25,11 @@ namespace SpaceOpera.Core.Military
             _ai = ai;
         }
 
+        public IAction? GetCurrentAction()
+        {
+            return _action;
+        }
+
         public AssignmentType GetAssignment()
         {
             return _ai.GetAssignment().Type;

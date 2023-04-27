@@ -1,17 +1,16 @@
 using SpaceOpera.Core.Military;
-using SpaceOpera.Core.Orders;
 using SpaceOpera.Core.Universe;
 
-namespace SpaceOpera.Core.Languages
+namespace SpaceOpera.Core.Orders.Formations
 {
-    public class SetFleetActiveRegionOrder : IOrder
+    public class SetActiveRegionOrder : IOrder
     {
-        public FormationDriver Fleet { get; }
+        public FormationDriver Driver { get; }
         public ISet<INavigable> ActiveRegion { get; }
 
-        public SetFleetActiveRegionOrder(FormationDriver fleet, ISet<INavigable> activeRegion)
+        public SetActiveRegionOrder(FormationDriver driver, ISet<INavigable> activeRegion)
         {
-            Fleet = fleet;
+            Driver = driver;
             ActiveRegion = activeRegion;
         }
 
@@ -22,7 +21,7 @@ namespace SpaceOpera.Core.Languages
 
         public bool Execute(World world)
         {
-            Fleet.SetActiveRegion(ActiveRegion);
+            Driver.SetActiveRegion(ActiveRegion);
             return true;
         }
     }

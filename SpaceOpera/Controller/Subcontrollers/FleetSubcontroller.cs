@@ -1,8 +1,8 @@
 ﻿using Cardamom.Collections;
 using OpenTK.Windowing.GraphicsLibraryFramework;
-using SpaceOpera.Core.Languages;
 using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Orders;
+using SpaceOpera.Core.Orders.Formations;
 using SpaceOpera.Core.Universe;
 
 namespace SpaceOpera.Controller.Subcontrollers
@@ -11,9 +11,9 @@ namespace SpaceOpera.Controller.Subcontrollers
     {
         public EventHandler<IOrder>? OrderCreated { get; set; }
 
-        private readonly HashSet<FormationDriver> _drivers;
+        private readonly HashSet<FleetDriver> _drivers;
 
-        public FleetSubcontroller(IEnumerable<FormationDriver> drivers) 
+        public FleetSubcontroller(IEnumerable<FleetDriver> drivers) 
         {
             _drivers = new(drivers);
         }
@@ -37,7 +37,7 @@ namespace SpaceOpera.Controller.Subcontrollers
                         {
                             activeNodes.UnionWith(nodes);
                         }
-                        OrderCreated?.Invoke(this, new SetFleetActiveRegionOrder(driver, activeNodes));
+                        OrderCreated?.Invoke(this, new SetActiveRegionOrder(driver, activeNodes));
                     }
                 }
                 return true;

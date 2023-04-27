@@ -52,11 +52,27 @@
     }
   },
   {
-    "$id": "formation-pane-formation-header-text",
+    "$id": "formation-pane-formation-header-info",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 266, 48 ]
+    }
+  },
+  {
+    "$id": "formation-pane-formation-header-name",
     "Parent": "ui-element-internal",
     "Default": {
-      "Size": [ 266, 48 ],
+      "Size": [ 266, 28 ],
       "Padding": [ 8 ]
+    }
+  },
+  {
+    "$id": "formation-pane-formation-header-current-action",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 266, 20 ],
+      "Padding": [ 8, 4, 8, 4 ],
+      "FontSize": 12
     }
   },
   {

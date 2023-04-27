@@ -8,8 +8,10 @@ using SpaceOpera.Controller.Subcontrollers;
 using SpaceOpera.Core;
 using SpaceOpera.Core.Designs;
 using SpaceOpera.Core.Military;
+using SpaceOpera.Core.Military.Ai.Assigments;
 using SpaceOpera.Core.Military.Battles;
 using SpaceOpera.Core.Orders;
+using SpaceOpera.Core.Orders.Formations;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Universe;
 using SpaceOpera.View;
@@ -203,7 +205,7 @@ namespace SpaceOpera.Controller
 
         private void HandleInteraction(object? sender, UiInteractionEventArgs e)
         {
-            _logger.AtInfo().Log(e.ToString());
+            _logger.AtInfo().Log($"{_subcontroller?.GetType()} {e}");
 
             if (HandleKeyInteraction(e.Key))
             {
@@ -275,9 +277,22 @@ namespace SpaceOpera.Controller
         {
             if (type.IsAssignableTo(typeof(FormationDriver)))
             {
+                var assigment = ActionIdMapper.ToAssignmentType(e.Action!.Value);
+                if (assigment != AssignmentType.Unknown)
+                {
+                    foreach (var driver in e.Objects.Cast<FormationDriver>())
+                    {
+                        ExecuteOrder(new SetAssignmentOrder(driver, assigment));
+                    }
+                }
                 if (e.Action == ActionId.Select)
                 {
                     SelectFormations(e.Objects.Cast<FormationDriver>());
+                    return;
+                }
+                if (e.Action == ActionId.Unselect)
+                {
+                    UnselectFormations(e.Objects.Cast<FormationDriver>());
                     return;
                 }
                 if (e.Action == ActionId.Battle)
@@ -292,11 +307,6 @@ namespace SpaceOpera.Controller
                             .FirstOrDefault());
                 }
             }
-            if (type.IsAssignableTo(typeof(FormationDriver)) && e.Action == ActionId.Unselect)
-            {
-                UnselectFormations(e.Objects.Cast<FormationDriver>());
-                return;
-            }
             if (type.IsAssignableTo(typeof(IOrder)) && e.Action == ActionId.Confirm)
             {
                 ExecuteOrder((IOrder)e.GetOnlyObject()!);
@@ -307,29 +317,32 @@ namespace SpaceOpera.Controller
                 OpenPane(GamePaneId.Designer, /* closeOpenPanes= */ true, _world!, _faction, e.GetOnlyObject()!);
                 return;
             }
-            if (type.IsAssignableTo(typeof(StellarBodySubRegion)) && e.Button == MouseButton.Left)
+            if (e.Button == MouseButton.Left)
             {
-                var subRegion = (StellarBodySubRegion)e.GetOnlyObject()!;
-                OpenPane(
-                    GamePaneId.StellarBodyRegion,
-                    /* closeOpenPanes= */ true,
-                    _world!,
-                    _faction,
-                    subRegion.ParentRegion!);
-                SetHighlight(
-                    HighlightLayerName.Foreground,
-                    SimpleHighlight.Wrap(new StellarBodyRegionHighlight(subRegion.ParentRegion!)));
-                return;
-            }
-            if (s_SceneTypes.Contains(type))
-            {
-                PushScene(e.GetOnlyObject()!);
-                return;
-            }
-            if (type.IsAssignableTo(typeof(TransitRegion)))
-            {
-                var transit = (TransitRegion)e.GetOnlyObject()!;
-                ChangeSceneTo(transit.TransitSystem, /* cleanUp= */ true);
+                if (type.IsAssignableTo(typeof(StellarBodySubRegion)))
+                {
+                    var subRegion = (StellarBodySubRegion)e.GetOnlyObject()!;
+                    OpenPane(
+                        GamePaneId.StellarBodyRegion,
+                        /* closeOpenPanes= */ true,
+                        _world!,
+                        _faction,
+                        subRegion.ParentRegion!);
+                    SetHighlight(
+                        HighlightLayerName.Foreground,
+                        SimpleHighlight.Wrap(new StellarBodyRegionHighlight(subRegion.ParentRegion!)));
+                    return;
+                }
+                if (s_SceneTypes.Contains(type))
+                {
+                    PushScene(e.GetOnlyObject()!);
+                    return;
+                }
+                if (type.IsAssignableTo(typeof(TransitRegion)))
+                {
+                    var transit = (TransitRegion)e.GetOnlyObject()!;
+                    ChangeSceneTo(transit.TransitSystem, /* cleanUp= */ true);
+                }
             }
         }
 
@@ -341,9 +354,9 @@ namespace SpaceOpera.Controller
             {
                 _selectedFormations.Add(driver);
             }
-            if (_selectedFormations.Count > 0 && _selectedFormations.First().GetType() == typeof(FormationDriver))
+            if (_selectedFormations.Count > 0 && _selectedFormations.First().GetType() == typeof(FleetDriver))
             {
-                ChangeSubcontrollerTo(new FleetSubcontroller(drivers.Cast<FormationDriver>()));
+                ChangeSubcontrollerTo(new FleetSubcontroller(drivers.Cast<FleetDriver>()));
                 SetHighlight(
                     HighlightLayerName.Foreground,
                     SimpleHighlight.Wrap(new FormationHighlight(_selectedFormations)));
