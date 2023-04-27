@@ -1,17 +1,17 @@
 using Cardamom.Graphing.BehaviorTree;
 
-namespace SpaceOpera.Core.Military
+namespace SpaceOpera.Core.Military.Ai
 {
     public class SpaceOperaContext : SimpleContext
     {
         public class FormationContext : SpaceOperaContext
         {
-            public FormationDriver Driver { get; }
+            public IFormation Formation { get; }
 
-            internal FormationContext(World world, FormationDriver driver)
+            internal FormationContext(World world, IFormation formation)
                 : base(world)
             {
-                Driver = driver;
+                Formation = formation;
             }
         }
 
@@ -22,9 +22,9 @@ namespace SpaceOpera.Core.Military
             World = world;
         }
 
-        public FormationContext ForFleet(FormationDriver fleet)
+        public FormationContext ForFormation(IFormation formation)
         {
-            return new FormationContext(World, fleet);
+            return new FormationContext(World, formation);
         }
     }
 }

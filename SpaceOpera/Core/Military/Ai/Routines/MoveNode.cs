@@ -2,7 +2,7 @@ using Cardamom.Collections;
 using Cardamom.Graphing.BehaviorTree;
 using SpaceOpera.Core.Military.Ai.Actions;
 using SpaceOpera.Core.Universe;
-using static SpaceOpera.Core.Military.SpaceOperaContext;
+using static SpaceOpera.Core.Military.Ai.SpaceOperaContext;
 
 namespace SpaceOpera.Core.Military.Ai.Routines
 {
@@ -23,7 +23,7 @@ namespace SpaceOpera.Core.Military.Ai.Routines
 
         public BehaviorNodeResult<IAction> Execute(FormationContext context)
         {
-            var currentPosition = context.Driver.Formation.Position!;
+            var currentPosition = context.Formation.Position!;
             var destination = _destination.Execute(context);
             if (!destination.Status.Complete)
             {
@@ -48,7 +48,7 @@ namespace SpaceOpera.Core.Military.Ai.Routines
                 _cachedPath =
                     context.World.NavigationMap.FindPath(currentPosition, destination.Result, _allowedEdgeTypes);
             }
-            return BehaviorNodeResult<IAction>.Complete(new MoveAction(_cachedPath.Peek()));
+            return BehaviorNodeResult<IAction>.Complete(new MoveAction(_cachedPath!.Peek()));
         }
     }
 }

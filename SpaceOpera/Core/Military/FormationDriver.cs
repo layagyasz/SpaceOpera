@@ -2,7 +2,7 @@ using Cardamom.Graphing.BehaviorTree;
 using SpaceOpera.Core.Military.Ai;
 using SpaceOpera.Core.Military.Ai.Actions;
 using SpaceOpera.Core.Universe;
-using static SpaceOpera.Core.Military.SpaceOperaContext;
+using static SpaceOpera.Core.Military.Ai.SpaceOperaContext;
 
 namespace SpaceOpera.Core.Military
 {
@@ -12,9 +12,8 @@ namespace SpaceOpera.Core.Military
         public EventHandler<EventArgs>? OrderUpdated { get; set; }
 
         public IFormation Formation { get; }
-        private HashSet<INavigable> _activeRegion = new();
 
-        private readonly ISupplierNode<IAction, FormationContext> _ai;
+        private readonly IFormationAi _ai;
         private IAction? _action;
 
         protected FormationDriver(IFormation formation, IFormationAi ai)
@@ -27,19 +26,19 @@ namespace SpaceOpera.Core.Military
 
         public ICollection<INavigable> GetActiveRegion()
         {
-            return _activeRegion;
+            return _ai.GetActiveRegion();
         }
 
         public void SetActiveRegion(IEnumerable<INavigable> activeRegion)
         {
-            _activeRegion = new HashSet<INavigable>(activeRegion);
+            _ai.SetActiveRegion(activeRegion);
             OrderUpdated?.Invoke(this, EventArgs.Empty);
         }
 
         public void Tick(SpaceOperaContext context)
         {
             Formation.Cohere();
-            var newAction = _ai.Execute(context.ForFleet(this)).Result;
+            var newAction = _ai.Execute(context.ForFormation(Formation)).Result;
             if (newAction == null || _action == null || !newAction.Equivalent(_action))
             {
                 _action = newAction;

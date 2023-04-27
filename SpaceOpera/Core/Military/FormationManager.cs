@@ -1,3 +1,4 @@
+using SpaceOpera.Core.Military.Ai;
 using SpaceOpera.Core.Politics;
 
 namespace SpaceOpera.Core.Military
