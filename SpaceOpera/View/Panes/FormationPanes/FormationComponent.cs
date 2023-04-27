@@ -14,24 +14,6 @@ namespace SpaceOpera.View.Panes.FormationPanes
         private static readonly string s_ContainerClassName = "formation-pane-formation-container";
         private static readonly string s_UnitGroupingTableClassName = "formation-pane-formation-unit-grouping-table";
 
-        private static readonly ActionRow<FormationDriver>.Style s_HeaderStyle =
-            new() 
-            {
-                Container = "formation-pane-formation-header",
-                ActionContainer = "formation-pane-formation-header-action-container"
-            };
-        private static readonly string s_IconClassName = "formation-pane-formation-header-icon";
-        private static readonly string s_TextClassName = "formation-pane-formation-header-text";
-        private static readonly List<ActionRow<FormationDriver>.ActionConfiguration> s_HeaderActions =
-            new()
-            { 
-                new ()
-                {
-                    Button = "formation-pane-formation-header-action-close",
-                    Action = ActionId.Unselect
-                }
-            };
-
         private static readonly ActionRow<UnitGrouping>.Style s_UnitGroupingRowStyle =
             new() 
             {
@@ -66,21 +48,7 @@ namespace SpaceOpera.View.Panes.FormationPanes
             _uiElementFactory = uiElementFactory;
             _iconFactory = iconFactory;
 
-            Header = 
-                ActionRow<FormationDriver>.Create(
-                    driver, 
-                    uiElementFactory,
-                    s_HeaderStyle,
-                    new List<IUiElement>()
-                    {
-                        _iconFactory.Create(
-                            _uiElementFactory.GetClass(s_IconClassName), new InlayController(), driver),
-                        new TextUiElement(
-                            _uiElementFactory.GetClass(s_TextClassName), 
-                            new InlayController(),
-                            driver.Formation.Name)
-                    },
-                    s_HeaderActions);
+            Header = new FormationComponentHeader(driver, _uiElementFactory, _iconFactory);
             Add(Header);
 
             UnitGroupingTable =

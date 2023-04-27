@@ -7,6 +7,8 @@ namespace SpaceOpera.Core.Military.Ai.Assigments
 {
     public class NoAssignment : IAssignment
     {
+        public AssignmentType Type => AssignmentType.None;
+
         public void SetActiveRegion(IEnumerable<INavigable> region) { }
 
         public ICollection<INavigable> GetActiveRegion()

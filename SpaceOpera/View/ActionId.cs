@@ -2,7 +2,8 @@
 {
     public enum ActionId
     {
-        None,
+        Unknown,
+
         Select,
         Unselect,
 
@@ -12,13 +13,17 @@
         MilitaryOrganization,
         Research,
 
+        // Game speeds
         GameSpeedPause,
         GameSpeedNormal,
         GameSpeedFast,
 
         // Element actions
-        Edit,
         Battle,
+        Defend,
+        Edit,
+        Patrol,
+        NoAssignment,
 
         // Order actions
         Confirm

@@ -2,7 +2,7 @@
 {
     public enum GamePaneId
     {
-        None,
+        Unknown,
         Battle,
         Designer,
         Equipment,

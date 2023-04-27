@@ -257,14 +257,14 @@ namespace SpaceOpera.Controller
             {
                 return;
             }
-            var gameSpeed = GetGameSpeed(e.Action.Value);
+            var gameSpeed = ActionIdMapper.ToGameSpeed(e.Action.Value);
             if (gameSpeed != null)
             {
                 _driver.SetGameSpeed(gameSpeed.Value);
                 return;
             }
-            var paneId = GetPane(e.Action.Value);
-            if (paneId != GamePaneId.None)
+            var paneId = ActionIdMapper.ToPaneId(e.Action.Value);
+            if (paneId != GamePaneId.Unknown)
             {
                 OpenPane(paneId, /* closeOpenPanes= */ true, _world!, _faction);
                 return;
@@ -383,29 +383,6 @@ namespace SpaceOpera.Controller
             var pane = _screen!.GetPane(paneId);
             pane.Populate(args);
             _screen!.OpenPane(pane, closeOpenPanes);
-        }
-        
-        private static GamePaneId GetPane(ActionId id)
-        {
-            return id switch
-            {
-                ActionId.Equipment => GamePaneId.Equipment,
-                ActionId.Military => GamePaneId.Military,
-                ActionId.MilitaryOrganization => GamePaneId.MilitaryOrganization,
-                ActionId.Research => GamePaneId.Research,
-                _ => GamePaneId.None,
-            };
-        }
-
-        private static int? GetGameSpeed(ActionId id)
-        {
-            return id switch
-            {
-                ActionId.GameSpeedPause => 0,
-                ActionId.GameSpeedNormal => 1,
-                ActionId.GameSpeedFast => 8,
-                _ => null,
-            };
         }
     }
 }

@@ -1,6 +1,7 @@
 using Cardamom.Graphing.BehaviorTree;
 using SpaceOpera.Core.Military.Ai;
 using SpaceOpera.Core.Military.Ai.Actions;
+using SpaceOpera.Core.Military.Ai.Assigments;
 using SpaceOpera.Core.Universe;
 using static SpaceOpera.Core.Military.Ai.SpaceOperaContext;
 
@@ -22,6 +23,29 @@ namespace SpaceOpera.Core.Military
             Formation.Moved += HandleMove;
 
             _ai = ai;
+        }
+
+        public AssignmentType GetAssignment()
+        {
+            return _ai.GetAssignment().Type;
+        }
+
+        public void SetAssignment(AssignmentType type)
+        {
+            if (type == _ai.GetAssignment().Type)
+            {
+                return;
+            }
+            switch (type)
+            {
+                case AssignmentType.None:
+                    _ai.SetAssignment(new NoAssignment());
+                    break;
+                case AssignmentType.Patrol:
+                    _ai.SetAssignment(new PatrolAssignment());
+                    break;
+            }
+            OrderUpdated?.Invoke(this, EventArgs.Empty);
         }
 
         public ICollection<INavigable> GetActiveRegion()

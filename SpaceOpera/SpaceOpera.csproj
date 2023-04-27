@@ -386,6 +386,9 @@
     <None Update="Resources\View\Icons\organization.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\View\Icons\patrol.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\View\Icons\person.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -95,6 +95,8 @@ namespace SpaceOpera.Core.Military.Ai.Assigments
             }
         }
 
+        public AssignmentType Type => AssignmentType.Patrol;
+
         private HashSet<INavigable> _patrolRegion = new();
         private readonly ISupplierNode<IAction, FormationContext> _routine;
 

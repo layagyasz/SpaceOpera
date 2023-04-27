@@ -55,16 +55,41 @@
     "$id": "formation-pane-formation-header-text",
     "Parent": "ui-element-internal",
     "Default": {
-      "Size": [ 338, 48 ],
+      "Size": [ 266, 48 ],
       "Padding": [ 8 ]
     }
   },
   {
+    "$id": "formation-pane-formation-header-assignment-container",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 72, 48 ],
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "formation-pane-formation-header-assignment-none",
+    "Parent": "pane-action-button",
+    "Default": {
+      "Texture": "icon-none",
+      "Margin": [ 4, 10, 4, 10 ]
+    }
+  },
+  {
+    "$id": "formation-pane-formation-header-assignment-patrol",
+    "Parent": "pane-action-button",
+    "Default": {
+      "Texture": "icon-patrol",
+      "Margin": [ 4, 10, 4, 10 ]
+    }
+  },
+  {
     "$id": "formation-pane-formation-header-action-container",
-    "Parent": "ui-element-internal",
+    "Parent": "ui-container",
     "Default": {
       "Size": [ 36, 48 ],
-      "Padding": [ 4, 10, 4, 10 ]
+      "Padding": [ 4, 10, 4, 10 ],
+      "DisableScissor": true
     }
   },
   {
