@@ -5,6 +5,7 @@ using Cardamom.Ui.Controller;
 using Cardamom.Ui.Elements;
 using SpaceOpera.Controller;
 using SpaceOpera.Core;
+using SpaceOpera.View.Components;
 using SpaceOpera.View.FactionViews;
 using SpaceOpera.View.FormationViews;
 using SpaceOpera.View.GalaxyViews;
@@ -62,6 +63,7 @@ namespace SpaceOpera.View
             IconFactory iconFactory =
                 new(
                     viewData.Banners!,
+                    new(stellarBodyViewFactory),
                     viewData.Icons,
                     viewData.DesignedComponentIconConfigs.ToEnumMap(x => x.ComponentType, x => x),
                     uiElementFactory);
@@ -93,9 +95,10 @@ namespace SpaceOpera.View
         {
             return new(
                 controller,
-                EmpireOverlay.Create(UiElementFactory, calendar),
+                OverlaySet.Create(UiElementFactory, IconFactory),
+                new DynamicUiGroup(new NoOpController<UiGroup>()),
                 PaneSet.Create(UiElementFactory, IconFactory),
-                new UiGroup(new PaneLayerController()));
+                new DynamicUiGroup(new PaneLayerController()));
         }
     }
 }

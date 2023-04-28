@@ -20,6 +20,7 @@ namespace SpaceOpera.View.Scenes
         public IControlledElement? Parent { get; set; }
         public float? OverrideDepth { get; set; }
         public ICamera Camera { get; set; }
+        public StarSystem StarSystem { get; }
 
         private StarSystemModel? _model;
         private readonly RenderShader _surfaceShader;
@@ -33,6 +34,7 @@ namespace SpaceOpera.View.Scenes
         private readonly Skybox _skybox;
 
         public StarSystemScene(
+            StarSystem starSystem,
             IElementController controller,
             ICamera camera,
             StarSystemModel model,
@@ -46,6 +48,7 @@ namespace SpaceOpera.View.Scenes
             FormationSubLayer<object> formationSubLayer,
             Skybox skybox)
         {
+            StarSystem = starSystem;
             Controller = controller;
             Camera = camera;
             Camera.Changed += HandleCameraUpdate;

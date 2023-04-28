@@ -1,8 +1,8 @@
 ﻿using Cardamom.Graphics;
 using Cardamom.Ui;
 using Cardamom.Ui.Controller;
-using Cardamom.Ui.Elements;
 using OpenTK.Mathematics;
+using SpaceOpera.View.Components;
 using SpaceOpera.View.Overlay;
 using SpaceOpera.View.Panes;
 using SpaceOpera.View.Scenes;
@@ -16,22 +16,23 @@ namespace SpaceOpera.View
         public EventHandler<EventArgs>? Refreshed { get; set; }
 
         public IController Controller { get; }
-        public UiGroup PaneLayer { get; }
-
-        public EmpireOverlay EmpireOverlay { get; }
-
-        private readonly PaneSet _paneSet;
+        public OverlaySet OverlaySet { get; }
+        public DynamicUiGroup OverlayLayer { get; }
+        public PaneSet PaneSet { get; }
+        public DynamicUiGroup PaneLayer { get; }
 
         private long _time;
 
         public IGameScene? Scene { get; private set; }
         private Vector3 _bounds;
 
-        public GameScreen(IController controller, EmpireOverlay empireOverlay, PaneSet paneSet, UiGroup paneLayer)
+        public GameScreen(
+            IController controller, OverlaySet overlaySet, DynamicUiGroup overlayLayer, PaneSet paneSet, DynamicUiGroup paneLayer)
         {
             Controller = controller;
-            EmpireOverlay = empireOverlay;
-            _paneSet = paneSet;
+            OverlaySet = overlaySet;
+            OverlayLayer = overlayLayer;
+            PaneSet = paneSet;
             PaneLayer = paneLayer;
         }
 
@@ -43,26 +44,28 @@ namespace SpaceOpera.View
         public void Draw(IRenderTarget target, IUiContext context)
         {
             Scene?.Draw(target, context);
-            EmpireOverlay.Draw(target, context);
+            OverlayLayer.Draw(target, context);
             PaneLayer.Draw(target, context);
-        }
-
-        public IGamePane GetPane(GamePaneId id)
-        {
-            return _paneSet.Get(id);
-        }
-
-        public IEnumerable<IGamePane> GetPanes()
-        {
-            return _paneSet.GetPanes();
         }
 
         public void Initialize()
         {
             Controller.Bind(this);
-            EmpireOverlay.Initialize();
-            EmpireOverlay.CalendarOverlay.SetGameSpeed(ActionId.GameSpeedNormal);
+            OverlayLayer.Initialize();
             PaneLayer.Initialize();
+        }
+
+        public void CloseOverlay(IOverlay overlay)
+        {
+            OverlayLayer.Remove(overlay);
+        }
+
+        public void OpenOverlay(IOverlay overlay)
+        {
+            if (!OverlayLayer.Contains(overlay))
+            {
+                OverlayLayer.Add(overlay);
+            }
         }
 
         public void OpenPane(IGamePane pane, bool closeOpenPanes)
@@ -80,14 +83,8 @@ namespace SpaceOpera.View
 
         public void Refresh()
         {
-            EmpireOverlay.Refresh();
-            foreach (var pane in PaneLayer)
-            {
-                if (pane is IDynamic dynamic)
-                {
-                    dynamic.Refresh();
-                }
-            }
+            OverlayLayer.Refresh();
+            PaneLayer.Refresh();
             Scene?.Refresh();
             Refreshed?.Invoke(this, EventArgs.Empty);
         }
@@ -96,6 +93,10 @@ namespace SpaceOpera.View
         {
             _bounds = bounds;
             Scene?.ResizeContext(bounds);
+            foreach (var overlay in OverlaySet.GetOverlays())
+            {
+                overlay.ResizeContext(bounds);
+            }
         }
 
         public void SetScene(IGameScene scene)
@@ -103,7 +104,7 @@ namespace SpaceOpera.View
             Scene = scene;
             Scene.ResizeContext(_bounds);
             Scene.Refresh();
-            EmpireOverlay.Parent = Scene;
+            OverlayLayer.Parent = Scene;
         }
 
         public void Update(long delta)
@@ -117,7 +118,7 @@ namespace SpaceOpera.View
 
 
             Scene?.Update(delta);
-            EmpireOverlay.Update(delta);
+            OverlayLayer.Update(delta);
             PaneLayer.Update(delta);
         }
     }

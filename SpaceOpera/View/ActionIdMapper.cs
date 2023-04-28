@@ -23,7 +23,7 @@ namespace SpaceOpera.View
                 ActionId.Defend => AssignmentType.Defend,
                 ActionId.NoAssignment => AssignmentType.None,
                 ActionId.Patrol => AssignmentType.Patrol,
-                _ => AssignmentType.None,
+                _ => AssignmentType.Unknown,
             };
         }
 

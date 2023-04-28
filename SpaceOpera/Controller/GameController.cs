@@ -2,6 +2,7 @@
 using Cardamom.Logging;
 using Cardamom.Ui;
 using Cardamom.Ui.Controller;
+using Cardamom.Ui.Elements;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using SpaceOpera.Controller.Panes;
 using SpaceOpera.Controller.Subcontrollers;
@@ -9,13 +10,13 @@ using SpaceOpera.Core;
 using SpaceOpera.Core.Designs;
 using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Military.Ai.Assigments;
-using SpaceOpera.Core.Military.Battles;
 using SpaceOpera.Core.Orders;
 using SpaceOpera.Core.Orders.Formations;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Universe;
 using SpaceOpera.View;
 using SpaceOpera.View.Highlights;
+using SpaceOpera.View.Overlay;
 using SpaceOpera.View.Panes;
 using SpaceOpera.View.Panes.StellarBodyRegionPanes;
 using SpaceOpera.View.Scenes;
@@ -55,12 +56,18 @@ namespace SpaceOpera.Controller
         public void Bind(object @object)
         {
             _screen = @object as GameScreen;
-            if (_screen!.EmpireOverlay.ComponentController is IActionController controller)
+            foreach (var overlay in _screen!.OverlaySet.GetOverlays())
             {
-                controller.Interacted += HandleInteraction;
+                if (overlay is UiCompoundComponent component)
+                {
+                    if (component.ComponentController is IActionController overlayController)
+                    {
+                        overlayController.Interacted += HandleInteraction;
+                    }
+                }
             }
-            _screen.PaneLayer.ElementRemoved += HandlePaneClosed;
-            foreach (var pane in _screen.GetPanes())
+            _screen!.PaneLayer.ElementRemoved += HandlePaneClosed;
+            foreach (var pane in _screen.PaneSet.GetPanes())
             {
                 if (pane.Controller is IGamePaneController paneController)
                 {
@@ -68,16 +75,24 @@ namespace SpaceOpera.Controller
                     paneController.OrderCreated += HandleOrder;
                 }
             }
+
+            _screen.OverlaySet.Empire.Calendar.SetGameSpeed(ActionId.GameSpeedNormal);
         }
 
         public void Unbind()
         {
             _screen = null;
-            if (_screen!.EmpireOverlay.ComponentController is IActionController controller)
+            foreach (var overlay in _screen!.OverlaySet.GetOverlays())
             {
-                controller.Interacted -= HandleInteraction;
+                if (overlay is UiCompoundComponent component)
+                {
+                    if (component.ComponentController is IActionController overlayController)
+                    {
+                        overlayController.Interacted -= HandleInteraction;
+                    }
+                }
             }
-            foreach (var pane in _screen.GetPanes())
+            foreach (var pane in _screen!.PaneSet.GetPanes())
             {
                 if (pane.Controller is IGamePaneController paneController)
                 {
@@ -121,35 +136,32 @@ namespace SpaceOpera.Controller
             }
         }
 
-        private IGameScene CreateScene(object sceneObject)
+        private void ChangeSceneTo(object sceneObject, bool cleanUp)
         {
+            IGameScene scene;
             if (sceneObject is Galaxy galaxy)
             {
-                return _viewFactory.SceneFactory.Create(_world, galaxy);
+                scene = _viewFactory.SceneFactory.Create(_world, galaxy);
             }
             else if (sceneObject is StarSystem starSystem)
             {
-                return _viewFactory.SceneFactory.Create(_world, starSystem, _world?.Calendar ?? new(0));
+                scene = _viewFactory.SceneFactory.Create(_world, starSystem, _world?.Calendar ?? new(0));
             }
             else if (sceneObject is StellarBody stellarBody)
             {
-                return _viewFactory.SceneFactory.Create(_world, stellarBody);
+                scene = _viewFactory.SceneFactory.Create(_world, stellarBody);
             }
             else
             {
                 throw new ArgumentException($"Unsupported sceneObject type: [{sceneObject.GetType()}]");
             }
-        }
-
-        private void ChangeSceneTo(object sceneObject, bool cleanUp)
-        {
-            var scene = CreateScene(sceneObject);
             scene.Initialize();
             ChangeSceneTo(scene, cleanUp);
         }
 
         private void ChangeSceneTo(IGameScene scene, bool cleanUp)
         {
+            OpenOverlay(OverlayId.Empire, _world);
             if (cleanUp)
             {
                 _screen?.Scene?.Dispose();
@@ -172,6 +184,14 @@ namespace SpaceOpera.Controller
                 {
                     scene.SetHighlight(layer, null);
                 }
+            }
+            if (scene is StarSystemScene starSystemScene)
+            {
+                OpenOverlay(OverlayId.StarSystem, starSystemScene.StarSystem);
+            }
+            else
+            {
+                CloseOverlay(OverlayId.StarSystem);
             }
             _screen!.SetScene(scene);
             _window.SetFocus(scene);
@@ -284,6 +304,7 @@ namespace SpaceOpera.Controller
                     {
                         ExecuteOrder(new SetAssignmentOrder(driver, assigment));
                     }
+                    return;
                 }
                 if (e.Action == ActionId.Select)
                 {
@@ -391,9 +412,21 @@ namespace SpaceOpera.Controller
             }
         }
 
+        private void CloseOverlay(OverlayId overlayId)
+        {
+            _screen!.CloseOverlay(_screen!.OverlaySet.Get(overlayId));
+        }
+
+        private void OpenOverlay(OverlayId overlayId, params object?[] args)
+        {
+            var overlay = _screen!.OverlaySet.Get(overlayId);
+            overlay.Populate(args);
+            _screen!.OpenOverlay(overlay);
+        }
+
         private void OpenPane(GamePaneId paneId, bool closeOpenPanes, params object?[] args)
         {
-            var pane = _screen!.GetPane(paneId);
+            var pane = _screen!.PaneSet.Get(paneId);
             pane.Populate(args);
             _screen!.OpenPane(pane, closeOpenPanes);
         }

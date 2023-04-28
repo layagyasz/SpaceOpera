@@ -10,6 +10,7 @@ using SpaceOpera.Core.Designs;
 using SpaceOpera.Core.Economics;
 using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Politics;
+using SpaceOpera.Core.Universe;
 using SpaceOpera.View.FactionViews;
 
 namespace SpaceOpera.View.Icons
@@ -85,6 +86,7 @@ namespace SpaceOpera.View.Icons
         }
 
         private readonly BannerViewFactory _bannerViewFactory;
+        private readonly StellarBodyIconFactory _stellarBodyIconFactory;
         private readonly Library<IconAtom> _atoms;
         private readonly EnumMap<ComponentType, DesignedComponentIconConfig> _configs;
         private readonly Dictionary<Type, Func<object, IEnumerable<IconLayer>>> _definitionMap;
@@ -95,11 +97,13 @@ namespace SpaceOpera.View.Icons
 
         public IconFactory(
             BannerViewFactory bannerViewFactory,
+            StellarBodyIconFactory stellarBodyIconFactory,
             Library<IconAtom> atoms,
             EnumMap<ComponentType, DesignedComponentIconConfig> configs,
             UiElementFactory uiElementFactory)
         {
             _bannerViewFactory = bannerViewFactory;
+            _stellarBodyIconFactory = stellarBodyIconFactory;
             _atoms = atoms;
             _configs = configs;
             _definitionMap = new()
@@ -126,6 +130,13 @@ namespace SpaceOpera.View.Icons
 
         public Icon Create(Class @class, IElementController controller, object @object)
         {
+            if (@object is StellarBody stellarBody)
+            {
+                _rasterTexture.Clear();
+                _stellarBodyIconFactory.Rasterize(stellarBody, _rasterTexture);
+                _rasterTexture.Display();
+                return new(@class, controller, _rasterTexture.CopyTexture(), _shader, 64);
+            }
             return  
                 new(
                     @class, 

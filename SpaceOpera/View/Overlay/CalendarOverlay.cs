@@ -6,24 +6,29 @@ using SpaceOpera.Core;
 
 namespace SpaceOpera.View.Overlay
 {
-    public class CalendarOverlay : UiCompoundComponent, IDynamic
+    public class CalendarOverlay : UiCompoundComponent, IOverlay
     {
         public EventHandler<EventArgs>? Refreshed { get; set; }
 
         private readonly TextUiElement _calendarText;
-        private readonly StarCalendar _calendar;
+
+        private StarCalendar? _calendar;
 
         private CalendarOverlay(
-            IController controller, UiSerialContainer container, TextUiElement calendarText, StarCalendar calendar)
+            IController controller, UiSerialContainer container, TextUiElement calendarText)
             : base(controller, container)
         {
             _calendarText = calendarText;
-            _calendar = calendar;
+        }
+
+        public void Populate(params object?[] args)
+        {
+            _calendar = (StarCalendar?)args[0];
         }
 
         public void Refresh()
         {
-            _calendarText.SetText(_calendar.ToString());
+            _calendarText.SetText(_calendar?.ToString() ?? string.Empty);
             Refreshed?.Invoke(this, EventArgs.Empty);
         }
 
@@ -32,10 +37,10 @@ namespace SpaceOpera.View.Overlay
             ((RadioController<ActionId>)ComponentController).SetValue(action);
         }
 
-        public static CalendarOverlay Create(UiElementFactory uiElementFactory, StarCalendar calendar)
+        public static CalendarOverlay Create(UiElementFactory uiElementFactory)
         {
             var calendarText =
-                uiElementFactory.CreateTextButton("overlay-empire-calendar-text", calendar.ToString()).Item1;
+                uiElementFactory.CreateTextButton("overlay-empire-calendar-text", string.Empty).Item1;
             return new (
                 new RadioController<ActionId>("speed"),
                 uiElementFactory.CreateTableRow(
@@ -54,8 +59,7 @@ namespace SpaceOpera.View.Overlay
                             new OptionElementController<ActionId>(ActionId.GameSpeedFast))
                     },
                     new ButtonController()),
-                (TextUiElement)calendarText,
-                calendar);
+                (TextUiElement)calendarText);
         }
     }
 }

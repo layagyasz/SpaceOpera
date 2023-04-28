@@ -214,6 +214,7 @@ namespace SpaceOpera.View.Scenes
 
             _skyBox ??= CreateSkybox();
             return new StarSystemScene(
+                starSystem,
                 controller,
                 camera,
                 model,

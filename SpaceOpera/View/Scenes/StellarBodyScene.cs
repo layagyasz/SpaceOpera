@@ -106,7 +106,7 @@ namespace SpaceOpera.View.Scenes
             _surfaceShader.SetFloat("ambient", 0.5f);
             _atmosphereShader.SetVector3("light_position", lightPosition);
             _atmosphereShader.SetVector3("eye_position", Camera.Position);
-            _atmosphereShader.SetColor("light_color", _star!.Get(0).Color);
+            _atmosphereShader.SetColor("light_color", _light.Color);
             _atmosphereShader.SetFloat("light_luminance", _light.Luminance);
             _atmosphereShader.SetFloat("light_attenuation", _light.Attenuation);
 

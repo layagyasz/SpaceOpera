@@ -9,19 +9,25 @@ using SpaceOpera.View.Components;
 
 namespace SpaceOpera.View.Overlay
 {
-    public class EmpireOverlay : DynamicUiCompoundComponent, IDynamic
+    public class EmpireOverlay : DynamicUiCompoundComponent, IOverlay
     {
-        public CalendarOverlay CalendarOverlay { get; }
+        public CalendarOverlay Calendar { get; }
         
         private EmpireOverlay(IController controller, UiSerialContainer container, CalendarOverlay calendarOverlay)
             : base(controller, container)
         {
-            CalendarOverlay = calendarOverlay;
+            Calendar = calendarOverlay;
         }
 
-        public static EmpireOverlay Create(UiElementFactory uiElementFactory, StarCalendar calendar)
+        public void Populate(params object?[] args)
         {
-            var calendarOverlay = CalendarOverlay.Create(uiElementFactory, calendar);
+            var world = (World?)args[0];
+            Calendar.Populate(world?.Calendar);
+        }
+
+        public static EmpireOverlay Create(UiElementFactory uiElementFactory)
+        {
+            var calendarOverlay = CalendarOverlay.Create(uiElementFactory);
             return new(
                 new EmpireOverlayController(),
                 new DynamicUiSerialContainer(

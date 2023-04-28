@@ -173,5 +173,44 @@
         }
       }
     ]
+  },
+  {
+    "$id": "overlay-star-system-container",
+    "Parent": "ui-element",
+    "Default": {
+      "Size": [
+        222,
+        [ "DynamicContents", 0, 800 ]
+      ],
+      "Margin": [ 8 ],
+      "Padding": [ 0, 8, 0, 8 ],
+      "CornerRadius": [
+        [ 8, 8 ]
+      ],
+      "DisableScissor": false
+    }
+  },
+  {
+    "$id": "overlay-star-system-row",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 220, 40 ],
+      "Margin": [ 1, 0, 1, 0 ]
+    }
+  },
+  {
+    "$id": "overlay-star-system-row-icon",
+    "Parent": "ui-icon",
+    "Default": {
+      "Size": [ 40, 40 ]
+    }
+  },
+  {
+    "$id": "overlay-star-system-row-text",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 172, 40 ],
+      "Padding": [ 8 ]
+    }
   }
 ]
