@@ -3,6 +3,7 @@ using SpaceOpera.Core.Military.Ai;
 using SpaceOpera.Core.Military.Ai.Actions;
 using SpaceOpera.Core.Military.Ai.Assigments;
 using SpaceOpera.Core.Universe;
+using System.ComponentModel.Design.Serialization;
 using static SpaceOpera.Core.Military.Ai.SpaceOperaContext;
 
 namespace SpaceOpera.Core.Military
@@ -43,6 +44,9 @@ namespace SpaceOpera.Core.Military
             }
             switch (type)
             {
+                case AssignmentType.Move:
+                    _ai.SetAssignment(new MoveAssignment());
+                    break;
                 case AssignmentType.None:
                     _ai.SetAssignment(new NoAssignment());
                     break;
@@ -73,6 +77,13 @@ namespace SpaceOpera.Core.Military
                 _action = newAction;
             }
             _action?.Progress(Formation, context.World);
+            if (_action is IdleAction idle)
+            {
+                if (idle.Unassign)
+                {
+                    SetAssignment(AssignmentType.None);
+                }
+            }
         }
 
         private void HandleMove(object? sender, MovementEventArgs e)

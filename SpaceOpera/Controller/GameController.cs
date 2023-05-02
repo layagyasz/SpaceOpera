@@ -375,9 +375,16 @@ namespace SpaceOpera.Controller
             {
                 _selectedFormations.Add(driver);
             }
-            if (_selectedFormations.Count > 0 && _selectedFormations.First().GetType() == typeof(FleetDriver))
+            if (_selectedFormations.Count > 0)
             {
-                ChangeSubcontrollerTo(new FleetSubcontroller(drivers.Cast<FleetDriver>()));
+                if (_selectedFormations.First().GetType() == typeof(FleetDriver))
+                {
+                    ChangeSubcontrollerTo(new FleetSubcontroller(_selectedFormations.Cast<FleetDriver>()));
+                }
+                if (_selectedFormations.First().GetType() == typeof(DivisionDriver))
+                {
+                    ChangeSubcontrollerTo(new DivisionSubcontroller(_selectedFormations.Cast<DivisionDriver>()));
+                }
                 SetHighlight(
                     HighlightLayerName.Foreground,
                     SimpleHighlight.Wrap(new FormationHighlight(_selectedFormations)));
@@ -394,6 +401,17 @@ namespace SpaceOpera.Controller
             {
                 ChangeSubcontrollerTo(null);
                 SetHighlight(HighlightLayerName.Foreground, null);
+            }
+            else
+            {
+                if (_selectedFormations.First().GetType() == typeof(FleetDriver))
+                {
+                    ChangeSubcontrollerTo(new FleetSubcontroller(_selectedFormations.Cast<FleetDriver>()));
+                }
+                if (_selectedFormations.First().GetType() == typeof(DivisionDriver))
+                {
+                    ChangeSubcontrollerTo(new DivisionSubcontroller(_selectedFormations.Cast<DivisionDriver>()));
+                }
             }
         }
 

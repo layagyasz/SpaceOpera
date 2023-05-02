@@ -5,6 +5,7 @@
         Unknown,
 
         Defend,
+        Move,
         None,
         Patrol
     }

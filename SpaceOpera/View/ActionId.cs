@@ -22,8 +22,9 @@
         Battle,
         Defend,
         Edit,
-        Patrol,
+        Move,
         NoAssignment,
+        Patrol,
 
         // Order actions
         Confirm

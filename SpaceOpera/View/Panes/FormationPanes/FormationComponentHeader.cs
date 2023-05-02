@@ -45,6 +45,11 @@ namespace SpaceOpera.View.Panes.FormationPanes
                 {
                     Button = "formation-pane-formation-header-assignment-none",
                     Action = ActionId.NoAssignment
+                },
+                new()
+                {
+                    Button = "formation-pane-formation-header-assignment-move",
+                    Action = ActionId.Move
                 }
             };
 

@@ -9,7 +9,7 @@ namespace SpaceOpera.Core.Military.Ai.Assigments
 {
     public class PatrolAssignment : IAssignment
     {
-        private class PatrolNode : ISupplierNode<INavigable, FormationContext>
+        private class PatrolNode : ISupplierNode<INavigable?, FormationContext>
         {
             private readonly PatrolAssignment _parent;
 
@@ -97,15 +97,17 @@ namespace SpaceOpera.Core.Military.Ai.Assigments
 
         public AssignmentType Type => AssignmentType.Patrol;
 
-        private HashSet<INavigable> _patrolRegion = new();
         private readonly ISupplierNode<IAction, FormationContext> _routine;
+
+        private HashSet<INavigable> _patrolRegion = new();
 
         public PatrolAssignment()
         {
             var targetBuffer = new PatrolTargetNode(this).Buffer();
             _routine =
                 new SelectorNode<BehaviorNodeResult<IAction>, FormationContext>(
-                    x => x.Status.Complete, BehaviorNodeResult<IAction>.NotRun()) {
+                    x => x.Status.Complete, BehaviorNodeResult<IAction>.NotRun())
+                {
                     targetBuffer.Recompute().Check(
                         (x, y) =>
                             y.Formation.Position == x.Position
@@ -113,10 +115,10 @@ namespace SpaceOpera.Core.Military.Ai.Assigments
                         .Transform(EngageAction.Create),
                     targetBuffer.Check((x, y) => y.Formation.Position == x.Position).Transform(SpotAction.Create),
                     new MoveNode(
-                       new SelectorNode<BehaviorNodeResult<INavigable>, FormationContext>(
-                           x => x.Status.Complete, BehaviorNodeResult<INavigable>.Incomplete())
+                       new SelectorNode<BehaviorNodeResult<INavigable?>, FormationContext>(
+                           x => x.Status.Complete, BehaviorNodeResult<INavigable?>.Incomplete())
                        {
-                           targetBuffer.Transform(x => x.Position!),
+                           targetBuffer.Transform(x => x.Position),
                            new PatrolNode(this),
                        }.Adapt(),
                        new EnumSet<NavigableEdgeType>(NavigableEdgeType.Space, NavigableEdgeType.Jump))

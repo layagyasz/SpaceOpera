@@ -84,6 +84,14 @@
     }
   },
   {
+    "$id": "formation-pane-formation-header-assignment-move",
+    "Parent": "pane-action-button",
+    "Default": {
+      "Texture": "icon-move",
+      "Margin": [ 4, 10, 4, 10 ]
+    }
+  },
+  {
     "$id": "formation-pane-formation-header-assignment-none",
     "Parent": "pane-action-button",
     "Default": {

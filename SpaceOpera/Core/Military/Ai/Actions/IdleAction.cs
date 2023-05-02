@@ -4,11 +4,18 @@
     {
         public ActionStatus Status { get; private set; } = ActionStatus.InProgress;
 
+        public bool Unassign { get; }
+
+        public IdleAction(bool unassign)
+        {
+            Unassign = unassign;
+        }
+
         public bool Equivalent(IAction action)
         {
-            if (action is IdleAction)
+            if (action is IdleAction idle)
             {
-                return true;
+                return Unassign == idle.Unassign;
             }
             return false;
         }

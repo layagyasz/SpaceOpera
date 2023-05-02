@@ -377,6 +377,9 @@
     <None Update="Resources\View\Icons\motorized.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\View\Icons\move.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\View\Icons\none.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

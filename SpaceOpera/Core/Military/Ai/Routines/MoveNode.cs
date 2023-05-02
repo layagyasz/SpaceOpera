@@ -8,13 +8,13 @@ namespace SpaceOpera.Core.Military.Ai.Routines
 {
     public class MoveNode : ISupplierNode<IAction, FormationContext>
     {
-        private readonly ISupplierNode<INavigable, FormationContext> _destination;
+        private readonly ISupplierNode<INavigable?, FormationContext> _destination;
         private readonly EnumSet<NavigableEdgeType> _allowedEdgeTypes;
 
         private Stack<NavigationMap.Movement>? _cachedPath;
 
         public MoveNode(
-            ISupplierNode<INavigable, FormationContext> destination,
+            ISupplierNode<INavigable?, FormationContext> destination,
             EnumSet<NavigableEdgeType> allowedEdgeTypes)
         {
             _destination = destination;
@@ -33,7 +33,8 @@ namespace SpaceOpera.Core.Military.Ai.Routines
             {
                 return BehaviorNodeResult<IAction>.NotRun();
             }
-            if (_cachedPath?.Peek().Destination == currentPosition)
+            bool empty = _cachedPath?.Count == 0;
+            if (!empty && _cachedPath?.Peek().Destination == currentPosition)
             {
                 _cachedPath!.Pop();
                 if (_cachedPath?.Count == 0)
@@ -42,13 +43,16 @@ namespace SpaceOpera.Core.Military.Ai.Routines
                 }
             }
             if (_cachedPath == null
-                || destination.Result != _cachedPath.Last().Destination
-                || _cachedPath.Peek().Origin != currentPosition)
+                || (!empty 
+                    && (destination.Result != _cachedPath.Last().Destination 
+                        || _cachedPath.Peek().Origin != currentPosition)))
             {
                 _cachedPath =
                     context.World.NavigationMap.FindPath(currentPosition, destination.Result, _allowedEdgeTypes);
             }
-            return BehaviorNodeResult<IAction>.Complete(new MoveAction(_cachedPath!.Peek()));
+            return _cachedPath!.Count == 0 
+                ? BehaviorNodeResult<IAction>.NotRun() 
+                : BehaviorNodeResult<IAction>.Complete(new MoveAction(_cachedPath!.Peek()));
         }
     }
 }

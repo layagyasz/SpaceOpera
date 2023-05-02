@@ -18,7 +18,7 @@ namespace SpaceOpera.Core.Military.Ai.Assigments
 
         public BehaviorNodeResult<IAction> Execute(FormationContext context)
         {
-            return BehaviorNodeResult<IAction>.Complete(new IdleAction());
+            return BehaviorNodeResult<IAction>.Complete(new IdleAction(false));
         }
     }
 }

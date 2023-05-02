@@ -138,6 +138,16 @@ namespace SpaceOpera.Core.Universe
 
             var path = new Stack<Movement>();
             current = endNode;
+            if (current.Parent == null)
+            {
+                foreach (var node in closedSet)
+                {
+                    node.Distance = float.PositiveInfinity;
+                    node.Parent = null;
+                }
+                return new();
+            }
+
             while (current != startNode)
             {
                 path.Push(
@@ -347,13 +357,12 @@ namespace SpaceOpera.Core.Universe
                             var neighborNode =
                                 GetOrCreateNode(
                                     neighborRegion, starSystem, orbit, averageDistance, starSystem.Orbiters[i]);
+                            var distance = 
+                                MathUtils.ArcLength(
+                                    groundRegion.Center, neighborRegion.Center, starSystem.Orbiters[i].Radius) 
+                                * Constants.AstralUnit;
                             groundNode.Edges.Add(
-                                new NavigableEdge(
-                                    groundNode,
-                                    neighborNode,
-                                    NavigableEdgeType.Ground,
-                                    (float)MathUtils.ArcLength(
-                                        groundRegion.Center, neighborRegion.Center, starSystem.Orbiters[i].Radius)));
+                                new NavigableEdge(groundNode, neighborNode, NavigableEdgeType.Ground, distance));
                         }
                     }
                 }
