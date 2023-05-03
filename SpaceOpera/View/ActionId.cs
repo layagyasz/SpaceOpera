@@ -25,6 +25,7 @@
         Move,
         NoAssignment,
         Patrol,
+        Train,
 
         // Order actions
         Confirm

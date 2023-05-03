@@ -2,6 +2,7 @@ namespace SpaceOpera.Core.Military.Ai.Actions
 {
     public class RegroupAction : IAction
     {
+        public ActionType Type => ActionType.Regroup;
         public ActionStatus Status { get; private set; } = ActionStatus.InProgress;
 
         public bool Equivalent(IAction action)

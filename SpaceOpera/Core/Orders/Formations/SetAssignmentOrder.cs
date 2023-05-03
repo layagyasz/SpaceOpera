@@ -8,7 +8,8 @@ namespace SpaceOpera.Core.Orders.Formations
     {
         private static readonly EnumSet<AssignmentType> s_FleetAssignments =
             new(AssignmentType.None, AssignmentType.Patrol);
-        private static readonly EnumSet<AssignmentType> s_DivisionAssignments = new(AssignmentType.None);
+        private static readonly EnumSet<AssignmentType> s_DivisionAssignments = 
+            new(AssignmentType.None, AssignmentType.Train);
 
         public FormationDriver Driver { get; }
         public AssignmentType Assignment { get; }

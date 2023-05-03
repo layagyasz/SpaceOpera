@@ -53,6 +53,9 @@ namespace SpaceOpera.Core.Military
                 case AssignmentType.Patrol:
                     _ai.SetAssignment(new PatrolAssignment());
                     break;
+                case AssignmentType.Train:
+                    _ai.SetAssignment(new TrainAssignment());
+                    break;
             }
             OrderUpdated?.Invoke(this, EventArgs.Empty);
         }

@@ -20,7 +20,7 @@ namespace SpaceOpera.Core.Military.Ai.Assigments
                 _parent = parent;
             }
 
-            public BehaviorNodeResult<INavigable> Execute(FormationContext context)
+            public BehaviorNodeResult<INavigable?> Execute(FormationContext context)
             {
                 var currentPosition = context.Formation.Position;
                 var activeRegion = _parent.GetActiveRegion();
@@ -43,8 +43,8 @@ namespace SpaceOpera.Core.Military.Ai.Assigments
                     }
                 }
                 return _cachedDestination == null
-                    ? BehaviorNodeResult<INavigable>.Incomplete()
-                    : BehaviorNodeResult<INavigable>.Complete(_cachedDestination);
+                    ? BehaviorNodeResult<INavigable?>.Incomplete()
+                    : BehaviorNodeResult<INavigable?>.Complete(_cachedDestination);
             }
         }
 

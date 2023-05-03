@@ -1,11 +1,11 @@
 [
   {
-    "$id": "battle-icon",
+    "$id": "combat-icon",
     "Parent": "ui-icon",
     "Default": {
       "BackgroundColor": [ "#ffffff00" ],
       "ForegroundColor": "#ff0000cc",
-      "Texture": "icon-battle"
+      "Texture": "icon-combat"
     },
     "States": [
       {
@@ -148,6 +148,74 @@
         "State": [ "Hover" ],
         "Attributes": {
           "ForegroundColor": "#ff0000"
+        }
+      }
+    ]
+  },
+  {
+    "$id": "move-icon",
+    "Parent": "ui-icon",
+    "Default": {
+      "BackgroundColor": [ "#ffffff00" ],
+      "ForegroundColor": "#ffff00cc",
+      "Texture": "icon-move"
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "ForegroundColor": "#ffff00"
+        }
+      }
+    ]
+  },
+  {
+    "$id": "regroup-icon",
+    "Parent": "ui-icon",
+    "Default": {
+      "BackgroundColor": [ "#ffffff00" ],
+      "ForegroundColor": "#0000ffcc",
+      "Texture": "icon-regroup"
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "ForegroundColor": "#0000ff"
+        }
+      }
+    ]
+  },
+  {
+    "$id": "spot-icon",
+    "Parent": "ui-icon",
+    "Default": {
+      "BackgroundColor": [ "#ffffff00" ],
+      "ForegroundColor": "#ff8800cc",
+      "Texture": "icon-patrol"
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "ForegroundColor": "#ff8800"
+        }
+      }
+    ]
+  },
+  {
+    "$id": "train-icon",
+    "Parent": "ui-icon",
+    "Default": {
+      "BackgroundColor": [ "#ffffff00" ],
+      "ForegroundColor": "#00ff00cc",
+      "Texture": "icon-train"
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "ForegroundColor": "#00ff00"
         }
       }
     ]

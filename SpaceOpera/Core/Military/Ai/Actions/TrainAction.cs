@@ -1,22 +1,15 @@
 ﻿namespace SpaceOpera.Core.Military.Ai.Actions
 {
-    public class IdleAction : IAction
+    public class TrainAction : IAction
     {
-        public ActionType Type => ActionType.None;
+        public ActionType Type => ActionType.Train;
         public ActionStatus Status { get; private set; } = ActionStatus.InProgress;
-
-        public bool Unassign { get; }
-
-        public IdleAction(bool unassign)
-        {
-            Unassign = unassign;
-        }
 
         public bool Equivalent(IAction action)
         {
-            if (action is IdleAction idle)
+            if (action is RegroupAction)
             {
-                return Unassign == idle.Unassign;
+                return true;
             }
             return false;
         }
@@ -25,7 +18,8 @@
 
         public override string ToString()
         {
-            return "[IdleAction]";
+            return "[TrainAction]";
         }
     }
 }
+

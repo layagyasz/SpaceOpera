@@ -40,8 +40,36 @@
     }
   },
   {
-    "$id": "formation-layer-row-battle-icon",
-    "Parent": "battle-icon",
+    "$id": "formation-layer-row-combat-icon",
+    "Parent": "combat-icon",
+    "Default": {
+      "Size": [ 28, 28 ]
+    }
+  },
+  {
+    "$id": "formation-layer-row-move-icon",
+    "Parent": "move-icon",
+    "Default": {
+      "Size": [ 28, 28 ]
+    }
+  },
+  {
+    "$id": "formation-layer-row-regroup-icon",
+    "Parent": "regroup-icon",
+    "Default": {
+      "Size": [ 28, 28 ]
+    }
+  },
+  {
+    "$id": "formation-layer-row-spot-icon",
+    "Parent": "spot-icon",
+    "Default": {
+      "Size": [ 28, 28 ]
+    }
+  },
+  {
+    "$id": "formation-layer-row-train-icon",
+    "Parent": "train-icon",
     "Default": {
       "Size": [ 28, 28 ]
     }

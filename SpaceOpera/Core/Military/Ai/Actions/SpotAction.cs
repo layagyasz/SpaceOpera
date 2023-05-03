@@ -2,6 +2,7 @@ namespace SpaceOpera.Core.Military.Ai.Actions
 {
     public class SpotAction : IAction
     {
+        public ActionType Type => ActionType.Spot;
         public ActionStatus Status { get; private set; } = ActionStatus.InProgress;
 
         public IFormation Target { get; }

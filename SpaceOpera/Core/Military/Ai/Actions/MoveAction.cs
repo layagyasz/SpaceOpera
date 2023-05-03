@@ -4,6 +4,7 @@ namespace SpaceOpera.Core.Military.Ai.Actions
 {
     public class MoveAction : IAction
     {
+        public ActionType Type => ActionType.Move;
         public ActionStatus Status { get; private set; } = ActionStatus.InProgress;
         public NavigationMap.Movement Movement { get; }
 

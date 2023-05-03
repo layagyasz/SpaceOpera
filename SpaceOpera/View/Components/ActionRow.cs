@@ -19,6 +19,9 @@ namespace SpaceOpera.View.Components
             public ActionId Action { get; set; }
         }
 
+        public EventHandler<ElementEventArgs>? ActionAdded { get; set; }
+        public EventHandler<ElementEventArgs>? ActionRemoved { get; set; }
+
         public T Key { get; }
         private readonly List<IUiElement> _actions = new();
 

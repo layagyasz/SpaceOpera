@@ -50,6 +50,11 @@ namespace SpaceOpera.View.Panes.FormationPanes
                 {
                     Button = "formation-pane-formation-header-assignment-move",
                     Action = ActionId.Move
+                },
+                new()
+                {
+                    Button = "formation-pane-formation-header-assignment-train",
+                    Action = ActionId.Train
                 }
             };
 
@@ -62,6 +67,9 @@ namespace SpaceOpera.View.Panes.FormationPanes
                     Action = ActionId.Unselect
                 }
             };
+
+        public EventHandler<ElementEventArgs>? ActionAdded { get; set; }
+        public EventHandler<ElementEventArgs>? ActionRemoved { get; set; }
 
         public FormationDriver Key { get; }
         private readonly List<IUiElement> _actions = new();

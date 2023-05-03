@@ -7,6 +7,7 @@
         Defend,
         Move,
         None,
-        Patrol
+        Patrol,
+        Train
     }
 }

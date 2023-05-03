@@ -14,6 +14,8 @@ namespace SpaceOpera.Controller.FormationsViews
         {
             _row = (FormationRow?)@object;
             _row!.Controller.Clicked += HandleClick;
+            _row.ActionAdded += HandleActionAdded;
+            _row.ActionRemoved += HandleActionRemoved;
             foreach (var actionController in _row!.GetActions().Select(x => x.Controller).Cast<IActionController>())
             {
                 actionController.Interacted += HandleInteraction;
@@ -23,11 +25,25 @@ namespace SpaceOpera.Controller.FormationsViews
         public void Unbind()
         {
             _row!.Controller.Clicked -= HandleClick;
+            _row.ActionAdded -= HandleActionAdded;
+            _row.ActionRemoved -= HandleActionRemoved;
             foreach (var actionController in _row!.GetActions().Select(x => x.Controller).Cast<IActionController>())
             {
                 actionController.Interacted -= HandleInteraction;
             }
             _row = null;
+        }
+
+        private void HandleActionAdded(object? sender, ElementEventArgs e)
+        {
+            var controller = (IActionController)((IUiElement)e.Element).Controller;
+            controller.Interacted += HandleInteraction;
+        }
+
+        private void HandleActionRemoved(object? sender, ElementEventArgs e)
+        {
+            var controller = (IActionController)((IUiElement)e.Element).Controller;
+            controller.Interacted -= HandleInteraction;
         }
 
         private void HandleInteraction(object? sender, UiInteractionEventArgs e)

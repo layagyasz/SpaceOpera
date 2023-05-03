@@ -2,6 +2,7 @@
 {
     public class CombatAction : IAction
     {
+        public ActionType Type => ActionType.Combat;
         public ActionStatus Status { get; private set; } = ActionStatus.InProgress;
 
         public bool Equivalent(IAction action)

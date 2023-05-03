@@ -13,6 +13,7 @@ namespace SpaceOpera.View
                 AssignmentType.Move => ActionId.Move,
                 AssignmentType.None => ActionId.NoAssignment,
                 AssignmentType.Patrol => ActionId.Patrol,
+                AssignmentType.Train => ActionId.Train,
                 _ => ActionId.Unknown
             };
         }
@@ -25,6 +26,7 @@ namespace SpaceOpera.View
                 ActionId.Move => AssignmentType.Move,
                 ActionId.NoAssignment => AssignmentType.None,
                 ActionId.Patrol => AssignmentType.Patrol,
+                ActionId.Train => AssignmentType.Train,
                 _ => AssignmentType.Unknown,
             };
         }

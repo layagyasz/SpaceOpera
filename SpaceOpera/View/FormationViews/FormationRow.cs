@@ -1,9 +1,11 @@
-﻿using Cardamom.Ui;
+﻿using Cardamom.Collections;
+using Cardamom.Ui;
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
 using SpaceOpera.Controller.Components;
 using SpaceOpera.Controller.FormationsViews;
 using SpaceOpera.Core.Military;
+using SpaceOpera.Core.Military.Ai.Actions;
 using SpaceOpera.View.Components;
 using SpaceOpera.View.Icons;
 
@@ -15,45 +17,65 @@ namespace SpaceOpera.View.FormationViews
         private static readonly string s_FormationLayerRowIcon = "formation-layer-row-icon";
         private static readonly string s_FormationLayerRowText = "formation-layer-row-text";
         private static readonly string s_FormationLayerRowNumber = "formation-layer-row-number";
-        private static readonly string s_FormationLayerRowBattleIcon = "formation-layer-row-battle-icon";
+        private static readonly string s_FormationLayerRowCombatIcon = "formation-layer-row-combat-icon";
+        private static readonly string s_FormationLayerRowMoveIcon = "formation-layer-row-move-icon";
+        private static readonly string s_FormationLayerRowRegroupIcon = "formation-layer-row-regroup-icon";
+        private static readonly string s_FormationLayerRowSpotIcon = "formation-layer-row-spot-icon";
+        private static readonly string s_FormationLayerRowTrainIcon = "formation-layer-row-train-icon";
+
+        public EventHandler<ElementEventArgs>? ActionAdded { get; set; }
+        public EventHandler<ElementEventArgs>? ActionRemoved { get; set; }
 
         public int FormationCount => _drivers.Count;
 
+        private readonly UiElementFactory _uiElementFactory;
         private readonly List<FormationDriver> _drivers = new();
-        private TextUiElement _number;
-        private readonly IUiElement _battle;
+        private readonly TextUiElement _number;
 
-        private FormationRow(Class @class, Icon icon, IUiElement text, TextUiElement number, IUiElement battle)
+        private ActionType _actionType;
+        private IUiElement? _action;
+
+        public FormationRow(object key, string name, UiElementFactory uiElementFactory, IconFactory iconFactory)
             : base(
                   new FormationRowController(), 
-                  new UiSerialContainer(@class, new ButtonController(), UiSerialContainer.Orientation.Horizontal))
+                  new UiSerialContainer(
+                      uiElementFactory.GetClass(s_FormationLayerRow),
+                      new ButtonController(),
+                      UiSerialContainer.Orientation.Horizontal))
         {
-            _number = number;
-            _battle = battle;
+            _uiElementFactory = uiElementFactory;
+            _number = 
+                new TextUiElement(
+                    uiElementFactory.GetClass(s_FormationLayerRowNumber), new InlayController(), string.Empty);
 
-            Add(icon);
-            Add(text);
-            Add(number);
-            Add(battle);
-
-            Refresh();
+            Add(
+                iconFactory.Create(
+                    uiElementFactory.GetClass(s_FormationLayerRowIcon),
+                    new InlayController(),
+                    key));
+            Add(
+                new TextUiElement(
+                    uiElementFactory.GetClass(s_FormationLayerRowText), new InlayController(), name));
+            Add(_number);
         }
 
         public void Add(FormationDriver driver)
         {
             _drivers.Add(driver);
             UpdateNumber();
+            Refresh();
         }
 
         public void Remove(FormationDriver driver)
         {
             _drivers.Remove(driver);
             UpdateNumber();
+            Refresh();
         }
 
-        public IEnumerable<IUiElement> GetActions()
+        public IEnumerable<IUiElement> GetActions() 
         {
-            yield return _battle;
+            return Enumerable.Empty<IUiElement>();
         }
 
         public IEnumerable<FormationDriver> GetDrivers()
@@ -63,7 +85,27 @@ namespace SpaceOpera.View.FormationViews
 
         public override void Refresh()
         {
-            _battle.Visible = _drivers.Any(x => x.Formation.InCombat);
+            var newActionType = 
+                _drivers.Select(x => x.GetCurrentAction()?.Type ?? ActionType.Unknown).ArgMax(GetValue);
+            if (_actionType != newActionType)
+            {
+                if (_action != null)
+                {
+                    Remove(_action);
+                    ActionRemoved?.Invoke(this, new(_action));
+                }
+                var @class = GetClass(newActionType);
+                if (@class != null)
+                {
+                    _action = 
+                        new SimpleUiElement(
+                            _uiElementFactory.GetClass(@class), new ActionButtonController(GetAction(newActionType)));
+                    _action.Initialize();
+                    Add(_action);
+                    ActionAdded?.Invoke(this, new(_action));
+                }
+                _actionType = newActionType;
+            }
             base.Refresh();
         }
 
@@ -79,22 +121,41 @@ namespace SpaceOpera.View.FormationViews
             }
         }
 
-        public static FormationRow Create(
-            object key, string name, UiElementFactory uiElementFactory, IconFactory iconFactory)
+        private static float GetValue(ActionType actionType)
         {
-            return new(
-                uiElementFactory.GetClass(s_FormationLayerRow),
-                iconFactory.Create(
-                    uiElementFactory.GetClass(s_FormationLayerRowIcon),
-                    new InlayController(),
-                    key),
-                new TextUiElement(
-                    uiElementFactory.GetClass(s_FormationLayerRowText), new InlayController(), name),
-                new TextUiElement(
-                    uiElementFactory.GetClass(s_FormationLayerRowNumber), new InlayController(), string.Empty),
-                new SimpleUiElement(
-                    uiElementFactory.GetClass(s_FormationLayerRowBattleIcon),
-                    new ActionButtonController(ActionId.Battle)));
+            return actionType switch
+            {
+                ActionType.Unknown => 0,
+                ActionType.Combat => 5,
+                ActionType.Move => 3,
+                ActionType.None => 0,
+                ActionType.Regroup => 1,
+                ActionType.Spot => 4,
+                ActionType.Train => 2,
+                _ => 0,
+            };
+        }
+
+        private static string? GetClass(ActionType actionType)
+        {
+            return actionType switch
+            {
+                ActionType.Combat => s_FormationLayerRowCombatIcon,
+                ActionType.Move => s_FormationLayerRowMoveIcon,
+                ActionType.Regroup => s_FormationLayerRowRegroupIcon,
+                ActionType.Spot => s_FormationLayerRowSpotIcon,
+                ActionType.Train => s_FormationLayerRowTrainIcon,
+                _ => null,
+            };
+        }
+
+        private static ActionId GetAction(ActionType actionType)
+        {
+            return actionType switch
+            {
+                ActionType.Combat => ActionId.Battle,
+                _ => ActionId.Select
+            };
         }
     }
 }

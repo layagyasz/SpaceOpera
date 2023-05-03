@@ -2,6 +2,7 @@
 {
     public class EngageAction : IAction
     {
+        public ActionType Type => ActionType.Combat;
         public ActionStatus Status { get; private set; } = ActionStatus.InProgress;
         public IFormation Target { get; }
 

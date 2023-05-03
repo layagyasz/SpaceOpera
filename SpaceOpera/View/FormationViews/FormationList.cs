@@ -43,7 +43,7 @@ namespace SpaceOpera.View.FormationViews
             (var key, string name) = GetKey(driver);
             if (!_rows.TryGetValue(key, out var row))
             {
-                row = FormationRow.Create(driver, name, _uiElementFactory, _iconFactory);
+                row = new FormationRow(driver, name, _uiElementFactory, _iconFactory);
                 if (initialize)
                 {
                     row.Initialize();
