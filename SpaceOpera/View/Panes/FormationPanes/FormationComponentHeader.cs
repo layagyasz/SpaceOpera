@@ -169,6 +169,10 @@ namespace SpaceOpera.View.Panes.FormationPanes
             {
                 return "Spotting " + ((SpotAction)action).Target.Name;
             }
+            if (type == typeof(TrainAction))
+            {
+                return "Training";
+            }
             return type.ToString();
         }
 

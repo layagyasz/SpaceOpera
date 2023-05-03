@@ -8,18 +8,18 @@ using SpaceOpera.Core.Universe;
 using SpaceOpera.View.Components;
 using SpaceOpera.View.Icons;
 
-namespace SpaceOpera.View.Overlay
+namespace SpaceOpera.View.Overlay.StarSystemOverlays
 {
     public class StarSystemOverlay : DynamicUiCompoundComponent, IOverlay
     {
-        private static readonly string s_Container = "overlay-star-system-container";
+        private static readonly string s_Container = "star-system-overlay-container";
         private static readonly ActionRow<StellarBody>.Style s_StellarBodyRowStyle =
             new()
             {
-                Container = "overlay-star-system-row"
+                Container = "star-system-overlay-row"
             };
-        private static readonly string s_Icon = "overlay-star-system-row-icon";
-        private static readonly string s_Text = "overlay-star-system-row-text";
+        private static readonly string s_Icon = "star-system-overlay-row-icon";
+        private static readonly string s_Text = "star-system-overlay-row-text";
 
         private readonly UiElementFactory _uiElementFactory;
         private readonly IconFactory _iconFactory;
@@ -28,7 +28,7 @@ namespace SpaceOpera.View.Overlay
 
         public StarSystemOverlay(UiElementFactory uiElementFactory, IconFactory iconFactory)
             : base(
-                  new ActionTableController(), 
+                  new ActionTableController(),
                   new UiSerialContainer(
                     uiElementFactory.GetClass(s_Container),
                     new TableController(10f),
@@ -50,7 +50,7 @@ namespace SpaceOpera.View.Overlay
             var starSystem = (StarSystem)args[0]!;
             foreach (var stellarBody in starSystem.Orbiters)
             {
-                var row = 
+                var row =
                     ActionRow<StellarBody>.Create(
                         stellarBody,
                         _uiElementFactory,

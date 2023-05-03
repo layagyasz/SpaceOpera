@@ -4,9 +4,9 @@ using Cardamom.Ui;
 using Cardamom.Ui.Elements;
 using SpaceOpera.Core;
 
-namespace SpaceOpera.View.Overlay
+namespace SpaceOpera.View.Overlay.EmpireOverlays
 {
-    public class CalendarOverlay : UiCompoundComponent, IOverlay
+    public class CalendarComponent : UiCompoundComponent, IOverlay
     {
         public EventHandler<EventArgs>? Refreshed { get; set; }
 
@@ -14,7 +14,7 @@ namespace SpaceOpera.View.Overlay
 
         private StarCalendar? _calendar;
 
-        private CalendarOverlay(
+        private CalendarComponent(
             IController controller, UiSerialContainer container, TextUiElement calendarText)
             : base(controller, container)
         {
@@ -37,25 +37,25 @@ namespace SpaceOpera.View.Overlay
             ((RadioController<ActionId>)ComponentController).SetValue(action);
         }
 
-        public static CalendarOverlay Create(UiElementFactory uiElementFactory)
+        public static CalendarComponent Create(UiElementFactory uiElementFactory)
         {
             var calendarText =
-                uiElementFactory.CreateTextButton("overlay-empire-calendar-text", string.Empty).Item1;
-            return new (
+                uiElementFactory.CreateTextButton("game-overlay-calendar-text", string.Empty).Item1;
+            return new(
                 new RadioController<ActionId>("speed"),
                 uiElementFactory.CreateTableRow(
-                    "overlay-empire-calendar-container",
+                    "game-overlay-calendar-container",
                     new List<IUiElement>()
                     {
                         new SimpleUiElement(
-                            uiElementFactory.GetClass("overlay-empire-calendar-pause"),
+                            uiElementFactory.GetClass("game-overlay-calendar-pause"),
                             new OptionElementController<ActionId>(ActionId.GameSpeedPause)),
                         calendarText,
                         new SimpleUiElement(
-                            uiElementFactory.GetClass("overlay-empire-calendar-normal"),
+                            uiElementFactory.GetClass("game-overlay-calendar-normal"),
                             new OptionElementController<ActionId>(ActionId.GameSpeedNormal)),
                         new SimpleUiElement(
-                            uiElementFactory.GetClass("overlay-empire-calendar-fast"),
+                            uiElementFactory.GetClass("game-overlay-calendar-fast"),
                             new OptionElementController<ActionId>(ActionId.GameSpeedFast))
                     },
                     new ButtonController()),

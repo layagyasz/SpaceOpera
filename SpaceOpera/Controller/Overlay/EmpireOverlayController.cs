@@ -2,7 +2,7 @@
 using Cardamom.Ui.Controller;
 using Cardamom.Ui.Elements;
 using SpaceOpera.View;
-using SpaceOpera.View.Overlay;
+using SpaceOpera.View.Overlay.EmpireOverlays;
 
 namespace SpaceOpera.Controller.Overlay
 {
@@ -14,7 +14,7 @@ namespace SpaceOpera.Controller.Overlay
 
         public void Bind(object @object)
         {
-            _overlay = @object as EmpireOverlay;
+            _overlay = @object as GameOverlay;
             foreach (var element in _overlay!.Cast<IUiElement>())
             {
                 BindController(element.Controller);

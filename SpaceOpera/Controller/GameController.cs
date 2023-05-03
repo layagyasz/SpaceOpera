@@ -161,7 +161,7 @@ namespace SpaceOpera.Controller
 
         private void ChangeSceneTo(IGameScene scene, bool cleanUp)
         {
-            OpenOverlay(OverlayId.Empire, _world);
+            OpenOverlay(OverlayId.Game, _world);
             if (cleanUp)
             {
                 _screen?.Scene?.Dispose();

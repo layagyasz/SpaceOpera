@@ -1,6 +1,6 @@
 [
   {
-    "$id": "overlay-empire-container",
+    "$id": "game-overlay-container",
     "Parent": "ui-element",
     "Default": {
       "Size": [ "DynamicContents", "DynamicContents" ],
@@ -12,7 +12,7 @@
     }
   },
   {
-    "$id": "overlay-empire-button",
+    "$id": "game-overlay-button",
     "Parent": "ui-element",
     "Default": {
       "Size": [ 40, 40 ],
@@ -23,8 +23,8 @@
     }
   },
   {
-    "$id": "overlay-empire-research",
-    "Parent": "overlay-empire-button",
+    "$id": "game-overlay-research",
+    "Parent": "game-overlay-button",
     "Default": {
       "ForegroundColor": "#00ffffcc",
       "BorderColor": [ "#00ffffcc" ],
@@ -41,8 +41,8 @@
     ]
   },
   {
-    "$id": "overlay-empire-equipment",
-    "Parent": "overlay-empire-button",
+    "$id": "game-overlay-equipment",
+    "Parent": "game-overlay-button",
     "Default": {
       "ForegroundColor": "#ffff00cc",
       "BorderColor": [ "#ffff00cc" ],
@@ -59,8 +59,8 @@
     ]
   },
   {
-    "$id": "overlay-empire-military-organization",
-    "Parent": "overlay-empire-button",
+    "$id": "game-overlay-military-organization",
+    "Parent": "game-overlay-button",
     "Default": {
       "ForegroundColor": "#ff8800cc",
       "BorderColor": [ "#ff8800cc" ],
@@ -77,8 +77,8 @@
     ]
   },
   {
-    "$id": "overlay-empire-military",
-    "Parent": "overlay-empire-button",
+    "$id": "game-overlay-military",
+    "Parent": "game-overlay-button",
     "Default": {
       "ForegroundColor": "#ff0000cc",
       "BorderColor": [ "#ff0000cc" ],
@@ -95,7 +95,7 @@
     ]
   },
   {
-    "$id": "overlay-empire-calendar-container",
+    "$id": "game-overlay-calendar-container",
     "Parent": "ui-element",
     "Default": {
       "Size": [ "DynamicContents", "DynamicContents" ],
@@ -105,7 +105,7 @@
     }
   },
   {
-    "$id": "overlay-empire-calendar-text",
+    "$id": "game-overlay-calendar-text",
     "Parent": "ui-element-internal",
     "Default": {
       "Size": [ 96, 32 ],
@@ -115,7 +115,7 @@
     }
   },
   {
-    "$id": "overlay-empire-calendar-pause",
+    "$id": "game-overlay-calendar-pause",
     "Parent": "pane-action-button",
     "Default": {
       "Size": [ 32, 32 ],
@@ -135,7 +135,7 @@
     ]
   },
   {
-    "$id": "overlay-empire-calendar-normal",
+    "$id": "game-overlay-calendar-normal",
     "Parent": "pane-action-button",
     "Default": {
       "Size": [ 32, 32 ],
@@ -155,7 +155,7 @@
     ]
   },
   {
-    "$id": "overlay-empire-calendar-fast",
+    "$id": "game-overlay-calendar-fast",
     "Parent": "pane-action-button",
     "Default": {
       "Size": [ 32, 32 ],
@@ -173,44 +173,5 @@
         }
       }
     ]
-  },
-  {
-    "$id": "overlay-star-system-container",
-    "Parent": "ui-element",
-    "Default": {
-      "Size": [
-        222,
-        [ "DynamicContents", 0, 800 ]
-      ],
-      "Margin": [ 8 ],
-      "Padding": [ 0, 8, 0, 8 ],
-      "CornerRadius": [
-        [ 8, 8 ]
-      ],
-      "DisableScissor": false
-    }
-  },
-  {
-    "$id": "overlay-star-system-row",
-    "Parent": "ui-container",
-    "Default": {
-      "Size": [ 220, 40 ],
-      "Margin": [ 1, 0, 1, 0 ]
-    }
-  },
-  {
-    "$id": "overlay-star-system-row-icon",
-    "Parent": "ui-icon",
-    "Default": {
-      "Size": [ 40, 40 ]
-    }
-  },
-  {
-    "$id": "overlay-star-system-row-text",
-    "Parent": "ui-element-internal",
-    "Default": {
-      "Size": [ 172, 40 ],
-      "Padding": [ 8 ]
-    }
   }
 ]
