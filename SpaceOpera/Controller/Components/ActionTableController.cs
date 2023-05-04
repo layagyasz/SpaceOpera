@@ -10,16 +10,20 @@ namespace SpaceOpera.Controller.Components
 
         public override void BindElement(IUiElement element)
         {
-            var row = (UiCompoundComponent)element;
-            var controller = (IActionController)row.ComponentController;
-            controller!.Interacted += HandleInteraction;
+            if (element is UiCompoundComponent row)
+            {
+                var controller = (IActionController)row.ComponentController;
+                controller!.Interacted += HandleInteraction;
+            }
         }
 
         public override void UnbindElement(IUiElement element)
         {
-            var row = (UiCompoundComponent)element;
-            var controller = (IActionController)row.ComponentController;
-            controller!.Interacted -= HandleInteraction;
+            if (element is UiCompoundComponent row)
+            {
+                var controller = (IActionController)row.ComponentController;
+                controller!.Interacted -= HandleInteraction;
+            }
         }
 
         private void HandleInteraction(object? sender, UiInteractionEventArgs e)

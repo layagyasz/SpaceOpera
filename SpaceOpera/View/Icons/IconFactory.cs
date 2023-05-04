@@ -108,6 +108,7 @@ namespace SpaceOpera.View.Icons
             _configs = configs;
             _definitionMap = new()
             {
+                {typeof(Army), GetArmyDefinition },
                 { typeof(BaseComponent),  GetAtomicDefinition },
                 { typeof(BaseMaterial), GetAtomicDefinition },
                 { typeof(BattalionTemplate), GetDesignedComponentDefinition },
@@ -149,6 +150,12 @@ namespace SpaceOpera.View.Icons
         public IEnumerable<IconLayer> GetDefinition(object @object)
         {
             return _definitionMap[@object.GetType()](@object);
+        }
+
+        public IEnumerable<IconLayer> GetArmyDefinition(object @object)
+        {
+            var army = (Army)@object;
+            return GetBannerDefinition(army.Faction);
         }
 
         private IEnumerable<IconLayer> GetAtomicDefinition(object @object)

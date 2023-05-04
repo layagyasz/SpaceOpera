@@ -4,7 +4,7 @@ using Cardamom.Ui;
 using Cardamom.Ui.Elements;
 using SpaceOpera.Core;
 
-namespace SpaceOpera.View.Overlay.EmpireOverlays
+namespace SpaceOpera.View.Overlay.GameOverlays
 {
     public class CalendarComponent : UiCompoundComponent, IOverlay
     {

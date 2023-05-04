@@ -674,6 +674,9 @@
     <None Update="Resources\View\Style\FormationLayer.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\View\Style\Overlays\Empire.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\View\Style\Overlays\Game.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

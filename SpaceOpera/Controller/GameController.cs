@@ -76,7 +76,7 @@ namespace SpaceOpera.Controller
                 }
             }
 
-            _screen.OverlaySet.Empire.Calendar.SetGameSpeed(ActionId.GameSpeedNormal);
+            _screen.OverlaySet.Game.Calendar.SetGameSpeed(ActionId.GameSpeedNormal);
         }
 
         public void Unbind()
@@ -162,6 +162,7 @@ namespace SpaceOpera.Controller
         private void ChangeSceneTo(IGameScene scene, bool cleanUp)
         {
             OpenOverlay(OverlayId.Game, _world);
+            OpenOverlay(OverlayId.Empire, _world, _faction);
             if (cleanUp)
             {
                 _screen?.Scene?.Dispose();

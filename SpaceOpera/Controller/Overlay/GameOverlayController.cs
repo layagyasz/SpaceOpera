@@ -2,11 +2,11 @@
 using Cardamom.Ui.Controller;
 using Cardamom.Ui.Elements;
 using SpaceOpera.View;
-using SpaceOpera.View.Overlay.EmpireOverlays;
+using SpaceOpera.View.Overlay.GameOverlays;
 
 namespace SpaceOpera.Controller.Overlay
 {
-    public class EmpireOverlayController : IActionController
+    public class GameOverlayController : IActionController
     {
         public EventHandler<UiInteractionEventArgs>? Interacted { get; set; }
 

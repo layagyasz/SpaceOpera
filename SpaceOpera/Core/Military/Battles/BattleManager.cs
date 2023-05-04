@@ -84,6 +84,7 @@ namespace SpaceOpera.Core.Military.Battles
             var currentBattle = GetCurrentBattle(target, key);
             if (currentBattle == null)
             {
+                Console.WriteLine("battle created");
                 target.EnterCombat();
                 var newBattle = new Battle(key.Position);
                 newBattle.Add(formation, BattleSideType.Offense);
@@ -112,6 +113,7 @@ namespace SpaceOpera.Core.Military.Battles
         public void Tick(Random random)
         {
             var newActiveBattles = new MultiMap<BattleKey, Battle>();
+            int battles = 0;
             foreach (var battlesAndKey in _activeBattles)
             {
                 foreach (var battle in battlesAndKey.Value.ToList())
@@ -146,9 +148,11 @@ namespace SpaceOpera.Core.Military.Battles
                     else
                     {
                         newActiveBattles.Add(battlesAndKey);
+                        battles++;
                     }
                 }
             }
+            Console.WriteLine(battles);
             _activeBattles = newActiveBattles;
         }
 

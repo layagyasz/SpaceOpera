@@ -1,0 +1,89 @@
+[
+  {
+    "$id": "empire-overlay-container",
+    "Parent": "ui-container",
+    "Default": {
+      "BackgroundColor": [ "#00000088" ],
+      "Size": [ 222, "DynamicContents" ],
+      "Margin": [ 8 ],
+      "Padding": [ 0, 8, 0, 8 ],
+      "CornerRadius": [
+        [ 8, 8 ]
+      ],
+      "DisableScissor": false
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "BackgroundColor": [ "#000000cc" ]
+        }
+      }
+    ]
+  },
+  {
+    "$id": "empire-overlay-holding-container",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 222, "DynamicContents" ]
+    }
+  },
+  {
+    "$id": "empire-overlay-holding-header",
+    "Parent": "ui-element-basic",
+    "Default": {
+      "Size": [ 218, 28 ],
+      "Align": "Center"
+    }
+  },
+  {
+    "$id": "empire-overlay-holding-table",
+    "Parent": "empire-overlay-holding-container"
+  },
+  {
+    "$id": "empire-overlay-holding-row",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 222, 40 ]
+    }
+  },
+  {
+    "$id": "empire-overlay-holding-row-icon",
+    "Parent": "ui-icon",
+    "Default": {
+      "Size": [ 40, 40 ]
+    }
+  },
+  {
+    "$id": "empire-overlay-holding-row-text",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 174, 40 ],
+      "Padding": [ 8 ]
+    }
+  },
+  {
+    "$id": "empire-overlay-army-container",
+    "Parent": "empire-overlay-holding-container"
+  },
+  {
+    "$id": "empire-overlay-army-header",
+    "Parent": "empire-overlay-holding-header"
+  },
+  {
+    "$id": "empire-overlay-army-table",
+    "Parent": "empire-overlay-army-container"
+  },
+  {
+    "$id": "empire-overlay-army-row",
+    "Parent": "empire-overlay-holding-row"
+  },
+  {
+    "$id": "empire-overlay-army-row-icon",
+    "Parent": "empire-overlay-holding-row-icon"
+  },
+  {
+    "$id": "empire-overlay-army-row-text",
+    "Parent": "empire-overlay-holding-row-text"
+  }
+]

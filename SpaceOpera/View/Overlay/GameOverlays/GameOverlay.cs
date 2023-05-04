@@ -7,7 +7,7 @@ using SpaceOpera.Controller.Overlay;
 using SpaceOpera.Core;
 using SpaceOpera.View.Components;
 
-namespace SpaceOpera.View.Overlay.EmpireOverlays
+namespace SpaceOpera.View.Overlay.GameOverlays
 {
     public class GameOverlay : DynamicUiCompoundComponent, IOverlay
     {
@@ -29,7 +29,7 @@ namespace SpaceOpera.View.Overlay.EmpireOverlays
         {
             var calendarOverlay = CalendarComponent.Create(uiElementFactory);
             return new(
-                new EmpireOverlayController(),
+                new GameOverlayController(),
                 new DynamicUiSerialContainer(
                     uiElementFactory.GetClass("game-overlay-container"),
                     new ButtonController(),

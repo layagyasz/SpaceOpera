@@ -49,12 +49,14 @@ namespace SpaceOpera.Core.Economics
             return null;
         }
 
-        public IEnumerable<StellarBodyRegionHolding> GetHoldings(Faction faction)
+        public IEnumerable<StellarBodyHolding> GetHoldingsFor(Faction faction)
         {
-            return _holdings
-                .Where(x => x.Key.Key1 == faction)
-                .SelectMany(x => x.Value.GetSubzones())
-                .Cast<StellarBodyRegionHolding>();
+            return _holdings.Where(x => x.Key.Key1 == faction).Select(x => x.Value).Cast<StellarBodyHolding>();
+        }
+
+        public IEnumerable<StellarBodyRegionHolding> GetSubzoneHoldings(Faction faction)
+        {
+            return GetHoldingsFor(faction).SelectMany(x => x.GetSubzones()).Cast<StellarBodyRegionHolding>();
         }
 
         public void Tick()
