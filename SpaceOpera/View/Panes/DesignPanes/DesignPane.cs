@@ -97,7 +97,8 @@ namespace SpaceOpera.View.Panes.DesignPanes
         private ActionRow<Design> CreateRow(Design design)
         {
             return ActionRow<Design>.Create(
-                design, 
+                design,
+                ActionId.Unknown,
                 _uiElementFactory,
                 s_DesignRowStyle, 
                 new List<IUiElement>() 

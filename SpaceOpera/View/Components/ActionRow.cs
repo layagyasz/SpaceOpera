@@ -25,9 +25,10 @@ namespace SpaceOpera.View.Components
         public T Key { get; }
         private readonly List<IUiElement> _actions = new();
 
-        private ActionRow(Class @class, T key, IEnumerable<IUiElement> info, IEnumerable<UiWrapper> actions)
+        private ActionRow(
+            Class @class, T key, ActionId clickAction, IEnumerable<IUiElement> info, IEnumerable<UiWrapper> actions)
             : base(
-                  new ActionRowController<T>(key),
+                  new ActionRowController<T>(key, clickAction),
                   new DynamicUiSerialContainer(
                       @class, new ButtonController(), UiSerialContainer.Orientation.Horizontal))
         {
@@ -45,6 +46,7 @@ namespace SpaceOpera.View.Components
 
         public static ActionRow<T> Create(
             T key,
+            ActionId clickAction,
             UiElementFactory uiElementFactory,
             Style style,
             IEnumerable<IUiElement> info,
@@ -53,6 +55,7 @@ namespace SpaceOpera.View.Components
             return new(
                 uiElementFactory.GetClass(style.Container),
                 key,
+                clickAction,
                 info,
                 actions.Select(
                     x =>

@@ -339,7 +339,7 @@ namespace SpaceOpera.Controller
                 OpenPane(GamePaneId.Designer, /* closeOpenPanes= */ true, _world!, _faction, e.GetOnlyObject()!);
                 return;
             }
-            if (e.Button == MouseButton.Left)
+            if (e.Button == MouseButton.Left || e.Action == ActionId.Select)
             {
                 if (type.IsAssignableTo(typeof(StellarBodySubRegion)))
                 {

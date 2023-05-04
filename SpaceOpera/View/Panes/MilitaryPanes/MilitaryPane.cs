@@ -95,6 +95,7 @@ namespace SpaceOpera.View.Panes.MilitaryPanes
         {
             return ActionRow<FormationDriver>.Create(
                 driver,
+                ActionId.Select,
                 _uiElementFactory,
                 s_FormationRowStyle,
                 new List<IUiElement>()

@@ -1,8 +1,9 @@
 [
   {
     "$id": "star-system-overlay-container",
-    "Parent": "ui-element",
+    "Parent": "ui-container",
     "Default": {
+      "BackgroundColor": [ "#00000088" ],
       "Size": [
         222,
         [ "DynamicContents", 0, 800 ]
@@ -13,28 +14,58 @@
         [ 8, 8 ]
       ],
       "DisableScissor": false
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "BackgroundColor": [ "#000000cc" ]
+        }
+      }
+    ]
+  },
+  {
+    "$id": "star-system-overlay-table-container",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 222, "DynamicContents" ]
+    }
+  },
+  {
+    "$id": "star-system-overlay-table-header",
+    "Parent": "ui-element-basic",
+    "Default": {
+      "Size": [ 218, 28 ],
+      "Align": "Center"
+    }
+  },
+  {
+    "$id": "star-system-overlay-table",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 222, "DynamicContents" ]
     }
   },
   {
     "$id": "star-system-overlay-row",
     "Parent": "ui-container",
     "Default": {
-      "Size": [ 220, 40 ],
-      "Margin": [ 1, 0, 1, 0 ]
+      "Size": [ 222, 40 ]
     }
   },
   {
     "$id": "star-system-overlay-row-icon",
     "Parent": "ui-icon",
     "Default": {
-      "Size": [ 40, 40 ]
+      "Size": [ 36, 36 ],
+      "Margin": [ 2 ]
     }
   },
   {
     "$id": "star-system-overlay-row-text",
     "Parent": "ui-element-internal",
     "Default": {
-      "Size": [ 172, 40 ],
+      "Size": [ 174, 40 ],
       "Padding": [ 8 ]
     }
   }

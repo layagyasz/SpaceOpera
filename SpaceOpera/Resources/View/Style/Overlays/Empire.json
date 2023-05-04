@@ -4,7 +4,10 @@
     "Parent": "ui-container",
     "Default": {
       "BackgroundColor": [ "#00000088" ],
-      "Size": [ 222, "DynamicContents" ],
+      "Size": [
+        222,
+        [ "DynamicContents", 0, 800 ]
+      ],
       "Margin": [ 8 ],
       "Padding": [ 0, 8, 0, 8 ],
       "CornerRadius": [
@@ -22,14 +25,17 @@
     ]
   },
   {
-    "$id": "empire-overlay-holding-container",
+    "$id": "empire-overlay-table-container",
     "Parent": "ui-container",
     "Default": {
-      "Size": [ 222, "DynamicContents" ]
+      "Size": [
+        222,
+        [ "DynamicContents", 0, 300 ]
+      ]
     }
   },
   {
-    "$id": "empire-overlay-holding-header",
+    "$id": "empire-overlay-table-header",
     "Parent": "ui-element-basic",
     "Default": {
       "Size": [ 218, 28 ],
@@ -37,53 +43,36 @@
     }
   },
   {
-    "$id": "empire-overlay-holding-table",
-    "Parent": "empire-overlay-holding-container"
+    "$id": "empire-overlay-table",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [
+        222,
+        [ "DynamicContents", 0, 268 ]
+      ]
+    }
   },
   {
-    "$id": "empire-overlay-holding-row",
+    "$id": "empire-overlay-row",
     "Parent": "ui-container",
     "Default": {
       "Size": [ 222, 40 ]
     }
   },
   {
-    "$id": "empire-overlay-holding-row-icon",
+    "$id": "empire-overlay-row-icon",
     "Parent": "ui-icon",
     "Default": {
-      "Size": [ 40, 40 ]
+      "Size": [ 36, 36 ],
+      "Margin": [ 2 ]
     }
   },
   {
-    "$id": "empire-overlay-holding-row-text",
+    "$id": "empire-overlay-row-text",
     "Parent": "ui-element-internal",
     "Default": {
       "Size": [ 174, 40 ],
       "Padding": [ 8 ]
     }
-  },
-  {
-    "$id": "empire-overlay-army-container",
-    "Parent": "empire-overlay-holding-container"
-  },
-  {
-    "$id": "empire-overlay-army-header",
-    "Parent": "empire-overlay-holding-header"
-  },
-  {
-    "$id": "empire-overlay-army-table",
-    "Parent": "empire-overlay-army-container"
-  },
-  {
-    "$id": "empire-overlay-army-row",
-    "Parent": "empire-overlay-holding-row"
-  },
-  {
-    "$id": "empire-overlay-army-row-icon",
-    "Parent": "empire-overlay-holding-row-icon"
-  },
-  {
-    "$id": "empire-overlay-army-row-text",
-    "Parent": "empire-overlay-holding-row-text"
   }
 ]

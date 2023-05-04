@@ -28,6 +28,7 @@ namespace SpaceOpera.Controller.Components
 
         private void HandleInteraction(object? sender, UiInteractionEventArgs e)
         {
+            Console.WriteLine($"{this} {e}");
             Interacted?.Invoke(this, e);
         }
     }
