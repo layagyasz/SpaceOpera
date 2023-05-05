@@ -4,7 +4,7 @@ using SpaceOpera.Core.Universe;
 
 namespace SpaceOpera.Core.Military
 {
-    public abstract class BaseFormation : IFormation
+    public abstract class BaseAtomicFormation : IAtomicFormation
     {
         private static readonly float s_BaseRecoherence = 0.1f;
 
@@ -17,7 +17,7 @@ namespace SpaceOpera.Core.Military
         public List<UnitGrouping> Composition { get; } = new();
         public bool InCombat { get; private set; }
 
-        protected BaseFormation(Faction faction)
+        protected BaseAtomicFormation(Faction faction)
         {
             Faction = faction;
         }

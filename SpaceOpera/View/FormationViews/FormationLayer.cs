@@ -37,10 +37,10 @@ namespace SpaceOpera.View.FormationViews
             Dirty();
         }
 
-        public void Add(FormationDriver driver)
+        public void Add(AtomicFormationDriver driver)
         {
             driver.Moved += _events.QueueEvent;
-            Add(driver, driver.Formation.Position, /* initialize= */ false);
+            Add(driver, driver.AtomicFormation.Position, /* initialize= */ false);
 
         }
 
@@ -63,10 +63,10 @@ namespace SpaceOpera.View.FormationViews
         }
 
 
-        public void Remove(FormationDriver driver)
+        public void Remove(AtomicFormationDriver driver)
         {
             driver.Moved -= _events.QueueEvent;
-            Remove(driver, driver.Formation.Position);
+            Remove(driver, driver.AtomicFormation.Position);
         }
 
         public void UpdateFromCamera(IRenderTarget target)
@@ -96,12 +96,12 @@ namespace SpaceOpera.View.FormationViews
 
         private void HandleMove(object? sender, MovementEventArgs e)
         {
-            var driver = (FormationDriver)sender!;
+            var driver = (AtomicFormationDriver)sender!;
             Remove(driver, e.Origin);
             Add(driver, e.Destination, /* initialize= */ true);
         }
 
-        private void Add(FormationDriver driver, INavigable? location, bool initialize)
+        private void Add(AtomicFormationDriver driver, INavigable? location, bool initialize)
         {
             if (location == null)
             {
@@ -115,7 +115,7 @@ namespace SpaceOpera.View.FormationViews
             }
         }
 
-        private void Remove(FormationDriver driver, INavigable? location)
+        private void Remove(AtomicFormationDriver driver, INavigable? location)
         {
             if (location == null)
             {

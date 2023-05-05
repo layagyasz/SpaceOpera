@@ -4,14 +4,14 @@
     {
         public ActionType Type => ActionType.Combat;
         public ActionStatus Status { get; private set; } = ActionStatus.InProgress;
-        public IFormation Target { get; }
+        public IAtomicFormation Target { get; }
 
-        private EngageAction(IFormation target)
+        private EngageAction(IAtomicFormation target)
         {
             Target = target;
         }
 
-        public static IAction Create(IFormation target)
+        public static IAction Create(IAtomicFormation target)
         {
             return new EngageAction(target);
         }
@@ -25,7 +25,7 @@
             return false;
         }
 
-        public void Progress(IFormation formation, World world)
+        public void Progress(IAtomicFormation formation, World world)
         {
             world.BattleManager.Engage(formation, Target);
         }

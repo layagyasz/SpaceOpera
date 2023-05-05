@@ -44,7 +44,7 @@ namespace SpaceOpera.Core.Military.Battles
             DiplomaticRelationGraph = diplomaticRelationGraph;
         }
 
-        public bool CanEngage(IFormation formation, IFormation target)
+        public bool CanEngage(IAtomicFormation formation, IAtomicFormation target)
         {
             if (!DiplomaticRelationGraph.CanAttack(formation.Faction, target.Faction))
             {
@@ -58,7 +58,7 @@ namespace SpaceOpera.Core.Military.Battles
             return CanParticipate(formation, currentBattle.Battle, ReverseSide(currentBattle.Side));
         }
 
-        public bool CanParticipate(IFormation formation, Battle battle, BattleSideType side)
+        public bool CanParticipate(IAtomicFormation formation, Battle battle, BattleSideType side)
         {
             if (!battle.GetFormations(side)
                 .Select(x => x.Faction)
@@ -77,7 +77,7 @@ namespace SpaceOpera.Core.Military.Battles
             return true;
         }
         
-        public void Engage(IFormation formation, IFormation target)
+        public void Engage(IAtomicFormation formation, IAtomicFormation target)
         {
             formation.EnterCombat();
             var key = BattleKey.Create(target.Position!);
@@ -96,7 +96,7 @@ namespace SpaceOpera.Core.Military.Battles
             }
         }
 
-        public Battle? GetBattle(IFormation formation)
+        public Battle? GetBattle(IAtomicFormation formation)
         {
             if (!formation.InCombat)
             {
@@ -152,13 +152,13 @@ namespace SpaceOpera.Core.Military.Battles
             _activeBattles = newActiveBattles;
         }
 
-        private static void Disengage(IFormation formation, Battle battle, BattleSideType side)
+        private static void Disengage(IAtomicFormation formation, Battle battle, BattleSideType side)
         {
             formation.ExitCombat();
             battle.Remove(formation, side);
         }
 
-        private BattleParticipation? GetCurrentBattle(IFormation formation, BattleKey key)
+        private BattleParticipation? GetCurrentBattle(IAtomicFormation formation, BattleKey key)
         {
             if (!formation.InCombat)
             {

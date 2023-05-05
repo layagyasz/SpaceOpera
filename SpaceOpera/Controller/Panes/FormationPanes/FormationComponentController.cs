@@ -6,19 +6,19 @@ namespace SpaceOpera.Controller.Panes.FormationPanes
     {
         public EventHandler<UiInteractionEventArgs>? Interacted { get; set; }
 
-        private FormationComponent? _component;
+        private IFormationComponent? _component;
 
         public void Bind(object @object)
         {
-            _component = (FormationComponent)@object;
+            _component = (IFormationComponent)@object;
             ((IActionController)_component.Header.ComponentController).Interacted += HandleInteraction;
-            ((IActionController)_component.UnitGroupingTable.ComponentController).Interacted += HandleInteraction;
+            ((IActionController)_component.CompositionTable.ComponentController).Interacted += HandleInteraction;
         }
 
         public void Unbind()
         {
             ((IActionController)_component!.Header.ComponentController).Interacted -= HandleInteraction;
-            ((IActionController)_component!.UnitGroupingTable.ComponentController).Interacted -= HandleInteraction;
+            ((IActionController)_component!.CompositionTable.ComponentController).Interacted -= HandleInteraction;
             _component = null;
             
         }

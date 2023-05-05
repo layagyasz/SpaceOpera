@@ -23,7 +23,6 @@ namespace SpaceOpera.Controller.Components
         public void Bind(object @object)
         {
             _row = (IActionRow)@object;
-            Console.WriteLine("bind " + _row.Controller);
             _row.Controller.Clicked += HandleClick;
             _row.ActionAdded += HandleActionAdded;
             _row.ActionRemoved += HandleActionRemoved;

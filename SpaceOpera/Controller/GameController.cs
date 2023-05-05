@@ -38,7 +38,7 @@ namespace SpaceOpera.Controller
 
         private readonly Stack<IGameScene> _scenes = new();
         private readonly EnumMap<HighlightLayerName, ICompositeHighlight> _currentHighlights = new();
-        private readonly HashSet<FormationDriver> _selectedFormations = new();
+        private readonly HashSet<IFormationDriver> _selectedFormations = new();
 
         private ISubcontroller? _subcontroller;
 
@@ -296,25 +296,15 @@ namespace SpaceOpera.Controller
 
         private void HandleObjectInteraction(Type type, UiInteractionEventArgs e)
         {
-            if (type.IsAssignableTo(typeof(FormationDriver)))
+            if (type.IsAssignableTo(typeof(AtomicFormationDriver)))
             {
                 var assigment = ActionIdMapper.ToAssignmentType(e.Action!.Value);
                 if (assigment != AssignmentType.Unknown)
                 {
-                    foreach (var driver in e.Objects.Cast<FormationDriver>())
+                    foreach (var driver in e.Objects.Cast<AtomicFormationDriver>())
                     {
                         ExecuteOrder(new SetAssignmentOrder(driver, assigment));
                     }
-                    return;
-                }
-                if (e.Action == ActionId.Select)
-                {
-                    SelectFormations(e.Objects.Cast<FormationDriver>());
-                    return;
-                }
-                if (e.Action == ActionId.Unselect)
-                {
-                    UnselectFormations(e.Objects.Cast<FormationDriver>());
                     return;
                 }
                 if (e.Action == ActionId.Battle)
@@ -322,11 +312,26 @@ namespace SpaceOpera.Controller
                     OpenPane(
                         GamePaneId.Battle, 
                         /* closeOpenPanes= */ true,
-                        e.Objects.Cast<FormationDriver>()
-                            .Select(x => x.Formation)
+                        e.Objects.Cast<AtomicFormationDriver>()
+                            .Select(x => x.AtomicFormation)
                             .Select(_world!.BattleManager.GetBattle)
                             .Where(x => x != null)
                             .FirstOrDefault());
+                    return;
+                }
+            }
+            if (type.IsAssignableTo(typeof(IFormationDriver)))
+            {
+                if (e.Action == ActionId.Select)
+                {
+                    Console.WriteLine("select");
+                    SelectFormations(e.Objects.Cast<IFormationDriver>());
+                    return;
+                }
+                if (e.Action == ActionId.Unselect)
+                {
+                    UnselectFormations(e.Objects.Cast<IFormationDriver>());
+                    return;
                 }
             }
             if (type.IsAssignableTo(typeof(IOrder)) && e.Action == ActionId.Confirm)
@@ -368,7 +373,7 @@ namespace SpaceOpera.Controller
             }
         }
 
-        private void SelectFormations(IEnumerable<FormationDriver> drivers)
+        private void SelectFormations(IEnumerable<IFormationDriver> drivers)
         {
             OpenPane(GamePaneId.Formation, /* closeOpenPanes= */ true, drivers);
             _selectedFormations.Clear();
@@ -392,7 +397,7 @@ namespace SpaceOpera.Controller
             }
         }
 
-        private void UnselectFormations(IEnumerable<FormationDriver> drivers)
+        private void UnselectFormations(IEnumerable<IFormationDriver> drivers)
         {
             foreach (var driver in drivers)
             {

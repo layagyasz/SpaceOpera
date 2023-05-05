@@ -28,10 +28,7 @@
     "$id": "empire-overlay-table-container",
     "Parent": "ui-container",
     "Default": {
-      "Size": [
-        222,
-        [ "DynamicContents", 0, 300 ]
-      ]
+      "Size": [ 222, "DynamicContents" ]
     }
   },
   {

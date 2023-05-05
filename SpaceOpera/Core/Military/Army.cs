@@ -2,7 +2,7 @@
 
 namespace SpaceOpera.Core.Military
 {
-    public class Army
+    public class Army : IFormation
     {
         public string Name { get; private set; } = string.Empty;
         public Faction Faction { get; }

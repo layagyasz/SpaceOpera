@@ -3,7 +3,7 @@ using SpaceOpera.Core.Universe;
 
 namespace SpaceOpera.Core.Military
 {
-    public class Division : BaseFormation
+    public class Division : BaseAtomicFormation
     {
         public DivisionTemplate Template { get; }
         public StellarBody? StellarBodyLocation { get; private set; }

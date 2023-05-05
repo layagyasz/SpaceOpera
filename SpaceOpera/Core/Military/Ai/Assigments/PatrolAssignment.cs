@@ -48,18 +48,18 @@ namespace SpaceOpera.Core.Military.Ai.Assigments
             }
         }
 
-        private class PatrolTargetNode : ISupplierNode<IFormation, FormationContext>
+        private class PatrolTargetNode : ISupplierNode<IAtomicFormation, FormationContext>
         {
             private readonly PatrolAssignment _parent;
 
-            private IFormation? _cachedTarget;
+            private IAtomicFormation? _cachedTarget;
 
             public PatrolTargetNode(PatrolAssignment parent)
             {
                 _parent = parent;
             }
 
-            public BehaviorNodeResult<IFormation> Execute(FormationContext context)
+            public BehaviorNodeResult<IAtomicFormation> Execute(FormationContext context)
             {
                 var currentPosition = context.Formation.Position;
                 var faction = context.Formation.Faction;
@@ -70,11 +70,11 @@ namespace SpaceOpera.Core.Military.Ai.Assigments
                 {
                     var options =
                         context.World.FormationManager.GetFleetDrivers()
-                            .Where(x => x.Formation.Position == currentPosition)
-                            .Where(x => activeRegions.Contains(x.Formation.Position!))
-                            .Where(x => x.Formation.Faction != faction)
-                            .Where(x => context.World.BattleManager.CanEngage(context.Formation, x.Formation))
-                            .Select(x => x.Formation)
+                            .Where(x => x.AtomicFormation.Position == currentPosition)
+                            .Where(x => activeRegions.Contains(x.AtomicFormation.Position!))
+                            .Where(x => x.AtomicFormation.Faction != faction)
+                            .Where(x => context.World.BattleManager.CanEngage(context.Formation, x.AtomicFormation))
+                            .Select(x => x.AtomicFormation)
                             .ToList();
                     if (options.Count == 0)
                     {
@@ -90,8 +90,8 @@ namespace SpaceOpera.Core.Military.Ai.Assigments
                     }
                 }
                 return _cachedTarget == null
-                    ? BehaviorNodeResult<IFormation>.Incomplete()
-                    : BehaviorNodeResult<IFormation>.Complete(_cachedTarget);
+                    ? BehaviorNodeResult<IAtomicFormation>.Incomplete()
+                    : BehaviorNodeResult<IAtomicFormation>.Complete(_cachedTarget);
             }
         }
 

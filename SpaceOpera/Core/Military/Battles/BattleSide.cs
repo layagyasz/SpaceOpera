@@ -5,24 +5,24 @@ namespace SpaceOpera.Core.Military.Battles
     public class BattleSide
     {
         private readonly BattleSideType _side;
-        private readonly List<IFormation> _formations = new();
+        private readonly List<IAtomicFormation> _formations = new();
 
         public BattleSide(BattleSideType side)
         {
             _side = side;
         }
 
-        public void Add(IFormation Formation)
+        public void Add(IAtomicFormation Formation)
         {
             _formations.Add(Formation);
         }
 
-        public bool Contains(IFormation formation)
+        public bool Contains(IAtomicFormation formation)
         {
             return _formations.Contains(formation);
         }
 
-        public IEnumerable<IFormation> GetFormations()
+        public IEnumerable<IAtomicFormation> GetFormations()
         {
             return _formations;
         }
@@ -93,13 +93,13 @@ namespace SpaceOpera.Core.Military.Battles
             return result;
         }
 
-        public void Remove(IFormation formation)
+        public void Remove(IAtomicFormation formation)
         {
             _formations.Remove(formation);
         }
 
         private static List<BattleAttack> GetPotential(
-            IFormation formation, UnitGrouping unit, BattleSide opposingSide)
+            IAtomicFormation formation, UnitGrouping unit, BattleSide opposingSide)
         {
             return unit.Unit.Weapons.GetCounts()
                 .SelectMany(x => GetPotential(formation, unit, x, opposingSide))
@@ -107,7 +107,7 @@ namespace SpaceOpera.Core.Military.Battles
         }
 
         private static IEnumerable<BattleAttack> GetPotential(
-            IFormation formation, UnitGrouping unit, Count<Weapon> weapon, BattleSide opposingSide)
+            IAtomicFormation formation, UnitGrouping unit, Count<Weapon> weapon, BattleSide opposingSide)
         {
             foreach (var f in opposingSide._formations)
             {

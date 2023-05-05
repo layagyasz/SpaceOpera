@@ -11,14 +11,14 @@ namespace SpaceOpera.Controller.Panes.FormationPanes
 
         public override void BindElement(IUiElement element)
         {
-            var component = (FormationComponent)element;
+            var component = (IFormationComponent)element;
             var controller = (FormationComponentController)component.ComponentController;
             controller.Interacted += HandleInteraction;
         }
 
         public override void UnbindElement(IUiElement element)
         {
-            var component = (FormationComponent)element;
+            var component = (IFormationComponent)element;
             var controller = (FormationComponentController)component.ComponentController;
             controller.Interacted -= HandleInteraction;
         }
@@ -27,7 +27,7 @@ namespace SpaceOpera.Controller.Panes.FormationPanes
         {
             if (e.Action == View.ActionId.Unselect)
             {
-                var row = _component!.Where(x => ((FormationComponent)x).Key == e.GetOnlyObject()).FirstOrDefault();
+                var row = _component!.Where(x => ((IFormationComponent)x).Key == e.GetOnlyObject()).FirstOrDefault();
                 if (row != null)
                 {
                     _component!.Remove(row);

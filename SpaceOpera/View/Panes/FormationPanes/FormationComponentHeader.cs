@@ -10,9 +10,9 @@ using SpaceOpera.View.Icons;
 namespace SpaceOpera.View.Panes.FormationPanes
 {
     public class FormationComponentHeader 
-        : DynamicUiCompoundComponent, IKeyedUiElement<FormationDriver>, IActionRow
+        : DynamicUiCompoundComponent, IKeyedUiElement<AtomicFormationDriver>, IActionRow
     {
-        private static readonly ActionRow<FormationDriver>.Style s_HeaderStyle =
+        private static readonly ActionRow<AtomicFormationDriver>.Style s_HeaderStyle =
             new()
             {
                 Container = "formation-pane-formation-header",
@@ -24,7 +24,7 @@ namespace SpaceOpera.View.Panes.FormationPanes
         private static readonly string s_CurrentAction = "formation-pane-formation-header-current-action";
         private static readonly string s_AssignmentContainer = "formation-pane-formation-header-assignment-container";
 
-        private static readonly List<ActionRow<FormationDriver>.ActionConfiguration> s_FleetAssignments =
+        private static readonly List<ActionRow<AtomicFormationDriver>.ActionConfiguration> s_FleetAssignments =
             new()
             {
                 new()
@@ -38,7 +38,7 @@ namespace SpaceOpera.View.Panes.FormationPanes
                     Action = ActionId.Patrol
                 }
             };
-        private static readonly List<ActionRow<FormationDriver>.ActionConfiguration> s_DivisionAssignments =
+        private static readonly List<ActionRow<AtomicFormationDriver>.ActionConfiguration> s_DivisionAssignments =
             new()
             {
                 new()
@@ -58,7 +58,7 @@ namespace SpaceOpera.View.Panes.FormationPanes
                 }
             };
 
-        private static readonly List<ActionRow<FormationDriver>.ActionConfiguration> s_HeaderActions =
+        private static readonly List<ActionRow<AtomicFormationDriver>.ActionConfiguration> s_HeaderActions =
             new()
             {
                 new ()
@@ -71,13 +71,13 @@ namespace SpaceOpera.View.Panes.FormationPanes
         public EventHandler<ElementEventArgs>? ActionAdded { get; set; }
         public EventHandler<ElementEventArgs>? ActionRemoved { get; set; }
 
-        public FormationDriver Key { get; }
+        public AtomicFormationDriver Key { get; }
         private readonly List<IUiElement> _actions = new();
 
         public FormationComponentHeader(
-            FormationDriver driver, UiElementFactory uiElementFactory, IconFactory iconFactory)
+            AtomicFormationDriver driver, UiElementFactory uiElementFactory, IconFactory iconFactory)
             : base(
-                new ActionRowController<FormationDriver>(driver, ActionId.Unknown),
+                new ActionRowController<AtomicFormationDriver>(driver, ActionId.Unknown),
                 new DynamicUiSerialContainer(
                     uiElementFactory.GetClass(s_HeaderStyle.Container),
                     new ButtonController(), 
@@ -89,7 +89,8 @@ namespace SpaceOpera.View.Panes.FormationPanes
                 new DynamicUiSerialContainer(
                     uiElementFactory.GetClass(s_Info), new InlayController(), UiSerialContainer.Orientation.Vertical)
                 { 
-                    new TextUiElement(uiElementFactory.GetClass(s_Name), new InlayController(), driver.Formation.Name),
+                    new TextUiElement(
+                        uiElementFactory.GetClass(s_Name), new InlayController(), driver.AtomicFormation.Name),
                     new DynamicTextUiElement(
                         uiElementFactory.GetClass(s_CurrentAction), new InlayController(), GetCurrentAction)
                 });
@@ -176,8 +177,8 @@ namespace SpaceOpera.View.Panes.FormationPanes
             return type.ToString();
         }
 
-        private static IEnumerable<ActionRow<FormationDriver>.ActionConfiguration> GetAssignments(
-            FormationDriver driver)
+        private static IEnumerable<ActionRow<AtomicFormationDriver>.ActionConfiguration> GetAssignments(
+            AtomicFormationDriver driver)
         {
             if (driver is FleetDriver)
             {
@@ -187,7 +188,7 @@ namespace SpaceOpera.View.Panes.FormationPanes
             {
                 return s_DivisionAssignments;
             }
-            return Enumerable.Empty<ActionRow<FormationDriver>.ActionConfiguration>();
+            return Enumerable.Empty<ActionRow<AtomicFormationDriver>.ActionConfiguration>();
         }
     }
 }

@@ -1,27 +1,25 @@
-using Cardamom.Graphing.BehaviorTree;
 using SpaceOpera.Core.Military.Ai;
 using SpaceOpera.Core.Military.Ai.Actions;
 using SpaceOpera.Core.Military.Ai.Assigments;
 using SpaceOpera.Core.Universe;
-using System.ComponentModel.Design.Serialization;
-using static SpaceOpera.Core.Military.Ai.SpaceOperaContext;
 
 namespace SpaceOpera.Core.Military
 {
-    public abstract class FormationDriver
+    public abstract class AtomicFormationDriver : IFormationDriver
     {
         public EventHandler<MovementEventArgs>? Moved { get; set; }
         public EventHandler<EventArgs>? OrderUpdated { get; set; }
 
-        public IFormation Formation { get; }
+        public IFormation Formation => AtomicFormation;
+        public IAtomicFormation AtomicFormation { get; }
 
         private readonly IFormationAi _ai;
         private IAction? _action;
 
-        protected FormationDriver(IFormation formation, IFormationAi ai)
+        protected AtomicFormationDriver(IAtomicFormation formation, IFormationAi ai)
         {
-            Formation = formation;
-            Formation.Moved += HandleMove;
+            AtomicFormation = formation;
+            AtomicFormation.Moved += HandleMove;
 
             _ai = ai;
         }
@@ -73,13 +71,13 @@ namespace SpaceOpera.Core.Military
 
         public void Tick(SpaceOperaContext context)
         {
-            Formation.Cohere();
-            var newAction = _ai.Execute(context.ForFormation(Formation)).Result;
+            AtomicFormation.Cohere();
+            var newAction = _ai.Execute(context.ForFormation(AtomicFormation)).Result;
             if (newAction == null || _action == null || !newAction.Equivalent(_action))
             {
                 _action = newAction;
             }
-            _action?.Progress(Formation, context.World);
+            _action?.Progress(AtomicFormation, context.World);
             if (_action is IdleAction idle)
             {
                 if (idle.Unassign)

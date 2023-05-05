@@ -39,9 +39,21 @@ namespace SpaceOpera.View.Panes.FormationPanes
         public void Populate(params object?[] args)
         {
             FormationList.Clear(/* dispose= */ true);
-            foreach (var driver in ((IEnumerable<object>)args[0]!).Cast<FormationDriver>())
+            foreach (var driver in (IEnumerable<object>)args[0]!)
             {
-                var component = new FormationComponent(driver, _uiElementFactory, _iconFactory);
+                IUiElement component;
+                if (driver is AtomicFormationDriver atomicDriver)
+                {
+                    component = new FormationComponent(atomicDriver, _uiElementFactory, _iconFactory);
+                }
+                else if (driver is ArmyDriver armyDriver)
+                {
+                    component = new ArmyComponent(armyDriver, _uiElementFactory, _iconFactory);
+                }
+                else
+                {
+                    throw new ArgumentException($"Unsupported object type {driver.GetType()}.");
+                }
                 component.Initialize();
                 FormationList.Add(component);
             }

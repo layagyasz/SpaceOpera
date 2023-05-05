@@ -29,7 +29,7 @@ namespace SpaceOpera.View.FormationViews
         public int FormationCount => _drivers.Count;
 
         private readonly UiElementFactory _uiElementFactory;
-        private readonly List<FormationDriver> _drivers = new();
+        private readonly List<AtomicFormationDriver> _drivers = new();
         private readonly TextUiElement _number;
 
         private ActionType _actionType;
@@ -59,14 +59,14 @@ namespace SpaceOpera.View.FormationViews
             Add(_number);
         }
 
-        public void Add(FormationDriver driver)
+        public void Add(AtomicFormationDriver driver)
         {
             _drivers.Add(driver);
             UpdateNumber();
             Refresh();
         }
 
-        public void Remove(FormationDriver driver)
+        public void Remove(AtomicFormationDriver driver)
         {
             _drivers.Remove(driver);
             UpdateNumber();
@@ -78,7 +78,7 @@ namespace SpaceOpera.View.FormationViews
             return Enumerable.Empty<IUiElement>();
         }
 
-        public IEnumerable<FormationDriver> GetDrivers()
+        public IEnumerable<AtomicFormationDriver> GetDrivers()
         {
             return _drivers;
         }

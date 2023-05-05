@@ -43,7 +43,10 @@
     "$id": "star-system-overlay-table",
     "Parent": "ui-container",
     "Default": {
-      "Size": [ 222, "DynamicContents" ]
+      "Size": [
+        222,
+        [ "DynamicContents", 0, 768 ]
+      ]
     }
   },
   {

@@ -9,15 +9,15 @@ namespace SpaceOpera.Core.Politics
             public double SpottingProgress { get; set; }
         }
 
-        private readonly Dictionary<IFormation, SingleFormationIntelligence> _formationIntelligence = new();
+        private readonly Dictionary<IAtomicFormation, SingleFormationIntelligence> _formationIntelligence = new();
 
-        public bool IsSpotted(IFormation formation)
+        public bool IsSpotted(IAtomicFormation formation)
         {
             _formationIntelligence.TryGetValue(formation, out var intel);
             return intel != null && Math.Abs(intel.SpottingProgress - 1) < double.Epsilon;
         }
 
-        public void Spot(IFormation formation, double progress)
+        public void Spot(IAtomicFormation formation, double progress)
         {
             _formationIntelligence.TryGetValue(formation, out var intel);
             if (intel == null)

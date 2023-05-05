@@ -14,7 +14,7 @@ namespace SpaceOpera.Core.Military.Ai.Actions
             return false;
         }
 
-        public void Progress(IFormation formation, World world)
+        public void Progress(IAtomicFormation formation, World world)
         {
             if (formation.Cohesion.IsFull())
             {

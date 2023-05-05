@@ -6,10 +6,10 @@ namespace SpaceOpera.Core.Orders.Formations
 {
     public class MoveOrder : IOrder
     {
-        public FormationDriver Driver { get; }
+        public AtomicFormationDriver Driver { get; }
         public INavigable Destination { get; }
 
-        public MoveOrder(FormationDriver driver, INavigable destination)
+        public MoveOrder(AtomicFormationDriver driver, INavigable destination)
         {
             Driver = driver;
             Destination = destination;

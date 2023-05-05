@@ -55,7 +55,7 @@ namespace SpaceOpera.View.Overlay.StarSystemOverlays
                             new ActionTableController(),
                             new DynamicKeyedTable<StellarBody, ActionRow<StellarBody>>(
                                 uiElementFactory.GetClass(s_Table),
-                                new NoOpElementController<UiSerialContainer>(),
+                                new TableController(10f),
                                 UiSerialContainer.Orientation.Vertical,
                                 GetRange,
                                 CreateRow,

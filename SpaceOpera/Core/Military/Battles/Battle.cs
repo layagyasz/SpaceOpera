@@ -15,7 +15,7 @@ namespace SpaceOpera.Core.Military.Battles
             Location = location;
         }
 
-        public void Add(IFormation formation, BattleSideType side)
+        public void Add(IAtomicFormation formation, BattleSideType side)
         {
             switch (side)
             {
@@ -42,12 +42,12 @@ namespace SpaceOpera.Core.Military.Battles
             }
         }
 
-        public bool Contains(IFormation formation)
+        public bool Contains(IAtomicFormation formation)
         {
             return _offense.Contains(formation) || _defense.Contains(formation);
         }
 
-        public BattleSideType GetBattleSide(IFormation formation)
+        public BattleSideType GetBattleSide(IAtomicFormation formation)
         {
             if (_offense.Contains(formation))
             {
@@ -60,7 +60,7 @@ namespace SpaceOpera.Core.Military.Battles
             return BattleSideType.None;
         }
 
-        public IEnumerable<IFormation> GetFormations(BattleSideType type)
+        public IEnumerable<IAtomicFormation> GetFormations(BattleSideType type)
         {
             return type switch
             {
@@ -75,7 +75,7 @@ namespace SpaceOpera.Core.Military.Battles
             return _report.Build();
         }
 
-        public void Remove(IFormation formation, BattleSideType side)
+        public void Remove(IAtomicFormation formation, BattleSideType side)
         {
             switch (side)
             {

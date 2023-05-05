@@ -5,16 +5,16 @@ namespace SpaceOpera.Core.Military.Battles
     public class BattleAttack
     {
         public UnitGrouping Attacker { get; }
-        public IFormation AttackerFormation { get; }
+        public IAtomicFormation AttackerFormation { get; }
         public UnitGrouping Target { get; }
-        public IFormation TargetFormation { get; }
+        public IAtomicFormation TargetFormation { get; }
         public Count<Weapon> Weapon { get; }
 
         private BattleAttack(
             UnitGrouping attacker,
-            IFormation attackerFormation, 
+            IAtomicFormation attackerFormation, 
             UnitGrouping target,
-            IFormation targetFormation, 
+            IAtomicFormation targetFormation, 
             Count<Weapon> weapon)
         {
             Attacker = attacker;
@@ -26,9 +26,9 @@ namespace SpaceOpera.Core.Military.Battles
 
         public static BattleAttack Create(
             UnitGrouping attacker,
-            IFormation attackerFormation,
+            IAtomicFormation attackerFormation,
             UnitGrouping target, 
-            IFormation targetFormation, 
+            IAtomicFormation targetFormation, 
             Count<Weapon> weapon)
         {
             return new BattleAttack(attacker, attackerFormation, target, targetFormation, weapon);

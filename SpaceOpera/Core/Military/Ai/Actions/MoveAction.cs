@@ -24,7 +24,7 @@ namespace SpaceOpera.Core.Military.Ai.Actions
             return false;
         }
 
-        public void Progress(IFormation formation, World world)
+        public void Progress(IAtomicFormation formation, World world)
         {
             _progress += formation.GetSpeed(Movement.Type);
             if (_progress >= Movement.Distance)

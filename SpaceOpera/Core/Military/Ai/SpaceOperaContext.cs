@@ -6,9 +6,9 @@ namespace SpaceOpera.Core.Military.Ai
     {
         public class FormationContext : SpaceOperaContext
         {
-            public IFormation Formation { get; }
+            public IAtomicFormation Formation { get; }
 
-            internal FormationContext(World world, IFormation formation)
+            internal FormationContext(World world, IAtomicFormation formation)
                 : base(world)
             {
                 Formation = formation;
@@ -22,7 +22,7 @@ namespace SpaceOpera.Core.Military.Ai
             World = world;
         }
 
-        public FormationContext ForFormation(IFormation formation)
+        public FormationContext ForFormation(IAtomicFormation formation)
         {
             return new FormationContext(World, formation);
         }

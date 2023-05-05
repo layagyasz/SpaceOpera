@@ -194,13 +194,13 @@ namespace SpaceOpera.View.Icons
 
         private IEnumerable<IconLayer> GetDriverDefinition(object @object)
         {
-            var driver = (FormationDriver)@object;
-            return GetDefinition(driver.Formation);
+            var driver = (AtomicFormationDriver)@object;
+            return GetDefinition(driver.AtomicFormation);
         }
 
         private IEnumerable<IconLayer> GetFleetDefinition(object @object)
         {
-            return GetBannerDefinition(((IFormation)@object).Faction);
+            return GetBannerDefinition(((IAtomicFormation)@object).Faction);
         }
 
         private IEnumerable<IconLayer> GetRecipeDefinition(object @object)

@@ -2,7 +2,7 @@
 
 namespace SpaceOpera.Core.Military
 {
-    public class DivisionDriver : FormationDriver
+    public class DivisionDriver : AtomicFormationDriver
     {
         public DivisionDriver(Division division)
             : base(division, new DivisionAi()) { }

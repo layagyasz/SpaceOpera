@@ -11,10 +11,10 @@ namespace SpaceOpera.Core.Orders.Formations
         private static readonly EnumSet<AssignmentType> s_DivisionAssignments = 
             new(AssignmentType.None, AssignmentType.Train);
 
-        public FormationDriver Driver { get; }
+        public AtomicFormationDriver Driver { get; }
         public AssignmentType Assignment { get; }
 
-        public SetAssignmentOrder(FormationDriver driver, AssignmentType assignment)
+        public SetAssignmentOrder(AtomicFormationDriver driver, AssignmentType assignment)
         {
             Driver = driver;
             Assignment = assignment;

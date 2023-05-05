@@ -2,7 +2,7 @@
 
 namespace SpaceOpera.Core.Military
 {
-    public class Fleet : BaseFormation
+    public class Fleet : BaseAtomicFormation
     {
         public Fleet(Faction faction)
             : base(faction) { }

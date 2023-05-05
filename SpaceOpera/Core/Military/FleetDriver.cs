@@ -2,7 +2,7 @@
 
 namespace SpaceOpera.Core.Military
 {
-    public class FleetDriver : FormationDriver
+    public class FleetDriver : AtomicFormationDriver
     {
         public FleetDriver(Fleet fleet)
             : base(fleet, new FleetAi()) { }

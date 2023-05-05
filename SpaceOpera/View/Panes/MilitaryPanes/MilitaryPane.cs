@@ -28,7 +28,7 @@ namespace SpaceOpera.View.Panes.MilitaryPanes
         private static readonly string s_BodyClassName = "military-pane-body";
         private static readonly string s_MilitaryTableClassName = "military-pane-military-table";
 
-        private static readonly ActionRow<FormationDriver>.Style s_FormationRowStyle =
+        private static readonly ActionRow<AtomicFormationDriver>.Style s_FormationRowStyle =
             new()
             {
                 Container = "military-pane-formation-row"
@@ -66,13 +66,13 @@ namespace SpaceOpera.View.Panes.MilitaryPanes
                 DynamicUiContainer(
                     uiElementFactory.GetClass(s_BodyClassName), new NoOpElementController<UiContainer>());
             _formationTable =
-                new DynamicKeyedTable<FormationDriver, ActionRow<FormationDriver>>(
+                new DynamicKeyedTable<AtomicFormationDriver, ActionRow<AtomicFormationDriver>>(
                     uiElementFactory.GetClass(s_MilitaryTableClassName),
                     new TableController(10f),
                     UiSerialContainer.Orientation.Vertical,
                     GetRange,
                     CreateRow,
-                    Comparer<FormationDriver>.Create((x, y) => x.Formation.Name.CompareTo(y.Formation.Name)));
+                    Comparer<AtomicFormationDriver>.Create((x, y) => x.AtomicFormation.Name.CompareTo(y.AtomicFormation.Name)));
             body.Add(_formationTable);
             SetBody(body);
         }
@@ -91,9 +91,9 @@ namespace SpaceOpera.View.Panes.MilitaryPanes
             _formationTable.SetOffset(0);
         }
 
-        private ActionRow<FormationDriver> CreateRow(FormationDriver driver)
+        private ActionRow<AtomicFormationDriver> CreateRow(AtomicFormationDriver driver)
         {
-            return ActionRow<FormationDriver>.Create(
+            return ActionRow<AtomicFormationDriver>.Create(
                 driver,
                 ActionId.Select,
                 _uiElementFactory,
@@ -102,22 +102,22 @@ namespace SpaceOpera.View.Panes.MilitaryPanes
                 {
                     _iconFactory.Create(_uiElementFactory.GetClass(s_IconClassName), new InlayController(), driver),
                     new TextUiElement(
-                        _uiElementFactory.GetClass(s_TextClassName), new InlayController(), driver.Formation.Name)
+                        _uiElementFactory.GetClass(s_TextClassName), new InlayController(), driver.AtomicFormation.Name)
                 },
-                Enumerable.Empty<ActionRow<FormationDriver>.ActionConfiguration>());
+                Enumerable.Empty<ActionRow<AtomicFormationDriver>.ActionConfiguration>());
         }
 
-        private IEnumerable<FormationDriver> GetRange()
+        private IEnumerable<AtomicFormationDriver> GetRange()
         {
             if (_world == null || _faction == null)
             {
-                return Enumerable.Empty<FormationDriver>();
+                return Enumerable.Empty<AtomicFormationDriver>();
             }
             return _tab switch
             {
                 TabId.Army => _world.FormationManager.GetDivisionDriversFor(_faction),
                 TabId.Fleet => _world.FormationManager.GetFleetDriversFor(_faction),
-                _ => Enumerable.Empty<FormationDriver>(),
+                _ => Enumerable.Empty<AtomicFormationDriver>(),
             };
         }
     }

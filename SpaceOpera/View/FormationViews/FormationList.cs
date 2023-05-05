@@ -38,7 +38,7 @@ namespace SpaceOpera.View.FormationViews
             _iconFactory = iconFactory;
         }
 
-        public void Add(FormationDriver driver, bool initialize)
+        public void Add(AtomicFormationDriver driver, bool initialize)
         {
             (var key, string name) = GetKey(driver);
             if (!_rows.TryGetValue(key, out var row))
@@ -67,12 +67,12 @@ namespace SpaceOpera.View.FormationViews
             base.Draw(target, context);
         }
 
-        public IEnumerable<FormationDriver> GetDrivers()
+        public IEnumerable<AtomicFormationDriver> GetDrivers()
         {
             return _rows.Values.SelectMany(x => x.GetDrivers());
         }
 
-        public void Remove(FormationDriver driver)
+        public void Remove(AtomicFormationDriver driver)
         {
             (var key, var _) = GetKey(driver);
             if (_rows.TryGetValue(key, out var row))
@@ -95,15 +95,15 @@ namespace SpaceOpera.View.FormationViews
             _position = new(projected.Xyz / projected.W, projected.W);
         }
         
-        private static (object, string) GetKey(FormationDriver driver)
+        private static (object, string) GetKey(AtomicFormationDriver driver)
         {
             if (driver is FleetDriver fleet)
             {
-                return (fleet, fleet.Formation.Name);
+                return (fleet, fleet.AtomicFormation.Name);
             }
             if (driver is DivisionDriver division)
             {
-                return (((Division)division.Formation).Template, ((Division)division.Formation).Template.Name);
+                return (((Division)division.AtomicFormation).Template, ((Division)division.AtomicFormation).Template.Name);
             }
             throw new ArgumentException(string.Format("Unsupported driver type {0}.", driver.GetType()));
         }

@@ -77,14 +77,14 @@ namespace SpaceOpera.View.Overlay.EmpireOverlays
                             uiElementFactory.GetClass(s_TableHeader), new ButtonController(), "Fleets"),
                         new DynamicUiCompoundComponent(
                             new ActionTableController(),
-                            new DynamicKeyedTable<FormationDriver, ActionRow<FormationDriver>>(
+                            new DynamicKeyedTable<AtomicFormationDriver, ActionRow<AtomicFormationDriver>>(
                                 uiElementFactory.GetClass(s_Table),
                                 new TableController(10f),
                                 UiSerialContainer.Orientation.Vertical,
                                 GetFleetRange,
                                 CreateFleetRow,
-                                Comparer<FormationDriver>.Create(
-                                    (x, y) => x.Formation.Name.CompareTo(y.Formation.Name))))
+                                Comparer<AtomicFormationDriver>.Create(
+                                    (x, y) => x.AtomicFormation.Name.CompareTo(y.AtomicFormation.Name))))
             });
             Add(fleetTable);
 
@@ -100,13 +100,13 @@ namespace SpaceOpera.View.Overlay.EmpireOverlays
                             uiElementFactory.GetClass(s_TableHeader), new ButtonController(), "Armies"),
                         new DynamicUiCompoundComponent(
                             new ActionTableController(),
-                            new DynamicKeyedTable<Army, ActionRow<Army>>(
+                            new DynamicKeyedTable<ArmyDriver, ActionRow<ArmyDriver>>(
                                 uiElementFactory.GetClass(s_Table),
                                 new TableController(10f),
                                 UiSerialContainer.Orientation.Vertical,
                                 GetArmyRange,
                                 CreateArmyRow,
-                                Comparer<Army>.Create((x, y) => x.Name.CompareTo(y.Name))))
+                                Comparer<ArmyDriver>.Create((x, y) => x.Army.Name.CompareTo(y.Army.Name))))
                     });
             Add(armyTable);
         }
@@ -129,20 +129,20 @@ namespace SpaceOpera.View.Overlay.EmpireOverlays
             _bounds = bounds.Xy;
         }
 
-        private IEnumerable<Army> GetArmyRange()
+        private IEnumerable<ArmyDriver> GetArmyRange()
         {
             if (_world == null || _faction == null)
             {
-                return Enumerable.Empty<Army>();
+                return Enumerable.Empty<ArmyDriver>();
             }
             return _world.FormationManager.GetArmiesFor(_faction);
         }
 
-        private IEnumerable<FormationDriver> GetFleetRange()
+        private IEnumerable<AtomicFormationDriver> GetFleetRange()
         {
             if (_world == null || _faction == null)
             {
-                return Enumerable.Empty<FormationDriver>();
+                return Enumerable.Empty<AtomicFormationDriver>();
             }
             return _world.FormationManager.GetFleetDriversFor(_faction);
         }
@@ -156,26 +156,9 @@ namespace SpaceOpera.View.Overlay.EmpireOverlays
             return _world.Economy.GetHoldingsFor(_faction);
         }
 
-        private ActionRow<Army> CreateArmyRow(Army army)
+        private ActionRow<ArmyDriver> CreateArmyRow(ArmyDriver driver)
         {
-            return ActionRow<Army>.Create(
-                army,
-                ActionId.Select,
-                _uiElementFactory,
-                new() { Container = s_Row },
-                new List<IUiElement>()
-                {
-                    _iconFactory.Create(
-                        _uiElementFactory.GetClass(s_Icon), new InlayController(), army),
-                    new TextUiElement(
-                        _uiElementFactory.GetClass(s_Text), new InlayController(), army.Name)
-                },
-                Enumerable.Empty<ActionRow<Army>.ActionConfiguration>());
-        }
-
-        private ActionRow<FormationDriver> CreateFleetRow(FormationDriver driver)
-        {
-            return ActionRow<FormationDriver>.Create(
+            return ActionRow<ArmyDriver>.Create(
                 driver,
                 ActionId.Select,
                 _uiElementFactory,
@@ -183,11 +166,28 @@ namespace SpaceOpera.View.Overlay.EmpireOverlays
                 new List<IUiElement>()
                 {
                     _iconFactory.Create(
-                        _uiElementFactory.GetClass(s_Icon), new InlayController(), driver.Formation),
+                        _uiElementFactory.GetClass(s_Icon), new InlayController(), driver.Army),
                     new TextUiElement(
-                        _uiElementFactory.GetClass(s_Text), new InlayController(), driver.Formation.Name)
+                        _uiElementFactory.GetClass(s_Text), new InlayController(), driver.Army.Name)
                 },
-                Enumerable.Empty<ActionRow<FormationDriver>.ActionConfiguration>());
+                Enumerable.Empty<ActionRow<ArmyDriver>.ActionConfiguration>());
+        }
+
+        private ActionRow<AtomicFormationDriver> CreateFleetRow(AtomicFormationDriver driver)
+        {
+            return ActionRow<AtomicFormationDriver>.Create(
+                driver,
+                ActionId.Select,
+                _uiElementFactory,
+                new() { Container = s_Row },
+                new List<IUiElement>()
+                {
+                    _iconFactory.Create(
+                        _uiElementFactory.GetClass(s_Icon), new InlayController(), driver.AtomicFormation),
+                    new TextUiElement(
+                        _uiElementFactory.GetClass(s_Text), new InlayController(), driver.AtomicFormation.Name)
+                },
+                Enumerable.Empty<ActionRow<AtomicFormationDriver>.ActionConfiguration>());
         }
 
         private ActionRow<StellarBodyHolding> CreateHoldingRow(StellarBodyHolding holding)

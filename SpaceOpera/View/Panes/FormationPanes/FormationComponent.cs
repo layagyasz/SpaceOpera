@@ -9,7 +9,7 @@ using SpaceOpera.View.Icons;
 
 namespace SpaceOpera.View.Panes.FormationPanes
 {
-    public class FormationComponent : DynamicUiCompoundComponent
+    public class FormationComponent : DynamicUiCompoundComponent, IFormationComponent
     {
         private static readonly string s_ContainerClassName = "formation-pane-formation-container";
         private static readonly string s_UnitGroupingTableClassName = "formation-pane-formation-unit-grouping-table";
@@ -29,14 +29,15 @@ namespace SpaceOpera.View.Panes.FormationPanes
         private static readonly string s_UnitGroupingShieldsClassName = 
             "formation-pane-formation-unit-grouping-row-status-shields";
 
-        public FormationDriver Key { get; }
+        public object Key => Driver;
+        public AtomicFormationDriver Driver { get; }
         public UiCompoundComponent Header { get; }
-        public UiCompoundComponent UnitGroupingTable { get; }
+        public UiCompoundComponent CompositionTable { get; }
 
         private readonly UiElementFactory _uiElementFactory;
         private readonly IconFactory _iconFactory;
 
-        public FormationComponent(FormationDriver driver, UiElementFactory uiElementFactory, IconFactory iconFactory)
+        public FormationComponent(AtomicFormationDriver driver, UiElementFactory uiElementFactory, IconFactory iconFactory)
             : base(
                   new FormationComponentController(), 
                   new DynamicUiSerialContainer(
@@ -44,14 +45,14 @@ namespace SpaceOpera.View.Panes.FormationPanes
                       new NoOpElementController<UiSerialContainer>(),
                       UiSerialContainer.Orientation.Vertical))
         {
-            Key = driver;
+            Driver = driver;
             _uiElementFactory = uiElementFactory;
             _iconFactory = iconFactory;
 
             Header = new FormationComponentHeader(driver, _uiElementFactory, _iconFactory);
             Add(Header);
 
-            UnitGroupingTable =
+            CompositionTable =
                 new DynamicUiCompoundComponent(
                     new ActionTableController(),
                     new DynamicKeyedTable<UnitGrouping, ActionRow<UnitGrouping>>(
@@ -61,12 +62,12 @@ namespace SpaceOpera.View.Panes.FormationPanes
                         GetRange,
                         CreateRow,
                         Comparer<UnitGrouping>.Create((x, y) => x.Unit.Name.CompareTo(y.Unit.Name))));
-            Add(UnitGroupingTable);
+            Add(CompositionTable);
         }
 
         private IEnumerable<UnitGrouping> GetRange()
         {
-            return Key.Formation.Composition;
+            return Driver.AtomicFormation.Composition;
         }
 
         private ActionRow<UnitGrouping> CreateRow(UnitGrouping unitGrouping)
