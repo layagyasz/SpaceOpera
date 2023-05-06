@@ -4,7 +4,6 @@ using SpaceOpera.View.Icons;
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
 using Cardamom.Ui;
-using SpaceOpera.Controller.Panes;
 using SpaceOpera.Core.Economics;
 using SpaceOpera.Core.Universe;
 using SpaceOpera.Controller.Panes.StellarBodyRegionPanes;
@@ -18,11 +17,11 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
             Structures
         }
 
-        private static readonly string s_ClassName = "stellar-body-region-pane";
-        private static readonly string s_TitleClassName = "stellar-body-region-pane-title";
+        private static readonly string s_Container = "stellar-body-region-pane";
+        private static readonly string s_Title = "stellar-body-region-pane-title";
         private static readonly string s_CloseClass = "stellar-body-region-pane-close";
-        private static readonly string s_TabContainerClassName = "stellar-body-region-pane-tab-container";
-        private static readonly string s_TabOptionClassName = "stellar-body-region-pane-tab-option";
+        private static readonly string s_TabContainer = "stellar-body-region-pane-tab-container";
+        private static readonly string s_TabOption = "stellar-body-region-pane-tab-option";
 
         private World? _world;
         private Faction? _faction;
@@ -35,16 +34,16 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
         public StellarBodyRegionPane(UiElementFactory uiElementFactory, IconFactory iconFactory)
             : base(
                   new StellarBodyRegionPaneController(),
-                  uiElementFactory.GetClass(s_ClassName),
-                  new TextUiElement(uiElementFactory.GetClass(s_TitleClassName), new ButtonController(), string.Empty),
+                  uiElementFactory.GetClass(s_Container),
+                  new TextUiElement(uiElementFactory.GetClass(s_Title), new ButtonController(), string.Empty),
                   uiElementFactory.CreateSimpleButton(s_CloseClass).Item1,
                   TabBar<TabId>.Create(
                     new List<TabBar<TabId>.Definition>()
                     {
                         new(TabId.Structures, "Structures"),
                     },
-                    uiElementFactory.GetClass(s_TabContainerClassName),
-                    uiElementFactory.GetClass(s_TabOptionClassName)))
+                    uiElementFactory.GetClass(s_TabContainer),
+                    uiElementFactory.GetClass(s_TabOption)))
         {
             StructureTab = new(uiElementFactory, iconFactory);
             StructureTab.Initialize();

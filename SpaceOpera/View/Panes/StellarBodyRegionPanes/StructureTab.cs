@@ -5,13 +5,12 @@ using SpaceOpera.Core;
 using SpaceOpera.Core.Economics;
 using SpaceOpera.View.Components;
 using SpaceOpera.View.Icons;
-using System.Security.Cryptography.X509Certificates;
 
 namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
 {
     public class StructureTab : DynamicUiSerialContainer
     {
-        private static readonly string s_ClassName = "stellar-body-region-pane-body";
+        private static readonly string s_Container = "stellar-body-region-pane-body";
 
         private static readonly NumericInputTable<Structure>.Style s_StructureTableStyle =
             new()
@@ -177,7 +176,7 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
 
         public StructureTab(UiElementFactory uiElementFactory, IconFactory iconFactory)
             : base(
-                  uiElementFactory.GetClass(s_ClassName),
+                  uiElementFactory.GetClass(s_Container),
                   new NoOpElementController<StructureTab>(),
                   Orientation.Horizontal)
         {

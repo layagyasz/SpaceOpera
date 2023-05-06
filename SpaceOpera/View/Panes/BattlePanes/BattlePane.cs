@@ -11,7 +11,7 @@ namespace SpaceOpera.View.Panes.BattlePanes
 {
     public class BattlePane : SimpleGamePane
     {
-        private static readonly string s_ClassName = "battle-pane";
+        private static readonly string s_Container = "battle-pane";
         private static readonly string s_Title = "battle-pane-title";
         private static readonly string s_Close = "battle-pane-close";
         private static readonly string s_Body = "battle-pane-body";
@@ -28,7 +28,7 @@ namespace SpaceOpera.View.Panes.BattlePanes
         public BattlePane(UiElementFactory uiElementFactory, IconFactory iconFactory)
             : base(
                   new GamePaneController(),
-                  uiElementFactory.GetClass(s_ClassName),
+                  uiElementFactory.GetClass(s_Container),
                   new TextUiElement(uiElementFactory.GetClass(s_Title), new ButtonController(), string.Empty),
                   uiElementFactory.CreateSimpleButton(s_Close).Item1)
         {

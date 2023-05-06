@@ -12,14 +12,12 @@ namespace SpaceOpera.View.Panes.ResearchPanes
             Current
         }
 
-        private static readonly string s_Title = "Research";
-
-        private static readonly string s_ClassName = "pane-standard";
-        private static readonly string s_TitleClassName = "pane-standard-title";
+        private static readonly string s_Container = "pane-standard";
+        private static readonly string s_Title = "pane-standard-title";
         private static readonly string s_CloseClass = "pane-standard-close";
-        private static readonly string s_TabContainerClassName = "pane-tab-container";
-        private static readonly string s_TabOptionClassName = "pane-tab-option";
-        private static readonly string s_BodyClassName = "pane-body";
+        private static readonly string s_TabContainer = "pane-tab-container";
+        private static readonly string s_TabOption = "pane-tab-option";
+        private static readonly string s_Body = "pane-body";
 
         public ResearchPane(
             IElementController controller, 
@@ -40,16 +38,16 @@ namespace SpaceOpera.View.Panes.ResearchPanes
         {
             return new(
                 new GamePaneController(),
-                uiElementFactory.GetClass(s_ClassName),
-                new TextUiElement(uiElementFactory.GetClass(s_TitleClassName), new ButtonController(), s_Title), 
+                uiElementFactory.GetClass(s_Container),
+                new TextUiElement(uiElementFactory.GetClass(s_Title), new ButtonController(), "Research"), 
                 uiElementFactory.CreateSimpleButton(s_CloseClass).Item1,
                 TabBar<TabId>.Create(
                     new List<TabBar<TabId>.Definition>()
                     { 
                         new(TabId.Current, "Current")
                     },
-                    uiElementFactory.GetClass(s_TabContainerClassName),
-                    uiElementFactory.GetClass(s_TabOptionClassName)));
+                    uiElementFactory.GetClass(s_TabContainer),
+                    uiElementFactory.GetClass(s_TabOption)));
         }
     }
 }

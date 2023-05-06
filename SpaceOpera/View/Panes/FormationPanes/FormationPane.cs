@@ -10,8 +10,8 @@ namespace SpaceOpera.View.Panes.FormationPanes
 {
     public class FormationPane : DynamicUiSerialContainer, IGamePane
     {
-        private static readonly string s_ClassName = "formation-pane";
-        private static readonly string s_FormationListClassName = "formation-pane-formation-list";
+        private static readonly string s_Container = "formation-pane";
+        private static readonly string s_FormationList = "formation-pane-formation-list";
 
         public EventHandler<EventArgs>? Populated { get; set; }
 
@@ -21,7 +21,7 @@ namespace SpaceOpera.View.Panes.FormationPanes
         private readonly IconFactory _iconFactory;
 
         public FormationPane(UiElementFactory uiElementFactory, IconFactory iconFactory)
-            : base(uiElementFactory.GetClass(s_ClassName), new FormationPaneController(), Orientation.Vertical)
+            : base(uiElementFactory.GetClass(s_Container), new FormationPaneController(), Orientation.Vertical)
         {
             _uiElementFactory = uiElementFactory;
             _iconFactory = iconFactory;
@@ -30,7 +30,7 @@ namespace SpaceOpera.View.Panes.FormationPanes
                 new DynamicUiCompoundComponent(
                     new FormationListController(),
                     new DynamicUiSerialContainer(
-                        uiElementFactory.GetClass(s_FormationListClassName),
+                        uiElementFactory.GetClass(s_FormationList),
                         new TableController(10f),
                         Orientation.Vertical));
             Add(FormationList);

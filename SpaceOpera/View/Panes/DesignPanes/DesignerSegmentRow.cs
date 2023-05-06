@@ -10,18 +10,18 @@ namespace SpaceOpera.View.Panes.DesignPanes
 {
     public class DesignerSegmentRow : UiCompoundComponent
     {
-        private static readonly string s_ClassName = "designer-pane-segment-container";
-        private static readonly string s_ConfigurationSelectWrapperClassName =
+        private static readonly string s_Container = "designer-pane-segment-container";
+        private static readonly string s_ConfigurationSelectWrapper =
             "designer-pane-segment-configuration-select-wrapper";
-        private static readonly string s_ConfigurationSelectClassName = "designer-pane-segment-configuration-select";
-        private static readonly string s_ConfigurationSelectDropBoxClassName = 
+        private static readonly string s_ConfigurationSelect = "designer-pane-segment-configuration-select";
+        private static readonly string s_ConfigurationSelectDropBox = 
             "designer-pane-segment-configuration-select-dropbox";
-        private static readonly string s_ConfigurationSelectDropOptionClassName =
+        private static readonly string s_ConfigurationSelectDropOption =
             "designer-pane-segment-configuration-select-option";
-        private static readonly string s_ComponentTableClassName = "designer-pane-segment-component-table";
-        private static readonly string s_ComponentRowClassName = "designer-pane-segment-component-row";
-        private static readonly string s_ComponentCellClassName = "designer-pane-segment-component-cell";
-        private static readonly string s_ComponentIconClassName = "designer-pane-segment-component-icon";
+        private static readonly string s_ComponentTable = "designer-pane-segment-component-table";
+        private static readonly string s_ComponentRow = "designer-pane-segment-component-row";
+        private static readonly string s_ComponentCell = "designer-pane-segment-component-cell";
+        private static readonly string s_ComponentIcon = "designer-pane-segment-component-icon";
 
         private static readonly int s_ComponentRowElementCount = 8;
 
@@ -40,7 +40,7 @@ namespace SpaceOpera.View.Panes.DesignPanes
             : base(
                   new DesignerSegmentRowController(),
                   new UiSerialContainer(
-                      uiElementFactory.GetClass(s_ClassName), 
+                      uiElementFactory.GetClass(s_Container), 
                       new ButtonController(),
                       UiSerialContainer.Orientation.Vertical))
         {
@@ -50,20 +50,20 @@ namespace SpaceOpera.View.Panes.DesignPanes
 
             ConfigurationSelect = 
                 uiElementFactory.CreateSelect<SegmentConfiguration>(
-                    s_ConfigurationSelectClassName,
-                    s_ConfigurationSelectDropBoxClassName,
+                    s_ConfigurationSelect,
+                    s_ConfigurationSelectDropBox,
                     template.ConfigurationOptions.Select(
                         x => uiElementFactory.CreateSelectOption(
-                            s_ConfigurationSelectDropOptionClassName, x, x.Name).Item1)).Item1;
+                            s_ConfigurationSelectDropOption, x, x.Name).Item1)).Item1;
             Add(
                 new UiWrapper(
-                    uiElementFactory.GetClass(s_ConfigurationSelectWrapperClassName), 
+                    uiElementFactory.GetClass(s_ConfigurationSelectWrapper), 
                     new ButtonController(), 
                     ConfigurationSelect));
 
             ComponentTable = 
                 new UiSerialContainer(
-                    uiElementFactory.GetClass(s_ComponentTableClassName), 
+                    uiElementFactory.GetClass(s_ComponentTable), 
                     new ButtonController(),
                     UiSerialContainer.Orientation.Vertical);
             Add(ComponentTable);
@@ -89,10 +89,10 @@ namespace SpaceOpera.View.Panes.DesignPanes
                     var controller = new DesignerComponentCellController(configSlot);
                     var slot = 
                         new DesignerComponentCell(
-                            _uiElementFactory.GetClass(s_ComponentCellClassName),
+                            _uiElementFactory.GetClass(s_ComponentCell),
                             controller,
                             _iconFactory, 
-                            _uiElementFactory.GetClass(s_ComponentIconClassName));
+                            _uiElementFactory.GetClass(s_ComponentIcon));
                     slot.Initialize();
                     controller.SetValue(c[i]);
                     cells.Add(slot);
@@ -103,7 +103,7 @@ namespace SpaceOpera.View.Panes.DesignPanes
             {
                 var row = 
                     new UiSerialContainer(
-                        _uiElementFactory.GetClass(s_ComponentRowClassName), 
+                        _uiElementFactory.GetClass(s_ComponentRow), 
                         new ButtonController(), 
                         UiSerialContainer.Orientation.Horizontal);
                 row.Initialize();

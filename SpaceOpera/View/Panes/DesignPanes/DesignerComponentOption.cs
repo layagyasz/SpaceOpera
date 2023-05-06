@@ -8,9 +8,9 @@ namespace SpaceOpera.View.Panes.DesignPanes
 {
     public class DesignerComponentOption : UiSerialContainer
     {
-        private static readonly string s_ComponentRowClassName = "designer-pane-component-option-row";
-        private static readonly string s_ComponentRowIconClassName = "designer-pane-component-option-row-icon";
-        private static readonly string s_ComponentRowTextClassName = "designer-pane-component-option-row-text";
+        private static readonly string s_ComponentRow = "designer-pane-component-option-row";
+        private static readonly string s_ComponentRowIcon = "designer-pane-component-option-row-icon";
+        private static readonly string s_ComponentRowText = "designer-pane-component-option-row-text";
 
         private DesignerComponentOption(Class @class, IComponent component, Icon icon, IUiElement text)
             : base(@class, new OptionElementController<IComponent>(component), Orientation.Horizontal)
@@ -23,14 +23,14 @@ namespace SpaceOpera.View.Panes.DesignPanes
             IComponent component, UiElementFactory uiElementFactory, IconFactory iconFactory)
         {
             return new(
-                uiElementFactory.GetClass(s_ComponentRowClassName),
+                uiElementFactory.GetClass(s_ComponentRow),
                 component,
                 iconFactory.Create(
-                    uiElementFactory.GetClass(s_ComponentRowIconClassName),
+                    uiElementFactory.GetClass(s_ComponentRowIcon),
                     new InlayController(),
                     component),
                 new TextUiElement(
-                    uiElementFactory.GetClass(s_ComponentRowTextClassName), new InlayController(), component.Name));
+                    uiElementFactory.GetClass(s_ComponentRowText), new InlayController(), component.Name));
         }
     }
 }

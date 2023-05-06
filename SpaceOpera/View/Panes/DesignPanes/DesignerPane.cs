@@ -14,12 +14,12 @@ namespace SpaceOpera.View.Panes.DesignPanes
 {
     public class DesignerPane : SimpleGamePane
     {
-        private static readonly string s_ClassName = "designer-pane";
-        private static readonly string s_TitleClassName = "designer-pane-title";
+        private static readonly string s_Container = "designer-pane";
+        private static readonly string s_Title = "designer-pane-title";
         private static readonly string s_CloseClass = "designer-pane-close";
-        private static readonly string s_BodyClassName = "designer-pane-body";
-        private static readonly string s_ComponentOptionTableClassName = "designer-pane-component-option-table";
-        private static readonly string s_SegmentTableClassName = "designer-pane-segment-table";
+        private static readonly string s_Body = "designer-pane-body";
+        private static readonly string s_ComponentOptionTable = "designer-pane-component-option-table";
+        private static readonly string s_SegmentTable = "designer-pane-segment-table";
         private static readonly InfoPanel.Style s_InfoPaneStyle =
             new()
             {
@@ -46,8 +46,8 @@ namespace SpaceOpera.View.Panes.DesignPanes
         public DesignerPane(UiElementFactory uiElementFactory, IconFactory iconFactory)
             : base(
                 new DesignerPaneController(),
-                uiElementFactory.GetClass(s_ClassName),
-                new TextUiElement(uiElementFactory.GetClass(s_TitleClassName), new ButtonController(), string.Empty),
+                uiElementFactory.GetClass(s_Container),
+                new TextUiElement(uiElementFactory.GetClass(s_Title), new ButtonController(), string.Empty),
                 uiElementFactory.CreateSimpleButton(s_CloseClass).Item1)
         {
             _uiElementFactory = uiElementFactory;
@@ -55,7 +55,7 @@ namespace SpaceOpera.View.Panes.DesignPanes
 
             var body = new 
                 UiSerialContainer(
-                    uiElementFactory.GetClass(s_BodyClassName),
+                    uiElementFactory.GetClass(s_Body),
                     new NoOpElementController<UiSerialContainer>(),
                     UiSerialContainer.Orientation.Horizontal);
 
@@ -63,7 +63,7 @@ namespace SpaceOpera.View.Panes.DesignPanes
                 new UiCompoundComponent(
                     new RadioController<IComponent>("component"),
                     new UiSerialContainer(
-                        uiElementFactory.GetClass(s_ComponentOptionTableClassName),
+                        uiElementFactory.GetClass(s_ComponentOptionTable),
                         new TableController(10f),
                         UiSerialContainer.Orientation.Vertical));
             body.Add(ComponentOptionTable);
@@ -72,7 +72,7 @@ namespace SpaceOpera.View.Panes.DesignPanes
                 new UiCompoundComponent(
                     new DesignerSegmentTableController(),
                     new UiSerialContainer(
-                        uiElementFactory.GetClass(s_SegmentTableClassName),
+                        uiElementFactory.GetClass(s_SegmentTable),
                         new TableController(0f),
                         UiSerialContainer.Orientation.Vertical));
             body.Add(SegmentTable);

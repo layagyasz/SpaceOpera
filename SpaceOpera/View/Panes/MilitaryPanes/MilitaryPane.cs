@@ -18,23 +18,21 @@ namespace SpaceOpera.View.Panes.MilitaryPanes
             Fleet
         }
 
-        private static readonly string s_Title = "Military";
-
-        private static readonly string s_ClassName = "military-pane";
-        private static readonly string s_TitleClassName = "military-pane-title";
+        private static readonly string s_Container = "military-pane";
+        private static readonly string s_Title = "military-pane-title";
         private static readonly string s_CloseClass = "military-pane-close";
-        private static readonly string s_TabContainerClassName = "military-pane-tab-container";
-        private static readonly string s_TabOptionClassName = "military-pane-tab-option";
-        private static readonly string s_BodyClassName = "military-pane-body";
-        private static readonly string s_MilitaryTableClassName = "military-pane-military-table";
+        private static readonly string s_TabContainer = "military-pane-tab-container";
+        private static readonly string s_TabOption = "military-pane-tab-option";
+        private static readonly string s_Body = "military-pane-body";
+        private static readonly string s_MilitaryTable = "military-pane-military-table";
 
         private static readonly ActionRow<AtomicFormationDriver>.Style s_FormationRowStyle =
             new()
             {
                 Container = "military-pane-formation-row"
             };
-        private static readonly string s_IconClassName = "military-pane-formation-row-icon";
-        private static readonly string s_TextClassName = "military-pane-formation-row-text";
+        private static readonly string s_Icon = "military-pane-formation-row-icon";
+        private static readonly string s_Text = "military-pane-formation-row-text";
 
         private World? _world;
         private Faction? _faction;
@@ -48,8 +46,8 @@ namespace SpaceOpera.View.Panes.MilitaryPanes
         public MilitaryPane(UiElementFactory uiElementFactory, IconFactory iconFactory)
             : base(
                   new MultiTabGamePaneController(),
-                  uiElementFactory.GetClass(s_ClassName), 
-                  new TextUiElement(uiElementFactory.GetClass(s_TitleClassName), new ButtonController(), s_Title),
+                  uiElementFactory.GetClass(s_Container), 
+                  new TextUiElement(uiElementFactory.GetClass(s_Title), new ButtonController(), "Military"),
                   uiElementFactory.CreateSimpleButton(s_CloseClass).Item1,
                   TabBar<TabId>.Create(
                     new List<TabBar<TabId>.Definition>()
@@ -57,17 +55,17 @@ namespace SpaceOpera.View.Panes.MilitaryPanes
                         new(TabId.Army, "Army"),
                         new(TabId.Fleet, "Fleet")
                     },
-                    uiElementFactory.GetClass(s_TabContainerClassName),
-                    uiElementFactory.GetClass(s_TabOptionClassName)))
+                    uiElementFactory.GetClass(s_TabContainer),
+                    uiElementFactory.GetClass(s_TabOption)))
         {
             _uiElementFactory = uiElementFactory;
             _iconFactory = iconFactory;
             var body = new
                 DynamicUiContainer(
-                    uiElementFactory.GetClass(s_BodyClassName), new NoOpElementController<UiContainer>());
+                    uiElementFactory.GetClass(s_Body), new NoOpElementController<UiContainer>());
             _formationTable =
                 new DynamicKeyedTable<AtomicFormationDriver, ActionRow<AtomicFormationDriver>>(
-                    uiElementFactory.GetClass(s_MilitaryTableClassName),
+                    uiElementFactory.GetClass(s_MilitaryTable),
                     new TableController(10f),
                     UiSerialContainer.Orientation.Vertical,
                     GetRange,
@@ -100,9 +98,9 @@ namespace SpaceOpera.View.Panes.MilitaryPanes
                 s_FormationRowStyle,
                 new List<IUiElement>()
                 {
-                    _iconFactory.Create(_uiElementFactory.GetClass(s_IconClassName), new InlayController(), driver),
+                    _iconFactory.Create(_uiElementFactory.GetClass(s_Icon), new InlayController(), driver),
                     new TextUiElement(
-                        _uiElementFactory.GetClass(s_TextClassName), new InlayController(), driver.AtomicFormation.Name)
+                        _uiElementFactory.GetClass(s_Text), new InlayController(), driver.AtomicFormation.Name)
                 },
                 Enumerable.Empty<ActionRow<AtomicFormationDriver>.ActionConfiguration>());
         }

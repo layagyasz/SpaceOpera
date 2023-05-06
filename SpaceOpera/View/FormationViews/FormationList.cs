@@ -12,7 +12,7 @@ namespace SpaceOpera.View.FormationViews
 {
     public class FormationList : DynamicUiCompoundComponent
     {
-        private static readonly string s_FormationLayerTableClassName = "formation-layer-table";
+        private static readonly string s_FormationLayerTable = "formation-layer-table";
 
         private readonly Vector3 _pin;
         private readonly float? _offset;
@@ -28,7 +28,7 @@ namespace SpaceOpera.View.FormationViews
             : base(
                   new ActionTableController(),
                   new DynamicUiSerialContainer(
-                      uiElementFactory.GetClass(s_FormationLayerTableClassName),
+                      uiElementFactory.GetClass(s_FormationLayerTable),
                       new TableController(0), 
                       UiSerialContainer.Orientation.Vertical))
         {
