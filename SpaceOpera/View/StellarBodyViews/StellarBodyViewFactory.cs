@@ -27,15 +27,13 @@ namespace SpaceOpera.View.StellarBodyViews
         public SpectrumSensitivity HumanEyeSensitivity { get; }
         public StellarBodySurfaceGeneratorResources ResourcesHighRes { get; }
         public StellarBodySurfaceGeneratorResources ResourcesLowRes { get; }
-        public ILogger Logger { get; }
 
         public StellarBodyViewFactory(
             Dictionary<Biome, BiomeRenderDetails> biomeRenderDetails,
             Library<StellarBodyGenerator> stellarBodyGenerators,
             RenderShader surfaceShader,
             RenderShader atmosphereShader,
-            SpectrumSensitivity humanEyeSensitivity,
-            ILogger logger)
+            SpectrumSensitivity humanEyeSensitivity)
         {
             BiomeRenderDetails = biomeRenderDetails;
             StellarBodyGenerators = stellarBodyGenerators;
@@ -44,7 +42,6 @@ namespace SpaceOpera.View.StellarBodyViews
             HumanEyeSensitivity = humanEyeSensitivity;
             ResourcesHighRes = StellarBodySurfaceGeneratorResources.CreateHighRes();
             ResourcesLowRes = StellarBodySurfaceGeneratorResources.CreateLowRes();
-            Logger = logger;
         }
 
         public StellarBodyModel Create(StellarBody stellarBody, float scale, bool highRes)
@@ -67,8 +64,7 @@ namespace SpaceOpera.View.StellarBodyViews
                         stellarBody.Parameters,
                         x => BiomeRenderDetails[x].GetColor(peakColor, scatteredColor),
                         x => BiomeRenderDetails[x].GetLighting(),
-                        highRes ? ResourcesHighRes : ResourcesLowRes,
-                        Logger);
+                        highRes ? ResourcesHighRes : ResourcesLowRes);
             var surface = CreateSphere(
                 scale * stellarBody.Radius,
                 highRes ? s_SphereSubdivisionsHighRes : s_SphereSubdivisionsLowRes, 

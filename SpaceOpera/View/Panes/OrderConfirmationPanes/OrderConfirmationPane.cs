@@ -12,7 +12,7 @@ namespace SpaceOpera.View.Panes.OrderConfirmationPanes
     {
         private static readonly string s_Container = "order-confirmation-pane";
         private static readonly string s_Title = "order-confirmation-pane-title";
-        private static readonly string s_CloseClass = "order-confirmation-pane-close";
+        private static readonly string s_Close = "order-confirmation-pane-close";
         private static readonly string s_BodyClass = "order-confirmation-pane-body";
         private static readonly string s_ConfirmClass = "order-confirmation-pane-confirm";
         private static readonly InfoPanel.Style s_InfoStyle =
@@ -38,7 +38,7 @@ namespace SpaceOpera.View.Panes.OrderConfirmationPanes
                   new OrderConfirmationPaneController(), 
                   uiElementFactory.GetClass(s_Container),
                   new TextUiElement(uiElementFactory.GetClass(s_Title), new ButtonController(), string.Empty),
-                  uiElementFactory.CreateSimpleButton(s_CloseClass).Item1)
+                  uiElementFactory.CreateSimpleButton(s_Close).Item1)
         {
             Confirm = uiElementFactory.CreateTextButton(s_ConfirmClass, "Confirm").Item1;
             _info = new(s_InfoStyle, uiElementFactory, iconFactory);

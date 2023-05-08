@@ -16,7 +16,7 @@ namespace SpaceOpera.View.Panes.DesignPanes
     {
         private static readonly string s_Container = "designer-pane";
         private static readonly string s_Title = "designer-pane-title";
-        private static readonly string s_CloseClass = "designer-pane-close";
+        private static readonly string s_Close = "designer-pane-close";
         private static readonly string s_Body = "designer-pane-body";
         private static readonly string s_ComponentOptionTable = "designer-pane-component-option-table";
         private static readonly string s_SegmentTable = "designer-pane-segment-table";
@@ -48,7 +48,7 @@ namespace SpaceOpera.View.Panes.DesignPanes
                 new DesignerPaneController(),
                 uiElementFactory.GetClass(s_Container),
                 new TextUiElement(uiElementFactory.GetClass(s_Title), new ButtonController(), string.Empty),
-                uiElementFactory.CreateSimpleButton(s_CloseClass).Item1)
+                uiElementFactory.CreateSimpleButton(s_Close).Item1)
         {
             _uiElementFactory = uiElementFactory;
             _iconFactory = iconFactory;

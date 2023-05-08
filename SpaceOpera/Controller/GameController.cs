@@ -324,7 +324,6 @@ namespace SpaceOpera.Controller
             {
                 if (e.Action == ActionId.Select)
                 {
-                    Console.WriteLine("select");
                     SelectFormations(e.Objects.Cast<IFormationDriver>());
                     return;
                 }

@@ -50,7 +50,7 @@ namespace SpaceOpera
             ILogger logger = new Logger(new ConsoleBackend(), LogLevel.Info);
             var coreData = CoreData.LoadFrom("Resources/Core/CoreData.json", logger);
             var viewData = ViewData.LoadFrom("Resources/View/ViewData.json", logger);
-            var viewFactory = ViewFactory.Create(viewData, coreData, logger);
+            var viewFactory = ViewFactory.Create(viewData, coreData);
 
             var generatorContext =
                 new GeneratorContext(logger, StellarBodySurfaceGeneratorResources.CreateForGenerator(), new());

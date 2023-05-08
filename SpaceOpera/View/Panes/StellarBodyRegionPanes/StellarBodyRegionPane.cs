@@ -19,7 +19,7 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
 
         private static readonly string s_Container = "stellar-body-region-pane";
         private static readonly string s_Title = "stellar-body-region-pane-title";
-        private static readonly string s_CloseClass = "stellar-body-region-pane-close";
+        private static readonly string s_Close = "stellar-body-region-pane-close";
         private static readonly string s_TabContainer = "stellar-body-region-pane-tab-container";
         private static readonly string s_TabOption = "stellar-body-region-pane-tab-option";
 
@@ -36,7 +36,7 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
                   new StellarBodyRegionPaneController(),
                   uiElementFactory.GetClass(s_Container),
                   new TextUiElement(uiElementFactory.GetClass(s_Title), new ButtonController(), string.Empty),
-                  uiElementFactory.CreateSimpleButton(s_CloseClass).Item1,
+                  uiElementFactory.CreateSimpleButton(s_Close).Item1,
                   TabBar<TabId>.Create(
                     new List<TabBar<TabId>.Definition>()
                     {

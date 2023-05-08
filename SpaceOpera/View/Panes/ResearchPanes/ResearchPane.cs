@@ -14,7 +14,7 @@ namespace SpaceOpera.View.Panes.ResearchPanes
 
         private static readonly string s_Container = "pane-standard";
         private static readonly string s_Title = "pane-standard-title";
-        private static readonly string s_CloseClass = "pane-standard-close";
+        private static readonly string s_Close = "pane-standard-close";
         private static readonly string s_TabContainer = "pane-tab-container";
         private static readonly string s_TabOption = "pane-tab-option";
         private static readonly string s_Body = "pane-body";
@@ -40,7 +40,7 @@ namespace SpaceOpera.View.Panes.ResearchPanes
                 new GamePaneController(),
                 uiElementFactory.GetClass(s_Container),
                 new TextUiElement(uiElementFactory.GetClass(s_Title), new ButtonController(), "Research"), 
-                uiElementFactory.CreateSimpleButton(s_CloseClass).Item1,
+                uiElementFactory.CreateSimpleButton(s_Close).Item1,
                 TabBar<TabId>.Create(
                     new List<TabBar<TabId>.Definition>()
                     { 

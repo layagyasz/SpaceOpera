@@ -15,7 +15,7 @@ namespace SpaceOpera.View.Panes.DesignPanes
     {
         private static readonly string s_Container = "design-pane";
         private static readonly string s_Title = "design-pane-title";
-        private static readonly string s_CloseClass = "design-pane-close";
+        private static readonly string s_Close = "design-pane-close";
         private static readonly string s_TabContainer = "design-pane-tab-container";
         private static readonly string s_TabOption = "design-pane-tab-option";
         private static readonly string s_Body = "design-pane-body";
@@ -54,7 +54,7 @@ namespace SpaceOpera.View.Panes.DesignPanes
                 new DesignPaneController(),
                 uiElementFactory.GetClass(s_Container),
                 new TextUiElement(uiElementFactory.GetClass(s_Title), new ButtonController(), "Designs"),
-                uiElementFactory.CreateSimpleButton(s_CloseClass).Item1,
+                uiElementFactory.CreateSimpleButton(s_Close).Item1,
                 TabBar<ComponentType>.Create(
                     componentTypes.Select(x => new TabBar<ComponentType>.Definition(x, EnumMapper.ToString(x))),
                     uiElementFactory.GetClass(s_TabContainer),

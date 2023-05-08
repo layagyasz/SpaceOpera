@@ -20,7 +20,7 @@ namespace SpaceOpera.View.Panes.MilitaryPanes
 
         private static readonly string s_Container = "military-pane";
         private static readonly string s_Title = "military-pane-title";
-        private static readonly string s_CloseClass = "military-pane-close";
+        private static readonly string s_Close = "military-pane-close";
         private static readonly string s_TabContainer = "military-pane-tab-container";
         private static readonly string s_TabOption = "military-pane-tab-option";
         private static readonly string s_Body = "military-pane-body";
@@ -48,7 +48,7 @@ namespace SpaceOpera.View.Panes.MilitaryPanes
                   new MultiTabGamePaneController(),
                   uiElementFactory.GetClass(s_Container), 
                   new TextUiElement(uiElementFactory.GetClass(s_Title), new ButtonController(), "Military"),
-                  uiElementFactory.CreateSimpleButton(s_CloseClass).Item1,
+                  uiElementFactory.CreateSimpleButton(s_Close).Item1,
                   TabBar<TabId>.Create(
                     new List<TabBar<TabId>.Definition>()
                     {

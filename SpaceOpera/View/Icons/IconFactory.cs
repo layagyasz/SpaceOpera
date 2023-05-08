@@ -15,7 +15,7 @@ using SpaceOpera.View.FactionViews;
 
 namespace SpaceOpera.View.Icons
 {
-    public class IconFactory
+    public class IconFactory : IIconDisposer
     {
         private class IconCamera : ICamera
         {
@@ -48,9 +48,9 @@ namespace SpaceOpera.View.Icons
             private readonly UiElementFactory _uiElementFactory;
             private readonly RenderShader _shader;
 
-            public IconConfig(IEnumerable<IconLayer> layers, UiElementFactory uiElementFactory, RenderShader shader)
+            public IconConfig(List<IconLayer> layers, UiElementFactory uiElementFactory, RenderShader shader)
             {
-                _layers = layers.ToList();
+                _layers = layers;
                 _uiElementFactory = uiElementFactory;
                 _shader = shader;
             }
@@ -93,6 +93,7 @@ namespace SpaceOpera.View.Icons
         private readonly UiElementFactory _uiElementFactory;
         private readonly RenderShader _shader;
 
+        private readonly IconCache _cache = new();
         private readonly RenderTexture _rasterTexture = new(new(64, 64));
 
         public IconFactory(
@@ -108,22 +109,17 @@ namespace SpaceOpera.View.Icons
             _configs = configs;
             _definitionMap = new()
             {
-                {typeof(Army), GetArmyDefinition },
+                { typeof(Banner), GetBannerDefinition },
                 { typeof(BaseComponent),  GetAtomicDefinition },
                 { typeof(BaseMaterial), GetAtomicDefinition },
                 { typeof(BattalionTemplate), GetDesignedComponentDefinition },
                 { typeof(Design), GetDesignDefinition },
                 { typeof(DesignedComponent), GetDesignedComponentDefinition },
                 { typeof(Division), GetDivisionDefinition },
-                { typeof(DivisionDriver), GetDriverDefinition },
                 { typeof(DivisionTemplate), GetDesignedComponentDefinition },
-                { typeof(Faction), GetBannerDefinition },
-                { typeof(Fleet), GetFleetDefinition },
-                { typeof(FleetDriver), GetDriverDefinition },
                 { typeof(Recipe), GetRecipeDefinition },
                 { typeof(Structure), GetAtomicDefinition },
                 { typeof(Unit), GetDesignedComponentDefinition },
-                { typeof(UnitGrouping), GetUnitGroupingDefinition }
             };
             _uiElementFactory = uiElementFactory;
             _shader = _uiElementFactory.GetShader("shader-default");
@@ -131,20 +127,46 @@ namespace SpaceOpera.View.Icons
 
         public Icon Create(Class @class, IElementController controller, object @object)
         {
+            @object = GetKey(@object);
+            if (_cache.TryGetTexture(@object, out var texture))
+            {
+                return new(
+                    @object,
+                    @class,
+                    controller,
+                    Color4.White,
+                    texture!,
+                    new(new(), new(64, 64)),
+                    _shader,
+                    this);
+            }
             if (@object is StellarBody stellarBody)
             {
                 _rasterTexture.Clear();
                 _stellarBodyIconFactory.Rasterize(stellarBody, _rasterTexture);
                 _rasterTexture.Display();
-                return new(@class, controller, _rasterTexture.CopyTexture(), _shader, 64);
+                var tex = _rasterTexture.CopyTexture();
+                _cache.Put(@object, tex);
+                return new(@object, @class, controller, Color4.White, tex, new(new(), new(64, 64)), _shader, this);
             }
-            return  
-                new(
-                    @class, 
-                    controller, 
-                    Rasterize(new IconConfig(GetDefinition(@object), _uiElementFactory, _shader), new IconCamera()),
-                    _shader,
-                    64);
+            var definition = GetDefinition(@object).ToList();
+            if (definition.Count == 1)
+            {
+                var d = definition.First();
+                var tex = _uiElementFactory.GetTexture(d.Texture);
+                return new(@object, @class, controller, d.Color, tex.Texture!, tex.TextureView, _shader, null);
+            }
+            else 
+            {
+                var tex = Rasterize(new IconConfig(definition, _uiElementFactory, _shader), new IconCamera());
+                _cache.Put(@object, tex);
+                return new(@object, @class, controller, Color4.White, tex, new(new(), new(64, 64)), _shader, this);
+            }
+        }
+
+        public void Dispose(Icon icon)
+        {
+            _cache.Return(icon.Key);
         }
 
         public IEnumerable<IconLayer> GetDefinition(object @object)
@@ -152,10 +174,33 @@ namespace SpaceOpera.View.Icons
             return _definitionMap[@object.GetType()](@object);
         }
 
-        public IEnumerable<IconLayer> GetArmyDefinition(object @object)
+        private object GetKey(object @object)
         {
-            var army = (Army)@object;
-            return GetBannerDefinition(army.Faction);
+            if (@object is Army army)
+            {
+                return army.Faction.Banner;
+            }
+            if (@object is IFormationDriver driver)
+            {
+                return GetKey(driver.Formation);
+            }
+            if (@object is Faction faction)
+            {
+                return faction.Banner;
+            }
+            if (@object is Fleet fleet)
+            {
+                return fleet.Faction.Banner;
+            }
+            if (@object is Recipe recipe)
+            {
+                return recipe.Transformation.First(x => x.Value > 0).Key;
+            }
+            if (@object is UnitGrouping unitGrouping)
+            {
+                return unitGrouping.Unit;
+            }
+            return @object;
         }
 
         private IEnumerable<IconLayer> GetAtomicDefinition(object @object)
@@ -166,7 +211,7 @@ namespace SpaceOpera.View.Icons
 
         private IEnumerable<IconLayer> GetBannerDefinition(object @object)
         {
-            return _bannerViewFactory.Create(((Faction)@object).Banner);
+            return _bannerViewFactory.Create((Banner)@object);
         }
 
         private IEnumerable<IconLayer> GetDesignDefinition(object @object)
@@ -192,27 +237,10 @@ namespace SpaceOpera.View.Icons
             return GetDesignedComponentDefinition(division.Template, _bannerViewFactory.Get(division.Faction.Banner));
         }
 
-        private IEnumerable<IconLayer> GetDriverDefinition(object @object)
-        {
-            var driver = (AtomicFormationDriver)@object;
-            return GetDefinition(driver.AtomicFormation);
-        }
-
-        private IEnumerable<IconLayer> GetFleetDefinition(object @object)
-        {
-            return GetBannerDefinition(((IAtomicFormation)@object).Faction);
-        }
-
         private IEnumerable<IconLayer> GetRecipeDefinition(object @object)
         {
             var recipe = (Recipe)@object;
             return GetDefinition(recipe.Transformation.First(x => x.Value > 0).Key);
-        }
-
-        private IEnumerable<IconLayer> GetUnitGroupingDefinition(object @object)
-        {
-            var grouping = (UnitGrouping)@object;
-            return GetDefinition(grouping.Unit);
         }
 
         private Texture Rasterize(IRenderable renderable, ICamera camera)

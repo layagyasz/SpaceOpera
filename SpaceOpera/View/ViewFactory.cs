@@ -40,7 +40,7 @@ namespace SpaceOpera.View
             IconFactory = iconFactory;
         }
 
-        public static ViewFactory Create(ViewData viewData, CoreData coreData, ILogger logger)
+        public static ViewFactory Create(ViewData viewData, CoreData coreData)
         {
             var starViewFactory = 
                 new StarViewFactory(viewData.GameResources!.GetShader("shader-star"), viewData.HumanEyeSensitivity!);
@@ -57,8 +57,7 @@ namespace SpaceOpera.View
                         .ToLibrary(x => x.Key, x => x),
                     viewData.GameResources!.GetShader("shader-light3"),
                     viewData.GameResources!.GetShader("shader-atmosphere"),
-                    viewData.HumanEyeSensitivity!,
-                    logger);
+                    viewData.HumanEyeSensitivity!);
             UiElementFactory uiElementFactory = new(viewData.GameResources);
             IconFactory iconFactory =
                 new(

@@ -107,13 +107,10 @@ namespace SpaceOpera.Core.Universe.Generator
             Dictionary<string, object> parameterValues, 
             Func<Biome, Color4> diffuseFn, 
             Func<Biome, Color4> lightingFn,
-            StellarBodySurfaceGeneratorResources resources,
-            ILogger logger)
+            StellarBodySurfaceGeneratorResources resources)
         {
-            logger.AtInfo().Log($"stellar-temperature = {temperature}");
             foreach (var parameter in parameterValues)
             {
-                logger.AtInfo().Log($"{parameter.Key} = {parameter.Value}");
                 _parameters[parameter.Key].Set(parameter.Value);
             }
 

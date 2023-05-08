@@ -9,21 +9,37 @@ namespace SpaceOpera.View.Icons
 {
     public class Icon : ClassedUiElement
     {
+        public object Key { get; }
+
         private readonly Vertex3[] _vertices;
         private Texture? _texture;
         private readonly RenderShader _shader;
+        private readonly IIconDisposer? _disposer;
 
         public Icon(
-            Class @class, IElementController controller, Texture texture, RenderShader shader, float resolution)
+            object key, 
+            Class @class, 
+            IElementController controller,
+            Color4 color,
+            Texture texture,
+            Box2i textureView,
+            RenderShader shader,
+            IIconDisposer? disposer)
             : base(@class, controller)
         {
+            Key = key;
             _vertices = new Vertex3[6];
             for (int i=0; i<_vertices.Length; ++i)
             {
-                _vertices[i] = new(new(Utils.UnitTriangles[i]), Color4.White, resolution * Utils.UnitTriangles[i]);
+                _vertices[i] = 
+                    new(
+                        new(Utils.UnitTriangles[i]), 
+                        color, 
+                        textureView.Min + textureView.Size * Utils.UnitTriangles[i]);
             }
             _texture = texture;
             _shader = shader;
+            _disposer = disposer;
             SetAttributes(@class.Get(Class.State.None));
         }
 
@@ -51,6 +67,11 @@ namespace SpaceOpera.View.Icons
             return null;
         }
 
+        public Texture GetTexture()
+        {
+            return _texture!;
+        }
+
         public override void SetAttributes(ClassAttributes attributes)
         {
             base.SetAttributes(attributes);
@@ -62,7 +83,7 @@ namespace SpaceOpera.View.Icons
 
         protected override void DisposeImpl()
         {
-            _texture!.Dispose();
+            _disposer?.Dispose(this);
             _texture = null;
         }
 
