@@ -13,11 +13,11 @@ namespace SpaceOpera.View.Highlights
         public Color4 BorderColor => Color4.Yellow;
         public Color4 Color => Color4.Yellow;
 
-        private readonly HashSet<AtomicFormationDriver> _drivers;
+        private readonly HashSet<IFormationDriver> _drivers;
 
         public FormationHighlight(IEnumerable<IFormationDriver> drivers)
         {
-            _drivers = new(drivers.Where(x => x is AtomicFormationDriver).Cast<AtomicFormationDriver>());
+            _drivers = new(drivers);
             foreach (var driver in _drivers)
             {
                 driver.OrderUpdated += HandleFleetUpdate;

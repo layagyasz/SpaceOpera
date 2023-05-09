@@ -6,15 +6,17 @@ namespace SpaceOpera.Core.Orders.Formations
 {
     public class SetAssignmentOrder : IOrder
     {
+        private static readonly EnumSet<AssignmentType> s_ArmyAssignments =
+            new(AssignmentType.None, AssignmentType.Defend);
         private static readonly EnumSet<AssignmentType> s_FleetAssignments =
             new(AssignmentType.None, AssignmentType.Patrol);
         private static readonly EnumSet<AssignmentType> s_DivisionAssignments = 
             new(AssignmentType.None, AssignmentType.Train);
 
-        public AtomicFormationDriver Driver { get; }
+        public IFormationDriver Driver { get; }
         public AssignmentType Assignment { get; }
 
-        public SetAssignmentOrder(AtomicFormationDriver driver, AssignmentType assignment)
+        public SetAssignmentOrder(IFormationDriver driver, AssignmentType assignment)
         {
             Driver = driver;
             Assignment = assignment;
@@ -22,6 +24,12 @@ namespace SpaceOpera.Core.Orders.Formations
 
         public ValidationFailureReason Validate()
         {
+            if (Driver is ArmyDriver)
+            {
+                return s_ArmyAssignments.Contains(Assignment) 
+                    ? ValidationFailureReason.None 
+                    : ValidationFailureReason.IllegalOrder;
+            }
             if (Driver is FleetDriver)
             {
                 return s_FleetAssignments.Contains(Assignment) 

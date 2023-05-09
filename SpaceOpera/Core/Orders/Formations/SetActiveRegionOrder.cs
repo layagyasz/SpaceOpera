@@ -5,10 +5,10 @@ namespace SpaceOpera.Core.Orders.Formations
 {
     public class SetActiveRegionOrder : IOrder
     {
-        public AtomicFormationDriver Driver { get; }
+        public IFormationDriver Driver { get; }
         public ISet<INavigable> ActiveRegion { get; }
 
-        public SetActiveRegionOrder(AtomicFormationDriver driver, ISet<INavigable> activeRegion)
+        public SetActiveRegionOrder(IFormationDriver driver, ISet<INavigable> activeRegion)
         {
             Driver = driver;
             ActiveRegion = activeRegion;

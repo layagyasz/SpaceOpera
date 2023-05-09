@@ -77,6 +77,14 @@
     }
   },
   {
+    "$id": "formation-pane-formation-header-assignment-defend",
+    "Parent": "pane-action-button",
+    "Default": {
+      "Texture": "icon-shield",
+      "Margin": [ 4, 10, 4, 10 ]
+    }
+  },
+  {
     "$id": "formation-pane-formation-header-assignment-move",
     "Parent": "pane-action-button",
     "Default": {
@@ -213,30 +221,6 @@
   {
     "$id": "formation-pane-army-container",
     "Parent": "formation-pane-formation-container"
-  },
-  {
-    "$id": "formation-pane-army-header",
-    "Parent": "formation-pane-formation-header"
-  },
-  {
-    "$id": "formation-pane-army-header-icon",
-    "Parent": "formation-pane-formation-header-icon"
-  },
-  {
-    "$id": "formation-pane-army-header-text",
-    "Parent": "ui-element-internal",
-    "Default": {
-      "Size": [ 338, 48 ],
-      "Padding": [ 8 ]
-    }
-  },
-  {
-    "$id": "formation-pane-army-header-action-container",
-    "Parent": "formation-pane-formation-header-action-container"
-  },
-  {
-    "$id": "formation-pane-army-header-action-close",
-    "Parent": "formation-pane-formation-header-action-close"
   },
   {
     "$id": "formation-pane-army-division-table",

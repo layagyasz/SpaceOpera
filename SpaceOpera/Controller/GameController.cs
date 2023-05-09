@@ -18,6 +18,7 @@ using SpaceOpera.View;
 using SpaceOpera.View.Highlights;
 using SpaceOpera.View.Overlay;
 using SpaceOpera.View.Panes;
+using SpaceOpera.View.Panes.FormationPanes;
 using SpaceOpera.View.Panes.StellarBodyRegionPanes;
 using SpaceOpera.View.Scenes;
 
@@ -298,15 +299,6 @@ namespace SpaceOpera.Controller
         {
             if (type.IsAssignableTo(typeof(AtomicFormationDriver)))
             {
-                var assigment = ActionIdMapper.ToAssignmentType(e.Action!.Value);
-                if (assigment != AssignmentType.Unknown)
-                {
-                    foreach (var driver in e.Objects.Cast<AtomicFormationDriver>())
-                    {
-                        ExecuteOrder(new SetAssignmentOrder(driver, assigment));
-                    }
-                    return;
-                }
                 if (e.Action == ActionId.Battle)
                 {
                     OpenPane(
@@ -322,6 +314,15 @@ namespace SpaceOpera.Controller
             }
             if (type.IsAssignableTo(typeof(IFormationDriver)))
             {
+                var assigment = ActionIdMapper.ToAssignmentType(e.Action!.Value);
+                if (assigment != AssignmentType.Unknown)
+                {
+                    foreach (var driver in e.Objects.Cast<IFormationDriver>())
+                    {
+                        ExecuteOrder(new SetAssignmentOrder(driver, assigment));
+                    }
+                    return;
+                }
                 if (e.Action == ActionId.Select)
                 {
                     SelectFormations(e.Objects.Cast<IFormationDriver>());
@@ -382,6 +383,10 @@ namespace SpaceOpera.Controller
             }
             if (_selectedFormations.Count > 0)
             {
+                if (_selectedFormations.First().GetType() == typeof(ArmyDriver))
+                {
+                    ChangeSubcontrollerTo(new ArmySubcontroller(_selectedFormations.Cast<ArmyDriver>()));
+                }
                 if (_selectedFormations.First().GetType() == typeof(FleetDriver))
                 {
                     ChangeSubcontrollerTo(new FleetSubcontroller(_selectedFormations.Cast<FleetDriver>()));
@@ -429,6 +434,10 @@ namespace SpaceOpera.Controller
 
         private void HandlePaneClosed(object? sender, ElementEventArgs e)
         {
+            if (e.Element is FormationPane)
+            {
+                UnselectFormations(_selectedFormations);
+            }
             if (e.Element is StellarBodyRegionPane)
             {
                 SetHighlight(HighlightLayerName.Foreground, null);

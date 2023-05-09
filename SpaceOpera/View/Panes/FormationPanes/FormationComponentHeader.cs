@@ -10,7 +10,7 @@ using SpaceOpera.View.Icons;
 namespace SpaceOpera.View.Panes.FormationPanes
 {
     public class FormationComponentHeader 
-        : DynamicUiCompoundComponent, IKeyedUiElement<AtomicFormationDriver>, IActionRow
+        : DynamicUiCompoundComponent, IKeyedUiElement<IFormationDriver>, IActionRow
     {
         private static readonly ActionRow<AtomicFormationDriver>.Style s_HeaderStyle =
             new()
@@ -24,6 +24,20 @@ namespace SpaceOpera.View.Panes.FormationPanes
         private static readonly string s_CurrentAction = "formation-pane-formation-header-current-action";
         private static readonly string s_AssignmentContainer = "formation-pane-formation-header-assignment-container";
 
+        private static readonly List<ActionRow<AtomicFormationDriver>.ActionConfiguration> s_ArmyAssignments =
+            new()
+            {
+                new()
+                {
+                    Button = "formation-pane-formation-header-assignment-none",
+                    Action = ActionId.NoAssignment
+                },
+                new()
+                {
+                    Button = "formation-pane-formation-header-assignment-defend",
+                    Action = ActionId.Defend
+                }
+            };
         private static readonly List<ActionRow<AtomicFormationDriver>.ActionConfiguration> s_FleetAssignments =
             new()
             {
@@ -71,13 +85,13 @@ namespace SpaceOpera.View.Panes.FormationPanes
         public EventHandler<ElementEventArgs>? ActionAdded { get; set; }
         public EventHandler<ElementEventArgs>? ActionRemoved { get; set; }
 
-        public AtomicFormationDriver Key { get; }
+        public IFormationDriver Key { get; }
         private readonly List<IUiElement> _actions = new();
 
         public FormationComponentHeader(
-            AtomicFormationDriver driver, UiElementFactory uiElementFactory, IconFactory iconFactory)
+            IFormationDriver driver, UiElementFactory uiElementFactory, IconFactory iconFactory)
             : base(
-                new ActionRowController<AtomicFormationDriver>(driver, ActionId.Unknown),
+                new ActionRowController<IFormationDriver>(driver, ActionId.Unknown),
                 new DynamicUiSerialContainer(
                     uiElementFactory.GetClass(s_HeaderStyle.Container),
                     new ButtonController(), 
@@ -90,7 +104,7 @@ namespace SpaceOpera.View.Panes.FormationPanes
                     uiElementFactory.GetClass(s_Info), new InlayController(), UiSerialContainer.Orientation.Vertical)
                 { 
                     new TextUiElement(
-                        uiElementFactory.GetClass(s_Name), new InlayController(), driver.AtomicFormation.Name),
+                        uiElementFactory.GetClass(s_Name), new InlayController(), driver.Formation.Name),
                     new DynamicTextUiElement(
                         uiElementFactory.GetClass(s_CurrentAction), new InlayController(), GetCurrentAction)
                 });
@@ -140,46 +154,53 @@ namespace SpaceOpera.View.Panes.FormationPanes
 
         private string GetCurrentAction()
         {
-            var action = Key.GetCurrentAction();
+            if (Key is ArmyDriver)
+            {
+                return string.Empty;
+            }
+            var action = ((AtomicFormationDriver)Key).GetCurrentAction();
             if (action == null)
             {
                 return "Waiting";
             }
-            var type = action.GetType();
-            if (type == typeof(CombatAction))
+            if (action is CombatAction)
             {
                 return "In combat";
             }
-            if (type == typeof(EngageAction))
+            if (action is EngageAction engage)
             {
-                return "Engaging " + ((EngageAction)action).Target.Name;
+                return "Engaging " + engage.Target.Name;
             }
-            if (type == typeof(IdleAction))
+            if (action is IdleAction)
             {
                 return "Awaiting orders";
             }
-            if (type == typeof(MoveAction))
+            if (action is MoveAction move)
             {
-                return "Moving to " + ((MoveAction)action).Movement.Destination.Name;
+                return "Moving to " + move.Movement.Destination.Name;
             }
-            if (type == typeof(RegroupAction))
+            if (action is RegroupAction)
             {
                 return "Regrouping";
             }
-            if (type == typeof(SpotAction))
+            if (action is SpotAction spot)
             {
-                return "Spotting " + ((SpotAction)action).Target.Name;
+                return "Spotting " + spot.Target.Name;
             }
-            if (type == typeof(TrainAction))
+            if (action is TrainAction)
             {
                 return "Training";
             }
-            return type.ToString();
+            return action.GetType().ToString();
         }
 
         private static IEnumerable<ActionRow<AtomicFormationDriver>.ActionConfiguration> GetAssignments(
-            AtomicFormationDriver driver)
+            IFormationDriver driver)
         {
+            if (driver is ArmyDriver)
+            {
+                return s_ArmyAssignments;
+            }
             if (driver is FleetDriver)
             {
                 return s_FleetAssignments;

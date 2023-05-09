@@ -13,24 +13,6 @@ namespace SpaceOpera.View.Panes.FormationPanes
     {
         private static readonly string s_Container = "formation-pane-army-container";
 
-        private static readonly ActionRow<ArmyDriver>.Style s_HeaderStyle =
-            new()
-            {
-                Container = "formation-pane-army-header",
-                ActionContainer = "formation-pane-army-header-action-container"
-            };
-        private static readonly string s_HeaderIcon = "formation-pane-army-header-icon";
-        private static readonly string s_HeaderText = "formation-pane-army-header-text";
-        private static readonly List<ActionRow<ArmyDriver>.ActionConfiguration> s_HeaderActions =
-            new()
-            {
-                new ()
-                {
-                    Button = "formation-pane-army-header-action-close",
-                    Action = ActionId.Unselect
-                }
-            };
-
         private static readonly string s_DivisionTable = "formation-pane-army-division-table";
         private static readonly ActionRow<Division>.Style s_DivisionRowStyle =
             new()
@@ -60,20 +42,7 @@ namespace SpaceOpera.View.Panes.FormationPanes
             _uiElementFactory = uiElementFactory;
             _iconFactory = iconFactory;
 
-            Header = 
-                ActionRow<ArmyDriver>.Create(
-                    driver,
-                    ActionId.Select,
-                    _uiElementFactory,
-                    s_HeaderStyle,
-                    new List<IUiElement>()
-                    {
-                        _iconFactory.Create(
-                            _uiElementFactory.GetClass(s_HeaderIcon), new InlayController(), driver.Army),
-                        new TextUiElement(
-                            _uiElementFactory.GetClass(s_HeaderText), new InlayController(), driver.Army.Name)
-                    },
-                    s_HeaderActions);
+            Header = new FormationComponentHeader(driver, uiElementFactory, iconFactory);
             Add(Header);
 
             CompositionTable =
