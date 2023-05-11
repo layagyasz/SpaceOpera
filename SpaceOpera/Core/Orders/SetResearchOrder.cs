@@ -1,32 +1,32 @@
 using SpaceOpera.Core.Advancement;
-using SpaceOpera.Core.Politics;
 
 namespace SpaceOpera.Core.Orders
 {
     public class SetResearchOrder : IOrder
     {
-        public Faction Faction { get; }
-        public AdvancementSlot AdvancementSlot { get; }
+        public FactionAdvancementManager AdvancementManager { get; }
+        public AdvancementSlot Slot { get; }
         public IAdvancement Advancement { get; }
 
-        public SetResearchOrder(Faction faction, AdvancementSlot advancementSlot, IAdvancement advancement)
+        public SetResearchOrder(
+            FactionAdvancementManager advancementManager, AdvancementSlot slot, IAdvancement advancement)
         {
-            Faction = faction;
-            AdvancementSlot = advancementSlot;
+            AdvancementManager = advancementManager;
+            Slot = slot;
             Advancement = advancement;
         }
 
         public ValidationFailureReason Validate()
         {
-            if (Faction == null || AdvancementSlot == null || Advancement == null)
+            if (AdvancementManager == null || Slot == null || Advancement == null)
             {
                 return ValidationFailureReason.IllegalOrder;
             }
-            if (!Faction.HasPrerequisiteResearch(Advancement))
+            if (!AdvancementManager.HasPrerequisiteResearch(Advancement))
             {
                 return ValidationFailureReason.PrerequisiteResearch;
             }
-            if (Faction.GetAdvancementSlots().Any(x => x.Advancement == Advancement))
+            if (AdvancementManager.GetAdvancementSlots().Any(x => x.Advancement == Advancement))
             {
                 return ValidationFailureReason.DuplicateResearch;
             }
@@ -35,7 +35,7 @@ namespace SpaceOpera.Core.Orders
 
         public bool Execute(World world)
         {
-            AdvancementSlot.Advancement = Advancement;
+            Slot.Advancement = Advancement;
             return true;
         }
     }

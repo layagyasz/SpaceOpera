@@ -19,6 +19,7 @@ namespace SpaceOpera.Core
         public Galaxy Galaxy { get; }
         public NavigationMap NavigationMap { get; }
         public DiplomaticRelationGraph DiplomaticRelations { get; } = new();
+        public AdvancementManager AdvancementManager { get; } = new();
         public Economy Economy { get; }
         public EconomyGraph EconomyGraph { get; } = new();
         public FormationManager FormationManager { get; } = new();
@@ -47,7 +48,8 @@ namespace SpaceOpera.Core
             Random = random;
             Galaxy = galaxy;
             NavigationMap = navigationMap;
-            Economy = new(coreData.MaterialSink!);
+            AdvancementManager = new();
+            Economy = new(AdvancementManager, coreData.MaterialSink!);
             EconomyGraph.AddRecipes(coreData.Recipes.Values);
             BattleManager = new(DiplomaticRelations);
             DesignBuilder = new(new ComponentClassifier(coreData.ComponentClassifiers));
@@ -69,9 +71,9 @@ namespace SpaceOpera.Core
         {
             var ticks = new List<ITickable>
             {
+                AdvancementManager,
                 Economy
             };
-            ticks.AddRange(_factions);
 
             return new CompositeUpdateable()
             {
@@ -98,6 +100,7 @@ namespace SpaceOpera.Core
             DiplomaticRelations.Initialize(factions);
             foreach (var faction in factions)
             {
+                AdvancementManager.Add(faction);
                 _intelligence.Add(faction, new());
             }
         }
@@ -127,8 +130,9 @@ namespace SpaceOpera.Core
             {
                 return Enumerable.Empty<IComponent>();
             }
+            var advancements = AdvancementManager.Get(faction);
             return GetDesignsFor(faction).SelectMany(x => x.Components).Cast<IComponent>().Concat(
-                CoreData.Components.Values).Where(faction.HasPrerequisiteResearch);
+                CoreData.Components.Values).Where(advancements.HasPrerequisiteResearch);
         }
 
         public IEnumerable<Design> GetDesignsFor(Faction faction)
@@ -152,7 +156,8 @@ namespace SpaceOpera.Core
 
         public IEnumerable<IAdvancement> GetResearchableAdvancementsFor(Faction faction)
         {
-            return CoreData.Advancements.Select(x => x.Value).Where(faction.HasPrerequisiteResearch);
+            var advancements = AdvancementManager.Get(faction);
+            return CoreData.Advancements.Select(x => x.Value).Where(advancements.HasPrerequisiteResearch);
         }
 
         public IEnumerable<Recipe> GetRecipesFor(Faction? faction)
@@ -161,9 +166,10 @@ namespace SpaceOpera.Core
             {
                 return Enumerable.Empty<Recipe>();
             }
+            var advancements = AdvancementManager.Get(faction);
             return _designLicenses.Where(x => x.Faction == faction).SelectMany(x => x.Design.Recipes).Concat(
                 CoreData.Recipes.Values)
-                .Where(faction.HasPrerequisiteResearch);
+                .Where(advancements.HasPrerequisiteResearch);
         }
 
         public IEnumerable<Structure> GetStructures()

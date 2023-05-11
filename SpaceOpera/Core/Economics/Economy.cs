@@ -1,6 +1,7 @@
 using Cardamom;
 using Cardamom.Trackers;
 using SpaceOpera.Core.Advanceable;
+using SpaceOpera.Core.Advancement;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Universe;
 
@@ -8,14 +9,16 @@ namespace SpaceOpera.Core.Economics
 {
     public class Economy : ITickable
     {
+        public AdvancementManager AdvancementManager { get; }
         public MaterialSink MaterialSink { get; }
 
         private readonly Dictionary<CompositeKey<Faction, StellarBody>, StellarBodyHolding> _holdings = new();
         private readonly List<PersistentRoute> _routes = new();
         private readonly List<Trade> _trades = new();
 
-        public Economy(MaterialSink materialSink)
+        public Economy(AdvancementManager advancementManager, MaterialSink materialSink)
         {
+            AdvancementManager = advancementManager;
             MaterialSink = materialSink;
         }
 
@@ -80,7 +83,7 @@ namespace SpaceOpera.Core.Economics
             var holding = GetHolding(faction, stellarBody);
             if (holding == null)
             {
-                holding = new StellarBodyHolding(faction, stellarBody);
+                holding = new StellarBodyHolding(faction, AdvancementManager.Get(faction), stellarBody);
                 _holdings.Add(CompositeKey<Faction, StellarBody>.Create(faction, stellarBody), holding);
             }
             return holding;
