@@ -7,7 +7,7 @@ namespace SpaceOpera.Core.Orders.Formations
     public class SetAssignmentOrder : IOrder
     {
         private static readonly EnumSet<AssignmentType> s_ArmyAssignments =
-            new(AssignmentType.None, AssignmentType.Defend);
+            new(AssignmentType.None, AssignmentType.Defend, AssignmentType.Train);
         private static readonly EnumSet<AssignmentType> s_FleetAssignments =
             new(AssignmentType.None, AssignmentType.Patrol);
         private static readonly EnumSet<AssignmentType> s_DivisionAssignments = 

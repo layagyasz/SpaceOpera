@@ -9,12 +9,14 @@ namespace SpaceOpera.Core.Military
         public EventHandler<EventArgs>? OrderUpdated { get; set; }
         public IFormation Formation => Army;
         public Army Army { get; }
+        public List<AtomicFormationDriver> Divisions { get; }
 
         private IAssigner _assigner;
 
-        public ArmyDriver(Army army)
+        public ArmyDriver(Army army, IEnumerable<AtomicFormationDriver> divisions)
         {
             Army = army;
+            Divisions = divisions.ToList();
             _assigner = new NoAssigner();
         }
 
@@ -37,6 +39,9 @@ namespace SpaceOpera.Core.Military
                 case AssignmentType.None:
                     SetAssigner(new NoAssigner());
                     break;
+                case AssignmentType.Train:
+                    SetAssigner(new TrainAssigner());
+                    break;
             }
             OrderUpdated?.Invoke(this, EventArgs.Empty);
         }
@@ -54,7 +59,7 @@ namespace SpaceOpera.Core.Military
 
         public void Tick(SpaceOperaContext context)
         {
-            _assigner.Tick(context);
+            _assigner.Tick(Divisions, context);
         }
 
         private void SetAssigner(IAssigner assigner)

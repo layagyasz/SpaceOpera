@@ -5,27 +5,26 @@ namespace SpaceOpera.Core.Military
 {
     public class FormationManager
     {
-        private readonly Dictionary<IFormation, ArmyDriver> _metaDrivers = new();
-        private readonly Dictionary<IFormation, AtomicFormationDriver> _atomicDrivers = new();
+        private readonly Dictionary<IFormation, IFormationDriver> _drivers = new();
 
         public void AddArmy(Army army)
         {
-            _metaDrivers.Add(army, new ArmyDriver(army));
+            _drivers.Add(army, new ArmyDriver(army, army.Divisions.Select(x => (DivisionDriver)_drivers[x])));
         }
 
         public void AddDivision(Division division)
         {
-            _atomicDrivers.Add(division, new DivisionDriver(division));
+            _drivers.Add(division, new DivisionDriver(division));
         }
 
         public void AddFleet(Fleet fleet)
         {
-            _atomicDrivers.Add(fleet, new FleetDriver(fleet));
+            _drivers.Add(fleet, new FleetDriver(fleet));
         }
 
         public IEnumerable<ArmyDriver> GetArmies()
         {
-            return _metaDrivers.Values;
+            return _drivers.Values.Where(x => x is ArmyDriver).Cast<ArmyDriver>();
         }
 
         public IEnumerable<ArmyDriver> GetArmiesFor(Faction faction)
@@ -35,40 +34,35 @@ namespace SpaceOpera.Core.Military
 
         public IEnumerable<AtomicFormationDriver> GetAtomicDrivers()
         {
-            return _atomicDrivers.Values;
+            return _drivers.Values.Where(x => x is AtomicFormationDriver).Cast<AtomicFormationDriver>();
         }
 
-        public IEnumerable<AtomicFormationDriver> GetDivisionDrivers()
+        public IEnumerable<DivisionDriver> GetDivisionDrivers()
         {
-            return GetAtomicDrivers().Where(x => x is DivisionDriver);
+            return _drivers.Values.Where(x => x is DivisionDriver).Cast<DivisionDriver>();
         }
 
-        public IEnumerable<AtomicFormationDriver> GetDivisionDriversFor(Faction faction)
+        public IEnumerable<DivisionDriver> GetDivisionDriversFor(Faction faction)
         {
             return GetDivisionDrivers().Where(x => x.Formation.Faction == faction);
         }
 
-        public IEnumerable<AtomicFormationDriver> GetFleetDrivers()
+        public IEnumerable<FleetDriver> GetFleetDrivers()
         {
-            return GetAtomicDrivers().Where(x => x is FleetDriver);
+            return _drivers.Values.Where(x => x is FleetDriver).Cast<FleetDriver>();
         }
 
-        public IEnumerable<AtomicFormationDriver> GetFleetDriversFor(Faction faction)
+        public IEnumerable<FleetDriver> GetFleetDriversFor(Faction faction)
         {
             return GetFleetDrivers().Where(x => x.Formation.Faction == faction);
-        }
-
-        public AtomicFormationDriver GetAtomicDriver(IAtomicFormation formation)
-        {
-            return _atomicDrivers[formation];
         }
 
         public void Tick(World world)
         {
             var context = new SpaceOperaContext(world);
-            foreach (var fleet in _atomicDrivers.Values)
+            foreach (var driver in _drivers.Values)
             {
-                fleet.Tick(context);
+                driver.Tick(context);
             }
         }
     }

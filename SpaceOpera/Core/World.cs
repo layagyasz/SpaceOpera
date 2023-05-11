@@ -5,6 +5,7 @@ using SpaceOpera.Core.Economics;
 using SpaceOpera.Core.Economics.Projects;
 using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Military.Battles;
+using SpaceOpera.Core.Orders;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Universe;
 
@@ -51,6 +52,17 @@ namespace SpaceOpera.Core
             BattleManager = new(DiplomaticRelations);
             DesignBuilder = new(new ComponentClassifier(coreData.ComponentClassifiers));
             AutoDesigner = new(coreData.DesignTemplates.Values);
+        }
+
+        public ValidationFailureReason Execute(IOrder order)
+        {
+            var validation = order.Validate();
+            if (validation != ValidationFailureReason.None)
+            {
+                return validation;
+            }
+            order.Execute(this);
+            return ValidationFailureReason.None;
         }
 
         public IUpdateable GetUpdater()

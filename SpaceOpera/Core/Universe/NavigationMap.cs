@@ -168,6 +168,11 @@ namespace SpaceOpera.Core.Universe
             return path;
         }
 
+        public float GetHeuristicDistance(INavigable left, INavigable right)
+        {
+            return HeuristicDistance(_nodes[left], _nodes[right]);
+        }
+
         public int GetSize()
         {
             return _nodes.Count;

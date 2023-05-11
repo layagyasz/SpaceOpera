@@ -427,7 +427,7 @@ namespace SpaceOpera.Controller
 
         private void ExecuteOrder(IOrder order)
         {
-            var result = _driver.Execute(order);
+            var result = _world?.Execute(order);
             _logger.AtInfo().Log(order.ToString() + " " + result);
             _screen!.Refresh();
         }

@@ -87,28 +87,28 @@ namespace SpaceOpera
                         orbitGenerator.Generate(starGenerator.Generate(generatorContext), 1f, generatorContext), 
                         generatorContext);
                 scene = planet;
-                driver = new(null, calendar);
+                driver = new(calendar);
                 controller = new GameController(ui, null, driver, playerFaction, viewFactory, logger);
             }
             else if (mode == RunMode.TestSolarSystem)
             {
                 var system = coreData.GalaxyGenerator!.StarSystemGenerator!.Generate(new(), generatorContext);
                 scene = system;
-                driver = new(null, calendar);
+                driver = new(calendar);
                 controller = new GameController(ui, null, driver, playerFaction,viewFactory, logger);
             }
             else if (mode == RunMode.TestGalaxy)
             {
                 var galaxy = coreData.GalaxyGenerator!.Generate(generatorContext);
                 scene = galaxy;
-                driver = new(null, calendar);
+                driver = new(calendar);
                 controller = new GameController(ui, null, driver, playerFaction, viewFactory, logger);
             }
             else if (mode == RunMode.Full)
             {
                 var world = WorldGenerator.Generate(playerCulture, playerFaction, coreData, generatorContext);
                 scene = world.Galaxy;
-                driver = new(world, world.GetUpdater());
+                driver = new(world.GetUpdater());
                 controller = new GameController(ui, world, driver, playerFaction, viewFactory, logger);
                 calendar = world.Calendar;
             }

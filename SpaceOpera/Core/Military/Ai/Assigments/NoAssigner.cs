@@ -13,6 +13,6 @@ namespace SpaceOpera.Core.Military.Ai.Assigments
             return new List<INavigable>();
         }
 
-        public void Tick(SpaceOperaContext context) { }
+        public void Tick(ICollection<AtomicFormationDriver> drivers, SpaceOperaContext context) { }
     }
 }

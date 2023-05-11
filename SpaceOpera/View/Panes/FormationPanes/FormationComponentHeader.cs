@@ -36,6 +36,11 @@ namespace SpaceOpera.View.Panes.FormationPanes
                 {
                     Button = "formation-pane-formation-header-assignment-defend",
                     Action = ActionId.Defend
+                },
+                new()
+                {
+                    Button = "formation-pane-formation-header-assignment-train",
+                    Action = ActionId.Train
                 }
             };
         private static readonly List<ActionRow<AtomicFormationDriver>.ActionConfiguration> s_FleetAssignments =

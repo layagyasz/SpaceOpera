@@ -1,31 +1,16 @@
 ﻿using SpaceOpera.Core.Advanceable;
-using SpaceOpera.Core.Orders;
 using System.Diagnostics;
 
 namespace SpaceOpera.Core
 {
     public class GameDriver
     {
-        public World? World { get; }
-
         private int _gameSpeed = 1;
         private readonly IUpdateable _updater;
 
-        public GameDriver(World? world, IUpdateable updater)
+        public GameDriver(IUpdateable updater)
         {
-            World = world;
             _updater = updater;
-        }
-
-        public ValidationFailureReason Execute(IOrder order)
-        {
-            var validation = order.Validate();
-            if (validation != ValidationFailureReason.None)
-            {
-                return validation;
-            }
-            order.Execute(World!);
-            return ValidationFailureReason.None;
         }
 
         public void SetGameSpeed(int gameSpeed)

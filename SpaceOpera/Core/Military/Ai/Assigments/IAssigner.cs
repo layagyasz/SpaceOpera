@@ -7,6 +7,6 @@ namespace SpaceOpera.Core.Military.Ai.Assigments
         AssignmentType Type { get; }
         ICollection<INavigable> GetActiveRegion();
         void SetActiveRegion(IEnumerable<INavigable> region);
-        void Tick(SpaceOperaContext context);
+        void Tick(ICollection<AtomicFormationDriver> drivers, SpaceOperaContext context);
     }
 }
