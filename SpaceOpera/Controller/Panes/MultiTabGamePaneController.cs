@@ -21,14 +21,6 @@ namespace SpaceOpera.Controller.Panes
             base.Unbind();
         }
 
-        private void HandleClose(object? sender, MouseButtonClickEventArgs e)
-        {
-            if (e.Button == MouseButton.Left)
-            {
-                Closed?.Invoke(this, EventArgs.Empty);
-            }
-        }
-
         private void HandleTabChange(object? sender, ValueChangedEventArgs<string, object?> e)
         {
             ((MultiTabGamePane)_pane!).SetTab(e.Value!);

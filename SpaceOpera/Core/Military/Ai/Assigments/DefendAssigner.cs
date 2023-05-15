@@ -39,10 +39,10 @@ namespace SpaceOpera.Core.Military.Ai.Assigments
                 positions.Add(_region[(int)((i + 1) * space)]);
             }
             var assignments = 
-                MaxCostAssignment.Compute(
+                MinimalCostAssignment.ComputeGreedy(
                     drivers,
                     positions, 
-                    (x, y) => -context.World.NavigationMap.GetHeuristicDistance(x.AtomicFormation.Position!, y));
+                    (x, y) => context.World.NavigationMap.GetHeuristicDistance(x.AtomicFormation.Position!, y));
             foreach (var assignment in assignments)
             {
                 context.World.Execute(new MoveOrder(assignment.Item1, assignment.Item2));

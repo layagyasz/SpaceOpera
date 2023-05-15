@@ -11,7 +11,6 @@ namespace SpaceOpera.Controller.Components
     public class NumericInputTableController<T> : IController where T : notnull
     {
         public EventHandler<ValueEventArgs<T?>>? RowSelected { get; set; }
-        public EventHandler<EventArgs>? Submitted { get; set; }
 
         private readonly NumericInputTable<T>.IConfiguration _configuration;
 
@@ -29,7 +28,6 @@ namespace SpaceOpera.Controller.Components
             _table.Refreshed += HandleRefresh;
             _table.Table.ElementAdded += HandleElementAdded;
             _table.Table.ElementRemoved += HandleElementRemoved;
-            _table.Submit.Controller.Clicked += HandleSubmit;
             _tableController = (RadioController<T>)_table.Table.ComponentController;
             _tableController.ValueChanged += HandleRowSelected;
         }
@@ -41,7 +39,6 @@ namespace SpaceOpera.Controller.Components
             _table!.Refreshed -= HandleRefresh;
             _table!.Table.ElementAdded -= HandleElementAdded;
             _table!.Table.ElementRemoved -= HandleElementRemoved;
-            _table!.Submit.Controller.Clicked -= HandleSubmit;
             _table = null;
         }
 
@@ -105,11 +102,6 @@ namespace SpaceOpera.Controller.Components
         private void HandleRowSelected(object? sender, ValueChangedEventArgs<string, T?> e)
         {
             RowSelected?.Invoke(this, new(e.Value));
-        }
-
-        private void HandleSubmit(object? @object, MouseButtonClickEventArgs e)
-        {
-            Submitted?.Invoke(this, EventArgs.Empty);
         }
 
         private void HandleValueChanged(object? @object, ValueChangedEventArgs<T, int> e)

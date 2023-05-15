@@ -1,6 +1,8 @@
 ﻿using Cardamom.Mathematics;
 using Cardamom.Ui;
 using Cardamom.Ui.Controller.Element;
+using Cardamom.Ui.Elements;
+using SpaceOpera.Controller.Panes.StellarBodyRegionPanes;
 using SpaceOpera.Core;
 using SpaceOpera.Core.Economics;
 using SpaceOpera.View.Components;
@@ -12,11 +14,13 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
     {
         private static readonly string s_Container = "stellar-body-region-pane-body";
 
+        private static readonly string s_StructureContainer = "stellar-body-region-pane-structure-container";
+        private static readonly string s_StructureHeader = "stellar-body-region-pane-structure-header";
+        private static readonly string s_StructureSubmit = "stellar-body-region-pane-structure-submit";
         private static readonly NumericInputTable<Structure>.Style s_StructureTableStyle =
             new()
             {
-                Container = "stellar-body-region-pane-structure-container",
-                Header = "stellar-body-region-pane-structure-table-header",
+                Container = "stellar-body-region-pane-structure-table-container",
                 Table = "stellar-body-region-pane-structure-table",
                 Row = new()
                 {
@@ -35,14 +39,15 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
                 TotalContainer = "stellar-body-region-pane-structure-table-total-row",
                 TotalText = "stellar-body-region-pane-structure-table-total-text",
                 TotalNumber = "stellar-body-region-pane-structure-table-total-number",
-                Submit = "stellar-body-region-pane-structure-table-submit"
             };
 
+        private static readonly string s_RecipeContainer = "stellar-body-region-pane-structure-container";
+        private static readonly string s_RecipeHeader = "stellar-body-region-pane-structure-header";
+        private static readonly string s_RecipeSubmit = "stellar-body-region-pane-structure-submit";
         private static readonly NumericInputTable<Recipe>.Style s_RecipeTableStyle =
             new()
             {
-                Container = "stellar-body-region-pane-structure-container",
-                Header = "stellar-body-region-pane-structure-table-header",
+                Container = "stellar-body-region-pane-structure-table-container",
                 Table = "stellar-body-region-pane-structure-table",
                 Row = new()
                 {
@@ -61,7 +66,6 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
                 TotalContainer = "stellar-body-region-pane-structure-table-total-row",
                 TotalText = "stellar-body-region-pane-structure-table-total-text",
                 TotalNumber = "stellar-body-region-pane-structure-table-total-number",
-                Submit = "stellar-body-region-pane-structure-table-submit"
             };
 
         class StructureTableConfiguration : NumericInputTable<Structure>.IConfiguration
@@ -123,7 +127,6 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
                 _structure = structure;
             }
 
-
             public IEnumerable<Recipe> GetKeys()
             {
                 if (_world == null || _holding == null || _structure == null)
@@ -171,13 +174,17 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
         private readonly StructureTableConfiguration _structureTableConfiguration;
         private readonly RecipeTableConfiguration _recipeTableConfiguration;
 
+        private StellarBodyRegionHolding? _holding;
+
         public NumericInputTable<Structure> StructureTable { get; }
+        public IUiElement StructureSubmit { get; }
         public NumericInputTable<Recipe> RecipeTable { get; }
+        public IUiElement RecipeSubmit { get; }
 
         public StructureTab(UiElementFactory uiElementFactory, IconFactory iconFactory)
             : base(
                   uiElementFactory.GetClass(s_Container),
-                  new NoOpElementController<StructureTab>(),
+                  new StructureTabController(),
                   Orientation.Horizontal)
         {
             _iconFactory = iconFactory;
@@ -185,26 +192,54 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
             _structureTableConfiguration = new();
             StructureTable =
                 new(
-                    "Structures",
                     uiElementFactory,
                     ref _iconFactory,
                     s_StructureTableStyle,
                     _structureTableConfiguration);
-            Add(StructureTable);
+            StructureSubmit = 
+                new TextUiElement(uiElementFactory.GetClass(s_StructureSubmit), new ButtonController(), "Build");
+            Add(
+                new DynamicUiSerialContainer(
+                    uiElementFactory.GetClass(s_StructureContainer),
+                    new NoOpElementController<UiSerialContainer>(),
+                    Orientation.Vertical)
+                {
+                    new TextUiElement(
+                        uiElementFactory.GetClass(s_StructureHeader), new ButtonController(), "Structures"),
+                    StructureTable,
+                    StructureSubmit
+                });
 
             _recipeTableConfiguration = new();
             RecipeTable =
                 new(
-                    "Production",
                     uiElementFactory,
                     ref _iconFactory,
                     s_RecipeTableStyle,
                     _recipeTableConfiguration);
-            Add(RecipeTable);
+            RecipeSubmit =
+                new TextUiElement(uiElementFactory.GetClass(s_RecipeSubmit), new ButtonController(), "Assign");
+            Add(
+                new DynamicUiSerialContainer(
+                    uiElementFactory.GetClass(s_RecipeContainer),
+                    new NoOpElementController<UiSerialContainer>(),
+                    Orientation.Vertical)
+                {
+                    new TextUiElement(
+                        uiElementFactory.GetClass(s_RecipeHeader), new ButtonController(), "Production"),
+                    RecipeTable,
+                    RecipeSubmit
+                });
+        }
+
+        public StellarBodyRegionHolding? GetHolding()
+        {
+            return _holding;
         }
 
         public void Populate(World? world, StellarBodyRegionHolding? holding)
         {
+            _holding = holding;
             _structureTableConfiguration.Populate(world, holding);
             _recipeTableConfiguration.Populate(world, holding);
         }

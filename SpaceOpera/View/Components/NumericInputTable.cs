@@ -23,18 +23,15 @@ namespace SpaceOpera.View.Components
         public struct Style
         {
             public string Container { get; set; }
-            public string Header { get; set; }
             public string Table { get; set; }
             public NumericInputTableRow<T>.Style Row { get; set; }
             public string TotalContainer { get; set; }
             public string TotalText { get; set; }
             public string TotalNumber { get; set; }
-            public string Submit { get; set; }
         }
 
         public DynamicUiCompoundComponent Table { get; }
         public TextUiElement Total { get; }
-        public IUiElement Submit { get; }
 
         private readonly UiElementFactory _uiElementFactory;
         private readonly IconFactory _iconFactory;
@@ -42,7 +39,6 @@ namespace SpaceOpera.View.Components
         private readonly IConfiguration _configuration;
 
         public NumericInputTable(
-            string header, 
             UiElementFactory uiElementFactory,
             ref IconFactory iconFactory, 
             Style style,
@@ -58,8 +54,6 @@ namespace SpaceOpera.View.Components
             _iconFactory = iconFactory;
             _style = style;
             _configuration = configuration;
-
-            Add(new TextUiElement(uiElementFactory.GetClass(style.Header), new ButtonController(), header));
 
             Table =
                 new(
@@ -84,15 +78,6 @@ namespace SpaceOpera.View.Components
                     new TextUiElement(uiElementFactory.GetClass(style.TotalText), new ButtonController(), "Total"),
                     Total
                 });
-
-            Submit = new TextUiElement(uiElementFactory.GetClass(style.Submit), new ButtonController(), "Submit");
-            Add(Submit);
-        }
-
-        public void Reset()
-        {
-            ((DynamicKeyedTable<T, NumericInputTableRow<T>>)Table.GetContainer()).Reset();
-            Refreshed?.Invoke(this, EventArgs.Empty);
         }
 
         private NumericInputTableRow<T> CreateRow(T key)

@@ -297,6 +297,10 @@ namespace SpaceOpera.Core.Universe
 
         private static float HeuristicDistance(NavigableNode left, NavigableNode right)
         {
+            if (left == right)
+            {
+                return 0;
+            }
             float distance = 0;
             if (left.StellarBody == right.StellarBody && left.StellarBody != null)
             {

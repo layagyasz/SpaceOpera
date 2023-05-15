@@ -5,7 +5,6 @@ using Cardamom.ImageProcessing.Filters;
 using Cardamom.ImageProcessing.Pipelines;
 using Cardamom.ImageProcessing.Pipelines.Nodes;
 using Cardamom.Json;
-using Cardamom.Logging;
 using Cardamom.Utils.Generators.Generic;
 using Cardamom.Utils.Suppliers;
 using OpenTK.Mathematics;
