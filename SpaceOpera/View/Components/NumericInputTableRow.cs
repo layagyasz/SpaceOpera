@@ -26,11 +26,11 @@ namespace SpaceOpera.View.Components
         private NumericInputTableRow(
             Class @class, 
             T key,
-            NumericInputTable<T>.IConfiguration configuration,
+            NumericInputTable<T>.IRowConfiguration configuration,
             IUiContainer info, 
             NumericInput numericInput)
             : base(
-                  new NumericInputTableRowController<T>(key, configuration),
+                  new SyncingNumericInputTableRowController<T>(key, configuration),
                   new UiSerialContainer(@class, new ButtonController(), UiSerialContainer.Orientation.Horizontal))
         {
             Key = key;
@@ -51,7 +51,7 @@ namespace SpaceOpera.View.Components
             UiElementFactory uiElementFactory, 
             IconFactory iconFactory,
             Style style, 
-            NumericInputTable<T>.IConfiguration configuration)
+            NumericInputTable<T>.IRowConfiguration configuration)
         {
             return new(
                 uiElementFactory.GetClass(style.Container),

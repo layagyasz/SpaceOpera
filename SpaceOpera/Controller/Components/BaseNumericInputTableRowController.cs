@@ -5,7 +5,7 @@ using SpaceOpera.View.Components;
 
 namespace SpaceOpera.Controller.Components
 {
-    public class NumericInputTableRowController<T> : 
+    public abstract class BaseNumericInputTableRowController<T> :
         IController, IOptionController<T>, IFormElementController<T, int> where T : notnull
     {
         public EventHandler<EventArgs>? Selected { get; set; }
@@ -13,51 +13,39 @@ namespace SpaceOpera.Controller.Components
 
         public T Key { get; }
 
-        private readonly NumericInputTable<T>.IConfiguration _configuration;
+        protected NumericInputTableRow<T>? _element;
+        protected ClassedUiElementController<ClassedUiElement>? _infoController;
+        protected NumericInputController<T>? _inputController;
 
-        private NumericInputTableRow<T>? _element;
-        private ClassedUiElementController<ClassedUiElement>? _infoController;
-        private NumericInputController<T>? _inputController;
-        private int _defaultValue;
-
-        public NumericInputTableRowController(T key, NumericInputTable<T>.IConfiguration configuration)
+        public BaseNumericInputTableRowController(T key)
         {
             Key = key;
-            _configuration = configuration;
         }
 
-        public void Bind(object @object)
+        public abstract int GetDefaultValue();
+
+        public virtual void Bind(object @object)
         {
             _element = (NumericInputTableRow<T>)@object;
-            _element.Refreshed += HandleRefresh;
             _infoController = (ClassedUiElementController<ClassedUiElement>)_element.Info.Controller;
             _infoController.Clicked += HandleSelected;
             _inputController = (NumericInputController<T>)_element.NumericInput.ComponentController;
-            _defaultValue = _configuration.GetValue(Key);
-            _inputController.SetValue(_defaultValue);
+            _inputController.SetValue(GetDefaultValue());
             _inputController.ValueChanged += HandleValueChanged;
         }
 
-        public void Unbind()
+        public virtual void Unbind()
         {
             _inputController!.ValueChanged -= HandleValueChanged;
             _inputController = null;
             _infoController!.Clicked -= HandleSelected;
             _infoController = null;
-            _element!.Refreshed -= HandleRefresh;
             _element = null;
         }
 
         public int GetValue()
         {
             return _inputController!.GetValue();
-        }
-
-        public void Reset()
-        {
-            _defaultValue = _configuration.GetValue(Key);
-            _inputController!.SetValue(_defaultValue);
-            _inputController!.SetRange(_configuration.GetRange(Key));
         }
 
         public void SetSelected(bool selected)
@@ -68,16 +56,6 @@ namespace SpaceOpera.Controller.Components
         public void SetValue(int value)
         {
             _inputController!.SetValue(value);
-        }
-
-        private void HandleRefresh(object? sender, EventArgs e)
-        {
-            if (_inputController!.GetValue() == _defaultValue)
-            {
-                _defaultValue = _configuration.GetValue(Key);
-                _inputController.SetValue(_defaultValue);
-            }
-            _inputController!.SetRange(_configuration.GetRange(Key));
         }
 
         private void HandleSelected(object? sender, MouseButtonClickEventArgs e)

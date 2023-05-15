@@ -10,10 +10,8 @@ namespace SpaceOpera.View.Components
 {
     public class NumericInputTable<T> : DynamicUiCompoundComponent where T : notnull
     {
-        public interface IConfiguration
+        public interface IRowConfiguration
         {
-            IEnumerable<T> GetKeys();
-            IntInterval GetRange();
             string GetName(T key);
             IntInterval GetRange(T key);
             int GetValue(T key);
@@ -36,15 +34,17 @@ namespace SpaceOpera.View.Components
         private readonly UiElementFactory _uiElementFactory;
         private readonly IconFactory _iconFactory;
         private readonly Style _style;
-        private readonly IConfiguration _configuration;
+        private readonly IRowConfiguration _configuration;
 
         public NumericInputTable(
+            Func<IEnumerable<T>> keysFn,
+            Func<IntInterval> rangeFn,
             UiElementFactory uiElementFactory,
-            ref IconFactory iconFactory, 
+            IconFactory iconFactory, 
             Style style,
-            IConfiguration configuration)
+            IRowConfiguration configuration)
             : base(
-                  new NumericInputTableController<T>(configuration),
+                  new SyncingNumericInputTableController<T>(rangeFn),
                   new DynamicUiSerialContainer(
                       uiElementFactory.GetClass(style.Container),
                       new NoOpElementController<DynamicUiSerialContainer>(),
@@ -62,7 +62,7 @@ namespace SpaceOpera.View.Components
                         uiElementFactory.GetClass(style.Table),
                         new TableController(10f),
                         UiSerialContainer.Orientation.Vertical,
-                        configuration.GetKeys,
+                        keysFn,
                         CreateRow,
                         _configuration.GetComparer()));
             Add(Table);
@@ -78,6 +78,11 @@ namespace SpaceOpera.View.Components
                     new TextUiElement(uiElementFactory.GetClass(style.TotalText), new ButtonController(), "Total"),
                     Total
                 });
+        }
+
+        public void Add(T key)
+        {
+
         }
 
         private NumericInputTableRow<T> CreateRow(T key)

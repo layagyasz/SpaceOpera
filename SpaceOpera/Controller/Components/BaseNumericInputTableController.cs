@@ -2,54 +2,36 @@
 using Cardamom.Trackers;
 using Cardamom.Ui;
 using Cardamom.Ui.Controller;
-using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
 using SpaceOpera.View.Components;
 
 namespace SpaceOpera.Controller.Components
 {
-    public class NumericInputTableController<T> : IController where T : notnull
+    public abstract class BaseNumericInputTableController<T> : IController where T : notnull
     {
         public EventHandler<ValueEventArgs<T?>>? RowSelected { get; set; }
 
-        private readonly NumericInputTable<T>.IConfiguration _configuration;
+        protected NumericInputTable<T>? _table;
+        protected RadioController<T>? _tableController;
 
-        private NumericInputTable<T>? _table;
-        private RadioController<T>? _tableController;
+        public abstract IntInterval GetRange();
 
-        public NumericInputTableController(NumericInputTable<T>.IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
-
-        public void Bind(object @object)
+        public virtual void Bind(object @object)
         {
             _table = (NumericInputTable<T>)@object;
-            _table.Refreshed += HandleRefresh;
             _table.Table.ElementAdded += HandleElementAdded;
             _table.Table.ElementRemoved += HandleElementRemoved;
             _tableController = (RadioController<T>)_table.Table.ComponentController;
             _tableController.ValueChanged += HandleRowSelected;
         }
 
-        public void Unbind()
+        public virtual void Unbind()
         {
             _tableController!.ValueChanged -= HandleRowSelected;
             _tableController = null;
-            _table!.Refreshed -= HandleRefresh;
             _table!.Table.ElementAdded -= HandleElementAdded;
             _table!.Table.ElementRemoved -= HandleElementRemoved;
             _table = null;
-        }
-
-        public MultiCount<T> GetDeltas()
-        {
-            return _table!.Table
-                .Select(x => ((UiCompoundComponent)x).ComponentController)
-                .Cast<NumericInputTableRowController<T>>()
-                .Select(x => new KeyValuePair<T, int>(x.Key, x.GetValue() - _configuration.GetValue(x.Key)))
-                .Where(x => x.Value != 0)
-                .ToMultiCount(x => x.Key, x => x.Value);
         }
 
         public T GetSelected()
@@ -61,26 +43,15 @@ namespace SpaceOpera.Controller.Components
         {
             return _table!.Table
                 .Select(x => ((UiCompoundComponent)x).ComponentController)
-                .Cast<NumericInputTableRowController<T>>()
+                .Cast<BaseNumericInputTableRowController<T>>()
                 .Select(x => new KeyValuePair<T, int>(x.Key, x.GetValue()))
                 .Where(x => x.Value != 0)
                 .ToMultiCount(x => x.Key, x => x.Value);
         }
 
-        public void Reset()
-        {
-            _table!.Refresh();
-            ((TableController)_table!.Table.Controller).ResetOffset();
-            foreach (var row in _table!.Table.Cast<NumericInputTableRow<T>>())
-            {
-                ((NumericInputTableRowController<T>)row.ComponentController).Reset();
-            }
-            UpdateTotal();
-        }
-
         private void BindElement(NumericInputTableRow<T> row)
         {
-            var controller = (NumericInputTableRowController<T>)row.ComponentController;
+            var controller = (BaseNumericInputTableRowController<T>)row.ComponentController;
             controller.ValueChanged += HandleValueChanged;
         }
 
@@ -111,19 +82,19 @@ namespace SpaceOpera.Controller.Components
 
         private void UnbindElement(NumericInputTableRow<T> row)
         {
-            var controller = (NumericInputTableRowController<T>)row.ComponentController;
+            var controller = (BaseNumericInputTableRowController<T>)row.ComponentController;
             controller.ValueChanged -= HandleValueChanged;
         }
 
-        private void UpdateTotal()
+        protected void UpdateTotal()
         {
             int total = 0;
             foreach (var row in _table!.Table.Cast<NumericInputTableRow<T>>())
             {
-                var controller = (NumericInputTableRowController<T>)row.ComponentController;
+                var controller = (BaseNumericInputTableRowController<T>)row.ComponentController;
                 total += controller.GetValue();
             }
-            _table!.Total.SetText(ToDisplayedString(total, _configuration.GetRange()));
+            _table!.Total.SetText(ToDisplayedString(total, GetRange()));
         }
 
         private static string ToDisplayedString(int value, IntInterval range)

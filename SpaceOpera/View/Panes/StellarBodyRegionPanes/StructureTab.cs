@@ -68,7 +68,7 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
                 TotalNumber = "stellar-body-region-pane-structure-table-total-number",
             };
 
-        class StructureTableConfiguration : NumericInputTable<Structure>.IConfiguration
+        class StructureTableConfiguration : NumericInputTable<Structure>.IRowConfiguration
         {
             private World? _world;
             private StellarBodyRegionHolding? _holding;
@@ -110,7 +110,7 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
             }
         }
 
-        class RecipeTableConfiguration : NumericInputTable<Recipe>.IConfiguration
+        class RecipeTableConfiguration : NumericInputTable<Recipe>.IRowConfiguration
         {
             private World? _world;
             private StellarBodyRegionHolding? _holding;
@@ -192,8 +192,10 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
             _structureTableConfiguration = new();
             StructureTable =
                 new(
+                    _structureTableConfiguration.GetKeys,
+                    _structureTableConfiguration.GetRange,
                     uiElementFactory,
-                    ref _iconFactory,
+                    _iconFactory,
                     s_StructureTableStyle,
                     _structureTableConfiguration);
             StructureSubmit = 
@@ -213,8 +215,10 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
             _recipeTableConfiguration = new();
             RecipeTable =
                 new(
+                    _recipeTableConfiguration.GetKeys,
+                    _recipeTableConfiguration.GetRange,
                     uiElementFactory,
-                    ref _iconFactory,
+                    _iconFactory,
                     s_RecipeTableStyle,
                     _recipeTableConfiguration);
             RecipeSubmit =
