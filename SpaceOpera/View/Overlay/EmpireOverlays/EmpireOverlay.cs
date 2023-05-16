@@ -33,7 +33,7 @@ namespace SpaceOpera.View.Overlay.EmpireOverlays
 
         public EmpireOverlay(UiElementFactory uiElementFactory, IconFactory iconFactory)
             : base(
-                  new ActionTableController(),
+                  new ActionComponentController(),
                   new DynamicUiSerialContainer(
                     uiElementFactory.GetClass(s_Container),
                     new TableController(10f),
@@ -44,7 +44,7 @@ namespace SpaceOpera.View.Overlay.EmpireOverlays
 
             var holdingTable = 
                 new DynamicUiCompoundComponent(
-                    new ActionTableController(),
+                    new ActionComponentController(),
                     new DynamicUiSerialContainer(
                         uiElementFactory.GetClass(s_TableContainer),
                         new NoOpElementController<UiSerialContainer>(),
@@ -53,7 +53,7 @@ namespace SpaceOpera.View.Overlay.EmpireOverlays
                         new TextUiElement(
                             uiElementFactory.GetClass(s_TableHeader), new ButtonController(), "Holdings"),
                         new DynamicUiCompoundComponent(
-                            new ActionTableController(),
+                            new ActionComponentController(),
                             new DynamicKeyedTable<StellarBodyHolding, ActionRow<StellarBodyHolding>>(
                                 uiElementFactory.GetClass(s_Table), 
                                 new TableController(10f),
@@ -67,7 +67,7 @@ namespace SpaceOpera.View.Overlay.EmpireOverlays
 
             var fleetTable =
                 new DynamicUiCompoundComponent(
-                    new ActionTableController(),
+                    new ActionComponentController(),
                     new DynamicUiSerialContainer(
                         uiElementFactory.GetClass(s_TableContainer),
                         new NoOpElementController<UiSerialContainer>(),
@@ -76,7 +76,7 @@ namespace SpaceOpera.View.Overlay.EmpireOverlays
                         new TextUiElement(
                             uiElementFactory.GetClass(s_TableHeader), new ButtonController(), "Fleets"),
                         new DynamicUiCompoundComponent(
-                            new ActionTableController(),
+                            new ActionComponentController(),
                             new DynamicKeyedTable<AtomicFormationDriver, ActionRow<AtomicFormationDriver>>(
                                 uiElementFactory.GetClass(s_Table),
                                 new TableController(10f),
@@ -90,7 +90,7 @@ namespace SpaceOpera.View.Overlay.EmpireOverlays
 
             var armyTable =
                 new DynamicUiCompoundComponent(
-                    new ActionTableController(),
+                    new ActionComponentController(),
                     new DynamicUiSerialContainer(
                         uiElementFactory.GetClass(s_TableContainer),
                         new NoOpElementController<UiSerialContainer>(),
@@ -99,7 +99,7 @@ namespace SpaceOpera.View.Overlay.EmpireOverlays
                         new TextUiElement(
                             uiElementFactory.GetClass(s_TableHeader), new ButtonController(), "Armies"),
                         new DynamicUiCompoundComponent(
-                            new ActionTableController(),
+                            new ActionComponentController(),
                             new DynamicKeyedTable<ArmyDriver, ActionRow<ArmyDriver>>(
                                 uiElementFactory.GetClass(s_Table),
                                 new TableController(10f),

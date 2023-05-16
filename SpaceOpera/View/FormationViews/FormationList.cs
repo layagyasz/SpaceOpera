@@ -26,7 +26,7 @@ namespace SpaceOpera.View.FormationViews
         public FormationList(
             Vector3 position, float? offset, UiElementFactory uiElementFactory, IconFactory iconFactory)
             : base(
-                  new ActionTableController(),
+                  new ActionComponentController(),
                   new DynamicUiSerialContainer(
                       uiElementFactory.GetClass(s_FormationLayerTable),
                       new TableController(0), 

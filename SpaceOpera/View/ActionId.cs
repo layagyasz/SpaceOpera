@@ -9,9 +9,11 @@
 
         // Overlay buttons
         Equipment,
+        Logistics,
         Military,
         MilitaryOrganization,
         Research,
+        Trade,
 
         // Game speeds
         GameSpeedPause,
@@ -19,6 +21,7 @@
         GameSpeedFast,
 
         // Element actions
+        Add,
         Battle,
         Defend,
         Edit,

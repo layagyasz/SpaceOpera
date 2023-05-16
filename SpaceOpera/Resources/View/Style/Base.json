@@ -159,14 +159,16 @@
     "$id": "pane-body",
     "Parent": "ui-container",
     "Default": {
-      "Size": [ 892, 580 ]
+      "Size": [ 892, 580 ],
+      "DisableScissor": true
     }
   },
   {
     "$id": "pane-body-no-tabs",
     "Parent": "ui-container",
     "Default": {
-      "Size": [ 892, 620 ]
+      "Size": [ 892, 620 ],
+      "DisableScissor": true
     }
   },
   {

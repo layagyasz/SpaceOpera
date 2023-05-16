@@ -32,7 +32,7 @@ namespace SpaceOpera.View.Overlay.StarSystemOverlays
 
         public StarSystemOverlay(UiElementFactory uiElementFactory, IconFactory iconFactory)
             : base(
-                  new ActionTableController(),
+                  new ActionComponentController(),
                   new DynamicUiSerialContainer(
                     uiElementFactory.GetClass(s_Container),
                     new TableController(10f),
@@ -43,7 +43,7 @@ namespace SpaceOpera.View.Overlay.StarSystemOverlays
 
             var stellarBodyTable =
                 new DynamicUiCompoundComponent(
-                    new ActionTableController(),
+                    new ActionComponentController(),
                     new DynamicUiSerialContainer(
                         uiElementFactory.GetClass(s_TableContainer),
                         new NoOpElementController<UiSerialContainer>(),
@@ -52,7 +52,7 @@ namespace SpaceOpera.View.Overlay.StarSystemOverlays
                         new DynamicTextUiElement(
                             uiElementFactory.GetClass(s_TableHeader), new ButtonController(), GetHeading),
                         new DynamicUiCompoundComponent(
-                            new ActionTableController(),
+                            new ActionComponentController(),
                             new DynamicKeyedTable<StellarBody, ActionRow<StellarBody>>(
                                 uiElementFactory.GetClass(s_Table),
                                 new TableController(10f),

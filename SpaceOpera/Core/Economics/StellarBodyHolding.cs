@@ -7,6 +7,7 @@ namespace SpaceOpera.Core.Economics
 {
     public class StellarBodyHolding : EconomicZone
     {
+        public override string Name => StellarBody.Name;
         public StellarBody StellarBody { get; }
 
         private readonly List<Division> _divisions = new();

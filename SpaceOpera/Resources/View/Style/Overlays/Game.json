@@ -95,6 +95,24 @@
     ]
   },
   {
+    "$id": "game-overlay-logistics",
+    "Parent": "game-overlay-button",
+    "Default": {
+      "ForegroundColor": "#0000ffcc",
+      "BorderColor": [ "#0000ffcc" ],
+      "Texture": "icon-logistics"
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "ForegroundColor": "#0000ff",
+          "BorderColor": [ "#0000ff" ]
+        }
+      }
+    ]
+  },
+  {
     "$id": "game-overlay-calendar-container",
     "Parent": "ui-element",
     "Default": {

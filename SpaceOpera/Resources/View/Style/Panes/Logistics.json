@@ -1,0 +1,110 @@
+[
+  {
+    "$id": "logistics-pane",
+    "Parent": "pane-standard",
+    "Default": {
+      "Size": [ 900, 700 ]
+    }
+  },
+  {
+    "$id": "logistics-pane-title",
+    "Parent": "pane-standard-title"
+  },
+  {
+    "$id": "logistics-pane-close",
+    "Parent": "pane-standard-close"
+  },
+  {
+    "$id": "logistics-pane-tab-container",
+    "Parent": "pane-tab-container"
+  },
+  {
+    "$id": "logistics-pane-tab-option",
+    "Parent": "pane-tab-option"
+  },
+  {
+    "$id": "logistics-pane-body",
+    "Parent": "pane-body",
+    "Default": {
+      "Size": [ 892, 580 ]
+    }
+  },
+  {
+    "$id": "logistics-pane-route-container",
+    "Parent": "logistics-pane-body",
+    "Default": {
+      "Size": [ 884, 572 ],
+      "Margin": [ 4 ],
+      "Padding": [ 2 ]
+    }
+  },
+  {
+    "$id": "logistics-pane-route-header",
+    "Parent": "ui-element",
+    "Default": {
+      "Size": [ 438, 48 ],
+      "CornerRadius": [ [ 8, 8 ] ],
+      "Padding": [ 8, 0, 8, 0 ],
+      "Margin": [ 2 ]
+    }
+  },
+  {
+    "$id": "logistics-pane-route-header-space",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 386, 48 ],
+      "Padding": [ 8 ]
+    }
+  },
+  {
+    "$id": "logistics-pane-route-header-action-container",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 36, 48 ],
+      "Padding": [ 4, 10, 4, 10 ],
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "logistics-pane-route-header-action-add",
+    "Parent": "pane-action-button",
+    "Default": {
+      "Texture": "icon-plus"
+    }
+  },
+  {
+    "$id": "logistics-pane-route-table",
+    "Parent": "ui-element",
+    "Default": {
+      "Size": [ 438, 512 ],
+      "Margin": [ 4 ],
+      "Padding": [ 4 ],
+      "CornerRadius": [ [ 12, 12 ] ],
+      "DisableScissor": false
+    }
+  },
+  {
+    "$id": "logistics-pane-route-table-row",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 438, 48 ],
+      "Padding": [ 4 ]
+    }
+  },
+  {
+    "$id": "logistics-pane-roue-table-row-icon",
+    "Parent": "ui-icon",
+    "Default": {
+      "Size": [ 44, 44 ],
+      "Margin": [ 2 ]
+    }
+  },
+  {
+    "$id": "logistics-pane-roue-table-row-info",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 342, 48 ],
+      "Padding": [ 8 ]
+    }
+  }
+]

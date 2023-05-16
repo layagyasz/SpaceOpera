@@ -57,6 +57,11 @@ namespace SpaceOpera.Core.Economics
             return _holdings.Where(x => x.Key.Key1 == faction).Select(x => x.Value).Cast<StellarBodyHolding>();
         }
 
+        public IEnumerable<PersistentRoute> GetPersistentRoutesFor(Faction faction)
+        {
+            return _routes.Where(x => x.Faction == faction);
+        }
+
         public IEnumerable<StellarBodyRegionHolding> GetSubzoneHoldings(Faction faction)
         {
             return GetHoldingsFor(faction).SelectMany(x => x.GetSubzones()).Cast<StellarBodyRegionHolding>();

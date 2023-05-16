@@ -7,10 +7,12 @@
         Designer,
         Equipment,
         Formation,
+        Logistics,
         Military,
         MilitaryOrganization,
         OrderConfirmation,
         Research,
-        StellarBodyRegion
+        StellarBodyRegion,
+        Trade
     }
 }

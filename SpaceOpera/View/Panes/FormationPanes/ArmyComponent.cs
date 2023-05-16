@@ -47,7 +47,7 @@ namespace SpaceOpera.View.Panes.FormationPanes
 
             CompositionTable =
                 new DynamicUiCompoundComponent(
-                    new ActionTableController(),
+                    new ActionComponentController(),
                     new DynamicKeyedTable<Division, ActionRow<Division>>(
                         uiElementFactory.GetClass(s_DivisionTable),
                         new NoOpElementController<UiSerialContainer>(),

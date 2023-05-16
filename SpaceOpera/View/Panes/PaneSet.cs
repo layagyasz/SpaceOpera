@@ -3,6 +3,7 @@ using SpaceOpera.View.Icons;
 using SpaceOpera.View.Panes.BattlePanes;
 using SpaceOpera.View.Panes.DesignPanes;
 using SpaceOpera.View.Panes.FormationPanes;
+using SpaceOpera.View.Panes.LogisticsPanes;
 using SpaceOpera.View.Panes.MilitaryPanes;
 using SpaceOpera.View.Panes.OrderConfirmationPanes;
 using SpaceOpera.View.Panes.ResearchPanes;
@@ -16,6 +17,7 @@ namespace SpaceOpera.View.Panes
         public DesignerPane Designer { get; }
         public EquipmentPane Equipment { get; }
         public FormationPane Formation { get; }
+        public LogisticsPane Logistics { get; }
         public MilitaryPane Military { get; }
         public MilitaryOrganizationPane MilitaryOrganization { get; }
         public OrderConfirmationPane OrderConfirmation { get; }
@@ -27,6 +29,7 @@ namespace SpaceOpera.View.Panes
             DesignerPane designer,
             EquipmentPane equipment,
             FormationPane formation,
+            LogisticsPane logistics,
             MilitaryPane military, 
             MilitaryOrganizationPane militaryOrganization,
             OrderConfirmationPane orderConfirmation,
@@ -37,6 +40,7 @@ namespace SpaceOpera.View.Panes
             Designer = designer;
             Equipment = equipment;
             Formation = formation;
+            Logistics = logistics;
             Military = military;
             MilitaryOrganization = militaryOrganization;
             OrderConfirmation = orderConfirmation;
@@ -52,6 +56,7 @@ namespace SpaceOpera.View.Panes
                 GamePaneId.Designer => Designer,
                 GamePaneId.Equipment => Equipment,
                 GamePaneId.Formation => Formation,
+                GamePaneId.Logistics => Logistics,
                 GamePaneId.Military => Military,
                 GamePaneId.MilitaryOrganization => MilitaryOrganization,
                 GamePaneId.OrderConfirmation => OrderConfirmation,
@@ -67,6 +72,7 @@ namespace SpaceOpera.View.Panes
             yield return Designer;
             yield return Equipment;
             yield return Formation;
+            yield return Logistics;
             yield return Military;
             yield return MilitaryOrganization;
             yield return OrderConfirmation;
@@ -88,6 +94,9 @@ namespace SpaceOpera.View.Panes
             var formation = new FormationPane(uiElementFactory, iconFactory);
             formation.Initialize();
 
+            var logistics = new LogisticsPane(uiElementFactory, iconFactory);
+            logistics.Initialize();
+
             var military = new MilitaryPane(uiElementFactory, iconFactory);
             military.Initialize();
 
@@ -107,7 +116,8 @@ namespace SpaceOpera.View.Panes
                 battle,
                 designer,
                 equipment,
-                formation, 
+                formation,
+                logistics,
                 military, 
                 militaryOrganization,
                 orderConfirmation,

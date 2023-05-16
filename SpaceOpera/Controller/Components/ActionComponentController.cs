@@ -4,7 +4,7 @@ using Cardamom.Ui.Elements;
 
 namespace SpaceOpera.Controller.Components
 {
-    public class ActionTableController : DynamicComponentControllerBase, IActionController
+    public class ActionComponentController : DynamicComponentControllerBase, IActionController
     {
         public EventHandler<UiInteractionEventArgs>? Interacted { get; set; }
 

@@ -70,7 +70,8 @@ namespace SpaceOpera.View.Panes.MilitaryPanes
                     UiSerialContainer.Orientation.Vertical,
                     GetRange,
                     CreateRow,
-                    Comparer<AtomicFormationDriver>.Create((x, y) => x.AtomicFormation.Name.CompareTo(y.AtomicFormation.Name)));
+                    Comparer<AtomicFormationDriver>.Create(
+                        (x, y) => x.AtomicFormation.Name.CompareTo(y.AtomicFormation.Name)));
             body.Add(_formationTable);
             SetBody(body);
         }

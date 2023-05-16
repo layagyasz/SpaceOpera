@@ -47,6 +47,9 @@ namespace SpaceOpera.View.Overlay.GameOverlays
                     new SimpleUiElement(
                         uiElementFactory.GetClass("game-overlay-military"),
                         new ActionButtonController(ActionId.Military)),
+                    new SimpleUiElement(
+                        uiElementFactory.GetClass("game-overlay-logistics"),
+                        new ActionButtonController(ActionId.Logistics)),
                     calendarOverlay
                 },
                 calendarOverlay);

@@ -6,8 +6,9 @@ using SpaceOpera.Core.Politics;
 
 namespace SpaceOpera.Core.Economics
 {
-    public class EconomicZone : ProjectHub, ITickable
+    public abstract class EconomicZone : ProjectHub, ITickable
     {
+        public abstract string Name { get; }
         public Faction Owner { get; }
         public FactionAdvancementManager AdvancementManager { get; }
         public uint Population { get; protected set; }
