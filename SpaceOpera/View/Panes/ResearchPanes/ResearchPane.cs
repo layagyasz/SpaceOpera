@@ -32,6 +32,11 @@ namespace SpaceOpera.View.Panes.ResearchPanes
             Populated?.Invoke(this, EventArgs.Empty);
         }
 
+        public override object GetTab()
+        {
+            return TabId.Current;
+        }
+
         public override void SetTab(object id) { }
 
         public static ResearchPane Create(UiElementFactory uiElementFactory)

@@ -5,7 +5,6 @@ using SpaceOpera.View.Components;
 using SpaceOpera.View.Icons;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.Core;
-using SpaceOpera.Controller.Components;
 using SpaceOpera.Core.Economics;
 using Cardamom.Utils;
 using SpaceOpera.Controller.Panes.LogisticsPanes;
@@ -50,8 +49,8 @@ namespace SpaceOpera.View.Panes.LogisticsPanes
             {
                 Container = "logistics-pane-route-table-row"
             };
-        private static readonly string s_RouteIcon = "logistics-pane-roue-table-row-icon";
-        private static readonly string s_RouteInfo = "logistics-pane-roue-table-row-info";
+        private static readonly string s_RouteIcon = "logistics-pane-route-table-row-icon";
+        private static readonly string s_RouteInfo = "logistics-pane-route-table-row-info";
 
         public UiCompoundComponent Routes { get; }
 
@@ -79,36 +78,28 @@ namespace SpaceOpera.View.Panes.LogisticsPanes
             _iconFactory = iconFactory;
 
             Routes = 
-                new DynamicUiCompoundComponent(
-                    new ActionComponentController(),
-                    new DynamicUiSerialContainer(
-                        _uiElementFactory.GetClass(s_RouteContainer),
-                        new NoOpElementController<UiSerialContainer>(), 
-                        UiSerialContainer.Orientation.Vertical)
-                    {
-                        ActionRow<Type>.Create(
-                            typeof(PersistentRoute),
-                            ActionId.Unknown, 
-                            uiElementFactory,
-                            s_RouteHeaderStyle,
-                            new List<IUiElement>() 
-                            { 
-                                new SimpleUiElement(
-                                    uiElementFactory.GetClass(s_RouteHeaderSpace), new InlayController())
-                            },
-                            s_RouteHeaderActions),
-                        new DynamicUiCompoundComponent(
-                            new ActionComponentController(),
-                            new DynamicKeyedTable<PersistentRoute, ActionRow<PersistentRoute>>(
-                                uiElementFactory.GetClass(s_RouteTable),
-                                new TableController(10f),
-                                UiSerialContainer.Orientation.Vertical,
-                                GetRange,
-                                CreateRow,
-                                FluentComparator<PersistentRoute>
-                                    .Comparing(x => x.LeftZone.Name)
-                                    .Then(x => x.RightZone.Name)))
-                    });
+                new ActionTable<PersistentRoute>(
+                    _uiElementFactory.GetClass(s_RouteContainer), 
+                    ActionRow<Type>.Create(
+                        typeof(PersistentRoute),
+                        ActionId.Unknown,
+                        uiElementFactory,
+                        s_RouteHeaderStyle,
+                        new List<IUiElement>()
+                        {
+                            new SimpleUiElement(
+                                uiElementFactory.GetClass(s_RouteHeaderSpace), new InlayController())
+                        },
+                        s_RouteHeaderActions), 
+                    new DynamicKeyedTable<PersistentRoute, ActionRow<PersistentRoute>>(
+                        uiElementFactory.GetClass(s_RouteTable),
+                        new TableController(10f),
+                        UiSerialContainer.Orientation.Vertical,
+                        GetRange,
+                        CreateRow,
+                        FluentComparator<PersistentRoute>
+                            .Comparing(x => x.LeftZone.Name)
+                            .Then(x => x.RightZone.Name)));
             var body =
                 new DynamicUiContainer(uiElementFactory.GetClass(s_Body), new NoOpElementController<UiContainer>())
                 {
@@ -123,6 +114,11 @@ namespace SpaceOpera.View.Panes.LogisticsPanes
             _faction = args[1] as Faction;
             Refresh();
             Populated?.Invoke(this, EventArgs.Empty);
+        }
+
+        public override object GetTab()
+        {
+            return TabId.Persistent;
         }
 
         public override void SetTab(object id) { }

@@ -99,19 +99,36 @@ namespace SpaceOpera.View.Panes.DesignPanes
 
             _world = args[0] as World;
             _faction = args[1] as Faction;
-            _template = design!.Configuration.Template;
+            _template = design?.Configuration.Template ?? (DesignTemplate)args[3]!;
+            
             SetTitle(EnumMapper.ToString(_template.Type));
 
             ComponentOptionTable.Clear(true);
             SegmentTable.Clear(true);
-            foreach (var segment in design.Configuration.GetSegments())
+
+            if (design == null)
             {
-                var segmentRow = new DesignerSegmentRow(segment.Template, _uiElementFactory, _iconFactory);
-                segmentRow.Initialize();
-                segmentRow.Populate(segment.Configuration, segment.GetComponents());
-                ((SelectController<SegmentConfiguration>)segmentRow.ConfigurationSelect.Controller)
-                    .SetValue(segment.Configuration);
-                SegmentTable.Add(segmentRow);
+                foreach (var segment in _template.Segments)
+                {
+                    var segmentRow = new DesignerSegmentRow(segment, _uiElementFactory, _iconFactory);
+                    segmentRow.Initialize();
+                    var configuration = 
+                        ((SelectController<SegmentConfiguration>)segmentRow.ConfigurationSelect.Controller).GetValue();
+                    SetSegmentConfiguration(segmentRow, configuration!);
+                    SegmentTable.Add(segmentRow);
+                }
+            }
+            else
+            {
+                foreach (var segment in design.Configuration.GetSegments())
+                {
+                    var segmentRow = new DesignerSegmentRow(segment.Template, _uiElementFactory, _iconFactory);
+                    segmentRow.Initialize();
+                    segmentRow.Populate(segment.Configuration, segment.GetComponents());
+                    ((SelectController<SegmentConfiguration>)segmentRow.ConfigurationSelect.Controller)
+                        .SetValue(segment.Configuration);
+                    SegmentTable.Add(segmentRow);
+                }
             }
             Populated?.Invoke(this, EventArgs.Empty);
         }

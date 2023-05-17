@@ -9,7 +9,7 @@ namespace SpaceOpera.Controller.Components
 {
     public abstract class BaseNumericInputTableController<T> : IController where T : notnull
     {
-        public EventHandler<ValueEventArgs<T?>>? RowSelected { get; set; }
+        public EventHandler<T?>? RowSelected { get; set; }
 
         protected NumericInputTable<T>? _table;
         protected RadioController<T>? _tableController;
@@ -72,7 +72,7 @@ namespace SpaceOpera.Controller.Components
 
         private void HandleRowSelected(object? sender, ValueChangedEventArgs<string, T?> e)
         {
-            RowSelected?.Invoke(this, new(e.Value));
+            RowSelected?.Invoke(this, e.Value);
         }
 
         private void HandleValueChanged(object? @object, ValueChangedEventArgs<T, int> e)

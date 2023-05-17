@@ -30,7 +30,7 @@ namespace SpaceOpera.View.Components
             : base(
                   new ActionRowController<T>(key, clickAction),
                   new DynamicUiSerialContainer(
-                      @class, new ButtonController(), UiSerialContainer.Orientation.Horizontal))
+                      @class, new OptionElementController<T>(key), UiSerialContainer.Orientation.Horizontal))
         {
             Key = key;
             foreach (var i in info)

@@ -339,9 +339,26 @@ namespace SpaceOpera.Controller
                 ExecuteOrder((IOrder)e.GetOnlyObject()!);
                 return;
             }
+            if (type == typeof(ComponentType) && e.Action == ActionId.Add)
+            {
+                OpenPane(
+                    GamePaneId.Designer,
+                    /* closeOpenPanes= */ true,
+                    _world!,
+                    _faction, 
+                    null, 
+                    _world!.AutoDesigner.GetTemplate((ComponentType)e.GetOnlyObject()!));
+            }
             if (type.IsAssignableTo(typeof(Design)) && e.Action == ActionId.Edit)
             {
-                OpenPane(GamePaneId.Designer, /* closeOpenPanes= */ true, _world!, _faction, e.GetOnlyObject()!);
+                var design = (Design)e.GetOnlyObject()!;
+                OpenPane(
+                    GamePaneId.Designer,
+                    /* closeOpenPanes= */ true, 
+                    _world!, 
+                    _faction,
+                    e.GetOnlyObject()!,
+                    design.Configuration.Template);
                 return;
             }
             if (e.Button == MouseButton.Left || e.Action == ActionId.Select)

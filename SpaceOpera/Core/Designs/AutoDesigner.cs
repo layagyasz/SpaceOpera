@@ -53,6 +53,11 @@ namespace SpaceOpera.Core.Designs
             return result;
         }
 
+        public DesignTemplate GetTemplate(ComponentType componentType)
+        {
+            return _templates[componentType];
+        }
+
         public DesignConfiguration CreateSeries(
             AutoDesignerParameters parameters, IEnumerable<IComponent> availableComponents, Random random)
         {

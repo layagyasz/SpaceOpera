@@ -84,6 +84,11 @@ namespace SpaceOpera.View.Panes.MilitaryPanes
             Populated?.Invoke(this, EventArgs.Empty);
         }
 
+        public override object GetTab()
+        {
+            return _tab;
+        }
+
         public override void SetTab(object id)
         {
             _tab = (TabId)id;

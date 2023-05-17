@@ -50,6 +50,7 @@ namespace SpaceOpera.View.Panes
             Body = body;
         }
 
+        public abstract object GetTab();
         public abstract void SetTab(object id);
 
         public void SetTitle(string title)

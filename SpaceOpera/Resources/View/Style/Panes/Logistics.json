@@ -31,7 +31,7 @@
   },
   {
     "$id": "logistics-pane-route-container",
-    "Parent": "logistics-pane-body",
+    "Parent": "pane-body",
     "Default": {
       "Size": [ 884, 572 ],
       "Margin": [ 4 ],
@@ -84,15 +84,15 @@
     }
   },
   {
-    "$id": "logistics-pane-route-table-row",
+    "$id": "logistics-pane-route-row",
     "Parent": "ui-element-internal",
     "Default": {
       "Size": [ 438, 48 ],
-      "Padding": [ 4 ]
+      "Padding": [ 0 ]
     }
   },
   {
-    "$id": "logistics-pane-roue-table-row-icon",
+    "$id": "logistics-pane-route-row-icon",
     "Parent": "ui-icon",
     "Default": {
       "Size": [ 44, 44 ],
@@ -100,7 +100,7 @@
     }
   },
   {
-    "$id": "logistics-pane-roue-table-row-info",
+    "$id": "logistics-pane-route-row-info",
     "Parent": "ui-element-internal",
     "Default": {
       "Size": [ 342, 48 ],

@@ -38,9 +38,9 @@ namespace SpaceOpera.Controller.Panes.StellarBodyRegionPanes
             _recipeController!.Reset();
         }
 
-        private void HandleStructureSelected(object? sender, ValueEventArgs<Structure?> e)
+        private void HandleStructureSelected(object? sender, Structure? e)
         {
-            _element!.SetStructure(e.Element);
+            _element!.SetStructure(e);
             _recipeController!.Reset();
         }
 
