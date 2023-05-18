@@ -8,6 +8,7 @@
         Equipment,
         Formation,
         Logistics,
+        LogisticsRoute,
         Military,
         MilitaryOrganization,
         OrderConfirmation,

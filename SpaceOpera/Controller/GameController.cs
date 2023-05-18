@@ -8,6 +8,7 @@ using SpaceOpera.Controller.Panes;
 using SpaceOpera.Controller.Subcontrollers;
 using SpaceOpera.Core;
 using SpaceOpera.Core.Designs;
+using SpaceOpera.Core.Economics;
 using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Military.Ai.Assigments;
 using SpaceOpera.Core.Orders;
@@ -297,6 +298,13 @@ namespace SpaceOpera.Controller
 
         private void HandleObjectInteraction(Type type, UiInteractionEventArgs e)
         {
+            if (type.IsAssignableTo(typeof(Type)) 
+                && (Type)e.GetOnlyObject()! == typeof(PersistentRoute) 
+                && e.Action == ActionId.Add)
+            {
+                OpenPane(GamePaneId.LogisticsRoute, /* closeOpenPanes= */ true, _world, _faction, null);
+                return;
+            }
             if (type.IsAssignableTo(typeof(AtomicFormationDriver)))
             {
                 if (e.Action == ActionId.Battle)
@@ -348,6 +356,7 @@ namespace SpaceOpera.Controller
                     _faction, 
                     null, 
                     _world!.AutoDesigner.GetTemplate((ComponentType)e.GetOnlyObject()!));
+                return;
             }
             if (type.IsAssignableTo(typeof(Design)) && e.Action == ActionId.Edit)
             {

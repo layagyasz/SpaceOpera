@@ -18,6 +18,7 @@ namespace SpaceOpera.View.Panes
         public EquipmentPane Equipment { get; }
         public FormationPane Formation { get; }
         public LogisticsPane Logistics { get; }
+        public LogisticsRoutePane LogisticsRoute { get; }
         public MilitaryPane Military { get; }
         public MilitaryOrganizationPane MilitaryOrganization { get; }
         public OrderConfirmationPane OrderConfirmation { get; }
@@ -30,6 +31,7 @@ namespace SpaceOpera.View.Panes
             EquipmentPane equipment,
             FormationPane formation,
             LogisticsPane logistics,
+            LogisticsRoutePane logisticsRoute,
             MilitaryPane military, 
             MilitaryOrganizationPane militaryOrganization,
             OrderConfirmationPane orderConfirmation,
@@ -41,6 +43,7 @@ namespace SpaceOpera.View.Panes
             Equipment = equipment;
             Formation = formation;
             Logistics = logistics;
+            LogisticsRoute = logisticsRoute;
             Military = military;
             MilitaryOrganization = militaryOrganization;
             OrderConfirmation = orderConfirmation;
@@ -57,6 +60,7 @@ namespace SpaceOpera.View.Panes
                 GamePaneId.Equipment => Equipment,
                 GamePaneId.Formation => Formation,
                 GamePaneId.Logistics => Logistics,
+                GamePaneId.LogisticsRoute => LogisticsRoute,
                 GamePaneId.Military => Military,
                 GamePaneId.MilitaryOrganization => MilitaryOrganization,
                 GamePaneId.OrderConfirmation => OrderConfirmation,
@@ -73,6 +77,7 @@ namespace SpaceOpera.View.Panes
             yield return Equipment;
             yield return Formation;
             yield return Logistics;
+            yield return LogisticsRoute;
             yield return Military;
             yield return MilitaryOrganization;
             yield return OrderConfirmation;
@@ -97,6 +102,9 @@ namespace SpaceOpera.View.Panes
             var logistics = new LogisticsPane(uiElementFactory, iconFactory);
             logistics.Initialize();
 
+            var logisticsRoute = new LogisticsRoutePane(uiElementFactory, iconFactory);
+            logisticsRoute.Initialize();
+
             var military = new MilitaryPane(uiElementFactory, iconFactory);
             military.Initialize();
 
@@ -118,7 +126,8 @@ namespace SpaceOpera.View.Panes
                 equipment,
                 formation,
                 logistics,
-                military, 
+                logisticsRoute,
+                military,
                 militaryOrganization,
                 orderConfirmation,
                 research,

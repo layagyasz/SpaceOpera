@@ -1,0 +1,32 @@
+[
+  {
+    "$id": "logistics-route-pane",
+    "Parent": "pane-standard",
+    "Default": {
+      "Size": [ 900, 700 ]
+    }
+  },
+  {
+    "$id": "logistics-route-pane-title",
+    "Parent": "pane-standard-title"
+  },
+  {
+    "$id": "logistics-route-pane-close",
+    "Parent": "pane-standard-close"
+  },
+  {
+    "$id": "logistics-route-pane-tab-container",
+    "Parent": "pane-tab-container"
+  },
+  {
+    "$id": "logistics-route-pane-tab-option",
+    "Parent": "pane-tab-option"
+  },
+  {
+    "$id": "logistics-route-pane-body",
+    "Parent": "pane-body-no-tabs",
+    "Default": {
+      "Size": [ 892, 620 ]
+    }
+  }
+]
