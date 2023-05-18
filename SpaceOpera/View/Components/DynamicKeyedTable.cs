@@ -74,5 +74,10 @@ namespace SpaceOpera.View.Components
             _currentRows.Clear();
             Refresh();
         }
+
+        public bool TryGetRow(TKey key, out TRow? row)
+        {
+            return _currentRows.TryGetValue(key, out row);
+        }
     }
 }

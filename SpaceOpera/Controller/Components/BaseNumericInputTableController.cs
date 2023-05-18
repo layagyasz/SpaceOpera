@@ -49,6 +49,23 @@ namespace SpaceOpera.Controller.Components
                 .ToMultiCount(x => x.Key, x => x.Value);
         }
 
+        public void SetValue(MultiCount<T> value)
+        {
+            foreach (var entry in value)
+            {
+                SetValue(entry.Key, entry.Value);
+            }
+        }
+
+        public void SetValue(T key, int value)
+        {
+            if (_table!.TryGetRow(key, out var row))
+            {
+                var controller = (BaseNumericInputTableRowController<T>)row!.ComponentController;
+                controller.SetValue(value);
+            }
+        }
+
         private void BindElement(NumericInputTableRow<T> row)
         {
             var controller = (BaseNumericInputTableRowController<T>)row.ComponentController;

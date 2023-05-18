@@ -28,5 +28,195 @@
     "Default": {
       "Size": [ 892, 620 ]
     }
+  },
+  {
+    "$id": "logistics-route-pane-materials-container",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 892, "DynamicContents" ],
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "logistics-route-pane-material-container",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 446, "DynamicContents" ],
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "logistics-route-pane-material-header",
+    "Parent": "ui-element-basic",
+    "Default": {
+      "Size": [ 442, 28 ],
+      "Align": "Center"
+    }
+  },
+  {
+    "$id": "logistics-route-pane-material-select-wrapper",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 410, 32 ]
+    }
+  },
+  {
+    "$id": "logistics-route-pane-material-select",
+    "Parent": "ui-element-basic",
+    "Default": {
+      "Size": [ 256, 28 ]
+    }
+  },
+  {
+    "$id": "logistics-route-pane-material-select-dropbox",
+    "Parent": "ui-element-basic",
+    "Default": {
+      "Size": [
+        256,
+        [ "DynamicContents", 0, 512 ]
+      ],
+      "Padding": [ 0, 12, 0, 12 ]
+    }
+  },
+  {
+    "$id": "logistics-route-pane-material-select-option",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 256, 28 ],
+      "Padding": [ 8 ],
+      "Margin": [ 0 ]
+    }
+  },
+  {
+    "$id": "logistics-route-pane-material-add",
+    "Parent": "ui-element-basic",
+    "Default": {
+      "Size": [ 28, 28 ],
+      "CornerRadius": [ [ 14, 14 ] ],
+      "Align": "Center"
+    }
+  },
+  {
+    "$id": "logistics-route-pane-material-table-container",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 446, "DynamicContents" ],
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "logistics-route-pane-material-table",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 446, "DynamicContents" ],
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "logistics-route-pane-material-table-total-row",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 446, 32 ],
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "logistics-route-pane-material-table-total-text",
+    "Parent": "ui-element-basic",
+    "Default": {
+      "Size": [ 298, 28 ],
+      "Padding": [ 50, 8, 8, 8 ]
+    }
+  },
+  {
+    "$id": "logistics-route-pane-material-table-total-number",
+    "Parent": "ui-element-basic",
+    "Default": {
+      "Size": [ 140, 28 ],
+      "Align": "Center"
+    }
+  },
+  {
+    "$id": "logistics-route-pane-material-table-row",
+    "Parent": "logistics-route-pane-material-table-total-row"
+  },
+  {
+    "$id": "logistics-route-pane-material-table-row-info",
+    "Parent": "logistics-route-pane-material-table-total-text",
+    "Default": {
+      "Padding": [ 14, 0, 14, 0 ]
+    }
+  },
+  {
+    "$id": "logistics-route-pane-material-table-row-icon",
+    "Parent": "ui-icon",
+    "Default": {
+      "Size": [ 24, 24 ],
+      "Margin": [ 2 ]
+    }
+  },
+  {
+    "$id": "logistics-route-pane-material-table-row-text",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 178, 24 ],
+      "Padding": [ 8 ]
+    }
+  },
+  {
+    "$id": "logistics-route-pane-material-table-row-numeric-input",
+    "Parent": "logistics-route-pane-material-table-total-number",
+    "Default": {
+      "Padding": [ 0 ],
+      "Align": "Left"
+    }
+  },
+  {
+    "$id": "logistics-route-pane-material-table-row-numeric-input-text",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 84, 24 ],
+      "Padding": [ 0, 8, 0, 8 ],
+      "Align": "Center"
+    }
+  },
+  {
+    "$id": "logistics-route-pane-material-table-row-numeric-input-subtract",
+    "Parent": "ui-element-basic",
+    "Default": {
+      "Size": [ 24, 24 ],
+      "Padding": [ 0, 5, 0, 5 ],
+      "Margin": [ 2 ],
+      "CornerRadius": [ [ 12, 12 ] ],
+      "Align": "Center",
+      "Color": "#ff8800cc",
+      "BorderColor": [ "#ff8800cc" ]
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "Color": "#ff8800",
+          "BorderColor": [ "#ff8800" ]
+        }
+      }
+    ]
+  },
+  {
+    "$id": "logistics-route-pane-material-table-row-numeric-input-add",
+    "Parent": "logistics-route-pane-material-table-row-numeric-input-subtract",
+    "Default": {
+      "Color": "#0088ffcc",
+      "BorderColor": [ "#0088ffcc" ]
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "Color": "#0088ff",
+          "BorderColor": [ "#0088ff" ]
+        }
+      }
+    ]
   }
 ]

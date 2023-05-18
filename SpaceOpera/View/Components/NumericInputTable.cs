@@ -36,6 +36,8 @@ namespace SpaceOpera.View.Components
         private readonly Style _style;
         private readonly IRowConfiguration _configuration;
 
+        private readonly DynamicKeyedTable<T, NumericInputTableRow<T>> _table;
+
         public NumericInputTable(
             Func<IEnumerable<T>> keysFn,
             Func<IntInterval> rangeFn,
@@ -55,16 +57,15 @@ namespace SpaceOpera.View.Components
             _style = style;
             _configuration = configuration;
 
-            Table =
-                new(
-                    new RadioController<T>("numeric-input-table-" + GetHashCode()),
-                    new DynamicKeyedTable<T, NumericInputTableRow<T>>(
+            _table =
+                new DynamicKeyedTable<T, NumericInputTableRow<T>>(
                         uiElementFactory.GetClass(style.Table),
                         new TableController(10f),
                         UiSerialContainer.Orientation.Vertical,
                         keysFn,
                         CreateRow,
-                        _configuration.GetComparer()));
+                        _configuration.GetComparer());
+            Table = new(new RadioController<T>("numeric-input-table-" + GetHashCode()), _table);
             Add(Table);
 
             Total = 
@@ -80,9 +81,9 @@ namespace SpaceOpera.View.Components
                 });
         }
 
-        public void Add(T key)
+        public bool TryGetRow(T key, out NumericInputTableRow<T>? row)
         {
-
+            return _table.TryGetRow(key, out row);
         }
 
         private NumericInputTableRow<T> CreateRow(T key)
