@@ -54,7 +54,8 @@ namespace SpaceOpera.View.Panes.DesignPanes
                     s_ConfigurationSelectDropBox,
                     template.ConfigurationOptions.Select(
                         x => uiElementFactory.CreateSelectOption(
-                            s_ConfigurationSelectDropOption, x, x.Name).Item1)).Item1;
+                            s_ConfigurationSelectDropOption, x, x.Name).Item1),
+                    10f).Item1;
             Add(
                 new UiWrapper(
                     uiElementFactory.GetClass(s_ConfigurationSelectWrapper), 

@@ -6,11 +6,12 @@ using SpaceOpera.View.Components;
 
 namespace SpaceOpera.Controller.Components
 {
-    public class SyncingNumericInputTableController<T> : BaseNumericInputTableController<T> where T : notnull
+    public class AutoNumericInputTableController<T> : BaseNumericInputTableController<T> where T : notnull
     {
         private readonly Func<IntInterval> _rangeFn;
 
-        public SyncingNumericInputTableController(Func<IntInterval> rangeFn)
+        public AutoNumericInputTableController(string key, Func<IntInterval> rangeFn)
+            : base(key)
         {
             _rangeFn = rangeFn;
         }
@@ -37,7 +38,7 @@ namespace SpaceOpera.Controller.Components
         {
             return _table!.Table
                 .Select(x => ((UiCompoundComponent)x).ComponentController)
-                .Cast<SyncingNumericInputTableRowController<T>>()
+                .Cast<AutoNumericInputTableRowController<T>>()
                 .Select(x => new KeyValuePair<T, int>(x.Key, x.GetDelta()))
                 .Where(x => x.Value != 0)
                 .ToMultiCount(x => x.Key, x => x.Value);
@@ -49,7 +50,7 @@ namespace SpaceOpera.Controller.Components
             ((TableController)_table!.Table.Controller).ResetOffset();
             foreach (var row in _table!.Table.Cast<NumericInputTableRow<T>>())
             {
-                ((SyncingNumericInputTableRowController<T>)row.ComponentController).Reset();
+                ((AutoNumericInputTableRowController<T>)row.ComponentController).Reset();
             }
             UpdateTotal();
         }

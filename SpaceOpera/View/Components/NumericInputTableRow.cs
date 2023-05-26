@@ -1,4 +1,5 @@
 ﻿using Cardamom.Ui;
+using Cardamom.Ui.Controller;
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
 using SpaceOpera.Controller.Components;
@@ -26,11 +27,11 @@ namespace SpaceOpera.View.Components
         private NumericInputTableRow(
             Class @class, 
             T key,
-            NumericInputTable<T>.IRowConfiguration configuration,
+            IController controller,
             IUiContainer info, 
             NumericInput numericInput)
             : base(
-                  new SyncingNumericInputTableRowController<T>(key, configuration),
+                  controller,
                   new UiSerialContainer(@class, new ButtonController(), UiSerialContainer.Orientation.Horizontal))
         {
             Key = key;
@@ -45,18 +46,18 @@ namespace SpaceOpera.View.Components
             Refreshed?.Invoke(this, EventArgs.Empty);
         }
 
-        public static NumericInputTableRow<T> Create(
+        public static NumericInputTableRow<T> CreateAuto(
             T key, 
             string name, 
             UiElementFactory uiElementFactory, 
             IconFactory iconFactory,
             Style style, 
-            NumericInputTable<T>.IRowConfiguration configuration)
+            AutoNumericInputTable<T>.IRowConfiguration configuration)
         {
             return new(
                 uiElementFactory.GetClass(style.Container),
                 key, 
-                configuration,
+                new AutoNumericInputTableRowController<T>(key, configuration),
                 new UiSerialContainer(
                     uiElementFactory.GetClass(style.Info), 
                     new ButtonController(), 
@@ -65,6 +66,28 @@ namespace SpaceOpera.View.Components
                     iconFactory.Create(uiElementFactory.GetClass(style.Icon), new InlayController(), key),
                     new TextUiElement(uiElementFactory.GetClass(style.Text), new InlayController(), name),
                 }, 
+                NumericInput.Create(key, uiElementFactory, style.NumericInput));
+        }
+
+        public static NumericInputTableRow<T> CreateManual(
+            T key,
+            string name,
+            UiElementFactory uiElementFactory,
+            IconFactory iconFactory,
+            Style style)
+        {
+            return new(
+                uiElementFactory.GetClass(style.Container),
+                key,
+                new ManualNumericInputTableRowController<T>(key),
+                new UiSerialContainer(
+                    uiElementFactory.GetClass(style.Info),
+                    new ButtonController(),
+                    UiSerialContainer.Orientation.Horizontal)
+                {
+                                iconFactory.Create(uiElementFactory.GetClass(style.Icon), new InlayController(), key),
+                                new TextUiElement(uiElementFactory.GetClass(style.Text), new InlayController(), name),
+                },
                 NumericInput.Create(key, uiElementFactory, style.NumericInput));
         }
     }

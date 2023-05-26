@@ -1,4 +1,6 @@
 ﻿using Cardamom.Trackers;
+using SpaceOpera.Controller.Components;
+using SpaceOpera.Core.Economics;
 using SpaceOpera.View.Panes.LogisticsPanes;
 
 namespace SpaceOpera.Controller.Panes.LogisticsPanes
@@ -20,9 +22,9 @@ namespace SpaceOpera.Controller.Panes.LogisticsPanes
         private void HandlePopulated(object? sender, EventArgs e)
         {
             var pane = (LogisticsRoutePane)_pane!;
-            var leftController = (MaterialComponentController)pane.LeftMaterials.ComponentController;
+            var leftController = (ManualNumericInputTableController<IMaterial>)pane.LeftMaterials.ComponentController;
             leftController.SetValue(pane.GetSeedRoute()?.LeftMaterials.ToMultiCount(x => x.Key, x => (int)x.Value));
-            var rightController = (MaterialComponentController)pane.LeftMaterials.ComponentController;
+            var rightController = (ManualNumericInputTableController<IMaterial>)pane.LeftMaterials.ComponentController;
             rightController.SetValue(pane.GetSeedRoute()?.RightMaterials.ToMultiCount(x => x.Key, x => (int)x.Value));
         }
     }

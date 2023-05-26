@@ -18,6 +18,8 @@ namespace SpaceOpera.View.Panes.LogisticsPanes
         private static readonly string s_Body = "logistics-route-pane-body";
 
         private static readonly string s_MaterialsContainer = "logistics-route-pane-materials-container";
+        private static readonly string s_MaterialContainer = "logistics-route-pane-material-container";
+        private static readonly string s_MaterialHeader = "logistics-route-pane-material-header";
 
         public MaterialComponent LeftMaterials { get; }
         public MaterialComponent RightMaterials { get; }
@@ -39,16 +41,30 @@ namespace SpaceOpera.View.Panes.LogisticsPanes
             _uiElementFactory = uiElementFactory;
             _iconFactory = iconFactory;
 
-            LeftMaterials = new MaterialComponent("Left", uiElementFactory, iconFactory);
-            RightMaterials = new MaterialComponent("Right", uiElementFactory, iconFactory);
+            LeftMaterials = new MaterialComponent(uiElementFactory, iconFactory);
+            RightMaterials = new MaterialComponent(uiElementFactory, iconFactory);
             var materialsContainer =
                 new DynamicUiSerialContainer(
                     uiElementFactory.GetClass(s_MaterialsContainer),
                     new NoOpElementController<UiSerialContainer>(),
                     UiSerialContainer.Orientation.Horizontal)
                 {
-                    LeftMaterials,
-                    RightMaterials
+                    new DynamicUiSerialContainer(
+                        uiElementFactory.GetClass(s_MaterialContainer), 
+                        new NoOpElementController<UiSerialContainer>(), 
+                        UiSerialContainer.Orientation.Vertical) 
+                    {
+                        uiElementFactory.CreateTextButton(s_MaterialHeader, "Left").Item1,
+                        LeftMaterials 
+                    },
+                    new DynamicUiSerialContainer(
+                        uiElementFactory.GetClass(s_MaterialContainer),
+                        new NoOpElementController<UiSerialContainer>(),
+                        UiSerialContainer.Orientation.Vertical)
+                    {
+                        uiElementFactory.CreateTextButton(s_MaterialHeader, "Right").Item1,
+                        RightMaterials
+                    },
                 };
 
             var body =
@@ -72,8 +88,10 @@ namespace SpaceOpera.View.Panes.LogisticsPanes
             _world = (World?)args[0];
             _faction = (Faction?)args[1];
             _route = (PersistentRoute?)args[2];
-            LeftMaterials.Populate(_world?.CoreData.Materials.Values ?? Enumerable.Empty<IMaterial>());
-            RightMaterials.Populate(_world?.CoreData.Materials.Values ?? Enumerable.Empty<IMaterial>());
+            LeftMaterials.SetRange(Enumerable.Empty<IMaterial>());
+            LeftMaterials.SetOptions(_world?.CoreData.Materials.Values ?? Enumerable.Empty<IMaterial>());
+            RightMaterials.SetRange(Enumerable.Empty<IMaterial>());
+            RightMaterials.SetOptions(_world?.CoreData.Materials.Values ?? Enumerable.Empty<IMaterial>());
             Populated?.Invoke(this, EventArgs.Empty);
         }
     }

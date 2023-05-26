@@ -31,7 +31,7 @@
   },
   {
     "$id": "logistics-pane-route-container",
-    "Parent": "pane-body",
+    "Parent": "ui-container",
     "Default": {
       "Size": [ 884, 572 ],
       "Margin": [ 4 ],

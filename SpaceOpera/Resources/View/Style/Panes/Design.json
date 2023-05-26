@@ -31,11 +31,12 @@
   },
   {
     "$id": "design-pane-design-container",
-    "Parent": "pane-body",
+    "Parent": "ui-container",
     "Default": {
       "Size": [ 442, 572 ],
       "Margin": [ 4 ],
-      "Padding": [ 2 ]
+      "Padding": [ 2 ],
+      "DisableScissor": true
     }
   },
   {

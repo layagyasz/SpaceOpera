@@ -31,7 +31,7 @@
   },
   {
     "$id": "military-pane-military-table",
-    "Parent": "design-pane-body",
+    "Parent": "ui-container",
     "Default": {
       "Size": [ 884, 572 ],
       "Margin": [ 4 ],

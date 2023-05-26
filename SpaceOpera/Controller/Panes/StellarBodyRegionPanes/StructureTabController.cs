@@ -12,18 +12,18 @@ namespace SpaceOpera.Controller.Panes.StellarBodyRegionPanes
         public EventHandler<UiInteractionEventArgs>? Interacted { get; set; }
         public EventHandler<IOrder>? OrderCreated { get; set; }
 
-        private SyncingNumericInputTableController<Structure>? _structureController;
-        private SyncingNumericInputTableController<Recipe>? _recipeController;
+        private AutoNumericInputTableController<Structure>? _structureController;
+        private AutoNumericInputTableController<Recipe>? _recipeController;
 
         public override void Bind(object @object)
         {
             base.Bind(@object);
             _structureController = 
-                (SyncingNumericInputTableController<Structure>)_element!.StructureTable.ComponentController;
+                (AutoNumericInputTableController<Structure>)_element!.StructureTable.ComponentController;
             _structureController.RowSelected += HandleStructureSelected;
             _element!.StructureSubmit.Controller.Clicked += HandleStructureSubmitted;
             _recipeController =
-                (SyncingNumericInputTableController<Recipe>)_element!.RecipeTable.ComponentController;
+                (AutoNumericInputTableController<Recipe>)_element!.RecipeTable.ComponentController;
             _element!.RecipeSubmit.Controller.Clicked += HandleRecipeSubmitted;
         }
 

@@ -17,7 +17,7 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
         private static readonly string s_StructureContainer = "stellar-body-region-pane-structure-container";
         private static readonly string s_StructureHeader = "stellar-body-region-pane-structure-header";
         private static readonly string s_StructureSubmit = "stellar-body-region-pane-structure-submit";
-        private static readonly NumericInputTable<Structure>.Style s_StructureTableStyle =
+        private static readonly BaseNumericInputTable<Structure>.Style s_StructureTableStyle =
             new()
             {
                 Container = "stellar-body-region-pane-structure-table-container",
@@ -44,7 +44,7 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
         private static readonly string s_RecipeContainer = "stellar-body-region-pane-structure-container";
         private static readonly string s_RecipeHeader = "stellar-body-region-pane-structure-header";
         private static readonly string s_RecipeSubmit = "stellar-body-region-pane-structure-submit";
-        private static readonly NumericInputTable<Recipe>.Style s_RecipeTableStyle =
+        private static readonly BaseNumericInputTable<Recipe>.Style s_RecipeTableStyle =
             new()
             {
                 Container = "stellar-body-region-pane-structure-table-container",
@@ -68,7 +68,7 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
                 TotalNumber = "stellar-body-region-pane-structure-table-total-number",
             };
 
-        class StructureTableConfiguration : NumericInputTable<Structure>.IRowConfiguration
+        class StructureTableConfiguration : AutoNumericInputTable<Structure>.IRowConfiguration
         {
             private World? _world;
             private StellarBodyRegionHolding? _holding;
@@ -103,14 +103,9 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
             {
                 return _holding == null ? 0 : _holding.GetStructureCount(key);
             }
-
-            public IComparer<Structure> GetComparer()
-            {
-                return Comparer<Structure>.Create((x, y) => x.Name.CompareTo(y.Name));
-            }
         }
 
-        class RecipeTableConfiguration : NumericInputTable<Recipe>.IRowConfiguration
+        class RecipeTableConfiguration : AutoNumericInputTable<Recipe>.IRowConfiguration
         {
             private World? _world;
             private StellarBodyRegionHolding? _holding;
@@ -163,11 +158,6 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
             {
                 return _holding == null ? 0 : _holding.GetProduction(key);
             }
-
-            public IComparer<Recipe> GetComparer()
-            {
-                return Comparer<Recipe>.Create((x, y) => x.Name.CompareTo(y.Name));
-            }
         }
 
         private readonly IconFactory _iconFactory;
@@ -176,9 +166,9 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
 
         private StellarBodyRegionHolding? _holding;
 
-        public NumericInputTable<Structure> StructureTable { get; }
+        public AutoNumericInputTable<Structure> StructureTable { get; }
         public IUiElement StructureSubmit { get; }
-        public NumericInputTable<Recipe> RecipeTable { get; }
+        public AutoNumericInputTable<Recipe> RecipeTable { get; }
         public IUiElement RecipeSubmit { get; }
 
         public StructureTab(UiElementFactory uiElementFactory, IconFactory iconFactory)
@@ -192,11 +182,12 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
             _structureTableConfiguration = new();
             StructureTable =
                 new(
+                    s_StructureTableStyle,
                     _structureTableConfiguration.GetKeys,
                     _structureTableConfiguration.GetRange,
                     uiElementFactory,
                     _iconFactory,
-                    s_StructureTableStyle,
+                    Comparer<Structure>.Create((x, y) => x.Name.CompareTo(y.Name)),
                     _structureTableConfiguration);
             StructureSubmit = 
                 new TextUiElement(uiElementFactory.GetClass(s_StructureSubmit), new ButtonController(), "Build");
@@ -215,11 +206,12 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
             _recipeTableConfiguration = new();
             RecipeTable =
                 new(
+                    s_RecipeTableStyle,
                     _recipeTableConfiguration.GetKeys,
                     _recipeTableConfiguration.GetRange,
                     uiElementFactory,
                     _iconFactory,
-                    s_RecipeTableStyle,
+                    Comparer<Recipe>.Create((x, y) => x.Name.CompareTo(y.Name)),
                     _recipeTableConfiguration);
             RecipeSubmit =
                 new TextUiElement(uiElementFactory.GetClass(s_RecipeSubmit), new ButtonController(), "Assign");

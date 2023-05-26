@@ -2,13 +2,13 @@
 
 namespace SpaceOpera.Controller.Components
 {
-    public class SyncingNumericInputTableRowController<T> : BaseNumericInputTableRowController<T> where T : notnull
+    public class AutoNumericInputTableRowController<T> : BaseNumericInputTableRowController<T> where T : notnull
     {
-        private readonly NumericInputTable<T>.IRowConfiguration _configuration;
+        private readonly AutoNumericInputTable<T>.IRowConfiguration _configuration;
 
         private int _defaultValue;
 
-        public SyncingNumericInputTableRowController(T key, NumericInputTable<T>.IRowConfiguration configuration)
+        public AutoNumericInputTableRowController(T key, AutoNumericInputTable<T>.IRowConfiguration configuration)
             : base(key)
         {
             _configuration = configuration;

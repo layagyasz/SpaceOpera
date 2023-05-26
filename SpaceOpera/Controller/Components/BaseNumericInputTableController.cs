@@ -7,22 +7,33 @@ using SpaceOpera.View.Components;
 
 namespace SpaceOpera.Controller.Components
 {
-    public abstract class BaseNumericInputTableController<T> : IController where T : notnull
+    public abstract class BaseNumericInputTableController<T> 
+        : IController, IFormElementController<string, MultiCount<T>> where T : notnull
     {
+        public EventHandler<ValueChangedEventArgs<string, MultiCount<T>?>>? ValueChanged { get; set; }
         public EventHandler<T?>? RowSelected { get; set; }
 
-        protected NumericInputTable<T>? _table;
+        public string Key { get; }
+
+        protected BaseNumericInputTable<T>? _table;
         protected RadioController<T>? _tableController;
+
+        public BaseNumericInputTableController(string key)
+        {
+            Key = key;
+        }
 
         public abstract IntInterval GetRange();
 
         public virtual void Bind(object @object)
         {
-            _table = (NumericInputTable<T>)@object;
+            _table = (BaseNumericInputTable<T>)@object;
             _table.Table.ElementAdded += HandleElementAdded;
             _table.Table.ElementRemoved += HandleElementRemoved;
             _tableController = (RadioController<T>)_table.Table.ComponentController;
             _tableController.ValueChanged += HandleRowSelected;
+
+            UpdateTotal();
         }
 
         public virtual void Unbind()
@@ -39,7 +50,7 @@ namespace SpaceOpera.Controller.Components
             return ((RadioController<T>)_table!.Table.ComponentController).GetValue()!;
         }
 
-        public MultiCount<T> GetValues()
+        public MultiCount<T> GetValue()
         {
             return _table!.Table
                 .Select(x => ((UiCompoundComponent)x).ComponentController)
@@ -49,8 +60,9 @@ namespace SpaceOpera.Controller.Components
                 .ToMultiCount(x => x.Key, x => x.Value);
         }
 
-        public void SetValue(MultiCount<T> value)
+        public virtual void SetValue(MultiCount<T>? value)
         {
+            value ??= new();
             foreach (var entry in value)
             {
                 SetValue(entry.Key, entry.Value);
