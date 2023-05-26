@@ -9,6 +9,8 @@ namespace SpaceOpera.Controller.Panes
     public class GamePaneController : PaneController, IGamePaneController
     {
         public EventHandler<UiInteractionEventArgs>? Interacted { get; set; }
+        public EventHandler<IInterceptor>? InterceptorCreated { get; set; }
+        public EventHandler<IInterceptor>? InterceptorCancelled { get; set; }
         public EventHandler<IOrder>? OrderCreated { get; set; }
 
         protected IBasicGamePane? _pane;

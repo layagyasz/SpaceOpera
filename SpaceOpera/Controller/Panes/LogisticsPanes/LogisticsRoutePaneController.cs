@@ -10,13 +10,41 @@ namespace SpaceOpera.Controller.Panes.LogisticsPanes
         public override void Bind(object @object)
         {
             base.Bind(@object);
-            _pane!.Populated += HandlePopulated;
+            var pane = (LogisticsRoutePane)_pane!;
+            pane.Populated += HandlePopulated;
+            BindInterceptor((IInterceptorController)pane.LeftAnchor.Controller);
+            BindInterceptor((IInterceptorController)pane.RightAnchor.Controller);
         }
 
         public override void Unbind()
         {
-            _pane!.Populated -= HandlePopulated;
+            var pane = (LogisticsRoutePane)_pane!;
+            pane.Populated -= HandlePopulated;
+            UnbindInterceptor((IInterceptorController)pane.LeftAnchor.Controller);
+            UnbindInterceptor((IInterceptorController)pane.RightAnchor.Controller);
             base.Unbind();
+        }
+
+        private void BindInterceptor(IInterceptorController controller)
+        {
+            controller.InterceptorCreated += HandleInterceptorCreated;
+            controller.InterceptorCancelled += HandleInterceptorCancelled;
+        }
+
+        private void UnbindInterceptor(IInterceptorController controller)
+        {
+            controller.InterceptorCreated -= HandleInterceptorCreated;
+            controller.InterceptorCancelled -= HandleInterceptorCancelled;
+        }
+
+        private void HandleInterceptorCreated(object? sender, IInterceptor e)
+        {
+            InterceptorCreated?.Invoke(this, e);
+        }
+
+        private void HandleInterceptorCancelled(object? sender, IInterceptor e)
+        {
+            InterceptorCancelled?.Invoke(this, e);
         }
 
         private void HandlePopulated(object? sender, EventArgs e)

@@ -37,16 +37,16 @@ namespace SpaceOpera.View.Components
             Style style)
         {
             return new(
-                uiElementFactory.GetClass(style.Container),
+                uiElementFactory.GetClass(style.Container!),
                 key,
                 new ManualNumericInputTableRowController<T>(key),
                 new UiSerialContainer(
-                    uiElementFactory.GetClass(style.Info),
+                    uiElementFactory.GetClass(style.Info!),
                     new ButtonController(),
                     UiSerialContainer.Orientation.Horizontal)
                 {
-                    iconFactory.Create(uiElementFactory.GetClass(style.Icon), new InlayController(), key),
-                    new TextUiElement(uiElementFactory.GetClass(style.Text), new InlayController(), name),
+                    iconFactory.Create(uiElementFactory.GetClass(style.Icon!), new InlayController(), key),
+                    new TextUiElement(uiElementFactory.GetClass(style.Text!), new InlayController(), name),
                 },
                 NumericInput.Create(key, uiElementFactory, style.NumericInput),
                 uiElementFactory.CreateSimpleButton(style.Remove!).Item1);

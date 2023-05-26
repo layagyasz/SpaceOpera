@@ -42,6 +42,7 @@ namespace SpaceOpera.Controller
         private readonly EnumMap<HighlightLayerName, ICompositeHighlight> _currentHighlights = new();
         private readonly HashSet<IFormationDriver> _selectedFormations = new();
 
+        private IInterceptor? _interceptor;
         private ISubcontroller? _subcontroller;
 
         public GameController(
@@ -74,6 +75,8 @@ namespace SpaceOpera.Controller
                 if (pane.Controller is IGamePaneController paneController)
                 {
                     paneController.Interacted += HandleInteraction;
+                    paneController.InterceptorCreated += HandleInterceptorCreated;
+                    paneController.InterceptorCancelled += HandleInterceptorCancelled;
                     paneController.OrderCreated += HandleOrder;
                 }
             }
@@ -99,6 +102,8 @@ namespace SpaceOpera.Controller
                 if (pane.Controller is IGamePaneController paneController)
                 {
                     paneController.Interacted -= HandleInteraction;
+                    paneController.InterceptorCreated -= HandleInterceptorCreated;
+                    paneController.InterceptorCancelled -= HandleInterceptorCancelled;
                     paneController.OrderCreated -= HandleOrder;
                 }
             }
@@ -212,6 +217,21 @@ namespace SpaceOpera.Controller
                 _subcontroller.OrderCreated += HandleOrder;
             }
         }
+
+        private void HandleInterceptorCreated(object? sender, IInterceptor e)
+        {
+            _logger.AtInfo().Log($"Create {e}");
+            _interceptor = e;
+        }
+
+        private void HandleInterceptorCancelled(object? sender, IInterceptor e)
+        {
+            _logger.AtInfo().Log($"Cancel {e}");
+            if (_interceptor == e)
+            {
+                _interceptor = null;
+            }
+        }
         
         private void HandleOrder(object? sender, IOrder e)
         {
@@ -231,6 +251,10 @@ namespace SpaceOpera.Controller
             _logger.AtInfo().Log($"{_subcontroller?.GetType()} {e}");
 
             if (HandleKeyInteraction(e.Key))
+            {
+                return;
+            }
+            if (_interceptor?.Intercept(e) ?? false)
             {
                 return;
             }

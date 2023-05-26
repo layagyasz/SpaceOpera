@@ -1,10 +1,12 @@
 ﻿using Cardamom.Ui;
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
+using SpaceOpera.Controller;
 using SpaceOpera.Controller.Panes.LogisticsPanes;
 using SpaceOpera.Core;
 using SpaceOpera.Core.Economics;
 using SpaceOpera.Core.Politics;
+using SpaceOpera.Core.Universe;
 using SpaceOpera.View.Components;
 using SpaceOpera.View.Icons;
 
@@ -17,10 +19,21 @@ namespace SpaceOpera.View.Panes.LogisticsPanes
         private static readonly string s_Close = "logistics-route-pane-close";
         private static readonly string s_Body = "logistics-route-pane-body";
 
+        private static readonly string s_AnchorsContainer = "logistics-route-pane-anchors-container";
+        private static readonly string s_AnchorContainer = "logistics-route-pane-anchor-container";
+        private static readonly string s_AnchorHeader = "logistics-route-pane-anchor-header";
+        private static readonly string s_AnchorInstruction = "logistics-route-pane-anchor-instruction";
+        private static readonly string s_AnchorInput = "logistics-route-pane-anchor-input";
+        private static readonly string s_AnchorIcon = "logistics-route-pane-anchor-icon";
+        private static readonly string s_AnchorText = "logistics-route-pane-anchor-text";
+
         private static readonly string s_MaterialsContainer = "logistics-route-pane-materials-container";
         private static readonly string s_MaterialContainer = "logistics-route-pane-material-container";
         private static readonly string s_MaterialHeader = "logistics-route-pane-material-header";
 
+
+        public InterceptorInput<StellarBodyRegion> LeftAnchor { get; }
+        public InterceptorInput<StellarBodyRegion> RightAnchor { get; }
         public MaterialComponent LeftMaterials { get; }
         public MaterialComponent RightMaterials { get; }
 
@@ -41,6 +54,36 @@ namespace SpaceOpera.View.Panes.LogisticsPanes
             _uiElementFactory = uiElementFactory;
             _iconFactory = iconFactory;
 
+            LeftAnchor = 
+                new InterceptorInput<StellarBodyRegion>(
+                    uiElementFactory.GetClass(s_AnchorInput), CreateAnchorInterceptor, CreateAnchorContents);
+            RightAnchor =
+                new InterceptorInput<StellarBodyRegion>(
+                    uiElementFactory.GetClass(s_AnchorInput), CreateAnchorInterceptor, CreateAnchorContents);
+            var anchorsContainer =
+                new UiSerialContainer(
+                    uiElementFactory.GetClass(s_AnchorsContainer),
+                    new NoOpElementController<UiSerialContainer>(),
+                    UiSerialContainer.Orientation.Horizontal)
+                {
+                    new UiSerialContainer(
+                        uiElementFactory.GetClass(s_AnchorContainer),
+                        new NoOpElementController<UiSerialContainer>(),
+                        UiSerialContainer.Orientation.Vertical)
+                    {
+                        uiElementFactory.CreateTextButton(s_AnchorHeader, "Left Anchor").Item1,
+                        LeftAnchor
+                    },
+                    new UiSerialContainer(
+                        uiElementFactory.GetClass(s_AnchorContainer),
+                        new NoOpElementController<UiSerialContainer>(),
+                        UiSerialContainer.Orientation.Vertical)
+                    {
+                        uiElementFactory.CreateTextButton(s_AnchorHeader, "Right Anchor").Item1,
+                        RightAnchor
+                    }
+                };
+
             LeftMaterials = new MaterialComponent(uiElementFactory, iconFactory);
             RightMaterials = new MaterialComponent(uiElementFactory, iconFactory);
             var materialsContainer =
@@ -54,7 +97,7 @@ namespace SpaceOpera.View.Panes.LogisticsPanes
                         new NoOpElementController<UiSerialContainer>(), 
                         UiSerialContainer.Orientation.Vertical) 
                     {
-                        uiElementFactory.CreateTextButton(s_MaterialHeader, "Left").Item1,
+                        uiElementFactory.CreateTextButton(s_MaterialHeader, "Left Materials").Item1,
                         LeftMaterials 
                     },
                     new DynamicUiSerialContainer(
@@ -62,7 +105,7 @@ namespace SpaceOpera.View.Panes.LogisticsPanes
                         new NoOpElementController<UiSerialContainer>(),
                         UiSerialContainer.Orientation.Vertical)
                     {
-                        uiElementFactory.CreateTextButton(s_MaterialHeader, "Right").Item1,
+                        uiElementFactory.CreateTextButton(s_MaterialHeader, "Right Materials").Item1,
                         RightMaterials
                     },
                 };
@@ -73,6 +116,7 @@ namespace SpaceOpera.View.Panes.LogisticsPanes
                     new TableController(10f),
                     UiSerialContainer.Orientation.Vertical)
                 {
+                    anchorsContainer,
                     materialsContainer
                 };
             SetBody(body);
@@ -93,6 +137,29 @@ namespace SpaceOpera.View.Panes.LogisticsPanes
             RightMaterials.SetRange(Enumerable.Empty<IMaterial>());
             RightMaterials.SetOptions(_world?.CoreData.Materials.Values ?? Enumerable.Empty<IMaterial>());
             Populated?.Invoke(this, EventArgs.Empty);
+        }
+
+        private IEnumerable<IUiElement> CreateAnchorContents(StellarBodyRegion? region)
+        {
+            if (region == null)
+            {
+                yield return new TextUiElement(
+                    _uiElementFactory.GetClass(s_AnchorInstruction),
+                    new InlayController(),
+                    "Right click to select anchor");
+            }
+            else
+            {
+                yield return _iconFactory.Create(
+                    _uiElementFactory.GetClass(s_AnchorIcon), new InlayController(), region.Parent!);
+                yield return new TextUiElement(
+                    _uiElementFactory.GetClass(s_AnchorText), new InlayController(), region.Name);
+            }
+        }
+
+        private IValueInterceptor<StellarBodyRegion> CreateAnchorInterceptor()
+        {
+            return new BasicInterceptor<StellarBodySubRegion, StellarBodyRegion>(x => x.ParentRegion!);
         }
     }
 }

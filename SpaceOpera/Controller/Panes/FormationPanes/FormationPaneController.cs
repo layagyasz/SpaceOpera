@@ -7,6 +7,8 @@ namespace SpaceOpera.Controller.Panes.FormationPanes
     public class FormationPaneController : PaneController, IGamePaneController
     {
         public EventHandler<UiInteractionEventArgs>? Interacted { get; set; }
+        public EventHandler<IInterceptor>? InterceptorCreated { get; set; }
+        public EventHandler<IInterceptor>? InterceptorCancelled { get; set; }
         public EventHandler<IOrder>? OrderCreated { get; set; }
 
         protected FormationPane? _pane;

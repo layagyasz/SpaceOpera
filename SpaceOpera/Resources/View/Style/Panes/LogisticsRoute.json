@@ -30,6 +30,64 @@
     }
   },
   {
+    "$id": "logistics-route-pane-anchors-container",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 892, 80 ],
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "logistics-route-pane-anchor-container",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 446, 80 ],
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "logistics-route-pane-anchor-header",
+    "Parent": "ui-element-basic",
+    "Default": {
+      "Size": [ 442, 28 ],
+      "Align": "Center"
+    }
+  },
+  {
+    "$id": "logistics-route-pane-anchor-input",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 446, 48 ],
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "logistics-route-pane-anchor-instruction",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 446, 48 ],
+      "Padding": [ 8 ],
+      "Align": "Center",
+      "VerticalAlign": "Center"
+    }
+  },
+  {
+    "$id": "logistics-route-pane-anchor-icon",
+    "Parent": "ui-icon",
+    "Default": {
+      "Size": [ 44, 44 ],
+      "Margin": [ 2 ]
+    }
+  },
+  {
+    "$id": "logistics-route-pane-anchor-text",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 398, 48 ],
+      "Padding": [ 8 ]
+    }
+  },
+  {
     "$id": "logistics-route-pane-materials-container",
     "Parent": "ui-container",
     "Default": {
@@ -47,11 +105,7 @@
   },
   {
     "$id": "logistics-route-pane-material-header",
-    "Parent": "ui-element-basic",
-    "Default": {
-      "Size": [ 442, 28 ],
-      "Align": "Center"
-    }
+    "Parent": "logistics-route-pane-anchor-header"
   },
   {
     "$id": "logistics-route-pane-material-select-wrapper",

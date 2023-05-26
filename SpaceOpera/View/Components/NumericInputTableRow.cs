@@ -11,10 +11,10 @@ namespace SpaceOpera.View.Components
     {
         public class Style
         {
-            public string Container { get; set; }
-            public string Info { get; set; }
-            public string Icon { get; set; }
-            public string Text { get; set; }
+            public string? Container { get; set; }
+            public string? Info { get; set; }
+            public string? Icon { get; set; }
+            public string? Text { get; set; }
             public NumericInput.Style NumericInput { get; set; }
         }
 
@@ -55,16 +55,16 @@ namespace SpaceOpera.View.Components
             AutoNumericInputTable<T>.IRowConfiguration configuration)
         {
             return new(
-                uiElementFactory.GetClass(style.Container),
+                uiElementFactory.GetClass(style.Container!),
                 key, 
                 new AutoNumericInputTableRowController<T>(key, configuration),
                 new UiSerialContainer(
-                    uiElementFactory.GetClass(style.Info), 
+                    uiElementFactory.GetClass(style.Info!), 
                     new ButtonController(), 
                     UiSerialContainer.Orientation.Horizontal)
                 {
-                    iconFactory.Create(uiElementFactory.GetClass(style.Icon), new InlayController(), key),
-                    new TextUiElement(uiElementFactory.GetClass(style.Text), new InlayController(), name),
+                    iconFactory.Create(uiElementFactory.GetClass(style.Icon!), new InlayController(), key),
+                    new TextUiElement(uiElementFactory.GetClass(style.Text!), new InlayController(), name),
                 }, 
                 NumericInput.Create(key, uiElementFactory, style.NumericInput));
         }
