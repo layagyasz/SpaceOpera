@@ -3,6 +3,7 @@ using Cardamom.Trackers;
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui;
 using SpaceOpera.View.Components;
+using Cardamom.Ui.Controller;
 
 namespace SpaceOpera.Controller.Components
 {
@@ -22,7 +23,7 @@ namespace SpaceOpera.Controller.Components
         {
             base.Bind(@object);
             var table = (ManualNumericInputTable<T>)_table!;
-            table.AddButton.Controller.Clicked += HandleMaterialAdded;
+            table.AddButton.Controller.Clicked += HandleAdded;
             _select = (SelectController<T>)table.Select.Controller;
         }
 
@@ -39,9 +40,31 @@ namespace SpaceOpera.Controller.Components
             ((ManualNumericInputTable<T>)_table!).SetRange(value.Keys);
         }
 
-        private void HandleMaterialAdded(object? sender, MouseButtonClickEventArgs e)
+        protected override void BindElement(NumericInputTableRow<T> row)
+        {
+            base.BindElement(row);
+            var controller = (ManualNumericInputTableRowController<T>)row.ComponentController;
+            controller.Removed += HandleRemoved;
+        }
+
+        protected override void UnbindElement(NumericInputTableRow<T> row)
+        {
+            var controller = (ManualNumericInputTableRowController<T>)row.ComponentController;
+            controller.Removed -= HandleRemoved;
+            base.UnbindElement(row);
+        }
+
+        private void HandleAdded(object? sender, MouseButtonClickEventArgs e)
         {
             ((ManualNumericInputTable<T>)_table!).Add(_select!.GetValue()!);
+            UpdateTotal();
+        }
+
+        private void HandleRemoved(object? sender, EventArgs e)
+        {
+            var controller = (IOptionController<T>)sender!;
+            ((ManualNumericInputTable<T>)_table!).Remove(controller.Key);
+            UpdateTotal();
         }
     }
 }

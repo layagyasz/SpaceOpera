@@ -125,7 +125,7 @@
     "$id": "logistics-route-pane-material-table-total-text",
     "Parent": "ui-element-basic",
     "Default": {
-      "Size": [ 298, 28 ],
+      "Size": [ 266, 28 ],
       "Padding": [ 50, 8, 8, 8 ]
     }
   },
@@ -133,7 +133,7 @@
     "$id": "logistics-route-pane-material-table-total-number",
     "Parent": "ui-element-basic",
     "Default": {
-      "Size": [ 140, 28 ],
+      "Size": [ 172, 28 ],
       "Align": "Center"
     }
   },
@@ -166,8 +166,9 @@
   },
   {
     "$id": "logistics-route-pane-material-table-row-numeric-input",
-    "Parent": "logistics-route-pane-material-table-total-number",
+    "Parent": "ui-element-basic",
     "Default": {
+      "Size": [ 140, 28 ],
       "Padding": [ 0 ],
       "Align": "Left"
     }
@@ -219,5 +220,14 @@
         }
       }
     ]
+  },
+  {
+    "$id": "logistics-route-pane-material-table-row-remove",
+    "Parent": "ui-element-basic",
+    "Default": {
+      "Size": [ 28, 28 ],
+      "CornerRadius": [ [ 14, 14 ] ],
+      "Texture": "icon-x"
+    }
   }
 ]

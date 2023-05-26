@@ -17,7 +17,7 @@ namespace SpaceOpera.View.Panes.LogisticsPanes
                 SelectDropBox = "logistics-route-pane-material-select-dropbox",
                 SelectOption = "logistics-route-pane-material-select-option",
                 Add = "logistics-route-pane-material-add",
-                Row = new()
+                Row = new ManualNumericInputTableRow<IMaterial>.Style()
                 {
                     Container = "logistics-route-pane-material-table-row",
                     Info = "logistics-route-pane-material-table-row-info",
@@ -29,7 +29,8 @@ namespace SpaceOpera.View.Panes.LogisticsPanes
                         Text = "logistics-route-pane-material-table-row-numeric-input-text",
                         SubtractButton = "logistics-route-pane-material-table-row-numeric-input-subtract",
                         AddButton = "logistics-route-pane-material-table-row-numeric-input-add"
-                    }
+                    },
+                    Remove = "logistics-route-pane-material-table-row-remove"
                 },
                 TotalContainer = "logistics-route-pane-material-table-total-row",
                 TotalText = "logistics-route-pane-material-table-total-text",

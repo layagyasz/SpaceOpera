@@ -95,8 +95,8 @@ namespace SpaceOpera.View.Components
 
         protected override NumericInputTableRow<T> CreateRow(T key)
         {
-            return NumericInputTableRow<T>.CreateManual(
-                key, _nameFn(key), _uiElementFactory, _iconFactory, _style.Row!.Value);
+            return ManualNumericInputTableRow<T>.Create(
+                key, _nameFn(key), _uiElementFactory, _iconFactory, (ManualNumericInputTableRow<T>.Style)_style.Row!);
         }
     }
 }

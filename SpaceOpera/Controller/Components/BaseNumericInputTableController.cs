@@ -78,10 +78,16 @@ namespace SpaceOpera.Controller.Components
             }
         }
 
-        private void BindElement(NumericInputTableRow<T> row)
+        protected virtual void BindElement(NumericInputTableRow<T> row)
         {
             var controller = (BaseNumericInputTableRowController<T>)row.ComponentController;
             controller.ValueChanged += HandleValueChanged;
+        }
+
+        protected virtual void UnbindElement(NumericInputTableRow<T> row)
+        {
+            var controller = (BaseNumericInputTableRowController<T>)row.ComponentController;
+            controller.ValueChanged -= HandleValueChanged;
         }
 
         private void HandleElementAdded(object? @object, ElementEventArgs e)
@@ -107,12 +113,6 @@ namespace SpaceOpera.Controller.Components
         private void HandleValueChanged(object? @object, ValueChangedEventArgs<T, int> e)
         {
             UpdateTotal();
-        }
-
-        private void UnbindElement(NumericInputTableRow<T> row)
-        {
-            var controller = (BaseNumericInputTableRowController<T>)row.ComponentController;
-            controller.ValueChanged -= HandleValueChanged;
         }
 
         protected void UpdateTotal()
