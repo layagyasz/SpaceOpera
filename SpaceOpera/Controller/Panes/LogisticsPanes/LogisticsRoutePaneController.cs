@@ -1,6 +1,7 @@
 ﻿using Cardamom.Trackers;
 using SpaceOpera.Controller.Components;
 using SpaceOpera.Core.Economics;
+using SpaceOpera.Core.Universe;
 using SpaceOpera.View.Panes.LogisticsPanes;
 
 namespace SpaceOpera.Controller.Panes.LogisticsPanes
@@ -50,10 +51,16 @@ namespace SpaceOpera.Controller.Panes.LogisticsPanes
         private void HandlePopulated(object? sender, EventArgs e)
         {
             var pane = (LogisticsRoutePane)_pane!;
-            var leftController = (ManualNumericInputTableController<IMaterial>)pane.LeftMaterials.ComponentController;
-            leftController.SetValue(pane.GetSeedRoute()?.LeftMaterials.ToMultiCount(x => x.Key, x => (int)x.Value));
-            var rightController = (ManualNumericInputTableController<IMaterial>)pane.LeftMaterials.ComponentController;
-            rightController.SetValue(pane.GetSeedRoute()?.RightMaterials.ToMultiCount(x => x.Key, x => (int)x.Value));
+
+            var leftAnchor = (InterceptorInputController<StellarBodyRegion>)pane.LeftAnchor.Controller;
+            leftAnchor.SetValue(null);
+            var rightAnchor = (InterceptorInputController<StellarBodyRegion>)pane.RightAnchor.Controller;
+            rightAnchor.SetValue(null);
+
+            var leftMaterials = (ManualNumericInputTableController<IMaterial>)pane.LeftMaterials.ComponentController;
+            leftMaterials.SetValue(pane.GetSeedRoute()?.LeftMaterials.ToMultiCount(x => x.Key, x => (int)x.Value));
+            var rightMaterials = (ManualNumericInputTableController<IMaterial>)pane.RightMaterials.ComponentController;
+            rightMaterials.SetValue(pane.GetSeedRoute()?.RightMaterials.ToMultiCount(x => x.Key, x => (int)x.Value));
         }
     }
 }

@@ -72,12 +72,12 @@ namespace SpaceOpera.Controller.Scenes
             return false;
         }
 
-        public bool HandleFocusEntered()
+        public virtual bool HandleFocusEntered()
         {
             return false;
         }
 
-        public bool HandleFocusLeft()
+        public virtual bool HandleFocusLeft()
         {
             return false;
         }

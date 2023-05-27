@@ -35,9 +35,9 @@ namespace SpaceOpera.Controller.Components
 
         public override void SetValue(MultiCount<T>? value)
         {
-            base.SetValue(value);
             value ??= new();
             ((ManualNumericInputTable<T>)_table!).SetRange(value.Keys);
+            base.SetValue(value);
         }
 
         protected override void BindElement(NumericInputTableRow<T> row)

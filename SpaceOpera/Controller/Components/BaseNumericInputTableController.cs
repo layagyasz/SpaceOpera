@@ -3,6 +3,7 @@ using Cardamom.Trackers;
 using Cardamom.Ui;
 using Cardamom.Ui.Controller;
 using Cardamom.Ui.Elements;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 using SpaceOpera.View.Components;
 
 namespace SpaceOpera.Controller.Components
@@ -65,8 +66,13 @@ namespace SpaceOpera.Controller.Components
             value ??= new();
             foreach (var entry in value)
             {
-                SetValue(entry.Key, entry.Value);
+                if (_table!.TryGetRow(entry.Key, out var row))
+                {
+                    var controller = (BaseNumericInputTableRowController<T>)row!.ComponentController;
+                    controller.SetValue(entry.Value);
+                }
             }
+            UpdateTotal();
         }
 
         public void SetValue(T key, int value)
@@ -76,6 +82,7 @@ namespace SpaceOpera.Controller.Components
                 var controller = (BaseNumericInputTableRowController<T>)row!.ComponentController;
                 controller.SetValue(value);
             }
+            UpdateTotal();
         }
 
         protected virtual void BindElement(NumericInputTableRow<T> row)

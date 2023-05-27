@@ -132,9 +132,7 @@ namespace SpaceOpera.View.Panes.LogisticsPanes
             _world = (World?)args[0];
             _faction = (Faction?)args[1];
             _route = (PersistentRoute?)args[2];
-            LeftMaterials.SetRange(Enumerable.Empty<IMaterial>());
             LeftMaterials.SetOptions(_world?.CoreData.Materials.Values ?? Enumerable.Empty<IMaterial>());
-            RightMaterials.SetRange(Enumerable.Empty<IMaterial>());
             RightMaterials.SetOptions(_world?.CoreData.Materials.Values ?? Enumerable.Empty<IMaterial>());
             Populated?.Invoke(this, EventArgs.Empty);
         }

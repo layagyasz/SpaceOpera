@@ -1,21 +1,43 @@
 ﻿using Cardamom.Ui;
+using Cardamom.Ui.Controller;
 using Cardamom.Ui.Controller.Element;
 using SpaceOpera.View.Components;
 
 namespace SpaceOpera.Controller.Components
 {
     public class InterceptorInputController<T> 
-        : ClassedUiElementController<InterceptorInput<T>>, IInterceptorController
+        : ClassedUiElementController<InterceptorInput<T>>, IInterceptorController, IFormElementController<string, T>
     {
         public EventHandler<IInterceptor>? InterceptorCreated { get; set; }
         public EventHandler<IInterceptor>? InterceptorCancelled { get; set; }
+        public EventHandler<ValueChangedEventArgs<string, T?>>? ValueChanged { get; set; }
+
+        public string Key { get; set; }
 
         private readonly Func<IValueInterceptor<T>> _interceptorFn;
-        private IValueInterceptor<T>? _interceptor;
 
-        public InterceptorInputController(Func<IValueInterceptor<T>> interceptorFn)
+        private IValueInterceptor<T>? _interceptor;
+        private T? _value;
+
+        public InterceptorInputController(string key, Func<IValueInterceptor<T>> interceptorFn)
         {
+            Key = key;
             _interceptorFn = interceptorFn;
+        }
+
+        public T? GetValue()
+        {
+            return _value;
+        }
+
+        public void SetValue(T? value)
+        {
+            if (!Equals(_value, value))
+            {
+                _value = value;
+                _element!.SetValue(_value);
+                ValueChanged?.Invoke(this, new(Key, _value));
+            }
         }
 
         public override bool HandleMouseButtonClicked(MouseButtonClickEventArgs e)
@@ -41,6 +63,7 @@ namespace SpaceOpera.Controller.Components
             SetFocus(true);
             SetToggle(true);
             CreateInterceptor();
+            Focused?.Invoke(this, EventArgs.Empty);
             return true;
         }
 
@@ -72,7 +95,7 @@ namespace SpaceOpera.Controller.Components
 
         private void HandleIntercepted(object? sender, EventArgs e)
         {
-            _element!.SetValue(_interceptor!.Get());
+            SetValue(_interceptor!.Get());
         }
     }
 }

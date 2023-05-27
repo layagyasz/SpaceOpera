@@ -105,6 +105,7 @@ namespace SpaceOpera.View
             Scene.ResizeContext(_bounds);
             Scene.Refresh();
             OverlayLayer.Parent = Scene;
+            PaneLayer.Parent = Scene;
         }
 
         public void Update(long delta)

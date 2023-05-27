@@ -14,6 +14,17 @@ namespace SpaceOpera.Controller.Scenes
             _cameraController = cameraController;
         }
 
+        public override bool HandleFocusEntered()
+        {
+            Focused?.Invoke(this, EventArgs.Empty);
+            return true;
+        }
+
+        public override bool HandleFocusLeft()
+        {
+            return true;
+        }
+
         public override bool HandleKeyDown(KeyDownEventArgs e)
         {
             return _cameraController.HandleKeyDown(e);

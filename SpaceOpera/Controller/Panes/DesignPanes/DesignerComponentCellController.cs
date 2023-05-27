@@ -75,6 +75,7 @@ namespace SpaceOpera.Controller.Panes.DesignPanes
         public override bool HandleFocusEntered()
         {
             SetFocus(true);
+            Focused?.Invoke(this, EventArgs.Empty);
             return true;
         }
 
