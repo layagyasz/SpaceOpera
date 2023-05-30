@@ -98,7 +98,7 @@ namespace SpaceOpera.View.Panes.FormationPanes
             : base(
                 new ActionRowController<IFormationDriver>(driver, ActionId.Unknown),
                 new DynamicUiSerialContainer(
-                    uiElementFactory.GetClass(s_HeaderStyle.Container),
+                    uiElementFactory.GetClass(s_HeaderStyle.Container!),
                     new ButtonController(), 
                     UiSerialContainer.Orientation.Horizontal))
         {
@@ -137,7 +137,7 @@ namespace SpaceOpera.View.Panes.FormationPanes
             {
                 var wrapper =
                     new UiWrapper(
-                        uiElementFactory.GetClass(s_HeaderStyle.ActionContainer),
+                        uiElementFactory.GetClass(s_HeaderStyle.ActionContainer!),
                         new ButtonController(),
                         new SimpleUiElement(
                             uiElementFactory.GetClass(action.Button),

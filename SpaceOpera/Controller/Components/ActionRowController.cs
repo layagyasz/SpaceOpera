@@ -1,5 +1,6 @@
 ﻿using Cardamom.Ui;
 using Cardamom.Ui.Controller;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 using SpaceOpera.View;
 using SpaceOpera.View.Components;
 
@@ -58,7 +59,10 @@ namespace SpaceOpera.Controller.Components
 
         private void HandleClick(object? sender, MouseButtonClickEventArgs e)
         {
-            Interacted?.Invoke(this, UiInteractionEventArgs.Create(Key!, ClickAction));
+            if (e.Button == MouseButton.Left)
+            {
+                Interacted?.Invoke(this, UiInteractionEventArgs.Create(Key!, ClickAction));
+            }
         }
 
         private void HandleInteraction(object? sender, UiInteractionEventArgs e)

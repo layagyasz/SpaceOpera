@@ -346,7 +346,8 @@ namespace SpaceOpera.Controller
             }
             if (type.IsAssignableTo(typeof(IFormationDriver)))
             {
-                var assigment = ActionIdMapper.ToAssignmentType(e.Action!.Value);
+                var assigment =
+                    e.Action == null ? AssignmentType.Unknown : ActionIdMapper.ToAssignmentType(e.Action.Value);
                 if (assigment != AssignmentType.Unknown)
                 {
                     foreach (var driver in e.Objects.Cast<IFormationDriver>())
@@ -355,7 +356,7 @@ namespace SpaceOpera.Controller
                     }
                     return;
                 }
-                if (e.Action == ActionId.Select)
+                if (e.Action == ActionId.Select || e.Button == MouseButton.Left)
                 {
                     SelectFormations(e.Objects.Cast<IFormationDriver>());
                     return;

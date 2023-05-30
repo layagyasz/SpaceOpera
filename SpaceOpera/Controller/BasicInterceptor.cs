@@ -7,12 +7,14 @@ namespace SpaceOpera.Controller
         public EventHandler<EventArgs>? Intercepted { get; set; }
 
         private readonly Func<TIn, TOut> _mapFn;
+        private readonly Func<TOut, bool> _filterFn;
 
         private TOut? _value;
 
-        public BasicInterceptor(Func<TIn, TOut> mapFn)
+        public BasicInterceptor( Func<TIn, TOut> mapFn, Func<TOut, bool> filterFn)
         {
             _mapFn = mapFn;
+            _filterFn = filterFn;
         }
 
         public TOut Get()
@@ -25,8 +27,11 @@ namespace SpaceOpera.Controller
             if (interaction.Button == MouseButton.Right && interaction.GetOnlyObject() is TIn)
             {
                 _value = _mapFn((TIn)interaction.GetOnlyObject()!);
-                Intercepted?.Invoke(this, EventArgs.Empty);
-                return true;
+                if (_filterFn(_value))
+                {
+                    Intercepted?.Invoke(this, EventArgs.Empty);
+                    return true;
+                }
             }
             return false;
         }

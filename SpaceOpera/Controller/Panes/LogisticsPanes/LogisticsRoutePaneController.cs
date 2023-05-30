@@ -1,6 +1,7 @@
 ﻿using Cardamom.Trackers;
 using SpaceOpera.Controller.Components;
 using SpaceOpera.Core.Economics;
+using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Universe;
 using SpaceOpera.View.Panes.LogisticsPanes;
 
@@ -15,6 +16,7 @@ namespace SpaceOpera.Controller.Panes.LogisticsPanes
             pane.Populated += HandlePopulated;
             BindInterceptor((IInterceptorController)pane.LeftAnchor.Controller);
             BindInterceptor((IInterceptorController)pane.RightAnchor.Controller);
+            BindInterceptor((IInterceptorController)pane.Fleets.Adder.Controller);
         }
 
         public override void Unbind()
@@ -23,6 +25,7 @@ namespace SpaceOpera.Controller.Panes.LogisticsPanes
             pane.Populated -= HandlePopulated;
             UnbindInterceptor((IInterceptorController)pane.LeftAnchor.Controller);
             UnbindInterceptor((IInterceptorController)pane.RightAnchor.Controller);
+            UnbindInterceptor((IInterceptorController)pane.Fleets.Adder.Controller);
             base.Unbind();
         }
 
@@ -61,6 +64,9 @@ namespace SpaceOpera.Controller.Panes.LogisticsPanes
             leftMaterials.SetValue(pane.GetSeedRoute()?.LeftMaterials.ToMultiCount(x => x.Key, x => (int)x.Value));
             var rightMaterials = (ManualNumericInputTableController<IMaterial>)pane.RightMaterials.ComponentController;
             rightMaterials.SetValue(pane.GetSeedRoute()?.RightMaterials.ToMultiCount(x => x.Key, x => (int)x.Value));
+
+            var fleets = (InterceptorMultiSelectController<FleetDriver>)pane.Fleets.ComponentController;
+            fleets.SetValue(Enumerable.Empty<FleetDriver>());
         }
     }
 }

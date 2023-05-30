@@ -53,7 +53,7 @@ namespace SpaceOpera.Controller.FormationsViews
 
         private void HandleClick(object? sender, MouseButtonClickEventArgs e)
         {
-            Interacted?.Invoke(this, UiInteractionEventArgs.Create(_row!.GetDrivers(), ActionId.Select));
+            Interacted?.Invoke(this, UiInteractionEventArgs.Create(_row!.GetDrivers(), e.Button));
         }
     }
 }

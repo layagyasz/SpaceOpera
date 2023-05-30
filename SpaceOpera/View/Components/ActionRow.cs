@@ -7,10 +7,10 @@ namespace SpaceOpera.View.Components
 {
     public class ActionRow<T> : DynamicUiCompoundComponent, IKeyedUiElement<T>, IActionRow where T : notnull
     {
-        public struct Style
+        public class Style
         {
-            public string Container { get; set; }
-            public string ActionContainer { get; set; }
+            public string? Container { get; set; }
+            public string? ActionContainer { get; set; }
         }
 
         public struct ActionConfiguration
@@ -53,14 +53,14 @@ namespace SpaceOpera.View.Components
             IEnumerable<ActionConfiguration> actions)
         {
             return new(
-                uiElementFactory.GetClass(style.Container),
+                uiElementFactory.GetClass(style.Container!),
                 key,
                 clickAction,
                 info,
                 actions.Select(
                     x =>
                         new UiWrapper(
-                            uiElementFactory.GetClass(style.ActionContainer),
+                            uiElementFactory.GetClass(style.ActionContainer!),
                             new ButtonController(),
                             new SimpleUiElement(
                                 uiElementFactory.GetClass(x.Button),

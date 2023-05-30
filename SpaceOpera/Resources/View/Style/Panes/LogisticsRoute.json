@@ -168,7 +168,7 @@
     }
   },
   {
-    "$id": "logistics-route-pane-material-table-total-row",
+    "$id": "logistics-route-pane-material-total-row",
     "Parent": "ui-container",
     "Default": {
       "Size": [ 446, 32 ],
@@ -176,7 +176,7 @@
     }
   },
   {
-    "$id": "logistics-route-pane-material-table-total-text",
+    "$id": "logistics-route-pane-material-total-text",
     "Parent": "ui-element-basic",
     "Default": {
       "Size": [ 266, 28 ],
@@ -184,7 +184,7 @@
     }
   },
   {
-    "$id": "logistics-route-pane-material-table-total-number",
+    "$id": "logistics-route-pane-material-total-number",
     "Parent": "ui-element-basic",
     "Default": {
       "Size": [ 172, 28 ],
@@ -192,18 +192,18 @@
     }
   },
   {
-    "$id": "logistics-route-pane-material-table-row",
-    "Parent": "logistics-route-pane-material-table-total-row"
+    "$id": "logistics-route-pane-material-row",
+    "Parent": "logistics-route-pane-material-total-row"
   },
   {
-    "$id": "logistics-route-pane-material-table-row-info",
-    "Parent": "logistics-route-pane-material-table-total-text",
+    "$id": "logistics-route-pane-material-row-info",
+    "Parent": "logistics-route-pane-material-total-text",
     "Default": {
       "Padding": [ 14, 0, 14, 0 ]
     }
   },
   {
-    "$id": "logistics-route-pane-material-table-row-icon",
+    "$id": "logistics-route-pane-material-row-icon",
     "Parent": "ui-icon",
     "Default": {
       "Size": [ 24, 24 ],
@@ -211,7 +211,7 @@
     }
   },
   {
-    "$id": "logistics-route-pane-material-table-row-text",
+    "$id": "logistics-route-pane-material-row-text",
     "Parent": "ui-element-internal",
     "Default": {
       "Size": [ 178, 24 ],
@@ -219,7 +219,7 @@
     }
   },
   {
-    "$id": "logistics-route-pane-material-table-row-numeric-input",
+    "$id": "logistics-route-pane-material-row-numeric-input",
     "Parent": "ui-element-basic",
     "Default": {
       "Size": [ 140, 28 ],
@@ -228,7 +228,7 @@
     }
   },
   {
-    "$id": "logistics-route-pane-material-table-row-numeric-input-text",
+    "$id": "logistics-route-pane-material-row-numeric-input-text",
     "Parent": "ui-element-internal",
     "Default": {
       "Size": [ 84, 24 ],
@@ -237,7 +237,7 @@
     }
   },
   {
-    "$id": "logistics-route-pane-material-table-row-numeric-input-subtract",
+    "$id": "logistics-route-pane-material-row-numeric-input-subtract",
     "Parent": "ui-element-basic",
     "Default": {
       "Size": [ 24, 24 ],
@@ -259,8 +259,8 @@
     ]
   },
   {
-    "$id": "logistics-route-pane-material-table-row-numeric-input-add",
-    "Parent": "logistics-route-pane-material-table-row-numeric-input-subtract",
+    "$id": "logistics-route-pane-material-row-numeric-input-add",
+    "Parent": "logistics-route-pane-material-row-numeric-input-subtract",
     "Default": {
       "Color": "#0088ffcc",
       "BorderColor": [ "#0088ffcc" ]
@@ -276,12 +276,79 @@
     ]
   },
   {
-    "$id": "logistics-route-pane-material-table-row-remove",
+    "$id": "logistics-route-pane-material-row-remove",
     "Parent": "ui-element-basic",
     "Default": {
       "Size": [ 28, 28 ],
       "CornerRadius": [ [ 14, 14 ] ],
       "Texture": "icon-x"
+    }
+  },
+  {
+    "$id": "logistics-route-pane-fleet-header",
+    "Parent": "ui-element-basic",
+    "Default": {
+      "Size": [ 888, 28 ],
+      "Align": "Center"
+    }
+  },
+  {
+    "$id": "logistics-route-pane-fleet-table-container",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 892, "DynamicContents" ],
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "logistics-route-pane-fleet-table",
+    "Parent": "logistics-route-pane-fleet-table-container"
+  },
+  {
+    "$id": "logistics-route-pane-fleet-row",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 892, 48 ],
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "logistics-route-pane-fleet-row-icon",
+    "Parent": "ui-icon",
+    "Default": {
+      "Size": [ 44, 44 ],
+      "Margin": [ 2 ]
+    }
+  },
+  {
+    "$id": "logistics-route-pane-fleet-row-text",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 808, 48 ],
+      "Padding": [ 8 ]
+    }
+  },
+  {
+    "$id": "logistics-route-pane-fleet-row-action-container",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 36, 48 ],
+      "Padding": [ 4, 10, 4, 10 ],
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "logistics-route-pane-fleet-row-action-close",
+    "Parent": "pane-action-button",
+    "Default": {
+      "Texture": "icon-x"
+    }
+  },
+  {
+    "$id": "logistics-route-pane-fleet-adder",
+    "Parent": "logistics-route-pane-anchor-instruction",
+    "Default": {
+      "Size": [ 892, 48 ]
     }
   }
 ]

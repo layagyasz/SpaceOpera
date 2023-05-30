@@ -5,6 +5,7 @@ using SpaceOpera.Controller;
 using SpaceOpera.Controller.Panes.LogisticsPanes;
 using SpaceOpera.Core;
 using SpaceOpera.Core.Economics;
+using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Universe;
 using SpaceOpera.View.Components;
@@ -30,12 +31,63 @@ namespace SpaceOpera.View.Panes.LogisticsPanes
         private static readonly string s_MaterialsContainer = "logistics-route-pane-materials-container";
         private static readonly string s_MaterialContainer = "logistics-route-pane-material-container";
         private static readonly string s_MaterialHeader = "logistics-route-pane-material-header";
+        private static readonly ManualNumericInputTable<IMaterial>.Style s_MaterialStyle = new()
+        {
+            Container = "logistics-route-pane-material-table-container",
+            Table = "logistics-route-pane-material-table",
+            SelectWrapper = "logistics-route-pane-material-select-wrapper",
+            Select = "logistics-route-pane-material-select",
+            SelectDropBox = "logistics-route-pane-material-select-dropbox",
+            SelectOption = "logistics-route-pane-material-select-option",
+            Add = "logistics-route-pane-material-add",
+            Row = new ManualNumericInputTableRow<IMaterial>.Style()
+            {
+                Container = "logistics-route-pane-material-row",
+                Info = "logistics-route-pane-material-row-info",
+                Icon = "logistics-route-pane-material-row-icon",
+                Text = "logistics-route-pane-material-row-text",
+                NumericInput = new()
+                {
+                    Container = "logistics-route-pane-material-row-numeric-input",
+                    Text = "logistics-route-pane-material-row-numeric-input-text",
+                    SubtractButton = "logistics-route-pane-material-row-numeric-input-subtract",
+                    AddButton = "logistics-route-pane-material-row-numeric-input-add"
+                },
+                Remove = "logistics-route-pane-material-row-remove"
+            },
+            TotalContainer = "logistics-route-pane-material-total-row",
+            TotalText = "logistics-route-pane-material-total-text",
+            TotalNumber = "logistics-route-pane-material-total-number",
+        };
 
+        private static readonly string s_FleetHeader = "logistics-route-pane-fleet-header";
+        private static readonly InterceptorMultiSelect<FleetDriver>.Style s_FleetStyle = new()
+        {
+            Container = "logistics-route-pane-fleet-table-container",
+            Table = "logistics-route-pane-fleet-table",
+            Row = new()
+            {
+                Container = "logistics-route-pane-fleet-row",
+                ActionContainer = "logistics-route-pane-fleet-row-action-container"
+            },
+            Adder = "logistics-route-pane-fleet-adder"
+        };
+        private static readonly string s_FleetIcon = "logistics-route-pane-fleet-row-icon";
+        private static readonly string s_FleetText = "logistics-route-pane-fleet-row-text";
+        private static readonly List<ActionRow<FleetDriver>.ActionConfiguration> s_FleetClose = new()
+        {
+            new ()
+            {
+                Button = "logistics-route-pane-fleet-row-action-close",
+                Action = ActionId.Unselect
+            }
+        };
 
         public InterceptorInput<StellarBodyRegion> LeftAnchor { get; }
         public InterceptorInput<StellarBodyRegion> RightAnchor { get; }
-        public MaterialComponent LeftMaterials { get; }
-        public MaterialComponent RightMaterials { get; }
+        public ManualNumericInputTable<IMaterial> LeftMaterials { get; }
+        public ManualNumericInputTable<IMaterial> RightMaterials { get; }
+        public InterceptorMultiSelect<FleetDriver> Fleets { get; }
 
         private readonly UiElementFactory _uiElementFactory;
         private readonly IconFactory _iconFactory;
@@ -84,8 +136,20 @@ namespace SpaceOpera.View.Panes.LogisticsPanes
                     }
                 };
 
-            LeftMaterials = new MaterialComponent(uiElementFactory, iconFactory);
-            RightMaterials = new MaterialComponent(uiElementFactory, iconFactory);
+            LeftMaterials =
+                new ManualNumericInputTable<IMaterial>(
+                    s_MaterialStyle,
+                    x => x.Name,
+                    uiElementFactory,
+                    iconFactory,
+                    Comparer<IMaterial>.Create((x, y) => x.Name.CompareTo(y.Name)));
+            RightMaterials =
+                new ManualNumericInputTable<IMaterial>(
+                    s_MaterialStyle,
+                    x => x.Name,
+                    uiElementFactory,
+                    iconFactory,
+                    Comparer<IMaterial>.Create((x, y) => x.Name.CompareTo(y.Name)));
             var materialsContainer =
                 new DynamicUiSerialContainer(
                     uiElementFactory.GetClass(s_MaterialsContainer),
@@ -110,6 +174,13 @@ namespace SpaceOpera.View.Panes.LogisticsPanes
                     },
                 };
 
+            Fleets = new InterceptorMultiSelect<FleetDriver>(
+                s_FleetStyle,
+                CreateFleetRow,
+                CreateFleetInterceptor,
+                uiElementFactory,
+                Comparer<FleetDriver>.Create((x, y) => x.Formation.Name.CompareTo(y.Formation.Name)));
+
             var body =
                 new DynamicUiSerialContainer(
                     uiElementFactory.GetClass(s_Body),
@@ -117,7 +188,9 @@ namespace SpaceOpera.View.Panes.LogisticsPanes
                     UiSerialContainer.Orientation.Vertical)
                 {
                     anchorsContainer,
-                    materialsContainer
+                    materialsContainer,
+                    uiElementFactory.CreateTextButton(s_FleetHeader, "Fleets").Item1,
+                    Fleets
                 };
             SetBody(body);
         }
@@ -157,7 +230,28 @@ namespace SpaceOpera.View.Panes.LogisticsPanes
 
         private IValueInterceptor<StellarBodyRegion> CreateAnchorInterceptor()
         {
-            return new BasicInterceptor<StellarBodySubRegion, StellarBodyRegion>(x => x.ParentRegion!);
+            return new BasicInterceptor<StellarBodySubRegion, StellarBodyRegion>(x => x.ParentRegion!, x => true);
+        }
+
+        private ActionRow<FleetDriver> CreateFleetRow(FleetDriver driver)
+        {
+            return ActionRow<FleetDriver>.Create(
+                driver,
+                ActionId.Select,
+                _uiElementFactory,
+                s_FleetStyle.Row!,
+                new List<IUiElement>()
+                {
+                    _iconFactory.Create(_uiElementFactory.GetClass(s_FleetIcon), new InlayController(), driver),
+                    new TextUiElement(
+                        _uiElementFactory.GetClass(s_FleetText), new InlayController(), driver.AtomicFormation.Name)
+                },
+                s_FleetClose);
+        }
+
+        private IValueInterceptor<FleetDriver> CreateFleetInterceptor()
+        {
+            return new BasicInterceptor<FleetDriver, FleetDriver>(x => x, x => x.Formation.Faction == _faction);
         }
     }
 }
