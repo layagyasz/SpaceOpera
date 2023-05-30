@@ -5,18 +5,11 @@ using SpaceOpera.View.Components;
 namespace SpaceOpera.Controller.Components
 {
     public class InterceptorMultiSelectController<T> 
-        : IController, IFormElementController<string, IEnumerable<T>> where T : notnull
+        : IController, IFormElementController<IEnumerable<T>> where T : notnull
     {
-        public EventHandler<ValueChangedEventArgs<string, IEnumerable<T>?>>? ValueChanged { get; set; }
-
-        public string Key { get; }
+        public EventHandler<IEnumerable<T>?>? ValueChanged { get; set; }
 
         private InterceptorMultiSelect<T>? _element;
-
-        public InterceptorMultiSelectController(string key)
-        {
-            Key = key;
-        }
 
         public void Bind(object @object)
         {

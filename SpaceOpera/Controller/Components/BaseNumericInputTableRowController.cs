@@ -6,10 +6,10 @@ using SpaceOpera.View.Components;
 namespace SpaceOpera.Controller.Components
 {
     public abstract class BaseNumericInputTableRowController<T> :
-        IController, IOptionController<T>, IFormElementController<T, int> where T : notnull
+        IController, IOptionController<T>, IFormElementController<int> where T : notnull
     {
         public EventHandler<EventArgs>? Selected { get; set; }
-        public EventHandler<ValueChangedEventArgs<T, int>>? ValueChanged { get; set; }
+        public EventHandler<int>? ValueChanged { get; set; }
 
         public T Key { get; }
 
@@ -66,7 +66,7 @@ namespace SpaceOpera.Controller.Components
             }
         }
 
-        private void HandleValueChanged(object? sender, ValueChangedEventArgs<T, int> e)
+        private void HandleValueChanged(object? sender, int e)
         {
             ValueChanged?.Invoke(this, e);
         }

@@ -5,14 +5,12 @@ using Cardamom.Ui.Controller.Element;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using SpaceOpera.Core.Designs;
 using SpaceOpera.View.Panes.DesignPanes;
-using System.Security.Cryptography.X509Certificates;
 
 namespace SpaceOpera.Controller.Panes.DesignPanes
 {
     public class DesignerSegmentRowController : IController
     {
-        public EventHandler<
-            ValueChangedEventArgs<DesignerSegmentRow, SegmentConfiguration>>? ConfigurationChanged { get; set; }
+        public EventHandler<KeyValuePair<DesignerSegmentRow, SegmentConfiguration>>? ConfigurationChanged { get; set; }
         public EventHandler<ValueEventArgs<IElementController>>? CellSelected { get; set; }
 
         private DesignerSegmentRow? _row;
@@ -22,7 +20,7 @@ namespace SpaceOpera.Controller.Panes.DesignPanes
             _row = @object as DesignerSegmentRow;
             _row!.CellAdded += HandleCellAdded;
             _row!.CellRemoved += HandleCellRemoved;
-            ((IFormElementController<string, SegmentConfiguration>)
+            ((IFormElementController<SegmentConfiguration>)
                 _row!.ConfigurationSelect.Controller).ValueChanged += HandleConfigurationChanged;
             foreach (var cell in _row!.ComponentCells)
             {
@@ -36,7 +34,7 @@ namespace SpaceOpera.Controller.Panes.DesignPanes
             {
                 UnbindCell(cell);
             }
-            ((IFormElementController<string, SegmentConfiguration>)
+            ((IFormElementController<SegmentConfiguration>)
                 _row!.ConfigurationSelect.Controller).ValueChanged += HandleConfigurationChanged;
             _row!.CellRemoved -= HandleCellRemoved;
             _row!.CellAdded -= HandleCellAdded;
@@ -53,8 +51,7 @@ namespace SpaceOpera.Controller.Panes.DesignPanes
             }
             return new(
                 _row!.Template,
-                ((IFormElementController<string, SegmentConfiguration>)
-                    _row!.ConfigurationSelect.Controller).GetValue()!,
+                ((IFormElementController<SegmentConfiguration>)_row!.ConfigurationSelect.Controller).GetValue()!,
                 components);
         }
 
@@ -86,9 +83,9 @@ namespace SpaceOpera.Controller.Panes.DesignPanes
             UnbindCell((DesignerComponentCell)e.Element);
         }
 
-        private void HandleConfigurationChanged(object? sender, ValueChangedEventArgs<string, SegmentConfiguration?> e)
+        private void HandleConfigurationChanged(object? sender, SegmentConfiguration? e)
         {
-            ConfigurationChanged?.Invoke(this, new(_row!, e.Value!));
+            ConfigurationChanged?.Invoke(this, new(_row!, e!));
         }
     }
 }

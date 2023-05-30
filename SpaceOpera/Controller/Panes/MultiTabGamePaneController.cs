@@ -19,9 +19,9 @@ namespace SpaceOpera.Controller.Panes
             base.Unbind();
         }
 
-        private void HandleTabChange(object? sender, ValueChangedEventArgs<string, object?> e)
+        private void HandleTabChange(object? sender, object? e)
         {
-            ((MultiTabGamePane)_pane!).SetTab(e.Value!);
+            ((MultiTabGamePane)_pane!).SetTab(e!);
             _pane!.Refresh();
         }
     }

@@ -18,7 +18,7 @@ namespace SpaceOpera.View.Components
                       @class, new NoOpElementController<UiSerialContainer>(), UiSerialContainer.Orientation.Vertical))
         {
             Header = header;
-            Table = new DynamicUiCompoundComponent(new RadioController<T>($"action-table-{GetHashCode()}"), table);
+            Table = new DynamicUiCompoundComponent(new RadioController<T>(), table);
 
             Add(Header);
             Add(Table);

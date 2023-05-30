@@ -28,7 +28,7 @@ namespace SpaceOpera.View.Components
             UiElementFactory uiElementFactory,
             IComparer<T> comparer)
             : base(
-                  new InterceptorMultiSelectController<T>("interceptor-multi-select"), 
+                  new InterceptorMultiSelectController<T>(), 
                   new DynamicUiSerialContainer(
                       uiElementFactory.GetClass(style.Container!), 
                       new NoOpElementController<UiSerialContainer>(), 

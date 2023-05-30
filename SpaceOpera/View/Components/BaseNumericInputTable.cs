@@ -52,7 +52,7 @@ namespace SpaceOpera.View.Components
                         GetKeys,
                         CreateRow,
                         comparer);
-            Table = new(new RadioController<T>("numeric-input-table-" + GetHashCode()), _table);
+            Table = new(new RadioController<T>(), _table);
             Add(Table);
 
             Total =

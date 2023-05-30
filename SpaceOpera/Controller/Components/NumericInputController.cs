@@ -6,19 +6,16 @@ using SpaceOpera.View.Components;
 
 namespace SpaceOpera.Controller.Components
 {
-    public class NumericInputController<T> : IController, IFormElementController<T, int>
+    public class NumericInputController<T> : IController, IFormElementController<int>
     {
-        public EventHandler<ValueChangedEventArgs<T, int>>? ValueChanged { get; set; }
-
-        public T Key { get; }
+        public EventHandler<int>? ValueChanged { get; set; }
 
         private NumericInput? _element;
         private int _value;
         private IntInterval _range;
 
-        public NumericInputController(T key, IntInterval range)
+        public NumericInputController(IntInterval range)
         {
-            Key = key;
             _range = range;
         }
 
@@ -56,7 +53,7 @@ namespace SpaceOpera.Controller.Components
             {
                 _value = newValue;
                 UpdateString();
-                ValueChanged?.Invoke(this, new(Key, value));
+                ValueChanged?.Invoke(this, value);
             }
         }
 

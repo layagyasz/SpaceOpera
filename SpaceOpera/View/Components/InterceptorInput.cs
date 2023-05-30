@@ -14,7 +14,7 @@ namespace SpaceOpera.View.Components
             Class @class, Func<IValueInterceptor<T>> interceptorFn, Func<T?, IEnumerable<IUiElement>> contentsFn)
             : base(
                   @class,
-                  new InterceptorInputController<T>("interceptor-input", interceptorFn),
+                  new InterceptorInputController<T>(interceptorFn),
                   Orientation.Horizontal)
         {
             _contentsFn = contentsFn;

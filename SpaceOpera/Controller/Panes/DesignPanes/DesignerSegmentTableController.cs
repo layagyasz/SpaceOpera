@@ -9,9 +9,7 @@ namespace SpaceOpera.Controller.Panes.DesignPanes
 {
     public class DesignerSegmentTableController : IController
     {
-        public EventHandler<
-            ValueChangedEventArgs<DesignerSegmentRow, SegmentConfiguration>>? ConfigurationChanged
-        { get; set; }
+        public EventHandler<KeyValuePair<DesignerSegmentRow, SegmentConfiguration>>? ConfigurationChanged { get; set; }
         public EventHandler<ValueEventArgs<IElementController>>? CellSelected { get; set; }
 
         private UiCompoundComponent? _table;
@@ -63,7 +61,7 @@ namespace SpaceOpera.Controller.Panes.DesignPanes
         }
 
         private void HandleConfigurationChange(
-            object? sender, ValueChangedEventArgs<DesignerSegmentRow, SegmentConfiguration> e)
+            object? sender, KeyValuePair<DesignerSegmentRow, SegmentConfiguration> e)
         {
             ConfigurationChanged?.Invoke(this, e);
         }

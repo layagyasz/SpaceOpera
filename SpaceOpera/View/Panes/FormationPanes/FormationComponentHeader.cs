@@ -116,8 +116,7 @@ namespace SpaceOpera.View.Panes.FormationPanes
 
             var assignments = 
                 new DynamicUiCompoundComponent(
-                    new DynamicRadioController<ActionId>(
-                        "assignment-" + GetHashCode(), GetAssignment),
+                    new DynamicRadioController<ActionId>(GetAssignment),
                     new UiSerialContainer(
                         uiElementFactory.GetClass(s_AssignmentContainer),
                         new InlayController(),

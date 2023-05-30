@@ -7,8 +7,8 @@ namespace SpaceOpera.Controller.Components
     {
         private readonly Func<T?> _valueFn;
 
-        public DynamicRadioController(string key, Func<T?> valueFn)
-            : base(key, valueFn())
+        public DynamicRadioController(Func<T?> valueFn)
+            : base(valueFn())
         {
             _valueFn = valueFn;
         }

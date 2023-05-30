@@ -71,9 +71,9 @@ namespace SpaceOpera.Controller.Components
             UnbindRow((IUiElement)e.Element);
         }
 
-        private void HandleRowSelected(object? sender, ValueChangedEventArgs<string, T?> e)
+        private void HandleRowSelected(object? sender, T? e)
         {
-            RowSelected?.Invoke(this, e.Value);
+            RowSelected?.Invoke(this, e);
         }
     }
 }

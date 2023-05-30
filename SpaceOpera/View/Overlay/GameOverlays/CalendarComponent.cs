@@ -42,7 +42,7 @@ namespace SpaceOpera.View.Overlay.GameOverlays
             var calendarText =
                 uiElementFactory.CreateTextButton("game-overlay-calendar-text", string.Empty).Item1;
             return new(
-                new RadioController<ActionId>("speed"),
+                new RadioController<ActionId>(),
                 uiElementFactory.CreateTableRow(
                     "game-overlay-calendar-container",
                     new List<IUiElement>()

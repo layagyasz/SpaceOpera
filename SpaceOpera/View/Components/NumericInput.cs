@@ -40,7 +40,7 @@ namespace SpaceOpera.View.Components
         {
             return new(
                 uiElementFactory.GetClass(style.Container), 
-                new NumericInputController<T>(key, IntInterval.Unbounded),
+                new NumericInputController<T>(IntInterval.Unbounded),
                 new TextUiElement(uiElementFactory.GetClass(style.Text), new ButtonController(), string.Empty), 
                 uiElementFactory.CreateTextButton(style.SubtractButton, "-").Item1, 
                 uiElementFactory.CreateTextButton(style.AddButton, "+").Item1);

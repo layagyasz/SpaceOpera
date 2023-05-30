@@ -44,7 +44,7 @@ namespace SpaceOpera.Controller.Overlay
             {
                 actionController.Interacted += HandleInteraction;
             }
-            if (controller is IFormElementController<string, ActionId> formController)
+            if (controller is IFormElementController<ActionId> formController)
             {
                 formController.ValueChanged += HandleSetInteraction;
             }
@@ -56,7 +56,7 @@ namespace SpaceOpera.Controller.Overlay
             {
                 actionController.Interacted -= HandleInteraction;
             }
-            if (controller is IFormElementController<string, ActionId> formController)
+            if (controller is IFormElementController<ActionId> formController)
             {
                 formController.ValueChanged -= HandleSetInteraction;
             }
@@ -67,9 +67,9 @@ namespace SpaceOpera.Controller.Overlay
             Interacted?.Invoke(this, e);
         }
 
-        private void HandleSetInteraction(object? sender, ValueChangedEventArgs<string, ActionId> e)
+        private void HandleSetInteraction(object? sender, ActionId e)
         {
-            Interacted?.Invoke(this,  UiInteractionEventArgs.Create(Enumerable.Empty<object>(), e.Value));
+            Interacted?.Invoke(this,  UiInteractionEventArgs.Create(Enumerable.Empty<object>(), e));
         }
     }
 }

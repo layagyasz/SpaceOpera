@@ -3,15 +3,14 @@ using Cardamom.Trackers;
 using Cardamom.Ui;
 using Cardamom.Ui.Controller;
 using Cardamom.Ui.Elements;
-using OpenTK.Windowing.GraphicsLibraryFramework;
 using SpaceOpera.View.Components;
 
 namespace SpaceOpera.Controller.Components
 {
     public abstract class BaseNumericInputTableController<T> 
-        : IController, IFormElementController<string, MultiCount<T>> where T : notnull
+        : IController, IFormElementController<MultiCount<T>> where T : notnull
     {
-        public EventHandler<ValueChangedEventArgs<string, MultiCount<T>?>>? ValueChanged { get; set; }
+        public EventHandler<MultiCount<T>?>? ValueChanged { get; set; }
         public EventHandler<T?>? RowSelected { get; set; }
 
         public string Key { get; }
@@ -112,12 +111,12 @@ namespace SpaceOpera.Controller.Components
             UpdateTotal();
         }
 
-        private void HandleRowSelected(object? sender, ValueChangedEventArgs<string, T?> e)
+        private void HandleRowSelected(object? sender, T? e)
         {
-            RowSelected?.Invoke(this, e.Value);
+            RowSelected?.Invoke(this, e);
         }
 
-        private void HandleValueChanged(object? @object, ValueChangedEventArgs<T, int> e)
+        private void HandleValueChanged(object? sender, int e)
         {
             UpdateTotal();
         }

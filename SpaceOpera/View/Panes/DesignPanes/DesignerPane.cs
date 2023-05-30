@@ -61,7 +61,7 @@ namespace SpaceOpera.View.Panes.DesignPanes
 
             ComponentOptionTable =
                 new UiCompoundComponent(
-                    new RadioController<IComponent>("component"),
+                    new RadioController<IComponent>(),
                     new UiSerialContainer(
                         uiElementFactory.GetClass(s_ComponentOptionTable),
                         new TableController(10f),

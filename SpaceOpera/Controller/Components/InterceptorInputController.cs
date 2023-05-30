@@ -6,22 +6,19 @@ using SpaceOpera.View.Components;
 namespace SpaceOpera.Controller.Components
 {
     public class InterceptorInputController<T> 
-        : ClassedUiElementController<InterceptorInput<T>>, IInterceptorController, IFormElementController<string, T>
+        : ClassedUiElementController<InterceptorInput<T>>, IInterceptorController, IFormElementController<T>
     {
         public EventHandler<IInterceptor>? InterceptorCreated { get; set; }
         public EventHandler<IInterceptor>? InterceptorCancelled { get; set; }
-        public EventHandler<ValueChangedEventArgs<string, T?>>? ValueChanged { get; set; }
-
-        public string Key { get; set; }
+        public EventHandler<T?>? ValueChanged { get; set; }
 
         private readonly Func<IValueInterceptor<T>> _interceptorFn;
 
         private IValueInterceptor<T>? _interceptor;
         private T? _value;
 
-        public InterceptorInputController(string key, Func<IValueInterceptor<T>> interceptorFn)
+        public InterceptorInputController(Func<IValueInterceptor<T>> interceptorFn)
         {
-            Key = key;
             _interceptorFn = interceptorFn;
         }
 
@@ -36,7 +33,7 @@ namespace SpaceOpera.Controller.Components
             {
                 _value = value;
                 _element!.SetValue(_value);
-                ValueChanged?.Invoke(this, new(Key, _value));
+                ValueChanged?.Invoke(this, _value);
             }
         }
 
