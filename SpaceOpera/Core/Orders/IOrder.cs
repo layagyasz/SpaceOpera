@@ -2,7 +2,7 @@
 {
     public interface IOrder
     {
-        ValidationFailureReason Validate();
+        ValidationFailureReason Validate(World world);
         bool Execute(World world);
     }
 }

@@ -22,7 +22,7 @@ namespace SpaceOpera.Core.Orders.Formations
             Assignment = assignment;
         }
 
-        public ValidationFailureReason Validate()
+        public ValidationFailureReason Validate(World world)
         {
             if (Driver is ArmyDriver)
             {

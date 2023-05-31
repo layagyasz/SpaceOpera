@@ -90,6 +90,7 @@ namespace SpaceOpera.Controller.Panes.LogisticsPanes
                 OrderCreated?.Invoke(
                     this, 
                     new CreatePersistentRouteOrder(
+                        pane.GetFaction(),
                         new PersistentRoute(
                             pane.GetFaction(), 
                             leftAnchor.GetValue()!, 
@@ -97,6 +98,7 @@ namespace SpaceOpera.Controller.Panes.LogisticsPanes
                             rightAnchor.GetValue()!,
                             rightMaterials.GetValue().ToMultiQuantity(x => x.Key, x => x.Value), 
                             fleets.GetValue().Select(x => (Fleet)x.AtomicFormation).ToList())));
+                Closed?.Invoke(this, EventArgs.Empty);
             }
         }
     }

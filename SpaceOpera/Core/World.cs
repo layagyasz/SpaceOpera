@@ -58,7 +58,7 @@ namespace SpaceOpera.Core
 
         public ValidationFailureReason Execute(IOrder order)
         {
-            var validation = order.Validate();
+            var validation = order.Validate(this);
             if (validation != ValidationFailureReason.None)
             {
                 return validation;

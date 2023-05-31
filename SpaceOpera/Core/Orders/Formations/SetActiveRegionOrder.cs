@@ -14,7 +14,7 @@ namespace SpaceOpera.Core.Orders.Formations
             ActiveRegion = activeRegion;
         }
 
-        public ValidationFailureReason Validate()
+        public ValidationFailureReason Validate(World world)
         {
             return ValidationFailureReason.None;
         }

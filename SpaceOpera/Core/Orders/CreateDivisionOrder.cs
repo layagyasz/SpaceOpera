@@ -15,7 +15,7 @@ namespace SpaceOpera.Core.Orders
             Template = template;
         }
 
-        public ValidationFailureReason Validate()
+        public ValidationFailureReason Validate(World world)
         {
             return ValidationFailureReason.None;
         }

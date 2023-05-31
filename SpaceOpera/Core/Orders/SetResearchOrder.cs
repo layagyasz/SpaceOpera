@@ -16,7 +16,7 @@ namespace SpaceOpera.Core.Orders
             Advancement = advancement;
         }
 
-        public ValidationFailureReason Validate()
+        public ValidationFailureReason Validate(World world)
         {
             if (AdvancementManager == null || Slot == null || Advancement == null)
             {

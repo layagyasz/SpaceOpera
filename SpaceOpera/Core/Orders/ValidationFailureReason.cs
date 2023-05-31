@@ -9,6 +9,8 @@
         TooFewStructures,
         PrerequisiteResearch,
         DuplicateResearch,
-        InvalidDesign
+        InvalidDesign,
+        InvalidRoute,
+        FormationAlreadyAssigned
     }
 }

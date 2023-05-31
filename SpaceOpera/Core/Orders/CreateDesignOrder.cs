@@ -14,7 +14,7 @@ namespace SpaceOpera.Core.Orders
             Design = design;
         }
 
-        public ValidationFailureReason Validate()
+        public ValidationFailureReason Validate(World world)
         {
             return Design.Validate() ? ValidationFailureReason.None : ValidationFailureReason.InvalidDesign;
         }

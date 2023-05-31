@@ -15,7 +15,7 @@ namespace SpaceOpera.Core.Orders.Formations
             Destination = destination;
         }
 
-        public ValidationFailureReason Validate()
+        public ValidationFailureReason Validate(World world)
         {
             if (Driver is DivisionDriver)
             {

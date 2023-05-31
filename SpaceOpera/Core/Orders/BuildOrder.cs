@@ -25,7 +25,7 @@ namespace SpaceOpera.Core.Orders
             return cost;
         }
 
-        public ValidationFailureReason Validate()
+        public ValidationFailureReason Validate(World world)
         {
             foreach (var construction in Structures)
             {

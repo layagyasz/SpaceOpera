@@ -15,7 +15,7 @@ namespace SpaceOpera.Core.Orders
             Division = division;
         }
 
-        public ValidationFailureReason Validate()
+        public ValidationFailureReason Validate(World world)
         {
             return Division.StellarBodyLocation == null 
                 ? ValidationFailureReason.IllegalOrder : ValidationFailureReason.None;

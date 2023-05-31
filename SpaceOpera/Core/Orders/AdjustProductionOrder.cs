@@ -17,7 +17,7 @@ namespace SpaceOpera.Core.Orders
             Production = production;
         }
 
-        public ValidationFailureReason Validate()
+        public ValidationFailureReason Validate(World world)
         {
             int totalUsage = 0;
             foreach (var production in Production)
