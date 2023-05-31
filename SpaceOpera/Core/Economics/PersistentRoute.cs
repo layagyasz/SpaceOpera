@@ -1,41 +1,32 @@
 using Cardamom.Trackers;
-using SpaceOpera.Core.Advanceable;
+using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Politics;
 
 namespace SpaceOpera.Core.Economics
 {
-    public class PersistentRoute : ITickable
+    public class PersistentRoute
     {
         public Faction Faction { get; set; }
-        public EconomicZone LeftZone { get; }
+        public EconomicSubzone LeftAnchor { get; }
         public MultiQuantity<IMaterial> LeftMaterials { get; }
-
-        public EconomicZone RightZone { get; set; }
+        public EconomicSubzone RightAnchor { get; set; }
         public MultiQuantity<IMaterial> RightMaterials { get; }
+        public List<Fleet> AssignedFleets { get; set; }
 
         public PersistentRoute(
             Faction faction,
-            EconomicZone leftZone, 
+            EconomicSubzone leftAnchor, 
             MultiQuantity<IMaterial> leftMaterials,
-            EconomicZone rightZone, 
-            MultiQuantity<IMaterial> rightMaterials)
+            EconomicSubzone rightAnchor, 
+            MultiQuantity<IMaterial> rightMaterials,
+            List<Fleet> assignedFleets)
         {
             Faction = faction;
-            LeftZone = leftZone;
+            LeftAnchor = leftAnchor;
             LeftMaterials = leftMaterials;
-            RightZone = rightZone;
+            RightAnchor = rightAnchor;
             RightMaterials = rightMaterials;
-        }
-
-        public void Tick()
-        {
-            if (LeftZone.Contains(LeftMaterials) && RightZone.Contains(RightMaterials))
-            {
-                LeftZone.Remove(LeftMaterials);
-                RightZone.Remove(RightMaterials);
-                LeftZone.Add(RightMaterials);
-                RightZone.Add(LeftMaterials);
-            }
+            AssignedFleets = assignedFleets;
         }
     }
 }

@@ -53,6 +53,11 @@ namespace SpaceOpera.View.Panes.FormationPanes
                 },
                 new()
                 {
+                    Button = "formation-pane-formation-header-assignment-logistics",
+                    Action = ActionId.Logistics
+                },
+                new()
+                {
                     Button = "formation-pane-formation-header-assignment-patrol",
                     Action = ActionId.Patrol
                 }

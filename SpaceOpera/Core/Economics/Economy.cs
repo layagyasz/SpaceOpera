@@ -2,6 +2,7 @@ using Cardamom;
 using Cardamom.Trackers;
 using SpaceOpera.Core.Advanceable;
 using SpaceOpera.Core.Advancement;
+using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Universe;
 
@@ -10,15 +11,18 @@ namespace SpaceOpera.Core.Economics
     public class Economy : ITickable
     {
         public AdvancementManager AdvancementManager { get; }
+        public FormationManager FormationManager { get; }
         public MaterialSink MaterialSink { get; }
 
         private readonly Dictionary<CompositeKey<Faction, StellarBody>, StellarBodyHolding> _holdings = new();
         private readonly List<PersistentRoute> _routes = new();
         private readonly List<Trade> _trades = new();
 
-        public Economy(AdvancementManager advancementManager, MaterialSink materialSink)
+        public Economy(
+            AdvancementManager advancementManager, FormationManager formationManager, MaterialSink materialSink)
         {
             AdvancementManager = advancementManager;
+            FormationManager = formationManager;
             MaterialSink = materialSink;
         }
 
@@ -57,9 +61,25 @@ namespace SpaceOpera.Core.Economics
             return _holdings.Where(x => x.Key.Key1 == faction).Select(x => x.Value).Cast<StellarBodyHolding>();
         }
 
+        public void AddPersistentRoute(PersistentRoute route)
+        {
+            lock (_routes)
+            {
+                _routes.Add(route);
+            }
+        }
+
         public IEnumerable<PersistentRoute> GetPersistentRoutesFor(Faction faction)
         {
             return _routes.Where(x => x.Faction == faction);
+        }
+
+        public void RemovePersistentRoute(PersistentRoute route)
+        {
+            lock (_routes)
+            {
+                _routes.Remove(route);
+            }
         }
 
         public IEnumerable<StellarBodyRegionHolding> GetSubzoneHoldings(Faction faction)
@@ -74,7 +94,13 @@ namespace SpaceOpera.Core.Economics
                 holding.Tick();
             }
 
-            _routes.ForEach(x => x.Tick());
+            foreach (var route in _routes)
+            {
+                foreach (var fleet in route.AssignedFleets)
+                {
+                    ((FleetDriver)FormationManager.GetDriver(fleet)).SetPersistentRoute(route);
+                }
+            }
             _trades.ForEach(x => x.Tick());
 
             foreach (var holding in _holdings.Values)

@@ -10,6 +10,7 @@ namespace SpaceOpera.View
             return assignmentType switch
             {
                 AssignmentType.Defend => ActionId.Defend,
+                AssignmentType.Logistics => ActionId.Logistics,
                 AssignmentType.Move => ActionId.Move,
                 AssignmentType.None => ActionId.NoAssignment,
                 AssignmentType.Patrol => ActionId.Patrol,
@@ -23,6 +24,7 @@ namespace SpaceOpera.View
             return id switch
             {
                 ActionId.Defend => AssignmentType.Defend,
+                ActionId.Logistics => AssignmentType.Logistics,
                 ActionId.Move => AssignmentType.Move,
                 ActionId.NoAssignment => AssignmentType.None,
                 ActionId.Patrol => AssignmentType.Patrol,

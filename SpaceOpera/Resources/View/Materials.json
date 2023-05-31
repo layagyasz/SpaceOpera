@@ -11,7 +11,7 @@
   },
   {
     "$id": "material-alkane-fuel",
-    "Texture": "Alkane Fuel",
+    "Texture": "icon-gas",
     "Color": "#8800ff"
   },
   {

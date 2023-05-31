@@ -30,6 +30,13 @@
     }
   },
   {
+    "$id": "logistics-route-pane-route-container",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 892, 588 ]
+    }
+  },
+  {
     "$id": "logistics-route-pane-anchors-container",
     "Parent": "ui-container",
     "Default": {
@@ -349,6 +356,14 @@
     "Parent": "logistics-route-pane-anchor-instruction",
     "Default": {
       "Size": [ 892, 48 ]
+    }
+  },
+  {
+    "$id": "logistics-route-pane-route-submit",
+    "Parent": "ui-element-basic",
+    "Default": {
+      "Size": [ 256, 28 ],
+      "Align": "Center"
     }
   }
 ]

@@ -5,6 +5,7 @@
         Unknown,
 
         Defend,
+        Logistics,
         Move,
         None,
         Patrol,

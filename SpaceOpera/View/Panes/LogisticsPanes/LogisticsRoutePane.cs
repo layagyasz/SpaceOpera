@@ -20,6 +20,8 @@ namespace SpaceOpera.View.Panes.LogisticsPanes
         private static readonly string s_Close = "logistics-route-pane-close";
         private static readonly string s_Body = "logistics-route-pane-body";
 
+        private static readonly string s_RouteContainer = "logistics-route-pane-route-container";
+
         private static readonly string s_AnchorsContainer = "logistics-route-pane-anchors-container";
         private static readonly string s_AnchorContainer = "logistics-route-pane-anchor-container";
         private static readonly string s_AnchorHeader = "logistics-route-pane-anchor-header";
@@ -83,11 +85,14 @@ namespace SpaceOpera.View.Panes.LogisticsPanes
             }
         };
 
-        public InterceptorInput<StellarBodyRegion> LeftAnchor { get; }
-        public InterceptorInput<StellarBodyRegion> RightAnchor { get; }
+        private static readonly string s_RouteSubmit = "logistics-route-pane-route-submit";
+
+        public InterceptorInput<EconomicSubzone> LeftAnchor { get; }
+        public InterceptorInput<EconomicSubzone> RightAnchor { get; }
         public ManualNumericInputTable<IMaterial> LeftMaterials { get; }
         public ManualNumericInputTable<IMaterial> RightMaterials { get; }
         public InterceptorMultiSelect<FleetDriver> Fleets { get; }
+        public IUiElement Submit { get; }
 
         private readonly UiElementFactory _uiElementFactory;
         private readonly IconFactory _iconFactory;
@@ -107,10 +112,10 @@ namespace SpaceOpera.View.Panes.LogisticsPanes
             _iconFactory = iconFactory;
 
             LeftAnchor = 
-                new InterceptorInput<StellarBodyRegion>(
+                new InterceptorInput<EconomicSubzone>(
                     uiElementFactory.GetClass(s_AnchorInput), CreateAnchorInterceptor, CreateAnchorContents);
             RightAnchor =
-                new InterceptorInput<StellarBodyRegion>(
+                new InterceptorInput<EconomicSubzone>(
                     uiElementFactory.GetClass(s_AnchorInput), CreateAnchorInterceptor, CreateAnchorContents);
             var anchorsContainer =
                 new UiSerialContainer(
@@ -181,18 +186,32 @@ namespace SpaceOpera.View.Panes.LogisticsPanes
                 uiElementFactory,
                 Comparer<FleetDriver>.Create((x, y) => x.Formation.Name.CompareTo(y.Formation.Name)));
 
+            Submit = new TextUiElement(uiElementFactory.GetClass(s_RouteSubmit), new ButtonController(), "Submit");
+
             var body =
                 new DynamicUiSerialContainer(
                     uiElementFactory.GetClass(s_Body),
                     new TableController(10f),
                     UiSerialContainer.Orientation.Vertical)
                 {
-                    anchorsContainer,
-                    materialsContainer,
-                    uiElementFactory.CreateTextButton(s_FleetHeader, "Fleets").Item1,
-                    Fleets
+                    new DynamicUiSerialContainer(
+                        uiElementFactory.GetClass(s_RouteContainer),
+                        new NoOpElementController<UiSerialContainer>(),
+                        UiSerialContainer.Orientation.Vertical)
+                    {
+                        anchorsContainer,
+                        materialsContainer,
+                        uiElementFactory.CreateTextButton(s_FleetHeader, "Fleets").Item1,
+                        Fleets
+                    },
+                    Submit
                 };
             SetBody(body);
+        }
+
+        public Faction GetFaction()
+        {
+            return _faction!;
         }
 
         public PersistentRoute? GetSeedRoute()
@@ -210,9 +229,9 @@ namespace SpaceOpera.View.Panes.LogisticsPanes
             Populated?.Invoke(this, EventArgs.Empty);
         }
 
-        private IEnumerable<IUiElement> CreateAnchorContents(StellarBodyRegion? region)
+        private IEnumerable<IUiElement> CreateAnchorContents(EconomicSubzone? subzone)
         {
-            if (region == null)
+            if (subzone == null)
             {
                 yield return new TextUiElement(
                     _uiElementFactory.GetClass(s_AnchorInstruction),
@@ -221,16 +240,18 @@ namespace SpaceOpera.View.Panes.LogisticsPanes
             }
             else
             {
+                var holding = (StellarBodyRegionHolding)subzone;
                 yield return _iconFactory.Create(
-                    _uiElementFactory.GetClass(s_AnchorIcon), new InlayController(), region.Parent!);
+                    _uiElementFactory.GetClass(s_AnchorIcon), new InlayController(), holding.Region.Parent!);
                 yield return new TextUiElement(
-                    _uiElementFactory.GetClass(s_AnchorText), new InlayController(), region.Name);
+                    _uiElementFactory.GetClass(s_AnchorText), new InlayController(), holding.Region.Name);
             }
         }
 
-        private IValueInterceptor<StellarBodyRegion> CreateAnchorInterceptor()
+        private IValueInterceptor<EconomicSubzone> CreateAnchorInterceptor()
         {
-            return new BasicInterceptor<StellarBodySubRegion, StellarBodyRegion>(x => x.ParentRegion!, x => true);
+            return new BasicInterceptor<StellarBodySubRegion, EconomicSubzone>(
+                x => _world?.Economy.GetHolding(_faction!, x.ParentRegion!), x => true);
         }
 
         private ActionRow<FleetDriver> CreateFleetRow(FleetDriver driver)

@@ -49,7 +49,7 @@ namespace SpaceOpera.Core
             Galaxy = galaxy;
             NavigationMap = navigationMap;
             AdvancementManager = new();
-            Economy = new(AdvancementManager, coreData.MaterialSink!);
+            Economy = new(AdvancementManager, FormationManager, coreData.MaterialSink!);
             EconomyGraph.AddRecipes(coreData.Recipes.Values);
             BattleManager = new(DiplomaticRelations);
             DesignBuilder = new(new ComponentClassifier(coreData.ComponentClassifiers));

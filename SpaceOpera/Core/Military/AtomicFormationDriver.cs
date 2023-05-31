@@ -1,3 +1,4 @@
+using SpaceOpera.Core.Economics;
 using SpaceOpera.Core.Military.Ai;
 using SpaceOpera.Core.Military.Ai.Actions;
 using SpaceOpera.Core.Military.Ai.Assigments;
@@ -55,6 +56,19 @@ namespace SpaceOpera.Core.Military
                     _ai.SetAssignment(new TrainAssignment());
                     break;
             }
+            OrderUpdated?.Invoke(this, EventArgs.Empty);
+        }
+
+        public void SetPersistentRoute(PersistentRoute route)
+        {
+            if (_ai.GetAssignment() is LogisticsAssignment current)
+            {
+                if (current.Route == route)
+                {
+                    return;
+                }
+            }
+            _ai.SetAssignment(new LogisticsAssignment(route));
             OrderUpdated?.Invoke(this, EventArgs.Empty);
         }
 

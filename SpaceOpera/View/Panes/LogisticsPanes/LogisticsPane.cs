@@ -98,8 +98,8 @@ namespace SpaceOpera.View.Panes.LogisticsPanes
                         GetRange,
                         CreateRow,
                         FluentComparator<PersistentRoute>
-                            .Comparing(x => x.LeftZone.Name)
-                            .Then(x => x.RightZone.Name)));
+                            .Comparing(x => x.LeftAnchor.Parent.Name)
+                            .Then(x => x.RightAnchor.Parent.Name)));
             var body =
                 new DynamicUiContainer(uiElementFactory.GetClass(s_Body), new NoOpElementController<UiContainer>())
                 {
@@ -125,8 +125,8 @@ namespace SpaceOpera.View.Panes.LogisticsPanes
 
         private ActionRow<PersistentRoute> CreateRow(PersistentRoute route)
         {
-            var left = (StellarBodyHolding)route.LeftZone;
-            var right = (StellarBodyHolding)route.RightZone;
+            var left = ((StellarBodyRegionHolding)route.LeftAnchor).Region;
+            var right = ((StellarBodyRegionHolding)route.RightAnchor).Region;
             return ActionRow<PersistentRoute>.Create(
                 route,
                 ActionId.Unknown,
@@ -135,13 +135,13 @@ namespace SpaceOpera.View.Panes.LogisticsPanes
                 new List<IUiElement>()
                 {
                     _iconFactory.Create(
-                        _uiElementFactory.GetClass(s_RouteIcon), new InlayController(), left.StellarBody),
+                        _uiElementFactory.GetClass(s_RouteIcon), new InlayController(), left.Parent!),
                     new TextUiElement(
                         _uiElementFactory.GetClass(s_RouteInfo), 
                         new InlayController(),
-                        $"{left.StellarBody.Name}\n{right.StellarBody.Name}"),
+                        $"{left.Parent!.Name}\n{right.Parent!.Name}"),
                     _iconFactory.Create(
-                        _uiElementFactory.GetClass(s_RouteInfo), new InlayController(), right.StellarBody)
+                        _uiElementFactory.GetClass(s_RouteInfo), new InlayController(), right.Parent!)
                 },
                 Enumerable.Empty<ActionRow<PersistentRoute>.ActionConfiguration>());
         }
