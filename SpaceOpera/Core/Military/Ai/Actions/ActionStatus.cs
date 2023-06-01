@@ -4,6 +4,7 @@
     {
         Unknown,
         InProgress,
+        Blocked,
         Done
     }
 }

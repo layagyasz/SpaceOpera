@@ -85,8 +85,7 @@ namespace SpaceOpera.View.FormationViews
 
         public override void Refresh()
         {
-            var newActionType = 
-                _drivers.Select(x => x.GetCurrentAction()?.Type ?? ActionType.Unknown).ArgMax(GetValue);
+            var newActionType = _drivers.Select(x => x.GetCurrentAction().Type).ArgMax(GetValue);
             if (_actionType != newActionType)
             {
                 if (_action != null)

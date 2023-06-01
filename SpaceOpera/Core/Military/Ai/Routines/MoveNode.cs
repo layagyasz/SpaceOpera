@@ -23,7 +23,7 @@ namespace SpaceOpera.Core.Military.Ai.Routines
 
         public BehaviorNodeResult<IAction> Execute(FormationContext context)
         {
-            var currentPosition = context.Formation.Position!;
+            var currentPosition = context.Driver.AtomicFormation.Position!;
             var destination = _destination.Execute(context);
             if (!destination.Status.Complete)
             {

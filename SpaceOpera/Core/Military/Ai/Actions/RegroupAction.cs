@@ -3,7 +3,6 @@ namespace SpaceOpera.Core.Military.Ai.Actions
     public class RegroupAction : IAction
     {
         public ActionType Type => ActionType.Regroup;
-        public ActionStatus Status { get; private set; } = ActionStatus.InProgress;
 
         public bool Equivalent(IAction action)
         {
@@ -14,12 +13,9 @@ namespace SpaceOpera.Core.Military.Ai.Actions
             return false;
         }
 
-        public void Progress(IAtomicFormation formation, World world)
+        public ActionStatus Progress(AtomicFormationDriver driver, World world)
         {
-            if (formation.Cohesion.IsFull())
-            {
-                Status = ActionStatus.Done;
-            }
+            return driver.AtomicFormation.Cohesion.IsFull() ? ActionStatus.Done : ActionStatus.InProgress;
         }
 
         public override string ToString()

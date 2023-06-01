@@ -3,7 +3,6 @@ namespace SpaceOpera.Core.Military.Ai.Actions
     public class SpotAction : IAction
     {
         public ActionType Type => ActionType.Spot;
-        public ActionStatus Status { get; private set; } = ActionStatus.InProgress;
 
         public IAtomicFormation Target { get; }
 
@@ -26,9 +25,10 @@ namespace SpaceOpera.Core.Military.Ai.Actions
             return false;
         }
 
-        public void Progress(IAtomicFormation formation, World world)
+        public ActionStatus Progress(AtomicFormationDriver driver, World world)
         {
-            world.GetIntelligenceFor(formation.Faction).FleetIntelligence.Spot(Target, .5);
+            world.GetIntelligenceFor(driver.AtomicFormation.Faction).FleetIntelligence.Spot(Target, .5);
+            return ActionStatus.InProgress;
         }
 
         public override string ToString()

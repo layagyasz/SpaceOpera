@@ -22,13 +22,13 @@ namespace SpaceOpera.Core.Military.Ai.Assigments
 
             public BehaviorNodeResult<INavigable?> Execute(FormationContext context)
             {
-                var currentPosition = context.Formation.Position;
+                var currentPosition = context.Driver.AtomicFormation.Position;
                 var activeRegion = _parent.GetActiveRegion();
                 if (_cachedDestination == null
-                    || _cachedDestination == context.Formation.Position
+                    || _cachedDestination == context.Driver.AtomicFormation.Position
                     || !_parent.GetActiveRegion().Contains(_cachedDestination))
                 {
-                    var options = activeRegion.Where(x => x != context.Formation.Position).ToList();
+                    var options = activeRegion.Where(x => x != context.Driver.AtomicFormation.Position).ToList();
                     if (options.Count == 0)
                     {
                         _cachedDestination = null;
@@ -61,19 +61,20 @@ namespace SpaceOpera.Core.Military.Ai.Assigments
 
             public BehaviorNodeResult<IAtomicFormation> Execute(FormationContext context)
             {
-                var currentPosition = context.Formation.Position;
-                var faction = context.Formation.Faction;
+                var currentPosition = context.Driver.AtomicFormation.Position;
+                var faction = context.Driver.AtomicFormation.Faction;
                 var activeRegions = _parent.GetActiveRegion();
                 if (_cachedTarget == null
                     || !activeRegions.Contains(_cachedTarget.Position!)
-                    || !context.World.BattleManager.CanEngage(context.Formation, _cachedTarget))
+                    || !context.World.BattleManager.CanEngage(context.Driver.AtomicFormation, _cachedTarget))
                 {
                     var options =
                         context.World.FormationManager.GetFleetDrivers()
                             .Where(x => x.AtomicFormation.Position == currentPosition)
                             .Where(x => activeRegions.Contains(x.AtomicFormation.Position!))
                             .Where(x => x.AtomicFormation.Faction != faction)
-                            .Where(x => context.World.BattleManager.CanEngage(context.Formation, x.AtomicFormation))
+                            .Where(x => context.World.BattleManager.CanEngage(
+                                context.Driver.AtomicFormation, x.AtomicFormation))
                             .Select(x => x.AtomicFormation)
                             .ToList();
                     if (options.Count == 0)
@@ -110,10 +111,11 @@ namespace SpaceOpera.Core.Military.Ai.Assigments
                 {
                     targetBuffer.Recompute().Check(
                         (x, y) =>
-                            y.Formation.Position == x.Position
-                            && y.World.GetIntelligenceFor(y.Formation.Faction).FleetIntelligence.IsSpotted(x))
+                            y.Driver.AtomicFormation.Position == x.Position
+                            && y.World.GetIntelligenceFor(y.Driver.Formation.Faction).FleetIntelligence.IsSpotted(x))
                         .Transform(EngageAction.Create),
-                    targetBuffer.Check((x, y) => y.Formation.Position == x.Position).Transform(SpotAction.Create),
+                    targetBuffer.Check(
+                        (x, y) => y.Driver.AtomicFormation.Position == x.Position).Transform(SpotAction.Create),
                     new MoveNode(
                        new SelectorNode<BehaviorNodeResult<INavigable?>, FormationContext>(
                            x => x.Status.Complete, BehaviorNodeResult<INavigable?>.Incomplete())

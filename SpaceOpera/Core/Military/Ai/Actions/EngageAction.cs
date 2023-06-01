@@ -3,7 +3,6 @@
     public class EngageAction : IAction
     {
         public ActionType Type => ActionType.Combat;
-        public ActionStatus Status { get; private set; } = ActionStatus.InProgress;
         public IAtomicFormation Target { get; }
 
         private EngageAction(IAtomicFormation target)
@@ -25,9 +24,10 @@
             return false;
         }
 
-        public void Progress(IAtomicFormation formation, World world)
+        public ActionStatus Progress(AtomicFormationDriver driver, World world)
         {
-            world.BattleManager.Engage(formation, Target);
+            world.BattleManager.Engage(driver.AtomicFormation, Target);
+            return ActionStatus.Done;
         }
     }
 }

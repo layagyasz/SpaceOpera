@@ -168,10 +168,6 @@ namespace SpaceOpera.View.Panes.FormationPanes
                 return string.Empty;
             }
             var action = ((AtomicFormationDriver)Key).GetCurrentAction();
-            if (action == null)
-            {
-                return "Waiting";
-            }
             if (action is CombatAction)
             {
                 return "In combat";
@@ -182,7 +178,7 @@ namespace SpaceOpera.View.Panes.FormationPanes
             }
             if (action is IdleAction)
             {
-                return "Awaiting orders";
+                return "Waiting";
             }
             if (action is MoveAction move)
             {

@@ -20,7 +20,13 @@ namespace SpaceOpera.Core.Military.Ai
         public BehaviorNodeResult<IAction> Execute(FormationContext context)
         {
             var result = _routine.Execute(context);
-            return result.Status.Complete ? result : _assignment.Execute(context);
+            if (!result.Status.Complete)
+            {
+                var assignmentResult = _assignment.Execute(context);
+                return assignmentResult.Status.Complete
+                    ? assignmentResult : BehaviorNodeResult<IAction>.Complete(new IdleAction(false));
+            }
+            return result;
         }
 
         public ICollection<INavigable> GetActiveRegion()

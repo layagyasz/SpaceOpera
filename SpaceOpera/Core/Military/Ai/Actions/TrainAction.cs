@@ -3,7 +3,6 @@
     public class TrainAction : IAction
     {
         public ActionType Type => ActionType.Train;
-        public ActionStatus Status { get; private set; } = ActionStatus.InProgress;
 
         public bool Equivalent(IAction action)
         {
@@ -14,7 +13,10 @@
             return false;
         }
 
-        public void Progress(IAtomicFormation formation, World world) { }
+        public ActionStatus Progress(AtomicFormationDriver driver, World world)
+        {
+            return ActionStatus.InProgress;
+        }
 
         public override string ToString()
         {

@@ -3,7 +3,6 @@
     public class CombatAction : IAction
     {
         public ActionType Type => ActionType.Combat;
-        public ActionStatus Status { get; private set; } = ActionStatus.InProgress;
 
         public bool Equivalent(IAction action)
         {
@@ -14,12 +13,9 @@
             return false;
         }
 
-        public void Progress(IAtomicFormation formation, World world)
+        public ActionStatus Progress(AtomicFormationDriver driver, World world)
         {
-            if (!formation.InCombat)
-            {
-                Status = ActionStatus.Done;
-            }
+            return !driver.AtomicFormation.InCombat ? ActionStatus.Done : ActionStatus.InProgress;
         }
     }
 }

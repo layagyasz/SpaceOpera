@@ -15,7 +15,8 @@ namespace SpaceOpera.Core.Military
         public IAtomicFormation AtomicFormation { get; }
 
         private readonly IFormationAi _ai;
-        private IAction? _action;
+        private IAction _action;
+        private ActionStatus _actionStatus;
 
         protected AtomicFormationDriver(IAtomicFormation formation, IFormationAi ai)
         {
@@ -23,11 +24,18 @@ namespace SpaceOpera.Core.Military
             AtomicFormation.Moved += HandleMove;
 
             _ai = ai;
+            _action = new IdleAction(false);
+            _actionStatus = ActionStatus.InProgress;
         }
 
-        public IAction? GetCurrentAction()
+        public IAction GetCurrentAction()
         {
             return _action;
+        }
+
+        public ActionStatus GetCurrentActionStatus()
+        {
+            return _actionStatus;
         }
 
         public AssignmentType GetAssignment()
@@ -86,19 +94,12 @@ namespace SpaceOpera.Core.Military
         public void Tick(SpaceOperaContext context)
         {
             AtomicFormation.Cohere();
-            var newAction = _ai.Execute(context.ForFormation(AtomicFormation)).Result;
-            if (newAction == null || _action == null || !newAction.Equivalent(_action))
+            var newAction = _ai.Execute(context.ForDriver(this)).Result!;
+            if (!newAction.Equivalent(_action))
             {
                 _action = newAction;
             }
-            _action?.Progress(AtomicFormation, context.World);
-            if (_action is IdleAction idle)
-            {
-                if (idle.Unassign)
-                {
-                    SetAssignment(AssignmentType.None);
-                }
-            }
+            _action?.Progress(this, context.World);
         }
 
         private void HandleMove(object? sender, MovementEventArgs e)

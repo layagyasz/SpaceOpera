@@ -3,7 +3,6 @@
     public class IdleAction : IAction
     {
         public ActionType Type => ActionType.None;
-        public ActionStatus Status { get; private set; } = ActionStatus.InProgress;
 
         public bool Unassign { get; }
 
@@ -21,7 +20,14 @@
             return false;
         }
 
-        public void Progress(IAtomicFormation formation, World world) { }
+        public ActionStatus Progress(AtomicFormationDriver driver, World world)
+        {
+            if (Unassign)
+            {
+                driver.SetAssignment(Assigments.AssignmentType.None);
+            }
+            return ActionStatus.InProgress;
+        }
 
         public override string ToString()
         {

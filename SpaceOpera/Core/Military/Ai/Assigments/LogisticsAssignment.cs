@@ -21,7 +21,7 @@ namespace SpaceOpera.Core.Military.Ai.Assigments
 
             public BehaviorNodeResult<IAction> Execute(FormationContext context)
             {
-                var currentPosition = context.Formation.Position;
+                var currentPosition = context.Driver.AtomicFormation.Position;
                 var anchor = _parent.GetAnchor();
                 if (currentPosition == anchor)
                 {

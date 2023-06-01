@@ -6,12 +6,12 @@ namespace SpaceOpera.Core.Military.Ai
     {
         public class FormationContext : SpaceOperaContext
         {
-            public IAtomicFormation Formation { get; }
+            public AtomicFormationDriver Driver { get; }
 
-            internal FormationContext(World world, IAtomicFormation formation)
+            internal FormationContext(World world, AtomicFormationDriver driver)
                 : base(world)
             {
-                Formation = formation;
+                Driver = driver;
             }
         }
 
@@ -22,9 +22,9 @@ namespace SpaceOpera.Core.Military.Ai
             World = world;
         }
 
-        public FormationContext ForFormation(IAtomicFormation formation)
+        public FormationContext ForDriver(AtomicFormationDriver driver)
         {
-            return new FormationContext(World, formation);
+            return new FormationContext(World, driver);
         }
     }
 }

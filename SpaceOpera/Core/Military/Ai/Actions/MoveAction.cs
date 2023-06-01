@@ -5,7 +5,6 @@ namespace SpaceOpera.Core.Military.Ai.Actions
     public class MoveAction : IAction
     {
         public ActionType Type => ActionType.Move;
-        public ActionStatus Status { get; private set; } = ActionStatus.InProgress;
         public NavigationMap.Movement Movement { get; }
 
         private double _progress;
@@ -24,15 +23,16 @@ namespace SpaceOpera.Core.Military.Ai.Actions
             return false;
         }
 
-        public void Progress(IAtomicFormation formation, World world)
+        public ActionStatus Progress(AtomicFormationDriver driver, World world)
         {
+            var formation = driver.AtomicFormation;
             _progress += formation.GetSpeed(Movement.Type);
             if (_progress >= Movement.Distance)
             {
                 formation.SetPosition(Movement.Destination);
-                Status = ActionStatus.Done;
+                return ActionStatus.Done;
             }
-            Status = ActionStatus.InProgress;
+            return ActionStatus.InProgress;
         }
 
         public override string ToString()
