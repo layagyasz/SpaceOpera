@@ -14,18 +14,13 @@ namespace SpaceOpera.Core.Economics
         public uint Population { get; protected set; }
 
         private readonly Dictionary<object, EconomicSubzone> _subzones = new();
-        private readonly MultiQuantity<IMaterial> _inventory = new();
+        private readonly Inventory _inventory = new(float.MaxValue);
         private readonly MultiCount<Recipe> _production = new ();
 
         protected EconomicZone(Faction owner, FactionAdvancementManager advancementManager)
         {
             Owner = owner;
             AdvancementManager = advancementManager;
-        }
-
-        public void Add(MultiQuantity<IMaterial> materials)
-        {
-            _inventory.Add(materials);
         }
 
         public void AddSubzone(object key, EconomicSubzone subzone)
@@ -36,24 +31,6 @@ namespace SpaceOpera.Core.Economics
         public void AdjustProduction(MultiCount<Recipe> allocation)
         {
             _production.Add(allocation);
-        }
-
-
-        public bool Contains(MultiQuantity<IMaterial> materials)
-        {
-            foreach (var material in materials)
-            {
-                if (_inventory[material.Key] < material.Value)
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        public float GetInventoryQuantity(IMaterial material)
-        {
-            return _inventory[material];
         }
 
         public EconomicSubzone? GetSubzone(object key)
@@ -67,30 +44,9 @@ namespace SpaceOpera.Core.Economics
             return _subzones.Values;
         }
 
-        public MultiQuantity<IMaterial> GetInventory()
-        {
-            return _inventory.Copy();
-        }
-
-        public void Remove(MultiQuantity<IMaterial> materials)
-        {
-            foreach (var material in materials)
-            {
-                _inventory.Add(material.Key, -material.Value);
-            }
-        }
-
         public float Spend(MultiQuantity<IMaterial> unitCost, float maxUnits)
         {
-            foreach (var cost in unitCost)
-            {
-                maxUnits = Math.Min(_inventory.Get(cost.Key) / cost.Value, maxUnits);
-            }
-            foreach (var cost in unitCost)
-            {
-                _inventory.Add(cost.Key, maxUnits * cost.Value);
-            }
-            return maxUnits;
+            return _inventory.MaxSpend(unitCost, maxUnits);
         }
 
         public void Tick()
@@ -103,7 +59,7 @@ namespace SpaceOpera.Core.Economics
                     switch (transform.Key.Type)
                     {
                         case MaterialType.MaterialContinuous:
-                            _inventory.Add(transform.Key, total);
+                            _inventory.MaxAdd(transform.Key, total);
                             break;
                         case MaterialType.Research:
                             AdvancementManager.AddResearch(transform.Key, total);

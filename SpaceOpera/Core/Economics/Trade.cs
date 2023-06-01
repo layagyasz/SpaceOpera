@@ -25,13 +25,7 @@ namespace SpaceOpera.Core.Economics
 
         public void Tick()
         {
-            if (LeftZone.Contains(LeftMaterials) && RightZone.Contains(RightMaterials))
-            {
-                LeftZone.Remove(LeftMaterials);
-                RightZone.Remove(RightMaterials);
-                LeftZone.Add(RightMaterials);
-                RightZone.Add(LeftMaterials);
-            }
+            // Reimplement using Inventory
         }
     }
 }

@@ -119,6 +119,7 @@ namespace SpaceOpera.Core.Military.Battles
                     battle.Tick(random);
                     foreach (var formation in battle.GetFormations(BattleSideType.Offense).ToList())
                     {
+                        formation.CheckInventory();
                         if (formation.Cohesion.IsEmpty())
                         {
                             Disengage(formation, battle, BattleSideType.Offense);
@@ -126,6 +127,7 @@ namespace SpaceOpera.Core.Military.Battles
                     }
                     foreach (var formation in battle.GetFormations(BattleSideType.Defense).ToList())
                     {
+                        formation.CheckInventory();
                         if (formation.Cohesion.IsEmpty())
                         {
                             Disengage(formation, battle, BattleSideType.Defense);

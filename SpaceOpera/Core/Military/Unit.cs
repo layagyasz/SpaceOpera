@@ -15,6 +15,7 @@ namespace SpaceOpera.Core.Military
             new(ComponentType.PersonalWeapon, ComponentType.ShipWeapon, ComponentType.ShipMissile);
 
         // Attributes
+        public float CargoSpace => GetAttribute(ComponentAttribute.CargoSpace);
         public float Command => GetAttribute(ComponentAttribute.Command);
         public UnitIntervalValue Detection { get; }
         public UnitIntervalValue Evasion { get; }

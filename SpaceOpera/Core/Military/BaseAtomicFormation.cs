@@ -1,4 +1,5 @@
 using Cardamom.Trackers;
+using SpaceOpera.Core.Economics;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Universe;
 
@@ -15,6 +16,7 @@ namespace SpaceOpera.Core.Military
         public INavigable? Position { get; private set; }
         public Pool Cohesion { get; } = new(1);
         public List<UnitGrouping> Composition { get; } = new();
+        public Inventory Inventory { get; } = new(0);
         public bool InCombat { get; private set; }
 
         protected BaseAtomicFormation(Faction faction)
@@ -25,11 +27,14 @@ namespace SpaceOpera.Core.Military
         public void Add(UnitGrouping unitGrouping)
         {
             var currentGrouping = Composition.Where(x => x.Unit == unitGrouping.Unit).FirstOrDefault();
-            if (currentGrouping != null)
+            if (currentGrouping == null)
             {
+                Composition.Add(unitGrouping);
+            }
+            else {
                 currentGrouping.Combine(unitGrouping);
             }
-            Composition.Add(unitGrouping);
+            Inventory.SetSize(Inventory.Size + unitGrouping.Unit.CargoSpace * unitGrouping.Count.Amount);
         }
 
         public void Add(Count<Unit> unit)
@@ -48,6 +53,11 @@ namespace SpaceOpera.Core.Military
         public void Cohere()
         {
             Cohesion.Change((InCombat ? .1f : 1) * s_BaseRecoherence);
+        }
+
+        public void CheckInventory()
+        {
+            Inventory.SetSize(Composition.Sum(x => x.Unit.CargoSpace * x.Count.Amount));
         }
 
         public void EnterCombat()
