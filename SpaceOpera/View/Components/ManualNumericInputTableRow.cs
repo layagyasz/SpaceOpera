@@ -48,7 +48,7 @@ namespace SpaceOpera.View.Components
                     iconFactory.Create(uiElementFactory.GetClass(style.Icon!), new InlayController(), key),
                     new TextUiElement(uiElementFactory.GetClass(style.Text!), new InlayController(), name),
                 },
-                NumericInput.Create(key, uiElementFactory, style.NumericInput),
+                NumericInput.Create(uiElementFactory, style.NumericInput),
                 uiElementFactory.CreateSimpleButton(style.Remove!).Item1);
         }
     }

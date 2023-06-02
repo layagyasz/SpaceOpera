@@ -153,6 +153,23 @@
     ]
   },
   {
+    "$id": "load-icon",
+    "Parent": "ui-icon",
+    "Default": {
+      "BackgroundColor": [ "#ffffff00" ],
+      "ForegroundColor": "#00ff00cc",
+      "Texture": "icon-load"
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "ForegroundColor": "#00ff00"
+        }
+      }
+    ]
+  },
+  {
     "$id": "move-icon",
     "Parent": "ui-icon",
     "Default": {
@@ -210,6 +227,23 @@
       "BackgroundColor": [ "#ffffff00" ],
       "ForegroundColor": "#00ff00cc",
       "Texture": "icon-train"
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "ForegroundColor": "#00ff00"
+        }
+      }
+    ]
+  },
+  {
+    "$id": "unload-icon",
+    "Parent": "ui-icon",
+    "Default": {
+      "BackgroundColor": [ "#ffffff00" ],
+      "ForegroundColor": "#00ff00cc",
+      "Texture": "icon-unload"
     },
     "States": [
       {

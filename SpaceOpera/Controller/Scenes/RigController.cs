@@ -16,16 +16,24 @@ namespace SpaceOpera.Controller.Scenes
         public RigController(params IActionController[] subControllers)
         {
             _subControllers = subControllers;
-            foreach (var subController in subControllers)
+        }
+
+
+        public void Bind(object @object)
+        {
+            foreach (var subController in _subControllers)
             {
                 subController.Interacted += HandleInteraction;
             }
         }
 
-
-        public void Bind(object @object) { }
-
-        public void Unbind() { }
+        public void Unbind()
+        {
+            foreach (var subController in _subControllers)
+            {
+                subController.Interacted -= HandleInteraction;
+            }
+        }
 
         public virtual bool HandleKeyDown(KeyDownEventArgs e)
         {

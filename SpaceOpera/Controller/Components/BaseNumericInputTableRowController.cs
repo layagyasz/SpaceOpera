@@ -15,7 +15,7 @@ namespace SpaceOpera.Controller.Components
 
         protected NumericInputTableRow<T>? _element;
         protected ClassedUiElementController<ClassedUiElement>? _infoController;
-        protected NumericInputController<T>? _inputController;
+        protected NumericInputController? _inputController;
 
         public BaseNumericInputTableRowController(T key)
         {
@@ -29,7 +29,7 @@ namespace SpaceOpera.Controller.Components
             _element = (NumericInputTableRow<T>)@object;
             _infoController = (ClassedUiElementController<ClassedUiElement>)_element.Info.Controller;
             _infoController.Clicked += HandleSelected;
-            _inputController = (NumericInputController<T>)_element.NumericInput.ComponentController;
+            _inputController = (NumericInputController)_element.NumericInput.ComponentController;
             _inputController.SetValue(GetDefaultValue());
             _inputController.ValueChanged += HandleValueChanged;
         }

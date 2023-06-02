@@ -99,7 +99,7 @@ namespace SpaceOpera.Core.Military
             {
                 _action = newAction;
             }
-            _action?.Progress(this, context.World);
+            _actionStatus = _action.Progress(this, context.World);
         }
 
         private void HandleMove(object? sender, MovementEventArgs e)

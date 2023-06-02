@@ -180,6 +180,10 @@ namespace SpaceOpera.View.Panes.FormationPanes
             {
                 return "Waiting";
             }
+            if (action is LoadAction)
+            {
+                return "Loading";
+            }
             if (action is MoveAction move)
             {
                 return "Moving to " + move.Movement.Destination.Name;
@@ -195,6 +199,10 @@ namespace SpaceOpera.View.Panes.FormationPanes
             if (action is TrainAction)
             {
                 return "Training";
+            }
+            if (action is UnloadAction)
+            {
+                return "Unload";
             }
             return action.GetType().ToString();
         }

@@ -1,5 +1,6 @@
 ﻿using Cardamom.Collections;
 using Cardamom.Graphing.BehaviorTree;
+using Cardamom.Trackers;
 using SpaceOpera.Core.Economics;
 using SpaceOpera.Core.Military.Ai.Actions;
 using SpaceOpera.Core.Military.Ai.Routines;
@@ -14,6 +15,8 @@ namespace SpaceOpera.Core.Military.Ai.Assigments
         {
             private readonly LogisticsAssignment _parent;
 
+            private bool _finishedUnload;
+
             public ExchangeNode(LogisticsAssignment parent)
             {
                 _parent = parent;
@@ -22,10 +25,37 @@ namespace SpaceOpera.Core.Military.Ai.Assigments
             public BehaviorNodeResult<IAction> Execute(FormationContext context)
             {
                 var currentPosition = context.Driver.AtomicFormation.Position;
-                var anchor = _parent.GetAnchor();
+                var anchor = _parent.GetExchangePosition();
                 if (currentPosition == anchor)
                 {
-                    _parent._leg = (_parent._leg + 1) % 2;
+                    if (!_finishedUnload)
+                    {
+                        if (context.Driver.AtomicFormation.Inventory.IsEmpty() 
+                            || (context.Driver.GetCurrentActionStatus() == ActionStatus.Blocked 
+                                && context.Driver.GetCurrentAction().Type == ActionType.Unload))
+                        {
+                            _finishedUnload = true;
+                        }
+                        else
+                        {
+                            return BehaviorNodeResult<IAction>.Complete(new UnloadAction(_parent.GetAnchor()));
+                        }
+                    }
+                    if (_finishedUnload)
+                    {
+                        if (context.Driver.AtomicFormation.Inventory.Contains(_parent.GetMaterials())
+                            || (context.Driver.GetCurrentActionStatus() == ActionStatus.Blocked
+                                && context.Driver.GetCurrentAction().Type == ActionType.Load))
+                        {
+                            _finishedUnload = false;
+                            _parent._leg = (_parent._leg + 1) % 2;
+                        }
+                        else
+                        {
+                            return BehaviorNodeResult<IAction>.Complete(
+                                new LoadAction(_parent.GetAnchor(), _parent.GetMaterials()));
+                        }
+                    }
                 }
                 return BehaviorNodeResult<IAction>.NotRun();
             }
@@ -53,7 +83,7 @@ namespace SpaceOpera.Core.Military.Ai.Assigments
                 {
                     new ExchangeNode(this),
                     new MoveNode(
-                        SourceNode<INavigable?, FormationContext>.Wrap(GetAnchor),
+                        SourceNode<INavigable?, FormationContext>.Wrap(GetExchangePosition),
                         new EnumSet<NavigableEdgeType>(NavigableEdgeType.Space, NavigableEdgeType.Jump))
                 }.Adapt();
         }
@@ -74,9 +104,19 @@ namespace SpaceOpera.Core.Military.Ai.Assigments
             return _routine.Execute(context);
         }
 
-        private INavigable GetAnchor()
+        private EconomicZone GetAnchor()
+        {
+            return _leg == 0 ? Route.LeftAnchor.Parent : Route.RightAnchor.Parent;
+        }
+
+        private INavigable GetExchangePosition()
         {
             return _leg == 0 ? _leftAnchor : _rightAnchor;
+        }
+
+        private MultiQuantity<IMaterial> GetMaterials()
+        {
+            return _leg == 0 ? Route.LeftMaterials : Route.RightMaterials;
         }
 
         private static INavigable GetExchangePosition(EconomicSubzone anchor)

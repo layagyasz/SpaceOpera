@@ -47,6 +47,13 @@
     }
   },
   {
+    "$id": "formation-layer-row-load-icon",
+    "Parent": "load-icon",
+    "Default": {
+      "Size": [ 28, 28 ]
+    }
+  }
+  {
     "$id": "formation-layer-row-move-icon",
     "Parent": "move-icon",
     "Default": {
@@ -70,6 +77,13 @@
   {
     "$id": "formation-layer-row-train-icon",
     "Parent": "train-icon",
+    "Default": {
+      "Size": [ 28, 28 ]
+    }
+  },
+  {
+    "$id": "formation-layer-row-unload-icon",
+    "Parent": "unload-icon",
     "Default": {
       "Size": [ 28, 28 ]
     }

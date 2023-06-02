@@ -5,10 +5,12 @@
         Unknown,
 
         Combat,
+        Load,
         Move,
         None,
         Regroup,
         Spot,
-        Train
+        Train,
+        Unload
     }
 }

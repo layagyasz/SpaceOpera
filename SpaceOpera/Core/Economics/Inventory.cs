@@ -4,6 +4,14 @@ namespace SpaceOpera.Core.Economics
 {
     public class Inventory
     {
+        public enum ChangeStatus
+        {
+            Unknown,
+            InProgress,
+            Blocked,
+            Done
+        }
+
         public float Size => _space.MaxAmount;
         public float Used => _space.Amount;
         public float Remaining => _space.Remaining;
@@ -16,9 +24,19 @@ namespace SpaceOpera.Core.Economics
             _space = new Pool(size, /* startFull= */ false);
         }
 
+        public bool Contains(MultiQuantity<IMaterial> materials)
+        {
+            return Contents.All(x => x.Value >= materials.Get(x.Key));
+        }
+
         public bool IsFull()
         {
             return _space.IsFull();
+        }
+
+        public bool IsEmpty()
+        {
+            return _space.IsEmpty();
         }
 
         public void SetSize(float size)
@@ -78,47 +96,85 @@ namespace SpaceOpera.Core.Economics
             return maxUnits;
         }
 
-        public bool MaxTransferFrom(Inventory other, MultiQuantity<IMaterial> materials, float maxTransfer)
+        public ChangeStatus MaxTransferFrom(Inventory other, MultiQuantity<IMaterial> materials, float maxTransfer)
         {
-            float used = 0;
+            bool done = true;
+            bool worked = false;
             foreach (var material in materials)
             {
                 var remaining = material.Value - Contents.Get(material.Key);
                 if (remaining > 0)
                 {
-                    var maxSpace = Math.Min(_space.Remaining, maxTransfer - used);
-                    var maxUnits = Math.Min(other.Contents.Get(material.Key), maxSpace / material.Key.Size);
-                    other.TryRemove(material.Key, maxUnits);
-                    TryAdd(material.Key, maxUnits);
-                    used += maxSpace;
-                }
-                if (Math.Abs(used - maxTransfer) < float.Epsilon)
-                {
-                    return true;
+                    if (maxTransfer > 0)
+                    {
+                        var maxSpace = Math.Min(_space.Remaining, maxTransfer);
+                        var maxUnits =
+                            Math.Min(
+                                Math.Min(remaining, other.Contents.Get(material.Key)), maxSpace / material.Key.Size);
+                        other.TryRemove(material.Key, maxUnits);
+                        TryAdd(material.Key, maxUnits);
+                        var used = maxUnits * material.Key.Size;
+                        maxTransfer -= used;
+                        if (used > 0)
+                        {
+                            worked = true;
+                        }
+                        if (remaining - maxUnits > 0)
+                        {
+                            done = false;
+                        }
+                    }
+                    else
+                    {
+                        done = false;
+                        break;
+                    }
                 }
             }
-            return used > 0;
+            if (done)
+            {
+                return ChangeStatus.Done;
+            }
+            return worked ? ChangeStatus.InProgress : ChangeStatus.Blocked;
         }
 
-        public bool MaxTransferTo(Inventory other, float maxTransfer)
+        public ChangeStatus MaxTransferTo(Inventory other, float maxTransfer)
         {
-            float used = 0;
+            bool done = true;
+            bool worked = false;
             foreach (var material in Contents)
             {
                 if (material.Value > 0)
                 {
-                    var maxSpace = Math.Min(other.Remaining, maxTransfer - used);
-                    var maxUnits = Math.Min(material.Value, maxSpace / material.Key.Size);
-                    other.TryAdd(material.Key, maxUnits);
-                    TryRemove(material.Key, maxUnits);
-                    used += maxSpace;
-                }
-                if (Math.Abs(used - maxTransfer) < float.Epsilon)
-                {
-                    return true;
+                    if (maxTransfer > 0)
+                    {
+                        var maxSpace = Math.Min(other.Remaining, maxTransfer);
+                        var maxUnits = Math.Min(material.Value, maxSpace / material.Key.Size);
+                        other.TryAdd(material.Key, maxUnits);
+                        TryRemove(material.Key, maxUnits);
+                        var used = maxUnits * material.Key.Size;
+                        maxTransfer -= used;
+                        if (used > 0)
+                        {
+                            worked = true;
+                        }
+                        if (material.Value - maxUnits > 0)
+                        {
+                            done = false;
+                        }
+                    }
+                    else
+                    {
+                        done = false;
+                        break;
+                    }
                 }
             }
-            return used > 0;
+            if (done)
+            {
+                return ChangeStatus.Done;
+            }
+            return worked ? ChangeStatus.InProgress : ChangeStatus.Blocked;
         }
     }
 }

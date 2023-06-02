@@ -18,10 +18,12 @@ namespace SpaceOpera.View.FormationViews
         private static readonly string s_FormationLayerRowText = "formation-layer-row-text";
         private static readonly string s_FormationLayerRowNumber = "formation-layer-row-number";
         private static readonly string s_FormationLayerRowCombatIcon = "formation-layer-row-combat-icon";
+        private static readonly string s_FormationLayerRowLoadIcon = "formation-layer-row-load-icon";
         private static readonly string s_FormationLayerRowMoveIcon = "formation-layer-row-move-icon";
         private static readonly string s_FormationLayerRowRegroupIcon = "formation-layer-row-regroup-icon";
         private static readonly string s_FormationLayerRowSpotIcon = "formation-layer-row-spot-icon";
         private static readonly string s_FormationLayerRowTrainIcon = "formation-layer-row-train-icon";
+        private static readonly string s_FormationLayerRowUnloadIcon = "formation-layer-row-unload-icon";
 
         public EventHandler<ElementEventArgs>? ActionAdded { get; set; }
         public EventHandler<ElementEventArgs>? ActionRemoved { get; set; }
@@ -125,12 +127,14 @@ namespace SpaceOpera.View.FormationViews
             return actionType switch
             {
                 ActionType.Unknown => 0,
-                ActionType.Combat => 5,
+                ActionType.Combat => 7,
+                ActionType.Load => 4,
                 ActionType.Move => 3,
                 ActionType.None => 0,
                 ActionType.Regroup => 1,
-                ActionType.Spot => 4,
+                ActionType.Spot => 6,
                 ActionType.Train => 2,
+                ActionType.Unload => 5,
                 _ => 0,
             };
         }
@@ -140,10 +144,12 @@ namespace SpaceOpera.View.FormationViews
             return actionType switch
             {
                 ActionType.Combat => s_FormationLayerRowCombatIcon,
+                ActionType.Load => s_FormationLayerRowLoadIcon,
                 ActionType.Move => s_FormationLayerRowMoveIcon,
                 ActionType.Regroup => s_FormationLayerRowRegroupIcon,
                 ActionType.Spot => s_FormationLayerRowSpotIcon,
                 ActionType.Train => s_FormationLayerRowTrainIcon,
+                ActionType.Unload => s_FormationLayerRowUnloadIcon,
                 _ => null,
             };
         }

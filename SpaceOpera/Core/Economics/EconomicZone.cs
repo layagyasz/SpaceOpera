@@ -79,5 +79,15 @@ namespace SpaceOpera.Core.Economics
                 Spend(sink.Materials, Population);
             }
         }
+
+        public Inventory.ChangeStatus Load(Inventory inventory, MultiQuantity<IMaterial> materials)
+        {
+            return inventory.MaxTransferFrom(_inventory, materials, float.MaxValue);
+        }
+
+        public Inventory.ChangeStatus Unload(Inventory inventory)
+        {
+            return inventory.MaxTransferTo(_inventory, float.MaxValue);
+        }
     }
 }

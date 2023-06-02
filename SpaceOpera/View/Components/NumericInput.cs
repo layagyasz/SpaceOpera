@@ -36,11 +36,11 @@ namespace SpaceOpera.View.Components
             Add(AddButton);
         }
 
-        public static NumericInput Create<T>(T key, UiElementFactory uiElementFactory, Style style)
+        public static NumericInput Create(UiElementFactory uiElementFactory, Style style)
         {
             return new(
                 uiElementFactory.GetClass(style.Container), 
-                new NumericInputController<T>(IntInterval.Unbounded),
+                new NumericInputController(IntInterval.Unbounded),
                 new TextUiElement(uiElementFactory.GetClass(style.Text), new ButtonController(), string.Empty), 
                 uiElementFactory.CreateTextButton(style.SubtractButton, "-").Item1, 
                 uiElementFactory.CreateTextButton(style.AddButton, "+").Item1);
