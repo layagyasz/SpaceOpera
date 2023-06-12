@@ -1,5 +1,4 @@
-﻿using Cardamom.Mathematics.Coordinates;
-using OpenTK.Mathematics;
+﻿using OpenTK.Mathematics;
 
 namespace SpaceOpera.View
 {

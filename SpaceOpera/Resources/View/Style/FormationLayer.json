@@ -52,7 +52,7 @@
     "Default": {
       "Size": [ 28, 28 ]
     }
-  }
+  },
   {
     "$id": "formation-layer-row-move-icon",
     "Parent": "move-icon",

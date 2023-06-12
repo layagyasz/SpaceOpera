@@ -4,13 +4,45 @@ using Cardamom.Mathematics.Geometry;
 using Cardamom.Ui;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
-using static SpaceOpera.View.Common.SpaceSubRegionBounds;
 
 namespace SpaceOpera.View.Common
 {
     public class SpaceRegionView : GraphicsResource, IRenderable
     {
         private static readonly float s_Alpha = 0.25f;
+
+        private readonly struct EdgeKey
+        {
+            public SpaceSubRegionBounds Key { get; }
+            public int Index { get; }
+            public bool IsOuter { get; }
+
+            public EdgeKey(SpaceSubRegionBounds key, int index, bool isOuter)
+            {
+                Key = key;
+                Index = index;
+                IsOuter = isOuter;
+            }
+
+            public override bool Equals([NotNullWhen(true)] object? obj)
+            {
+                if (obj is EdgeKey other)
+                {
+                    return other.Key == Key && other.Index == Index && other.IsOuter == IsOuter;
+                }
+                return false;
+            }
+
+            public override int GetHashCode()
+            {
+                return (Key, Index, IsOuter).GetHashCode();
+            }
+
+            public override string ToString()
+            {
+                return $"[EdgeKey: Key={Key.GetHashCode()}, Index={Index}, IsOuter={IsOuter}]";
+            }
+        }
 
         private VertexBuffer<Vertex3>? _outline;
         private readonly RenderShader _outlineShader;
@@ -58,48 +90,35 @@ namespace SpaceOpera.View.Common
             bool mergeSubRegions)
         {
             color.A *= s_Alpha;
+            var visited = new HashSet<EdgeKey>();
             foreach (var kvp in subRegions)
             {
                 var bounds = kvp.Key;
-                for (int i = 0; i < bounds.NeighborEdges.Length; ++i)
+                for (int i=0; i<bounds.NeighborEdges.Length; ++i)
                 {
-                    var edge = bounds.NeighborEdges[i];
-                    if (edge.Segment != null)
+                    if (color.A > 0)
                     {
-                        if (color.A > 0)
+                        var edge = bounds.NeighborEdges[i];
+                        if (edge.Segment != null)
                         {
                             fill.Add(new(bounds.Center, color, new()));
                             fill.Add(new(edge.Segment.Value.Left, color, new()));
                             fill.Add(new(edge.Segment.Value.Right, color, new()));
                         }
-                        if (DrawEdge(kvp.Value, bounds.Neighbors![i], subRegions, mergeSubRegions))
-                        {
-                            int leftIndex =
-                                GetNextValidEdge(bounds.NeighborEdges, i + bounds.Neighbors!.Length - 1, -1);
-                            int rightIndex = GetNextValidEdge(bounds.NeighborEdges, i + 1, 1);
+                    }
 
-                            bool leftInner =
-                                edge.LeftOuterEdge > -1 
-                                || DrawEdge(kvp.Value, bounds.Neighbors[leftIndex], subRegions, mergeSubRegions);
-                            bool rightInner =
-                                edge.RightOuterEdge > -1
-                                || DrawEdge(kvp.Value, bounds.Neighbors[rightIndex], subRegions, mergeSubRegions);
-
-                            AddEdge(
-                                borderWidth,
-                                bounds.NeighborEdges[i].Segment!.Value,
-                                edge.LeftOuterEdge == -1
-                                    ? bounds.NeighborEdges[leftIndex].Segment!.Value
-                                    : bounds.OuterEdges[edge.LeftOuterEdge]!.GetSegment(
-                                        bounds.OuterEdges[edge.LeftOuterEdge]!.Count - 2),
-                                leftInner,
-                                edge.RightOuterEdge == -1
-                                    ? bounds.NeighborEdges[rightIndex].Segment!.Value
-                                    : bounds.OuterEdges[edge.RightOuterEdge]!.GetSegment(0),
-                                rightInner,
-                                borderColor,
-                                outline);
-                        }
+                    var key = new EdgeKey(bounds, i, false);
+                    if (bounds.NeighborEdges[i].Segment != null
+                        && DrawEdge(kvp.Value, bounds.Neighbors![i], subRegions, mergeSubRegions)
+                        && !visited.Contains(key))
+                    {
+                        Utils.AddVertices(
+                            outline, 
+                            borderColor,
+                            TraceFrom(key, subRegions, mergeSubRegions, visited), 
+                            bounds.Axis,
+                            borderWidth, 
+                            /* center= */ false);
                     }
                 }
                 for (int i = 0; i < bounds.OuterEdges.Length; ++i)
@@ -109,50 +128,112 @@ namespace SpaceOpera.View.Common
                         continue;
                     }
 
-                    var leftIndex = GetOuterLeftEdge(bounds.NeighborEdges, i);
-                    var rightIndex = GetOuterRightEdge(bounds.NeighborEdges, i);
-                    var leftEdge = leftIndex > -1 ? bounds.NeighborEdges[leftIndex] : null;
-                    var rightEdge = rightIndex > -1 ? bounds.NeighborEdges[rightIndex] : null;
-
                     bool loop = bounds.OuterEdges[i]!.IsLoop;
                     int count = bounds.OuterEdges[i]!.Count - (loop ? 0 : 1);
                     for (int j = 0; j < count; ++j)
                     {
                         var segment = bounds.OuterEdges[i]!.GetSegment(j);
-
                         if (color.A > 0)
                         {
                             fill.Add(new(bounds.Center, color, new()));
                             fill.Add(new(segment.Left, color, new()));
                             fill.Add(new(segment.Right, color, new()));
                         }
+                    }
 
-                        bool leftInner = 
-                            loop
-                            || j > 0
-                            || leftEdge == null 
-                            || DrawEdge(kvp.Value, bounds.Neighbors![leftIndex], subRegions, mergeSubRegions);
-                        bool rightInner =
-                            loop
-                            || j < count - 1
-                            || rightEdge == null
-                            || DrawEdge(kvp.Value, bounds.Neighbors![rightIndex], subRegions, mergeSubRegions);
-                        var leftSegment = 
-                            leftEdge?.Segment ?? bounds.OuterEdges[i]!.GetSegment(count - 1);
-                        var rightSegment = rightEdge?.Segment ?? bounds.OuterEdges[i]!.GetSegment(0);
-
-                        AddEdge(
-                            borderWidth,
-                            segment,
-                            j == 0 ? leftSegment : bounds.OuterEdges[i]!.GetSegment(j - 1),
-                            leftInner,
-                            j == count - 1 ? rightSegment : bounds.OuterEdges[i]!.GetSegment(j + 1),
-                            rightInner,
+                    var key = new EdgeKey(bounds, i, true);
+                    if (!visited.Contains(key))
+                    {
+                        Utils.AddVertices(
+                            outline,
                             borderColor,
-                            outline);
+                            loop ? bounds.OuterEdges[i]! : TraceFrom(key, subRegions, mergeSubRegions, visited),
+                            bounds.Axis,
+                            borderWidth,
+                            /* center= */ false);
                     }
                 }
             }
+        }
+
+        private static Line3 TraceFrom(
+            EdgeKey start,
+            IDictionary<SpaceSubRegionBounds, object> subRegions, 
+            bool mergeSubRegions,
+            ISet<EdgeKey> visited)
+        {
+            var current = start;
+            var builder = new Line3.Builder().IsLoop();
+            do
+            {
+                visited.Add(current);
+                if (current.IsOuter)
+                {
+                    foreach (var point in current.Key.OuterEdges[current.Index]!.Skip(1))
+                    {
+                        builder.AddPoint(point);
+                    }
+                }
+                else
+                {
+                    var edge = current.Key.NeighborEdges[current.Index];
+                    if (edge.Segment != null)
+                    {
+                        builder.AddPoint(edge.Segment.Value.Right);
+                    }
+                }
+                current = Step(current, subRegions, mergeSubRegions);
+            }
+            while (!start.Equals(current));
+            return builder.Build();
+        }
+
+        private static EdgeKey Step(
+            EdgeKey current,
+            IDictionary<SpaceSubRegionBounds, object> subRegions,
+            bool mergeSubRegions)
+        {
+            var regionKey = subRegions[current.Key];
+            int nextIndex;
+            if (current.IsOuter)
+            {
+                nextIndex = Array.FindIndex(current.Key.NeighborEdges, x => x.LeftOuterEdge == current.Index);
+                if (DrawEdge(regionKey, current.Key.Neighbors![nextIndex], subRegions, mergeSubRegions))
+                {
+                    return new(current.Key, nextIndex, /* isOuter= */ false);
+                }
+                return new(current.Key.Neighbors![nextIndex], current.Index, /* isOuter= */ true);
+            }
+            var edge = current.Key.NeighborEdges[current.Index];
+            if (edge.RightOuterEdge >= 0)
+            {
+                return new(current.Key, edge.RightOuterEdge, /* isOuter= */ true);
+            }
+            nextIndex = StepIndex(current.Index, current.Key.NeighborEdges.Length);
+            if (DrawEdge(regionKey, current.Key.Neighbors![nextIndex], subRegions, mergeSubRegions))
+            {
+                return new(current.Key, nextIndex, /* isOuter= */ false);
+            }
+            var neighbor = current.Key.Neighbors[nextIndex];
+            return new(
+                neighbor,
+                StepIndex(Array.IndexOf(neighbor.Neighbors!, current.Key), neighbor.Neighbors!.Length),
+                /* isOuter= */ false);
+        }
+
+        private static int StepIndex(int index, int mod)
+        {
+            return (index + 1) % mod;
+        }
+
+        private static bool DrawEdge(
+            object regionKey,
+            SpaceSubRegionBounds neighbor,
+            IDictionary<SpaceSubRegionBounds, object> subRegions,
+            bool mergeSubRegions)
+        {
+            var containsNeighbor = subRegions.TryGetValue(neighbor, out var r);
+            return !containsNeighbor || !(mergeSubRegions || regionKey == r);
         }
 
         public void Initialize() { }
@@ -172,81 +253,8 @@ namespace SpaceOpera.View.Common
         {
             _outline!.Dispose();
             _outline = null;
-        }
-
-        private static bool DrawEdge(
-            object regionKey, 
-            SpaceSubRegionBounds neighbor,
-            IDictionary<SpaceSubRegionBounds, object> subRegions,
-            bool mergeSubRegions)
-        {
-            var containsNeighbor = subRegions.TryGetValue(neighbor, out var r);
-            return !containsNeighbor || !(mergeSubRegions || regionKey == r);
-        }
-
-        private static int GetOuterLeftEdge(Edge[] neighbors, int edge)
-        {
-            for (int i = 0; i < neighbors.Length; ++i)
-            {
-                if (neighbors[i].RightOuterEdge == edge)
-                {
-                    return i;
-                }
-            }
-            return -1;
-        }
-
-        private static int GetOuterRightEdge(Edge[] neighbors, int edge)
-        {
-            for (int i = 0; i < neighbors.Length; ++i)
-            {
-                if (neighbors[i].LeftOuterEdge == edge)
-                {
-                    return i;
-                }
-            }
-            return -1;
-        }
-
-        private static int GetNextValidEdge(Edge[] edges, int startIndex, int increment)
-        {
-            int i = startIndex % edges.Length;
-            while (true)
-            {
-                if (edges[i].Segment != null)
-                {
-                    return i;
-                }
-                i = (i + increment + edges.Length) % edges.Length;
-            }
-            throw new InvalidOperationException();
-        }
-
-        private static void AddEdge(
-            float borderWidth,
-            Segment3 edge,
-            Segment3 left,
-            bool leftInner,
-            Segment3 right,
-            bool rightInner,
-            Color4 color,
-            ArrayList<Vertex3> vertices)
-        {
-            var leftDir = left.Left - left.Right;
-            leftDir.Normalize();
-            if (leftInner)
-            {
-                leftDir = 0.5f * (leftDir + (edge.Right - edge.Left).Normalized());
-            }
-            var rightDir = right.Right - right.Left;
-            rightDir.Normalize();
-            if (rightInner)
-            {
-                rightDir = 0.5f * (rightDir + (edge.Left - edge.Right).Normalized());
-            }
-            var segment =
-                Utils.CreateSegment(edge.Left, edge.Right, leftDir, rightDir, borderWidth, false);
-            Utils.AddVertices(vertices, segment, color);
+            _fill!.Dispose();
+            _fill = null;
         }
     }
 }
