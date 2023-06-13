@@ -4,6 +4,9 @@ namespace SpaceOpera.Core.Economics.Projects
 {
     public abstract class TimedProject : IProject
     {
+        public abstract object Key { get; }
+        public abstract string Name { get; }
+
         public IntPool Progress { get; }
 
         protected TimedProject(int time)
@@ -21,6 +24,7 @@ namespace SpaceOpera.Core.Economics.Projects
             return Progress.IsFull();
         }
 
+        public abstract void Cancel();
         public abstract void Setup();
         public abstract void Finish();
     }

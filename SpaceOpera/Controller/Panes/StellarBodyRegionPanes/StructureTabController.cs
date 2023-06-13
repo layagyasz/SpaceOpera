@@ -29,6 +29,9 @@ namespace SpaceOpera.Controller.Panes.StellarBodyRegionPanes
 
         public override void Unbind()
         {
+            _structureController!.RowSelected -= HandleStructureSelected;
+            _element!.StructureSubmit.Controller.Clicked -= HandleStructureSubmitted;
+            _element!.RecipeSubmit.Controller.Clicked -= HandleRecipeSubmitted;
             base.Unbind();
         }
 

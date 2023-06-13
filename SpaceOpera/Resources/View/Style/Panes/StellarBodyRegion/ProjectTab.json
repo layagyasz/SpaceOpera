@@ -1,0 +1,52 @@
+[
+  {
+    "$id": "stellar-body-region-pane-project-table",
+    "Parent": "ui-element",
+    "Default": {
+      "Size": [ 888, 576 ],
+      "Margin": [ 4 ],
+      "Padding": [ 4 ],
+      "CornerRadius": [ [ 12, 12 ] ],
+      "DisableScissor": false
+    }
+  },
+  {
+    "$id": "stellar-body-region-pane-project-row",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 888, 48 ],
+      "Padding": [ 0 ]
+    }
+  },
+  {
+    "$id": "stellar-body-region-pane-project-row-icon",
+    "Parent": "ui-icon",
+    "Default": {
+      "Size": [ 44, 44 ],
+      "Margin": [ 2 ]
+    }
+  },
+  {
+    "$id": "stellar-body-region-pane-project-row-text",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 796, 48 ],
+      "Padding": [ 8 ]
+    }
+  },
+  {
+    "$id": "stellar-body-region-pane-project-row-action-container",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 36, 48 ],
+      "Padding": [ 4, 10, 4, 10 ]
+    }
+  },
+  {
+    "$id": "stellar-body-region-pane-project-row-action-cancel",
+    "Parent": "pane-action-button",
+    "Default": {
+      "Texture": "icon-x"
+    }
+  }
+]

@@ -13,6 +13,7 @@ namespace SpaceOpera.Controller.Panes.StellarBodyRegionPanes
             var pane = (StellarBodyRegionPane)_pane!;
             pane.Populated += HandlePopulated;
             BindTab((ITabController)pane.StructureTab.Controller);
+            BindTab((ITabController)pane.ProjectTab.Controller);
         }
 
         public override void Unbind()
@@ -20,6 +21,7 @@ namespace SpaceOpera.Controller.Panes.StellarBodyRegionPanes
             var pane = (StellarBodyRegionPane)_pane!;
             pane.Populated -= HandlePopulated;
             UnbindTab((ITabController)pane.StructureTab.Controller);
+            UnbindTab((ITabController)pane.ProjectTab.Controller);
             base.Unbind();
         }
 

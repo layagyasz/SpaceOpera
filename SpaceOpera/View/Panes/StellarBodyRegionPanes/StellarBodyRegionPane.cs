@@ -14,7 +14,8 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
     {
         enum TabId
         {
-            Structures
+            Structures,
+            Projects
         }
 
         private static readonly string s_Container = "stellar-body-region-pane";
@@ -30,6 +31,7 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
         private TabId _tab;
 
         public StructureTab StructureTab { get; }
+        public ProjectTab ProjectTab { get; }
 
         public StellarBodyRegionPane(UiElementFactory uiElementFactory, IconFactory iconFactory)
             : base(
@@ -41,12 +43,20 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
                     new List<TabBar<TabId>.Definition>()
                     {
                         new(TabId.Structures, "Structures"),
+                        new(TabId.Projects, "Projects")
                     },
                     uiElementFactory.GetClass(s_TabContainer),
                     uiElementFactory.GetClass(s_TabOption)))
         {
             StructureTab = new(uiElementFactory, iconFactory);
+            ProjectTab = new(uiElementFactory, iconFactory);
+        }
+
+        public override void Initialize()
+        {
+            base.Initialize();
             StructureTab.Initialize();
+            ProjectTab.Initialize();
         }
 
         public StellarBodyRegionHolding GetHolding()
@@ -64,6 +74,7 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
                 _holding = _world.Economy.GetHolding(_faction, _region);
             }
             StructureTab.Populate(_world, _holding);
+            ProjectTab.Populate(_holding);
 
             SetTitle(_region?.Name ?? "Unknown Region");
             Refresh();
@@ -82,6 +93,9 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
             {
                 case TabId.Structures:
                     SetBody(StructureTab);
+                    break;
+                case TabId.Projects:
+                    SetBody(ProjectTab);
                     break;
             }
         }

@@ -14,9 +14,9 @@ namespace SpaceOpera.Core.Economics.Projects
             _projects.Remove(project);
         }
 
-        public IEnumerable<T> GetProjects<T>()
+        public IEnumerable<IProject> GetProjects()
         {
-            return _projects.Where(x => x is T).Cast<T>();
+            return _projects;
         }
     }
 }

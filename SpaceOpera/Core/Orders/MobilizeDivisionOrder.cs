@@ -23,7 +23,7 @@ namespace SpaceOpera.Core.Orders
 
         public bool Execute(World world)
         {
-            world.AddProject(new MobilizeDivisionProject(Holding, Division));
+            world.ProjectManager.Add(new MobilizeDivisionProject(Holding, Division));
             return true;
         }
     }

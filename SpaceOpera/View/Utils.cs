@@ -152,7 +152,7 @@ namespace SpaceOpera.View
 
         private static bool HasSameDirection(Vector3 left, Vector3 right)
         {
-            return left.X < 0 == right.X < 0 && left.Y < 0 == right.Y < 0 && left.Z < 0 == right.Z < 0;
+            return Vector3.Dot(left, right) > 0;
         }
     }
 }

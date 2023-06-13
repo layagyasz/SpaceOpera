@@ -4,6 +4,8 @@ namespace SpaceOpera.Core.Economics.Projects
 {
     public class BuildProject : IProject
     {
+        public object Key => Construction.Key;
+        public string Name => $"Build {Construction.Key.Name}";
         public StellarBodyRegionHolding Holding { get; }
         public Count<Structure> Construction { get; }
         public Pool Progress { get; }
@@ -15,6 +17,13 @@ namespace SpaceOpera.Core.Economics.Projects
             Construction = construction;
             Progress = new(construction.Key.BuildTime, /* startFull= */ false);
             Cost = construction.Value * construction.Key.Cost;
+        }
+
+        public void Cancel()
+        {
+            Holding.Parent.Return(Progress.PercentFull() * Cost);
+            Holding.RemoveProject(this);
+            Holding.ReleaseStructureNodes(Construction);
         }
 
         public void Setup()

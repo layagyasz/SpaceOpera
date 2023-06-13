@@ -719,7 +719,13 @@
     <None Update="Resources\View\Style\Panes\LogisticsRoute.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Style\Panes\StellarBodyRegion.json">
+    <None Update="Resources\View\Style\Panes\StellarBodyRegion\Pane.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\View\Style\Panes\StellarBodyRegion\ProjectTab.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\View\Style\Panes\StellarBodyRegion\StructureTab.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\View\Symbols\symbol-0.png">

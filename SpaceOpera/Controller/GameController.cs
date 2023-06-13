@@ -9,6 +9,7 @@ using SpaceOpera.Controller.Subcontrollers;
 using SpaceOpera.Core;
 using SpaceOpera.Core.Designs;
 using SpaceOpera.Core.Economics;
+using SpaceOpera.Core.Economics.Projects;
 using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Military.Ai.Assigments;
 using SpaceOpera.Core.Orders;
@@ -370,6 +371,11 @@ namespace SpaceOpera.Controller
             if (type.IsAssignableTo(typeof(IOrder)) && e.Action == ActionId.Confirm)
             {
                 ExecuteOrder((IOrder)e.GetOnlyObject()!);
+                return;
+            }
+            if (type.IsAssignableTo(IProject) && e.Action == ActionId.Cancel)
+            {
+                ExecuteOrder(new CancelProjectOrder((IProject)e.GetOnlyObject()!));
                 return;
             }
             if (type == typeof(ComponentType) && e.Action == ActionId.Add)

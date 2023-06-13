@@ -44,6 +44,11 @@ namespace SpaceOpera.Core.Economics
             return _subzones.Values;
         }
 
+        public void Return(MultiQuantity<IMaterial> materials)
+        {
+            _inventory.TryAdd(materials);
+        }
+
         public float Spend(MultiQuantity<IMaterial> unitCost, float maxUnits)
         {
             return _inventory.MaxSpend(unitCost, maxUnits);

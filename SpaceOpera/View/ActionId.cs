@@ -23,6 +23,7 @@
         // Element actions
         Add,
         Battle,
+        Cancel,
         Defend,
         Edit,
         Move,

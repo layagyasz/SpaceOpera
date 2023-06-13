@@ -24,6 +24,7 @@ namespace SpaceOpera.Core
         public EconomyGraph EconomyGraph { get; } = new();
         public FormationManager FormationManager { get; } = new();
         public BattleManager BattleManager { get; }
+        public ProjectManager ProjectManager { get; } = new();
         public DesignBuilder DesignBuilder { get; }
         public AutoDesigner AutoDesigner { get; }
 
@@ -117,11 +118,6 @@ namespace SpaceOpera.Core
         public void AddLicense(DesignLicense license)
         {
             _designLicenses.Add(license);
-        }
-
-        public void AddProject(IProject project)
-        {
-            _projectManager.Add(project);
         }
 
         public IEnumerable<IComponent> GetComponentsFor(Faction faction)

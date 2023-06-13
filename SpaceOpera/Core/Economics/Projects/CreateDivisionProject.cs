@@ -4,6 +4,8 @@ namespace SpaceOpera.Core.Economics.Projects
 {
     public class CreateDivisionProject : TimedProject
     {
+        public override object Key => Division;
+        public override string Name => $"Create {Division.Name}";
         public StellarBodyHolding Holding { get; }
         public Division Division { get; }
 
@@ -12,6 +14,11 @@ namespace SpaceOpera.Core.Economics.Projects
         {
             Holding = holding;
             Division = division;
+        }
+
+        public override void Cancel()
+        {
+            Holding.RemoveProject(this);
         }
 
         public override void Setup()

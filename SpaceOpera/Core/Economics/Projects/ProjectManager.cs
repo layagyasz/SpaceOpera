@@ -11,6 +11,12 @@
             _projects.Add(project);
         }
 
+        public void Cancel(IProject project)
+        {
+            _projects.Remove(project);
+            project.Cancel();
+        }
+
         public void Tick()
         {
             foreach (var project in _projects)

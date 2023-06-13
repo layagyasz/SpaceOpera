@@ -48,6 +48,16 @@ namespace SpaceOpera.Core.Economics
             _space.SetMax(size);
         }
 
+        public bool TryAdd(MultiQuantity<IMaterial> materials)
+        {
+            bool done = true;
+            foreach (var m in materials)
+            {
+                done &= TryAdd(m.Key, m.Value);
+            }
+            return done;
+        }
+
         public bool TryAdd(IMaterial material, float amount)
         {
             float addedUse = amount * material.Size;
