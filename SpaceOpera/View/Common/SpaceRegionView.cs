@@ -24,7 +24,7 @@ namespace SpaceOpera.View.Common
                 IsOuter = isOuter;
             }
 
-            public override bool Equals([NotNullWhen(true)] object? obj)
+            public override bool Equals(object? obj)
             {
                 if (obj is EdgeKey other)
                 {
@@ -116,7 +116,6 @@ namespace SpaceOpera.View.Common
                             outline, 
                             borderColor,
                             TraceFrom(key, subRegions, mergeSubRegions, visited), 
-                            bounds.Axis,
                             borderWidth, 
                             /* center= */ false);
                     }
@@ -148,7 +147,6 @@ namespace SpaceOpera.View.Common
                             outline,
                             borderColor,
                             loop ? bounds.OuterEdges[i]! : TraceFrom(key, subRegions, mergeSubRegions, visited),
-                            bounds.Axis,
                             borderWidth,
                             /* center= */ false);
                     }
@@ -171,7 +169,7 @@ namespace SpaceOpera.View.Common
                 {
                     foreach (var point in current.Key.OuterEdges[current.Index]!.Skip(1))
                     {
-                        builder.AddPoint(point);
+                        builder.AddPoint(point, current.Key.Axis);
                     }
                 }
                 else
@@ -179,7 +177,7 @@ namespace SpaceOpera.View.Common
                     var edge = current.Key.NeighborEdges[current.Index];
                     if (edge.Segment != null)
                     {
-                        builder.AddPoint(edge.Segment.Value.Right);
+                        builder.AddPoint(edge.Segment.Value.Right, edge.Normal!.Value.Right);
                     }
                 }
                 current = Step(current, subRegions, mergeSubRegions);

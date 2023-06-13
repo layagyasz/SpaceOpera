@@ -8,12 +8,14 @@ namespace SpaceOpera.View.Common
         public class Edge
         {
             public Segment3? Segment { get; }
+            public Segment3? Normal { get; }
             public int LeftOuterEdge { get; }
             public int RightOuterEdge { get; }
 
-            public Edge(Segment3? segment, int leftOuterEdge, int rightOuterEdge)
+            public Edge(Segment3? segment, Segment3? normal, int leftOuterEdge, int rightOuterEdge)
             {
                 Segment = segment;
+                Normal = normal;
                 LeftOuterEdge = leftOuterEdge;
                 RightOuterEdge = rightOuterEdge;
             }

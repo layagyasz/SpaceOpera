@@ -166,8 +166,8 @@ namespace SpaceOpera.View.StarSystemViews
                 new Line3(
                     Shape.GetCirclePoints(radiusFn, s_GuidelineResolution)
                         .Select(x => new Vector3(x.X, 0, x.Y)).ToArray(),
+                    Vector3.UnitY,
                     true),
-                Vector3.UnitY,
                 scale * s_GuidelineScale,
                 true);
         }

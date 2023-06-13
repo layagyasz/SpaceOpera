@@ -20,6 +20,7 @@ namespace SpaceOpera.View.StarSystemViews
                         Shape.GetCirclePoints(x => radius, s_EdgeResolution)
                             .Select(x => scale * (center + new Vector3(x.X, 0, x.Y)))
                             .ToArray(), 
+                        Vector3.UnitY,
                         /* isLoop= */ true)
                 });
         }

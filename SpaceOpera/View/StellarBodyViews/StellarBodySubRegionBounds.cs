@@ -12,14 +12,11 @@ namespace SpaceOpera.View.StellarBodyViews
             var edges = new SpaceSubRegionBounds.Edge[region.Neighbors!.Length];
             for (int i = 0; i < region.Neighbors.Length; ++i)
             {
-                edges[i] = 
-                    new(
-                        new(
-                            radius * ComputeCircumcenterDeterministic(
+                var left = ComputeCircumcenterDeterministic(
                                 region,
-                                (i + region.Neighbors.Length - 1) % region.Neighbors.Length)
-                            .Normalized(), 
-                            radius * ComputeCircumcenterDeterministic(region, i).Normalized()), -1, -1);
+                                (i + region.Neighbors.Length - 1) % region.Neighbors.Length).Normalized();
+                var right = ComputeCircumcenterDeterministic(region, i).Normalized();
+                edges[i] = new(new(radius * left, radius * right), new(-left, -right), -1, -1);
             }
 
             return SpaceSubRegionBounds.FromEdges(radius * region.Center, region.Center, edges, Array.Empty<Line3?>());

@@ -46,7 +46,7 @@ namespace SpaceOpera.View
         }
 
         public static void AddVertices(
-            ArrayList<Vertex3> vertices, Color4 color, Line3 line, Vector3 axis, float width, bool center)
+            ArrayList<Vertex3> vertices, Color4 color, Line3 line, float width, bool center)
         {
             for (int i=0; i<line.Count - (line.IsLoop ? 0 : 1); ++i)
             {
@@ -56,20 +56,32 @@ namespace SpaceOpera.View
                 if (line.IsLoop || i > 0)
                 {
                     var l = line.GetSegment(i - 1);
-                    left = (l.Left - l.Right).Normalized() + (segment.Right - segment.Left).Normalized();
+                    var dl = (l.Left - l.Right).Normalized();
+                    var d = (segment.Right - segment.Left).Normalized();
+                    left = dl + d;
+                    if (!HasSameDirection(Vector3.Cross(dl, d), line.GetNormal(i)))
+                    {
+                        left *= -1;
+                    }
                 }
                 else
                 {
-                    left = Vector3.Cross(segment.Right - segment.Left, axis);
+                    left = Vector3.Cross(segment.Right - segment.Left, line.GetNormal(i));
                 }
                 if (line.IsLoop || i < line.Count - 2)
                 {
                     var r = line.GetSegment(i + 1);
-                    right = (r.Right - r.Left).Normalized() + (segment.Left - segment.Right).Normalized();
+                    var dr = (r.Right - r.Left).Normalized();
+                    var d = (segment.Left - segment.Right).Normalized();
+                    right = dr + d;
+                    if (!HasSameDirection(Vector3.Cross(d, dr), line.GetNormal(i + 1)))
+                    {
+                        right *= -1;
+                    }
                 }
                 else
                 {
-                    right = Vector3.Cross(segment.Left - segment.Right, axis);
+                    right = Vector3.Cross(segment.Left - segment.Right, line.GetNormal(i + 1));
                 }
                 AddVertices(vertices, CreateSegment(segment.Left, segment.Right, left, right, width, center), color);
             }
@@ -136,6 +148,11 @@ namespace SpaceOpera.View
             float l = d.Length;
             d.Normalize();
             return CreateSegment(new(near, d), l, axis, width, center);
+        }
+
+        private static bool HasSameDirection(Vector3 left, Vector3 right)
+        {
+            return left.X < 0 == right.X < 0 && left.Y < 0 == right.Y < 0 && left.Z < 0 == right.Z < 0;
         }
     }
 }
