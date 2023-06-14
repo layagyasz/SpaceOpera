@@ -36,6 +36,9 @@ namespace SpaceOpera.View.Overlay.GameOverlays
                     UiSerialContainer.Orientation.Horizontal)
                 {
                     new SimpleUiElement(
+                        uiElementFactory.GetClass("game-overlay-diplomacy"),
+                        new ActionButtonController(ActionId.Diplomacy)),
+                    new SimpleUiElement(
                         uiElementFactory.GetClass("game-overlay-research"),
                         new ActionButtonController(ActionId.Research)),
                     new SimpleUiElement(

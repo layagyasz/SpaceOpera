@@ -1,0 +1,84 @@
+[
+  {
+    "$id": "diplomacy-pane",
+    "Parent": "pane-standard",
+    "Default": {
+      "Size": [ 900, 700 ]
+    }
+  },
+  {
+    "$id": "diplomacy-pane-title",
+    "Parent": "pane-standard-title"
+  },
+  {
+    "$id": "diplomacy-pane-close",
+    "Parent": "pane-standard-close"
+  },
+  {
+    "$id": "diplomacy-pane-body",
+    "Parent": "pane-body-no-tabs",
+    "Default": {
+      "Size": [ 892, 620 ]
+    }
+  },
+  {
+    "$id": "diplomacy-pane-relation-table",
+    "Parent": "ui-element",
+    "Default": {
+      "Size": [ 884, 612 ],
+      "Margin": [ 4 ],
+      "Padding": [ 4 ],
+      "CornerRadius": [ [ 12, 12 ] ],
+      "DisableScissor": false
+    }
+  },
+  {
+    "$id": "diplomacy-pane-relation-row",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 884, 48 ],
+      "Padding": [ 0 ]
+    }
+  },
+  {
+    "$id": "diplomacy-pane-relation-row-icon",
+    "Parent": "ui-icon",
+    "Default": {
+      "Size": [ 44, 44 ],
+      "Margin": [ 2 ]
+    }
+  },
+  {
+    "$id": "diplomacy-pane-relation-row-text",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 664, 48 ],
+      "Padding": [ 8 ]
+    }
+  },
+  {
+    "$id": "diplomacy-pane-relation-row-status",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 128, 48 ],
+      "Padding": [ 8 ],
+      "Align": "Center",
+      "VerticalAlign": "Center"
+    }
+  },
+  {
+    "$id": "diplomacy-pane-relation-row-action-container",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 36, 48 ],
+      "Padding": [ 4, 10, 4, 10 ]
+    }
+  },
+  {
+    "$id": "diplomacy-pane-relation-row-action-open",
+    "Parent": "pane-action-button",
+    "Default": {
+      "Texture": "icon-open"
+    }
+  }
+]

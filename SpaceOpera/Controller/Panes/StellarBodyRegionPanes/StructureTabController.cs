@@ -19,11 +19,11 @@ namespace SpaceOpera.Controller.Panes.StellarBodyRegionPanes
         {
             base.Bind(@object);
             _structureController = 
-                (AutoNumericInputTableController<Structure>)_element!.StructureTable.ComponentController;
+                (AutoNumericInputTableController<Structure>)_element!.Structures.ComponentController;
             _structureController.RowSelected += HandleStructureSelected;
             _element!.StructureSubmit.Controller.Clicked += HandleStructureSubmitted;
             _recipeController =
-                (AutoNumericInputTableController<Recipe>)_element!.RecipeTable.ComponentController;
+                (AutoNumericInputTableController<Recipe>)_element!.Recipes.ComponentController;
             _element!.RecipeSubmit.Controller.Clicked += HandleRecipeSubmitted;
         }
 

@@ -3,7 +3,7 @@
     "$id": "stellar-body-region-pane-project-table",
     "Parent": "ui-element",
     "Default": {
-      "Size": [ 888, 576 ],
+      "Size": [ 884, 572 ],
       "Margin": [ 4 ],
       "Padding": [ 4 ],
       "CornerRadius": [ [ 12, 12 ] ],
@@ -14,7 +14,7 @@
     "$id": "stellar-body-region-pane-project-row",
     "Parent": "ui-element-internal",
     "Default": {
-      "Size": [ 888, 48 ],
+      "Size": [ 884, 48 ],
       "Padding": [ 0 ]
     }
   },
@@ -30,7 +30,7 @@
     "$id": "stellar-body-region-pane-project-row-text",
     "Parent": "ui-element-internal",
     "Default": {
-      "Size": [ 796, 48 ],
+      "Size": [ 792, 48 ],
       "Padding": [ 8 ]
     }
   },

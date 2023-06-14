@@ -373,7 +373,7 @@ namespace SpaceOpera.Controller
                 ExecuteOrder((IOrder)e.GetOnlyObject()!);
                 return;
             }
-            if (type.IsAssignableTo(IProject) && e.Action == ActionId.Cancel)
+            if (type.IsAssignableTo(typeof(IProject)) && e.Action == ActionId.Cancel)
             {
                 ExecuteOrder(new CancelProjectOrder((IProject)e.GetOnlyObject()!));
                 return;

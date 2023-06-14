@@ -76,7 +76,7 @@ namespace SpaceOpera.View.Panes.DesignPanes
         private readonly UiElementFactory _uiElementFactory;
         private readonly IconFactory _iconFactory;
 
-        public UiCompoundComponent DesignTable { get; }
+        public UiCompoundComponent Designs { get; }
         public InfoPanel InfoPanel { get; }
 
         protected DesignPane(
@@ -94,7 +94,7 @@ namespace SpaceOpera.View.Panes.DesignPanes
             _uiElementFactory = uiElementFactory;
             _iconFactory = iconFactory;
 
-            DesignTable =
+            Designs =
                 new ActionTable<Design>(
                     _uiElementFactory.GetClass(s_DesignContainer),
                     ActionRow<Type>.Create(
@@ -124,7 +124,7 @@ namespace SpaceOpera.View.Panes.DesignPanes
                     new NoOpElementController<UiSerialContainer>(), 
                     UiSerialContainer.Orientation.Horizontal)
                 {
-                    DesignTable,
+                    Designs,
                     InfoPanel
                 };
             SetBody(body);

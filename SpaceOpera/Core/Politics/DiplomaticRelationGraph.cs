@@ -4,18 +4,28 @@ namespace SpaceOpera.Core.Politics
 {
     public class DiplomaticRelationGraph
     {
+        private readonly List<Faction> _factions = new();
         private readonly Dictionary<CompositeKey<Faction, Faction>, DiplomaticRelation> _relations = new();
 
-        public void AddFaction(Faction newFaction, IEnumerable<Faction> factions)
+        public void AddFaction(Faction newFaction)
         {
-            foreach (var target in factions)
+            foreach (var target in _factions)
             {
-                if (newFaction != target)
-                {
-                    _relations.Add(
-                        CompositeKey<Faction, Faction>.Create(newFaction, target),
-                        new DiplomaticRelation(newFaction, target));
-                }
+                _relations.Add(
+                    CompositeKey<Faction, Faction>.Create(newFaction, target),
+                    new DiplomaticRelation(newFaction, target));
+                _relations.Add(
+                    CompositeKey<Faction, Faction>.Create(target, newFaction),
+                    new DiplomaticRelation(newFaction, target));
+            }
+            _factions.Add(newFaction);
+        }
+
+        public void AddAllFactions(IEnumerable<Faction> factions)
+        {
+            foreach (var faction in factions)
+            {
+                AddFaction(faction);
             }
         }
 
@@ -24,12 +34,14 @@ namespace SpaceOpera.Core.Politics
             return Get(faction, target).Status == DiplomaticRelation.DiplomaticStatus.War;
         }
 
-        public void Initialize(IEnumerable<Faction> factions)
+        public IEnumerable<DiplomaticRelation> Get(Faction faction)
         {
-            foreach (var faction in factions)
-            {
-                AddFaction(faction, factions);
-            }
+            return _relations.Where(x => x.Key.Key1 == faction).Select(x => x.Value);
+        }
+
+        public IEnumerable<DiplomaticRelation> GetAsTarget(Faction faction)
+        {
+            return _relations.Where(x => x.Key.Key2 == faction).Select(x => x.Value);
         }
 
         public DiplomaticRelation Get(Faction faction, Faction target)

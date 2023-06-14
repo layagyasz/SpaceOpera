@@ -98,7 +98,7 @@ namespace SpaceOpera.Core
         public void AddAllFactions(IEnumerable<Faction> factions)
         {
             _factions.AddRange(factions);
-            DiplomaticRelations.Initialize(factions);
+            DiplomaticRelations.AddAllFactions(factions);
             foreach (var faction in factions)
             {
                 AdvancementManager.Add(faction);

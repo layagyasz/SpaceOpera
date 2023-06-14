@@ -166,9 +166,9 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
 
         private StellarBodyRegionHolding? _holding;
 
-        public AutoNumericInputTable<Structure> StructureTable { get; }
+        public AutoNumericInputTable<Structure> Structures { get; }
         public IUiElement StructureSubmit { get; }
-        public AutoNumericInputTable<Recipe> RecipeTable { get; }
+        public AutoNumericInputTable<Recipe> Recipes { get; }
         public IUiElement RecipeSubmit { get; }
 
         public StructureTab(UiElementFactory uiElementFactory, IconFactory iconFactory)
@@ -180,7 +180,7 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
             _iconFactory = iconFactory;
 
             _structureTableConfiguration = new();
-            StructureTable =
+            Structures =
                 new(
                     s_StructureTableStyle,
                     _structureTableConfiguration.GetKeys,
@@ -199,12 +199,12 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
                 {
                     new TextUiElement(
                         uiElementFactory.GetClass(s_StructureHeader), new ButtonController(), "Structures"),
-                    StructureTable,
+                    Structures,
                     StructureSubmit
                 });
 
             _recipeTableConfiguration = new();
-            RecipeTable =
+            Recipes =
                 new(
                     s_RecipeTableStyle,
                     _recipeTableConfiguration.GetKeys,
@@ -223,7 +223,7 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
                 {
                     new TextUiElement(
                         uiElementFactory.GetClass(s_RecipeHeader), new ButtonController(), "Production"),
-                    RecipeTable,
+                    Recipes,
                     RecipeSubmit
                 });
         }

@@ -32,7 +32,7 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
                 }
             };
 
-        public UiCompoundComponent ProjectTable { get; }
+        public UiCompoundComponent Projects { get; }
 
         private readonly UiElementFactory _uiElementFactory;
         private readonly IconFactory _iconFactory;
@@ -48,7 +48,7 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
             _uiElementFactory = uiElementFactory;
             _iconFactory = iconFactory;
 
-            ProjectTable =
+            Projects =
                 new DynamicUiCompoundComponent(
                     new ActionComponentController(),
                     new DynamicKeyedTable<IProject, ActionRow<IProject>>(
@@ -58,7 +58,7 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
                         GetRange,
                         CreateRow,
                         Comparer<IProject>.Default));
-            Add(ProjectTable);
+            Add(Projects);
         }
 
         public void Populate(ProjectHub? projectHub)

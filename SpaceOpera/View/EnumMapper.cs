@@ -1,4 +1,5 @@
 ﻿using SpaceOpera.Core.Designs;
+using SpaceOpera.Core.Politics;
 
 namespace SpaceOpera.View
 {
@@ -45,6 +46,16 @@ namespace SpaceOpera.View
                 ComponentType.BattalionTemplate => "Battalion",
                 ComponentType.DivisionTemplate => "Division",
                 _ => throw new ArgumentException($"Unsupported component type [{componentType}]"),
+            };
+        }
+
+        public static string ToString(DiplomaticRelation.DiplomaticStatus status)
+        {
+            return status switch
+            {
+                DiplomaticRelation.DiplomaticStatus.Peace => "Peace",
+                DiplomaticRelation.DiplomaticStatus.War => "War",
+                _ => throw new ArgumentException($"Unsupported status [{status}]"),
             };
         }
     }

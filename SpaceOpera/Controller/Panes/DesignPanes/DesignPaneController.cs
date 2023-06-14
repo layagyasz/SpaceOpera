@@ -11,7 +11,7 @@ namespace SpaceOpera.Controller.Panes.DesignPanes
         {
             base.Bind(@object);
             var pane = _pane as DesignPane;
-            var tableController = (ActionTableController<Design>)pane!.DesignTable.ComponentController;
+            var tableController = (ActionTableController<Design>)pane!.Designs.ComponentController;
             tableController.Interacted += HandleInteraction;
             tableController.RowSelected += HandleDesignSelected;
         }
@@ -19,7 +19,7 @@ namespace SpaceOpera.Controller.Panes.DesignPanes
         public override void Unbind()
         {
             var pane = _pane as DesignPane;
-            var tableController = (ActionTableController<Design>)pane!.DesignTable.ComponentController;
+            var tableController = (ActionTableController<Design>)pane!.Designs.ComponentController;
             tableController!.Interacted -= HandleInteraction;
             tableController.RowSelected -= HandleDesignSelected;
             base.Unbind();

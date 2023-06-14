@@ -18,14 +18,14 @@
     "$id": "battle-pane-body",
     "Parent": "pane-body",
     "Default": {
-      "Size": [ 892, 612 ]
+      "Size": [ 892, 620 ]
     }
   },
   {
     "$id": "battle-pane-side",
     "Parent": "ui-container",
     "Default": {
-      "Size": [ 446, 612 ],
+      "Size": [ 446, 620 ],
       "DisableScissor": true
     }
   },
@@ -41,7 +41,7 @@
     "$id": "battle-pane-side-faction-table",
     "Parent": "ui-container",
     "Default": {
-      "Size": [ 446, 580 ]
+      "Size": [ 446, 588 ]
     }
   },
   {

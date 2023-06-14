@@ -14,7 +14,7 @@ namespace SpaceOpera.Controller.Panes.StellarBodyRegionPanes
         public override void Bind(object @object)
         {
             base.Bind(@object);
-            _projectController = (IActionController)_element!.ProjectTable.ComponentController;
+            _projectController = (IActionController)_element!.Projects.ComponentController;
             _projectController.Interacted += HandleInteraction;
         }
 

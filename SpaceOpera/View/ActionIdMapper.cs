@@ -48,6 +48,7 @@ namespace SpaceOpera.View
         {
             return id switch
             {
+                ActionId.Diplomacy => GamePaneId.Diplomacy,
                 ActionId.Equipment => GamePaneId.Equipment,
                 ActionId.Logistics => GamePaneId.Logistics,
                 ActionId.Military => GamePaneId.Military,

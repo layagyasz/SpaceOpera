@@ -23,6 +23,24 @@
     }
   },
   {
+    "$id": "game-overlay-diplomacy",
+    "Parent": "game-overlay-button",
+    "Default": {
+      "ForegroundColor": "#00ff00cc",
+      "BorderColor": [ "#00ff00cc" ],
+      "Texture": "icon-diplomacy"
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "ForegroundColor": "#00ff00",
+          "BorderColor": [ "#00ff00" ]
+        }
+      }
+    ]
+  },
+  {
     "$id": "game-overlay-research",
     "Parent": "game-overlay-button",
     "Default": {

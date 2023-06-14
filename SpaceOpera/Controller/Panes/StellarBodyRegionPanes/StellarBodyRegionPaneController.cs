@@ -50,8 +50,8 @@ namespace SpaceOpera.Controller.Panes.StellarBodyRegionPanes
         private void HandlePopulated(object? sender, EventArgs e)
         {
             var pane = (StellarBodyRegionPane)_pane!;
-            ((AutoNumericInputTableController<Structure>)pane.StructureTab.StructureTable.ComponentController).Reset();
-            ((AutoNumericInputTableController<Recipe>)pane.StructureTab.RecipeTable.ComponentController).Reset();
+            ((AutoNumericInputTableController<Structure>)pane.StructureTab.Structures.ComponentController).Reset();
+            ((AutoNumericInputTableController<Recipe>)pane.StructureTab.Recipes.ComponentController).Reset();
         }
     }
 }
