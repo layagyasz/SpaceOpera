@@ -9,6 +9,7 @@ namespace SpaceOpera.Core.Military
         EventHandler<MovementEventArgs>? Moved { get; set; }
 
         INavigable? Position { get; }
+        IPool Health { get; }
         Pool Cohesion { get; }
         List<UnitGrouping> Composition { get; }
         Inventory Inventory { get; }

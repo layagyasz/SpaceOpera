@@ -20,7 +20,13 @@ namespace SpaceOpera.View.Panes.FormationPanes
                 Container = "formation-pane-army-division-row"
             };
         private static readonly string s_DivisionIcon = "formation-pane-army-division-row-icon";
+        private static readonly string s_DivisionInfo = "formation-pane-army-division-row-info";
         private static readonly string s_DivisionText = "formation-pane-army-division-row-text";
+        private static readonly string s_DivisionStatus = "formation-pane-army-division-row-status-container";
+        private static readonly string s_DivisionHealthText = "formation-pane-army-division-row-status-health-text";
+        private static readonly string s_DivisionHealth = "formation-pane-army-division-row-status-health";
+        private static readonly string s_DivisionCohesionText = "formation-pane-army-division-row-status-cohesion-text";
+        private static readonly string s_DivisionCohesion = "formation-pane-army-division-row-status-cohesion";
 
         public object Key => Driver;
         public ArmyDriver Driver { get; }
@@ -73,7 +79,36 @@ namespace SpaceOpera.View.Panes.FormationPanes
                 new List<IUiElement>()
                 {
                     _iconFactory.Create(_uiElementFactory.GetClass(s_DivisionIcon), new InlayController(), division),
-                    new TextUiElement(_uiElementFactory.GetClass(s_DivisionText), new InlayController(), division.Name)
+                    new DynamicUiSerialContainer(
+                        _uiElementFactory.GetClass(s_DivisionInfo),
+                        new NoOpElementController<UiSerialContainer>(),
+                        UiSerialContainer.Orientation.Vertical)
+                    {
+                        new TextUiElement(
+                            _uiElementFactory.GetClass(s_DivisionText), new InlayController(), division.Name),
+                        new DynamicUiSerialContainer(
+                            _uiElementFactory.GetClass(s_DivisionStatus),
+                            new NoOpElementController<UiSerialContainer>(),
+                            UiSerialContainer.Orientation.Vertical)
+                        {
+                            new DynamicTextUiElement(
+                                _uiElementFactory.GetClass(s_DivisionHealthText),
+                                new InlayController(),
+                                () => division.Health.ToString("N0")),
+                            new PoolBar(
+                                _uiElementFactory.GetClass(s_DivisionHealth),
+                                new InlayController(),
+                                division.Health),
+                            new DynamicTextUiElement(
+                                _uiElementFactory.GetClass(s_DivisionCohesionText),
+                                new InlayController(),
+                                () => division.Cohesion.ToString("P0")),
+                            new PoolBar(
+                                _uiElementFactory.GetClass(s_DivisionCohesion),
+                                new InlayController(),
+                                division.Cohesion)
+                        }
+                    }
                 },
                 Enumerable.Empty<ActionRow<Division>.ActionConfiguration>());
         }

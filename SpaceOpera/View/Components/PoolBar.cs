@@ -9,9 +9,9 @@ namespace SpaceOpera.View.Components
     {
         public EventHandler<EventArgs>? Refreshed { get; set; }
 
-        private readonly Pool _pool;
+        private readonly IPool _pool;
 
-        public PoolBar(Class @class, IElementController controller, Pool pool)
+        public PoolBar(Class @class, IElementController controller, IPool pool)
             : base(@class, controller)
         {
             _pool = pool;

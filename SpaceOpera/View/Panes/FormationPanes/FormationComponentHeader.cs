@@ -22,6 +22,10 @@ namespace SpaceOpera.View.Panes.FormationPanes
         private static readonly string s_Info = "formation-pane-formation-header-info";
         private static readonly string s_Name = "formation-pane-formation-header-name";
         private static readonly string s_CurrentAction = "formation-pane-formation-header-current-action";
+        private static readonly string s_HealthText = "formation-pane-formation-header-health-text";
+        private static readonly string s_Health = "formation-pane-formation-header-health";
+        private static readonly string s_CohesionText = "formation-pane-formation-header-cohesion-text";
+        private static readonly string s_Cohesion = "formation-pane-formation-header-cohesion";
         private static readonly string s_AssignmentContainer = "formation-pane-formation-header-assignment-container";
 
         private static readonly List<ActionRow<AtomicFormationDriver>.ActionConfiguration> s_ArmyAssignments =
@@ -109,15 +113,40 @@ namespace SpaceOpera.View.Panes.FormationPanes
         {
             Key = driver;
             Add(iconFactory.Create(uiElementFactory.GetClass(s_Icon), new InlayController(), driver));
-            Add(
+
+            var info =
                 new DynamicUiSerialContainer(
                     uiElementFactory.GetClass(s_Info), new InlayController(), UiSerialContainer.Orientation.Vertical)
-                { 
+                {
                     new TextUiElement(
                         uiElementFactory.GetClass(s_Name), new InlayController(), driver.Formation.Name),
                     new DynamicTextUiElement(
                         uiElementFactory.GetClass(s_CurrentAction), new InlayController(), GetCurrentAction)
-                });
+                };
+            if (driver is AtomicFormationDriver atomicFormation)
+            { 
+                info.Add(
+                    new DynamicTextUiElement(
+                        uiElementFactory.GetClass(s_HealthText),
+                        new InlayController(),
+                        () => atomicFormation.AtomicFormation.Health.ToString("N0")));
+                info.Add(
+                    new PoolBar(
+                        uiElementFactory.GetClass(s_Health),
+                        new InlayController(),
+                        atomicFormation.AtomicFormation.Health));
+                info.Add(
+                    new DynamicTextUiElement(
+                        uiElementFactory.GetClass(s_CohesionText),
+                        new InlayController(),
+                        () => atomicFormation.AtomicFormation.Cohesion.ToString("P0")));
+                info.Add(
+                    new PoolBar(
+                        uiElementFactory.GetClass(s_Cohesion),
+                        new InlayController(),
+                        atomicFormation.AtomicFormation.Cohesion));
+            }
+            Add(info);
 
             var assignments = 
                 new DynamicUiCompoundComponent(

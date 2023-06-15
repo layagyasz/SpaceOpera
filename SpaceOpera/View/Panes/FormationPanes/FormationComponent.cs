@@ -21,11 +21,18 @@ namespace SpaceOpera.View.Panes.FormationPanes
             };
         private static readonly string s_UnitGroupingIcon = "formation-pane-formation-unit-grouping-row-icon";
         private static readonly string s_UnitGroupingInfo = "formation-pane-formation-unit-grouping-row-info";
+        private static readonly string s_UnitGroupingTextContainer = 
+            "formation-pane-formation-unit-grouping-row-text-container";
         private static readonly string s_UnitGroupingText = "formation-pane-formation-unit-grouping-row-text";
+        private static readonly string s_UnitGroupingCount = "formation-pane-formation-unit-grouping-row-count";
         private static readonly string s_UnitGroupingStatus = 
             "formation-pane-formation-unit-grouping-row-status-container";
+        private static readonly string s_UnitGroupingHealthText =
+            "formation-pane-formation-unit-grouping-row-status-health-text";
         private static readonly string s_UnitGroupingHealth =
             "formation-pane-formation-unit-grouping-row-status-health";
+        private static readonly string s_UnitGroupingShieldsText =
+            "formation-pane-formation-unit-grouping-row-status-shields-text";
         private static readonly string s_UnitGroupingShields = 
             "formation-pane-formation-unit-grouping-row-status-shields";
 
@@ -86,19 +93,37 @@ namespace SpaceOpera.View.Panes.FormationPanes
                         new NoOpElementController<UiSerialContainer>(),
                         UiSerialContainer.Orientation.Vertical)
                     {
-                        new TextUiElement(
-                            _uiElementFactory.GetClass(s_UnitGroupingText),
-                            new InlayController(),
-                            unitGrouping.Unit.Name),
+                        new DynamicUiSerialContainer(
+                            _uiElementFactory.GetClass(s_UnitGroupingTextContainer),
+                            new NoOpElementController<UiSerialContainer>(), 
+                            UiSerialContainer.Orientation.Horizontal)
+                        {
+                            new TextUiElement(
+                                _uiElementFactory.GetClass(s_UnitGroupingText),
+                                new InlayController(),
+                                unitGrouping.Unit.Name),
+                            new DynamicTextUiElement(
+                                _uiElementFactory.GetClass(s_UnitGroupingCount),
+                                new InlayController(),
+                                () => unitGrouping.Count.ToString("N0")),
+                        },
                         new DynamicUiSerialContainer(
                             _uiElementFactory.GetClass(s_UnitGroupingStatus),
                             new NoOpElementController<UiSerialContainer>(), 
                             UiSerialContainer.Orientation.Vertical)
                         {
+                            new DynamicTextUiElement(
+                                _uiElementFactory.GetClass(s_UnitGroupingHealthText),
+                                new InlayController(),
+                                () => unitGrouping.Hitpoints.ToString("N0")),
                             new PoolBar(
                                 _uiElementFactory.GetClass(s_UnitGroupingHealth),
                                 new InlayController(), 
                                 unitGrouping.Hitpoints),
+                            new DynamicTextUiElement(
+                                _uiElementFactory.GetClass(s_UnitGroupingShieldsText),
+                                new InlayController(),
+                                () => unitGrouping.Shielding.ToString("N0")),
                             new PoolBar(
                                 _uiElementFactory.GetClass(s_UnitGroupingShields),
                                 new InlayController(), 

@@ -71,10 +71,19 @@
     "Parent": "ui-element-internal",
     "Default": {
       "Size": [ 720, 10 ],
-      "Margin": [32, 0, 32, 0],
+      "Margin": [ 32, 0, 32, 0 ],
       "FontSize": 10,
+      "Color": "#ffff00cc",
       "DisableScissor": true
-    }
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "Color": "#ffff00"
+        }
+      }
+    ]
   },
   {
     "$id": "stellar-body-region-pane-project-row-status-progress",

@@ -14,6 +14,7 @@ namespace SpaceOpera.Core.Military
         public string Name { get; private set; } = string.Empty;
         public Faction Faction { get; }
         public INavigable? Position { get; private set; }
+        public IPool Health { get; }
         public Pool Cohesion { get; } = new(1);
         public List<UnitGrouping> Composition { get; } = new();
         public Inventory Inventory { get; } = new(0);
@@ -22,6 +23,9 @@ namespace SpaceOpera.Core.Military
         protected BaseAtomicFormation(Faction faction)
         {
             Faction = faction;
+            Health =
+                new VirtualPool(
+                    () => Composition.Sum(x => x.Count.Amount), () => Composition.Sum(x => x.Count.MaxAmount));
         }
 
         public void Add(UnitGrouping unitGrouping)

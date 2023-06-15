@@ -30,7 +30,7 @@
     "$id": "formation-pane-formation-header",
     "Parent": "ui-element",
     "Default": {
-      "Size": [ 438, 48 ],
+      "Size": [ 438, 86 ],
       "CornerRadius": [ [ 8, 8 ] ],
       "Padding": [ 8, 0, 8, 0 ],
       "Margin": [ 2 ]
@@ -48,31 +48,103 @@
     "$id": "formation-pane-formation-header-info",
     "Parent": "ui-container",
     "Default": {
-      "Size": [ 230, 48 ]
+      "Size": [ 230, 86 ],
+      "Padding": [ 4 ]
     }
   },
   {
     "$id": "formation-pane-formation-header-name",
     "Parent": "ui-element-internal",
     "Default": {
-      "Size": [ 230, 28 ],
-      "Padding": [ 8 ]
+      "Size": [ 222, 20 ],
+      "Padding": [ 4 ]
     }
   },
   {
     "$id": "formation-pane-formation-header-current-action",
     "Parent": "ui-element-internal",
     "Default": {
-      "Size": [ 230, 20 ],
-      "Padding": [ 8, 4, 8, 4 ],
-      "FontSize": 12
+      "Size": [ 22, 18 ],
+      "Padding": [ 4 ],
+      "FontSize": 10
     }
+  },
+  {
+    "$id": "formation-pane-formation-header-health-text",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 158, 10 ],
+      "Margin": [ 32, 0, 32, 0 ],
+      "FontSize": 10,
+      "Color": "#00ff00cc",
+      "DisableScissor": true
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "Color": "#00ff00"
+        }
+      }
+    ]
+  },
+  {
+    "$id": "formation-pane-formation-header-health",
+    "Default": {
+      "Size": [
+        [ "DynamicContents", 6, 218 ],
+        6
+      ],
+      "Margin": [ 2 ],
+      "CornerRadius": [ [ 3, 3 ] ],
+      "BackgroundColor": [ "#00ff00cc" ],
+      "BackgroundShader": "shader-ui",
+      "DisableScissor": true
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "BackgroundColor": [ "#00ff00" ]
+        }
+      }
+    ]
+  },
+  {
+    "$id": "formation-pane-formation-header-cohesion-text",
+    "Parent": "formation-pane-formation-header-health-text",
+    "Default": {
+      "Color": "#ffff00cc"
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "Color": "#ffff00"
+        }
+      }
+    ]
+  },
+  {
+    "$id": "formation-pane-formation-header-cohesion",
+    "Parent": "formation-pane-formation-header-health",
+    "Default": {
+      "BackgroundColor": [ "#ffff00cc" ]
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "BackgroundColor": [ "#ffff00" ]
+        }
+      }
+    ]
   },
   {
     "$id": "formation-pane-formation-header-assignment-container",
     "Parent": "ui-container",
     "Default": {
-      "Size": [ 108, 48 ],
+      "Size": [ 108, 86 ],
       "DisableScissor": true
     }
   },
@@ -81,7 +153,7 @@
     "Parent": "pane-action-button",
     "Default": {
       "Texture": "icon-shield",
-      "Margin": [ 4, 10, 4, 10 ]
+      "Margin": [ 4, 29, 4, 29 ]
     }
   },
   {
@@ -89,7 +161,7 @@
     "Parent": "pane-action-button",
     "Default": {
       "Texture": "icon-logistics",
-      "Margin": [ 4, 10, 4, 10 ]
+      "Margin": [ 4, 29, 4, 29 ]
     }
   },
   {
@@ -97,7 +169,7 @@
     "Parent": "pane-action-button",
     "Default": {
       "Texture": "icon-move",
-      "Margin": [ 4, 10, 4, 10 ]
+      "Margin": [ 4, 29, 4, 29 ]
     }
   },
   {
@@ -105,7 +177,7 @@
     "Parent": "pane-action-button",
     "Default": {
       "Texture": "icon-none",
-      "Margin": [ 4, 10, 4, 10 ]
+      "Margin": [ 4, 29, 4, 29 ]
     }
   },
   {
@@ -113,7 +185,7 @@
     "Parent": "pane-action-button",
     "Default": {
       "Texture": "icon-patrol",
-      "Margin": [ 4, 10, 4, 10 ]
+      "Margin": [ 4, 29, 4, 29 ]
     }
   },
   {
@@ -121,15 +193,15 @@
     "Parent": "pane-action-button",
     "Default": {
       "Texture": "icon-train",
-      "Margin": [ 4, 10, 4, 10 ]
+      "Margin": [ 4, 29, 4, 29 ]
     }
   },
   {
     "$id": "formation-pane-formation-header-action-container",
     "Parent": "ui-container",
     "Default": {
-      "Size": [ 36, 48 ],
-      "Padding": [ 4, 10, 4, 10 ],
+      "Size": [ 36, 86 ],
+      "Padding": [ 4, 29, 4, 29 ],
       "DisableScissor": true
     }
   },
@@ -152,7 +224,7 @@
     "$id": "formation-pane-formation-unit-grouping-row",
     "Parent": "ui-container",
     "Default": {
-      "Size": [ 438, 58 ],
+      "Size": [ 438, 76 ],
       "DisableScissor": true
     }
   },
@@ -161,14 +233,22 @@
     "Parent": "ui-icon",
     "Default": {
       "Size": [ 44, 44 ],
-      "Margin": [ 2, 7, 2, 7 ]
+      "Margin": [ 2 ]
     }
   },
   {
     "$id": "formation-pane-formation-unit-grouping-row-info",
     "Parent": "ui-container",
     "Default": {
-      "Size": [ 374, 58 ],
+      "Size": [ 374, 76 ],
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "formation-pane-formation-unit-grouping-row-text-container",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 374, 28 ],
       "DisableScissor": true
     }
   },
@@ -176,37 +256,56 @@
     "$id": "formation-pane-formation-unit-grouping-row-text",
     "Parent": "ui-element-internal",
     "Default": {
-      "Size": [ 374, 28 ],
+      "Size": [ 246, 28 ],
       "Padding": [ 8 ]
+    }
+  },
+  {
+    "$id": "formation-pane-formation-unit-grouping-row-count",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 128, 28 ],
+      "Padding": [ 8 ],
+      "Align": "Center"
     }
   },
   {
     "$id": "formation-pane-formation-unit-grouping-row-status-container",
     "Parent": "ui-container",
     "Default": {
-      "Size": [ 374, 30 ],
+      "Size": [ 374, 48 ],
       "Padding": [ 4 ],
       "DisableScissor": true
     }
   },
   {
+    "$id": "formation-pane-formation-unit-grouping-row-status-health-text",
+    "Parent": "formation-pane-formation-header-health-text",
+    "Default": {
+      "Size": [ 310, 10 ]
+    }
+  },
+  {
     "$id": "formation-pane-formation-unit-grouping-row-status-health",
+    "Parent": "formation-pane-formation-header-health",
     "Default": {
       "Size": [
         [ "DynamicContents", 6, 362 ],
         6
-      ],
-      "Margin": [ 2 ],
-      "CornerRadius": [ [ 3, 3 ] ],
-      "BackgroundColor": [ "#00ff00cc" ],
-      "BackgroundShader": "shader-ui",
-      "DisableScissor": true
+      ]
+    }
+  },
+  {
+    "$id": "formation-pane-formation-unit-grouping-row-status-shields-text",
+    "Parent": "formation-pane-formation-unit-grouping-row-status-health-text",
+    "Default": {
+      "Color": "#00ffffcc"
     },
     "States": [
       {
         "State": [ "Hover" ],
         "Attributes": {
-          "BackgroundColor": [ "#00ff00" ]
+          "Color": "#00ffff"
         }
       }
     ]
@@ -243,11 +342,54 @@
     "Parent": "formation-pane-formation-unit-grouping-row-icon"
   },
   {
+    "$id": "formation-pane-army-division-row-info",
+    "Parent": "formation-pane-formation-unit-grouping-row-info"
+  },
+  {
     "$id": "formation-pane-army-division-row-text",
-    "Parent": "ui-element-internal",
+    "Parent": "formation-pane-formation-unit-grouping-row-text"
+  },
+  {
+    "$id": "formation-pane-army-division-row-status-container",
+    "Parent": "formation-pane-formation-unit-grouping-row-status-container",
     "Default": {
-      "Size": [ 374, 58 ],
-      "Padding": [ 8 ]
+      "Size": [ 374, 48 ],
+      "Padding": [ 4 ],
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "formation-pane-army-division-row-status-health-text",
+    "Parent": "formation-pane-formation-unit-grouping-row-status-health-text",
+    "Default": {
+      "Size": [ 310, 10 ]
+    }
+  },
+  {
+    "$id": "formation-pane-army-division-row-status-health",
+    "Parent": "formation-pane-formation-unit-grouping-row-status-health",
+    "Default": {
+      "Size": [
+        [ "DynamicContents", 6, 362 ],
+        6
+      ]
+    }
+  },
+  {
+    "$id": "formation-pane-army-division-row-status-cohesion-text",
+    "Parent": "formation-pane-formation-header-cohesion-text",
+    "Default": {
+      "Size": [ 310, 10 ]
+    }
+  },
+  {
+    "$id": "formation-pane-army-division-row-status-cohesion",
+    "Parent": "formation-pane-formation-header-cohesion",
+    "Default": {
+      "Size": [
+        [ "DynamicContents", 6, 362 ],
+        6
+      ]
     }
   }
 ]
