@@ -184,7 +184,7 @@
     "$id": "formation-pane-formation-unit-grouping-row-status-container",
     "Parent": "ui-container",
     "Default": {
-      "Size": [ 374, 28 ],
+      "Size": [ 374, 30 ],
       "Padding": [ 4 ],
       "DisableScissor": true
     }

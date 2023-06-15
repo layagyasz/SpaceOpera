@@ -1,4 +1,5 @@
 ﻿using SpaceOpera.Core.Designs;
+using SpaceOpera.Core.Economics.Projects;
 using SpaceOpera.Core.Politics;
 
 namespace SpaceOpera.View
@@ -55,6 +56,20 @@ namespace SpaceOpera.View
             {
                 DiplomaticRelation.DiplomaticStatus.Peace => "Peace",
                 DiplomaticRelation.DiplomaticStatus.War => "War",
+                DiplomaticRelation.DiplomaticStatus.None => "NA",
+                _ => throw new ArgumentException($"Unsupported status [{status}]"),
+            };
+        }
+
+        public static string ToString(ProjectStatus status)
+        {
+            return status switch
+            {
+                ProjectStatus.Blocked => "Blocked",
+                ProjectStatus.Cancelled => "Cancelled",
+                ProjectStatus.Done => "Done",
+                ProjectStatus.InProgress => "In Progress",
+                ProjectStatus.Unknown => "NA",
                 _ => throw new ArgumentException($"Unsupported status [{status}]"),
             };
         }

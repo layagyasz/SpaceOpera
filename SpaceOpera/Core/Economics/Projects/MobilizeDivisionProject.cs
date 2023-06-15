@@ -16,7 +16,7 @@ namespace SpaceOpera.Core.Economics.Projects
             Division = division;
         }
 
-        public override void Cancel()
+        protected override void CancelImpl()
         {
             Holding.RemoveProject(this);
         }

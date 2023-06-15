@@ -14,7 +14,7 @@
     "$id": "stellar-body-region-pane-project-row",
     "Parent": "ui-element-internal",
     "Default": {
-      "Size": [ 884, 48 ],
+      "Size": [ 884, 56 ],
       "Padding": [ 0 ]
     }
   },
@@ -22,15 +22,23 @@
     "$id": "stellar-body-region-pane-project-row-icon",
     "Parent": "ui-icon",
     "Default": {
-      "Size": [ 44, 44 ],
+      "Size": [ 52, 52 ],
       "Margin": [ 2 ]
+    }
+  },
+  {
+    "$id": "stellar-body-region-pane-project-row-info",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 784, 56 ],
+      "DisableScissor": true
     }
   },
   {
     "$id": "stellar-body-region-pane-project-row-text",
     "Parent": "ui-element-internal",
     "Default": {
-      "Size": [ 792, 48 ],
+      "Size": [ 784, 28 ],
       "Padding": [ 8 ]
     }
   },
@@ -38,8 +46,8 @@
     "$id": "stellar-body-region-pane-project-row-action-container",
     "Parent": "ui-element-internal",
     "Default": {
-      "Size": [ 36, 48 ],
-      "Padding": [ 4, 10, 4, 10 ]
+      "Size": [ 36, 46 ],
+      "Padding": [ 4, 14, 4, 14 ]
     }
   },
   {
@@ -48,5 +56,46 @@
     "Default": {
       "Texture": "icon-x"
     }
+  },
+  {
+    "$id": "stellar-body-region-pane-project-row-status-container",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 784, 28 ],
+      "Padding": [ 4 ],
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "stellar-body-region-pane-project-row-status-text",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 720, 10 ],
+      "Margin": [32, 0, 32, 0],
+      "FontSize": 10,
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "stellar-body-region-pane-project-row-status-progress",
+    "Default": {
+      "Size": [
+        [ "DynamicContents", 6, 772 ],
+        6
+      ],
+      "Margin": [ 2 ],
+      "CornerRadius": [ [ 3, 3 ] ],
+      "BackgroundColor": [ "#ffff00cc" ],
+      "BackgroundShader": "shader-ui",
+      "DisableScissor": true
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "BackgroundColor": [ "#ffff00" ]
+        }
+      }
+    ]
   }
 ]

@@ -2,30 +2,18 @@
 
 namespace SpaceOpera.Core.Economics.Projects
 {
-    public abstract class TimedProject : IProject
+    public abstract class TimedProject : BaseProject
     {
-        public abstract object Key { get; }
-        public abstract string Name { get; }
+        public override Pool Progress { get; }
 
-        public IntPool Progress { get; }
-
-        protected TimedProject(int time)
+        protected TimedProject(float time)
         {
             Progress = new(time, /* startFull= */ false);
         }
 
-        public void Tick()
+        protected override void TickImpl()
         {
-            Progress.Change(1);
+            Progress.Change(1f);
         }
-
-        public bool IsDone()
-        {
-            return Progress.IsFull();
-        }
-
-        public abstract void Cancel();
-        public abstract void Setup();
-        public abstract void Finish();
     }
 }

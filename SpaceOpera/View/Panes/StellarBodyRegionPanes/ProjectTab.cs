@@ -21,7 +21,11 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
                 ActionContainer = "stellar-body-region-pane-project-row-action-container"
             };
         private static readonly string s_Icon = "stellar-body-region-pane-project-row-icon";
+        private static readonly string s_Info = "stellar-body-region-pane-project-row-info";
         private static readonly string s_Text = "stellar-body-region-pane-project-row-text";
+        private static readonly string s_Status = "stellar-body-region-pane-project-row-status-container";
+        private static readonly string s_StatusText = "stellar-body-region-pane-project-row-status-text";
+        private static readonly string s_StatusProgress = "stellar-body-region-pane-project-row-status-progress";
         private static readonly List<ActionRow<IProject>.ActionConfiguration> s_ProjectActions =
             new()
             {
@@ -57,7 +61,8 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
                         Orientation.Vertical,
                         GetRange,
                         CreateRow,
-                        Comparer<IProject>.Default));
+                        Comparer<IProject>.Create(
+                            (x, y) => y.Progress.PercentFull().CompareTo(x.Progress.PercentFull()))));
             Add(Projects);
         }
 
@@ -76,8 +81,28 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
                 new List<IUiElement>()
                 {
                     _iconFactory.Create(_uiElementFactory.GetClass(s_Icon), new InlayController(), project.Key),
-                    new TextUiElement(
-                        _uiElementFactory.GetClass(s_Text), new InlayController(), project.Name)
+                    new DynamicUiSerialContainer(
+                        _uiElementFactory.GetClass(s_Info),
+                        new NoOpElementController<UiSerialContainer>(),
+                        Orientation.Vertical)
+                    {
+                        new TextUiElement(
+                            _uiElementFactory.GetClass(s_Text), new InlayController(), project.Name),
+                        new DynamicUiSerialContainer(
+                            _uiElementFactory.GetClass(s_Status),
+                            new NoOpElementController<UiSerialContainer>(),
+                            Orientation.Vertical)
+                        {
+                            new DynamicTextUiElement(
+                                _uiElementFactory.GetClass(s_StatusText), 
+                                new InlayController(),
+                                () => GetStatusString(project)),
+                            new PoolBar(
+                                _uiElementFactory.GetClass(s_StatusProgress),
+                                new InlayController(),
+                                project.Progress),
+                        }
+                    }
                 },
                 s_ProjectActions);
         }
@@ -89,6 +114,11 @@ namespace SpaceOpera.View.Panes.StellarBodyRegionPanes
                 return Enumerable.Empty<IProject>();
             }
             return _projectHub.GetProjects();
+        }
+
+        private static string GetStatusString(IProject project)
+        {
+            return $"{project.Progress.ToString("N0")} - {EnumMapper.ToString(project.Status)}";
         }
     }
 }

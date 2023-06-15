@@ -101,7 +101,7 @@ namespace SpaceOpera.Core.Economics
             }
             foreach (var cost in unitCost)
             {
-                Contents.Add(cost.Key, maxUnits * cost.Value);
+                Contents.Add(cost.Key, -maxUnits * cost.Value);
             }
             return maxUnits;
         }

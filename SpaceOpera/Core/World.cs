@@ -35,8 +35,6 @@ namespace SpaceOpera.Core
         private readonly List<Design> _designs = new();
         private readonly List<DesignLicense> _designLicenses = new();
 
-        private readonly ProjectManager _projectManager = new();
-
         public World(
             CoreData coreData,
             Random random,
@@ -83,7 +81,7 @@ namespace SpaceOpera.Core
                     new CompositeTickable() {
                         new ActionTickable(() => BattleManager.Tick(Random)),
                         new ActionTickable(() => FormationManager.Tick(this)),
-                        new ActionTickable(_projectManager.Tick),
+                        new ActionTickable(ProjectManager.Tick),
                         new CycleTickable(new CompositeTickable(ticks), 30)
                     },
                     1000)

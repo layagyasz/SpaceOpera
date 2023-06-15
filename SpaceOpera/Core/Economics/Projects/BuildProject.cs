@@ -2,13 +2,13 @@
 
 namespace SpaceOpera.Core.Economics.Projects
 {
-    public class BuildProject : IProject
+    public class BuildProject : BaseProject
     {
-        public object Key => Construction.Key;
-        public string Name => $"Build {Construction.Key.Name}";
+        public override object Key => Construction.Key;
+        public override string Name => $"Build {Construction.Value} x {Construction.Key.Name}";
+        public override Pool Progress { get; }
         public StellarBodyRegionHolding Holding { get; }
         public Count<Structure> Construction { get; }
-        public Pool Progress { get; }
         public MultiQuantity<IMaterial> Cost { get; }
 
         public BuildProject(StellarBodyRegionHolding holding, Count<Structure> construction)
@@ -19,35 +19,31 @@ namespace SpaceOpera.Core.Economics.Projects
             Cost = construction.Value * construction.Key.Cost;
         }
 
-        public void Cancel()
-        {
-            Holding.Parent.Return(Progress.PercentFull() * Cost);
-            Holding.RemoveProject(this);
-            Holding.ReleaseStructureNodes(Construction);
-        }
-
-        public void Setup()
+        public override void Setup()
         {
             Holding.AddProject(this);
             Holding.ReserveStructureNodes(Construction);
         }
 
-        public void Tick()
-        {
-            var progress = Holding.Parent.Spend(Cost, 1f / Construction.Key.BuildTime);
-            Progress.Change(progress);
-        }
-
-        public void Finish()
+        public override void Finish()
         {
             Holding.RemoveProject(this);
             Holding.ReleaseStructureNodes(Construction);
             Holding.AddStructures(Construction);
         }
 
-        public bool IsDone()
+        protected override void CancelImpl()
         {
-            return Progress.IsFull();
+            Holding.Parent.Return(Progress.PercentFull() * Cost);
+            Holding.RemoveProject(this);
+            Holding.ReleaseStructureNodes(Construction);
+        }
+
+        protected override void TickImpl()
+        {
+            var progress = Holding.Parent.Spend(Cost, 1f / Construction.Key.BuildTime);
+            Progress.Change(progress * Construction.Key.BuildTime);
+            Status = progress > float.Epsilon ? ProjectStatus.InProgress : ProjectStatus.Blocked;
         }
     }
 }

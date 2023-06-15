@@ -22,7 +22,7 @@
             foreach (var project in _projects)
             {
                 project.Tick();
-                if (project.IsDone())
+                if (project.Status == ProjectStatus.Done)
                 {
                     project.Finish();
                 }
