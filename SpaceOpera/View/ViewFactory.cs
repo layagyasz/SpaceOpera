@@ -1,20 +1,20 @@
 ﻿using Cardamom.Collections;
-using Cardamom.Logging;
 using Cardamom.Ui;
 using Cardamom.Ui.Controller;
 using Cardamom.Ui.Elements;
-using SpaceOpera.Controller;
 using SpaceOpera.Core;
+using SpaceOpera.View.BannerViews;
 using SpaceOpera.View.Components;
-using SpaceOpera.View.FactionViews;
-using SpaceOpera.View.FormationViews;
-using SpaceOpera.View.GalaxyViews;
+using SpaceOpera.View.Game;
+using SpaceOpera.View.Game.GalaxyViews;
+using SpaceOpera.View.Game.FormationViews;
+using SpaceOpera.View.Game.Overlay;
+using SpaceOpera.View.Game.Panes;
+using SpaceOpera.View.Game.Scenes;
+using SpaceOpera.View.Game.StellarBodyViews;
+using SpaceOpera.View.Game.StarViews;
 using SpaceOpera.View.Icons;
-using SpaceOpera.View.Overlay;
-using SpaceOpera.View.Panes;
-using SpaceOpera.View.Scenes;
-using SpaceOpera.View.StarViews;
-using SpaceOpera.View.StellarBodyViews;
+using SpaceOpera.Controller.Game;
 
 namespace SpaceOpera.View
 {

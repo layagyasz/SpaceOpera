@@ -5,7 +5,7 @@ using Cardamom.Window;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Desktop;
 using OpenTK.Windowing.GraphicsLibraryFramework;
-using SpaceOpera.Controller;
+using SpaceOpera.Controller.Game;
 using SpaceOpera.Core;
 using SpaceOpera.Core.Universe.Generator;
 using SpaceOpera.View;

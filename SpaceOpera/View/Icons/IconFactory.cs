@@ -11,7 +11,7 @@ using SpaceOpera.Core.Economics;
 using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Universe;
-using SpaceOpera.View.FactionViews;
+using SpaceOpera.View.BannerViews;
 
 namespace SpaceOpera.View.Icons
 {

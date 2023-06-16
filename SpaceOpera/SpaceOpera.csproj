@@ -689,52 +689,52 @@
     <None Update="Resources\View\Style\BaseIcons.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Style\FormationLayer.json">
+    <None Update="Resources\View\Style\Game\FormationLayer.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Style\Overlays\Empire.json">
+    <None Update="Resources\View\Style\Game\Overlays\Empire.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Style\Overlays\Game.json">
+    <None Update="Resources\View\Style\Game\Overlays\Game.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Style\Overlays\StarSystem.json">
+    <None Update="Resources\View\Style\Game\Overlays\StarSystem.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Style\Panes\Battle.json">
+    <None Update="Resources\View\Style\Game\Panes\Battle.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Style\Panes\Design.json">
+    <None Update="Resources\View\Style\Game\Panes\Design.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Style\Panes\Designer.json">
+    <None Update="Resources\View\Style\Game\Panes\Designer.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Style\Panes\Diplomacy.json">
+    <None Update="Resources\View\Style\Game\Panes\Diplomacy.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Style\Panes\Formation.json">
+    <None Update="Resources\View\Style\Game\Panes\Formation.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Style\Panes\Logistics.json">
+    <None Update="Resources\View\Style\Game\Panes\Logistics.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Style\Panes\Military.json">
+    <None Update="Resources\View\Style\Game\Panes\Military.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Style\Panes\OrderConfirmation.json">
+    <None Update="Resources\View\Style\Game\Panes\OrderConfirmation.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Style\Panes\LogisticsRoute.json">
+    <None Update="Resources\View\Style\Game\Panes\LogisticsRoute.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Style\Panes\StellarBodyRegion\Pane.json">
+    <None Update="Resources\View\Style\Game\Panes\StellarBodyRegion\Pane.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Style\Panes\StellarBodyRegion\ProjectTab.json">
+    <None Update="Resources\View\Style\Game\Panes\StellarBodyRegion\ProjectTab.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Style\Panes\StellarBodyRegion\StructureTab.json">
+    <None Update="Resources\View\Style\Game\Panes\StellarBodyRegion\StructureTab.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\View\Symbols\symbol-0.png">

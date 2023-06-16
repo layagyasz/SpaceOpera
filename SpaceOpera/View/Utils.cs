@@ -26,7 +26,7 @@ namespace SpaceOpera.View
             public Vector3 FarLeft { get; set; }
             public Vector3 FarRight { get; set; }
 
-            public WideSegment(Vector3 nearLeft,  Vector3 nearRight, Vector3 farLeft, Vector3 farRight)
+            public WideSegment(Vector3 nearLeft, Vector3 nearRight, Vector3 farLeft, Vector3 farRight)
             {
                 NearLeft = nearLeft;
                 NearRight = nearRight;
@@ -48,7 +48,7 @@ namespace SpaceOpera.View
         public static void AddVertices(
             ArrayList<Vertex3> vertices, Color4 color, Line3 line, float width, bool center)
         {
-            for (int i=0; i<line.Count - (line.IsLoop ? 0 : 1); ++i)
+            for (int i = 0; i < line.Count - (line.IsLoop ? 0 : 1); ++i)
             {
                 var segment = line.GetSegment(i);
                 Vector3 left;

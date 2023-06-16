@@ -2,7 +2,8 @@
 using Cardamom.Ui.Controller;
 using Cardamom.Ui.Controller.Element;
 using OpenTK.Windowing.GraphicsLibraryFramework;
-using SpaceOpera.View;
+using SpaceOpera.Controller.Game;
+using SpaceOpera.View.Game;
 
 namespace SpaceOpera.Controller.Components
 {

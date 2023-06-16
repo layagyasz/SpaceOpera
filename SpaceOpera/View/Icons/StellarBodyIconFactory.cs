@@ -6,8 +6,8 @@ using Cardamom.Ui;
 using OpenTK.Mathematics;
 using SpaceOpera.Core.Universe;
 using SpaceOpera.Core.Universe.Spectra;
-using SpaceOpera.View.Common;
-using SpaceOpera.View.StellarBodyViews;
+using SpaceOpera.View.Game.Common;
+using SpaceOpera.View.Game.StellarBodyViews;
 
 namespace SpaceOpera.View.Icons
 {

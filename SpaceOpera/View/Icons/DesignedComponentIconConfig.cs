@@ -1,7 +1,7 @@
 ﻿using Cardamom.Collections;
 using OpenTK.Mathematics;
 using SpaceOpera.Core.Designs;
-using SpaceOpera.View.FactionViews;
+using SpaceOpera.View.BannerViews;
 using System.Text.Json.Serialization;
 
 namespace SpaceOpera.View.Icons

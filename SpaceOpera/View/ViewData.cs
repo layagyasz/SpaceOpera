@@ -5,9 +5,9 @@ using Cardamom.Json.Collections;
 using Cardamom.Json.OpenTK;
 using Cardamom.Logging;
 using SpaceOpera.Core.Universe.Spectra;
-using SpaceOpera.View.FactionViews;
+using SpaceOpera.View.BannerViews;
+using SpaceOpera.View.Game.StellarBodyViews;
 using SpaceOpera.View.Icons;
-using SpaceOpera.View.StellarBodyViews;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
