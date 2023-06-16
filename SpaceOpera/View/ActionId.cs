@@ -1,4 +1,4 @@
-﻿namespace SpaceOpera.View.Game
+﻿namespace SpaceOpera.View
 {
     public enum ActionId
     {

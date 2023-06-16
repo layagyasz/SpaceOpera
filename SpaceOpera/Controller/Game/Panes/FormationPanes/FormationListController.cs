@@ -1,6 +1,6 @@
 ﻿using Cardamom.Ui;
 using Cardamom.Ui.Controller;
-using SpaceOpera.View.Game;
+using SpaceOpera.View;
 using SpaceOpera.View.Game.Panes.FormationPanes;
 
 namespace SpaceOpera.Controller.Game.Panes.FormationPanes

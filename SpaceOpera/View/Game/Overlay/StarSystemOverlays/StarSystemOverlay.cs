@@ -6,7 +6,6 @@ using OpenTK.Mathematics;
 using SpaceOpera.Controller.Components;
 using SpaceOpera.Core.Universe;
 using SpaceOpera.View.Components;
-using SpaceOpera.View.Game;
 using SpaceOpera.View.Icons;
 
 namespace SpaceOpera.View.Game.Overlay.StarSystemOverlays

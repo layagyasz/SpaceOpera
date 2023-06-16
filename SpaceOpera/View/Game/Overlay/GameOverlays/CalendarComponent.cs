@@ -3,7 +3,6 @@ using Cardamom.Ui.Controller;
 using Cardamom.Ui;
 using Cardamom.Ui.Elements;
 using SpaceOpera.Core;
-using SpaceOpera.View.Game;
 
 namespace SpaceOpera.View.Game.Overlay.GameOverlays
 {

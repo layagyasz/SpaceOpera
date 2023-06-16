@@ -1,7 +1,7 @@
 ﻿using OpenTK.Windowing.GraphicsLibraryFramework;
-using SpaceOpera.View.Game;
+using SpaceOpera.View;
 
-namespace SpaceOpera.Controller.Game
+namespace SpaceOpera.Controller
 {
     public class UiInteractionEventArgs
     {

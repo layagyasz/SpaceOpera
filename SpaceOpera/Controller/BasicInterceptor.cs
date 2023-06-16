@@ -1,6 +1,6 @@
 ﻿using OpenTK.Windowing.GraphicsLibraryFramework;
 
-namespace SpaceOpera.Controller.Game
+namespace SpaceOpera.Controller
 {
     public class BasicInterceptor<TIn, TOut> : IValueInterceptor<TOut>
     {

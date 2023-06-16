@@ -5,7 +5,6 @@ using SpaceOpera.Controller.Components;
 using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Military.Ai.Actions;
 using SpaceOpera.View.Components;
-using SpaceOpera.View.Game;
 using SpaceOpera.View.Icons;
 
 namespace SpaceOpera.View.Game.Panes.FormationPanes

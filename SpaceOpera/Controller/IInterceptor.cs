@@ -1,4 +1,4 @@
-﻿namespace SpaceOpera.Controller.Game
+﻿namespace SpaceOpera.Controller
 {
     public interface IInterceptor
     {

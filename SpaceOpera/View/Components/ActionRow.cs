@@ -2,7 +2,6 @@
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
 using SpaceOpera.Controller.Components;
-using SpaceOpera.View.Game;
 
 namespace SpaceOpera.View.Components
 {

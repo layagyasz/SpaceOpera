@@ -1,5 +1,5 @@
 ﻿using Cardamom.Ui;
-using SpaceOpera.View.Game;
+using SpaceOpera.View;
 using SpaceOpera.View.Game.Panes.OrderConfirmationPanes;
 
 namespace SpaceOpera.Controller.Game.Panes.OrderConfirmationPanes

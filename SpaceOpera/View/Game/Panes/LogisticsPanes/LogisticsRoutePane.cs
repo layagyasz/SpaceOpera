@@ -1,7 +1,7 @@
 ﻿using Cardamom.Ui;
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
-using SpaceOpera.Controller.Game;
+using SpaceOpera.Controller;
 using SpaceOpera.Controller.Game.Panes.LogisticsPanes;
 using SpaceOpera.Core;
 using SpaceOpera.Core.Economics;

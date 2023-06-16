@@ -4,7 +4,7 @@ using Cardamom.Mathematics;
 using Cardamom.Mathematics.Geometry;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
-using SpaceOpera.Controller.Game;
+using SpaceOpera.Controller;
 using SpaceOpera.Controller.Game.Scenes;
 using SpaceOpera.Core;
 using SpaceOpera.Core.Universe;

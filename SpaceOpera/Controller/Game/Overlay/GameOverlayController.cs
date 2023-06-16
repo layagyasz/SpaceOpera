@@ -1,7 +1,7 @@
 ﻿using Cardamom.Ui;
 using Cardamom.Ui.Controller;
 using Cardamom.Ui.Elements;
-using SpaceOpera.View.Game;
+using SpaceOpera.View;
 using SpaceOpera.View.Game.Overlay.GameOverlays;
 
 namespace SpaceOpera.Controller.Game.Overlay

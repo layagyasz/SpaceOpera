@@ -22,7 +22,7 @@ using SpaceOpera.View.Game.Common;
 using SpaceOpera.View.Game.Highlights;
 using SpaceOpera.View.Game.FormationViews;
 using SpaceOpera.Controller.Game.Scenes;
-using SpaceOpera.Controller.Game;
+using SpaceOpera.Controller;
 
 namespace SpaceOpera.View.Game.Scenes
 {

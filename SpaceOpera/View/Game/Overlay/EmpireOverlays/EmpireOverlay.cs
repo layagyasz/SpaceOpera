@@ -9,7 +9,6 @@ using SpaceOpera.Core.Economics;
 using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.View.Components;
-using SpaceOpera.View.Game;
 using SpaceOpera.View.Icons;
 
 namespace SpaceOpera.View.Game.Overlay.EmpireOverlays
