@@ -11,7 +11,6 @@ namespace SpaceOpera.View.BannerViews
         public string SymbolPrefix { get; set; } = string.Empty;
         public string PatternPrefix { get; set; } = string.Empty;
         public string BaseTexture { get; set; } = string.Empty;
-        public Color4[] Colors { get; set; } = Array.Empty<Color4>();
 
         public IEnumerable<IconLayer> Create(Banner banner)
         {
@@ -36,9 +35,9 @@ namespace SpaceOpera.View.BannerViews
         {
             return color switch
             {
-                BannerColor.Primary => Colors[banner.PrimaryColor],
-                BannerColor.Secondary => Colors[banner.SecondaryColor],
-                BannerColor.Symbol => Colors[banner.SymbolColor],
+                BannerColor.Primary => banner.PrimaryColor,
+                BannerColor.Secondary => banner.SecondaryColor,
+                BannerColor.Symbol => banner.SymbolColor,
                 _ => throw new ArgumentException($"Unsupported color {color}"),
             };
         }

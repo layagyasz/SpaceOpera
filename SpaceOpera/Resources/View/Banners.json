@@ -1,16 +1,5 @@
 {
   "SymbolPrefix": "symbol-",
   "PatternPrefix": "pattern-",
-  "BaseTexture": "icon-blank",
-  "Colors": [
-    "#ff0000",
-    "#ff8c00",
-    "#ffd700",
-    "#006400",
-    "#00008b",
-    "#800080",
-    "#000000",
-    "#ffffff",
-    "#8b4513"
-  ]
+  "BaseTexture": "icon-blank"
 }

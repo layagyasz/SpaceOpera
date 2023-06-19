@@ -2,6 +2,7 @@
 using Cardamom.Ui.Controller;
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
+using OpenTK.Mathematics;
 using SpaceOpera.Controller.GameSetup;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Politics.Generator;
@@ -95,8 +96,8 @@ namespace SpaceOpera.View.GameSetup
                         .Select(x => SelectOption<int>.Create(x, $"Pattern {x + 1}")),
                     /* wrap= */ true);
             var colorOptions = 
-                Enumerable.Range(0, bannerGenerator.Colors)
-                    .Select(x => SelectOption<int>.Create(x, $"Color {x + 1}"))
+                Enumerable.Range(0, bannerGenerator.Colors.Length)
+                    .Select(x => SelectOption<Color4>.Create(bannerGenerator.Colors[x], $"Color {x + 1}"))
                     .ToList();
             var primaryColor = 
                 DialSelect.Create(uiElementFactory, style.PrimaryColor!, colorOptions, /* wrap= */ true);

@@ -1,10 +1,12 @@
-﻿namespace SpaceOpera.Core.Politics.Generator
+﻿using OpenTK.Mathematics;
+
+namespace SpaceOpera.Core.Politics.Generator
 {
     public class BannerGenerator
     {
         public int Symbols { get; set; }
         public int Patterns { get; set; }
-        public int Colors { get; set; }
+        public Color4[] Colors { get; set; } = Array.Empty<Color4>();
 
         public Banner Generate(GeneratorContext context)
         {
@@ -22,8 +24,8 @@
 
         private Banner GenerateWithSymbol(int symbol, Random random)
         {
-            int[] colors = GenerateUnique(3, Colors, random);
-            return new(symbol, random.Next(Patterns), colors[0], colors[1], colors[2]);
+            int[] colors = GenerateUnique(3, Colors.Length, random);
+            return new(symbol, random.Next(Patterns), Colors[colors[0]], Colors[colors[1]], Colors[colors[2]]);
         }
 
         private static int[] GenerateUnique(int count, int max, Random random)

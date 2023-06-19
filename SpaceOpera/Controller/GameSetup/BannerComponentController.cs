@@ -1,4 +1,5 @@
 ﻿using Cardamom.Ui.Controller;
+using OpenTK.Mathematics;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.View.GameSetup;
 
@@ -11,9 +12,9 @@ namespace SpaceOpera.Controller.GameSetup
         private BannerComponent? _component;
         private IFormElementController<int>? _symbol;
         private IFormElementController<int>? _pattern;
-        private IFormElementController<int>? _primaryColor;
-        private IFormElementController<int>? _secondaryColor;
-        private IFormElementController<int>? _symbolColor;
+        private IFormElementController<Color4>? _primaryColor;
+        private IFormElementController<Color4>? _secondaryColor;
+        private IFormElementController<Color4>? _symbolColor;
 
         public void Bind(object @object)
         {
@@ -22,11 +23,11 @@ namespace SpaceOpera.Controller.GameSetup
             _symbol.ValueChanged += HandleValueChanged;
             _pattern = (IFormElementController<int>)_component.Pattern.ComponentController;
             _pattern.ValueChanged += HandleValueChanged;
-            _primaryColor = (IFormElementController<int>)_component.PrimaryColor.ComponentController;
+            _primaryColor = (IFormElementController<Color4>)_component.PrimaryColor.ComponentController;
             _primaryColor.ValueChanged += HandleValueChanged;
-            _secondaryColor = (IFormElementController<int>)_component.SecondaryColor.ComponentController;
+            _secondaryColor = (IFormElementController<Color4>)_component.SecondaryColor.ComponentController;
             _secondaryColor.ValueChanged += HandleValueChanged;
-            _symbolColor = (IFormElementController<int>)_component.SymbolColor.ComponentController;
+            _symbolColor = (IFormElementController<Color4>)_component.SymbolColor.ComponentController;
             _symbolColor.ValueChanged += HandleValueChanged;
 
             _component.SetBanner(GetValue()!);

@@ -9,7 +9,17 @@
   "Banner": {
     "Symbols": 239,
     "Patterns": 20,
-    "Colors": 9
+    "Colors": [
+      "#ff0000",
+      "#ff8c00",
+      "#ffd700",
+      "#006400",
+      "#00008b",
+      "#800080",
+      "#000000",
+      "#ffffff",
+      "#8b4513"
+    ]
   },
   "Faction": {
     "BaseAttributes": {
