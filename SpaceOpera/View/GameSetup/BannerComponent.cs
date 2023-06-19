@@ -72,7 +72,7 @@ namespace SpaceOpera.View.GameSetup
                 Remove(_icon);
                 _icon.Dispose();
             }
-            _icon = _iconFactory.Create(_iconClass, new InlayController(), banner);
+            _icon = _iconFactory.Create(_iconClass, new InlayController(), banner, IconResolution.High);
             _icon.Initialize();
             Insert(0, _icon);
         }

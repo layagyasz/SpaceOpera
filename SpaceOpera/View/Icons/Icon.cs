@@ -1,4 +1,5 @@
-﻿using Cardamom.Graphics;
+﻿using Cardamom;
+using Cardamom.Graphics;
 using Cardamom.Mathematics.Geometry;
 using Cardamom.Ui;
 using Cardamom.Ui.Controller.Element;
@@ -9,7 +10,7 @@ namespace SpaceOpera.View.Icons
 {
     public class Icon : ClassedUiElement
     {
-        public object Key { get; }
+        public CompositeKey<object, IconResolution> Key { get; }
 
         private readonly Vertex3[] _vertices;
         private Texture? _texture;
@@ -17,7 +18,7 @@ namespace SpaceOpera.View.Icons
         private readonly IIconDisposer? _disposer;
 
         public Icon(
-            object key, 
+            CompositeKey<object, IconResolution> key, 
             Class @class, 
             IElementController controller,
             Color4 color,

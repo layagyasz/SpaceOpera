@@ -17,6 +17,13 @@ namespace SpaceOpera.View.Icons
 {
     public class IconFactory : IIconDisposer
     {
+        private static EnumMap<IconResolution, Vector2i> s_Resolution =
+            new()
+            {
+                { IconResolution.Low, new(64, 64) },
+                { IconResolution.High, new(512, 512) }
+            };
+
         private class IconCamera : ICamera
         {
             private readonly Projection _projection = new(-1, Matrix4.CreateOrthographicOffCenter(0, 1, 0, 1, -1, 1));
@@ -94,7 +101,8 @@ namespace SpaceOpera.View.Icons
         private readonly RenderShader _shader;
 
         private readonly IconCache _cache = new();
-        private readonly RenderTexture _rasterTexture = new(new(64, 64));
+        private readonly EnumMap<IconResolution, RenderTexture> _rasterTextures = 
+            s_Resolution.ToEnumMap(x => x.Key, x => new RenderTexture(x.Value));
 
         public IconFactory(
             BannerViewFactory bannerViewFactory,
@@ -125,42 +133,50 @@ namespace SpaceOpera.View.Icons
             _shader = _uiElementFactory.GetShader("shader-default");
         }
 
-        public Icon Create(Class @class, IElementController controller, object @object)
+        public Icon Create(
+            Class @class,
+            IElementController controller,
+            object @object, 
+            IconResolution resolution = IconResolution.Low)
         {
-            @object = GetKey(@object);
-            if (_cache.TryGetTexture(@object, out var texture))
+            var key = CompositeKey<object, IconResolution>.Create(GetKey(@object), resolution);
+            if (_cache.TryGetTexture(key, out var texture))
             {
                 return new(
-                    @object,
+                    key,
                     @class,
                     controller,
                     Color4.White,
                     texture!,
-                    new(new(), new(64, 64)),
+                    new(new(), s_Resolution[resolution]),
                     _shader,
                     this);
             }
             if (@object is StellarBody stellarBody)
             {
-                _rasterTexture.Clear();
-                _stellarBodyIconFactory.Rasterize(stellarBody, _rasterTexture);
-                _rasterTexture.Display();
-                var tex = _rasterTexture.CopyTexture();
-                _cache.Put(@object, tex);
-                return new(@object, @class, controller, Color4.White, tex, new(new(), new(64, 64)), _shader, this);
+                var rasterTexture = _rasterTextures[resolution];
+                rasterTexture.Clear();
+                _stellarBodyIconFactory.Rasterize(stellarBody, rasterTexture);
+                rasterTexture.Display();
+                var tex = rasterTexture.CopyTexture();
+                _cache.Put(key, tex);
+                return new(
+                    key, @class, controller, Color4.White, tex, new(new(), s_Resolution[resolution]), _shader, this);
             }
             var definition = GetDefinition(@object).ToList();
             if (definition.Count == 1)
             {
                 var d = definition.First();
                 var tex = _uiElementFactory.GetTexture(d.Texture);
-                return new(@object, @class, controller, d.Color, tex.Texture!, tex.TextureView, _shader, null);
+                return new(key, @class, controller, d.Color, tex.Texture!, tex.TextureView, _shader, null);
             }
             else 
             {
-                var tex = Rasterize(new IconConfig(definition, _uiElementFactory, _shader), new IconCamera());
-                _cache.Put(@object, tex);
-                return new(@object, @class, controller, Color4.White, tex, new(new(), new(64, 64)), _shader, this);
+                var tex = 
+                    Rasterize(new IconConfig(definition, _uiElementFactory, _shader), new IconCamera(), resolution);
+                _cache.Put(key, tex);
+                return new(
+                    key, @class, controller, Color4.White, tex, new(new(), s_Resolution[resolution]), _shader, this);
             }
         }
 
@@ -243,18 +259,19 @@ namespace SpaceOpera.View.Icons
             return GetDefinition(recipe.Transformation.First(x => x.Value > 0).Key);
         }
 
-        private Texture Rasterize(IRenderable renderable, ICamera camera)
+        private Texture Rasterize(IRenderable renderable, ICamera camera, IconResolution resolution)
         {
-            _rasterTexture.Clear();
-            _rasterTexture.PushModelMatrix(Matrix4.Identity);
-            _rasterTexture.PushViewMatrix(camera.GetViewMatrix());
-            _rasterTexture.PushProjection(camera.GetProjection());
-            renderable.Draw(_rasterTexture, new SimpleUiContext());
-            _rasterTexture.PopProjectionMatrix();
-            _rasterTexture.PopViewMatrix();
-            _rasterTexture.PopModelMatrix();
-            _rasterTexture.Display();
-            return _rasterTexture.CopyTexture();
+            var rasterTexture = _rasterTextures[resolution];
+            rasterTexture.Clear();
+            rasterTexture.PushModelMatrix(Matrix4.Identity);
+            rasterTexture.PushViewMatrix(camera.GetViewMatrix());
+            rasterTexture.PushProjection(camera.GetProjection());
+            renderable.Draw(rasterTexture, new SimpleUiContext());
+            rasterTexture.PopProjectionMatrix();
+            rasterTexture.PopViewMatrix();
+            rasterTexture.PopModelMatrix();
+            rasterTexture.Display();
+            return rasterTexture.CopyTexture();
         }
     }
 }
