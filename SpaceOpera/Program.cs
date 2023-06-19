@@ -1,4 +1,3 @@
-using Cardamom.Graphing;
 using Cardamom.Logging;
 using Cardamom.Ui;
 using Cardamom.Window;
@@ -21,12 +20,13 @@ namespace SpaceOpera
             TestStellarBody,
             TestSolarSystem,
             TestGalaxy,
+            TestSetup,
             Full
         }
 
         static void Main()
         {
-            RunMode mode = RunMode.Full;
+            RunMode mode = RunMode.TestSetup;
             if (mode == RunMode.CompileSymbols)
             {
                 int i = 0;
@@ -63,6 +63,13 @@ namespace SpaceOpera
                 {
                     logger.AtInfo().Log(language.GenerateWord(generatorContext.Random));
                 }
+                return;
+            }
+            if (mode == RunMode.TestSetup)
+            {
+                var setupScreen = viewFactory.CreateGameSetupScreen(coreData.PoliticsGenerator!.Banner!);
+                ui.SetRoot(setupScreen);
+                ui.Start();
                 return;
             }
 

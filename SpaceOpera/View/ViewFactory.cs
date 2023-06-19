@@ -15,6 +15,9 @@ using SpaceOpera.View.Game.StellarBodyViews;
 using SpaceOpera.View.Game.StarViews;
 using SpaceOpera.View.Icons;
 using SpaceOpera.Controller.Game;
+using SpaceOpera.View.GameSetup;
+using Cardamom.Graphics;
+using SpaceOpera.Core.Politics.Generator;
 
 namespace SpaceOpera.View
 {
@@ -98,6 +101,13 @@ namespace SpaceOpera.View
                 new DynamicUiGroup(new NoOpController<UiGroup>()),
                 PaneSet.Create(UiElementFactory, IconFactory),
                 new DynamicUiGroup(new PaneLayerController()));
+        }
+
+        public GameSetupScreen CreateGameSetupScreen(BannerGenerator bannerGenerator)
+        {
+            var screen = new GameSetupScreen(new NoOpController<IRenderable>());
+            screen.SetForm(new GameSetupForm(UiElementFactory, IconFactory, bannerGenerator));
+            return screen;
         }
     }
 }

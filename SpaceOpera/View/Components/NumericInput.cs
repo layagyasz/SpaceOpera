@@ -9,12 +9,12 @@ namespace SpaceOpera.View.Components
 {
     public class NumericInput : UiCompoundComponent
     {
-        public struct Style
+        public class Style
         {
-            public string Container { get; set; }
-            public string Text { get; set; }
-            public string SubtractButton { get; set; }
-            public string AddButton { get; set; }
+            public string? Container { get; set; }
+            public string? Text { get; set; }
+            public string? SubtractButton { get; set; }
+            public string? AddButton { get; set; }
         }
 
         public TextUiElement Text { get; }
@@ -39,11 +39,11 @@ namespace SpaceOpera.View.Components
         public static NumericInput Create(UiElementFactory uiElementFactory, Style style)
         {
             return new(
-                uiElementFactory.GetClass(style.Container), 
+                uiElementFactory.GetClass(style.Container!), 
                 new NumericInputController(IntInterval.Unbounded),
-                new TextUiElement(uiElementFactory.GetClass(style.Text), new ButtonController(), string.Empty), 
-                uiElementFactory.CreateTextButton(style.SubtractButton, "-").Item1, 
-                uiElementFactory.CreateTextButton(style.AddButton, "+").Item1);
+                new TextUiElement(uiElementFactory.GetClass(style.Text!), new ButtonController(), string.Empty), 
+                uiElementFactory.CreateTextButton(style.SubtractButton!, "-").Item1, 
+                uiElementFactory.CreateTextButton(style.AddButton!, "+").Item1);
         }
     }
 }

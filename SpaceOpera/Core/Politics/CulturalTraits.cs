@@ -2,11 +2,11 @@
 {
     public struct CulturalTraits
     {
-        public float AuthoritarianEgalitarian { get; set; }
-        public float IndividualistCollectivist { get; set; }
-        public float AggressivePassive { get; set; }
-        public float ConventionalDynamic { get; set; }
-        public float MonumentalHumble { get; set; }
-        public float IndulgentAustere { get; set; }
+        public int AuthoritarianEgalitarian { get; set; }
+        public int IndividualistCollectivist { get; set; }
+        public int AggressivePassive { get; set; }
+        public int ConventionalDynamic { get; set; }
+        public int MonumentalHumble { get; set; }
+        public int IndulgentAustere { get; set; }
     }
 }

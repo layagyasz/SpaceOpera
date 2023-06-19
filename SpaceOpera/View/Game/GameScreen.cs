@@ -27,7 +27,11 @@ namespace SpaceOpera.View.Game
         private Vector3 _bounds;
 
         public GameScreen(
-            IController controller, OverlaySet overlaySet, DynamicUiGroup overlayLayer, PaneSet paneSet, DynamicUiGroup paneLayer)
+            IController controller,
+            OverlaySet overlaySet, 
+            DynamicUiGroup overlayLayer,
+            PaneSet paneSet, 
+            DynamicUiGroup paneLayer)
         {
             Controller = controller;
             OverlaySet = overlaySet;

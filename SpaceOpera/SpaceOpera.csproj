@@ -689,6 +689,9 @@
     <None Update="Resources\View\Style\BaseIcons.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\View\Style\GameSetup\GameSetup.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\View\Style\Game\FormationLayer.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -1484,6 +1487,7 @@
     <Folder Include="Resources\View\Designs\Ship\" />
     <Folder Include="Resources\View\Designs\ShipWeapon\" />
     <Folder Include="Resources\View\Designs\ShipShield\" />
+    <Folder Include="Resources\View\Style\GameSetup\" />
   </ItemGroup>
 
   <ItemGroup>

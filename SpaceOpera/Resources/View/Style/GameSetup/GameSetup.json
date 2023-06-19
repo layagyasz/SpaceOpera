@@ -1,0 +1,62 @@
+[
+  {
+    "$id": "game-setup-form",
+    "Parent": "pane-standard",
+    "Default": {
+      "Size": [ 900, 700 ]
+    }
+  },
+  {
+    "$id": "game-setup-form-title",
+    "Parent": "pane-standard-title",
+    "Default": {
+      "Size": [ 884, 64 ]
+    }
+  },
+  {
+    "$id": "game-setup-form-dial",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 256, 32 ],
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "game-setup-form-dial-text",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 192, 32 ],
+      "Padding": [ 8 ],
+      "Align": "Center"
+    }
+  },
+  {
+    "$id": "game-setup-form-dial-left-button",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 32, 32 ],
+      "Align": "Center",
+      "VerticalAlign": "Center"
+    }
+  },
+  {
+    "$id": "game-setup-form-dial-right-button",
+    "Parent": "game-setup-form-dial-left-button"
+  },
+  {
+    "$id": "game-setup-form-banner",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 446, 584 ],
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "game-setup-form-banner-icon",
+    "Parent": "ui-icon",
+    "Default": {
+      "Size": [ 256, 256 ],
+      "Margin": [ 95, 4, 95, 4 ]
+    }
+  }
+]
