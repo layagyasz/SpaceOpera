@@ -6,7 +6,7 @@ namespace SpaceOpera.Controller.GameSetup
 {
     public class BannerComponentController : IController, IFormElementController<Banner>
     {
-        public EventHandler<Banner?>? ValueChanged { get; set; }
+        public EventHandler<EventArgs>? ValueChanged { get; set; }
 
         private BannerComponent? _component;
         private IFormElementController<int>? _symbol;
@@ -66,11 +66,11 @@ namespace SpaceOpera.Controller.GameSetup
             _symbolColor!.SetValue(value!.SymbolColor);
         }
 
-        private void HandleValueChanged(object? sender, int e)
+        private void HandleValueChanged(object? sender, EventArgs e)
         {
             var value = GetValue();
             _component!.SetBanner(value!);
-            ValueChanged?.Invoke(this, value);
+            ValueChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }

@@ -7,7 +7,7 @@ namespace SpaceOpera.Controller.Components
     public class InterceptorMultiSelectController<T> 
         : IController, IFormElementController<IEnumerable<T>> where T : notnull
     {
-        public EventHandler<IEnumerable<T>?>? ValueChanged { get; set; }
+        public EventHandler<EventArgs>? ValueChanged { get; set; }
 
         private InterceptorMultiSelect<T>? _element;
 
@@ -40,6 +40,7 @@ namespace SpaceOpera.Controller.Components
         private void HandleAdd(object? sender, T e)
         {
             _element!.Add(e);
+            ValueChanged?.Invoke(this, EventArgs.Empty);
         }
 
         private void HandleInteraction(object? sender, UiInteractionEventArgs e)
@@ -47,6 +48,7 @@ namespace SpaceOpera.Controller.Components
             if (e.Action == ActionId.Unselect)
             {
                 _element!.Remove((T)e.GetOnlyObject()!);
+                ValueChanged?.Invoke(this, EventArgs.Empty);
             }
         }
     }

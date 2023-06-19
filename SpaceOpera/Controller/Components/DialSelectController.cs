@@ -7,7 +7,7 @@ namespace SpaceOpera.Controller.Components
 {
     public class DialSelectController<T> : IController, IFormElementController<T>
     {
-        public EventHandler<T?>? ValueChanged { get; set; }
+        public EventHandler<EventArgs>? ValueChanged { get; set; }
 
         private readonly List<SelectOption<T>> _range;
         private readonly bool _wrap;
@@ -80,7 +80,7 @@ namespace SpaceOpera.Controller.Components
             Precondition.Check(index >= 0 && index < _range.Count);
             _valueIndex = index;
             UpdateText();
-            ValueChanged?.Invoke(this, GetValue());
+            ValueChanged?.Invoke(this, EventArgs.Empty);
         }
 
         private void UpdateText()

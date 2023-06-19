@@ -9,7 +9,7 @@ namespace SpaceOpera.Controller.Components
         IController, IOptionController<T>, IFormElementController<int> where T : notnull
     {
         public EventHandler<EventArgs>? Selected { get; set; }
-        public EventHandler<int>? ValueChanged { get; set; }
+        public EventHandler<EventArgs>? ValueChanged { get; set; }
 
         public T Key { get; }
 
@@ -66,9 +66,9 @@ namespace SpaceOpera.Controller.Components
             }
         }
 
-        private void HandleValueChanged(object? sender, int e)
+        private void HandleValueChanged(object? sender, EventArgs e)
         {
-            ValueChanged?.Invoke(this, e);
+            ValueChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }

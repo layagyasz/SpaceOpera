@@ -10,7 +10,7 @@ namespace SpaceOpera.Controller.Components
     {
         public EventHandler<IInterceptor>? InterceptorCreated { get; set; }
         public EventHandler<IInterceptor>? InterceptorCancelled { get; set; }
-        public EventHandler<T?>? ValueChanged { get; set; }
+        public EventHandler<EventArgs>? ValueChanged { get; set; }
 
         private readonly Func<IValueInterceptor<T>> _interceptorFn;
 
@@ -33,7 +33,7 @@ namespace SpaceOpera.Controller.Components
             {
                 _value = value;
                 _element!.SetValue(_value);
-                ValueChanged?.Invoke(this, _value);
+                ValueChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 

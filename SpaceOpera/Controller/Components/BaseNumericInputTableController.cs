@@ -10,7 +10,7 @@ namespace SpaceOpera.Controller.Components
     public abstract class BaseNumericInputTableController<T> 
         : IController, IFormElementController<MultiCount<T>> where T : notnull
     {
-        public EventHandler<MultiCount<T>?>? ValueChanged { get; set; }
+        public EventHandler<EventArgs>? ValueChanged { get; set; }
         public EventHandler<T?>? RowSelected { get; set; }
 
         public string Key { get; }
@@ -72,6 +72,7 @@ namespace SpaceOpera.Controller.Components
                 }
             }
             UpdateTotal();
+            ValueChanged?.Invoke(this, EventArgs.Empty);
         }
 
         public void SetValue(T key, int value)
@@ -111,14 +112,15 @@ namespace SpaceOpera.Controller.Components
             UpdateTotal();
         }
 
-        private void HandleRowSelected(object? sender, T? e)
+        private void HandleRowSelected(object? sender, EventArgs e)
         {
-            RowSelected?.Invoke(this, e);
+            RowSelected?.Invoke(this, ((IFormElementController<T>)sender!).GetValue());
         }
 
-        private void HandleValueChanged(object? sender, int e)
+        private void HandleValueChanged(object? sender, EventArgs e)
         {
             UpdateTotal();
+            ValueChanged?.Invoke(this, EventArgs.Empty);
         }
 
         protected void UpdateTotal()

@@ -55,11 +55,11 @@ namespace SpaceOpera.Controller.Game.Panes.DesignPanes
             _activeCell?.SetSelected(true);
         }
 
-        private void HandleComponentSelected(object? sender, IComponent? e)
+        private void HandleComponentSelected(object? sender, EventArgs e)
         {
             if (_activeCell != null)
             {
-                _activeCell.SetValue(e);
+                _activeCell.SetValue(_componentTableController!.GetValue());
                 Update();
             }
         }

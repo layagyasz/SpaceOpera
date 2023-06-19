@@ -67,9 +67,12 @@ namespace SpaceOpera.Controller.Game.Overlay
             Interacted?.Invoke(this, e);
         }
 
-        private void HandleSetInteraction(object? sender, ActionId e)
+        private void HandleSetInteraction(object? sender, EventArgs e)
         {
-            Interacted?.Invoke(this,  UiInteractionEventArgs.Create(Enumerable.Empty<object>(), e));
+            Interacted?.Invoke(
+                this,  
+                UiInteractionEventArgs.Create(
+                    Enumerable.Empty<object>(), ((IFormElementController<ActionId>)sender!).GetValue()));
         }
     }
 }

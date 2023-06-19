@@ -8,7 +8,7 @@ namespace SpaceOpera.Controller.Components
 {
     public class NumericInputController : IController, IFormElementController<int>
     {
-        public EventHandler<int>? ValueChanged { get; set; }
+        public EventHandler<EventArgs>? ValueChanged { get; set; }
 
         private NumericInput? _element;
         private int _value;
@@ -53,7 +53,7 @@ namespace SpaceOpera.Controller.Components
             {
                 _value = newValue;
                 UpdateString();
-                ValueChanged?.Invoke(this, value);
+                ValueChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 
