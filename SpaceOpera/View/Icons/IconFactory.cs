@@ -152,7 +152,7 @@ namespace SpaceOpera.View.Icons
                     _shader,
                     this);
             }
-            if (@object is StellarBody stellarBody)
+            if (key.Key1 is StellarBody stellarBody)
             {
                 var rasterTexture = _rasterTextures[resolution];
                 rasterTexture.Clear();
@@ -163,7 +163,7 @@ namespace SpaceOpera.View.Icons
                 return new(
                     key, @class, controller, Color4.White, tex, new(new(), s_Resolution[resolution]), _shader, this);
             }
-            var definition = GetDefinition(@object).ToList();
+            var definition = GetDefinition(key.Key1).ToList();
             if (definition.Count == 1)
             {
                 var d = definition.First();

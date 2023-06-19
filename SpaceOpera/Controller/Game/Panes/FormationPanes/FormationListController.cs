@@ -10,14 +10,14 @@ namespace SpaceOpera.Controller.Game.Panes.FormationPanes
         public EventHandler<EventArgs>? Closed { get; set; }
         public EventHandler<UiInteractionEventArgs>? Interacted { get; set; }
 
-        public override void BindElement(IUiElement element)
+        protected override void BindElement(IUiElement element)
         {
             var component = (IFormationComponent)element;
             var controller = (FormationComponentController)component.ComponentController;
             controller.Interacted += HandleInteraction;
         }
 
-        public override void UnbindElement(IUiElement element)
+        protected override void UnbindElement(IUiElement element)
         {
             var component = (IFormationComponent)element;
             var controller = (FormationComponentController)component.ComponentController;

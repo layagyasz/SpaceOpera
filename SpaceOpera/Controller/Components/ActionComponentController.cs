@@ -8,7 +8,7 @@ namespace SpaceOpera.Controller.Components
     {
         public EventHandler<UiInteractionEventArgs>? Interacted { get; set; }
 
-        public override void BindElement(IUiElement element)
+        protected override void BindElement(IUiElement element)
         {
             if (element is UiCompoundComponent row)
             {
@@ -17,7 +17,7 @@ namespace SpaceOpera.Controller.Components
             }
         }
 
-        public override void UnbindElement(IUiElement element)
+        protected override void UnbindElement(IUiElement element)
         {
             if (element is UiCompoundComponent row)
             {
