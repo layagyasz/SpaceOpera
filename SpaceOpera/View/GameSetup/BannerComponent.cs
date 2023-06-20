@@ -19,9 +19,9 @@ namespace SpaceOpera.View.GameSetup
             public string? Banner { get; set; }
             public DialSelect.Style? Symbol { get; set; }
             public DialSelect.Style? Pattern { get; set; }
-            public DialSelect.Style? PrimaryColor { get; set; }
-            public DialSelect.Style? SecondaryColor { get; set; }
-            public DialSelect.Style? SymbolColor { get; set; }
+            public ColorSelect.Style? PrimaryColor { get; set; }
+            public ColorSelect.Style? SecondaryColor { get; set; }
+            public ColorSelect.Style? SymbolColor { get; set; }
         }
 
         public IUiComponent Symbol { get; }
@@ -95,16 +95,9 @@ namespace SpaceOpera.View.GameSetup
                     Enumerable.Range(0, bannerGenerator.Patterns)
                         .Select(x => SelectOption<int>.Create(x, $"Pattern {x + 1}")),
                     /* wrap= */ true);
-            var colorOptions = 
-                Enumerable.Range(0, bannerGenerator.Colors.Length)
-                    .Select(x => SelectOption<Color4>.Create(bannerGenerator.Colors[x], $"Color {x + 1}"))
-                    .ToList();
-            var primaryColor = 
-                DialSelect.Create(uiElementFactory, style.PrimaryColor!, colorOptions, /* wrap= */ true);
-            var secondaryColor =
-                DialSelect.Create(uiElementFactory, style.SecondaryColor!, colorOptions, /* wrap= */ true);
-            var symbolColor =
-                DialSelect.Create(uiElementFactory, style.SymbolColor!, colorOptions, /* wrap= */ true);
+            var primaryColor = ColorSelect.Create(uiElementFactory, style.PrimaryColor!, bannerGenerator.Colors);
+            var secondaryColor = ColorSelect.Create(uiElementFactory, style.SecondaryColor!, bannerGenerator.Colors);
+            var symbolColor = ColorSelect.Create(uiElementFactory, style.SymbolColor!, bannerGenerator.Colors);
             return new(
                 uiElementFactory.GetClass(style.Container!), 
                 new BannerComponentController(),

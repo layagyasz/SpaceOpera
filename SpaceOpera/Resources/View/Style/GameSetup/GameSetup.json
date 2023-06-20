@@ -14,6 +14,60 @@
     }
   },
   {
+    "$id": "game-setup-form-color",
+    "Default": {
+      "Size": [ 28, 28 ],
+      "Margin": [ 2 ],
+      "CornerRadius": [ [ 8, 8 ] ],
+      "BackgroundColor": [ "#ffffffcc" ],
+      "BackgroundShader": "shader-ui"
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "BackgroundColor": [ "#ffffff" ]
+        }
+      },
+      {
+        "State": [ "Toggle" ],
+        "Attributes": {
+          "BorderWidth": [ 2 ],
+          "BorderColor": [ "#ffffffcc" ]
+        }
+      },
+      {
+        "State": [ "Toggle", "Hover" ],
+        "Attributes": {
+          "BorderColor": [ "#ffffff" ]
+        }
+      }
+    ]
+  },
+  {
+    "$id": "game-setup-form-color-option-container",
+    "Parent": "ui-element-basic",
+    "Default": {
+      "Size": [ "DynamicContents", "DynamicContents" ],
+      "Padding": [ 2, 8, 2, 8 ]
+    }
+  },
+  {
+    "$id": "game-setup-form-color-option-row",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ "DynamicContents", 22 ],
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "game-setup-form-color-option",
+    "Parent": "game-setup-form-color",
+    "Default": {
+      "Size": [ 18, 18 ]
+    }
+  },
+  {
     "$id": "game-setup-form-dial",
     "Parent": "ui-container",
     "Default": {

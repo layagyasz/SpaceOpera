@@ -10,6 +10,10 @@ namespace SpaceOpera.Controller.Game.Scenes
         public EventHandler<UiInteractionEventArgs>? Interacted { get; set; }
         public EventHandler<MouseButtonClickEventArgs>? Clicked { get; set; }
         public EventHandler<EventArgs>? Focused { get; set; }
+        public EventHandler<EventArgs>? FocusLeft { get; set; }
+        public EventHandler<EventArgs>? MouseEntered { get; set; }
+        public EventHandler<EventArgs>? MouseLeft { get; set; }
+
 
         private readonly object _subRegion;
 

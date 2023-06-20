@@ -22,6 +22,16 @@ namespace SpaceOpera.View.GameSetup
                 RightButton = "game-setup-form-dial-right-button"
             };
 
+        private static readonly ColorSelect.Style s_ColorStyle =
+            new()
+            {
+                Root = "game-setup-form-color",
+                OptionContainer = "game-setup-form-color-option-container",
+                OptionRow = "game-setup-form-color-option-row",
+                Option = "game-setup-form-color-option",
+                OptionsRowSize = 5
+            };
+
         private static readonly BannerComponent.Style s_BannerStyle =
             new()
             {
@@ -29,9 +39,9 @@ namespace SpaceOpera.View.GameSetup
                 Banner = "game-setup-form-banner-icon",
                 Symbol = s_DialStyle,
                 Pattern = s_DialStyle,
-                PrimaryColor = s_DialStyle,
-                SecondaryColor = s_DialStyle,
-                SymbolColor = s_DialStyle
+                PrimaryColor = s_ColorStyle,
+                SecondaryColor = s_ColorStyle,
+                SymbolColor = s_ColorStyle
             };
 
         public BannerComponent Banner { get; }
