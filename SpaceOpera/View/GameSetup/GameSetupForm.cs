@@ -12,6 +12,8 @@ namespace SpaceOpera.View.GameSetup
     {
         private static readonly string s_Container = "game-setup-form";
         private static readonly string s_Header = "game-setup-form-title";
+        private static readonly string s_Body = "game-setup-form-body";
+        private static readonly string s_Column = "game-setup-form-column";
 
         private static readonly DialSelect.Style s_DialStyle =
             new()
@@ -36,6 +38,8 @@ namespace SpaceOpera.View.GameSetup
             new()
             {
                 Container = "game-setup-form-banner",
+                SectionHeader = "game-setup-form-section-header",
+                FieldHeader = "game-setup-form-field-header",
                 Banner = "game-setup-form-banner-icon",
                 Symbol = s_DialStyle,
                 Pattern = s_DialStyle,
@@ -44,7 +48,17 @@ namespace SpaceOpera.View.GameSetup
                 SymbolColor = s_ColorStyle
             };
 
-        public BannerComponent Banner { get; }
+        private static readonly CultureComponent.Style s_CultureStyle =
+            new()
+            {
+                Container = "game-setup-form-culture",
+                SectionHeader = "game-setup-form-section-header",
+                FieldHeader = "game-setup-form-field-header",
+                Select = s_DialStyle
+            };
+
+        public IUiComponent Banner { get; }
+        public IUiComponent Culture { get; }
 
         public GameSetupForm(
             UiElementFactory uiElementFactory, IconFactory iconFactory, BannerGenerator bannerGenerator)
@@ -57,8 +71,33 @@ namespace SpaceOpera.View.GameSetup
         {
             Add(uiElementFactory.CreateTextButton(s_Header, "Game Setup").Item1);
 
-            Banner = BannerComponent.Create(uiElementFactory, iconFactory, s_BannerStyle, bannerGenerator);
-            Add(Banner);
+            var body = 
+                new UiSerialContainer(
+                    uiElementFactory.GetClass(s_Body),
+                    new NoOpElementController<UiSerialContainer>(),
+                    UiSerialContainer.Orientation.Horizontal);
+
+            Banner = new BannerComponent(uiElementFactory, iconFactory, s_BannerStyle, bannerGenerator);
+            body.Add(
+                new UiSerialContainer(
+                    uiElementFactory.GetClass(s_Column), 
+                    new NoOpElementController<UiSerialContainer>(),
+                    UiSerialContainer.Orientation.Vertical)
+                {
+                    Banner
+                });
+
+            Culture = new CultureComponent(uiElementFactory, s_CultureStyle);
+            body.Add(
+                new UiSerialContainer(
+                    uiElementFactory.GetClass(s_Column),
+                    new NoOpElementController<UiSerialContainer>(),
+                    UiSerialContainer.Orientation.Vertical)
+                {
+                    Culture
+                });
+
+            Add(body);
         }
     }
 }

@@ -16,12 +16,12 @@ namespace SpaceOpera.Controller.Components
 
         private DialSelect? _component;
 
-        public DialSelectController(IEnumerable<SelectOption<T>> range, bool wrap=false)
+        public DialSelectController(IEnumerable<SelectOption<T>> range, T initialValue, bool wrap=false)
         {
             _range = range.ToList();
             _wrap = wrap;
 
-            _valueIndex = 0;
+            _valueIndex = _range.FindIndex(x => Equals(x.Value, initialValue));
         }
 
         public void Bind(object @object)

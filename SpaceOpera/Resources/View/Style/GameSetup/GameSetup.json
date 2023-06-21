@@ -14,6 +14,41 @@
     }
   },
   {
+    "$id": "game-setup-form-body",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 884, 620 ],
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "game-setup-form-column",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 223, 620 ],
+      "Padding": [ 2 ]
+    }
+  },
+  {
+    "$id": "game-setup-form-section-header",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 119, 40 ],
+      "Padding": [ 10 ],
+      "Align": "Center",
+      "FontSize": 20
+    }
+  },
+  {
+    "$id": "game-setup-form-field-header",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 119, 20 ],
+      "Padding": [ 4 ],
+      "FontSize": 12
+    }
+  },
+  {
     "$id": "game-setup-form-color",
     "Default": {
       "Size": [ 28, 28 ],
@@ -80,7 +115,7 @@
     "$id": "game-setup-form-dial-text",
     "Parent": "ui-element-internal",
     "Default": {
-      "Size": [ 192, 32 ],
+      "Size": [ 155, 32 ],
       "Padding": [ 8 ],
       "Align": "Center"
     }
@@ -102,7 +137,7 @@
     "$id": "game-setup-form-banner",
     "Parent": "ui-container",
     "Default": {
-      "Size": [ 446, 584 ],
+      "Size": [ 219, 519 ],
       "DisableScissor": true
     }
   },
@@ -110,8 +145,16 @@
     "$id": "game-setup-form-banner-icon",
     "Parent": "ui-icon",
     "Default": {
-      "Size": [ 256, 256 ],
-      "Margin": [ 95, 4, 95, 4 ]
+      "Size": [ 211, 211 ],
+      "Margin": [ 4 ]
+    }
+  },
+  {
+    "$id": "game-setup-form-culture",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 219, 352 ],
+      "DisableScissor": true
     }
   }
 ]

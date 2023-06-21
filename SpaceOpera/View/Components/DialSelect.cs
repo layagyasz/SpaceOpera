@@ -36,11 +36,14 @@ namespace SpaceOpera.View.Components
         }
 
         public static DialSelect Create<T>(
-            UiElementFactory uiElementFactory, Style style, IEnumerable<SelectOption<T>> range, bool wrap = false)
+            UiElementFactory uiElementFactory, 
+            Style style,
+            IEnumerable<SelectOption<T>> range,
+            T initialValue, bool wrap = false)
         {
             return new(
                 uiElementFactory.GetClass(style.Container!),
-                new DialSelectController<T>(range, wrap),
+                new DialSelectController<T>(range, initialValue, wrap),
                 new TextUiElement(uiElementFactory.GetClass(style.Text!), new InlayController(), string.Empty),
                 new TextUiElement(uiElementFactory.GetClass(style.LeftButton!), new ButtonController(), "<"),
                 new TextUiElement(uiElementFactory.GetClass(style.RightButton!), new ButtonController(), ">"));

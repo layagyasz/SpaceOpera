@@ -15,7 +15,7 @@ namespace SpaceOpera.View.Components
             public string? Info { get; set; }
             public string? Icon { get; set; }
             public string? Text { get; set; }
-            public NumericInput.Style NumericInput { get; set; }
+            public NumericInput.Style? NumericInput { get; set; }
         }
 
         public EventHandler<EventArgs>? Refreshed { get; set; }
@@ -66,7 +66,7 @@ namespace SpaceOpera.View.Components
                     iconFactory.Create(uiElementFactory.GetClass(style.Icon!), new InlayController(), key),
                     new TextUiElement(uiElementFactory.GetClass(style.Text!), new InlayController(), name),
                 }, 
-                NumericInput.Create(uiElementFactory, style.NumericInput));
+                NumericInput.Create(uiElementFactory, style.NumericInput!));
         }
     }
 }
