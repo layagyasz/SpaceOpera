@@ -344,7 +344,5 @@
       }
     ]
   },
-  "BaseLinkChance": 0.1,
-  "Cultures": 20,
-  "States": 5
+  "BaseLinkChance": 0.1
 }

@@ -9,12 +9,15 @@ namespace SpaceOpera.Core.Universe.Generator
     {
         private static readonly ISampler s_YSampler = new NormalSampler(0, 100);
 
-        public float Radius { get; set; }
-        public uint Arms { get; set; }
-        public float Rotation { get; set; }
-        public float CoreRadius { get; set; }
-        public int StarCount { get; set; }
-        public float TransitDensity { get; set; }
+        public struct Parameters
+        {
+            public float Radius { get; set; }
+            public int Arms { get; set; }
+            public float Rotation { get; set; }
+            public float StarDensity { get; set; }
+            public float TransitDensity { get; set; }
+        }
+
         public StarSystemGenerator? StarSystemGenerator { get; set; }
 
         class SystemWrapper : IGraphNode
@@ -41,21 +44,25 @@ namespace SpaceOpera.Core.Universe.Generator
             }
         }
 
-        public Galaxy Generate(GeneratorContext context)
+        public Galaxy Generate(Parameters parameters, GeneratorContext context)
         {
             var random = context.Random;
             List<Vertex> vertices = new();
+            float coreRadius = 0;
+            int starCount = 
+                (int)(parameters.StarDensity * MathF.PI * 
+                (parameters.Radius * parameters.Radius - coreRadius * coreRadius));
             int starId = 0;
-            while (starId<StarCount)
+            while (starId < starCount)
             {
                 float x = random.NextSingle() * 2 - 1;
                 float y = random.NextSingle() * 2 - 1;
                 float angle = MathF.Atan2(y, x);
                 float radius = MathF.Sqrt(x * x + y * y);
-                if (random.NextSingle() < StarDensityFn(Arms, Rotation, angle, radius))
+                if (random.NextSingle() < StarDensityFn(parameters.Arms, parameters.Rotation, angle, radius))
                 {
                     ++starId;
-                    float modifiedRadius = radius * (Radius - CoreRadius) + CoreRadius;
+                    float modifiedRadius = radius * (parameters.Radius - coreRadius) + coreRadius;
                     vertices.Add(
                         new Vertex(modifiedRadius * MathF.Cos(angle), modifiedRadius * MathF.Sin(angle)));
                 }
@@ -66,7 +73,7 @@ namespace SpaceOpera.Core.Universe.Generator
             VoronoiGrapher.VoronoiNeighborsResult result = VoronoiGrapher.GetNeighbors(vertices, triads);
 
             List<SystemWrapper> systemWrappers = new();
-            for (int i=0; i < StarCount; ++i)
+            for (int i=0; i < starCount; ++i)
             {
                 context.Logger.ForType(typeof(GalaxyGenerator)).AtInfo().EverySeconds(5).Log($"\tCreated {i} systems");
                 systemWrappers.Add(
@@ -74,7 +81,7 @@ namespace SpaceOpera.Core.Universe.Generator
                         StarSystemGenerator!.Generate(
                             new Vector3(vertices[i].x, s_YSampler.Generate(random), vertices[i].y), context)));
             }
-            for (int i=0; i < StarCount;++i)
+            for (int i=0; i < starCount; ++i)
             {
                 var neighbors = result.Neighbors[i].Where(x => x >= 0).Select(x => systemWrappers[x]).ToList();
                 systemWrappers[i].SetNeighbors(neighbors);
@@ -101,17 +108,18 @@ namespace SpaceOpera.Core.Universe.Generator
                     {
                         continue;
                     }
-                    if (random.NextSingle() < TransitDensityFn(TransitDensity, (edge.Cost - mean) / stdDev)) {
+                    if (random.NextSingle() 
+                        < TransitDensityFn(parameters.TransitDensity, (edge.Cost - mean) / stdDev)) {
                         systemWrapper.System.AddTransit(neighbor.System);
                         neighbor.System.AddTransit(systemWrapper.System);
                     }
                 }
             }
 
-            return new Galaxy(Radius, systemWrappers.Select(x => x.System));
+            return new Galaxy(parameters.Radius, systemWrappers.Select(x => x.System));
         }
 
-        private static float StarDensityFn(uint arms, float rotation, float angle, float radius)
+        private static float StarDensityFn(int arms, float rotation, float angle, float radius)
         { 
             if (radius > 1)
             {

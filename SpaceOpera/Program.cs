@@ -26,7 +26,7 @@ namespace SpaceOpera
 
         static void Main()
         {
-            RunMode mode = RunMode.TestSetup;
+            RunMode mode = RunMode.Full;
             if (mode == RunMode.CompileSymbols)
             {
                 int i = 0;
@@ -73,6 +73,25 @@ namespace SpaceOpera
                 return;
             }
 
+            var worldParams =
+                new WorldGenerator.Parameters()
+                {
+                    Galaxy = 
+                        new()
+                        {
+                              Radius= 50000,
+                              Arms = 4,
+                              Rotation = 8,
+                              StarDensity = 6.366e-9f,
+                              TransitDensity= 0.05f
+                        },
+                    Politics =
+                        new()
+                        {
+                            Cultures = 20,
+                            States = 5
+                        }
+                };
             var calendar = new StarCalendar(0);
             var playerCulture = coreData.PoliticsGenerator!.Culture!.Generate(generatorContext);
             var playerBanner = coreData.PoliticsGenerator!.Banner!.Generate(generatorContext);
@@ -107,14 +126,15 @@ namespace SpaceOpera
             }
             else if (mode == RunMode.TestGalaxy)
             {
-                var galaxy = coreData.GalaxyGenerator!.Generate(generatorContext);
+                var galaxy = coreData.GalaxyGenerator!.Generate(worldParams.Galaxy, generatorContext);
                 scene = galaxy;
                 driver = new(calendar);
                 controller = new GameController(ui, null, driver, playerFaction, viewFactory, logger);
             }
             else if (mode == RunMode.Full)
             {
-                var world = WorldGenerator.Generate(playerCulture, playerFaction, coreData, generatorContext);
+                var world = 
+                    WorldGenerator.Generate(worldParams, playerCulture, playerFaction, coreData, generatorContext);
                 scene = world.Galaxy;
                 driver = new(world.GetUpdater());
                 controller = new GameController(ui, world, driver, playerFaction, viewFactory, logger);

@@ -26,7 +26,7 @@ namespace SpaceOpera.View.Components
         {
             Root = root;
             Options = options;
-            Options.Position = root.Position + new Vector3(root.TrueSize.X, 0, 0);
+            Options.Position = root.LeftMargin + new Vector3(root.TrueSize.X, 0, 0);
             Options.Visible = false;
 
             Add(options);

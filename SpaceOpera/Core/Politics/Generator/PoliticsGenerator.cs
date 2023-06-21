@@ -9,6 +9,12 @@ namespace SpaceOpera.Core.Politics.Generator
     {
         private static readonly float s_WeightCutoff = 0.01f;
 
+        public struct Parameters
+        {
+            public int Cultures { get; set; }
+            public int States { get; set; }
+        }
+
         class FactionWrapper : SeededGraphPartition.ISeed<RegionWrapper>
         {
             public Faction Faction { get; }
@@ -63,10 +69,9 @@ namespace SpaceOpera.Core.Politics.Generator
         public FactionGenerator? Faction { get; set; }
         public DesignGenerator? Design { get; set; }
         public float BaseLinkChance { get; set; }
-        public int Cultures { get; set; }
-        public int States { get; set; }
 
-        public void Generate(World world, Culture playerCulture, Faction playerFaction, GeneratorContext context)
+        public void Generate(
+            Parameters parameters, World world, Culture playerCulture, Faction playerFaction, GeneratorContext context)
         {
             var random = context.Random;
             var nodes = new Dictionary<StellarBodyRegion, RegionWrapper>();
@@ -136,7 +141,7 @@ namespace SpaceOpera.Core.Politics.Generator
             var playerHomeRegion = homeRegions.Get(random.NextSingle());
             PlaceCulture(playerCulture, playerHomeRegion);
             var chosenHomeRegions = new List<RegionWrapper>();
-            for (int i = 0; i < Cultures; ++i)
+            for (int i = 0; i < parameters.Cultures; ++i)
             {
                 var culture = Culture!.Generate(context);
                 cultures.Add(culture);
@@ -153,8 +158,8 @@ namespace SpaceOpera.Core.Politics.Generator
             {
                 playerHomeRegion
             };
-            var banners = Banner!.GenerateUnique(States, context).ToList();
-            for (int i = 0; i < States; ++i)
+            var banners = Banner!.GenerateUnique(parameters.States, context).ToList();
+            for (int i = 0; i < parameters.States; ++i)
             {
                 var homeRegion = 
                     i < chosenHomeRegions.Count ? chosenHomeRegions[i] : homeRegions.Get(random.NextSingle());
