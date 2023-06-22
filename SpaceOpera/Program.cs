@@ -26,7 +26,7 @@ namespace SpaceOpera
 
         static void Main()
         {
-            RunMode mode = RunMode.TestSetup;
+            RunMode mode = RunMode.Full;
             if (mode == RunMode.CompileSymbols)
             {
                 int i = 0;
@@ -88,7 +88,7 @@ namespace SpaceOpera
                     Politics =
                         new()
                         {
-                            Cultures = 20,
+                            Cultures = 1,
                             States = 5
                         }
                 };

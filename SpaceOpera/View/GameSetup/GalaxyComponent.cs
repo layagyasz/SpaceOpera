@@ -80,7 +80,7 @@ namespace SpaceOpera.View.GameSetup
             Radius = DialSelect.Create(uiElementFactory, style.Select!, s_RadiusOptions, s_RadiusOptions[2].Value);
             Shape = DialSelect.Create(uiElementFactory, style.Select!, s_ShapeOptions, s_ShapeOptions[2].Value);
             Rotation = 
-                DialSelect.Create(uiElementFactory, style.Select!, s_RotationOptions, s_RotationOptions[2].Value);
+                DialSelect.Create(uiElementFactory, style.Select!, s_RotationOptions, s_RotationOptions[1].Value);
             StarDensity = 
                 DialSelect.Create(
                     uiElementFactory, style.Select!, s_StarDensityOptions, s_StarDensityOptions[2].Value);

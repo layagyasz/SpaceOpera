@@ -7,7 +7,7 @@ namespace SpaceOpera.Core.Politics.Generator
 {
     public class PoliticsGenerator
     {
-        private static readonly float s_WeightCutoff = 0.01f;
+        private static readonly float s_WeightCutoff = -0.01f;
 
         public struct Parameters
         {
@@ -159,10 +159,21 @@ namespace SpaceOpera.Core.Politics.Generator
                 playerHomeRegion
             };
             var banners = Banner!.GenerateUnique(parameters.States, context).ToList();
+            var capitolOptions =
+                nodes
+                    .Where(x => 
+                        x.Value.Region.DominantBiome.IsTraversable
+                        && x.Value.CultureWeights.Count > 0 
+                        && !chosenHomeRegions.Contains(x.Value) 
+                        && x.Value != playerHomeRegion)
+                    .Select(x => x.Value)
+                    .ToList();
             for (int i = 0; i < parameters.States; ++i)
             {
-                var homeRegion = 
-                    i < chosenHomeRegions.Count ? chosenHomeRegions[i] : homeRegions.Get(random.NextSingle());
+                var homeRegion =
+                    i < chosenHomeRegions.Count 
+                        ? chosenHomeRegions[i] 
+                        : capitolOptions[random.Next(capitolOptions.Count)];
                 while (closedRegions.Contains(homeRegion) || homeRegion.CultureWeights.Count == 0)
                 {
                     homeRegion = homeRegions.Get(random.NextSingle());
@@ -264,7 +275,7 @@ namespace SpaceOpera.Core.Politics.Generator
                     {
                         var weight = current.CultureWeights.Get(culture) * edge.Falloff;
                         var wrapper = (RegionWrapper)edge.End;
-                        if (weight > s_WeightCutoff && wrapper.CultureWeights.Get(culture) < weight)
+                        if (weight < s_WeightCutoff && wrapper.CultureWeights.Get(culture) > weight)
                         {
                             wrapper.CultureWeights[culture] = weight;
                             if (wrapper.IsOpen)
@@ -272,7 +283,7 @@ namespace SpaceOpera.Core.Politics.Generator
                                 queue.Remove(wrapper);
                             }
                             wrapper.IsOpen = true;
-                            queue.Push(wrapper, -weight);
+                            queue.Push(wrapper, weight);
                         }
                     }
                 }
