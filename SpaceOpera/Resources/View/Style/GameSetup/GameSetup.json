@@ -33,7 +33,7 @@
     "$id": "game-setup-form-section-header",
     "Parent": "ui-element-internal",
     "Default": {
-      "Size": [ 119, 40 ],
+      "Size": [ 219, 40 ],
       "Padding": [ 10 ],
       "Align": "Center",
       "FontSize": 20
@@ -43,7 +43,7 @@
     "$id": "game-setup-form-field-header",
     "Parent": "ui-element-internal",
     "Default": {
-      "Size": [ 119, 20 ],
+      "Size": [ 219, 20 ],
       "Padding": [ 4 ],
       "FontSize": 12
     }
@@ -154,6 +154,14 @@
     "Parent": "ui-container",
     "Default": {
       "Size": [ 219, 352 ],
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "game-setup-form-galaxy",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 219, 300 ],
       "DisableScissor": true
     }
   }

@@ -57,8 +57,18 @@ namespace SpaceOpera.View.GameSetup
                 Select = s_DialStyle
             };
 
+        private static readonly GalaxyComponent.Style s_GalaxyStyle =
+            new()
+            {
+                Container = "game-setup-form-galaxy",
+                SectionHeader = "game-setup-form-section-header",
+                FieldHeader = "game-setup-form-field-header",
+                Select = s_DialStyle
+            };
+
         public IUiComponent Banner { get; }
         public IUiComponent Culture { get; }
+        public IUiComponent Galaxy { get; }
 
         public GameSetupForm(
             UiElementFactory uiElementFactory, IconFactory iconFactory, BannerGenerator bannerGenerator)
@@ -95,6 +105,16 @@ namespace SpaceOpera.View.GameSetup
                     UiSerialContainer.Orientation.Vertical)
                 {
                     Culture
+                });
+
+            Galaxy = new GalaxyComponent(uiElementFactory, s_GalaxyStyle);
+            body.Add(
+                new UiSerialContainer(
+                    uiElementFactory.GetClass(s_Column),
+                    new NoOpElementController<UiSerialContainer>(),
+                    UiSerialContainer.Orientation.Vertical)
+                {
+                    Galaxy
                 });
 
             Add(body);
