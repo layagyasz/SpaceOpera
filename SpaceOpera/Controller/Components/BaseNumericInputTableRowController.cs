@@ -30,7 +30,7 @@ namespace SpaceOpera.Controller.Components
             _infoController = (ClassedUiElementController<ClassedUiElement>)_element.Info.Controller;
             _infoController.Clicked += HandleSelected;
             _inputController = (NumericInputController)_element.NumericInput.ComponentController;
-            _inputController.SetValue(GetDefaultValue());
+            _inputController.SetValue(GetDefaultValue(), /* notify= */ false);
             _inputController.ValueChanged += HandleValueChanged;
         }
 
@@ -53,9 +53,9 @@ namespace SpaceOpera.Controller.Components
             _infoController!.SetToggle(selected);
         }
 
-        public void SetValue(int value)
+        public void SetValue(int value, bool notify = true)
         {
-            _inputController!.SetValue(value);
+            _inputController!.SetValue(value, notify);
         }
 
         private void HandleSelected(object? sender, MouseButtonClickEventArgs e)

@@ -32,9 +32,13 @@ namespace SpaceOpera.Controller.Components
             return _element!.Table.Cast<IKeyedUiElement<T>>().Select(x => x.Key);
         }
 
-        public void SetValue(IEnumerable<T>? value)
+        public void SetValue(IEnumerable<T>? value, bool notify = true)
         {
             _element!.SetRange(value ?? Enumerable.Empty<T>());
+            if (notify)
+            {
+                ValueChanged?.Invoke(this, EventArgs.Empty);
+            }
         }
 
         private void HandleAdd(object? sender, T e)

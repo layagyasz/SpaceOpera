@@ -61,13 +61,17 @@ namespace SpaceOpera.Controller.GameSetup
             };
         }
 
-        public void SetValue(GalaxyGenerator.Parameters value)
+        public void SetValue(GalaxyGenerator.Parameters value, bool notify = true)
         {
-            _radius!.SetValue(value.Radius);
-            _shape!.SetValue(value.Arms);
-            _rotation!.SetValue(value.Rotation);
-            _starDensity!.SetValue(value.StarDensity);
-            _transitDensity!.SetValue(value.TransitDensity);
+            _radius!.SetValue(value.Radius, /* notify= */ false);
+            _shape!.SetValue(value.Arms, /* notify= */ false);
+            _rotation!.SetValue(value.Rotation, /* notify= */ false);
+            _starDensity!.SetValue(value.StarDensity, /* notify= */ false);
+            _transitDensity!.SetValue(value.TransitDensity, /* notify= */ false);
+            if (notify)
+            {
+                ValueChanged?.Invoke(this, EventArgs.Empty);
+            }
         }
 
         private void HandleValueChanged(object? sender, EventArgs e)

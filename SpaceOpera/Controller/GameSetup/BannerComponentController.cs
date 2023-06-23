@@ -48,7 +48,7 @@ namespace SpaceOpera.Controller.GameSetup
             _component = null;
         }
 
-        public Banner? GetValue()
+        public Banner GetValue()
         {
             return new(
                 _symbol!.GetValue(),
@@ -58,13 +58,18 @@ namespace SpaceOpera.Controller.GameSetup
                 _symbolColor!.GetValue());
         }
 
-        public void SetValue(Banner? value)
+        public void SetValue(Banner? value, bool notify = true)
         {
-            _symbol!.SetValue(value!.Symbol);
-            _pattern!.SetValue(value!.Pattern);
-            _primaryColor!.SetValue(value!.PrimaryColor);
-            _secondaryColor!.SetValue(value!.SecondaryColor);
-            _symbolColor!.SetValue(value!.SymbolColor);
+            _symbol!.SetValue(value!.Symbol, /* notify= */ false);
+            _pattern!.SetValue(value!.Pattern, /* notify= */ false);
+            _primaryColor!.SetValue(value!.PrimaryColor, /* notify= */ false);
+            _secondaryColor!.SetValue(value!.SecondaryColor, /* notify= */ false);
+            _symbolColor!.SetValue(value!.SymbolColor, /* notify= */ false);
+            _component!.SetBanner(GetValue()!);
+            if (notify)
+            {
+                ValueChanged?.Invoke(this, EventArgs.Empty);
+            }
         }
 
         private void HandleValueChanged(object? sender, EventArgs e)

@@ -37,7 +37,7 @@ namespace SpaceOpera.Controller.Components
         public void SetRange(IntInterval range)
         {
             _range = range;
-            SetValue(_value);
+            SetValue(_value, /* notify= */ true);
             UpdateString();
         }
 
@@ -46,25 +46,28 @@ namespace SpaceOpera.Controller.Components
             return _value;
         }
 
-        public void SetValue(int value)
+        public void SetValue(int value, bool notify = true)
         {
             int newValue = _range.Clamp(value);
             if (_value != newValue)
             {
                 _value = newValue;
                 UpdateString();
-                ValueChanged?.Invoke(this, EventArgs.Empty);
+                if (notify)
+                {
+                    ValueChanged?.Invoke(this, EventArgs.Empty);
+                }
             }
         }
 
         private void HandleAdded(object? sender, MouseButtonClickEventArgs e)
         {
-            SetValue(_value + GetDelta(e.Modifiers));
+            SetValue(_value + GetDelta(e.Modifiers), /* notify= */ true);
         }
 
         private void HandleSubtracted(object? sender, MouseButtonClickEventArgs e)
         {
-            SetValue(_value - GetDelta(e.Modifiers));
+            SetValue(_value - GetDelta(e.Modifiers), /* notify= */ true);
         }
 
         private void UpdateString()

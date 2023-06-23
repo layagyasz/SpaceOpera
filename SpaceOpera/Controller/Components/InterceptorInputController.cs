@@ -27,13 +27,16 @@ namespace SpaceOpera.Controller.Components
             return _value;
         }
 
-        public void SetValue(T? value)
+        public void SetValue(T? value, bool notify = true)
         {
             if (!Equals(_value, value))
             {
                 _value = value;
                 _element!.SetValue(_value);
-                ValueChanged?.Invoke(this, EventArgs.Empty);
+                if (notify)
+                {
+                    ValueChanged?.Invoke(this, EventArgs.Empty);
+                }
             }
         }
 
@@ -92,7 +95,7 @@ namespace SpaceOpera.Controller.Components
 
         private void HandleIntercepted(object? sender, EventArgs e)
         {
-            SetValue(_interceptor!.Get());
+            SetValue(_interceptor!.Get(), /* notify= */ true);
         }
     }
 }

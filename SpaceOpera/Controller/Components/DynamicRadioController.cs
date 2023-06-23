@@ -29,7 +29,7 @@ namespace SpaceOpera.Controller.Components
 
         private void HandleRefresh(object? sender, EventArgs e)
         {
-            SetValue(_valueFn());
+            SetValue(_valueFn(), /* notify= */ true);
         }
     }
 }

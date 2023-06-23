@@ -40,11 +40,15 @@ namespace SpaceOpera.Controller.Components
             return _options!.GetValue();
         }
 
-        public void SetValue(Color4 value)
+        public void SetValue(Color4 value, bool notify = true)
         {
             _component!.Root.SetColor(value);
-            _options!.SetValue(value);
-            ValueChanged?.Invoke(this, EventArgs.Empty);
+            _options!.SetValue(value, /* notify= */ false);
+            _component!.Root.SetColor(_options!.GetValue());
+            if (notify)
+            {
+                ValueChanged?.Invoke(this, EventArgs.Empty);
+            }
         }
 
         private void HandleFocused(object? sender, EventArgs e)

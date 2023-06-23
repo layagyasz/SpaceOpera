@@ -44,13 +44,13 @@ namespace SpaceOpera.Controller.Components
             return _range[_valueIndex].Value;
         }
 
-        public void SetValue(T? value)
+        public void SetValue(T? value, bool notify = true)
         {
             if (Equals(_range[_valueIndex].Value, value))
             {
                 return;
             }
-            SetValueIndex(_range.FindIndex(x => Equals(x.Value, value)));
+            SetValueIndex(_range.FindIndex(x => Equals(x.Value, value)), notify);
         }
 
         private void HandleLeft(object? sender, MouseButtonClickEventArgs e)
@@ -67,20 +67,23 @@ namespace SpaceOpera.Controller.Components
         {
             if (_wrap)
             {
-                SetValueIndex((_valueIndex + delta + _range.Count) % _range.Count);
+                SetValueIndex((_valueIndex + delta + _range.Count) % _range.Count, /* notify= */ true);
             }
             else
             {
-                SetValueIndex(Math.Max(0, Math.Min(_valueIndex + delta, _range.Count - 1)));
+                SetValueIndex(Math.Max(0, Math.Min(_valueIndex + delta, _range.Count - 1)), /* notify= */ true);
             }
         }
 
-        private void SetValueIndex(int index)
+        private void SetValueIndex(int index, bool notify)
         {
             Precondition.Check(index >= 0 && index < _range.Count);
             _valueIndex = index;
             UpdateText();
-            ValueChanged?.Invoke(this, EventArgs.Empty);
+            if (notify)
+            {
+                ValueChanged?.Invoke(this, EventArgs.Empty);
+            }
         }
 
         private void UpdateText()

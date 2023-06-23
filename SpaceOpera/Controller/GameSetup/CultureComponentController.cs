@@ -67,14 +67,18 @@ namespace SpaceOpera.Controller.GameSetup
             };
         }
 
-        public void SetValue(CulturalTraits value)
+        public void SetValue(CulturalTraits value, bool notify = true)
         {
-            _ae!.SetValue(value.AuthoritarianEgalitarian);
-            _ic!.SetValue(value.IndividualistCollectivist);
-            _ap!.SetValue(value.AggressivePassive);
-            _cd!.SetValue(value.ConventionalDynamic);
-            _mh!.SetValue(value.MonumentalHumble);
-            _ia!.SetValue(value.IndulgentAustere);
+            _ae!.SetValue(value.AuthoritarianEgalitarian, /* notify= */ false);
+            _ic!.SetValue(value.IndividualistCollectivist, /* notify= */ false);
+            _ap!.SetValue(value.AggressivePassive, /* notify= */ false);
+            _cd!.SetValue(value.ConventionalDynamic, /* notify= */ false);
+            _mh!.SetValue(value.MonumentalHumble, /* notify= */ false);
+            _ia!.SetValue(value.IndulgentAustere, /* notify= */ false);
+            if (notify)
+            {
+                ValueChanged?.Invoke(this, EventArgs.Empty);
+            }
         }
 
         private void HandleValueChanged(object? sender, EventArgs e)

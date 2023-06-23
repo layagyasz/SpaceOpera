@@ -60,7 +60,7 @@ namespace SpaceOpera.Controller.Components
                 .ToMultiCount(x => x.Key, x => x.Value);
         }
 
-        public virtual void SetValue(MultiCount<T>? value)
+        public virtual void SetValue(MultiCount<T>? value, bool notify = true)
         {
             value ??= new();
             foreach (var entry in value)
@@ -68,21 +68,28 @@ namespace SpaceOpera.Controller.Components
                 if (_table!.TryGetRow(entry.Key, out var row))
                 {
                     var controller = (BaseNumericInputTableRowController<T>)row!.ComponentController;
-                    controller.SetValue(entry.Value);
+                    controller.SetValue(entry.Value, /* notify= */ false);
                 }
             }
             UpdateTotal();
-            ValueChanged?.Invoke(this, EventArgs.Empty);
+            if (notify)
+            {
+                ValueChanged?.Invoke(this, EventArgs.Empty);
+            }
         }
 
-        public void SetValue(T key, int value)
+        public void SetValue(T key, int value, bool notify)
         {
             if (_table!.TryGetRow(key, out var row))
             {
                 var controller = (BaseNumericInputTableRowController<T>)row!.ComponentController;
-                controller.SetValue(value);
+                controller.SetValue(value, /* notify= */ false);
             }
             UpdateTotal();
+            if (notify)
+            {
+                ValueChanged?.Invoke(this, EventArgs.Empty);
+            }
         }
 
         protected virtual void BindElement(NumericInputTableRow<T> row)
