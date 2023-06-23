@@ -75,7 +75,7 @@ namespace SpaceOpera.Core.Universe.Generator
             List<SystemWrapper> systemWrappers = new();
             for (int i=0; i < starCount; ++i)
             {
-                context.Logger.ForType(typeof(GalaxyGenerator)).AtInfo().EverySeconds(5).Log($"\tCreated {i} systems");
+                context.Logger!.ForType(typeof(GalaxyGenerator)).AtInfo().EverySeconds(5).Log($"\tCreated {i} systems");
                 systemWrappers.Add(
                     new SystemWrapper(
                         StarSystemGenerator!.Generate(

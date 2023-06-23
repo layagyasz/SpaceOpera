@@ -30,13 +30,29 @@
     }
   },
   {
+    "$id": "game-setup-form-section-header-container",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 219, 40 ],
+      "DiableScissor": false
+    }
+  },
+  {
     "$id": "game-setup-form-section-header",
     "Parent": "ui-element-internal",
     "Default": {
-      "Size": [ 219, 40 ],
+      "Size": [ "DynamicContents", 40 ],
       "Padding": [ 10 ],
       "Align": "Center",
       "FontSize": 20
+    }
+  },
+  {
+    "$id": "game-setup-form-randomize",
+    "Parent": "pane-action-button",
+    "Default": {
+      "Margin": [ 4 ],
+      "Texture":  "icon-random"
     }
   },
   {

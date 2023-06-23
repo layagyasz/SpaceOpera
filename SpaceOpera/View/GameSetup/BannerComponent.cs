@@ -15,7 +15,9 @@ namespace SpaceOpera.View.GameSetup
         public class Style
         {
             public string? Container { get; set; }
+            public string? SectionHeaderContainer { get; set; }
             public string? SectionHeader { get; set; }
+            public string? Randomize { get; set; }
             public string? FieldHeader { get; set; }
             public string? Banner { get; set; }
             public DialSelect.Style? Symbol { get; set; }
@@ -25,6 +27,7 @@ namespace SpaceOpera.View.GameSetup
             public ColorSelect.Style? SymbolColor { get; set; }
         }
 
+        public IUiElement Randomize { get; }
         public IUiComponent Symbol { get; }
         public IUiComponent Pattern { get; }
         public IUiComponent PrimaryColor { get; }
@@ -39,12 +42,13 @@ namespace SpaceOpera.View.GameSetup
         public BannerComponent(
             UiElementFactory uiElementFactory, IconFactory iconFactory, Style style, BannerGenerator bannerGenerator)
             : base(
-                  new BannerComponentController(),
+                  new BannerComponentController(bannerGenerator, new()),
                   new UiSerialContainer(
                       uiElementFactory.GetClass(style.Container!), 
                       new NoOpElementController<UiSerialContainer>(),
                       UiSerialContainer.Orientation.Vertical))
         {
+            Randomize = new SimpleUiElement(uiElementFactory.GetClass(style.Randomize!), new ButtonController());
             Symbol =
                 DialSelect.Create(
                     uiElementFactory,
@@ -68,7 +72,16 @@ namespace SpaceOpera.View.GameSetup
             _iconClass = uiElementFactory.GetClass(style.Banner!);
             _iconFactory = iconFactory;
 
-            Add(new TextUiElement(uiElementFactory.GetClass(style.SectionHeader!), new ButtonController(), "Banner"));
+            Add(
+                new UiSerialContainer(
+                    uiElementFactory.GetClass(style.SectionHeaderContainer!), 
+                    new NoOpElementController<UiSerialContainer>(),
+                    UiSerialContainer.Orientation.Horizontal)
+                {
+                    new TextUiElement(
+                        uiElementFactory.GetClass(style.SectionHeader!), new ButtonController(), "Banner"),
+                    Randomize
+                });
             Add(new TextUiElement(uiElementFactory.GetClass(style.FieldHeader!), new ButtonController(), "Symbol"));
             Add(Symbol);
             Add(new TextUiElement(uiElementFactory.GetClass(style.FieldHeader!), new ButtonController(), "Pattern"));

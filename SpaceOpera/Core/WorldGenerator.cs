@@ -20,7 +20,7 @@ namespace SpaceOpera.Core
             CoreData coreData, 
             GeneratorContext context)
         {
-            var logger = context.Logger.ForType(typeof(WorldGenerator)).AtInfo();
+            var logger = context.Logger!.ForType(typeof(WorldGenerator)).AtInfo();
             logger.Log("Generate galaxy");
             var galaxy = coreData.GalaxyGenerator!.Generate(parameters.Galaxy, context);
             logger.Log($"Generated galaxy with size {galaxy.GetSize()}");

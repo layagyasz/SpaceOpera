@@ -422,6 +422,9 @@
     <None Update="Resources\View\Icons\power.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\View\Icons\random.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\View\Icons\refinery.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

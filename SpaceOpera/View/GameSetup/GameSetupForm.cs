@@ -38,7 +38,9 @@ namespace SpaceOpera.View.GameSetup
             new()
             {
                 Container = "game-setup-form-banner",
+                SectionHeaderContainer = "game-setup-form-section-header-container",
                 SectionHeader = "game-setup-form-section-header",
+                Randomize = "game-setup-form-randomize",
                 FieldHeader = "game-setup-form-field-header",
                 Banner = "game-setup-form-banner-icon",
                 Symbol = s_DialStyle,

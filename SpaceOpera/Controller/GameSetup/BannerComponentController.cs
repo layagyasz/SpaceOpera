@@ -1,6 +1,8 @@
-﻿using Cardamom.Ui.Controller;
+﻿using Cardamom.Ui;
+using Cardamom.Ui.Controller;
 using OpenTK.Mathematics;
 using SpaceOpera.Core.Politics;
+using SpaceOpera.Core.Politics.Generator;
 using SpaceOpera.View.GameSetup;
 
 namespace SpaceOpera.Controller.GameSetup
@@ -9,6 +11,9 @@ namespace SpaceOpera.Controller.GameSetup
     {
         public EventHandler<EventArgs>? ValueChanged { get; set; }
 
+        private readonly BannerGenerator _bannerGenerator;
+        private readonly Random _random;
+
         private BannerComponent? _component;
         private IFormElementController<int>? _symbol;
         private IFormElementController<int>? _pattern;
@@ -16,18 +21,27 @@ namespace SpaceOpera.Controller.GameSetup
         private IFormElementController<Color4>? _secondaryColor;
         private IFormElementController<Color4>? _symbolColor;
 
+        public BannerComponentController(BannerGenerator bannerGenerator, Random random)
+        {
+            _bannerGenerator = bannerGenerator;
+            _random = random;
+        }
+
         public void Bind(object @object)
         {
             _component = (BannerComponent)@object;
+            _component.Randomize.Controller.Clicked += HandleRandomize;
+
             _symbol = (IFormElementController<int>)_component.Symbol.ComponentController;
-            _symbol.ValueChanged += HandleValueChanged;
             _pattern = (IFormElementController<int>)_component.Pattern.ComponentController;
-            _pattern.ValueChanged += HandleValueChanged;
             _primaryColor = (IFormElementController<Color4>)_component.PrimaryColor.ComponentController;
-            _primaryColor.ValueChanged += HandleValueChanged;
             _secondaryColor = (IFormElementController<Color4>)_component.SecondaryColor.ComponentController;
-            _secondaryColor.ValueChanged += HandleValueChanged;
             _symbolColor = (IFormElementController<Color4>)_component.SymbolColor.ComponentController;
+
+            _symbol.ValueChanged += HandleValueChanged;
+            _pattern.ValueChanged += HandleValueChanged;
+            _primaryColor.ValueChanged += HandleValueChanged;
+            _secondaryColor.ValueChanged += HandleValueChanged;
             _symbolColor.ValueChanged += HandleValueChanged;
 
             _component.SetBanner(GetValue()!);
@@ -36,15 +50,18 @@ namespace SpaceOpera.Controller.GameSetup
         public void Unbind()
         {
             _symbol!.ValueChanged -= HandleValueChanged;
-            _symbol = null;
             _pattern!.ValueChanged -= HandleValueChanged;
-            _pattern = null;
             _primaryColor!.ValueChanged -= HandleValueChanged;
-            _primaryColor = null;
             _secondaryColor!.ValueChanged -= HandleValueChanged;
-            _secondaryColor = null;
             _symbolColor!.ValueChanged -= HandleValueChanged;
+
+            _symbol = null;
+            _pattern = null;
+            _primaryColor = null;
+            _secondaryColor = null;
             _symbolColor = null;
+
+            _component!.Randomize.Controller.Clicked -= HandleRandomize;
             _component = null;
         }
 
@@ -56,6 +73,11 @@ namespace SpaceOpera.Controller.GameSetup
                 _primaryColor!.GetValue(),
                 _secondaryColor!.GetValue(),
                 _symbolColor!.GetValue());
+        }
+
+        public void Randomize()
+        {
+            SetValue(_bannerGenerator.Generate(new(null, null, _random)));
         }
 
         public void SetValue(Banner? value, bool notify = true)
@@ -70,6 +92,11 @@ namespace SpaceOpera.Controller.GameSetup
             {
                 ValueChanged?.Invoke(this, EventArgs.Empty);
             }
+        }
+
+        private void HandleRandomize(object? sender, MouseButtonClickEventArgs e)
+        {
+            Randomize();
         }
 
         private void HandleValueChanged(object? sender, EventArgs e)
