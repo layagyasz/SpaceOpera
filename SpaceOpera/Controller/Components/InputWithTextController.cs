@@ -22,6 +22,7 @@ namespace SpaceOpera.Controller.Components
             _component = (InputWithText)@object;
             _child = (IFormElementController<T>)_component.Input.ComponentController;
             _child.ValueChanged += HandleValueChanged;
+            UpdateText();
         }
 
         public void Unbind()
@@ -48,6 +49,7 @@ namespace SpaceOpera.Controller.Components
 
         private void HandleValueChanged(object? sender, EventArgs e)
         {
+            UpdateText();
             ValueChanged?.Invoke(this, EventArgs.Empty);
         }
 

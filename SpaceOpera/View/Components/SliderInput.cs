@@ -29,7 +29,7 @@ namespace SpaceOpera.View.Components
             return new(
                 new SliderInputController(range),
                 new SimpleUiElement(uiElementFactory.GetClass(style.Track!), new InlayController()), 
-                new SimpleUiElement(uiElementFactory.GetClass(style.Knob!), new ButtonController()));
+                new SimpleUiElement(uiElementFactory.GetClass(style.Knob!), new SliderInputKnobController()));
         }
     }
 }

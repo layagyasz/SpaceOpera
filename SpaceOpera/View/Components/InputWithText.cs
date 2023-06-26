@@ -28,6 +28,9 @@ namespace SpaceOpera.View.Components
         {
             Input = input;
             Text = text;
+
+            Add(Input);
+            Add(Text);
         }
 
         public static InputWithText Create<T>(IUiComponent input, UiElementFactory uiElementFactory, Style style)

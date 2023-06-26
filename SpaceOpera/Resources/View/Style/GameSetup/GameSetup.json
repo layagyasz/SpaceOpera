@@ -52,7 +52,7 @@
     "Parent": "pane-action-button",
     "Default": {
       "Margin": [ 4 ],
-      "Texture":  "icon-random"
+      "Texture": "icon-random"
     }
   },
   {
@@ -123,7 +123,7 @@
     "$id": "game-setup-form-dial",
     "Parent": "ui-container",
     "Default": {
-      "Size": [ 256, 32 ],
+      "Size": [ 219, 32 ],
       "DisableScissor": true
     }
   },
@@ -148,6 +148,46 @@
   {
     "$id": "game-setup-form-dial-right-button",
     "Parent": "game-setup-form-dial-left-button"
+  },
+  {
+    "$id": "game-setup-form-slider",
+    "Parent": "game-setup-form-dial"
+  },
+  {
+    "$id": "game-setup-form-slider-track",
+    "Default": {
+      "Size": [ 147, 2 ],
+      "Margin": [ 4, 15, 4, 15 ],
+      "Padding": [ -4 ],
+      "BackgroundColor": [ "#ffffffcc" ],
+      "BackgroundShader": "shader-ui",
+      "DisableScissor": true
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "BackgroundColor": [ "#ffffff" ]
+        }
+      }
+    ]
+  },
+  {
+    "$id": "game-setup-form-slider-knob",
+    "Parent": "ui-element-basic",
+    "Default": {
+      "Size": [ 8, 8 ],
+      "CornerRadius": [ [ 4, 4 ] ]
+    }
+  },
+  {
+    "$id": "game-setup-form-slider-text",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 64, 32 ],
+      "Padding": [ 8 ],
+      "Align": "Center"
+    }
   },
   {
     "$id": "game-setup-form-banner",
@@ -178,6 +218,14 @@
     "Parent": "ui-container",
     "Default": {
       "Size": [ 219, 300 ],
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "game-setup-form-politics",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 219, 144 ],
       "DisableScissor": true
     }
   }

@@ -34,6 +34,21 @@ namespace SpaceOpera.View.GameSetup
                 OptionsRowSize = 5
             };
 
+        private static readonly SliderInput.Style s_SliderStyle =
+            new()
+            {
+                Track = "game-setup-form-slider-track",
+                Knob = "game-setup-form-slider-knob"
+            };
+
+        private static readonly InputWithText.Style s_SliderTextStyle =
+            new()
+            {
+                Container = "game-setup-form-slider",
+                Text = "game-setup-form-slider-text",
+                Format = "{0:N0}"
+            };
+
         private static readonly BannerComponent.Style s_BannerStyle =
             new()
             {
@@ -68,9 +83,20 @@ namespace SpaceOpera.View.GameSetup
                 Select = s_DialStyle
             };
 
+        private static readonly PoliticsComponent.Style s_PoliticsStyle =
+            new()
+            {
+                Container = "game-setup-form-politics",
+                SectionHeader = "game-setup-form-section-header",
+                FieldHeader = "game-setup-form-field-header",
+                Slider = s_SliderStyle,
+                Text = s_SliderTextStyle
+            };
+
         public IUiComponent Banner { get; }
         public IUiComponent Culture { get; }
         public IUiComponent Galaxy { get; }
+        public IUiComponent Politics { get; }
 
         public GameSetupForm(
             UiElementFactory uiElementFactory, IconFactory iconFactory, BannerGenerator bannerGenerator)
@@ -110,13 +136,15 @@ namespace SpaceOpera.View.GameSetup
                 });
 
             Galaxy = new GalaxyComponent(uiElementFactory, s_GalaxyStyle);
+            Politics = new PoliticsComponent(uiElementFactory, s_PoliticsStyle);
             body.Add(
                 new UiSerialContainer(
                     uiElementFactory.GetClass(s_Column),
                     new NoOpElementController<UiSerialContainer>(),
                     UiSerialContainer.Orientation.Vertical)
                 {
-                    Galaxy
+                    Galaxy,
+                    Politics
                 });
 
             Add(body);
