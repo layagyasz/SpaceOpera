@@ -75,7 +75,7 @@ namespace SpaceOpera.Core.Universe.Generator
                 }
                 catch (Exception e)
                 {
-                    context.Logger.ForType(typeof(StellarBodyGenerator)).AtWarning().Log(e.ToString());
+                    context.Logger!.ForType(typeof(StellarBodyGenerator)).AtWarning().Log(e.ToString());
                     continue;
                 }
             }
@@ -87,7 +87,7 @@ namespace SpaceOpera.Core.Universe.Generator
             float radius = RadiusSampler!.Generate(random);
             int subRegionCount =
                 Math.Min(
-                    context.StellarBodySurfaceGeneratorResources.Resolution 
+                    context.StellarBodySurfaceGeneratorResources!.Resolution 
                         * context.StellarBodySurfaceGeneratorResources.Resolution, 
                     (int)Math.Ceiling(4 * SubRegionDensity * Math.PI * radius * radius));
 

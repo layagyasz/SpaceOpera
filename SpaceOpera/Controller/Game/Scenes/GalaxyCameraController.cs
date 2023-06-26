@@ -14,6 +14,7 @@ namespace SpaceOpera.Controller.Game.Scenes
         public EventHandler<MouseButtonClickEventArgs>? Clicked { get; set; }
         public EventHandler<EventArgs>? Focused { get; set; }
         public EventHandler<EventArgs>? FocusLeft { get; set; }
+        public EventHandler<MouseButtonDragEventArgs>? MouseDragged { get; set; }
         public EventHandler<EventArgs>? MouseEntered { get; set; }
         public EventHandler<EventArgs>? MouseLeft { get; set; }
 
@@ -91,6 +92,7 @@ namespace SpaceOpera.Controller.Game.Scenes
                 ChangeFocus(2 * _camera.Distance * new Vector3(_camera.AspectRatio * e.NdcDelta.X, 0, -e.NdcDelta.Y));
                 return true;
             }
+            MouseDragged?.Invoke(this, e);
             return false;
         }
 
