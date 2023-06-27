@@ -12,7 +12,9 @@ namespace SpaceOpera.View.GameSetup
         public class Style
         {
             public string? Container { get; set; }
+            public string? SectionHeaderContainer { get; set; }
             public string? SectionHeader { get; set; }
+            public string? Randomize { get; set; }
             public string? FieldHeader { get; set; }
             public DialSelect.Style? Select { get; set; }
         }
@@ -72,6 +74,7 @@ namespace SpaceOpera.View.GameSetup
                 SelectOption<int>.Create(2, "Very Austere"),
             };
 
+        public IUiElement Randomize { get; }
         public IUiComponent AuthoritarianEgalitarian { get; }
         public IUiComponent IndividualistCollectivist { get; }
         public IUiComponent AggressivePassive { get; }
@@ -79,14 +82,15 @@ namespace SpaceOpera.View.GameSetup
         public IUiComponent MonumentalHumble { get; }
         public IUiComponent IndulgentAustere { get; }
 
-        public CultureComponent(UiElementFactory uiElementFactory, Style style)
+        public CultureComponent(UiElementFactory uiElementFactory, Style style, Random random)
             : base(
-                  new CultureComponentController(),
+                  new CultureComponentController(random),
                   new UiSerialContainer(
                       uiElementFactory.GetClass(style.Container!),
                       new NoOpElementController<UiSerialContainer>(),
                       UiSerialContainer.Orientation.Vertical))
         {
+            Randomize = new SimpleUiElement(uiElementFactory.GetClass(style.Randomize!), new ButtonController());
             AuthoritarianEgalitarian = DialSelect.Create(uiElementFactory, style.Select!, s_AeOptions, 0);
             IndividualistCollectivist = DialSelect.Create(uiElementFactory, style.Select!, s_IcOptions, 0);
             AggressivePassive = DialSelect.Create(uiElementFactory, style.Select!, s_ApOptions, 0);
@@ -94,7 +98,16 @@ namespace SpaceOpera.View.GameSetup
             MonumentalHumble = DialSelect.Create(uiElementFactory, style.Select!, s_MhOptions, 0);
             IndulgentAustere = DialSelect.Create(uiElementFactory, style.Select!, s_IaOptions, 0);
 
-            Add(new TextUiElement(uiElementFactory.GetClass(style.SectionHeader!), new ButtonController(), "Culture"));
+            Add(
+                new UiSerialContainer(
+                    uiElementFactory.GetClass(style.SectionHeaderContainer!),
+                    new NoOpElementController<UiSerialContainer>(),
+                    UiSerialContainer.Orientation.Horizontal)
+                {
+                    new TextUiElement(
+                        uiElementFactory.GetClass(style.SectionHeader!), new ButtonController(), "Culture"),
+                    Randomize
+                });
             Add(
                 new TextUiElement(
                     uiElementFactory.GetClass(style.FieldHeader!),

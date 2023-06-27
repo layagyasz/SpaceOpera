@@ -4,12 +4,12 @@ using SpaceOpera.View.Components;
 
 namespace SpaceOpera.Controller.Components
 {
-    public class ColorSelectController : IController, IFormElementController<Color4>
+    public class ColorSelectController : IController, IRandomizableFormFieldController<Color4>
     {
         public EventHandler<EventArgs>? ValueChanged { get; set; }
 
         private ColorSelect? _component;
-        private IFormElementController<Color4>? _options;
+        private IRandomizableFormFieldController<Color4>? _options;
 
         private bool _focus;
 
@@ -20,7 +20,7 @@ namespace SpaceOpera.Controller.Components
             _component.Root.Controller.FocusLeft += HandleFocusLeft;
             _component.Root.Controller.MouseEntered += HandleMouseEntered;
             _component.Root.Controller.MouseLeft += HandleMouseLeft;
-            _options = (IFormElementController<Color4>)_component.Options.ComponentController;
+            _options = (IRandomizableFormFieldController<Color4>)_component.Options.ComponentController;
             _options.ValueChanged += HandleValueChanged;
         }
 
@@ -38,6 +38,11 @@ namespace SpaceOpera.Controller.Components
         public Color4 GetValue()
         {
             return _options!.GetValue();
+        }
+
+        public void Randomize(Random random, bool notify = true)
+        {
+            _options!.Randomize(random, notify);
         }
 
         public void SetValue(Color4 value, bool notify = true)

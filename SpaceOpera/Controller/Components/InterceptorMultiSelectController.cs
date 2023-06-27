@@ -5,7 +5,7 @@ using SpaceOpera.View.Components;
 namespace SpaceOpera.Controller.Components
 {
     public class InterceptorMultiSelectController<T> 
-        : IController, IFormElementController<IEnumerable<T>> where T : notnull
+        : IController, IFormFieldController<IEnumerable<T>> where T : notnull
     {
         public EventHandler<EventArgs>? ValueChanged { get; set; }
 

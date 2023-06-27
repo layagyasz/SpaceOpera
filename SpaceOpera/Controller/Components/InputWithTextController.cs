@@ -3,14 +3,14 @@ using SpaceOpera.View.Components;
 
 namespace SpaceOpera.Controller.Components
 {
-    public class InputWithTextController<T> : IController, IFormElementController<T>
+    public class InputWithTextController<T> : IController, IRandomizableFormFieldController<T>
     {
         public EventHandler<EventArgs>? ValueChanged { get; set; }
 
         private readonly string _format;
 
         private InputWithText? _component;
-        private IFormElementController<T>? _child;
+        private IRandomizableFormFieldController<T>? _child;
 
         public InputWithTextController(string format)
         {
@@ -20,7 +20,7 @@ namespace SpaceOpera.Controller.Components
         public void Bind(object @object)
         {
             _component = (InputWithText)@object;
-            _child = (IFormElementController<T>)_component.Input.ComponentController;
+            _child = (IRandomizableFormFieldController<T>)_component.Input.ComponentController;
             _child.ValueChanged += HandleValueChanged;
             UpdateText();
         }
@@ -35,6 +35,16 @@ namespace SpaceOpera.Controller.Components
         public T? GetValue()
         {
             return _child!.GetValue();
+        }
+
+        public void Randomize(Random random, bool notify = true)
+        {
+            _child!.Randomize(random, /* notify= */ false);
+            UpdateText();
+            if (notify)
+            {
+                ValueChanged?.Invoke(this, EventArgs.Empty);
+            }
         }
 
         public void SetValue(T? value, bool notify)

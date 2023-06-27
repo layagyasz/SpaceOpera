@@ -1,23 +1,32 @@
-﻿using Cardamom.Ui.Controller;
+﻿using Cardamom.Ui;
+using Cardamom.Ui.Controller;
 using SpaceOpera.Core.Politics.Generator;
 using SpaceOpera.View.GameSetup;
 
 namespace SpaceOpera.Controller.GameSetup
 {
-    public class PoliticsComponentController : IController, IFormElementController<PoliticsGenerator.Parameters>
+    public class PoliticsComponentController : IRandomizableFormFieldController<PoliticsGenerator.Parameters>
     {
         public EventHandler<EventArgs>? ValueChanged { get; set; }
 
+        private readonly Random _random;
+
         private PoliticsComponent? _component;
-        private IFormElementController<int>? _states;
-        private IFormElementController<int>? _cultures;
+        private IRandomizableFormFieldController<int>? _states;
+        private IRandomizableFormFieldController<int>? _cultures;
+
+        public PoliticsComponentController(Random random)
+        {
+            _random = random;
+        }
 
         public void Bind(object @object)
         {
             _component = (PoliticsComponent)@object;
+            _component.Randomize.Controller.Clicked += HandleRandomize;
 
-            _states = (IFormElementController<int>)_component.States.ComponentController;
-            _cultures = (IFormElementController<int>)_component.Cultures.ComponentController;
+            _states = (IRandomizableFormFieldController<int>)_component.States.ComponentController;
+            _cultures = (IRandomizableFormFieldController<int>)_component.Cultures.ComponentController;
 
             _states.ValueChanged += HandleValueChanged;
             _cultures.ValueChanged += HandleValueChanged;
@@ -25,6 +34,7 @@ namespace SpaceOpera.Controller.GameSetup
 
         public void Unbind()
         {
+            _component!.Randomize.Controller.Clicked -= HandleRandomize;
             _component = null;
 
             _states!.ValueChanged -= HandleValueChanged;
@@ -43,6 +53,16 @@ namespace SpaceOpera.Controller.GameSetup
             };
         }
 
+        public void Randomize(Random random, bool notify = true)
+        {
+            _states!.Randomize(random, /* notify= */ false);
+            _cultures!.Randomize(random, /* notify= */ false);
+            if (notify)
+            {
+                ValueChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
         public void SetValue(PoliticsGenerator.Parameters value, bool notify = true)
         {
             _states!.SetValue(value.States, /* notify= */ false);
@@ -51,6 +71,11 @@ namespace SpaceOpera.Controller.GameSetup
             {
                 ValueChanged?.Invoke(this, EventArgs.Empty);
             }
+        }
+
+        private void HandleRandomize(object? sender, MouseButtonClickEventArgs e)
+        {
+            Randomize(_random, /* notify= */ true);
         }
 
         private void HandleValueChanged(object? sender, EventArgs e)

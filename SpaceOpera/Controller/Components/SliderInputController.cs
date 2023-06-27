@@ -8,7 +8,7 @@ using SpaceOpera.View.Components;
 
 namespace SpaceOpera.Controller.Components
 {
-    public class SliderInputController : IController, IFormElementController<int>
+    public class SliderInputController : IController, IRandomizableFormFieldController<int>
     {
         public EventHandler<EventArgs>? ValueChanged { get; set; }
 
@@ -42,6 +42,11 @@ namespace SpaceOpera.Controller.Components
         public int GetValue()
         {
             return _value;
+        }
+
+        public void Randomize(Random random, bool notify = true)
+        {
+            SetValue(random.Next(_range.Minimum, _range.Maximum + 1), notify);
         }
 
         public void SetValue(int value, bool notify)

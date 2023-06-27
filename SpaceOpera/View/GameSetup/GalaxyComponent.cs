@@ -12,7 +12,9 @@ namespace SpaceOpera.View.GameSetup
         public class Style
         {
             public string? Container { get; set; }
+            public string? SectionHeaderContainer { get; set; }
             public string? SectionHeader { get; set; }
+            public string? Randomize { get; set; }
             public string? FieldHeader { get; set; }
             public DialSelect.Style? Select { get; set; }
         }
@@ -63,20 +65,22 @@ namespace SpaceOpera.View.GameSetup
                 SelectOption<float>.Create(0.2f, "Very Dense"),
             };
 
+        public IUiElement Randomize { get; }
         public IUiComponent Radius { get; }
         public IUiComponent Shape { get; }
         public IUiComponent Rotation { get; }
         public IUiComponent StarDensity { get; }
         public IUiComponent TransitDensity { get; }
 
-        public GalaxyComponent(UiElementFactory uiElementFactory, Style style)
+        public GalaxyComponent(UiElementFactory uiElementFactory, Style style, Random random)
             : base(
-                  new GalaxyComponentController(), 
+                  new GalaxyComponentController(random), 
                   new UiSerialContainer(
                       uiElementFactory.GetClass(style.Container!), 
                       new NoOpElementController<UiSerialContainer>(),
                       UiSerialContainer.Orientation.Vertical))
         {
+            Randomize = new SimpleUiElement(uiElementFactory.GetClass(style.Randomize!), new ButtonController());
             Radius = DialSelect.Create(uiElementFactory, style.Select!, s_RadiusOptions, s_RadiusOptions[2].Value);
             Shape = DialSelect.Create(uiElementFactory, style.Select!, s_ShapeOptions, s_ShapeOptions[2].Value);
             Rotation = 
@@ -88,7 +92,16 @@ namespace SpaceOpera.View.GameSetup
                 DialSelect.Create(
                     uiElementFactory, style.Select!, s_TransitDensityOptions, s_TransitDensityOptions[2].Value);
 
-            Add(new TextUiElement(uiElementFactory.GetClass(style.SectionHeader!), new ButtonController(), "Galaxy"));
+            Add(
+                new UiSerialContainer(
+                    uiElementFactory.GetClass(style.SectionHeaderContainer!),
+                    new NoOpElementController<UiSerialContainer>(),
+                    UiSerialContainer.Orientation.Horizontal)
+                {
+                    new TextUiElement(
+                        uiElementFactory.GetClass(style.SectionHeader!), new ButtonController(), "Galaxy"),
+                    Randomize
+                });
             Add(new TextUiElement(uiElementFactory.GetClass(style.FieldHeader!), new ButtonController(), "Radius"));
             Add(Radius);
             Add(new TextUiElement(uiElementFactory.GetClass(style.FieldHeader!), new ButtonController(), "Shape"));

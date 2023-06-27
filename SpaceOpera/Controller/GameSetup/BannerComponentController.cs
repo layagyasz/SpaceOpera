@@ -7,7 +7,7 @@ using SpaceOpera.View.GameSetup;
 
 namespace SpaceOpera.Controller.GameSetup
 {
-    public class BannerComponentController : IController, IFormElementController<Banner>
+    public class BannerComponentController : IRandomizableFormFieldController<Banner>
     {
         public EventHandler<EventArgs>? ValueChanged { get; set; }
 
@@ -15,11 +15,11 @@ namespace SpaceOpera.Controller.GameSetup
         private readonly Random _random;
 
         private BannerComponent? _component;
-        private IFormElementController<int>? _symbol;
-        private IFormElementController<int>? _pattern;
-        private IFormElementController<Color4>? _primaryColor;
-        private IFormElementController<Color4>? _secondaryColor;
-        private IFormElementController<Color4>? _symbolColor;
+        private IFormFieldController<int>? _symbol;
+        private IFormFieldController<int>? _pattern;
+        private IFormFieldController<Color4>? _primaryColor;
+        private IFormFieldController<Color4>? _secondaryColor;
+        private IFormFieldController<Color4>? _symbolColor;
 
         public BannerComponentController(BannerGenerator bannerGenerator, Random random)
         {
@@ -32,11 +32,11 @@ namespace SpaceOpera.Controller.GameSetup
             _component = (BannerComponent)@object;
             _component.Randomize.Controller.Clicked += HandleRandomize;
 
-            _symbol = (IFormElementController<int>)_component.Symbol.ComponentController;
-            _pattern = (IFormElementController<int>)_component.Pattern.ComponentController;
-            _primaryColor = (IFormElementController<Color4>)_component.PrimaryColor.ComponentController;
-            _secondaryColor = (IFormElementController<Color4>)_component.SecondaryColor.ComponentController;
-            _symbolColor = (IFormElementController<Color4>)_component.SymbolColor.ComponentController;
+            _symbol = (IFormFieldController<int>)_component.Symbol.ComponentController;
+            _pattern = (IFormFieldController<int>)_component.Pattern.ComponentController;
+            _primaryColor = (IFormFieldController<Color4>)_component.PrimaryColor.ComponentController;
+            _secondaryColor = (IFormFieldController<Color4>)_component.SecondaryColor.ComponentController;
+            _symbolColor = (IFormFieldController<Color4>)_component.SymbolColor.ComponentController;
 
             _symbol.ValueChanged += HandleValueChanged;
             _pattern.ValueChanged += HandleValueChanged;
@@ -75,9 +75,9 @@ namespace SpaceOpera.Controller.GameSetup
                 _symbolColor!.GetValue());
         }
 
-        public void Randomize()
+        public void Randomize(Random random, bool notify)
         {
-            SetValue(_bannerGenerator.Generate(new(null, null, _random)));
+            SetValue(_bannerGenerator.Generate(new(null, null, random)), notify);
         }
 
         public void SetValue(Banner? value, bool notify = true)
@@ -96,7 +96,7 @@ namespace SpaceOpera.Controller.GameSetup
 
         private void HandleRandomize(object? sender, MouseButtonClickEventArgs e)
         {
-            Randomize();
+            Randomize(_random, /* notify= */ true);
         }
 
         private void HandleValueChanged(object? sender, EventArgs e)

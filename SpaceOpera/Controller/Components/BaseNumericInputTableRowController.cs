@@ -6,7 +6,7 @@ using SpaceOpera.View.Components;
 namespace SpaceOpera.Controller.Components
 {
     public abstract class BaseNumericInputTableRowController<T> :
-        IController, IOptionController<T>, IFormElementController<int> where T : notnull
+        IController, IOptionController<T>, IFormFieldController<int> where T : notnull
     {
         public EventHandler<EventArgs>? Selected { get; set; }
         public EventHandler<EventArgs>? ValueChanged { get; set; }

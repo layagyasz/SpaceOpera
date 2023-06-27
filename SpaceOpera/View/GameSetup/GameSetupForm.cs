@@ -69,7 +69,9 @@ namespace SpaceOpera.View.GameSetup
             new()
             {
                 Container = "game-setup-form-culture",
+                SectionHeaderContainer = "game-setup-form-section-header-container",
                 SectionHeader = "game-setup-form-section-header",
+                Randomize = "game-setup-form-randomize",
                 FieldHeader = "game-setup-form-field-header",
                 Select = s_DialStyle
             };
@@ -78,7 +80,9 @@ namespace SpaceOpera.View.GameSetup
             new()
             {
                 Container = "game-setup-form-galaxy",
+                SectionHeaderContainer = "game-setup-form-section-header-container",
                 SectionHeader = "game-setup-form-section-header",
+                Randomize = "game-setup-form-randomize",
                 FieldHeader = "game-setup-form-field-header",
                 Select = s_DialStyle
             };
@@ -87,7 +91,9 @@ namespace SpaceOpera.View.GameSetup
             new()
             {
                 Container = "game-setup-form-politics",
+                SectionHeaderContainer = "game-setup-form-section-header-container",
                 SectionHeader = "game-setup-form-section-header",
+                Randomize = "game-setup-form-randomize",
                 FieldHeader = "game-setup-form-field-header",
                 Slider = s_SliderStyle,
                 Text = s_SliderTextStyle
@@ -108,6 +114,7 @@ namespace SpaceOpera.View.GameSetup
                       UiSerialContainer.Orientation.Vertical))
         {
             Add(uiElementFactory.CreateTextButton(s_Header, "Game Setup").Item1);
+            var random = new Random();
 
             var body = 
                 new UiSerialContainer(
@@ -115,7 +122,7 @@ namespace SpaceOpera.View.GameSetup
                     new NoOpElementController<UiSerialContainer>(),
                     UiSerialContainer.Orientation.Horizontal);
 
-            Banner = new BannerComponent(uiElementFactory, iconFactory, s_BannerStyle, bannerGenerator);
+            Banner = new BannerComponent(uiElementFactory, iconFactory, s_BannerStyle, bannerGenerator, random);
             body.Add(
                 new UiSerialContainer(
                     uiElementFactory.GetClass(s_Column), 
@@ -125,7 +132,7 @@ namespace SpaceOpera.View.GameSetup
                     Banner
                 });
 
-            Culture = new CultureComponent(uiElementFactory, s_CultureStyle);
+            Culture = new CultureComponent(uiElementFactory, s_CultureStyle, random);
             body.Add(
                 new UiSerialContainer(
                     uiElementFactory.GetClass(s_Column),
@@ -135,8 +142,8 @@ namespace SpaceOpera.View.GameSetup
                     Culture
                 });
 
-            Galaxy = new GalaxyComponent(uiElementFactory, s_GalaxyStyle);
-            Politics = new PoliticsComponent(uiElementFactory, s_PoliticsStyle);
+            Galaxy = new GalaxyComponent(uiElementFactory, s_GalaxyStyle, random);
+            Politics = new PoliticsComponent(uiElementFactory, s_PoliticsStyle, random);
             body.Add(
                 new UiSerialContainer(
                     uiElementFactory.GetClass(s_Column),

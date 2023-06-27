@@ -20,7 +20,7 @@ namespace SpaceOpera.Controller.Game.Panes.DesignPanes
             _row = @object as DesignerSegmentRow;
             _row!.CellAdded += HandleCellAdded;
             _row!.CellRemoved += HandleCellRemoved;
-            ((IFormElementController<SegmentConfiguration>)
+            ((IFormFieldController<SegmentConfiguration>)
                 _row!.ConfigurationSelect.Controller).ValueChanged += HandleConfigurationChanged;
             foreach (var cell in _row!.ComponentCells)
             {
@@ -34,7 +34,7 @@ namespace SpaceOpera.Controller.Game.Panes.DesignPanes
             {
                 UnbindCell(cell);
             }
-            ((IFormElementController<SegmentConfiguration>)
+            ((IFormFieldController<SegmentConfiguration>)
                 _row!.ConfigurationSelect.Controller).ValueChanged += HandleConfigurationChanged;
             _row!.CellRemoved -= HandleCellRemoved;
             _row!.CellAdded -= HandleCellAdded;
@@ -51,7 +51,7 @@ namespace SpaceOpera.Controller.Game.Panes.DesignPanes
             }
             return new(
                 _row!.Template,
-                ((IFormElementController<SegmentConfiguration>)_row!.ConfigurationSelect.Controller).GetValue()!,
+                ((IFormFieldController<SegmentConfiguration>)_row!.ConfigurationSelect.Controller).GetValue()!,
                 components);
         }
 
@@ -86,7 +86,7 @@ namespace SpaceOpera.Controller.Game.Panes.DesignPanes
         private void HandleConfigurationChanged(object? sender, EventArgs e)
         {
             ConfigurationChanged?.Invoke(
-                this, new(_row!, ((IFormElementController<SegmentConfiguration>)sender!).GetValue()!));
+                this, new(_row!, ((IFormFieldController<SegmentConfiguration>)sender!).GetValue()!));
         }
     }
 }

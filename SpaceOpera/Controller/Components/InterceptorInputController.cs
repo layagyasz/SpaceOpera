@@ -6,7 +6,7 @@ using SpaceOpera.View.Components;
 namespace SpaceOpera.Controller.Components
 {
     public class InterceptorInputController<T> 
-        : ClassedUiElementController<InterceptorInput<T>>, IInterceptorController, IFormElementController<T>
+        : ClassedUiElementController<InterceptorInput<T>>, IInterceptorController, IFormFieldController<T>
     {
         public EventHandler<IInterceptor>? InterceptorCreated { get; set; }
         public EventHandler<IInterceptor>? InterceptorCancelled { get; set; }

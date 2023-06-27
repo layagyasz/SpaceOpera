@@ -5,7 +5,7 @@ using SpaceOpera.View.Components;
 
 namespace SpaceOpera.Controller.Components
 {
-    public class DialSelectController<T> : IController, IFormElementController<T>
+    public class DialSelectController<T> : IController, IRandomizableFormFieldController<T>
     {
         public EventHandler<EventArgs>? ValueChanged { get; set; }
 
@@ -42,6 +42,11 @@ namespace SpaceOpera.Controller.Components
         public T? GetValue()
         {
             return _range[_valueIndex].Value;
+        }
+
+        public void Randomize(Random random,  bool notify = true)
+        {
+            SetValueIndex(random.Next(_range.Count), notify);
         }
 
         public void SetValue(T? value, bool notify = true)

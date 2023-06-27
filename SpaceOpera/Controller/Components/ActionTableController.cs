@@ -73,7 +73,7 @@ namespace SpaceOpera.Controller.Components
 
         private void HandleRowSelected(object? sender, EventArgs e)
         {
-            RowSelected?.Invoke(this, ((IFormElementController<T>)sender!).GetValue());
+            RowSelected?.Invoke(this, ((IFormFieldController<T>)sender!).GetValue());
         }
     }
 }

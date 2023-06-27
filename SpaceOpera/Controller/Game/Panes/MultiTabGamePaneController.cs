@@ -21,7 +21,7 @@ namespace SpaceOpera.Controller.Game.Panes
 
         private void HandleTabChange(object? sender, EventArgs e)
         {
-            ((MultiTabGamePane)_pane!).SetTab(((IFormElementController<object>)sender!).GetValue()!);
+            ((MultiTabGamePane)_pane!).SetTab(((IFormFieldController<object>)sender!).GetValue()!);
             _pane!.Refresh();
         }
     }

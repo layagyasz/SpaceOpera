@@ -59,9 +59,9 @@ namespace SpaceOpera.Controller.Game.Panes.LogisticsPanes
         {
             var pane = (LogisticsRoutePane)_pane!;
 
-            var leftAnchor = (IFormElementController<EconomicSubzone>)pane.LeftAnchor.Controller;
+            var leftAnchor = (IFormFieldController<EconomicSubzone>)pane.LeftAnchor.Controller;
             leftAnchor.SetValue(null);
-            var rightAnchor = (IFormElementController<EconomicSubzone>)pane.RightAnchor.Controller;
+            var rightAnchor = (IFormFieldController<EconomicSubzone>)pane.RightAnchor.Controller;
             rightAnchor.SetValue(null);
 
             var leftMaterials = (ManualNumericInputTableController<IMaterial>)pane.LeftMaterials.ComponentController;
@@ -77,8 +77,8 @@ namespace SpaceOpera.Controller.Game.Panes.LogisticsPanes
         {
             var pane = (LogisticsRoutePane)_pane!;
 
-            var leftAnchor = (IFormElementController<EconomicSubzone>)pane.LeftAnchor.Controller;
-            var rightAnchor = (IFormElementController<EconomicSubzone>)pane.RightAnchor.Controller;
+            var leftAnchor = (IFormFieldController<EconomicSubzone>)pane.LeftAnchor.Controller;
+            var rightAnchor = (IFormFieldController<EconomicSubzone>)pane.RightAnchor.Controller;
 
             var leftMaterials = (ManualNumericInputTableController<IMaterial>)pane.LeftMaterials.ComponentController;
             var rightMaterials = (ManualNumericInputTableController<IMaterial>)pane.RightMaterials.ComponentController;

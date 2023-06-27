@@ -1,29 +1,38 @@
-﻿using Cardamom.Ui.Controller;
+﻿using Cardamom.Ui;
+using Cardamom.Ui.Controller;
 using SpaceOpera.Core.Universe.Generator;
 using SpaceOpera.View.GameSetup;
 
 namespace SpaceOpera.Controller.GameSetup
 {
-    public class GalaxyComponentController : IController, IFormElementController<GalaxyGenerator.Parameters>
+    public class GalaxyComponentController : IRandomizableFormFieldController<GalaxyGenerator.Parameters>
     {
         public EventHandler<EventArgs>? ValueChanged { get; set; }
 
+        private readonly Random _random;
+
         private GalaxyComponent? _component;
-        private IFormElementController<float>? _radius;
-        private IFormElementController<int>? _shape;
-        private IFormElementController<float>? _rotation;
-        private IFormElementController<float>? _starDensity;
-        private IFormElementController<float>? _transitDensity;
+        private IRandomizableFormFieldController<float>? _radius;
+        private IRandomizableFormFieldController<int>? _shape;
+        private IRandomizableFormFieldController<float>? _rotation;
+        private IRandomizableFormFieldController<float>? _starDensity;
+        private IRandomizableFormFieldController<float>? _transitDensity;
+
+        public GalaxyComponentController(Random random)
+        {
+            _random = random;
+        }
 
         public void Bind(object @object)
         {
             _component = (GalaxyComponent)@object;
+            _component.Randomize.Controller.Clicked += HandleRandomize;
 
-            _radius = (IFormElementController<float>)_component.Radius.ComponentController;
-            _shape = (IFormElementController<int>)_component.Shape.ComponentController;
-            _rotation = (IFormElementController<float>)_component.Rotation.ComponentController;
-            _starDensity = (IFormElementController<float>)_component.StarDensity.ComponentController;
-            _transitDensity = (IFormElementController<float>)_component.TransitDensity.ComponentController;
+            _radius = (IRandomizableFormFieldController<float>)_component.Radius.ComponentController;
+            _shape = (IRandomizableFormFieldController<int>)_component.Shape.ComponentController;
+            _rotation = (IRandomizableFormFieldController<float>)_component.Rotation.ComponentController;
+            _starDensity = (IRandomizableFormFieldController<float>)_component.StarDensity.ComponentController;
+            _transitDensity = (IRandomizableFormFieldController<float>)_component.TransitDensity.ComponentController;
 
             _radius.ValueChanged += HandleValueChanged;
             _shape.ValueChanged += HandleValueChanged;
@@ -46,6 +55,7 @@ namespace SpaceOpera.Controller.GameSetup
             _starDensity = null;
             _transitDensity = null;
 
+            _component!.Randomize.Controller.Clicked -= HandleRandomize;
             _component = null;
         }
 
@@ -61,6 +71,19 @@ namespace SpaceOpera.Controller.GameSetup
             };
         }
 
+        public void Randomize(Random random, bool notify = true)
+        {
+            _radius!.Randomize(random, /* notify= */ true);
+            _shape!.Randomize(random, /* notify= */ true);
+            _rotation!.Randomize(random, /* notify= */ true);
+            _starDensity!.Randomize(random, /* notify= */ true);
+            _transitDensity!.Randomize(random, /* notify= */ true);
+            if (notify)
+            {
+                ValueChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
         public void SetValue(GalaxyGenerator.Parameters value, bool notify = true)
         {
             _radius!.SetValue(value.Radius, /* notify= */ false);
@@ -72,6 +95,11 @@ namespace SpaceOpera.Controller.GameSetup
             {
                 ValueChanged?.Invoke(this, EventArgs.Empty);
             }
+        }
+
+        private void HandleRandomize(object? sender, MouseButtonClickEventArgs e)
+        {
+            Randomize(_random, /* notify= */ true);
         }
 
         private void HandleValueChanged(object? sender, EventArgs e)

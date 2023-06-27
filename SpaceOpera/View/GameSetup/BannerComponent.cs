@@ -40,9 +40,13 @@ namespace SpaceOpera.View.GameSetup
         private Icon? _icon;
 
         public BannerComponent(
-            UiElementFactory uiElementFactory, IconFactory iconFactory, Style style, BannerGenerator bannerGenerator)
+            UiElementFactory uiElementFactory,
+            IconFactory iconFactory,
+            Style style, 
+            BannerGenerator bannerGenerator,
+            Random random)
             : base(
-                  new BannerComponentController(bannerGenerator, new()),
+                  new BannerComponentController(bannerGenerator, random),
                   new UiSerialContainer(
                       uiElementFactory.GetClass(style.Container!), 
                       new NoOpElementController<UiSerialContainer>(),

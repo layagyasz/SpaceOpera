@@ -6,7 +6,7 @@ using SpaceOpera.View.Components;
 
 namespace SpaceOpera.Controller.Components
 {
-    public class NumericInputController : IController, IFormElementController<int>
+    public class NumericInputController : IController, IFormFieldController<int>
     {
         public EventHandler<EventArgs>? ValueChanged { get; set; }
 

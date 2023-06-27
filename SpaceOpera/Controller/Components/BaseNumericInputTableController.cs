@@ -8,7 +8,7 @@ using SpaceOpera.View.Components;
 namespace SpaceOpera.Controller.Components
 {
     public abstract class BaseNumericInputTableController<T> 
-        : IController, IFormElementController<MultiCount<T>> where T : notnull
+        : IController, IFormFieldController<MultiCount<T>> where T : notnull
     {
         public EventHandler<EventArgs>? ValueChanged { get; set; }
         public EventHandler<T?>? RowSelected { get; set; }
@@ -121,7 +121,7 @@ namespace SpaceOpera.Controller.Components
 
         private void HandleRowSelected(object? sender, EventArgs e)
         {
-            RowSelected?.Invoke(this, ((IFormElementController<T>)sender!).GetValue());
+            RowSelected?.Invoke(this, ((IFormFieldController<T>)sender!).GetValue());
         }
 
         private void HandleValueChanged(object? sender, EventArgs e)

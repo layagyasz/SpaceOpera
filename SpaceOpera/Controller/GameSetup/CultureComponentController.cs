@@ -1,31 +1,40 @@
-﻿using Cardamom.Ui.Controller;
+﻿using Cardamom.Ui;
+using Cardamom.Ui.Controller;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.View.GameSetup;
 
 namespace SpaceOpera.Controller.GameSetup
 {
-    public class CultureComponentController : IController, IFormElementController<CulturalTraits>
+    public class CultureComponentController : IRandomizableFormFieldController<CulturalTraits>
     {
         public EventHandler<EventArgs>? ValueChanged { get; set; }
 
+        private readonly Random _random;
+
         private CultureComponent? _component;
-        private IFormElementController<int>? _ae;
-        private IFormElementController<int>? _ic;
-        private IFormElementController<int>? _ap;
-        private IFormElementController<int>? _cd;
-        private IFormElementController<int>? _mh;
-        private IFormElementController<int>? _ia;
+        private IRandomizableFormFieldController<int>? _ae;
+        private IRandomizableFormFieldController<int>? _ic;
+        private IRandomizableFormFieldController<int>? _ap;
+        private IRandomizableFormFieldController<int>? _cd;
+        private IRandomizableFormFieldController<int>? _mh;
+        private IRandomizableFormFieldController<int>? _ia;
+
+        public CultureComponentController(Random random)
+        {
+            _random = random;
+        }
 
         public void Bind(object @object)
         {
             _component = (CultureComponent)@object;
+            _component.Randomize.Controller.Clicked += HandleRandomize;
 
-            _ae = (IFormElementController<int>)_component.AuthoritarianEgalitarian.ComponentController;
-            _ic = (IFormElementController<int>)_component.IndividualistCollectivist.ComponentController;
-            _ap = (IFormElementController<int>)_component.AggressivePassive.ComponentController;
-            _cd = (IFormElementController<int>)_component.ConventionalDynamic.ComponentController;
-            _mh = (IFormElementController<int>)_component.MonumentalHumble.ComponentController;
-            _ia = (IFormElementController<int>)_component.IndulgentAustere.ComponentController;
+            _ae = (IRandomizableFormFieldController<int>)_component.AuthoritarianEgalitarian.ComponentController;
+            _ic = (IRandomizableFormFieldController<int>)_component.IndividualistCollectivist.ComponentController;
+            _ap = (IRandomizableFormFieldController<int>)_component.AggressivePassive.ComponentController;
+            _cd = (IRandomizableFormFieldController<int>)_component.ConventionalDynamic.ComponentController;
+            _mh = (IRandomizableFormFieldController<int>)_component.MonumentalHumble.ComponentController;
+            _ia = (IRandomizableFormFieldController<int>)_component.IndulgentAustere.ComponentController;
 
             _ae.ValueChanged += HandleValueChanged;
             _ic.ValueChanged += HandleValueChanged;
@@ -37,6 +46,7 @@ namespace SpaceOpera.Controller.GameSetup
 
         public void Unbind()
         {
+            _component!.Randomize.Controller.Clicked -= HandleRandomize;
             _component = null;
 
             _ae!.ValueChanged -= HandleValueChanged;
@@ -67,6 +77,20 @@ namespace SpaceOpera.Controller.GameSetup
             };
         }
 
+        public void Randomize(Random random, bool notify = true)
+        {
+            _ae!.Randomize(random, /* notify= */ false);
+            _ic!.Randomize(random, /* notify= */ false);
+            _ap!.Randomize(random, /* notify= */ false);
+            _cd!.Randomize(random, /* notify= */ false);
+            _mh!.Randomize(random, /* notify= */ false);
+            _ia!.Randomize(random, /* notify= */ false);
+            if (notify)
+            {
+                ValueChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
         public void SetValue(CulturalTraits value, bool notify = true)
         {
             _ae!.SetValue(value.AuthoritarianEgalitarian, /* notify= */ false);
@@ -79,6 +103,11 @@ namespace SpaceOpera.Controller.GameSetup
             {
                 ValueChanged?.Invoke(this, EventArgs.Empty);
             }
+        }
+
+        private void HandleRandomize(object? sender, MouseButtonClickEventArgs e)
+        {
+            Randomize(_random, /* notify= */ true);
         }
 
         private void HandleValueChanged(object? sender, EventArgs e)
