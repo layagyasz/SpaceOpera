@@ -103,10 +103,10 @@ namespace SpaceOpera.View
                 new DynamicUiGroup(new PaneLayerController()));
         }
 
-        public GameSetupScreen CreateGameSetupScreen(BannerGenerator bannerGenerator)
+        public GameSetupScreen CreateGameSetupScreen(CoreData coreData)
         {
             var screen = new GameSetupScreen(new NoOpController<IRenderable>());
-            screen.SetForm(new GameSetupForm(UiElementFactory, IconFactory, bannerGenerator, /* random= */ new()));
+            screen.SetForm(new GameSetupForm(UiElementFactory, IconFactory, coreData, /* random= */ new()));
             return screen;
         }
     }

@@ -67,7 +67,7 @@ namespace SpaceOpera
             }
             if (mode == RunMode.TestSetup)
             {
-                var setupScreen = viewFactory.CreateGameSetupScreen(coreData.PoliticsGenerator!.Banner!);
+                var setupScreen = viewFactory.CreateGameSetupScreen(coreData);
                 ui.SetRoot(setupScreen);
                 ui.Start();
                 return;

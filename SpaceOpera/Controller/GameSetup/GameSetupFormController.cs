@@ -11,6 +11,7 @@ namespace SpaceOpera.Controller.GameSetup
         private BannerComponentController? _banner;
         private CultureComponentController? _culture;
         private GalaxyComponentController? _galaxy;
+        private GovernmentComponentController? _government;
         private PoliticsComponentController? _politics;
 
         public GameSetupFormController(Random random)
@@ -24,10 +25,12 @@ namespace SpaceOpera.Controller.GameSetup
             _banner = (BannerComponentController)_component.Banner.ComponentController;
             _culture = (CultureComponentController)_component.Culture.ComponentController;
             _galaxy = (GalaxyComponentController)_component.Galaxy.ComponentController;
+            _government = (GovernmentComponentController)_component.Government.ComponentController;
             _politics = (PoliticsComponentController)_component.Politics.ComponentController;
 
             _banner.Randomize(_random);
             _culture.Randomize(_random);
+            _government.Randomize(_random);
         }
 
         public void Unbind()
@@ -36,6 +39,7 @@ namespace SpaceOpera.Controller.GameSetup
             _banner = null;
             _culture = null;
             _galaxy = null;
+            _government = null;
             _politics = null;
         }
     }

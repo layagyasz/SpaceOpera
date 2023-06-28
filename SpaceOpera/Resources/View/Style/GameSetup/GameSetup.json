@@ -190,6 +190,13 @@
     }
   },
   {
+    "$id": "game-setup-form-text",
+    "Parent": "ui-element-basic",
+    "Default": {
+      "Size": [ 215, 28 ]
+    }
+  },
+  {
     "$id": "game-setup-form-banner",
     "Parent": "ui-container",
     "Default": {
@@ -218,6 +225,14 @@
     "Parent": "ui-container",
     "Default": {
       "Size": [ 219, 300 ],
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "game-setup-form-government",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 219, 92 ],
       "DisableScissor": true
     }
   },
