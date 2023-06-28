@@ -144,7 +144,7 @@ namespace SpaceOpera
             {
                 throw new ArgumentException();
             }
-            var screen = viewFactory.CreateGameScreen(controller, calendar);
+            var screen = viewFactory.CreateGameScreen(controller);
             driver.Start();
             ui.SetRoot(screen);
             controller.PushScene(scene);

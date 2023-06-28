@@ -38,10 +38,11 @@ namespace SpaceOpera.View.GameSetup
             Randomize = new SimpleUiElement(uiElementFactory.GetClass(style.Randomize!), new ButtonController());
             States = 
                 InputWithText.Create<int>(
-                    SliderInput.Create(s_States, uiElementFactory, style.Slider!), uiElementFactory, style.Text!);
+                    SliderInput.Create(uiElementFactory, style.Slider!, s_States, 5), uiElementFactory, style.Text!);
             Cultures =
                 InputWithText.Create<int>(
-                    SliderInput.Create(s_Cultures, uiElementFactory, style.Slider!), uiElementFactory, style.Text!);
+                    SliderInput.Create(
+                        uiElementFactory, style.Slider!, s_Cultures, 10), uiElementFactory, style.Text!);
 
             Add(
                 new UiSerialContainer(

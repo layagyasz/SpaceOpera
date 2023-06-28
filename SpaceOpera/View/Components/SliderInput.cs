@@ -4,6 +4,7 @@ using Cardamom.Ui.Controller;
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
 using SpaceOpera.Controller.Components;
+using System;
 
 namespace SpaceOpera.View.Components
 {
@@ -24,10 +25,10 @@ namespace SpaceOpera.View.Components
             Add(knob);
         }
 
-        public static SliderInput Create(IntInterval range, UiElementFactory uiElementFactory, Style style)
+        public static SliderInput Create(UiElementFactory uiElementFactory, Style style, IntInterval range, int value)
         {
             return new(
-                new SliderInputController(range),
+                new SliderInputController(range, value),
                 new SimpleUiElement(uiElementFactory.GetClass(style.Track!), new InlayController()), 
                 new SimpleUiElement(uiElementFactory.GetClass(style.Knob!), new SliderInputKnobController()));
         }

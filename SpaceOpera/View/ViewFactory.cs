@@ -93,7 +93,7 @@ namespace SpaceOpera.View
                 iconFactory);
         }
 
-        public GameScreen CreateGameScreen(GameController controller, StarCalendar calendar)
+        public GameScreen CreateGameScreen(GameController controller)
         {
             return new(
                 controller,
@@ -106,7 +106,7 @@ namespace SpaceOpera.View
         public GameSetupScreen CreateGameSetupScreen(BannerGenerator bannerGenerator)
         {
             var screen = new GameSetupScreen(new NoOpController<IRenderable>());
-            screen.SetForm(new GameSetupForm(UiElementFactory, IconFactory, bannerGenerator));
+            screen.SetForm(new GameSetupForm(UiElementFactory, IconFactory, bannerGenerator, /* random= */ new()));
             return screen;
         }
     }

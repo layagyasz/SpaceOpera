@@ -19,9 +19,10 @@ namespace SpaceOpera.Controller.Components
 
         private int _value;
 
-        public SliderInputController(IntInterval range)
+        public SliderInputController(IntInterval range, int defaultValue)
         {
             _range = range;
+            _value = defaultValue;
         }
 
         public void Bind(object @object)

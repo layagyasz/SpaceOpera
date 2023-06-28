@@ -2,6 +2,7 @@
 using Cardamom.Ui.Controller;
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
+using SpaceOpera.Controller.GameSetup;
 using SpaceOpera.Core.Politics.Generator;
 using SpaceOpera.View.Components;
 using SpaceOpera.View.Icons;
@@ -105,16 +106,15 @@ namespace SpaceOpera.View.GameSetup
         public IUiComponent Politics { get; }
 
         public GameSetupForm(
-            UiElementFactory uiElementFactory, IconFactory iconFactory, BannerGenerator bannerGenerator)
+            UiElementFactory uiElementFactory, IconFactory iconFactory, BannerGenerator bannerGenerator, Random random)
             : base(
-                  new NoOpController<GameSetupForm>(), 
+                  new GameSetupFormController(random), 
                   new UiSerialContainer(
                       uiElementFactory.GetClass(s_Container),
                       new ButtonController(),
                       UiSerialContainer.Orientation.Vertical))
         {
             Add(uiElementFactory.CreateTextButton(s_Header, "Game Setup").Item1);
-            var random = new Random();
 
             var body = 
                 new UiSerialContainer(
