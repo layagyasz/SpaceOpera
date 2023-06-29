@@ -101,10 +101,10 @@
     <None Update="Resources\View\Designs\ShipShield\ShipShield.Icons.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Designs\ShipWeapon\ShipWeapon.IconConfig.json">
+    <None Update="Resources\View\Designs\HeavyGun\HeavyGun.IconConfig.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Designs\ShipWeapon\ShipWeapon.Icons.json">
+    <None Update="Resources\View\Designs\HeavyGun\HeavyGun.Icons.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\View\Designs\Ship\Ship.IconConfig.json">
@@ -410,7 +410,7 @@
     <None Update="Resources\View\Icons\personal-armor.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\personal-weapon.png">
+    <None Update="Resources\View\Icons\small-arm.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\View\Icons\plus.png">
@@ -488,46 +488,46 @@
     <None Update="Resources\View\Icons\shield.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\ship-weapon-assembly-combat.png">
+    <None Update="Resources\View\Icons\heavy-gun-assembly-combat.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\ship-weapon-assembly-magnum.png">
+    <None Update="Resources\View\Icons\heavy-gun-assembly-magnum.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\ship-weapon-assembly-precision.png">
+    <None Update="Resources\View\Icons\heavy-gun-assembly-precision.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\ship-weapon-assembly-rail.png">
+    <None Update="Resources\View\Icons\heavy-gun-assembly-rail.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\ship-weapon-assembly-rotary.png">
+    <None Update="Resources\View\Icons\heavy-gun-assembly-rotary.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\ship-weapon-fire-control-precision.png">
+    <None Update="Resources\View\Icons\heavy-gun-fire-control-precision.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\ship-weapon-fire-control-targeting.png">
+    <None Update="Resources\View\Icons\heavy-gun-fire-control-targeting.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\ship-weapon-fire-control-tracking.png">
+    <None Update="Resources\View\Icons\heavy-gun-fire-control-tracking.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\ship-weapon-mount-double.png">
+    <None Update="Resources\View\Icons\heavy-gun-mount-double.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\ship-weapon-mount-quad.png">
+    <None Update="Resources\View\Icons\heavy-gun-mount-quad.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\ship-weapon-mount-single.png">
+    <None Update="Resources\View\Icons\heavy-gun-mount-single.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\ship-weapon-mount-triple.png">
+    <None Update="Resources\View\Icons\heavy-gun-mount-triple.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\ship-weapon-weight-heavy.png">
+    <None Update="Resources\View\Icons\heavy-gun-weight-heavy.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\ship-weapon-weight-medium.png">
+    <None Update="Resources\View\Icons\heavy-gun-weight-medium.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\View\Icons\ship.png">
@@ -1487,7 +1487,6 @@
     <Folder Include="Resources\Core\Designs\Ship\" />
     <Folder Include="Resources\View\Designs\Infantry\" />
     <Folder Include="Resources\View\Designs\Ship\" />
-    <Folder Include="Resources\View\Designs\ShipWeapon\" />
     <Folder Include="Resources\View\Designs\ShipShield\" />
     <Folder Include="Resources\View\Style\GameSetup\" />
   </ItemGroup>

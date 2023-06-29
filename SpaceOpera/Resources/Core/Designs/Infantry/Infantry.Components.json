@@ -15,7 +15,7 @@
     }
   },
   {
-    "$id": "component-personal-weapon-kinetic",
+    "$id": "component-small-arm-kinetic",
     "Name": "Personal Weapon (Kinetic)",
     "Slot": {
       "Type": "SmallArm"
@@ -37,13 +37,13 @@
       }
     },
     "MaterialCost": {
-      "material-personal-weapon-kinetic": {
+      "material-small-arm-kinetic": {
         "Constant": 1
       }
     }
   },
   {
-    "$id": "component-personal-weapon-laser",
+    "$id": "component-small-arm-laser",
     "Name": "Personal Weapon (Laser)",
     "Slot": {
       "Type": "SmallArm"
@@ -65,13 +65,13 @@
       }
     },
     "MaterialCost": {
-      "material-personal-weapon-laser": {
+      "material-small-arm-laser": {
         "Constant": 1
       }
     }
   },
   {
-    "$id": "component-personal-weapon-plasma",
+    "$id": "component-small-arm-plasma",
     "Name": "Personal Weapon (Plasma)",
     "Slot": {
       "Type": "SmallArm"
@@ -93,7 +93,7 @@
       }
     },
     "MaterialCost": {
-      "material-personal-weapon-plasma": {
+      "material-small-arm-plasma": {
         "Constant": 1
       }
     }

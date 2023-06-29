@@ -245,18 +245,18 @@
     "Color": "#00ffff"
   },
   {
-    "$id": "material-personal-weapon-kinetic",
-    "Texture": "icon-personal-weapon",
+    "$id": "material-small-arm-kinetic",
+    "Texture": "icon-small-arm",
     "Color": "#0000ff"
   },
   {
-    "$id": "material-personal-weapon-laser",
-    "Texture": "icon-personal-weapon",
+    "$id": "material-small-arm-laser",
+    "Texture": "icon-small-arm",
     "Color": "#ff0000"
   },
   {
-    "$id": "material-personal-weapon-plasma",
-    "Texture": "icon-personal-weapon",
+    "$id": "material-small-arm-plasma",
+    "Texture": "icon-small-arm",
     "Color": "#ff00ff"
   },
   {

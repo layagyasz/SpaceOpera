@@ -1,6 +1,6 @@
 [
   {
-    "$id": "design-template-ship-weapon",
+    "$id": "design-template-heavy-gun",
     "Type": "HeavyGun",
     "Sizes": {
       "PointDefense": {
@@ -82,11 +82,11 @@
     },
     "Segments": [
       {
-        "$id": "design-template-segment-ship-weapon-components",
+        "$id": "design-template-segment-heavy-gun-components",
         "Name": "Components",
         "ConfigurationOptions": [
           {
-            "$id": "design-template-segment-ship-weapon-components-standard",
+            "$id": "design-template-segment-heavy-gun-components-standard",
             "Name": "Standard",
             "IntrinsicComponent": {
               "Attributes": {

@@ -508,36 +508,36 @@
     }
   },
   {
-    "$id": "recipe-personal-weapon-kinetic-factory",
+    "$id": "recipe-small-arm-kinetic-factory",
     "Name": "Personal Weapon (Kinetic) Factory",
     "Structure": "structure-light-factory",
     "Coefficient": 20000,
     "Transformation": {
       "material-polymer": -0.00085,
       "material-durasteel-metal": -0.00015,
-      "material-personal-weapon-kinetic": 1
+      "material-small-arm-kinetic": 1
     }
   },
   {
-    "$id": "recipe-personal-weapon-laser-factory",
+    "$id": "recipe-small-arm-laser-factory",
     "Name": "Personal Weapon (Kinetic) Factory",
     "Structure": "structure-light-factory",
     "Coefficient": 20000,
     "Transformation": {
       "material-polymer": -0.00085,
       "material-durasteel-metal": -0.00015,
-      "material-personal-weapon-laser": 1
+      "material-small-arm-laser": 1
     }
   },
   {
-    "$id": "recipe-personal-weapon-plasma-factory",
+    "$id": "recipe-small-arm-plasma-factory",
     "Name": "Personal Weapon (Kinetic) Factory",
     "Structure": "structure-light-factory",
     "Coefficient": 20000,
     "Transformation": {
       "material-polymer": -0.00085,
       "material-durasteel-metal": -0.00015,
-      "material-personal-weapon-plasma": 1
+      "material-small-arm-plasma": 1
     }
   },
   {

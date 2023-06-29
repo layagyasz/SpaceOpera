@@ -50,7 +50,7 @@
     "Color": "#ffff00"
   },
   {
-    "$id": "component-ship-missile",
+    "$id": "component-heavy-missile",
     "Texture": "icon-missile",
     "Color": "#ff0000"
   }

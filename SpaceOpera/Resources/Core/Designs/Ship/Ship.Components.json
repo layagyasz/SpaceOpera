@@ -182,7 +182,7 @@
     }
   },
   {
-    "$id": "component-ship-missile",
+    "$id": "component-heavy-missile",
     "Name": "Missile Battery",
     "Slot": {
       "Type": "HeavyMissile"

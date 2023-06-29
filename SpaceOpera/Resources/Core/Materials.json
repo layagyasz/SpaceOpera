@@ -252,19 +252,19 @@
     "Size": 0.0004
   },
   {
-    "$id": "material-personal-weapon-kinetic",
+    "$id": "material-small-arm-kinetic",
     "Name": "Personal Weapon (Kinetic)",
     "Mass": 0.001,
     "Size": 0.01
   },
   {
-    "$id": "material-personal-weapon-laser",
+    "$id": "material-small-arm-laser",
     "Name": "Personal Weapon (Laser)",
     "Mass": 0.001,
     "Size": 0.01
   },
   {
-    "$id": "material-personal-weapon-plasma",
+    "$id": "material-small-arm-plasma",
     "Name": "Personal Weapon (Plasma)",
     "Mass": 0.001,
     "Size": 0.01

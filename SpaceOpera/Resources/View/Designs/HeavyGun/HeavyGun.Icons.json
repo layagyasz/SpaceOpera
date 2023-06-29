@@ -1,0 +1,259 @@
+[
+  {
+    "$id": "component-heavy-gun-kinetic-defense",
+    "Texture": "icon-large-weapon",
+    "Color": "#0000ff"
+  },
+  {
+    "$id": "component-heavy-gun-kinetic-small",
+    "Texture": "icon-large-weapon",
+    "Color": "#0000ff"
+  },
+  {
+    "$id": "component-heavy-gun-kinetic-medium",
+    "Texture": "icon-large-weapon",
+    "Color": "#0000ff"
+  },
+  {
+    "$id": "component-heavy-gun-kinetic-large",
+    "Texture": "icon-large-weapon",
+    "Color": "#0000ff"
+  },
+  {
+    "$id": "component-heavy-gun-missile",
+    "Texture": "icon-missile",
+    "Color": "#ff0000"
+  },
+
+  {
+    "$id": "component-heavy-gun-ammunition-kinetic",
+    "Texture": "icon-ammunition-shell",
+    "Color": "#0000ff"
+  },
+  {
+    "$id": "component-heavy-gun-ammunition-penetrator",
+    "Texture": "icon-ammunition-shell",
+    "Color": "#404040"
+  },
+  {
+    "$id": "component-heavy-gun-ammunition-explosive",
+    "Texture": "icon-ammunition-shell",
+    "Color": "#c06600"
+  },
+  {
+    "$id": "component-heavy-gun-ammunition-laser-beam",
+    "Texture": "icon-ammunition-beam",
+    "Color": "#ff0000"
+  },
+  {
+    "$id": "component-heavy-gun-ammunition-laser-pulse",
+    "Texture": "icon-ammunition-pulse",
+    "Color": "#ff0000"
+  },
+  {
+    "$id": "component-heavy-gun-ammunition-plasma-beam",
+    "Texture": "icon-ammunition-beam",
+    "Color": "#ff00ff"
+  },
+  {
+    "$id": "component-heavy-gun-ammunition-plasma-pulse",
+    "Texture": "icon-ammunition-pulse",
+    "Color": "#ff00ff"
+  },
+  {
+    "$id": "component-heavy-gun-assembly-combat-i",
+    "Texture": "icon-heavy-gun-assembly-combat",
+    "Color": "#ffffff"
+  },
+  {
+    "$id": "component-heavy-gun-assembly-combat-ii",
+    "Texture": "icon-heavy-gun-assembly-combat",
+    "Color": "#ffffff"
+  },
+  {
+    "$id": "component-heavy-gun-assembly-combat-iii",
+    "Texture": "icon-heavy-gun-assembly-combat",
+    "Color": "#ffffff"
+  },
+  {
+    "$id": "component-heavy-gun-assembly-combat-iv",
+    "Texture": "icon-heavy-gun-assembly-combat",
+    "Color": "#ffffff"
+  },
+  {
+    "$id": "component-heavy-gun-assembly-magnum-i",
+    "Texture": "icon-heavy-gun-assembly-magnum",
+    "Color": "#ff0000"
+  },
+  {
+    "$id": "component-heavy-gun-assembly-magnum-ii",
+    "Texture": "icon-heavy-gun-assembly-magnum",
+    "Color": "#ff0000"
+  },
+  {
+    "$id": "component-heavy-gun-assembly-magnum-iii",
+    "Texture": "icon-heavy-gun-assembly-magnum",
+    "Color": "#ff0000"
+  },
+  {
+    "$id": "component-heavy-gun-assembly-magnum-iv",
+    "Texture": "icon-heavy-gun-assembly-magnum",
+    "Color": "#ff0000"
+  },
+  {
+    "$id": "component-heavy-gun-assembly-precision-i",
+    "Texture": "icon-heavy-gun-assembly-precision",
+    "Color": "#00ff00"
+  },
+  {
+    "$id": "component-heavy-gun-assembly-precision-ii",
+    "Texture": "icon-heavy-gun-assembly-precision",
+    "Color": "#00ff00"
+  },
+  {
+    "$id": "component-heavy-gun-assembly-precision-iii",
+    "Texture": "icon-heavy-gun-assembly-precision",
+    "Color": "#00ff00"
+  },
+  {
+    "$id": "component-heavy-gun-assembly-precision-iv",
+    "Texture": "icon-heavy-gun-assembly-precision",
+    "Color": "#00ff00"
+  },
+  {
+    "$id": "component-heavy-gun-assembly-rail-i",
+    "Texture": "icon-heavy-gun-assembly-rail",
+    "Color": "#00ffff"
+  },
+  {
+    "$id": "component-heavy-gun-assembly-rail-ii",
+    "Texture": "icon-heavy-gun-assembly-rail",
+    "Color": "#00ffff"
+  },
+  {
+    "$id": "component-heavy-gun-assembly-rail-iii",
+    "Texture": "icon-heavy-gun-assembly-rail",
+    "Color": "#00ffff"
+  },
+  {
+    "$id": "component-heavy-gun-assembly-rail-iv",
+    "Texture": "icon-heavy-gun-assembly-rail",
+    "Color": "#00ffff"
+  },
+  {
+    "$id": "component-heavy-gun-assembly-rotary-i",
+    "Texture": "icon-heavy-gun-assembly-rotary",
+    "Color": "#0000ff"
+  },
+  {
+    "$id": "component-heavy-gun-assembly-rotary-ii",
+    "Texture": "icon-heavy-gun-assembly-rotary",
+    "Color": "#0000ff"
+  },
+  {
+    "$id": "component-heavy-gun-assembly-rotary-iii",
+    "Texture": "icon-heavy-gun-assembly-rotary",
+    "Color": "#0000ff"
+  },
+  {
+    "$id": "component-heavy-gun-assembly-rotary-iv",
+    "Texture": "icon-heavy-gun-assembly-rotary",
+    "Color": "#0000ff"
+  },
+  {
+    "$id": "component-heavy-gun-fire-control-precision-i",
+    "Texture": "icon-heavy-gun-fire-control-precision",
+    "Color": "#00ff00"
+  },
+  {
+    "$id": "component-heavy-gun-fire-control-precision-ii",
+    "Texture": "icon-heavy-gun-fire-control-precision",
+    "Color": "#00ff00"
+  },
+  {
+    "$id": "component-heavy-gun-fire-control-precision-iii",
+    "Texture": "icon-heavy-gun-fire-control-precision",
+    "Color": "#00ff00"
+  },
+  {
+    "$id": "component-heavy-gun-fire-control-precision-iv",
+    "Texture": "icon-heavy-gun-fire-control-precision",
+    "Color": "#00ff00"
+  },
+  {
+    "$id": "component-heavy-gun-fire-control-targeting-i",
+    "Texture": "icon-heavy-gun-fire-control-targeting",
+    "Color": "#ff0000"
+  },
+  {
+    "$id": "component-heavy-gun-fire-control-targeting-ii",
+    "Texture": "icon-heavy-gun-fire-control-targeting",
+    "Color": "#ff0000"
+  },
+  {
+    "$id": "component-heavy-gun-fire-control-targeting-iii",
+    "Texture": "icon-heavy-gun-fire-control-targeting",
+    "Color": "#ff0000"
+  },
+  {
+    "$id": "component-heavy-gun-fire-control-targeting-iv",
+    "Texture": "icon-heavy-gun-fire-control-targeting",
+    "Color": "#ff0000"
+  },
+  {
+    "$id": "component-heavy-gun-fire-control-tracking-i",
+    "Texture": "icon-heavy-gun-fire-control-tracking",
+    "Color": "#0000ff"
+  },
+  {
+    "$id": "component-heavy-gun-fire-control-tracking-ii",
+    "Texture": "icon-heavy-gun-fire-control-tracking",
+    "Color": "#0000ff"
+  },
+  {
+    "$id": "component-heavy-gun-fire-control-tracking-iii",
+    "Texture": "icon-heavy-gun-fire-control-tracking",
+    "Color": "#0000ff"
+  },
+  {
+    "$id": "component-heavy-gun-fire-control-tracking-iv",
+    "Texture": "icon-heavy-gun-fire-control-tracking",
+    "Color": "#0000ff"
+  },
+  {
+    "$id": "component-heavy-gun-mount-double",
+    "Texture": "icon-heavy-gun-mount-double",
+    "Color": "#ffffff"
+  },
+  {
+    "$id": "component-heavy-gun-mount-quad",
+    "Texture": "icon-heavy-gun-mount-quad",
+    "Color": "#ffffff"
+  },
+  {
+    "$id": "component-heavy-gun-mount-single",
+    "Texture": "icon-heavy-gun-mount-single",
+    "Color": "#ffffff"
+  },
+  {
+    "$id": "component-heavy-gun-mount-triple",
+    "Texture": "icon-heavy-gun-mount-triple",
+    "Color": "#ffffff"
+  },
+
+  {
+    "$id": "component-heavy-gun-weight-heavy",
+    "Texture": "icon-heavy-gun-weight-heavy",
+    "Color": "#ffffff"
+  },
+  {
+    "$id": "component-heavy-gun-weight-light",
+    "Texture": "icon-empty",
+    "Color": "#ffffff"
+  },
+  {
+    "$id": "component-heavy-gun-weight-medium",
+    "Texture": "icon-heavy-gun-weight-medium",
+    "Color": "#ffffff"
+  }
+]

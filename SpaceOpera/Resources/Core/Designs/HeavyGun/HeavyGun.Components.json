@@ -1,6 +1,6 @@
 [
   {
-    "$id": "component-ship-weapon-ammunition-kinetic",
+    "$id": "component-heavy-gun-ammunition-kinetic",
     "Name": "Kinetic Ammunition",
     "Slot": {
       "Type": "HeavyGunAmmunition"
@@ -28,7 +28,7 @@
     }
   },
   {
-    "$id": "component-ship-weapon-ammunition-penetrator",
+    "$id": "component-heavy-gun-ammunition-penetrator",
     "Name": "Penetrator Ammunition",
     "Slot": {
       "Type": "HeavyGunAmmunition"
@@ -59,7 +59,7 @@
     }
   },
   {
-    "$id": "component-ship-weapon-ammunition-explosive",
+    "$id": "component-heavy-gun-ammunition-explosive",
     "Name": "Explosive Ammunition",
     "Slot": {
       "Type": "HeavyGunAmmunition"
@@ -85,7 +85,7 @@
     }
   },
   {
-    "$id": "component-ship-weapon-ammunition-laser-beam",
+    "$id": "component-heavy-gun-ammunition-laser-beam",
     "Name": "Laser Beam Emitter",
     "Slot": {
       "Type": "HeavyGunAmmunition"
@@ -108,7 +108,7 @@
     }
   },
   {
-    "$id": "component-ship-weapon-ammunition-laser-pulse",
+    "$id": "component-heavy-gun-ammunition-laser-pulse",
     "Name": "Laser Pulse Emitter",
     "Slot": {
       "Type": "HeavyGunAmmunition"
@@ -131,7 +131,7 @@
     }
   },
   {
-    "$id": "component-ship-weapon-ammunition-plasma-beam",
+    "$id": "component-heavy-gun-ammunition-plasma-beam",
     "Name": "Plasma Beam Emitter",
     "Slot": {
       "Type": "HeavyGunAmmunition"
@@ -157,7 +157,7 @@
     }
   },
   {
-    "$id": "component-ship-weapon-ammunition-plasma-pulse",
+    "$id": "component-heavy-gun-ammunition-plasma-pulse",
     "Name": "Plasma Pulse Emitter",
     "Slot": {
       "Type": "HeavyGunAmmunition"
@@ -184,7 +184,7 @@
   },
 
   {
-    "$id": "component-ship-weapon-assembly-combat-i",
+    "$id": "component-heavy-gun-assembly-combat-i",
     "Name": "Combat Assembly I",
     "Slot": {
       "Type": "HeavyGunAssembly"
@@ -196,7 +196,7 @@
     }
   },
   {
-    "$id": "component-ship-weapon-assembly-combat-ii",
+    "$id": "component-heavy-gun-assembly-combat-ii",
     "Name": "Combat Assembly II",
     "Slot": {
       "Type": "HeavyGunAssembly"
@@ -208,7 +208,7 @@
     }
   },
   {
-    "$id": "component-ship-weapon-assembly-combat-iii",
+    "$id": "component-heavy-gun-assembly-combat-iii",
     "Name": "Combat Assembly III",
     "Slot": {
       "Type": "HeavyGunAssembly"
@@ -220,7 +220,7 @@
     }
   },
   {
-    "$id": "component-ship-weapon-assembly-combat-iv",
+    "$id": "component-heavy-gun-assembly-combat-iv",
     "Name": "Combat Assembly IV",
     "Slot": {
       "Type": "HeavyGunAssembly"
@@ -232,7 +232,7 @@
     }
   },
   {
-    "$id": "component-ship-weapon-assembly-magnum-i",
+    "$id": "component-heavy-gun-assembly-magnum-i",
     "Name": "Magnum Assembly I",
     "Slot": {
       "Type": "HeavyGunAssembly"
@@ -244,7 +244,7 @@
     }
   },
   {
-    "$id": "component-ship-weapon-assembly-magnum-ii",
+    "$id": "component-heavy-gun-assembly-magnum-ii",
     "Name": "Magnum Assembly II",
     "Slot": {
       "Type": "HeavyGunAssembly"
@@ -256,7 +256,7 @@
     }
   },
   {
-    "$id": "component-ship-weapon-assembly-magnum-iii",
+    "$id": "component-heavy-gun-assembly-magnum-iii",
     "Name": "Magnum Assembly III",
     "Slot": {
       "Type": "HeavyGunAssembly"
@@ -268,7 +268,7 @@
     }
   },
   {
-    "$id": "component-ship-weapon-assembly-magnum-iv",
+    "$id": "component-heavy-gun-assembly-magnum-iv",
     "Name": "Magnum Assembly IV",
     "Slot": {
       "Type": "HeavyGunAssembly"
@@ -280,7 +280,7 @@
     }
   },
   {
-    "$id": "component-ship-weapon-assembly-precision-i",
+    "$id": "component-heavy-gun-assembly-precision-i",
     "Name": "Precision Assembly I",
     "Slot": {
       "Type": "HeavyGunAssembly"
@@ -292,7 +292,7 @@
     }
   },
   {
-    "$id": "component-ship-weapon-assembly-precision-ii",
+    "$id": "component-heavy-gun-assembly-precision-ii",
     "Name": "Precision Assembly II",
     "Slot": {
       "Type": "HeavyGunAssembly"
@@ -304,7 +304,7 @@
     }
   },
   {
-    "$id": "component-ship-weapon-assembly-precision-iii",
+    "$id": "component-heavy-gun-assembly-precision-iii",
     "Name": "Precision Assembly III",
     "Slot": {
       "Type": "HeavyGunAssembly"
@@ -316,7 +316,7 @@
     }
   },
   {
-    "$id": "component-ship-weapon-assembly-precision-iv",
+    "$id": "component-heavy-gun-assembly-precision-iv",
     "Name": "Precision Assembly IV",
     "Slot": {
       "Type": "HeavyGunAssembly"
@@ -328,7 +328,7 @@
     }
   },
   {
-    "$id": "component-ship-weapon-assembly-rail-i",
+    "$id": "component-heavy-gun-assembly-rail-i",
     "Name": "Rail Assembly I",
     "Slot": {
       "Type": "HeavyGunAssembly"
@@ -349,7 +349,7 @@
     }
   },
   {
-    "$id": "component-ship-weapon-assembly-rail-ii",
+    "$id": "component-heavy-gun-assembly-rail-ii",
     "Name": "Rail Assembly II",
     "Slot": {
       "Type": "HeavyGunAssembly"
@@ -370,7 +370,7 @@
     }
   },
   {
-    "$id": "component-ship-weapon-assembly-rail-iii",
+    "$id": "component-heavy-gun-assembly-rail-iii",
     "Name": "Rail Assembly III",
     "Slot": {
       "Type": "HeavyGunAssembly"
@@ -391,7 +391,7 @@
     }
   },
   {
-    "$id": "component-ship-weapon-assembly-rail-iv",
+    "$id": "component-heavy-gun-assembly-rail-iv",
     "Name": "Rail Assembly IV",
     "Slot": {
       "Type": "HeavyGunAssembly"
@@ -412,7 +412,7 @@
     }
   },
   {
-    "$id": "component-ship-weapon-assembly-rotary-i",
+    "$id": "component-heavy-gun-assembly-rotary-i",
     "Name": "Rotary Assembly I",
     "Slot": {
       "Type": "HeavyGunAssembly"
@@ -433,7 +433,7 @@
     }
   },
   {
-    "$id": "component-ship-weapon-assembly-rotary-ii",
+    "$id": "component-heavy-gun-assembly-rotary-ii",
     "Name": "Rotary Assembly II",
     "Slot": {
       "Type": "HeavyGunAssembly"
@@ -454,7 +454,7 @@
     }
   },
   {
-    "$id": "component-ship-weapon-assembly-rotary-iii",
+    "$id": "component-heavy-gun-assembly-rotary-iii",
     "Name": "Rotary Assembly III",
     "Slot": {
       "Type": "HeavyGunAssembly"
@@ -475,7 +475,7 @@
     }
   },
   {
-    "$id": "component-ship-weapon-assembly-rotary-iv",
+    "$id": "component-heavy-gun-assembly-rotary-iv",
     "Name": "Rotary Assembly IV",
     "Slot": {
       "Type": "HeavyGunAssembly"
@@ -497,7 +497,7 @@
   },
 
   {
-    "$id": "component-ship-weapon-fire-control-precision-i",
+    "$id": "component-heavy-gun-fire-control-precision-i",
     "Name": "Precision Fire Control I",
     "Slot": {
       "Type": "HeavyGunFireControl"
@@ -509,7 +509,7 @@
     }
   },
   {
-    "$id": "component-ship-weapon-fire-control-precision-ii",
+    "$id": "component-heavy-gun-fire-control-precision-ii",
     "Name": "Precision Fire Control II",
     "Slot": {
       "Type": "HeavyGunFireControl"
@@ -521,7 +521,7 @@
     }
   },
   {
-    "$id": "component-ship-weapon-fire-control-precision-iii",
+    "$id": "component-heavy-gun-fire-control-precision-iii",
     "Name": "Precision Fire Control III",
     "Slot": {
       "Type": "HeavyGunFireControl"
@@ -533,7 +533,7 @@
     }
   },
   {
-    "$id": "component-ship-weapon-fire-control-precision-iv",
+    "$id": "component-heavy-gun-fire-control-precision-iv",
     "Name": "Precision Fire Control IV",
     "Slot": {
       "Type": "HeavyGunFireControl"
@@ -545,7 +545,7 @@
     }
   },
   {
-    "$id": "component-ship-weapon-fire-control-targeting-i",
+    "$id": "component-heavy-gun-fire-control-targeting-i",
     "Name": "Targeting Fire Control I",
     "Slot": {
       "Type": "HeavyGunFireControl"
@@ -557,7 +557,7 @@
     }
   },
   {
-    "$id": "component-ship-weapon-fire-control-targeting-ii",
+    "$id": "component-heavy-gun-fire-control-targeting-ii",
     "Name": "Targeting Fire Control II",
     "Slot": {
       "Type": "HeavyGunFireControl"
@@ -569,7 +569,7 @@
     }
   },
   {
-    "$id": "component-ship-weapon-fire-control-targeting-iii",
+    "$id": "component-heavy-gun-fire-control-targeting-iii",
     "Name": "Targeting Fire Control III",
     "Slot": {
       "Type": "HeavyGunFireControl"
@@ -581,7 +581,7 @@
     }
   },
   {
-    "$id": "component-ship-weapon-fire-control-targeting-iv",
+    "$id": "component-heavy-gun-fire-control-targeting-iv",
     "Name": "Targeting Fire Control IV",
     "Slot": {
       "Type": "HeavyGunFireControl"
@@ -593,7 +593,7 @@
     }
   },
   {
-    "$id": "component-ship-weapon-fire-control-tracking-i",
+    "$id": "component-heavy-gun-fire-control-tracking-i",
     "Name": "Tracking Fire Control I",
     "Slot": {
       "Type": "HeavyGunFireControl"
@@ -605,7 +605,7 @@
     }
   },
   {
-    "$id": "component-ship-weapon-fire-control-tracking-ii",
+    "$id": "component-heavy-gun-fire-control-tracking-ii",
     "Name": "Tracking Fire Control II",
     "Slot": {
       "Type": "HeavyGunFireControl"
@@ -617,7 +617,7 @@
     }
   },
   {
-    "$id": "component-ship-weapon-fire-control-tracking-iii",
+    "$id": "component-heavy-gun-fire-control-tracking-iii",
     "Name": "Tracking Fire Control III",
     "Slot": {
       "Type": "HeavyGunFireControl"
@@ -629,7 +629,7 @@
     }
   },
   {
-    "$id": "component-ship-weapon-fire-control-tracking-iv",
+    "$id": "component-heavy-gun-fire-control-tracking-iv",
     "Name": "Tracking Fire Control IV",
     "Slot": {
       "Type": "HeavyGunFireControl"
@@ -642,7 +642,7 @@
   },
 
   {
-    "$id": "component-ship-weapon-mount-double",
+    "$id": "component-heavy-gun-mount-double",
     "Name": "Double Mount",
     "Slot": {
       "Type": "HeavyGunMount"
@@ -663,7 +663,7 @@
     }
   },
   {
-    "$id": "component-ship-weapon-mount-quad",
+    "$id": "component-heavy-gun-mount-quad",
     "Name": "Quad Mount",
     "Slot": {
       "Type": "HeavyGunMount"
@@ -684,7 +684,7 @@
     }
   },
   {
-    "$id": "component-ship-weapon-mount-single",
+    "$id": "component-heavy-gun-mount-single",
     "Name": "Single Mount",
     "Slot": {
       "Type": "HeavyGunMount"
@@ -705,7 +705,7 @@
     }
   },
   {
-    "$id": "component-ship-weapon-mount-triple",
+    "$id": "component-heavy-gun-mount-triple",
     "Name": "Triple Mount",
     "Slot": {
       "Type": "HeavyGunMount"
@@ -727,7 +727,7 @@
   },
 
   {
-    "$id": "component-ship-weapon-weight-heavy",
+    "$id": "component-heavy-gun-weight-heavy",
     "Name": "Heavy",
     "Slot": {
       "Type": "HeavyGunWeight"
@@ -742,7 +742,7 @@
     }
   },
   {
-    "$id": "component-ship-weapon-weight-light",
+    "$id": "component-heavy-gun-weight-light",
     "Name": "Light",
     "Slot": {
       "Type": "HeavyGunWeight"
@@ -757,7 +757,7 @@
     }
   },
   {
-    "$id": "component-ship-weapon-weight-medium",
+    "$id": "component-heavy-gun-weight-medium",
     "Name": "Medium",
     "Slot": {
       "Type": "HeavyGunWeight"
