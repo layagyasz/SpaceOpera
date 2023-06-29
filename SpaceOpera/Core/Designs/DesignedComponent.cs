@@ -10,11 +10,11 @@ namespace SpaceOpera.Core.Designs
         public List<ComponentAndSlot> Components { get; }
 
         public DesignedComponent(
-            string name, ComponentSlot slot, IEnumerable<ComponentAndSlot> components, IEnumerable<ComponentTag> tags)
+            string name, ComponentSlot slot, IEnumerable<ComponentAndSlot> components, MultiCount<ComponentTag> tags)
         {
             Name = name;
             Slot = slot;
-            Tags = tags.ToList();
+            Tags = tags;
 
             Components = components.ToList();
             Attributes = ComputeAttributes(components);

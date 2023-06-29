@@ -7,7 +7,7 @@ namespace SpaceOpera.Core.Politics
         public NameType Type { get; }
         public long SequenceNumber { get; set; }
         public string ParentName { get; set; } = string.Empty;
-        public List<ComponentTag> Tags { get; set; } = new();
+        public ComponentTag[] Tags { get; set; } = Array.Empty<ComponentTag>();
 
         public NameGeneratorArgs(NameType type)
         {

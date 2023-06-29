@@ -1,4 +1,5 @@
 using Cardamom.Collections;
+using Cardamom.Trackers;
 
 namespace SpaceOpera.Core.Designs
 {
@@ -27,11 +28,12 @@ namespace SpaceOpera.Core.Designs
             return result;
         }
 
-        public IEnumerable<ComponentTag> GetTags()
+        public MultiCount<ComponentTag> GetTags()
         {
             return Enumerable.Concat(
-                Configuration.IntrinsicComponent?.Tags ?? Enumerable.Empty<ComponentTag>(),
-                _components.SelectMany(x => x.Value.SelectMany(x => x.Tags)));
+                Configuration.IntrinsicComponent?.Tags ?? new(),
+                _components.SelectMany(x => x.Value.SelectMany(x => x.Tags)))
+                .ToMultiCount(x => x.Key, x => x.Value);
         }
 
         public bool Validate()

@@ -1,4 +1,6 @@
-﻿namespace SpaceOpera.Core.Designs
+﻿using Cardamom.Trackers;
+
+namespace SpaceOpera.Core.Designs
 {
     public class DesignConfiguration
     {
@@ -24,9 +26,10 @@
             return _segments;
         }
 
-        public IEnumerable<ComponentTag> GetTags()
+        public MultiCount<ComponentTag> GetTags()
         {
-            return Enumerable.Concat(Template.Tags, _segments.SelectMany(x => x.GetTags()));
+            return Enumerable.Concat(Template.Tags, _segments.SelectMany(x => x.GetTags()))
+                .ToMultiCount(x => x.Key, x => x.Value);
         }
 
         public void SetName(string name)

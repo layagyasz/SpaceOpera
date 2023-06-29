@@ -1,4 +1,5 @@
 using Cardamom.Collections;
+using Cardamom.Trackers;
 
 namespace SpaceOpera.Core.Designs
 {
@@ -6,23 +7,24 @@ namespace SpaceOpera.Core.Designs
     {
         public class ClassificationOption
         {
-            public List<ComponentTag> Tags { get; set; } = new();
+            public ComponentTag[] Tags { get; set; } = Array.Empty<ComponentTag>();
             public EnumMap<ComponentTag, float> Fit { get; set; } = new();
 
-            public float GetFit(DesignConfiguration Design)
+            public float GetFit(MultiCount<ComponentTag> tags)
             {
-                return Design.GetTags().Select(x => Fit[x]).DefaultIfEmpty(0).Sum();
+                return tags.Select(x => x.Value * Fit[x.Key]).DefaultIfEmpty(0).Sum();
             }
         }
 
         public EnumSet<ComponentType> SupportedTypes { get; set; } = new();
         public EnumSet<ComponentTag> ReducedTags { get; set; } = new();
-        public List<List<ClassificationOption>> ClassificationOptions { get; set; } = new();
+        public ClassificationOption[][] ClassificationOptions { get; set; } = Array.Empty<ClassificationOption[]>();
 
         public IEnumerable<ComponentTag> GetTags(DesignConfiguration design)
         {
+            var tags = design.GetTags();
             return ClassificationOptions
-                .SelectMany(x => x.ArgMax(y => y.GetFit(design))!.Tags)
+                .SelectMany(x => x.ArgMax(y => y.GetFit(tags))!.Tags)
                 .Distinct();
         }
 

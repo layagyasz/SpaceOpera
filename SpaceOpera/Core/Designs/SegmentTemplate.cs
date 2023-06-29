@@ -2,6 +2,6 @@
 {
     public class SegmentTemplate
     {
-        public List<SegmentConfiguration> ConfigurationOptions { get; set; } = new();
+        public SegmentConfiguration[] ConfigurationOptions { get; set; } = Array.Empty<SegmentConfiguration>();
     }
 }

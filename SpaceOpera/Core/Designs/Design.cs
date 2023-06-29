@@ -1,6 +1,4 @@
 using SpaceOpera.Core.Economics;
-using System.ComponentModel;
-using System.Drawing;
 
 namespace SpaceOpera.Core.Designs
 {
@@ -8,9 +6,9 @@ namespace SpaceOpera.Core.Designs
     {
         public string Name => Configuration.Name;
         public DesignConfiguration Configuration { get; }
-        public List<ComponentTag> Tags { get; }
-        public List<DesignedComponent> Components { get; }
-        public List<Recipe> Recipes { get; }
+        public ComponentTag[] Tags { get; }
+        public DesignedComponent[] Components { get; }
+        public Recipe[] Recipes { get; }
 
         public Design(
             DesignConfiguration configuration, 
@@ -19,9 +17,9 @@ namespace SpaceOpera.Core.Designs
             IEnumerable<Recipe> recipes)
         {
             Configuration = configuration;
-            Tags = tags.ToList();
-            Components = components.ToList();
-            Recipes = recipes.ToList();
+            Tags = tags.ToArray();
+            Components = components.ToArray();
+            Recipes = recipes.ToArray();
         }
 
         public void SetName(string name)

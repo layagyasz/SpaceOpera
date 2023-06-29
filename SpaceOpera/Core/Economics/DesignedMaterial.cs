@@ -1,3 +1,4 @@
+using Cardamom.Trackers;
 using SpaceOpera.Core.Designs;
 
 namespace SpaceOpera.Core.Economics
@@ -10,7 +11,7 @@ namespace SpaceOpera.Core.Economics
         public float ProductionCost { get; }
 
         public DesignedMaterial(
-            string name, ComponentSlot slot, IEnumerable<ComponentAndSlot> components, IEnumerable<ComponentTag> tags)
+            string name, ComponentSlot slot, IEnumerable<ComponentAndSlot> components, MultiCount<ComponentTag> tags)
             : base(name, slot, components, tags)
         {
             Mass = ComputeMass();

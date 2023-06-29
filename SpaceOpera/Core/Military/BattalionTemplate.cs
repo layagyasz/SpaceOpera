@@ -3,12 +3,12 @@ using SpaceOpera.Core.Designs;
 
 namespace SpaceOpera.Core.Military
 {
-    class BattalionTemplate : DesignedComponent, IFormationTemplate
+    public class BattalionTemplate : DesignedComponent, IFormationTemplate
     {
         public MultiCount<Unit> Composition { get; }
 
         public BattalionTemplate(
-            string name, ComponentSlot slot, IEnumerable<ComponentAndSlot> components, IEnumerable<ComponentTag> tags)
+            string name, ComponentSlot slot, IEnumerable<ComponentAndSlot> components, MultiCount<ComponentTag> tags)
             : base(name, slot, components, tags)
         {
             Composition = MaterialCost

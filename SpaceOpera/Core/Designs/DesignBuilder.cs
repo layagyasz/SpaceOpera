@@ -1,3 +1,4 @@
+using Cardamom.Trackers;
 using SpaceOpera.Core.Economics;
 using SpaceOpera.Core.Military;
 
@@ -14,8 +15,8 @@ namespace SpaceOpera.Core.Designs
 
         public Design Build(DesignConfiguration design)
         {
-            var tags = UnitClassifier.Classify(design);
-            var components = BuildComponents(design, tags).ToList();
+            var tags = UnitClassifier.Classify(design).ToArray();
+            var components = BuildComponents(design, tags.ToMultiCount(x => x, _ => 1)).ToList();
             var recipes = 
                 components
                     .Where(x => x is DesignedMaterial)
@@ -26,7 +27,7 @@ namespace SpaceOpera.Core.Designs
         }
 
         private static IEnumerable<DesignedComponent> BuildComponents(
-            DesignConfiguration design, IEnumerable<ComponentTag> tags)
+            DesignConfiguration design, MultiCount<ComponentTag> tags)
         {
             if (design.Template.Sizes.Count == 0)
             {
@@ -52,7 +53,7 @@ namespace SpaceOpera.Core.Designs
         }
 
         private static DesignedComponent BuildComponent(
-            string name, ComponentSlot slot, IEnumerable<ComponentAndSlot> components, IEnumerable<ComponentTag> tags)
+            string name, ComponentSlot slot, IEnumerable<ComponentAndSlot> components, MultiCount<ComponentTag> tags)
         {
             return slot.Type switch
             {

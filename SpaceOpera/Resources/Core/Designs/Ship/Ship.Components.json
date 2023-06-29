@@ -2,7 +2,9 @@
   {
     "$id": "component-ship-armor-alumite-light",
     "Name": "Alumite Armor (L)",
-    "Tags": [ "Light" ],
+    "Tags": {
+      "Light": 4
+    },
     "Slot": {
       "Type": "ShipArmor"
     },
@@ -26,7 +28,9 @@
   {
     "$id": "component-ship-armor-alumite-medium",
     "Name": "Alumite Armor",
-    "Tags": [ "Medium" ],
+    "Tags": {
+      "Medium": 4
+    },
     "Slot": {
       "Type": "ShipArmor"
     },
@@ -50,7 +54,9 @@
   {
     "$id": "component-ship-armor-alumite-heavy",
     "Name": "Alumite Armor (H)",
-    "Tags": [ "Heavy" ],
+    "Tags": {
+      "Heavy": 4
+    },
     "Slot": {
       "Type": "ShipArmor"
     },
@@ -74,7 +80,9 @@
   {
     "$id": "component-ship-cargo-s",
     "Name": "Cargo Hold (S)",
-    "Tags": [ "Freighter" ],
+    "Tags": {
+      "Freighter": 1
+    },
     "Slot": {
       "Type": "ShipInternal",
       "Size": "Small"
@@ -88,7 +96,9 @@
   {
     "$id": "component-ship-cargo-m",
     "Name": "Cargo Hold (M)",
-    "Tags": [ "Freighter" ],
+    "Tags": {
+      "Freighter": 2
+    },
     "Slot": {
       "Type": "ShipInternal",
       "Size": "Medium"
@@ -102,7 +112,9 @@
   {
     "$id": "component-ship-cargo-l",
     "Name": "Cargo Hold (L)",
-    "Tags": [ "Freighter" ],
+    "Tags": {
+      "Freighter": 4
+    },
     "Slot": {
       "Type": "ShipInternal",
       "Size": "Large"

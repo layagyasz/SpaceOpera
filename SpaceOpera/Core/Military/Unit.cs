@@ -29,7 +29,7 @@ namespace SpaceOpera.Core.Military
         public MultiCount<Weapon> Weapons { get; }
 
         public Unit(
-            string name, ComponentSlot slot, IEnumerable<ComponentAndSlot> components, IEnumerable<ComponentTag> tags)
+            string name, ComponentSlot slot, IEnumerable<ComponentAndSlot> components, MultiCount<ComponentTag> tags)
             : base(name, slot, components, tags)
         {
             Detection = new UnitIntervalValue(GetAttribute(ComponentAttribute.Detection));

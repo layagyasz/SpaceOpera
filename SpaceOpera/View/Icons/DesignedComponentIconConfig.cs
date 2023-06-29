@@ -69,7 +69,7 @@ namespace SpaceOpera.View.Icons
             {
                 foreach (var option in Options)
                 {
-                    if (option.Tags.IsSubsetOf(component.Tags))
+                    if (option.Tags.IsSubsetOf(component.Tags.Keys))
                     {
                         foreach (var texture in option.Textures)
                         {

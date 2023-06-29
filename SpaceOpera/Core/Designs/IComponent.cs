@@ -11,7 +11,7 @@ namespace SpaceOpera.Core.Designs
     {
         string Name { get; }
         ComponentSlot Slot { get; }
-        List<ComponentTag> Tags { get; }
+        MultiCount<ComponentTag> Tags { get; }
         EnumMap<MaterialReference, MultiQuantity<IMaterial>> ReferenceMaterial { get; }
         Dictionary<MaterialReference, Modifier> ReferenceMaterialCost { get; }
         Dictionary<IMaterial, Modifier> MaterialCost { get; }
@@ -19,7 +19,7 @@ namespace SpaceOpera.Core.Designs
         EnumMap<DamageType, Modifier> Damage { get; }
 
         EnumMap<DamageType, Modifier> DamageResist { get; }
-        HashSet<IAdvancement> Prerequisites { get; }
+        IAdvancement[] Prerequisites { get; }
 
         bool FitsSlot(DesignSlot slot);
         float GetAttribute(ComponentAttribute attribute);

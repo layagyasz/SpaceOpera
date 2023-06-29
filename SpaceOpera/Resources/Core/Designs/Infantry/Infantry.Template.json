@@ -3,7 +3,9 @@
     "$id": "design-template-infantry",
     "Type": "Infantry",
     "Structure": "structure-training-facility",
-    "Tags": [ "Infantry" ],
+    "Tags": {
+      "Infantry": 1
+    },
     "Segments": [
       {
         "$id": "design-template-segment-infantry-platform",

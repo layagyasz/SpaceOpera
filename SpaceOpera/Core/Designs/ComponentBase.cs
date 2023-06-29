@@ -13,7 +13,7 @@ namespace SpaceOpera.Core.Designs
         public string Key { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
         public ComponentSlot Slot { get; set; }
-        public List<ComponentTag> Tags { get; set; } = new();
+        public MultiCount<ComponentTag> Tags { get; set; } = new();
         public EnumMap<MaterialReference, MultiQuantity<IMaterial>> ReferenceMaterial { get; set; } = new();
         public Dictionary<MaterialReference, Modifier> ReferenceMaterialCost { get; set; } = new();
         [JsonConverter(typeof(ReferenceDictionaryJsonConverter))]
@@ -22,7 +22,7 @@ namespace SpaceOpera.Core.Designs
         public EnumMap<DamageType, Modifier> Damage { get; set; } = new();
 
         public EnumMap<DamageType, Modifier> DamageResist { get; set; } = new();
-        public HashSet<IAdvancement> Prerequisites { get; set; } = new();
+        public IAdvancement[] Prerequisites { get; set; } = Array.Empty<IAdvancement>();
 
         public float GetAttribute(ComponentAttribute attribute)
         {
