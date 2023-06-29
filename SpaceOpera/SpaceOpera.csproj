@@ -32,10 +32,10 @@
     <None Update="Resources\Core\Designs\ShipShield\ShipShield.Template.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Core\Designs\ShipWeapon\ShipWeapon.Components.json">
+    <None Update="Resources\Core\Designs\HeavyGun\HeavyGun.Components.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Core\Designs\ShipWeapon\ShipWeapon.Template.json">
+    <None Update="Resources\Core\Designs\HeavyGun\HeavyGun.Template.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Core\Designs\Ship\Ship.Classification.json">
@@ -1483,7 +1483,6 @@
   <ItemGroup>
     <Folder Include="Resources\Core\Designs\BattalionTemplate\" />
     <Folder Include="Resources\Core\Designs\DivisionTemplate\" />
-    <Folder Include="Resources\Core\Designs\ShipWeapon\" />
     <Folder Include="Resources\Core\Designs\ShipShield\" />
     <Folder Include="Resources\Core\Designs\Ship\" />
     <Folder Include="Resources\View\Designs\Infantry\" />

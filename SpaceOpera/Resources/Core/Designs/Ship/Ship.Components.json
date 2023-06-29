@@ -185,7 +185,7 @@
     "$id": "component-ship-missile",
     "Name": "Missile Battery",
     "Slot": {
-      "Type": "ShipMissile"
+      "Type": "HeavyMissile"
     },
     "Attributes": {
       "WeaponPenetration": {

@@ -1,7 +1,7 @@
 [
   {
     "$id": "design-template-ship-weapon",
-    "Type": "ShipWeapon",
+    "Type": "HeavyGun",
     "Sizes": {
       "PointDefense": {
         "Attributes": {
@@ -103,31 +103,31 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipWeaponAmmunition" ],
+                "Type": [ "HeavyGunAmmunition" ],
                 "Size": [],
                 "Count": 1,
                 "Weight": 1
               },
               {
-                "Type": [ "ShipWeaponAssembly" ],
+                "Type": [ "HeavyGunAssembly" ],
                 "Size": [],
                 "Count": 1,
                 "Weight": 1
               },
               {
-                "Type": [ "ShipWeaponFireControl" ],
+                "Type": [ "HeavyGunFireControl" ],
                 "Size": [],
                 "Count": 1,
                 "Weight": 1
               },
               {
-                "Type": [ "ShipWeaponMount" ],
+                "Type": [ "HeavyGunMount" ],
                 "Size": [],
                 "Count": 1,
                 "Weight": 1
               },
               {
-                "Type": [ "ShipWeaponWeight" ],
+                "Type": [ "HeavyGunWeight" ],
                 "Size": [],
                 "Count": 1,
                 "Weight": 1

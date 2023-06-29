@@ -12,7 +12,7 @@ namespace SpaceOpera.Core.Military
         private static readonly EnumSet<ComponentType> s_ShieldTypes = 
             new(ComponentType.PersonalShield, ComponentType.ShipShield);
         private static readonly EnumSet<ComponentType> s_WeaponTypes =
-            new(ComponentType.PersonalWeapon, ComponentType.ShipWeapon, ComponentType.ShipMissile);
+            new(ComponentType.SmallArm, ComponentType.HeavyGun, ComponentType.HeavyMissile);
 
         // Attributes
         public float CargoSpace => GetAttribute(ComponentAttribute.CargoSpace);

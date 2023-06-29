@@ -7,18 +7,22 @@ namespace SpaceOpera.Core.Designs
     {
         Unknown,
 
+        BattalionTemplate,
+        DivisionTemplate,
+
+        Infantry,
         InfantryPlatform,
 
         PersonalArmor,
         PersonalArmorPlating,
         PersonalArmorUnderlay,
         
-        PersonalWeapon,
-        PersonalWeaponConstruction,
-        PersonalWeaponStyle,
-        PersonalWeaponAmmunition,
-        PersonalWeaponOptics,
-        PersonalWeaponAssembly,
+        SmallArm,
+        SmallArmConstruction,
+        SmallArmStyle,
+        SmallArmAmmunition,
+        SmallArmOptics,
+        SmallArmAssembly,
 
         PersonalShield,
 
@@ -28,11 +32,14 @@ namespace SpaceOpera.Core.Designs
         ShieldMount,
         ShieldWeight,
 
-        ShipWeaponAmmunition,
-        ShipWeaponAssembly,
-        ShipWeaponFireControl,
-        ShipWeaponMount,
-        ShipWeaponWeight,
+        HeavyGun,
+        HeavyGunAmmunition,
+        HeavyGunAssembly,
+        HeavyGunFireControl,
+        HeavyGunMount,
+        HeavyGunWeight,
+
+        HeavyMissile,
 
         Ship,
         ShipArmor,
@@ -40,14 +47,8 @@ namespace SpaceOpera.Core.Designs
         ShipHangar,
         ShipInternal,
         ShipJumpDrive,
-        ShipMissile,
         ShipPowercore,
         ShipShield,
         ShipThruster,
-        ShipWeapon,
-
-        Infantry,
-        BattalionTemplate,
-        DivisionTemplate
     }
 }

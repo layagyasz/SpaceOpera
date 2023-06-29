@@ -18,7 +18,7 @@
     "$id": "component-personal-weapon-kinetic",
     "Name": "Personal Weapon (Kinetic)",
     "Slot": {
-      "Type": "PersonalWeapon"
+      "Type": "SmallArm"
     },
     "Attributes": {
       "WeaponAccuracy": {
@@ -46,7 +46,7 @@
     "$id": "component-personal-weapon-laser",
     "Name": "Personal Weapon (Laser)",
     "Slot": {
-      "Type": "PersonalWeapon"
+      "Type": "SmallArm"
     },
     "Attributes": {
       "WeaponAccuracy": {
@@ -74,7 +74,7 @@
     "$id": "component-personal-weapon-plasma",
     "Name": "Personal Weapon (Plasma)",
     "Slot": {
-      "Type": "PersonalWeapon"
+      "Type": "SmallArm"
     },
     "Attributes": {
       "WeaponAccuracy": {

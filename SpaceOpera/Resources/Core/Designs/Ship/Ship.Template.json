@@ -181,7 +181,7 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipWeapon" ],
+                "Type": [ "HeavyGun" ],
                 "Size": [ "Large" ],
                 "Count": 1,
                 "Weight": 1
@@ -310,7 +310,7 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipMissile" ],
+                "Type": [ "HeavyMissile" ],
                 "Size": [],
                 "Count": 1,
                 "Weight": 1
@@ -353,7 +353,7 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipMissile" ],
+                "Type": [ "HeavyMissile" ],
                 "Size": [],
                 "Count": 2,
                 "Weight": 1
@@ -396,7 +396,7 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipWeapon" ],
+                "Type": [ "HeavyGun" ],
                 "Size": [ "PointDefense" ],
                 "Count": 1,
                 "Weight": 1
@@ -439,7 +439,7 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipWeapon" ],
+                "Type": [ "HeavyGun" ],
                 "Size": [ "PointDefense" ],
                 "Count": 2,
                 "Weight": 1
@@ -482,7 +482,7 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipWeapon" ],
+                "Type": [ "HeavyGun" ],
                 "Size": [ "PointDefense" ],
                 "Count": 4,
                 "Weight": 1
@@ -525,7 +525,7 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipWeapon" ],
+                "Type": [ "HeavyGun" ],
                 "Size": [ "Medium" ],
                 "Count": 1,
                 "Weight": 1
@@ -568,7 +568,7 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipWeapon" ],
+                "Type": [ "HeavyGun" ],
                 "Size": [ "Medium" ],
                 "Count": 4,
                 "Weight": 1
@@ -611,7 +611,7 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipWeapon" ],
+                "Type": [ "HeavyGun" ],
                 "Size": [ "Small" ],
                 "Count": 1,
                 "Weight": 1
@@ -654,7 +654,7 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipWeapon" ],
+                "Type": [ "HeavyGun" ],
                 "Size": [ "Small" ],
                 "Count": 2,
                 "Weight": 1
@@ -697,7 +697,7 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipWeapon" ],
+                "Type": [ "HeavyGun" ],
                 "Size": [ "Small" ],
                 "Count": 4,
                 "Weight": 1
@@ -854,7 +854,7 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipWeapon" ],
+                "Type": [ "HeavyGun" ],
                 "Size": [ "Large" ],
                 "Count": 1,
                 "Weight": 1
@@ -897,7 +897,7 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipWeapon" ],
+                "Type": [ "HeavyGun" ],
                 "Size": [ "Large" ],
                 "Count": 2,
                 "Weight": 1
@@ -1069,7 +1069,7 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipMissile" ],
+                "Type": [ "HeavyMissile" ],
                 "Size": [],
                 "Count": 1,
                 "Weight": 1
@@ -1112,7 +1112,7 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipMissile" ],
+                "Type": [ "HeavyMissile" ],
                 "Size": [],
                 "Count": 2,
                 "Weight": 1
@@ -1155,7 +1155,7 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipMissile" ],
+                "Type": [ "HeavyMissile" ],
                 "Size": [],
                 "Count": 4,
                 "Weight": 1
@@ -1198,13 +1198,13 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipWeapon" ],
+                "Type": [ "HeavyGun" ],
                 "Size": [ "PointDefense" ],
                 "Count": 1,
                 "Weight": 1
               },
               {
-                "Type": [ "ShipWeapon" ],
+                "Type": [ "HeavyGun" ],
                 "Size": [ "Small" ],
                 "Count": 1,
                 "Weight": 1
@@ -1247,13 +1247,13 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipWeapon" ],
+                "Type": [ "HeavyGun" ],
                 "Size": [ "PointDefense" ],
                 "Count": 2,
                 "Weight": 1
               },
               {
-                "Type": [ "ShipWeapon" ],
+                "Type": [ "HeavyGun" ],
                 "Size": [ "Small" ],
                 "Count": 2,
                 "Weight": 1
@@ -1296,13 +1296,13 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipWeapon" ],
+                "Type": [ "HeavyGun" ],
                 "Size": [ "PointDefense" ],
                 "Count": 4,
                 "Weight": 1
               },
               {
-                "Type": [ "ShipWeapon" ],
+                "Type": [ "HeavyGun" ],
                 "Size": [ "Small" ],
                 "Count": 4,
                 "Weight": 1
@@ -1345,7 +1345,7 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipWeapon" ],
+                "Type": [ "HeavyGun" ],
                 "Size": [ "Medium" ],
                 "Count": 1,
                 "Weight": 1
@@ -1388,7 +1388,7 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipWeapon" ],
+                "Type": [ "HeavyGun" ],
                 "Size": [ "Medium" ],
                 "Count": 2,
                 "Weight": 1
@@ -1431,7 +1431,7 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipWeapon" ],
+                "Type": [ "HeavyGun" ],
                 "Size": [ "Medium" ],
                 "Count": 4,
                 "Weight": 1
@@ -1474,7 +1474,7 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipWeapon" ],
+                "Type": [ "HeavyGun" ],
                 "Size": [ "Small" ],
                 "Count": 2,
                 "Weight": 1
@@ -1517,7 +1517,7 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipWeapon" ],
+                "Type": [ "HeavyGun" ],
                 "Size": [ "Small" ],
                 "Count": 4,
                 "Weight": 1
@@ -1560,13 +1560,13 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipWeapon" ],
+                "Type": [ "HeavyGun" ],
                 "Size": [ "Small" ],
                 "Count": 4,
                 "Weight": 1
               },
               {
-                "Type": [ "ShipWeapon" ],
+                "Type": [ "HeavyGun" ],
                 "Size": [ "Medium" ],
                 "Count": 2,
                 "Weight": 1
@@ -1723,7 +1723,7 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipWeapon" ],
+                "Type": [ "HeavyGun" ],
                 "Size": [ "Large" ],
                 "Count": 1,
                 "Weight": 1
@@ -1852,7 +1852,7 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipMissile" ],
+                "Type": [ "HeavyMissile" ],
                 "Size": [],
                 "Count": 1,
                 "Weight": 1
@@ -1895,7 +1895,7 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipMissile" ],
+                "Type": [ "HeavyMissile" ],
                 "Size": [],
                 "Count": 2,
                 "Weight": 1
@@ -1938,7 +1938,7 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipWeapon" ],
+                "Type": [ "HeavyGun" ],
                 "Size": [ "PointDefense" ],
                 "Count": 1,
                 "Weight": 1
@@ -1981,7 +1981,7 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipWeapon" ],
+                "Type": [ "HeavyGun" ],
                 "Size": [ "PointDefense" ],
                 "Count": 2,
                 "Weight": 1
@@ -2024,7 +2024,7 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipWeapon" ],
+                "Type": [ "HeavyGun" ],
                 "Size": [ "PointDefense" ],
                 "Count": 4,
                 "Weight": 1
@@ -2067,7 +2067,7 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipWeapon" ],
+                "Type": [ "HeavyGun" ],
                 "Size": [ "Medium" ],
                 "Count": 1,
                 "Weight": 1
@@ -2110,7 +2110,7 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipWeapon" ],
+                "Type": [ "HeavyGun" ],
                 "Size": [ "Medium" ],
                 "Count": 4,
                 "Weight": 1
@@ -2153,7 +2153,7 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipWeapon" ],
+                "Type": [ "HeavyGun" ],
                 "Size": [ "Small" ],
                 "Count": 1,
                 "Weight": 1
@@ -2196,7 +2196,7 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipWeapon" ],
+                "Type": [ "HeavyGun" ],
                 "Size": [ "Small" ],
                 "Count": 2,
                 "Weight": 1
@@ -2239,7 +2239,7 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipWeapon" ],
+                "Type": [ "HeavyGun" ],
                 "Size": [ "Small" ],
                 "Count": 4,
                 "Weight": 1

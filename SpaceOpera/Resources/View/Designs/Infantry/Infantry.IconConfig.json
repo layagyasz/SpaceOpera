@@ -5,7 +5,7 @@
       {
         "$type": "FromComponent",
         "Color": {
-          "FromComponent": "PersonalWeapon"
+          "FromComponent": "SmallArm"
         },
         "Component": "InfantryPlatform"
       }

@@ -41,7 +41,7 @@
             "Name": "Standard",
             "Slots": [
               {
-                "Type": [ "PersonalWeapon" ],
+                "Type": [ "SmallArm" ],
                 "Size": [],
                 "Count": 1,
                 "Weight": 1

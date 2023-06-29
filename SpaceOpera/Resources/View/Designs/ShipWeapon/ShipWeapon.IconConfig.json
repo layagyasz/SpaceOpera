@@ -1,34 +1,34 @@
 [
   {
-    "ComponentType": "ShipWeapon",
+    "ComponentType": "HeavyGun",
     "Layers": [
       {
         "$type": "FromComponent",
         "Color": {
-          "FromComponent": "ShipWeaponAmmunition"
+          "FromComponent": "HeavyGunAmmunition"
         },
-        "Component": "ShipWeaponAssembly"
+        "Component": "HeavyGunAssembly"
       },
       {
         "$type": "FromComponent",
         "Color": {
-          "FromComponent": "ShipWeaponAmmunition"
+          "FromComponent": "HeavyGunAmmunition"
         },
-        "Component": "ShipWeaponFireControl"
+        "Component": "HeavyGunFireControl"
       },
       {
         "$type": "FromComponent",
         "Color": {
-          "FromComponent": "ShipWeaponAmmunition"
+          "FromComponent": "HeavyGunAmmunition"
         },
-        "Component": "ShipWeaponMount"
+        "Component": "HeavyGunMount"
       },
       {
         "$type": "FromComponent",
         "Color": {
-          "FromComponent": "ShipWeaponAmmunition"
+          "FromComponent": "HeavyGunAmmunition"
         },
-        "Component": "ShipWeaponWeight"
+        "Component": "HeavyGunWeight"
       }
     ]
   }

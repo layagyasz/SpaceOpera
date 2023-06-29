@@ -36,9 +36,9 @@ namespace SpaceOpera.View.Game.Info
                 case ComponentType.Ship:
                     new UnitDescriber().DescribeAll(objects.Cast<Unit>().ToList(), infoPanel);
                     break;
-                case ComponentType.PersonalWeapon:
-                case ComponentType.ShipWeapon:
-                case ComponentType.ShipMissile:
+                case ComponentType.SmallArm:
+                case ComponentType.HeavyGun:
+                case ComponentType.HeavyMissile:
                     new WeaponDescriber()
                         .DescribeAll(objects.Cast<IComponent>().Select(Weapon.FromComponent).ToList(), infoPanel);
                     break;
