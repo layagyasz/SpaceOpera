@@ -9,7 +9,7 @@ using SpaceOpera.View.Game.Scenes;
 
 namespace SpaceOpera.View.Game
 {
-    public class GameScreen : IRenderable, IDynamic
+    public class GameScreen : GraphicsResource, IScreen, IDynamic
     {
         private static readonly long s_RefreshTime = 1000;
 
@@ -125,6 +125,14 @@ namespace SpaceOpera.View.Game
             Scene?.Update(delta);
             OverlayLayer.Update(delta);
             PaneLayer.Update(delta);
+        }
+
+        protected override void DisposeImpl()
+        {
+            Controller.Unbind();
+            OverlaySet.Dispose();
+            PaneSet.Dispose();
+            Scene?.Dispose();
         }
     }
 }

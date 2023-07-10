@@ -3,10 +3,11 @@ using SpaceOpera.View.Icons;
 using SpaceOpera.View.Game.Overlay.EmpireOverlays;
 using SpaceOpera.View.Game.Overlay.GameOverlays;
 using SpaceOpera.View.Game.Overlay.StarSystemOverlays;
+using Cardamom.Graphics;
 
 namespace SpaceOpera.View.Game.Overlay
 {
-    public class OverlaySet
+    public class OverlaySet : GraphicsResource
     {
         public EmpireOverlay Empire { get; }
         public GameOverlay Game { get; }
@@ -35,6 +36,14 @@ namespace SpaceOpera.View.Game.Overlay
             yield return Empire;
             yield return Game;
             yield return StarSystem;
+        }
+
+        protected override void DisposeImpl()
+        {
+            foreach (var overlay in GetOverlays())
+            {
+                overlay.Dispose();
+            }
         }
 
         public static OverlaySet Create(UiElementFactory uiElementFactory, IconFactory iconFactory)

@@ -4,6 +4,7 @@ using Cardamom.Window;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Desktop;
 using OpenTK.Windowing.GraphicsLibraryFramework;
+using SpaceOpera.Controller;
 using SpaceOpera.Controller.Game;
 using SpaceOpera.Core;
 using SpaceOpera.Core.Universe.Generator;
@@ -20,13 +21,13 @@ namespace SpaceOpera
             TestStellarBody,
             TestSolarSystem,
             TestGalaxy,
-            TestSetup,
+            TestWorld,
             Full
         }
 
         static void Main()
         {
-            RunMode mode = RunMode.TestSetup;
+            RunMode mode = RunMode.Full;
             if (mode == RunMode.CompileSymbols)
             {
                 int i = 0;
@@ -65,11 +66,11 @@ namespace SpaceOpera
                 }
                 return;
             }
-            if (mode == RunMode.TestSetup)
+            if (mode == RunMode.Full)
             {
-                var setupScreen = viewFactory.CreateGameSetupScreen(coreData);
-                ui.SetRoot(setupScreen);
-                ui.Start();
+                var programController = new ProgramController(ui, logger, coreData, viewFactory);
+                programController.EnterGameSetup();
+                programController.Start();
                 return;
             }
 
@@ -131,7 +132,7 @@ namespace SpaceOpera
                 driver = new(calendar);
                 controller = new GameController(ui, null, driver, playerFaction, viewFactory, logger);
             }
-            else if (mode == RunMode.Full)
+            else if (mode == RunMode.TestWorld)
             {
                 var world = 
                     WorldGenerator.Generate(worldParams, playerCulture, playerFaction, coreData, generatorContext);

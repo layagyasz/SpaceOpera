@@ -112,7 +112,7 @@ namespace SpaceOpera.Core.Politics
                 case ComponentNameFilter.Roman:
                     return new List<string>() { ToRoman((long)value) };
                 case ComponentNameFilter.TagSet:
-                    return TagsToString((List<ComponentTag>)value, tagNames);
+                    return TagsToString((ComponentTag[])value, tagNames);
                 default:
                     throw new ArgumentException($"Unsupported Filter: [{filter}].");
             }

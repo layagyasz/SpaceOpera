@@ -1,10 +1,8 @@
 ﻿using Cardamom.Ui;
-using Cardamom.Ui.Controller;
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
 using SpaceOpera.Controller.GameSetup;
 using SpaceOpera.Core;
-using SpaceOpera.Core.Politics.Generator;
 using SpaceOpera.View.Components;
 using SpaceOpera.View.Icons;
 
@@ -112,16 +110,19 @@ namespace SpaceOpera.View.GameSetup
                 Text = s_SliderTextStyle
             };
 
+        private static readonly string s_Start = "game-setup-form-start";
+
         public IUiComponent Banner { get; }
         public IUiComponent Culture { get; }
         public IUiComponent Galaxy { get; }
         public IUiComponent Government { get; }
         public IUiComponent Politics { get; }
+        public IUiElement Start { get; }
 
         public GameSetupForm(
             UiElementFactory uiElementFactory, IconFactory iconFactory, CoreData coreData, Random random)
             : base(
-                  new GameSetupFormController(random), 
+                  new GameSetupFormController(coreData.PoliticsGenerator!.Faction!, random), 
                   new UiSerialContainer(
                       uiElementFactory.GetClass(s_Container),
                       new ButtonController(),
@@ -175,6 +176,16 @@ namespace SpaceOpera.View.GameSetup
                 {
                     Galaxy,
                     Politics
+                });
+
+            Start = new TextUiElement(uiElementFactory.GetClass(s_Start), new ButtonController(), "Start");
+            body.Add(
+                new UiSerialContainer(
+                    uiElementFactory.GetClass(s_Column),
+                    new NoOpElementController<UiSerialContainer>(),
+                    UiSerialContainer.Orientation.Vertical)
+                {
+                    Start
                 });
 
             Add(body);

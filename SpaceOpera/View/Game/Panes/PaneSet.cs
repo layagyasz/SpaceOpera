@@ -1,4 +1,5 @@
-﻿using Cardamom.Ui;
+﻿using Cardamom.Graphics;
+using Cardamom.Ui;
 using SpaceOpera.View.Game.Panes.BattlePanes;
 using SpaceOpera.View.Game.Panes.DesignPanes;
 using SpaceOpera.View.Game.Panes.DiplomacyPanes;
@@ -12,7 +13,7 @@ using SpaceOpera.View.Icons;
 
 namespace SpaceOpera.View.Game.Panes
 {
-    public class PaneSet
+    public class PaneSet : GraphicsResource
     {
         public BattlePane Battle { get; }
         public DesignerPane Designer { get; }
@@ -89,6 +90,14 @@ namespace SpaceOpera.View.Game.Panes
             yield return OrderConfirmation;
             yield return Research;
             yield return StellarBodyRegion;
+        }
+
+        protected override void DisposeImpl()
+        {
+            foreach (var pane in GetPanes())
+            {
+                pane.Dispose();
+            }
         }
 
         public static PaneSet Create(UiElementFactory uiElementFactory, IconFactory iconFactory)

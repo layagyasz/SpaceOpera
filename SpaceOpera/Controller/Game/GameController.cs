@@ -109,6 +109,11 @@ namespace SpaceOpera.Controller.Game
                     paneController.OrderCreated -= HandleOrder;
                 }
             }
+            foreach (var scene in _scenes)
+            {
+                scene.Dispose();
+            }
+            _scenes.Clear();
         }
 
         public void PushScene(object sceneObject)

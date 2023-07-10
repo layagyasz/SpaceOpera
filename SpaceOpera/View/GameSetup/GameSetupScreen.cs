@@ -5,16 +5,16 @@ using OpenTK.Mathematics;
 
 namespace SpaceOpera.View.GameSetup
 {
-    public class GameSetupScreen : IRenderable
+    public class GameSetupScreen : GraphicsResource, IScreen
     {
-        IController ComponentController { get; }
+        public IController Controller { get; }
 
-        private IUiElement? _form;
+        private IUiComponent? _form;
         private Vector3 _bounds;
 
-        public GameSetupScreen(IController componentController)
+        public GameSetupScreen(IController controller)
         {
-            ComponentController = componentController;
+            Controller = controller;
         }
 
         public void Draw(IRenderTarget target, IUiContext context)
@@ -22,9 +22,14 @@ namespace SpaceOpera.View.GameSetup
             _form?.Draw(target, context);
         }
 
+        public IUiComponent GetForm()
+        {
+            return _form!;
+        }
+
         public void Initialize()
         {
-            ComponentController.Bind(this);
+            Controller.Bind(this);
         }
 
         public void ResizeContext(Vector3 bounds)
@@ -36,7 +41,7 @@ namespace SpaceOpera.View.GameSetup
             }
         }
 
-        public void SetForm(IUiElement? form)
+        public void SetForm(IUiComponent? form)
         {
             _form?.Dispose();
             _form = form;
@@ -50,6 +55,12 @@ namespace SpaceOpera.View.GameSetup
         public void Update(long delta)
         {
             _form?.Update(delta);
+        }
+
+        protected override void DisposeImpl()
+        {
+            Controller.Unbind();
+            _form?.Dispose();
         }
     }
 }

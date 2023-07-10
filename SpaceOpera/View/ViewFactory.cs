@@ -18,6 +18,7 @@ using SpaceOpera.Controller.Game;
 using SpaceOpera.View.GameSetup;
 using Cardamom.Graphics;
 using SpaceOpera.Core.Politics.Generator;
+using SpaceOpera.Controller.GameSetup;
 
 namespace SpaceOpera.View
 {
@@ -105,7 +106,7 @@ namespace SpaceOpera.View
 
         public GameSetupScreen CreateGameSetupScreen(CoreData coreData)
         {
-            var screen = new GameSetupScreen(new NoOpController<IRenderable>());
+            var screen = new GameSetupScreen(new GameSetupController());
             screen.SetForm(new GameSetupForm(UiElementFactory, IconFactory, coreData, /* random= */ new()));
             return screen;
         }
