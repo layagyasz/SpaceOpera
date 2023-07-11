@@ -19,6 +19,8 @@ using SpaceOpera.View.GameSetup;
 using Cardamom.Graphics;
 using SpaceOpera.Core.Politics.Generator;
 using SpaceOpera.Controller.GameSetup;
+using SpaceOpera.View.Loader;
+using SpaceOpera.Core.Loader;
 
 namespace SpaceOpera.View
 {
@@ -109,6 +111,11 @@ namespace SpaceOpera.View
             var screen = new GameSetupScreen(new GameSetupController());
             screen.SetForm(new GameSetupForm(UiElementFactory, IconFactory, coreData, /* random= */ new()));
             return screen;
+        }
+
+        public LoaderScreen CreateLoaderScreen(ILoaderTask loaderTask, LoaderStatus loaderStatus)
+        {
+            return LoaderScreen.Create(UiElementFactory, loaderTask, loaderStatus);
         }
     }
 }

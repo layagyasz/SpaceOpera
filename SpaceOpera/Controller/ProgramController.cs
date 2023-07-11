@@ -1,8 +1,11 @@
 ﻿using Cardamom.Logging;
 using Cardamom.Ui;
+using Cardamom.Utils.Suppliers;
 using SpaceOpera.Controller.Game;
 using SpaceOpera.Controller.GameSetup;
+using SpaceOpera.Controller.Loader;
 using SpaceOpera.Core;
+using SpaceOpera.Core.Loader;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Universe.Generator;
 using SpaceOpera.View;
@@ -11,16 +14,57 @@ namespace SpaceOpera.Controller
 {
     public class ProgramController
     {
+        private class GenerateWorldTask : ILoaderTask
+        {
+            public GameParameters Parameters { get; }
+            public CoreData CoreData { get; }
+            public GeneratorContext GeneratorContext { get; }
+
+            private readonly Promise<World> _promise = new();
+
+            public GenerateWorldTask(GameParameters parameters, CoreData coreData, GeneratorContext generatorContext)
+            {
+                Parameters = parameters;
+                CoreData = coreData;
+                GeneratorContext = generatorContext;
+            }
+
+            public Promise<World> GetPromise()
+            {
+                return _promise;
+            }
+
+            public bool IsDone()
+            {
+                return _promise.HasValue();
+            }
+
+            public void Perform()
+            {
+                var world = 
+                    WorldGenerator.Generate(
+                        Parameters.WorldParameters,
+                        Parameters.PlayerCulture,
+                        Parameters.PlayerFaction, 
+                        CoreData, 
+                        GeneratorContext);
+                _promise.Set(world);
+            }
+        }
+
         private readonly UiWindow _window;
+        private readonly LoaderThread _loaderThread;
         private readonly ILogger _logger;
         private readonly CoreData _coreData;
         private readonly ViewFactory _viewFactory;
 
         private IScreen? _screen;
 
-        public ProgramController(UiWindow window, ILogger logger, CoreData coreData, ViewFactory viewFactory)
+        public ProgramController(
+            UiWindow window, LoaderThread loaderThread, ILogger logger, CoreData coreData, ViewFactory viewFactory)
         {
             _window = window;
+            _loaderThread = loaderThread;
             _logger = logger;
             _coreData = coreData;
             _viewFactory = viewFactory;
@@ -68,16 +112,32 @@ namespace SpaceOpera.Controller
             screen.Dispose();
         }
 
-        private void HandleGameStarted(object? sender, GameParameters e)
+        private void GenerateWorld(GameParameters parameters)
         {
-            var world =
-                WorldGenerator.Generate(
-                    e.WorldParameters,
-                    e.PlayerCulture,
-                    e.PlayerFaction,
+            var task =
+                new GenerateWorldTask(
+                    parameters, 
                     _coreData,
                     new(_logger, StellarBodySurfaceGeneratorResources.CreateForGenerator(), new()));
-            EnterGame(world, e.PlayerFaction);
+            var status = new LoaderStatus(new List<object>());
+            var screen = _viewFactory.CreateLoaderScreen(task, status);
+            var controller = (LoaderController)screen.Controller;
+            controller.Finished += HandleWorldGenerated;
+            _loaderThread.QueueTask(task);
+            ChangeScreen(screen);
+        }
+
+        private void HandleGameStarted(object? sender, GameParameters e)
+        {
+            GenerateWorld(e);
+        }
+
+        private void HandleWorldGenerated(object? sender, EventArgs e)
+        {
+            var controller = (LoaderController)sender!;
+            controller.Finished -= HandleWorldGenerated;
+            var task = (GenerateWorldTask)controller.Task;
+            EnterGame(task.GetPromise().Get(), task.Parameters.PlayerFaction);
         }
     }
 }

@@ -7,6 +7,7 @@ using OpenTK.Windowing.GraphicsLibraryFramework;
 using SpaceOpera.Controller;
 using SpaceOpera.Controller.Game;
 using SpaceOpera.Core;
+using SpaceOpera.Core.Loader;
 using SpaceOpera.Core.Universe.Generator;
 using SpaceOpera.View;
 
@@ -68,7 +69,10 @@ namespace SpaceOpera
             }
             if (mode == RunMode.Full)
             {
-                var programController = new ProgramController(ui, logger, coreData, viewFactory);
+                var loader = new LoaderThread();
+                window.MakeCurrent();
+                loader.Start();
+                var programController = new ProgramController(ui, loader, logger, coreData, viewFactory);
                 programController.EnterGameSetup();
                 programController.Start();
                 return;
