@@ -16,8 +16,6 @@ using SpaceOpera.View.Game.StarViews;
 using SpaceOpera.View.Icons;
 using SpaceOpera.Controller.Game;
 using SpaceOpera.View.GameSetup;
-using Cardamom.Graphics;
-using SpaceOpera.Core.Politics.Generator;
 using SpaceOpera.Controller.GameSetup;
 using SpaceOpera.View.Loader;
 using SpaceOpera.Core.Loader;
@@ -46,7 +44,7 @@ namespace SpaceOpera.View
             IconFactory = iconFactory;
         }
 
-        public static ViewFactory Create(ViewData viewData, CoreData coreData)
+        public static ViewFactory Create(ViewData viewData, CoreData coreData, LoaderThread loaderThread)
         {
             var starViewFactory = 
                 new StarViewFactory(viewData.GameResources!.GetShader("shader-star"), viewData.HumanEyeSensitivity!);
@@ -63,7 +61,8 @@ namespace SpaceOpera.View
                         .ToLibrary(x => x.Key, x => x),
                     viewData.GameResources!.GetShader("shader-light3"),
                     viewData.GameResources!.GetShader("shader-atmosphere"),
-                    viewData.HumanEyeSensitivity!);
+                    viewData.HumanEyeSensitivity!,
+                    loaderThread);
             UiElementFactory uiElementFactory = new(viewData.GameResources);
             IconFactory iconFactory =
                 new(
@@ -76,6 +75,7 @@ namespace SpaceOpera.View
             return new(
                 uiElementFactory,
                 new(
+                    loaderThread,
                     galaxyViewFactory, 
                     stellarBodyViewFactory,
                     new(

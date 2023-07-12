@@ -1,5 +1,6 @@
 ﻿using Cardamom.Graphics;
 using Cardamom.Utils.Suppliers;
+using Cardamom.Window;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
 
@@ -11,13 +12,15 @@ namespace SpaceOpera.Core.Loader
         private readonly Thread _thread;
         private readonly NativeWindow _window;
 
-        public LoaderThread()
+        public LoaderThread(RenderWindow window)
         {
             _thread = new Thread(WorkThread);
             _window = new NativeWindow(
                 new NativeWindowSettings()
                 {
-                    Flags = ContextFlags.Offscreen
+                    SharedContext = window.GetContext(),
+                    Flags = ContextFlags.Offscreen,
+                    StartVisible = false
                 });
         }
 

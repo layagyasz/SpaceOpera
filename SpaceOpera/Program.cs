@@ -50,10 +50,14 @@ namespace SpaceOpera
             ui.Bind(
                 new KeyboardListener(SimpleKeyMapper.Us, new Keys[] { Keys.Left, Keys.Right, Keys.Up, Keys.Down }));
 
+            var loader = new LoaderThread(window);
+            window.MakeCurrent();
+            loader.Start();
+
             ILogger logger = new Logger(new ConsoleBackend(), LogLevel.Info);
             var coreData = CoreData.LoadFrom("Resources/Core/CoreData.json", logger);
             var viewData = ViewData.LoadFrom("Resources/View/ViewData.json", logger);
-            var viewFactory = ViewFactory.Create(viewData, coreData);
+            var viewFactory = ViewFactory.Create(viewData, coreData, loader);
 
             var generatorContext =
                 new GeneratorContext(logger, StellarBodySurfaceGeneratorResources.CreateForGenerator(), new());
@@ -69,9 +73,6 @@ namespace SpaceOpera
             }
             if (mode == RunMode.Full)
             {
-                var loader = new LoaderThread();
-                window.MakeCurrent();
-                loader.Start();
                 var programController = new ProgramController(ui, loader, logger, coreData, viewFactory);
                 programController.EnterGameSetup();
                 programController.Start();

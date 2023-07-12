@@ -23,6 +23,7 @@ using SpaceOpera.View.Game.Highlights;
 using SpaceOpera.View.Game.FormationViews;
 using SpaceOpera.Controller.Game.Scenes;
 using SpaceOpera.Controller;
+using SpaceOpera.Core.Loader;
 
 namespace SpaceOpera.View.Game.Scenes
 {
@@ -53,6 +54,7 @@ namespace SpaceOpera.View.Game.Scenes
 
         private static Skybox? _skyBox;
 
+        public LoaderThread LoaderThread { get; }
         public GalaxyViewFactory GalaxyViewFactory { get; }
         public StellarBodyViewFactory StellarBodyViewFactory { get; }
         public StarSystemViewFactory StarSystemViewFactory { get; }
@@ -63,6 +65,7 @@ namespace SpaceOpera.View.Game.Scenes
         public RenderShader FillShader { get; }
 
         public SceneFactory(
+            LoaderThread loaderThread,
             GalaxyViewFactory galaxyViewFactory,
             StellarBodyViewFactory stellarBodyViewFactory,
             StarSystemViewFactory starSystemViewFactory,
@@ -72,6 +75,7 @@ namespace SpaceOpera.View.Game.Scenes
             RenderShader borderShader, 
             RenderShader fillShader)
         {
+            LoaderThread = loaderThread;
             GalaxyViewFactory = galaxyViewFactory;
             StellarBodyViewFactory = stellarBodyViewFactory;
             StarSystemViewFactory = starSystemViewFactory;
@@ -379,9 +383,9 @@ namespace SpaceOpera.View.Game.Scenes
                                 }))
                     .AddOutput("spot-noise")
                     .Build();
-            var output = pipeline.Run(canvases)[0].GetTexture();
+            var output = LoaderThread.Load(() => pipeline.Run(canvases)[0].GetTexture());
 
-            return new(new(vertices, PrimitiveType.Triangles), output, SkyboxShader);
+            return new(new(vertices, PrimitiveType.Triangles), output.Get(), SkyboxShader);
         }
 
         private static float GetLuminance(Star star)

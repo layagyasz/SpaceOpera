@@ -9,6 +9,7 @@ using SpaceOpera.Core.Universe.Generator;
 using OpenTK.Graphics.OpenGL4;
 using SpaceOpera.Core.Universe.Spectra;
 using Cardamom.Mathematics.Color;
+using SpaceOpera.Core.Loader;
 
 namespace SpaceOpera.View.Game.StellarBodyViews
 {
@@ -24,23 +25,28 @@ namespace SpaceOpera.View.Game.StellarBodyViews
         public RenderShader SurfaceShader { get; }
         public RenderShader AtmosphereShader { get; }
         public SpectrumSensitivity HumanEyeSensitivity { get; }
-        public StellarBodySurfaceGeneratorResources ResourcesHighRes { get; }
-        public StellarBodySurfaceGeneratorResources ResourcesLowRes { get; }
+        public LoaderThread LoaderThread { get; }
+
+        private readonly StellarBodySurfaceGeneratorResources _resourcesHighRes;
+        private readonly StellarBodySurfaceGeneratorResources _resourcesLowRes;
 
         public StellarBodyViewFactory(
             Dictionary<Biome, BiomeRenderDetails> biomeRenderDetails,
             Library<StellarBodyGenerator> stellarBodyGenerators,
             RenderShader surfaceShader,
             RenderShader atmosphereShader,
-            SpectrumSensitivity humanEyeSensitivity)
+            SpectrumSensitivity humanEyeSensitivity,
+            LoaderThread loaderThread)
         {
             BiomeRenderDetails = biomeRenderDetails;
             StellarBodyGenerators = stellarBodyGenerators;
             SurfaceShader = surfaceShader;
             AtmosphereShader = atmosphereShader;
             HumanEyeSensitivity = humanEyeSensitivity;
-            ResourcesHighRes = StellarBodySurfaceGeneratorResources.CreateHighRes();
-            ResourcesLowRes = StellarBodySurfaceGeneratorResources.CreateLowRes();
+            LoaderThread = loaderThread;
+
+            _resourcesHighRes = StellarBodySurfaceGeneratorResources.CreateHighRes();
+            _resourcesLowRes = StellarBodySurfaceGeneratorResources.CreateLowRes();
         }
 
         public StellarBodyModel Create(StellarBody stellarBody, float scale, bool highRes)
@@ -56,14 +62,15 @@ namespace SpaceOpera.View.Game.StellarBodyViews
             var peakColor = ToColor(HumanEyeSensitivity.GetColor(peakWavelength));
             var scatteredColor = ToColor(HumanEyeSensitivity.GetColor(new RayleighScatteredSpectrum(spectrum)));
 
-            var material = StellarBodyGenerators[stellarBody.Type]
-                .SurfaceGenerator!
-                    .GenerateSurface(
-                        stellarBody.Orbit.GetStellarTemperature(),
-                        stellarBody.Parameters,
-                        x => BiomeRenderDetails[x].GetColor(peakColor, scatteredColor),
-                        x => BiomeRenderDetails[x].GetLighting(),
-                        highRes ? ResourcesHighRes : ResourcesLowRes);
+            var material = LoaderThread.Load(
+                () => StellarBodyGenerators[stellarBody.Type]
+                    .SurfaceGenerator!
+                        .GenerateSurface(
+                            stellarBody.Orbit.GetStellarTemperature(),
+                            stellarBody.Parameters,
+                            x => BiomeRenderDetails[x].GetColor(peakColor, scatteredColor),
+                            x => BiomeRenderDetails[x].GetLighting(),
+                            highRes ? _resourcesHighRes : _resourcesLowRes));
             var surface = CreateSphere(
                 scale * stellarBody.Radius,
                 highRes ? s_SphereSubdivisionsHighRes : s_SphereSubdivisionsLowRes, 
@@ -78,7 +85,7 @@ namespace SpaceOpera.View.Game.StellarBodyViews
                         s_AtmosphericScattering.Z,
                         1f));
             return new StellarBodyModel(
-                stellarBody, scale, new(surface, SurfaceShader, material), atmosphere, AtmosphereShader);
+                stellarBody, scale, new(surface, SurfaceShader, material.Get()), atmosphere, AtmosphereShader);
         }
 
         private static Color4 ToColor(ColorCie color)
