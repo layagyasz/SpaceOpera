@@ -1,4 +1,5 @@
-﻿using SpaceOpera.Core.Politics;
+﻿using Cardamom.Logging;
+using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Politics.Generator;
 using SpaceOpera.Core.Universe;
 using SpaceOpera.Core.Universe.Generator;
@@ -7,10 +8,28 @@ namespace SpaceOpera.Core
 {
     public static class WorldGenerator
     {
+        public enum Step
+        {
+            Galaxy,
+            Culture,
+            States,
+            Resources,
+            Economy
+        }
+
         public struct Parameters
         {
             public GalaxyGenerator.Parameters Galaxy { get; set; }
             public PoliticsGenerator.Parameters Politics { get; set; }
+        }
+
+        public static GeneratorContext CreateContext(ILogger logger)
+        {
+            return new(
+                logger, 
+                new(Enum.GetValues<Step>().Cast<object>(), /* logLength= */ 10),
+                StellarBodySurfaceGeneratorResources.CreateForGenerator(), 
+                new());
         }
 
         public static World Generate(
@@ -20,13 +39,8 @@ namespace SpaceOpera.Core
             CoreData coreData, 
             GeneratorContext context)
         {
-            var logger = context.Logger!.ForType(typeof(WorldGenerator)).AtInfo();
-            logger.Log("Generate galaxy");
             var galaxy = coreData.GalaxyGenerator!.Generate(parameters.Galaxy, context);
-            logger.Log($"Generated galaxy with size {galaxy.GetSize()}");
-            logger.Log("Build navigation map");
             var navigationMap = NavigationMap.Create(galaxy);
-            logger.Log($"Built navigation map with size {navigationMap.GetSize()}");
             var world =
                 new World(
                     coreData,
@@ -34,9 +48,7 @@ namespace SpaceOpera.Core
                     galaxy,
                     new StarCalendar(/* startDate= */ 900000000),
                     navigationMap);
-            logger.Log("Generate politics");
             coreData.PoliticsGenerator!.Generate(parameters.Politics, world, playerCulture, playerFaction, context);
-            logger.Log("Generate economy");
             coreData.EconomyGenerator!.Generate(world, context);
             return world;
         }

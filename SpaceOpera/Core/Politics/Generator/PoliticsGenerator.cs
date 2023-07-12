@@ -7,7 +7,7 @@ namespace SpaceOpera.Core.Politics.Generator
 {
     public class PoliticsGenerator
     {
-        private static readonly float s_WeightCutoff = -0.01f;
+        private static readonly float f_WeightCutoff = -0.05f;
 
         public struct Parameters
         {
@@ -137,23 +137,32 @@ namespace SpaceOpera.Core.Politics.Generator
                 }
             }
 
+            context.LoaderStatus!.AddWork(WorldGenerator.Step.Culture, parameters.Cultures + 1);
+            context.LoaderStatus!.SetStatus(WorldGenerator.Step.Culture, "Creating Home Culture");
             var cultures = new List<Culture>();
             var playerHomeRegion = homeRegions.Get(random.NextSingle());
             PlaceCulture(playerCulture, playerHomeRegion);
+            context.LoaderStatus!.DoWork(WorldGenerator.Step.Culture);
+
             var chosenHomeRegions = new List<RegionWrapper>();
             for (int i = 0; i < parameters.Cultures; ++i)
             {
+                context.LoaderStatus!.SetStatus(
+                    WorldGenerator.Step.Culture, $"Creating Culture {i + 1}/{parameters.Cultures}");
                 var culture = Culture!.Generate(context);
                 cultures.Add(culture);
                 var homeRegion = homeRegions.Get(random.NextSingle());
                 chosenHomeRegions.Add(homeRegion);
                 PlaceCulture(culture, homeRegion);
+                context.LoaderStatus!.DoWork(WorldGenerator.Step.Culture);
             }
             world.AddAllCultures(cultures);
 
             var states = new List<FactionWrapper>();
             var playerStateWrapper = new FactionWrapper(playerFaction, playerHomeRegion);
             states.Add(playerStateWrapper);
+            context.LoaderStatus!.DoWork(WorldGenerator.Step.States);
+
             var closedRegions = new HashSet<RegionWrapper>
             {
                 playerHomeRegion
@@ -187,8 +196,13 @@ namespace SpaceOpera.Core.Politics.Generator
             }
             world.AddAllFactions(states.Select(x => x.Faction));
 
+            context.LoaderStatus!.AddWork(WorldGenerator.Step.States, parameters.States + 1);
+            context.LoaderStatus!.SetStatus(WorldGenerator.Step.States, "Placing States");
+            int s = 0;
             foreach (var partition in SeededGraphPartition.Compute<FactionWrapper, RegionWrapper>(states, x => true))
             {
+                context.LoaderStatus!.SetStatus(
+                    WorldGenerator.Step.States, $"Creating Faction {s + 1}/{parameters.States}");
                 var state = partition.Seed;
                 Design!.Generate(world, state.Faction, context);
                 foreach (var region in partition.Nodes)
@@ -207,6 +221,8 @@ namespace SpaceOpera.Core.Politics.Generator
                         .First();
                 SpaceForcesGenerator.Generate(world, state.Faction, hq, context);
                 LandForcesGenerator.Generate(world, state.Faction, partition.Nodes.First().Region.Center, context);
+                context.LoaderStatus!.DoWork(WorldGenerator.Step.States);
+                ++s;
             }
 
             foreach (var system in world.Galaxy.Systems)
@@ -275,7 +291,7 @@ namespace SpaceOpera.Core.Politics.Generator
                     {
                         var weight = current.CultureWeights.Get(culture) * edge.Falloff;
                         var wrapper = (RegionWrapper)edge.End;
-                        if (weight < s_WeightCutoff && wrapper.CultureWeights.Get(culture) > weight)
+                        if (weight < f_WeightCutoff && wrapper.CultureWeights.Get(culture) > weight)
                         {
                             wrapper.CultureWeights[culture] = weight;
                             if (wrapper.IsOpen)

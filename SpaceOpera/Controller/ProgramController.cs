@@ -114,13 +114,9 @@ namespace SpaceOpera.Controller
 
         private void GenerateWorld(GameParameters parameters)
         {
-            var task =
-                new GenerateWorldTask(
-                    parameters, 
-                    _coreData,
-                    new(_logger, StellarBodySurfaceGeneratorResources.CreateForGenerator(), new()));
-            var status = new LoaderStatus(new List<object>());
-            var screen = _viewFactory.CreateLoaderScreen(task, status);
+            var context = WorldGenerator.CreateContext(_logger);
+            var task = new GenerateWorldTask(parameters, _coreData, context);
+            var screen = _viewFactory.CreateLoaderScreen(task, context.LoaderStatus!);
             var controller = (LoaderController)screen.Controller;
             controller.Finished += HandleWorldGenerated;
             _loaderThread.QueueTask(task);

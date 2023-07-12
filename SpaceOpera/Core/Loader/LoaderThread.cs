@@ -12,16 +12,17 @@ namespace SpaceOpera.Core.Loader
         private readonly Thread _thread;
         private readonly NativeWindow _window;
 
-        public LoaderThread(RenderWindow window)
+        public LoaderThread(RenderWindow parentWindow)
         {
             _thread = new Thread(WorkThread);
             _window = new NativeWindow(
                 new NativeWindowSettings()
                 {
-                    SharedContext = window.GetContext(),
+                    SharedContext = parentWindow.GetContext(),
                     Flags = ContextFlags.Offscreen,
                     StartVisible = false
                 });
+            parentWindow.MakeCurrent();
         }
 
         public void QueueTask(ILoaderTask task)

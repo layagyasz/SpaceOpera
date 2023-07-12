@@ -73,13 +73,15 @@ namespace SpaceOpera.Core.Universe.Generator
             VoronoiGrapher.VoronoiNeighborsResult result = VoronoiGrapher.GetNeighbors(vertices, triads);
 
             List<SystemWrapper> systemWrappers = new();
+            context.LoaderStatus!.AddWork(WorldGenerator.Step.Galaxy, starCount);
             for (int i=0; i < starCount; ++i)
             {
-                context.Logger!.ForType(typeof(GalaxyGenerator)).AtInfo().EverySeconds(5).Log($"\tCreated {i} systems");
+                context.LoaderStatus!.SetStatus(WorldGenerator.Step.Galaxy, $"Creating System {i + 1}/{starCount}");
                 systemWrappers.Add(
                     new SystemWrapper(
                         StarSystemGenerator!.Generate(
                             new Vector3(vertices[i].x, s_YSampler.Generate(random), vertices[i].y), context)));
+                context.LoaderStatus!.DoWork(WorldGenerator.Step.Galaxy);
             }
             for (int i=0; i < starCount; ++i)
             {

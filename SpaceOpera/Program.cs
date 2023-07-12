@@ -8,7 +8,6 @@ using SpaceOpera.Controller;
 using SpaceOpera.Controller.Game;
 using SpaceOpera.Core;
 using SpaceOpera.Core.Loader;
-using SpaceOpera.Core.Universe.Generator;
 using SpaceOpera.View;
 
 namespace SpaceOpera
@@ -51,7 +50,6 @@ namespace SpaceOpera
                 new KeyboardListener(SimpleKeyMapper.Us, new Keys[] { Keys.Left, Keys.Right, Keys.Up, Keys.Down }));
 
             var loader = new LoaderThread(window);
-            window.MakeCurrent();
             loader.Start();
 
             ILogger logger = new Logger(new ConsoleBackend(), LogLevel.Info);
@@ -59,8 +57,7 @@ namespace SpaceOpera
             var viewData = ViewData.LoadFrom("Resources/View/ViewData.json", logger);
             var viewFactory = ViewFactory.Create(viewData, coreData, loader);
 
-            var generatorContext =
-                new GeneratorContext(logger, StellarBodySurfaceGeneratorResources.CreateForGenerator(), new());
+            var generatorContext = WorldGenerator.CreateContext(logger);
             if (mode == RunMode.TestLanguage)
             {
                 var language = coreData.PoliticsGenerator!.Culture!.Language!.Generate(generatorContext);

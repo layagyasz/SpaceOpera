@@ -13,12 +13,18 @@ namespace SpaceOpera.Core.Economics.Generator
 
         public void Generate(World world, GeneratorContext context)
         {
+            context.LoaderStatus!.AddWork(WorldGenerator.Step.Resources, world.Galaxy.Systems.Count);
+            int i = 0;
             foreach (var system in world.Galaxy.Systems)
             {
+                context.LoaderStatus!.SetStatus(
+                    WorldGenerator.Step.Resources, $"Populating {i + 1}/{world.Galaxy.Systems.Count}");
                 foreach (var stellarBody in system.Orbiters)
                 {
                     Generate(stellarBody, context);
                 }
+                context.LoaderStatus!.DoWork(WorldGenerator.Step.Resources);
+                ++i;
             }
         }
 

@@ -52,7 +52,7 @@ namespace SpaceOpera.Controller.GameSetup
 
         public void Randomize(Random random, bool notify = true)
         {
-            var context = new GeneratorContext(null, null, random);
+            var context = new GeneratorContext(null, null, null, random);
             _nameGenerator = new(_languageGenerator.Generate(context), _nameGeneratorGenerator.Generate(context));
             _name!.SetValue(_nameGenerator.GenerateNameForFaction(random), notify);
         }

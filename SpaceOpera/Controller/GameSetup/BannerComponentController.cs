@@ -77,7 +77,7 @@ namespace SpaceOpera.Controller.GameSetup
 
         public void Randomize(Random random, bool notify = true)
         {
-            SetValue(_bannerGenerator.Generate(new(null, null, random)), notify);
+            SetValue(_bannerGenerator.Generate(new(null, null, null, random)), notify);
         }
 
         public void SetValue(Banner? value, bool notify = true)

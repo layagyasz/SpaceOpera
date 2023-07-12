@@ -32,6 +32,7 @@ namespace SpaceOpera.View.Loader
         public void Initialize()
         {
             Controller.Bind(this);
+            Loader.Initialize();
         }
 
         public void Refresh()

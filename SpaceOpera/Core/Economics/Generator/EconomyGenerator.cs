@@ -1,5 +1,4 @@
 ﻿using Cardamom.Collections;
-using Cardamom.Logging;
 using Cardamom.Trackers;
 using SpaceOpera.Core.Politics;
 
@@ -11,8 +10,11 @@ namespace SpaceOpera.Core.Economics.Generator
 
         public void Generate(World world, GeneratorContext context)
         {
+            int factions = world.GetFactions().Count();
             Resources!.Generate(world, context);
             var holdings = new MultiMap<Faction, StellarBodyRegionHolding>();
+            context.LoaderStatus!.AddWork(WorldGenerator.Step.Economy, factions);
+            context.LoaderStatus!.SetStatus(WorldGenerator.Step.Economy, "Initializing Economy");
             foreach (var region in world.Galaxy.Systems.SelectMany(x => x.Orbiters).SelectMany(x => x.Regions))
             {
                 if (region.Sovereign != null)
@@ -20,9 +22,13 @@ namespace SpaceOpera.Core.Economics.Generator
                     holdings.Add(region.Sovereign, world.Economy.CreateSovereignHolding(region.Sovereign, region));
                 }
             }
+            int i = 0;
             foreach (var faction in world.GetFactions())
             {
+                context.LoaderStatus!.SetStatus(WorldGenerator.Step.Economy, $"Generating Economy {i + 1}/{factions}");
                 Generate(world, holdings[faction], context);
+                context.LoaderStatus!.DoWork(WorldGenerator.Step.Economy);
+                ++i;
             }
         }
 

@@ -1,0 +1,52 @@
+[
+  {
+    "$id": "loader-progress-container",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 800, 38 ],
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "loader-progress-text",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 800, 14 ],
+      "Padding": [ 2 ],
+      "Margin": [ 0 ],
+      "FontSize": 10,
+      "Color": "#ffffffcc",
+      "DisableScissor": true
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "Color": "#ffffff"
+        }
+      }
+    ]
+  },
+  {
+    "$id": "loader-progress",
+    "Default": {
+      "Size": [
+        [ "DynamicContents", 6, 800 ],
+        6
+      ],
+      "Margin": [ 2 ],
+      "CornerRadius": [ [ 3, 3 ] ],
+      "BackgroundColor": [ "#ffffffcc" ],
+      "BackgroundShader": "shader-ui",
+      "DisableScissor": true
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "BackgroundColor": [ "#ffffff" ]
+        }
+      }
+    ]
+  }
+]

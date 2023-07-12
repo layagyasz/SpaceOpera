@@ -743,6 +743,9 @@
     <None Update="Resources\View\Style\Game\Panes\StellarBodyRegion\StructureTab.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\View\Style\Loader\Loader.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\View\Symbols\symbol-0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -1489,6 +1492,7 @@
     <Folder Include="Resources\View\Designs\Ship\" />
     <Folder Include="Resources\View\Designs\ShipShield\" />
     <Folder Include="Resources\View\Style\GameSetup\" />
+    <Folder Include="Resources\View\Style\Loader\" />
   </ItemGroup>
 
   <ItemGroup>
