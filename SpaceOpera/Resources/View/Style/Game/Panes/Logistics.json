@@ -78,7 +78,7 @@
     "Default": {
       "Size": [ 438, 512 ],
       "Margin": [ 4 ],
-      "Padding": [ 4 ],
+      "Padding": [ 1, 12, 1, 12 ],
       "CornerRadius": [ [ 12, 12 ] ],
       "DisableScissor": false
     }
@@ -87,7 +87,7 @@
     "$id": "logistics-pane-route-row",
     "Parent": "ui-element-internal",
     "Default": {
-      "Size": [ 438, 48 ],
+      "Size": [ 436, 48 ],
       "Padding": [ 0 ]
     }
   },
@@ -103,7 +103,7 @@
     "$id": "logistics-pane-route-row-info",
     "Parent": "ui-element-internal",
     "Default": {
-      "Size": [ 342, 48 ],
+      "Size": [ 340, 48 ],
       "Padding": [ 8 ]
     }
   }

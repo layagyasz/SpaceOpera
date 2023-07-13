@@ -22,14 +22,14 @@ namespace SpaceOpera.Core.Military
             _drivers.Add(fleet, new FleetDriver(fleet));
         }
 
-        public IEnumerable<ArmyDriver> GetArmies()
+        public IEnumerable<ArmyDriver> GetArmyDrivers()
         {
             return _drivers.Values.Where(x => x is ArmyDriver).Cast<ArmyDriver>();
         }
 
-        public IEnumerable<ArmyDriver> GetArmiesFor(Faction faction)
+        public IEnumerable<ArmyDriver> GetArmyDriversFor(Faction faction)
         {
-            return GetArmies().Where(x => x.Formation.Faction == faction);
+            return GetArmyDrivers().Where(x => x.Formation.Faction == faction);
         }
 
         public IEnumerable<AtomicFormationDriver> GetAtomicDrivers()

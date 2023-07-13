@@ -139,7 +139,7 @@ namespace SpaceOpera.View.Game.Panes.FormationPanes
                     new DynamicTextUiElement(
                         uiElementFactory.GetClass(s_CohesionText),
                         new InlayController(),
-                        () => atomicFormation.AtomicFormation.Cohesion.ToString("P0")));
+                        () => string.Format("{0:P0}", atomicFormation.AtomicFormation.Cohesion.PercentFull())));
                 info.Add(
                     new PoolBar(
                         uiElementFactory.GetClass(s_Cohesion),

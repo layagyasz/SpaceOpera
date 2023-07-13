@@ -79,7 +79,7 @@
     "Default": {
       "Size": [ 438, 512 ],
       "Margin": [ 4 ],
-      "Padding": [ 4 ],
+      "Padding": [ 1, 12, 1, 12 ],
       "CornerRadius": [ [ 12, 12 ] ],
       "DisableScissor": false
     }
@@ -88,7 +88,7 @@
     "$id": "design-pane-design-row",
     "Parent": "ui-element-internal",
     "Default": {
-      "Size": [ 438, 48 ],
+      "Size": [ 436, 48 ],
       "Padding": [ 0 ]
     }
   },
@@ -104,7 +104,7 @@
     "$id": "design-pane-design-row-text",
     "Parent": "ui-element-internal",
     "Default": {
-      "Size": [ 346, 48 ],
+      "Size": [ 352, 48 ],
       "Padding": [ 8 ]
     }
   },

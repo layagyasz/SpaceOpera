@@ -30,22 +30,50 @@
     }
   },
   {
-    "$id": "military-pane-military-table",
+    "$id": "military-pane-formation-container",
     "Parent": "ui-container",
     "Default": {
-      "Size": [ 884, 572 ],
+      "Size": [ 442, 572 ],
       "Margin": [ 4 ],
-      "Padding": [ 2 ]
+      "Padding": [ 2 ],
+      "DisableScissor": true
     }
   },
   {
-    "$id": "military-pane-formation-row",
+    "$id": "military-pane-formation-header",
     "Parent": "ui-element",
     "Default": {
       "Size": [ 438, 48 ],
       "CornerRadius": [ [ 8, 8 ] ],
       "Padding": [ 8, 0, 8, 0 ],
       "Margin": [ 2 ]
+    }
+  },
+  {
+    "$id": "military-pane-formation-header-space",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 422, 48 ],
+      "Padding": [ 8 ]
+    }
+  },
+  {
+    "$id": "military-pane-formation-table",
+    "Parent": "ui-element",
+    "Default": {
+      "Size": [ 438, 512 ],
+      "Margin": [ 4 ],
+      "Padding": [ 1, 12, 1, 12 ],
+      "CornerRadius": [ [ 12, 12 ] ],
+      "DisableScissor": false
+    }
+  },
+  {
+    "$id": "military-pane-formation-row",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 436, 48 ],
+      "Padding": [ 0 ]
     }
   },
   {
@@ -60,7 +88,7 @@
     "$id": "military-pane-formation-row-text",
     "Parent": "ui-element-internal",
     "Default": {
-      "Size": [ 374, 48 ],
+      "Size": [ 388, 48 ],
       "Padding": [ 8 ]
     }
   }

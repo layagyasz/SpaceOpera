@@ -24,15 +24,26 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
         private static readonly string s_TabContainer = "military-pane-tab-container";
         private static readonly string s_TabOption = "military-pane-tab-option";
         private static readonly string s_Body = "military-pane-body";
-        private static readonly string s_MilitaryTable = "military-pane-military-table";
 
-        private static readonly ActionRow<AtomicFormationDriver>.Style s_FormationRowStyle =
+        private static readonly string s_FormationContainer = "military-pane-formation-container";
+        private static readonly ActionRow<Type>.Style s_FormationHeaderStyle =
             new()
             {
-                Container = "military-pane-formation-row"
+                Container = "military-pane-formation-header"
+            };
+        private static readonly string s_FormationHeaderSpace = "military-pane-formation-header-space";
+        private static readonly List<ActionRow<Type>.ActionConfiguration> s_FormationHeaderActions = new();
+
+        private static readonly string s_FormationTable = "military-pane-formation-table";
+        private static readonly ActionRow<IFormationDriver>.Style s_FormationRowStyle =
+            new()
+            {
+                Container = "military-pane-formation-row",
+                ActionContainer = "military-pane-formation-row-action-container"
             };
         private static readonly string s_Icon = "military-pane-formation-row-icon";
         private static readonly string s_Text = "military-pane-formation-row-text";
+        private static readonly List<ActionRow<IFormationDriver>.ActionConfiguration> s_FormationActions = new();
 
         private World? _world;
         private Faction? _faction;
@@ -41,7 +52,7 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
         private readonly UiElementFactory _uiElementFactory;
         private readonly IconFactory _iconFactory;
 
-        private readonly UiSerialContainer _formationTable;
+        public UiCompoundComponent Formations { get; }
 
         public MilitaryPane(UiElementFactory uiElementFactory, IconFactory iconFactory)
             : base(
@@ -63,16 +74,30 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
             var body = new
                 DynamicUiContainer(
                     uiElementFactory.GetClass(s_Body), new NoOpElementController<UiContainer>());
-            _formationTable =
-                new DynamicKeyedTable<AtomicFormationDriver, ActionRow<AtomicFormationDriver>>(
-                    uiElementFactory.GetClass(s_MilitaryTable),
-                    new TableController(10f),
-                    UiSerialContainer.Orientation.Vertical,
-                    GetRange,
-                    CreateRow,
-                    Comparer<AtomicFormationDriver>.Create(
-                        (x, y) => x.AtomicFormation.Name.CompareTo(y.AtomicFormation.Name)));
-            body.Add(_formationTable);
+
+            Formations =
+                new ActionTable<IFormationDriver>(
+                    _uiElementFactory.GetClass(s_FormationContainer),
+                    ActionRow<Type>.Create(
+                        typeof(IFormationDriver),
+                        ActionId.Unknown,
+                        uiElementFactory,
+                        s_FormationHeaderStyle,
+                        new List<IUiElement>()
+                        {
+                            new SimpleUiElement(
+                                uiElementFactory.GetClass(s_FormationHeaderSpace), new InlayController())
+                        },
+                        s_FormationHeaderActions),
+                    new DynamicKeyedTable<IFormationDriver, ActionRow<IFormationDriver>>(
+                        uiElementFactory.GetClass(s_FormationTable),
+                        new TableController(10f),
+                        UiSerialContainer.Orientation.Vertical,
+                        GetRange,
+                        CreateRow,
+                        Comparer<IFormationDriver>.Create((x, y) => x.Formation.Name.CompareTo(y.Formation.Name))));
+
+            body.Add(Formations);
             SetBody(body);
         }
 
@@ -92,12 +117,11 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
         public override void SetTab(object id)
         {
             _tab = (TabId)id;
-            _formationTable.SetOffset(0);
         }
 
-        private ActionRow<AtomicFormationDriver> CreateRow(AtomicFormationDriver driver)
+        private ActionRow<IFormationDriver> CreateRow(IFormationDriver driver)
         {
-            return ActionRow<AtomicFormationDriver>.Create(
+            return ActionRow<IFormationDriver>.Create(
                 driver,
                 ActionId.Select,
                 _uiElementFactory,
@@ -106,22 +130,22 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
                 {
                     _iconFactory.Create(_uiElementFactory.GetClass(s_Icon), new InlayController(), driver),
                     new TextUiElement(
-                        _uiElementFactory.GetClass(s_Text), new InlayController(), driver.AtomicFormation.Name)
+                        _uiElementFactory.GetClass(s_Text), new InlayController(), driver.Formation.Name)
                 },
-                Enumerable.Empty<ActionRow<AtomicFormationDriver>.ActionConfiguration>());
+                s_FormationActions);
         }
 
-        private IEnumerable<AtomicFormationDriver> GetRange()
+        private IEnumerable<IFormationDriver> GetRange()
         {
             if (_world == null || _faction == null)
             {
-                return Enumerable.Empty<AtomicFormationDriver>();
+                return Enumerable.Empty<IFormationDriver>();
             }
             return _tab switch
             {
-                TabId.Army => _world.FormationManager.GetDivisionDriversFor(_faction),
+                TabId.Army => _world.FormationManager.GetArmyDriversFor(_faction),
                 TabId.Fleet => _world.FormationManager.GetFleetDriversFor(_faction),
-                _ => Enumerable.Empty<AtomicFormationDriver>(),
+                _ => Enumerable.Empty<IFormationDriver>(),
             };
         }
     }
