@@ -1,5 +1,6 @@
 using Cardamom.Collections;
-using SpaceOpera.Core.Politics.Government;
+using SpaceOpera.Core.Politics.Cultures;
+using SpaceOpera.Core.Politics.Governments;
 
 namespace SpaceOpera.Core.Politics
 {
@@ -7,6 +8,7 @@ namespace SpaceOpera.Core.Politics
     {
         public string Name { get; }
         public Banner Banner { get; }
+        public Culture Culture { get; }
         public GovernmentForm GovernmentForm { get; }
         public NameGenerator NameGenerator { get; }
 
@@ -15,12 +17,14 @@ namespace SpaceOpera.Core.Politics
         public Faction(
             string name, 
             Banner banner, 
+            Culture culture,
             GovernmentForm governmentForm,
             EnumMap<FactionAttribute, float> baseAttributes,
             NameGenerator nameGenerator)
         {
             Name = name;
             Banner = banner;
+            Culture = culture;
             GovernmentForm = governmentForm;
             NameGenerator = nameGenerator;
 

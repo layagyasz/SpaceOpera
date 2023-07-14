@@ -1,6 +1,7 @@
 using Cardamom.Collections;
 using Cardamom.Graphing;
 using Cardamom.Trackers;
+using SpaceOpera.Core.Politics.Cultures;
 using SpaceOpera.Core.Universe;
 
 namespace SpaceOpera.Core.Politics.Generator
@@ -71,7 +72,7 @@ namespace SpaceOpera.Core.Politics.Generator
         public float BaseLinkChance { get; set; }
 
         public void Generate(
-            Parameters parameters, World world, Culture playerCulture, Faction playerFaction, GeneratorContext context)
+            Parameters parameters, World world, Faction playerFaction, GeneratorContext context)
         {
             var random = context.Random;
             var nodes = new Dictionary<StellarBodyRegion, RegionWrapper>();
@@ -141,7 +142,7 @@ namespace SpaceOpera.Core.Politics.Generator
             context.LoaderStatus!.SetStatus(WorldGenerator.Step.Culture, "Creating Home Culture");
             var cultures = new List<Culture>();
             var playerHomeRegion = homeRegions.Get(random.NextSingle());
-            PlaceCulture(playerCulture, playerHomeRegion);
+            PlaceCulture(playerFaction.Culture, playerHomeRegion);
             context.LoaderStatus!.DoWork(WorldGenerator.Step.Culture);
 
             var chosenHomeRegions = new List<RegionWrapper>();

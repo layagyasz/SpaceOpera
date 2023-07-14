@@ -1,6 +1,7 @@
 ﻿using Cardamom;
+using SpaceOpera.Core.Politics.Cultures;
 
-namespace SpaceOpera.Core.Politics.Government
+namespace SpaceOpera.Core.Politics.Governments
 {
     public class GovernmentForm : IKeyed
     {
@@ -11,5 +12,11 @@ namespace SpaceOpera.Core.Politics.Government
         public Succession Succession { get; set; }
         public bool Devolved { get; set; }
         public bool Absolute { get; set; }
+        public CulturalTraitsRange CultureRestriction { get; set; } = new();
+
+        public bool IsValid(Culture culture)
+        {
+            return CultureRestriction.Contains(culture.Traits);
+        }
     }
 }

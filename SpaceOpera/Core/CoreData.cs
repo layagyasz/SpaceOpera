@@ -9,7 +9,7 @@ using SpaceOpera.Core.Designs;
 using SpaceOpera.Core.Economics;
 using SpaceOpera.Core.Economics.Generator;
 using SpaceOpera.Core.Politics.Generator;
-using SpaceOpera.Core.Politics.Government;
+using SpaceOpera.Core.Politics.Governments;
 using SpaceOpera.Core.Universe;
 using SpaceOpera.Core.Universe.Generator;
 using System.Text.Json;

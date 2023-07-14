@@ -1,6 +1,6 @@
 ﻿using Cardamom.Ui;
 using Cardamom.Ui.Controller;
-using SpaceOpera.Core.Politics;
+using SpaceOpera.Core.Politics.Cultures;
 using SpaceOpera.View.GameSetup;
 
 namespace SpaceOpera.Controller.GameSetup

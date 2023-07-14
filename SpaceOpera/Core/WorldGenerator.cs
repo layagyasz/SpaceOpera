@@ -1,5 +1,6 @@
 ﻿using Cardamom.Logging;
 using SpaceOpera.Core.Politics;
+using SpaceOpera.Core.Politics.Cultures;
 using SpaceOpera.Core.Politics.Generator;
 using SpaceOpera.Core.Universe;
 using SpaceOpera.Core.Universe.Generator;
@@ -33,11 +34,7 @@ namespace SpaceOpera.Core
         }
 
         public static World Generate(
-            Parameters parameters, 
-            Culture playerCulture, 
-            Faction playerFaction, 
-            CoreData coreData, 
-            GeneratorContext context)
+            Parameters parameters, Faction playerFaction, CoreData coreData, GeneratorContext context)
         {
             var galaxy = coreData.GalaxyGenerator!.Generate(parameters.Galaxy, context);
             var navigationMap = NavigationMap.Create(galaxy);
@@ -48,7 +45,7 @@ namespace SpaceOpera.Core
                     galaxy,
                     new StarCalendar(/* startDate= */ 900000000),
                     navigationMap);
-            coreData.PoliticsGenerator!.Generate(parameters.Politics, world, playerCulture, playerFaction, context);
+            coreData.PoliticsGenerator!.Generate(parameters.Politics, world, playerFaction, context);
             coreData.EconomyGenerator!.Generate(world, context);
             return world;
         }

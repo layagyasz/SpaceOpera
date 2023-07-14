@@ -44,7 +44,6 @@ namespace SpaceOpera.Controller
                 var world = 
                     WorldGenerator.Generate(
                         Parameters.WorldParameters,
-                        Parameters.PlayerCulture,
                         Parameters.PlayerFaction, 
                         CoreData, 
                         GeneratorContext);

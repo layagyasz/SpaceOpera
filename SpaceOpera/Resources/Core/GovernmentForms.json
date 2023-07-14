@@ -6,7 +6,10 @@
     "LegislativeBody": "Single",
     "Succession": "Inherited",
     "Devolved": false,
-    "Absolute": true
+    "Absolute": true,
+    "CultureRestriction": {
+      "AuthoritarianEgalitarian": [-2, -2 ]
+    }
   },
   {
     "$id": "government-form-absolute-oligarchy",
@@ -15,7 +18,11 @@
     "LegislativeBody": "Council",
     "Succession": "Inherited",
     "Devolved": false,
-    "Absolute": true
+    "Absolute": true,
+    "CultureRestriction": {
+      "AuthoritarianEgalitarian": [ -2, -2 ],
+      "IndividualistCollectivist": [ 1, 2 ]
+    }
   },
   {
     "$id": "government-form-confederate-republic",
@@ -24,7 +31,10 @@
     "LegislativeBody": "RepresentativeUnanimous",
     "Succession": "Elected",
     "Devolved": true,
-    "Absolute": false
+    "Absolute": false,
+    "CultureRestriction": {
+      "IndividualistCollectivist": [ -2, -1 ]
+    }
   },
   {
     "$id": "government-form-constitutional-monarchy",
@@ -33,7 +43,10 @@
     "LegislativeBody": "RepresentativeMajority",
     "Succession": "Elected",
     "Devolved": true,
-    "Absolute": true
+    "Absolute": true,
+    "CultureRestriction": {
+      "AuthoritarianEgalitarian": [ -2, 0 ]
+    }
   },
   {
     "$id": "government-form-council-republic",
@@ -42,7 +55,10 @@
     "LegislativeBody": "Council",
     "Succession": "Selected",
     "Devolved": false,
-    "Absolute": true
+    "Absolute": true,
+    "CultureRestriction": {
+      "IndividualistCollectivist": [ 1, 2 ]
+    }
   },
   {
     "$id": "government-form-democracy",
@@ -51,7 +67,10 @@
     "LegislativeBody": "Direct",
     "Succession": "Elected",
     "Devolved": false,
-    "Absolute": true
+    "Absolute": true,
+    "CultureRestriction": {
+      "AuthoritarianEgalitarian": [ 1, 2 ]
+    }
   },
   {
     "$id": "government-form-despotism",
@@ -60,7 +79,11 @@
     "LegislativeBody": "Single",
     "Succession": "Inherited",
     "Devolved": true,
-    "Absolute": false
+    "Absolute": false,
+    "CultureRestriction": {
+      "AuthoritarianEgalitarian": [ -2, -1 ],
+      "AggressivePassive": [-2, -1 ]
+    }
   },
   {
     "$id": "government-form-elective-monarchy",
@@ -69,7 +92,10 @@
     "LegislativeBody": "Single",
     "Succession": "Selected",
     "Devolved": true,
-    "Absolute": false
+    "Absolute": false,
+    "CultureRestriction": {
+      "AuthoritarianEgalitarian": [ -2, 0 ]
+    }
   },
   {
     "$id": "government-form-enlightened-dictatorship",
@@ -78,7 +104,10 @@
     "LegislativeBody": "Single",
     "Succession": "Selected",
     "Devolved": false,
-    "Absolute": true
+    "Absolute": true,
+    "CultureRestriction": {
+      "AuthoritarianEgalitarian": [ -2, -1 ]
+    }
   },
   {
     "$id": "government-form-federal-republic",
@@ -87,7 +116,11 @@
     "LegislativeBody": "RepresentativeMajority",
     "Succession": "Elected",
     "Devolved": true,
-    "Absolute": true
+    "Absolute": true,
+    "CultureRestriction": {
+      "AuthoritarianEgalitarian": [ 1, 2 ],
+      "IndividualistCollectivist": [ -2, -1 ]
+    }
   },
   {
     "$id": "government-form-junta",
@@ -96,16 +129,24 @@
     "LegislativeBody": "Council",
     "Succession": "Selected",
     "Devolved": false,
-    "Absolute": true
+    "Absolute": true,
+    "CultureRestriction": {
+      "AuthoritarianEgalitarian": [ -2, -1 ],
+      "AggressivePassive": [ -2, -1 ]
+    }
   },
   {
-    "$id": "government-form-military-dicatorship",
+    "$id": "government-form-military-dictatorship",
     "Name": "Military Dictatorship",
     "Legitimacy": "Military",
     "LegislativeBody": "Single",
     "Succession": "Selected",
     "Devolved": false,
-    "Absolute": true
+    "Absolute": true,
+    "CultureRestriction": {
+      "AuthoritarianEgalitarian": [ -2, -2 ],
+      "AggressivePassive": [ -2, -1 ]
+    }
   },
   {
     "$id": "government-form-monarchy",
@@ -114,7 +155,10 @@
     "LegislativeBody": "Single",
     "Succession": "Inherited",
     "Devolved": true,
-    "Absolute": false
+    "Absolute": false,
+    "CultureRestriction": {
+      "AuthoritarianEgalitarian": [ -2, -1 ]
+    }
   },
   {
     "$id": "government-form-oligarchy",
@@ -123,7 +167,11 @@
     "LegislativeBody": "Council",
     "Succession": "Inherited",
     "Devolved": true,
-    "Absolute": false
+    "Absolute": false,
+    "CultureRestriction": {
+      "AuthoritarianEgalitarian": [ -2, 0 ],
+      "IndividualistCollectivist": [ 1, 2 ]
+    }
   },
   {
     "$id": "government-form-principate",
@@ -132,7 +180,11 @@
     "LegislativeBody": "Single",
     "Succession": "Selected",
     "Devolved": false,
-    "Absolute": true
+    "Absolute": true,
+    "CultureRestriction": {
+      "AuthoritarianEgalitarian": [ -2, 0 ],
+      "IndividualistCollectivist": [ 1, 2 ]
+    }
   },
   {
     "$id": "government-form-technocracy",
@@ -141,7 +193,10 @@
     "LegislativeBody": "Council",
     "Succession": "Selected",
     "Devolved": false,
-    "Absolute": true
+    "Absolute": true,
+    "CultureRestriction": {
+      "AuthoritarianEgalitarian": [ -2, -1 ]
+    }
   },
   {
     "$id": "government-form-theocracy",
@@ -150,7 +205,11 @@
     "LegislativeBody": "Single",
     "Succession": "Selected",
     "Devolved": false,
-    "Absolute": true
+    "Absolute": true,
+    "CultureRestriction": {
+      "AuthoritarianEgalitarian": [ -2, -1 ],
+      "ConventionalDynamic": [ -2, -1 ]
+    }
   },
   {
     "$id": "government-form-unitary-republic",
@@ -159,6 +218,9 @@
     "LegislativeBody": "RepresentativeMajority",
     "Succession": "Elected",
     "Devolved": false,
-    "Absolute": true
+    "Absolute": true,
+    "CultureRestriction": {
+      "AuthoritarianEgalitarian": [ 1, 2 ]
+    }
   }
 ]

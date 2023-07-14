@@ -2,6 +2,7 @@
 using Cardamom.Ui.Controller;
 using Cardamom.Ui.Controller.Element;
 using SpaceOpera.Core;
+using SpaceOpera.Core.Politics.Cultures;
 using SpaceOpera.Core.Politics.Generator;
 using SpaceOpera.View.GameSetup;
 
@@ -59,16 +60,17 @@ namespace SpaceOpera.Controller.GameSetup
         public GameParameters GetGameParameters()
         {
             var government = _government!.GetValue();
+            var culture = new Culture(_culture!.GetValue(), government.NameGenerator.Language);
             return new(
                 new()
                 {
                     Galaxy = _galaxy!.GetValue(),
                     Politics = _politics!.GetValue()
                 },
-                new(_culture!.GetValue(), government.NameGenerator.Language),
                 _factionGenerator.Generate(
                     government.Name, 
                     _banner!.GetValue(),
+                    culture,
                     _factionGenerator.GovernmentForms.First(),
                     government.NameGenerator));
         }

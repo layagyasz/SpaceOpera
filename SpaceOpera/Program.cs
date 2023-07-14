@@ -136,8 +136,7 @@ namespace SpaceOpera
             }
             else if (mode == RunMode.TestWorld)
             {
-                var world = 
-                    WorldGenerator.Generate(worldParams, playerCulture, playerFaction, coreData, generatorContext);
+                var world = WorldGenerator.Generate(worldParams, playerFaction, coreData, generatorContext);
                 scene = world.Galaxy;
                 driver = new(world.GetUpdater());
                 controller = new GameController(ui, world, driver, playerFaction, viewFactory, logger);

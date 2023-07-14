@@ -1,6 +1,6 @@
 ﻿using SpaceOpera.Core.Languages;
 
-namespace SpaceOpera.Core.Politics
+namespace SpaceOpera.Core.Politics.Cultures
 {
     public class Culture
     {
