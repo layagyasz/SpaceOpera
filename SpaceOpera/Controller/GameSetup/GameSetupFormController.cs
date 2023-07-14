@@ -66,7 +66,11 @@ namespace SpaceOpera.Controller.GameSetup
                     Politics = _politics!.GetValue()
                 },
                 new(_culture!.GetValue(), government.NameGenerator.Language),
-                _factionGenerator.Generate(government.Name, _banner!.GetValue(), government.NameGenerator));
+                _factionGenerator.Generate(
+                    government.Name, 
+                    _banner!.GetValue(),
+                    _factionGenerator.GovernmentForms.First(),
+                    government.NameGenerator));
         }
 
         private void HandleStart(object? sender,  MouseButtonClickEventArgs e)

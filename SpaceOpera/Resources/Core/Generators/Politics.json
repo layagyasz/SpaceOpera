@@ -28,6 +28,26 @@
       "LandForcesCommand": 180,
       "ArmyCommand": 90
     },
+    "GovernmentForms": [
+      "government-form-absolute-monarchy",
+      "government-form-absolute-oligarchy",
+      "government-form-confederate-republic",
+      "government-form-constitutional-monarchy",
+      "government-form-council-republic",
+      "government-form-democracy",
+      "government-form-despotism",
+      "government-form-elective-monarchy",
+      "government-form-enlightened-dictatorship",
+      "government-form-federal-republic",
+      "government-form-junta",
+      "government-form-military-dicatorship",
+      "government-form-monarchy",
+      "government-form-oligarchy",
+      "government-form-principate",
+      "government-form-technocracy",
+      "government-form-theocracy",
+      "government-form-unitary-republic"
+    ],
     "ComponentName": {
       "RequiredTypes": [
         "Army",

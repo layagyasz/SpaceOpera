@@ -1,0 +1,164 @@
+[
+  {
+    "$id": "government-form-absolute-monarchy",
+    "Name": "Abolsute Monarchy",
+    "Legitimacy": "Divine",
+    "LegislativeBody": "Single",
+    "Succession": "Inherited",
+    "Devolved": false,
+    "Absolute": true
+  },
+  {
+    "$id": "government-form-absolute-oligarchy",
+    "Name": "Absolute Oligarchy",
+    "Legitimacy": "Divine",
+    "LegislativeBody": "Council",
+    "Succession": "Inherited",
+    "Devolved": false,
+    "Absolute": true
+  },
+  {
+    "$id": "government-form-confederate-republic",
+    "Name": "Confederate Republic",
+    "Legitimacy": "Democratic",
+    "LegislativeBody": "RepresentativeUnanimous",
+    "Succession": "Elected",
+    "Devolved": true,
+    "Absolute": false
+  },
+  {
+    "$id": "government-form-constitutional-monarchy",
+    "Name": "Monarchy",
+    "Legitimacy": "Divine",
+    "LegislativeBody": "RepresentativeMajority",
+    "Succession": "Elected",
+    "Devolved": true,
+    "Absolute": true
+  },
+  {
+    "$id": "government-form-council-republic",
+    "Name": "Council Republic",
+    "Legitimacy": "Democratic",
+    "LegislativeBody": "Council",
+    "Succession": "Selected",
+    "Devolved": false,
+    "Absolute": true
+  },
+  {
+    "$id": "government-form-democracy",
+    "Name": "Democracy",
+    "Legitimacy": "Democratic",
+    "LegislativeBody": "Direct",
+    "Succession": "Elected",
+    "Devolved": false,
+    "Absolute": true
+  },
+  {
+    "$id": "government-form-despotism",
+    "Name": "Despotism",
+    "Legitimacy": "Military",
+    "LegislativeBody": "Single",
+    "Succession": "Inherited",
+    "Devolved": true,
+    "Absolute": false
+  },
+  {
+    "$id": "government-form-elective-monarchy",
+    "Name": "Elective Monarchy",
+    "Legitimacy": "Divine",
+    "LegislativeBody": "Single",
+    "Succession": "Selected",
+    "Devolved": true,
+    "Absolute": false
+  },
+  {
+    "$id": "government-form-enlightened-dictatorship",
+    "Name": "Enlightened Dictatorship",
+    "Legitimacy": "Credential",
+    "LegislativeBody": "Single",
+    "Succession": "Selected",
+    "Devolved": false,
+    "Absolute": true
+  },
+  {
+    "$id": "government-form-federal-republic",
+    "Name": "Federal Republic",
+    "Legitimacy": "Democratic",
+    "LegislativeBody": "RepresentativeMajority",
+    "Succession": "Elected",
+    "Devolved": true,
+    "Absolute": true
+  },
+  {
+    "$id": "government-form-junta",
+    "Name": "Junta",
+    "Legitimacy": "Military",
+    "LegislativeBody": "Council",
+    "Succession": "Selected",
+    "Devolved": false,
+    "Absolute": true
+  },
+  {
+    "$id": "government-form-military-dicatorship",
+    "Name": "Military Dictatorship",
+    "Legitimacy": "Military",
+    "LegislativeBody": "Single",
+    "Succession": "Selected",
+    "Devolved": false,
+    "Absolute": true
+  },
+  {
+    "$id": "government-form-monarchy",
+    "Name": "Monarchy",
+    "Legitimacy": "Divine",
+    "LegislativeBody": "Single",
+    "Succession": "Inherited",
+    "Devolved": true,
+    "Absolute": false
+  },
+  {
+    "$id": "government-form-oligarchy",
+    "Name": "Oligarchy",
+    "Legitimacy": "Divine",
+    "LegislativeBody": "Council",
+    "Succession": "Inherited",
+    "Devolved": true,
+    "Absolute": false
+  },
+  {
+    "$id": "government-form-principate",
+    "Name": "Principate",
+    "Legitimacy": "Democratic",
+    "LegislativeBody": "Single",
+    "Succession": "Selected",
+    "Devolved": false,
+    "Absolute": true
+  },
+  {
+    "$id": "government-form-technocracy",
+    "Name": "Technocracy",
+    "Legitimacy": "Credential",
+    "LegislativeBody": "Council",
+    "Succession": "Selected",
+    "Devolved": false,
+    "Absolute": true
+  },
+  {
+    "$id": "government-form-theocracy",
+    "Name": "Theocracy",
+    "Legitimacy": "Divine",
+    "LegislativeBody": "Single",
+    "Succession": "Selected",
+    "Devolved": false,
+    "Absolute": true
+  },
+  {
+    "$id": "government-form-unitary-republic",
+    "Name": "Unitary Republic",
+    "Legitimacy": "Democratic",
+    "LegislativeBody": "RepresentativeMajority",
+    "Succession": "Elected",
+    "Devolved": false,
+    "Absolute": true
+  }
+]

@@ -10,6 +10,7 @@
   "Components": [ "Resources/Core/Designs::*.Components.json" ],
   "ComponentClassifiers": [ "Resources/Core/Designs::*.Classification.json" ],
   "DesignTemplates": [ "Resources/Core/Designs::*.Template.json" ],
+  "GovernmentForms": "Resources/Core/GovernmentForms.json",
   "GalaxyGenerator": "Resources/Core/Generators/Galaxy.json",
   "PoliticsGenerator": "Resources/Core/Generators/Politics.json",
   "EconomyGenerator": "Resources/Core/Generators/Economy.json"
