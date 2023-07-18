@@ -1,6 +1,5 @@
 ﻿using Cardamom.Mathematics;
 using Cardamom.Trackers;
-using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui;
 using SpaceOpera.View.Components;
 using Cardamom.Ui.Controller;
@@ -24,7 +23,7 @@ namespace SpaceOpera.Controller.Components
             base.Bind(@object);
             var table = (ManualNumericInputTable<T>)_table!;
             table.AddButton.Controller.Clicked += HandleAdded;
-            _select = (SelectController<T>)table.Select.Controller;
+            _select = (SelectController<T>)table.Select.ComponentController;
         }
 
         public override void Unbind()

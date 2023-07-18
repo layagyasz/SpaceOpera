@@ -113,7 +113,8 @@ namespace SpaceOpera.View.Game.Panes.DesignPanes
                     var segmentRow = new DesignerSegmentRow(segment, _uiElementFactory, _iconFactory);
                     segmentRow.Initialize();
                     var configuration = 
-                        ((SelectController<SegmentConfiguration>)segmentRow.ConfigurationSelect.Controller).GetValue();
+                        ((SelectController<SegmentConfiguration>)segmentRow.ConfigurationSelect.ComponentController)
+                            .GetValue();
                     SetSegmentConfiguration(segmentRow, configuration!);
                     SegmentTable.Add(segmentRow);
                 }
@@ -125,7 +126,7 @@ namespace SpaceOpera.View.Game.Panes.DesignPanes
                     var segmentRow = new DesignerSegmentRow(segment.Template, _uiElementFactory, _iconFactory);
                     segmentRow.Initialize();
                     segmentRow.Populate(segment.Configuration, segment.GetComponents());
-                    ((SelectController<SegmentConfiguration>)segmentRow.ConfigurationSelect.Controller)
+                    ((SelectController<SegmentConfiguration>)segmentRow.ConfigurationSelect.ComponentController)
                         .SetValue(segment.Configuration);
                     SegmentTable.Add(segmentRow);
                 }

@@ -38,9 +38,12 @@ namespace SpaceOpera.View.Game.Panes.LogisticsPanes
             Container = "logistics-route-pane-material-table-container",
             Table = "logistics-route-pane-material-table",
             SelectWrapper = "logistics-route-pane-material-select-wrapper",
-            Select = "logistics-route-pane-material-select",
-            SelectDropBox = "logistics-route-pane-material-select-dropbox",
-            SelectOption = "logistics-route-pane-material-select-option",
+            Select =new()
+            {
+                Root = "logistics-route-pane-material-select",
+                OptionContainer = "logistics-route-pane-material-select-dropbox",
+                Option = "logistics-route-pane-material-select-option"
+            },
             Add = "logistics-route-pane-material-add",
             Row = new ManualNumericInputTableRow<IMaterial>.Style()
             {

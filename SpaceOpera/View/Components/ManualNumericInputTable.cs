@@ -1,8 +1,8 @@
 ﻿using Cardamom.Ui;
+using Cardamom.Ui.Controller;
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
 using SpaceOpera.Controller.Components;
-using SpaceOpera.Core.Economics;
 using SpaceOpera.View.Icons;
 
 namespace SpaceOpera.View.Components
@@ -12,9 +12,7 @@ namespace SpaceOpera.View.Components
         new public class Style : BaseNumericInputTable<T>.Style
         {
             public string? SelectWrapper { get; set; }
-            public string? Select { get; set; }
-            public string? SelectDropBox { get; set; }
-            public string? SelectOption { get; set; }
+            public Select.Style? Select { get; set; }
             public string? Add { get; set; }
         }
 
@@ -41,8 +39,8 @@ namespace SpaceOpera.View.Components
             _style = style;
             _nameFn = nameFn;
             Select =
-                (Select)uiElementFactory.CreateSelect<IMaterial>(
-                    style.Select!, style.SelectDropBox!, Enumerable.Empty<IUiElement>(), 10f).Item1;
+                (Select)uiElementFactory.CreateSelect(
+                    style.Select!, Enumerable.Empty<SelectOption<T>>(), scrollSpeed: 10f).Item1;
             AddButton = uiElementFactory.CreateTextButton(style.Add!, "+").Item1;
             Add(
                 new UiSerialContainer(
@@ -63,13 +61,8 @@ namespace SpaceOpera.View.Components
 
         public void SetOptions(IEnumerable<T> options)
         {
-            Select.Clear(/* dispose= */ true);
-            foreach (var option in options)
-            {
-                var o = _uiElementFactory.CreateSelectOption(_style.SelectOption!, option, _nameFn(option)).Item1;
-                o.Initialize();
-                Select.Add(o);
-            }
+            ((SelectController<T>)Select.ComponentController)
+                .SetRange(options.Select(x => SelectOption<T>.Create(x, _nameFn(x))));
         }
 
         public void Remove(T key)

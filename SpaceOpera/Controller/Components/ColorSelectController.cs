@@ -49,7 +49,6 @@ namespace SpaceOpera.Controller.Components
         {
             _component!.Root.SetColor(value);
             _options!.SetValue(value, /* notify= */ false);
-            _component!.Root.SetColor(_options!.GetValue());
             if (notify)
             {
                 ValueChanged?.Invoke(this, EventArgs.Empty);

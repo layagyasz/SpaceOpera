@@ -1,5 +1,6 @@
 ﻿using Cardamom.Collections;
 using Cardamom.Ui;
+using Cardamom.Ui.Controller;
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
 using SpaceOpera.Controller.Game.Panes.DesignPanes;
@@ -13,11 +14,13 @@ namespace SpaceOpera.View.Game.Panes.DesignPanes
         private static readonly string s_Container = "designer-pane-segment-container";
         private static readonly string s_ConfigurationSelectWrapper =
             "designer-pane-segment-configuration-select-wrapper";
-        private static readonly string s_ConfigurationSelect = "designer-pane-segment-configuration-select";
-        private static readonly string s_ConfigurationSelectDropBox = 
-            "designer-pane-segment-configuration-select-dropbox";
-        private static readonly string s_ConfigurationSelectDropOption =
-            "designer-pane-segment-configuration-select-option";
+        private static readonly Select.Style s_SelectStyle= 
+            new () 
+            {
+                Root = "designer-pane-segment-configuration-select",
+                OptionContainer = "designer-pane-segment-configuration-select-dropbox",
+                Option = "designer-pane-segment-configuration-select-option"
+            };
         private static readonly string s_ComponentTable = "designer-pane-segment-component-table";
         private static readonly string s_ComponentRow = "designer-pane-segment-component-row";
         private static readonly string s_ComponentCell = "designer-pane-segment-component-cell";
@@ -29,7 +32,7 @@ namespace SpaceOpera.View.Game.Panes.DesignPanes
         public EventHandler<ElementEventArgs>? CellRemoved { get; set; }
 
         public SegmentTemplate Template { get; }
-        public IUiElement ConfigurationSelect { get; }
+        public IUiComponent ConfigurationSelect { get; }
         public IUiContainer ComponentTable { get; }
         public List<DesignerComponentCell> ComponentCells { get; }
 
@@ -49,13 +52,10 @@ namespace SpaceOpera.View.Game.Panes.DesignPanes
             _iconFactory = iconFactory;
 
             ConfigurationSelect = 
-                uiElementFactory.CreateSelect<SegmentConfiguration>(
-                    s_ConfigurationSelect,
-                    s_ConfigurationSelectDropBox,
-                    template.ConfigurationOptions.Select(
-                        x => uiElementFactory.CreateSelectOption(
-                            s_ConfigurationSelectDropOption, x, x.Name).Item1),
-                    10f).Item1;
+                uiElementFactory.CreateSelect(
+                    s_SelectStyle,
+                    template.ConfigurationOptions.Select(x => SelectOption<SegmentConfiguration>.Create(x, x.Name)),
+                    scrollSpeed: 10f).Item1;
             Add(
                 new UiWrapper(
                     uiElementFactory.GetClass(s_ConfigurationSelectWrapper), 
