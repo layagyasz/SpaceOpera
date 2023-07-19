@@ -1,7 +1,7 @@
 [
   {
     "$id": "government-form-absolute-monarchy",
-    "Name": "Abolsute Monarchy",
+    "Name": "Absolute Monarchy",
     "Legitimacy": "Divine",
     "LegislativeBody": "Single",
     "Succession": "Inherited",
@@ -38,7 +38,7 @@
   },
   {
     "$id": "government-form-constitutional-monarchy",
-    "Name": "Monarchy",
+    "Name": "Constitutional Monarchy",
     "Legitimacy": "Divine",
     "LegislativeBody": "RepresentativeMajority",
     "Succession": "Elected",

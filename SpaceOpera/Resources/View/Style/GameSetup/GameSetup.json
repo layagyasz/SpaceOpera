@@ -150,6 +150,34 @@
     "Parent": "game-setup-form-dial-left-button"
   },
   {
+    "$id": "game-setup-form-select",
+    "Parent": "ui-element",
+    "Default": {
+      "Size": [ 219, 32 ],
+      "Padding": [ 8 ],
+      "BorderWidth": [ 1, 0, 0, 0 ]
+    }
+  },
+  {
+    "$id": "game-setup-form-select-option-container",
+    "Parent": "game-setup-form-select",
+    "Default": {
+      "Size": [
+        219,
+        [ "DynamicContents", 0, 512 ]
+      ],
+      "Padding": [ 0 ]
+    }
+  },
+  {
+    "$id": "game-setup-form-select-option",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 219, 32 ],
+      "Padding": [ 8 ]
+    }
+  },
+  {
     "$id": "game-setup-form-slider",
     "Parent": "game-setup-form-dial"
   },
@@ -232,7 +260,7 @@
     "$id": "game-setup-form-government",
     "Parent": "ui-container",
     "Default": {
-      "Size": [ 219, 92 ],
+      "Size": [ 219, 152 ],
       "DisableScissor": true
     }
   },

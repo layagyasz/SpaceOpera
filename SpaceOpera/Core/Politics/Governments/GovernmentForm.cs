@@ -14,9 +14,9 @@ namespace SpaceOpera.Core.Politics.Governments
         public bool Absolute { get; set; }
         public CulturalTraitsRange CultureRestriction { get; set; } = new();
 
-        public bool IsValid(Culture culture)
+        public bool IsValid(CulturalTraits culture)
         {
-            return CultureRestriction.Contains(culture.Traits);
+            return CultureRestriction.Contains(culture);
         }
     }
 }

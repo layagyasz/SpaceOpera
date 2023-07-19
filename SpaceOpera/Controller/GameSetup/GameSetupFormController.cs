@@ -34,6 +34,7 @@ namespace SpaceOpera.Controller.GameSetup
             _component = (GameSetupForm)@object;
             _banner = (BannerComponentController)_component.Banner.ComponentController;
             _culture = (CultureComponentController)_component.Culture.ComponentController;
+            _culture.ValueChanged += HandleCultureChanged;
             _galaxy = (GalaxyComponentController)_component.Galaxy.ComponentController;
             _government = (GovernmentComponentController)_component.Government.ComponentController;
             _politics = (PoliticsComponentController)_component.Politics.ComponentController;
@@ -49,6 +50,7 @@ namespace SpaceOpera.Controller.GameSetup
         {
             _component = null;
             _banner = null;
+            _culture!.ValueChanged -= HandleCultureChanged;
             _culture = null;
             _galaxy = null;
             _government = null;
@@ -71,13 +73,21 @@ namespace SpaceOpera.Controller.GameSetup
                     government.Name, 
                     _banner!.GetValue(),
                     culture,
-                    _factionGenerator.GovernmentForms.First(),
+                    government.Government!,
                     government.NameGenerator));
+        }
+
+        private void HandleCultureChanged(object? sender, EventArgs e)
+        {
+            _government!.SetCulture(_culture!.GetValue());
         }
 
         private void HandleStart(object? sender,  MouseButtonClickEventArgs e)
         {
-            Started?.Invoke(this, EventArgs.Empty);
+            if (_government!.GetValue().Government != null)
+            {
+                Started?.Invoke(this, EventArgs.Empty);
+            }
         }
     }
 }

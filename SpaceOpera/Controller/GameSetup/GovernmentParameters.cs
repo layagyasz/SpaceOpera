@@ -1,4 +1,5 @@
 ﻿using SpaceOpera.Core.Politics;
+using SpaceOpera.Core.Politics.Governments;
 
 namespace SpaceOpera.Controller.GameSetup
 {
@@ -6,16 +7,13 @@ namespace SpaceOpera.Controller.GameSetup
     {
         public string Name { get; }
         public NameGenerator NameGenerator { get; }
+        public GovernmentForm? Government { get; }
 
-        private GovernmentParameters(string name, NameGenerator nameGenerator)
+        public GovernmentParameters(string name, NameGenerator nameGenerator, GovernmentForm? government)
         {
             Name = name;
             NameGenerator = nameGenerator;
-        }
-
-        public static GovernmentParameters Create(string name, NameGenerator nameGenerator)
-        {
-            return new(name, nameGenerator);
+            Government = government;
         }
     }
 }

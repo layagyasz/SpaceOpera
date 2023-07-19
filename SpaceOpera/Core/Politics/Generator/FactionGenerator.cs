@@ -23,7 +23,7 @@ namespace SpaceOpera.Core.Politics.Generator
         public Faction Generate(Culture culture, Banner banner, GeneratorContext context)
         {
             var nameGenerator = new NameGenerator(culture.Language, ComponentName!.Generate(context));
-            var governmentOptions = GovernmentForms.Where(x => x.IsValid(culture)).ToList();
+            var governmentOptions = GovernmentForms.Where(x => x.IsValid(culture.Traits)).ToList();
             return new Faction(
                 nameGenerator.GenerateNameForFaction(context.Random),
                 banner,

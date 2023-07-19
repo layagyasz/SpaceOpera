@@ -95,7 +95,14 @@ namespace SpaceOpera.View.GameSetup
                 SectionHeader = "game-setup-form-section-header",
                 Randomize = "game-setup-form-randomize",
                 FieldHeader = "game-setup-form-field-header",
-                Text = "game-setup-form-text"
+                Text = "game-setup-form-text",
+                Select = 
+                    new()
+                    {
+                        Root = "game-setup-form-select",
+                        OptionContainer = "game-setup-form-select-option-container",
+                        Option = "game-setup-form-select-option"
+                    }
             };
 
         private static readonly PoliticsComponent.Style s_PoliticsStyle =
@@ -152,8 +159,8 @@ namespace SpaceOpera.View.GameSetup
                 new GovernmentComponent(
                     uiElementFactory,
                     s_GovernmentStyle,
+                    coreData.PoliticsGenerator!.Faction!,
                     coreData.PoliticsGenerator!.Culture!.Language!,
-                    coreData.PoliticsGenerator!.Faction!.ComponentName!,
                     random);
             Culture = new CultureComponent(uiElementFactory, s_CultureStyle, random);
             body.Add(
