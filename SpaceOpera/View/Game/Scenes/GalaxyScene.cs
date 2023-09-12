@@ -22,7 +22,7 @@ namespace SpaceOpera.View.Game.Scenes
         public ICamera Camera { get; }
 
         private InteractiveModel? _galaxyModel;
-        private HighlightLayer<StarSystem, StarSystem>? _highlightLayer;
+        private HighlightLayer<StarSystem>? _highlightLayer;
         private FormationLayer<StarSystem>? _formationLayer;
         private readonly Skybox _skybox;
 
@@ -30,7 +30,7 @@ namespace SpaceOpera.View.Game.Scenes
             IElementController controller,
             ICamera camera, 
             InteractiveModel galaxyModel,
-            HighlightLayer<StarSystem, StarSystem> highlightLayer,
+            HighlightLayer<StarSystem> highlightLayer,
             FormationLayer<StarSystem> formationLayer,
             Skybox skybox)
         {

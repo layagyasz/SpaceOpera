@@ -3,14 +3,14 @@ using SpaceOpera.Core.Universe;
 
 namespace SpaceOpera.View.Game.Highlights
 {
-    public class StellarBodyRegionHighlight : IHighlight
+    public class StellarBodyRegionHighlight : RegionHighlight
     {
-        public EventHandler<EventArgs>? Updated { get; set; }
+        public override EventHandler<EventArgs>? Updated { get; set; }
 
-        public bool Merge => true;
-        public float BorderWidth => 4f;
-        public Color4 BorderColor => Color4.Yellow;
-        public Color4 Color => Color4.Yellow;
+        public override bool Merge => true;
+        public override float BorderWidth => 4f;
+        public override Color4 BorderColor => Color4.Yellow;
+        public override Color4 Color => Color4.Yellow;
 
         public StellarBodyRegion Region { get; }
 
@@ -19,7 +19,7 @@ namespace SpaceOpera.View.Game.Highlights
             Region = region;
         }
 
-        public bool Contains(object @object)
+        public override bool Contains(object @object)
         {
             if (@object is StellarBodySubRegion region)
             {
@@ -28,6 +28,6 @@ namespace SpaceOpera.View.Game.Highlights
             return false;
         }
 
-        public void Unhook() { }
+        public override void Unhook() { }
     }
 }

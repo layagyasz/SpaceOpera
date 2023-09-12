@@ -61,8 +61,7 @@ namespace SpaceOpera.View.Game.Scenes
         public StarViewFactory StarViewFactory { get; }
         public FormationLayerFactory FormationLayerFactory { get; }
         public RenderShader SkyboxShader { get; }
-        public RenderShader BorderShader { get; }
-        public RenderShader FillShader { get; }
+        public HighlightShaders HighlightShaders;
 
         public SceneFactory(
             LoaderThread loaderThread,
@@ -72,8 +71,7 @@ namespace SpaceOpera.View.Game.Scenes
             StarViewFactory starViewFactory,
             FormationLayerFactory formationLayerFactory,
             RenderShader skyboxShader, 
-            RenderShader borderShader, 
-            RenderShader fillShader)
+            HighlightShaders highlightShaders)
         {
             LoaderThread = loaderThread;
             GalaxyViewFactory = galaxyViewFactory;
@@ -82,8 +80,7 @@ namespace SpaceOpera.View.Game.Scenes
             StarViewFactory = starViewFactory;
             FormationLayerFactory = formationLayerFactory;
             SkyboxShader = skyboxShader;
-            BorderShader = borderShader;
-            FillShader = fillShader;
+            HighlightShaders = highlightShaders;
         }
 
         public IGameScene Create(World? world, Galaxy galaxy)
@@ -108,14 +105,13 @@ namespace SpaceOpera.View.Game.Scenes
                 galaxy.Systems,
                 x => StarSystemBounds.ComputeBounds(x, galaxy.Radius, s_GalaxyScale), x => x.Neighbors!);
             var highlight =
-                new HighlightLayer<StarSystem, StarSystem>(
+                HighlightLayer<StarSystem>.Create(
                     galaxy.Systems,
                     Identity,
                     bounds,
                     s_GalaxyScale * s_GalaxyRegionBorderWidth,
                     Matrix4.CreateTranslation(s_GalaxyScale * s_GalaxyFloor),
-                    BorderShader, 
-                    FillShader);
+                    HighlightShaders);
 
             var formationLayer = FormationLayerFactory.CreateForGalaxy(world, galaxy, s_GalaxyScale);
             controllers.Add((IActionController)formationLayer.GroupController);
@@ -231,14 +227,13 @@ namespace SpaceOpera.View.Game.Scenes
                     1f / (s_StarSystemScale * s_StarSystemScale)),
                 rigs,
                 interactors,
-                new(
+                HighlightLayer<INavigable>.Create(
                     starSystem.Transits.Values,
                     Identity,
                     bounds,
                     s_StarSystemScale * s_StarSystemBorderWidth,
                     Matrix4.Identity,
-                    BorderShader, 
-                    FillShader),
+                    HighlightShaders),
                 formationLayer,
                 formationSubLayer,
                 _skyBox);
@@ -269,23 +264,21 @@ namespace SpaceOpera.View.Game.Scenes
                 stellarBody.Regions.SelectMany(x => x.SubRegions),
                 x => StellarBodySubRegionBounds.ComputeBounds(x, model.Radius), x => x.Neighbors!);
             var surfaceHighlight =
-                new HighlightLayer<StellarBodySubRegion, StellarBodySubRegion>(
+                HighlightLayer<StellarBodySubRegion>.Create(
                     stellarBody.Regions.SelectMany(x => x.SubRegions),
                     Identity,
                     bounds,
                     s_StellarBodyBorderWidth,
                     Matrix4.CreateScale(1 + s_StellarBodySceneSurfaceHighlightHeight / stellarBody.Radius),
-                    BorderShader,
-                    FillShader);
+                    HighlightShaders);
             var orbitHighlight = 
-                new HighlightLayer<StationaryOrbitRegion, StellarBodySubRegion>(
+                HighlightLayer<StellarBodySubRegion>.Create(
                     stellarBody.OrbitRegions,
                     x => x.SubRegions,
                     bounds,
                     4 * s_StellarBodyBorderWidth,
                     Matrix4.CreateScale(s_StellarBodySceneOrbitHeightFactor),
-                    BorderShader,
-                    FillShader);
+                    HighlightShaders);
 
             var formationLayer = 
                 FormationLayerFactory.CreateForStellarBody(

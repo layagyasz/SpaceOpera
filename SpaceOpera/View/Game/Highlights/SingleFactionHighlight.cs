@@ -4,14 +4,14 @@ using SpaceOpera.Core.Universe;
 
 namespace SpaceOpera.View.Game.Highlights
 {
-    public class SingleFactionHighlight : IHighlight
+    public class SingleFactionHighlight : RegionHighlight
     {
-        public EventHandler<EventArgs>? Updated { get; set; }
+        public override EventHandler<EventArgs>? Updated { get; set; }
 
-        public bool Merge => true;
-        public float BorderWidth => 4f;
-        public Color4 BorderColor { get; }
-        public Color4 Color { get; }
+        public override bool Merge => true;
+        public override float BorderWidth => 4f;
+        public override Color4 BorderColor { get; }
+        public override Color4 Color { get; }
 
         public Faction Faction { get; }
 
@@ -22,7 +22,7 @@ namespace SpaceOpera.View.Game.Highlights
             Color = color;
         }
 
-        public bool Contains(object @object)
+        public override bool Contains(object @object)
         {
             if (@object is StarSystem system)
             {
@@ -39,6 +39,6 @@ namespace SpaceOpera.View.Game.Highlights
             return false;
         }
 
-        public void Unhook() { }
+        public override void Unhook() { }
     }
 }

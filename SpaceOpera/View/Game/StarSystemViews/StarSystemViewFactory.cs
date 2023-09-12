@@ -43,26 +43,23 @@ namespace SpaceOpera.View.Game.StarSystemViews
         public StellarBodyViewFactory StellarBodyViewFactory { get; }
         public FormationLayerFactory FormationLayerFactory { get; }
         public RenderShader GuidelineShader { get; }
-        public RenderShader BorderShader { get; }
-        public RenderShader FillShader { get; }
         public RenderShader PinShader { get; }
+        public HighlightShaders HighlightShaders { get; }
 
         public StarSystemViewFactory(
             StarViewFactory starViewFactory,
             StellarBodyViewFactory stellarBodyViewFactory,
             FormationLayerFactory formationLayerFactory,
             RenderShader guidelineShader,
-            RenderShader borderShader,
-            RenderShader fillShader,
-            RenderShader pinShader)
+            RenderShader pinShader,
+            HighlightShaders highlightShaders)
         {
             StarViewFactory = starViewFactory;
             StellarBodyViewFactory = stellarBodyViewFactory;
             FormationLayerFactory = formationLayerFactory;
             GuidelineShader = guidelineShader;
-            BorderShader = borderShader;
-            FillShader = fillShader;
             PinShader = pinShader;
+            HighlightShaders = highlightShaders;
         }
 
         public StarSystemModel Create(StarSystem starSystem, float scale)
@@ -125,14 +122,13 @@ namespace SpaceOpera.View.Game.StarSystemViews
             };
 
             var highlight =
-                new HighlightLayer<INavigable, INavigable>(
+                HighlightLayer<INavigable>.Create(
                     bounds.Keys,
                     Identity,
                     bounds,
                     scale * s_BorderWidth,
                     Matrix4.Identity,
-                    BorderShader,
-                    FillShader);
+                    HighlightShaders);
 
             var formationLayer = FormationLayerFactory.CreateForSubSystem(orbit);
             return new(

@@ -28,7 +28,7 @@ namespace SpaceOpera.View.Game.Scenes
         private readonly Light _light;
         private StarSubSystemRig[]? _subSystems;
         private readonly SubRegionInteractor[] _interactors;
-        private HighlightLayer<INavigable, INavigable>? _highlightLayer;
+        private HighlightLayer<INavigable>? _highlightLayer;
         private FormationLayer<object>? _formationLayer;
         private FormationSubLayer<object>? _formationSubLayer;
         private readonly Skybox _skybox;
@@ -43,7 +43,7 @@ namespace SpaceOpera.View.Game.Scenes
             Light light,
             StarSubSystemRig[] subSystems,
             SubRegionInteractor[] interactors,
-            HighlightLayer<INavigable, INavigable> highlightLayer,
+            HighlightLayer<INavigable> highlightLayer,
             FormationLayer<object> formationLayer,
             FormationSubLayer<object> formationSubLayer,
             Skybox skybox)

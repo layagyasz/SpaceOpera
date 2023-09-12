@@ -19,6 +19,7 @@ using SpaceOpera.View.GameSetup;
 using SpaceOpera.Controller.GameSetup;
 using SpaceOpera.View.Loader;
 using SpaceOpera.Core.Loader;
+using SpaceOpera.View.Game.Highlights;
 
 namespace SpaceOpera.View
 {
@@ -72,6 +73,10 @@ namespace SpaceOpera.View
                     viewData.DesignedComponentIconConfigs.ToEnumMap(x => x.ComponentType, x => x),
                     uiElementFactory);
             FormationLayerFactory formationLayerFactory = new(uiElementFactory, iconFactory);
+            var highlightShaders =
+                new HighlightShaders(
+                    viewData.GameResources!.GetShader("shader-default-no-tex"), 
+                    viewData.GameResources!.GetShader("shader-border"));
             return new(
                 uiElementFactory,
                 new(
@@ -83,14 +88,12 @@ namespace SpaceOpera.View
                         stellarBodyViewFactory,
                         formationLayerFactory,
                         viewData.GameResources!.GetShader("shader-transit"),
-                        viewData.GameResources!.GetShader("shader-border"),
-                        viewData.GameResources!.GetShader("shader-default-no-tex"),
-                        viewData.GameResources!.GetShader("shader-pin")),
+                        viewData.GameResources!.GetShader("shader-pin"),
+                        highlightShaders),
                     starViewFactory,
                     formationLayerFactory,
                     viewData.GameResources!.GetShader("shader-default"),
-                    viewData.GameResources!.GetShader("shader-border"),
-                    viewData.GameResources!.GetShader("shader-default-no-tex")), 
+                    highlightShaders), 
                 stellarBodyViewFactory,
                 viewData.Banners!,
                 iconFactory);

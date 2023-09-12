@@ -2,14 +2,14 @@
 
 namespace SpaceOpera.View.Game.Highlights
 {
-    public class SubRegionHighlight : IHighlight
+    public class SubRegionHighlight : RegionHighlight
     {
-        public EventHandler<EventArgs>? Updated { get; set; }
+        public override EventHandler<EventArgs>? Updated { get; set; }
 
-        public bool Merge => false;
-        public float BorderWidth => 1f;
-        public Color4 BorderColor => new(0.2f, 0.2f, 0.2f, 1f);
-        public Color4 Color => new(0f, 0f, 0f, 0f);
+        public override bool Merge => false;
+        public override float BorderWidth => 1f;
+        public override Color4 BorderColor => new(0.2f, 0.2f, 0.2f, 1f);
+        public override Color4 Color => new(0f, 0f, 0f, 0f);
 
         private SubRegionHighlight() { }
 
@@ -18,11 +18,11 @@ namespace SpaceOpera.View.Game.Highlights
             return new();
         }
 
-        public bool Contains(object @object)
+        public override bool Contains(object @object)
         {
             return true;
         }
 
-        public void Unhook() { }
+        public override void Unhook() { }
     }
 }

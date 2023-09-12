@@ -30,8 +30,8 @@ namespace SpaceOpera.View.Game.Scenes
         private readonly RenderShader _atmosphereShader;
         private readonly Light _light;
         private StarBuffer? _star;
-        private HighlightLayer<StellarBodySubRegion, StellarBodySubRegion>? _surfaceHighlightLayer;
-        private HighlightLayer<StationaryOrbitRegion, StellarBodySubRegion>? _orbitHighlightLayer;
+        private HighlightLayer<StellarBodySubRegion>? _surfaceHighlightLayer;
+        private HighlightLayer<StellarBodySubRegion>? _orbitHighlightLayer;
         private FormationLayer<INavigable>? _formationLayer;
         private readonly Skybox _skybox;
         private long _rotation = 0;
@@ -45,8 +45,8 @@ namespace SpaceOpera.View.Game.Scenes
             RenderShader atmosphereShader,
             Light light,
             StarBuffer star,
-            HighlightLayer<StellarBodySubRegion, StellarBodySubRegion> surfaceHighlightLayer,
-            HighlightLayer<StationaryOrbitRegion, StellarBodySubRegion> orbitHighlightLayer,
+            HighlightLayer<StellarBodySubRegion> surfaceHighlightLayer,
+            HighlightLayer<StellarBodySubRegion> orbitHighlightLayer,
             FormationLayer<INavigable> formationLayer,
             Skybox skybox)
         {
