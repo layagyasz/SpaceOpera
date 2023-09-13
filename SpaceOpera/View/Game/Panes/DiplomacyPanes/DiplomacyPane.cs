@@ -27,6 +27,7 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
         private static readonly string s_Icon = "diplomacy-pane-relation-row-icon";
         private static readonly string s_Text = "diplomacy-pane-relation-row-text";
         private static readonly string s_Status = "diplomacy-pane-relation-row-status";
+        private static readonly string s_Approval = "diplomacy-pane-relation-row-approval";
         private static readonly List<ActionRow<DiplomaticRelation>.ActionConfiguration> s_RelationActions =
             new()
             {
@@ -97,7 +98,11 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
                     new DynamicTextUiElement(
                         _uiElementFactory.GetClass(s_Status),
                         new InlayController(), 
-                        () => EnumMapper.ToString(relation.Status))
+                        () => EnumMapper.ToString(relation.Status)),
+                    new DynamicTextUiElement(
+                        _uiElementFactory.GetClass(s_Approval), 
+                        new InlayController(),
+                        () => relation.GetApproval().Result.ToString("N0"))
                 },
                 s_RelationActions);
         }

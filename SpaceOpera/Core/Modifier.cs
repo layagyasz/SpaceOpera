@@ -8,6 +8,11 @@ namespace SpaceOpera.Core
         public float Constant { get; set; }
         public float Bonus { get; set; }
 
+        public static Modifier FromConstant(float constant)
+        {
+            return new Modifier() { Constant = constant };
+        }
+
         public Modifier Combine()
         {
             return new()

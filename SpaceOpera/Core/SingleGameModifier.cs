@@ -10,5 +10,14 @@ namespace SpaceOpera.Core
         [JsonConverter(typeof(ReferenceJsonConverter))]
         public IMaterial? Material { get; set; }
         public Modifier Modifier { get; set; }
+
+        public static SingleGameModifier Create(ModifierType type, Modifier modifier)
+        {
+            return new SingleGameModifier()
+            {
+                Type = type,
+                Modifier = modifier
+            };
+        }
     }
 }

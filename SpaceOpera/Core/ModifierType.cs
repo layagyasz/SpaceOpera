@@ -7,6 +7,7 @@ namespace SpaceOpera.Core
     {
         Unknown,
 
+        Diplomatic,
         PopulationGeneration,
         ResourceGeneration
     }

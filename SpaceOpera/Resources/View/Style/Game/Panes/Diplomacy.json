@@ -52,12 +52,22 @@
     "$id": "diplomacy-pane-relation-row-text",
     "Parent": "ui-element-internal",
     "Default": {
-      "Size": [ 664, 48 ],
+      "Size": [ 536, 48 ],
       "Padding": [ 8 ]
     }
   },
   {
     "$id": "diplomacy-pane-relation-row-status",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 128, 48 ],
+      "Padding": [ 8 ],
+      "Align": "Center",
+      "VerticalAlign": "Center"
+    }
+  },
+  {
+    "$id": "diplomacy-pane-relation-row-approval",
     "Parent": "ui-element-internal",
     "Default": {
       "Size": [ 128, 48 ],

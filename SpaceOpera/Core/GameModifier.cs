@@ -9,6 +9,16 @@ namespace SpaceOpera.Core
         public string Name { get; set; } = string.Empty;
         public List<SingleGameModifier> Modifiers { get; set; } = new();
 
+        public static GameModifier Create(string key, string name, SingleGameModifier modifier)
+        {
+            return new GameModifier()
+            {
+                Key = key,
+                Name = name,
+                Modifiers = new List<SingleGameModifier>() { modifier }
+            };
+        }
+
         public static Modifier AggregatePopulationGeneration(IEnumerable<GameModifier> modifiers)
         {
             return Aggregate(modifiers, ModifierType.PopulationGeneration);

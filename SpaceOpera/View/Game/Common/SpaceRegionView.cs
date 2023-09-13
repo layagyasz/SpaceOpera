@@ -1,8 +1,5 @@
-﻿using Cardamom.Collections;
-using Cardamom.Graphics;
-using Cardamom.Mathematics.Geometry;
+﻿using Cardamom.Graphics;
 using Cardamom.Ui;
-using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 
 namespace SpaceOpera.View.Game.Common
