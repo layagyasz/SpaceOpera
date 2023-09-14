@@ -54,6 +54,11 @@ namespace SpaceOpera.Core.Universe
             StructureNodes += structureNodes;
         }
 
+        public void ChangeOccupation()
+        {
+            Parent!.ChangeOccupation();
+        }
+
         public int GetResourceSize(IMaterial resource)
         {
             return Resources.FirstOrDefault(x => x.Resource == resource)?.Size ?? 0;

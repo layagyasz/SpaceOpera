@@ -1,5 +1,6 @@
 using Cardamom.Mathematics.Comparers;
 using OpenTK.Mathematics;
+using SpaceOpera.Core.Politics;
 
 namespace SpaceOpera.Core.Universe
 {
@@ -13,12 +14,22 @@ namespace SpaceOpera.Core.Universe
 
         public StellarBodySubRegion[]? Neighbors { get; private set; }
         public StellarBodyRegion? ParentRegion { get; private set; }
+        public Faction? Occupation { get; private set; }
 
         public StellarBodySubRegion(int id, Vector3 center, Biome biome)
         {
             Id = id;
             Center = center;
             Biome = biome;
+        }
+
+        public void SetOccupation(Faction faction)
+        {
+            if (Occupation != faction)
+            {
+                Occupation = faction;
+                ParentRegion!.ChangeOccupation();
+            }
         }
 
         public void SetParentRegion(StellarBodyRegion region)

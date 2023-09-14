@@ -6,6 +6,8 @@ namespace SpaceOpera.Core.Universe
 {
     public class StellarBody
     {
+        public EventHandler<EventArgs>? OccupationChanged { get; set; }
+
         public string Name { get; private set; } = string.Empty;
         public string Type { get; }
         public Dictionary<string, object> Parameters { get; }
@@ -102,6 +104,11 @@ namespace SpaceOpera.Core.Universe
         public int GetSize()
         {
             return OrbitRegions.Count + Regions.Sum(x => x.SubRegions.Count);
+        }
+
+        public void ChangeOccupation()
+        {
+            OccupationChanged?.Invoke(this, EventArgs.Empty);
         }
 
         public void SetName(string name)

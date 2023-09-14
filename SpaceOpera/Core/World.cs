@@ -5,6 +5,7 @@ using SpaceOpera.Core.Economics;
 using SpaceOpera.Core.Economics.Projects;
 using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Military.Battles;
+using SpaceOpera.Core.Military.Fronts;
 using SpaceOpera.Core.Orders;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Politics.Cultures;
@@ -25,6 +26,7 @@ namespace SpaceOpera.Core
         public EconomyGraph EconomyGraph { get; } = new();
         public FormationManager FormationManager { get; } = new();
         public BattleManager BattleManager { get; }
+        public FrontManager FrontManager { get; }
         public ProjectManager ProjectManager { get; } = new();
         public DesignBuilder DesignBuilder { get; }
         public AutoDesigner AutoDesigner { get; }
@@ -52,6 +54,7 @@ namespace SpaceOpera.Core
             Economy = new(AdvancementManager, FormationManager, coreData.MaterialSink!);
             EconomyGraph.AddRecipes(coreData.Recipes.Values);
             BattleManager = new(DiplomaticRelations);
+            FrontManager = FrontManager.Create(galaxy);
             DesignBuilder = new(new ComponentClassifier(coreData.ComponentClassifiers));
             AutoDesigner = new(coreData.DesignTemplates.Values);
         }
@@ -82,6 +85,7 @@ namespace SpaceOpera.Core
                     new CompositeTickable() {
                         new ActionTickable(() => BattleManager.Tick(Random)),
                         new ActionTickable(() => FormationManager.Tick(this)),
+                        new ActionTickable(FrontManager.Tick),
                         new ActionTickable(ProjectManager.Tick),
                         new CycleTickable(new CompositeTickable(ticks), 30)
                     },
