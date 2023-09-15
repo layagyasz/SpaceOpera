@@ -11,38 +11,7 @@ namespace SpaceOpera.View.Game.Highlights
     {
         private static readonly float s_Alpha = 0.25f;
 
-        private readonly struct EdgeKey
-        {
-            public SpaceSubRegionBounds Key { get; }
-            public int Index { get; }
-            public bool IsOuter { get; }
-
-            public EdgeKey(SpaceSubRegionBounds key, int index, bool isOuter)
-            {
-                Key = key;
-                Index = index;
-                IsOuter = isOuter;
-            }
-
-            public override bool Equals(object? obj)
-            {
-                if (obj is EdgeKey other)
-                {
-                    return other.Key == Key && other.Index == Index && other.IsOuter == IsOuter;
-                }
-                return false;
-            }
-
-            public override int GetHashCode()
-            {
-                return (Key, Index, IsOuter).GetHashCode();
-            }
-
-            public override string ToString()
-            {
-                return $"[EdgeKey: Key={Key.GetHashCode()}, Index={Index}, IsOuter={IsOuter}]";
-            }
-        }
+        private readonly record struct EdgeKey(SpaceSubRegionBounds Key, int Index, bool IsOuter);
 
         public abstract EventHandler<EventArgs>? Updated { get; set; }
 

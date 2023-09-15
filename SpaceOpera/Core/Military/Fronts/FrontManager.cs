@@ -13,6 +13,7 @@ namespace SpaceOpera.Core.Military.Fronts
             foreach (var fronts in stellarBodyFronts.Values)
             {
                 fronts.Changed += HandleChange;
+                _dirty.Add(fronts);
             }
         }
 

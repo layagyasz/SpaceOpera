@@ -1,11 +1,6 @@
-﻿using SpaceOpera.Core.Politics;
-using SpaceOpera.Core.Universe;
+﻿using SpaceOpera.Core.Universe;
 
 namespace SpaceOpera.Core.Military.Fronts
 {
-    public struct FrontEdge
-    {
-        public StellarBodySubRegion Region { get; }
-        public StellarBodySubRegion Neighbor { get; }
-    }
+    public readonly record struct FrontEdge(StellarBodySubRegion Region, int Index);
 }
