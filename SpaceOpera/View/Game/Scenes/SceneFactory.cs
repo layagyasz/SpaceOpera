@@ -105,7 +105,8 @@ namespace SpaceOpera.View.Game.Scenes
                 galaxy.Systems,
                 x => StarSystemBounds.ComputeBounds(x, galaxy.Radius, s_GalaxyScale), x => x.Neighbors!);
             var highlight =
-                HighlightLayer<StarSystem>.Create(
+                HighlightLayer<Galaxy, StarSystem>.Create(
+                    galaxy,
                     galaxy.Systems,
                     Identity,
                     bounds,
@@ -227,7 +228,8 @@ namespace SpaceOpera.View.Game.Scenes
                     1f / (s_StarSystemScale * s_StarSystemScale)),
                 rigs,
                 interactors,
-                HighlightLayer<INavigable>.Create(
+                HighlightLayer<StarSystem, INavigable>.Create(
+                    starSystem,
                     starSystem.Transits.Values,
                     Identity,
                     bounds,
@@ -264,7 +266,8 @@ namespace SpaceOpera.View.Game.Scenes
                 stellarBody.Regions.SelectMany(x => x.SubRegions),
                 x => StellarBodySubRegionBounds.ComputeBounds(x, model.Radius), x => x.Neighbors!);
             var surfaceHighlight =
-                HighlightLayer<StellarBodySubRegion>.Create(
+                HighlightLayer<StellarBody, StellarBodySubRegion>.Create(
+                    stellarBody,
                     stellarBody.Regions.SelectMany(x => x.SubRegions),
                     Identity,
                     bounds,
@@ -272,7 +275,8 @@ namespace SpaceOpera.View.Game.Scenes
                     Matrix4.CreateScale(1 + s_StellarBodySceneSurfaceHighlightHeight / stellarBody.Radius),
                     HighlightShaders);
             var orbitHighlight = 
-                HighlightLayer<StellarBodySubRegion>.Create(
+                HighlightLayer<Orbit, StellarBodySubRegion>.Create(
+                    stellarBody.Orbit,
                     stellarBody.OrbitRegions,
                     x => x.SubRegions,
                     bounds,

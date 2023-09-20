@@ -22,17 +22,20 @@ namespace SpaceOpera.View.Game.Highlights
         public abstract bool Contains(object @object);
         public abstract void Unhook();
 
-        public IRenderable CreateHighlight<TRange>(
+        public IRenderable CreateHighlight<TDomain, TRange>(
             HighlightShaders shaders, 
-            IEnumerable<BoundsAndRegionKey> range,
+            TDomain domain,
+            IDictionary<TRange, BoundsAndRegionKey> range,
             float borderWidth)
+            where TDomain : notnull
+            where TRange : notnull
         {
             var outlineVertices = new ArrayList<Vertex3>();
             var fillVertices = new ArrayList<Vertex3>();
             TraceBounds(
                 outlineVertices,
                 fillVertices,
-                range.Where(x => Contains(x.RegionKey)).ToDictionary(x => x.Bounds, x => x.RegionKey),
+                range.Values.Where(x => Contains(x.RegionKey)).ToDictionary(x => x.Bounds, x => x.RegionKey),
                 BorderColor, 
                 Color,
                 borderWidth * BorderWidth,

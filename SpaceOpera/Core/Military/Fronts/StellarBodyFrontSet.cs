@@ -88,7 +88,7 @@ namespace SpaceOpera.Core.Military.Fronts
             while (!start.Equals(current));
             if (currentKey == startKey && result.Count > 1)
             {
-                result[0] = new(seedKey.Faction!, seedKey.Faction, currentFront.Concat(result[0].Edges).ToList());
+                result[0] = new(seedKey.Faction!, startKey.Faction, currentFront.Concat(result[0].Edges).ToList());
             }
             else
             {

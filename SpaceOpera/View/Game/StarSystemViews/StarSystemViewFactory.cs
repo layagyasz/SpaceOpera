@@ -122,7 +122,8 @@ namespace SpaceOpera.View.Game.StarSystemViews
             };
 
             var highlight =
-                HighlightLayer<INavigable>.Create(
+                HighlightLayer<SolarOrbitRegion, INavigable>.Create(
+                    orbit,
                     bounds.Keys,
                     Identity,
                     bounds,

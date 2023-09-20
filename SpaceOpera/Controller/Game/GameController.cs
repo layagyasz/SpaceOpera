@@ -304,6 +304,15 @@ namespace SpaceOpera.Controller.Game
                 }
                 return true;
             }
+            if (key == Keys.D2)
+            {
+                SetHighlight(HighlightLayerName.Background, SimpleHighlight.Wrap(SubRegionHighlight.Create()));
+                if (_world != null)
+                {
+                    SetHighlight(HighlightLayerName.Midground, FrontHighlight.Create(_faction, _world));
+                }
+                return true;
+            }
             return false;
         }
 

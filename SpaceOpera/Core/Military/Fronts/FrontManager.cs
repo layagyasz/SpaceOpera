@@ -23,6 +23,11 @@ namespace SpaceOpera.Core.Military.Fronts
                 galaxy.Systems.SelectMany(x => x.Orbiters).ToDictionary(x => x, x => new StellarBodyFrontSet(x)));
         }
 
+        public StellarBodyFrontSet Get(StellarBody stellarBody)
+        {
+            return _stellarBodyFronts[stellarBody];
+        }
+
         public void Tick()
         {
             foreach (var fronts in _dirty)

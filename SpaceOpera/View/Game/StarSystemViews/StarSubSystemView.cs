@@ -12,13 +12,13 @@ namespace SpaceOpera.View.Game.StarSystemViews
     public class StarSubSystemView : GraphicsResource, IRenderable
     {
         private StellarBodyModel? _model;
-        private HighlightLayer<INavigable>? _highlightLayer;
+        private HighlightLayer<SolarOrbitRegion, INavigable>? _highlightLayer;
         private FormationSubLayer<object>? _formationLayer;
         private PinBuffer? _pinBuffer;
 
         public StarSubSystemView(
             StellarBodyModel model,
-            HighlightLayer<INavigable> highlightLayer,
+            HighlightLayer<SolarOrbitRegion, INavigable> highlightLayer,
             FormationSubLayer<object> formationLayer,
             PinBuffer buffer)
         {

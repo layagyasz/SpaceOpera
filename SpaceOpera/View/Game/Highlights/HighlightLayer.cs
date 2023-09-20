@@ -6,14 +6,16 @@ using SpaceOpera.View.Game.Common;
 
 namespace SpaceOpera.View.Game.Highlights
 {
-    public class HighlightLayer<TSubRegion> : GraphicsResource, IRenderable
+    public class HighlightLayer<TDomain, TSubRegion> : GraphicsResource, IRenderable
+        where TDomain : notnull
         where TSubRegion : notnull
     {
         class SingleHighlightLayer : GraphicsResource, IRenderable
         {
             public ICompositeHighlight Highlight { get; }
 
-            private readonly BoundsAndRegionKey[] _range;
+            private readonly TDomain _domain;
+            private readonly IDictionary<TSubRegion, BoundsAndRegionKey> _range;
             private readonly float _borderWidth;
             private readonly HighlightShaders _shaders;
 
@@ -22,11 +24,13 @@ namespace SpaceOpera.View.Game.Highlights
 
             private SingleHighlightLayer(
                 ICompositeHighlight highlight,
-                BoundsAndRegionKey[] range,
+                TDomain domain,
+                IDictionary<TSubRegion, BoundsAndRegionKey> range,
                 float borderWidth,
                 HighlightShaders shaders)
             {
                 Highlight = highlight;
+                _domain = domain;
                 _range = range;
                 _borderWidth = borderWidth;
                 _shaders = shaders;
@@ -34,15 +38,16 @@ namespace SpaceOpera.View.Game.Highlights
 
             public static SingleHighlightLayer Create(
                 ICompositeHighlight highlight,
-                BoundsAndRegionKey[] range,
+                TDomain domain,
+                IDictionary<TSubRegion, BoundsAndRegionKey> range,
                 float borderWidth,
                 HighlightShaders shaders)
             {
-                var layer = new SingleHighlightLayer(highlight, range, borderWidth, shaders);
+                var layer = new SingleHighlightLayer(highlight, domain, range, borderWidth, shaders);
                 foreach (var h in highlight.GetHighlights())
                 {
                     h.Updated += layer.HandleUpdate;
-                    layer._highlights.Add(h, h.CreateHighlight<TSubRegion>(shaders, range, borderWidth));
+                    layer._highlights.Add(h, h.CreateHighlight(shaders, domain, range, borderWidth));
                 }
                 return layer;
             }
@@ -93,7 +98,7 @@ namespace SpaceOpera.View.Game.Highlights
                         disposable.Dispose();
                     }
                 }
-                _highlights[highlight] = highlight.CreateHighlight<TSubRegion>(_shaders, _range, _borderWidth);
+                _highlights[highlight] = highlight.CreateHighlight(_shaders, _domain, _range, _borderWidth);
             }
 
             private void HandleUpdate(object? sender, EventArgs e)
@@ -105,7 +110,8 @@ namespace SpaceOpera.View.Game.Highlights
             }
         }
 
-        private readonly BoundsAndRegionKey[] _range;
+        private readonly TDomain _domain;
+        private readonly IDictionary<TSubRegion, BoundsAndRegionKey> _range;
         private readonly float _borderWidth;
         private readonly Matrix4 _position;
         private readonly HighlightShaders _shaders;
@@ -113,18 +119,21 @@ namespace SpaceOpera.View.Game.Highlights
         private readonly EnumMap<HighlightLayerName, SingleHighlightLayer> _layers = new();
 
         private HighlightLayer(
-            BoundsAndRegionKey[] range,
+            TDomain domain,
+            IDictionary<TSubRegion, BoundsAndRegionKey> range,
             float borderWidth,
             Matrix4 position,
             HighlightShaders shaders)
         {
+            _domain = domain;
             _range = range;
             _borderWidth = borderWidth;
             _position = position;
             _shaders = shaders;
         }
 
-        public static HighlightLayer<TSubRegion> Create<TRegion>(
+        public static HighlightLayer<TDomain, TSubRegion> Create<TRegion>(
+            TDomain domain,
             IEnumerable<TRegion> range,
             Func<TRegion, IEnumerable<TSubRegion>> regionMapFn,
             Dictionary<TSubRegion, SpaceSubRegionBounds> boundsMap,
@@ -133,15 +142,15 @@ namespace SpaceOpera.View.Game.Highlights
             HighlightShaders shaders)
             where TRegion : notnull
         {
-            List<BoundsAndRegionKey> r = new();
+            Dictionary<TSubRegion, BoundsAndRegionKey> r = new();
             foreach (var region in range)
             {
                 foreach (var subRegion in regionMapFn(region))
                 {
-                    r.Add(new(region, boundsMap[subRegion]));
+                    r.Add(subRegion, new(region, boundsMap[subRegion]));
                 }
             }
-            return new(r.ToArray(), borderWidth, position, shaders);
+            return new(domain, r, borderWidth, position, shaders);
         }
 
         protected override void DisposeImpl()
@@ -167,7 +176,7 @@ namespace SpaceOpera.View.Game.Highlights
             ClearLayer(layer);
             if (highlight != null)
             {
-                _layers[layer] = SingleHighlightLayer.Create(highlight, _range, _borderWidth, _shaders);
+                _layers[layer] = SingleHighlightLayer.Create(highlight, _domain, _range, _borderWidth, _shaders);
             }
         }
 
