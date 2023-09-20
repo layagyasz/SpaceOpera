@@ -1,7 +1,391 @@
 {
   "Exclusions": [
+    /*
+     * Onset 
+     */
+    // Default - Voiced -> Unvoiced
     {
       "Frequency": 1,
+      "Value": {
+        "Segment": "Onset",
+        "Left": {
+          "Classes": [ "Any" ],
+          "Voices": [ "Voiced" ],
+          "Types": [ "Any" ],
+          "Positions": [ "Any" ]
+        },
+        "Right": {
+          "Classes": [ "Any" ],
+          "Voices": [ "Unvoiced" ],
+          "Types": [ "Any" ],
+          "Positions": [ "Any" ]
+        }
+      }
+    },
+    // Default - Unvoiced -> Voiced
+    {
+      "Frequency": 1,
+      "Value": {
+        "Segment": "Onset",
+        "Left": {
+          "Classes": [ "Any" ],
+          "Voices": [ "Unvoiced" ],
+          "Types": [ "Any" ],
+          "Positions": [ "Any" ]
+        },
+        "Right": {
+          "Classes": [ "Any" ],
+          "Voices": [ "Voiced" ],
+          "Types": [ "Any" ],
+          "Positions": [ "Any" ]
+        }
+      }
+    },
+    // Plosive -> Plosive
+    {
+      "Frequency": 0.95,
+      "Value": {
+        "Segment": "Onset",
+        "Left": {
+          "Classes": [ "Any" ],
+          "Voices": [ "Any" ],
+          "Types": [ "Plosive" ],
+          "Positions": [ "Any" ]
+        },
+        "Right": {
+          "Classes": [ "Any" ],
+          "Voices": [ "Any" ],
+          "Types": [ "Plosive" ],
+          "Positions": [ "Any" ]
+        }
+      }
+    },
+    // Plosive -> Nasal
+    {
+      "Frequency": 0.95,
+      "Value": {
+        "Segment": "Onset",
+        "Left": {
+          "Classes": [ "Any" ],
+          "Voices": [ "Any" ],
+          "Types": [ "Plosive" ],
+          "Positions": [ "Any" ]
+        },
+        "Right": {
+          "Classes": [ "Any" ],
+          "Voices": [ "Any" ],
+          "Types": [ "Nasal" ],
+          "Positions": [ "Any" ]
+        }
+      }
+    },
+    // Plosive -> Fricative (non-sibilant)
+    {
+      "Frequency": 0.95,
+      "Value": {
+        "Segment": "Onset",
+        "Left": {
+          "Classes": [ "Any" ],
+          "Voices": [ "Any" ],
+          "Types": [ "Plosive" ],
+          "Positions": [ "Any" ]
+        },
+        "Right": {
+          "Classes": [ "Any" ],
+          "Voices": [ "Any" ],
+          "Types": [ "Fricative", "LateralFricative" ],
+          "Positions": [ "Any" ]
+        }
+      }
+    },
+    // Plosive -> Fricative
+    {
+      "Frequency": 0.5,
+      "Value": {
+        "Segment": "Onset",
+        "Left": {
+          "Classes": [ "Any" ],
+          "Voices": [ "Any" ],
+          "Types": [ "Plosive" ],
+          "Positions": [ "Any" ]
+        },
+        "Right": {
+          "Classes": [ "Any" ],
+          "Voices": [ "Any" ],
+          "Types": [ "SibilantFricative" ],
+          "Positions": [ "Any" ]
+        }
+      }
+    },
+    // Nasal - Plosive
+    {
+      "Frequency": 0.95,
+      "Value": {
+        "Segment": "Onset",
+        "Left": {
+          "Classes": [ "Any" ],
+          "Voices": [ "Any" ],
+          "Types": [ "Nasal" ],
+          "Positions": [ "Any" ]
+        },
+        "Right": {
+          "Classes": [ "Any" ],
+          "Voices": [ "Any" ],
+          "Types": [ "Plosive" ],
+          "Positions": [ "Any" ]
+        }
+      }
+    },
+    // Nasal -> Nasal
+    {
+      "Frequency": 0.7,
+      "Value": {
+        "Segment": "Onset",
+        "Left": {
+          "Classes": [ "Any" ],
+          "Voices": [ "Any" ],
+          "Types": [ "Nasal" ],
+          "Positions": [ "Any" ]
+        },
+        "Right": {
+          "Classes": [ "Any" ],
+          "Voices": [ "Any" ],
+          "Types": [ "Nasal" ],
+          "Positions": [ "Any" ]
+        }
+      }
+    },
+    // Nasal -> Fricative
+    {
+      "Frequency": 0.95,
+      "Value": {
+        "Segment": "Onset",
+        "Left": {
+          "Classes": [ "Any" ],
+          "Voices": [ "Any" ],
+          "Types": [ "Nasal" ],
+          "Positions": [ "Any" ]
+        },
+        "Right": {
+          "Classes": [ "Any" ],
+          "Voices": [ "Any" ],
+          "Types": [ "SibilantFricative", "Fricative", "LateralFricative" ],
+          "Positions": [ "Any" ]
+        }
+      }
+    },
+    // Nasal -> Liquid
+    {
+      "Frequency": 0.8,
+      "Value": {
+        "Segment": "Onset",
+        "Left": {
+          "Classes": [ "Any" ],
+          "Voices": [ "Any" ],
+          "Types": [ "Nasal" ],
+          "Positions": [ "Any" ]
+        },
+        "Right": {
+          "Classes": [ "Any" ],
+          "Voices": [ "Any" ],
+          "Types": [ "Trill", "Tap", "Approximant", "LateralApproximant" ],
+          "Positions": [ "Any" ]
+        }
+      }
+    },
+    // Default - Liquid -> Any
+    {
+      "Frequency": 1.0,
+      "Value": {
+        "Segment": "Onset",
+        "Left": {
+          "Classes": [ "Any" ],
+          "Voices": [ "Any" ],
+          "Types": [ "Trill", "Tap", "LateralFricative", "Approximant", "LateralApproximant" ],
+          "Positions": [ "Any" ]
+        },
+        "Right": {
+          "Classes": [ "Any" ],
+          "Voices": [ "Any" ],
+          "Types": [ "Any" ],
+          "Positions": [ "Any" ]
+        }
+      }
+    },
+    // Fricative (non-sibiliant) -> Plosive / Nasal
+    {
+      "Frequency": 0.95,
+      "Value": {
+        "Segment": "Onset",
+        "Left": {
+          "Classes": [ "Any" ],
+          "Voices": [ "Any" ],
+          "Types": [ "Fricative" ],
+          "Positions": [ "Any" ]
+        },
+        "Right": {
+          "Classes": [ "Any" ],
+          "Voices": [ "Any" ],
+          "Types": [ "Plosive", "Nasal" ],
+          "Positions": [ "Any" ]
+        }
+      }
+    },
+    // Default - Fricative (non-sibiliant) -> Fricative (non-sibilant)
+    {
+      "Frequency": 1.0,
+      "Value": {
+        "Segment": "Onset",
+        "Left": {
+          "Classes": [ "Any" ],
+          "Voices": [ "Any" ],
+          "Types": [ "Fricative" ],
+          "Positions": [ "Any" ]
+        },
+        "Right": {
+          "Classes": [ "Any" ],
+          "Voices": [ "Any" ],
+          "Types": [ "Fricative" ],
+          "Positions": [ "Any" ]
+        }
+      }
+    },
+    // Fricative (sibilant) -> Fricative (non-sibilant)
+    {
+      "Frequency": 0.8,
+      "Value": {
+        "Segment": "Onset",
+        "Left": {
+          "Classes": [ "Any" ],
+          "Voices": [ "Any" ],
+          "Types": [ "SibilantFricative" ],
+          "Positions": [ "Any" ]
+        },
+        "Right": {
+          "Classes": [ "Any" ],
+          "Voices": [ "Any" ],
+          "Types": [ "Fricative" ],
+          "Positions": [ "Any" ]
+        }
+      }
+    },
+    // Default - Fricative (sibilant) -> Fricative (sibilant)
+    {
+      "Frequency": 1.0,
+      "Value": {
+        "Segment": "Onset",
+        "Left": {
+          "Classes": [ "Any" ],
+          "Voices": [ "Any" ],
+          "Types": [ "SibilantFricative" ],
+          "Positions": [ "Any" ]
+        },
+        "Right": {
+          "Classes": [ "Any" ],
+          "Voices": [ "Any" ],
+          "Types": [ "SibilantFricative" ],
+          "Positions": [ "Any" ]
+        }
+      }
+    },
+    // Default - Any -> Glottal
+    {
+      "Frequency": 1.0,
+      "Value": {
+        "Segment": "Onset",
+        "Left": {
+          "Classes": [ "Any" ],
+          "Voices": [ "Any" ],
+          "Types": [ "Any" ],
+          "Positions": [ "Any" ]
+        },
+        "Right": {
+          "Classes": [ "Any" ],
+          "Voices": [ "Any" ],
+          "Types": [ "Any" ],
+          "Positions": [ "Glottal" ]
+        }
+      }
+    },
+    // Glottal -> Any
+    {
+      "Frequency": 0.5,
+      "Value": {
+        "Segment": "Onset",
+        "Left": {
+          "Classes": [ "Any" ],
+          "Voices": [ "Any" ],
+          "Types": [ "Any" ],
+          "Positions": [ "Glottal", "Pharyngeal" ]
+        },
+        "Right": {
+          "Classes": [ "Any" ],
+          "Voices": [ "Any" ],
+          "Types": [ "Any" ],
+          "Positions": [ "Any" ]
+        }
+      }
+    },
+    // Default - Nasal (back) -> Any
+    {
+      "Frequency": 1.0,
+      "Value": {
+        "Segment": "Onset",
+        "Left": {
+          "Classes": [ "Any" ],
+          "Voices": [ "Any" ],
+          "Types": [ "Any" ],
+          "Positions": [ "Retroflex", "Palatal", "Velar", "Uvular" ]
+        },
+        "Right": {
+          "Classes": [ "Any" ],
+          "Voices": [ "Any" ],
+          "Types": [ "Any" ],
+          "Positions": [ "Any" ]
+        }
+      }
+    },
+    // Any -> Liquid (r)
+    {
+      "Frequency": 0.9,
+      "Value": {
+        "Segment": "Onset",
+        "Left": {
+          "Classes": [ "Any" ],
+          "Voices": [ "Any" ],
+          "Types": [ "Any" ],
+          "Positions": [ "Any" ]
+        },
+        "Right": {
+          "Classes": [ "Any" ],
+          "Voices": [ "Any" ],
+          "Types": [ "Trill", "Tap", "Approximant" ],
+          "Positions": [ "Any" ]
+        }
+      }
+    },
+    // Non-sibilant -> Liquid (l)
+    {
+      "Frequency": 0.9,
+      "Value": {
+        "Segment": "Onset",
+        "Left": {
+          "Classes": [ "Any" ],
+          "Voices": [ "Any" ],
+          "Types": [ "Plosive", "Nasal", "Fricative" ],
+          "Positions": [ "Any" ]
+        },
+        "Right": {
+          "Classes": [ "Any" ],
+          "Voices": [ "Any" ],
+          "Types": [ "LateralApproximant" ],
+          "Positions": [ "Any" ]
+        }
+      }
+    },
+    // Any consonant pair
+    {
+      "Frequency": 0.1,
       "Value": {
         "Segment": "Onset",
         "Left": {

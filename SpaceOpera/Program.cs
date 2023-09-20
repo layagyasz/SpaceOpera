@@ -27,7 +27,7 @@ namespace SpaceOpera
 
         static void Main()
         {
-            RunMode mode = RunMode.Full;
+            RunMode mode = RunMode.TestLanguage;
             if (mode == RunMode.CompileSymbols)
             {
                 int i = 0;

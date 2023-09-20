@@ -64,7 +64,7 @@ namespace SpaceOpera.Core.Languages
 
                 foreach (var phoneme in p)
                 {
-                    _allowedSequences.Add(phoneme.Value!, p);
+                    _allowedSequences.Add(phoneme.Value!, p.Where(x => x.Value != phoneme.Value!));
                 }
                 if (!allowEmpty)
                 {

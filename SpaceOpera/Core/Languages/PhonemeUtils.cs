@@ -71,60 +71,60 @@ namespace SpaceOpera.Core.Languages
             { 0, 0, s_I, s_I, 6, 0 }, // UNROUNDED
         };
 
-        public static bool Contains(PhonemeClass Outer, PhonemeClass Inner)
+        public static bool Contains(PhonemeClass outer, PhonemeClass inner)
         {
-            if (Outer == PhonemeClass.Any || Inner == PhonemeClass.Any || Inner == PhonemeClass.None)
+            if (outer == PhonemeClass.Any || inner == PhonemeClass.Any )
             {
                 return true;
             }
-            return Outer == Inner;
+            return outer == inner;
         }
 
-        public static bool Contains(PhonemePosition Outer, PhonemePosition Inner)
+        public static bool Contains(PhonemePosition outer, PhonemePosition inner)
         {
-            if (Outer == PhonemePosition.Any || Inner == PhonemePosition.Any || Inner == PhonemePosition.None)
+            if (outer == PhonemePosition.Any || inner == PhonemePosition.Any)
             {
                 return true;
             }
-            return Outer == Inner;
+            return outer == inner;
         }
 
-        public static bool Contains(PhonemeType Outer, PhonemeType Inner)
+        public static bool Contains(PhonemeType outer, PhonemeType inner)
         {
-            if (Outer == PhonemeType.Any || Inner == PhonemeType.Any || Inner == PhonemeType.None)
+            if (outer == PhonemeType.Any || inner == PhonemeType.Any)
             {
                 return true;
             }
-            return Outer == Inner;
+            return outer == inner;
         }
 
-        public static bool Contains(PhonemeVoice Outer, PhonemeVoice Inner)
+        public static bool Contains(PhonemeVoice outer, PhonemeVoice inner)
         {
-            if (Outer == PhonemeVoice.Any || Inner == PhonemeVoice.Any || Inner == PhonemeVoice.None)
+            if (outer == PhonemeVoice.Any || inner == PhonemeVoice.Any)
             {
                 return true;
             }
-            return Outer == Inner;
+            return outer == inner;
         }
 
-        public static float Distance(PhonemeClass Left, PhonemeClass Right)
+        public static float Distance(PhonemeClass left, PhonemeClass right)
         {
-            return s_ClassDistance[(int)Left, (int)Right];
+            return s_ClassDistance[(int)left, (int)right];
         }
 
-        public static float Distance(PhonemePosition Left, PhonemePosition Right)
+        public static float Distance(PhonemePosition left, PhonemePosition right)
         {
-            return s_PositionDistance[(int)Left, (int)Right];
+            return s_PositionDistance[(int)left, (int)right];
         }
 
-        public static float Distance(PhonemeType Left, PhonemeType Right)
+        public static float Distance(PhonemeType left, PhonemeType right)
         {
-            return s_TypeDistance[(int)Left, (int)Right];
+            return s_TypeDistance[(int)left, (int)right];
         }
 
-        public static float Distance(PhonemeVoice Left, PhonemeVoice Right)
+        public static float Distance(PhonemeVoice left, PhonemeVoice right)
         {
-            return s_VoiceDistance[(int)Left, (int)Right];
+            return s_VoiceDistance[(int)left, (int)right];
         }
     }
 }
