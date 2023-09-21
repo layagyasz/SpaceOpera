@@ -44,7 +44,8 @@ namespace SpaceOpera.Core.Languages
                 string.Join(
                     "\n", 
                     _allowedSequences.Select(
-                        x => string.Format("{0} => {1}", x.Key, string.Join(",", x.Value.Select(y => y.Key))))));
+                        x => string.Format("[{0}] => {1}",
+                        x.Key, string.Join(",", x.Value.Select(y => string.Format($"[{y.Key}]")))))));
         }
 
         private float GetEntropy()
@@ -66,9 +67,9 @@ namespace SpaceOpera.Core.Languages
                 {
                     _allowedSequences.Add(phoneme.Value!, p.Where(x => x.Value != phoneme.Value!));
                 }
-                if (!allowEmpty)
+                if (allowEmpty)
                 {
-                    _allowedSequences.RemoveAll(s_Terminal, x => x.Value == s_Terminal);
+                    _allowedSequences.Add(s_Terminal, new Frequent<Phoneme>(s_Terminal, terminalFrequency));
                 }
 
                 return this;

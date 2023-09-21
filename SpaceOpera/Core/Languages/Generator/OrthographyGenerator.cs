@@ -38,22 +38,38 @@ namespace SpaceOpera.Core.Languages.Generator
             }
 
             var symbolWrappers = new List<Frequent<OrthographySymbol>>();
-            int i = 1;
-            while (symbolWrappers.Count < phonetics.Phonemes.Count * 2)
+
+            var vowelsSymbols = symbols.Where(x => x.Range.Classes.Contains(PhonemeClass.Vowel)).ToList();
+            for (
+                int i = 0, m = 1; 
+                i < phonetics.Phonemes.Where(x => x.Value!.Range.Classes.Contains(PhonemeClass.Vowel)).Count() 
+                    / vowelsSymbols.Count + 1;
+                ++i, m *= 2)
             {
-                foreach (var symbol in symbols)
+                foreach (var symbol in vowelsSymbols)
                 {
-                    symbolWrappers.Add(new(symbol, i * symbolWeights[symbol]));
+                    symbolWrappers.Add(new(symbol, m * symbolWeights[symbol]));
                 }
-                i *= 2;
+            }
+
+            var consonantSymbols = symbols.Where(x => x.Range.Classes.Contains(PhonemeClass.Consonant)).ToList();
+            for (
+                int i = 0, m = 1;
+                i < phonetics.Phonemes.Where(x => x.Value!.Range.Classes.Contains(PhonemeClass.Consonant)).Count()
+                    / consonantSymbols.Count + 1;
+                ++i, m *= 2)
+            {
+                foreach (var symbol in consonantSymbols)
+                {
+                    symbolWrappers.Add(new(symbol, m * symbolWeights[symbol]));
+                }
             }
 
             return new Orthography(
                 StableMatching.Compute(
                     phonetics.Phonemes,
                     symbolWrappers,
-                    (phoneme, symbol) => 
-                        symbol.Frequency * symbol.Value!.Range.Distance(phoneme.Value!.Range),
+                    (phoneme, symbol) => symbol.Frequency * symbol.Value!.Range.Distance(phoneme.Value!.Range),
                     (phoneme, _) => -phoneme.Frequency)
                 .Select(x => new OrthographyMatcher(x.Item1.Value!, x.Item2.Value!.Symbol)));
         }
