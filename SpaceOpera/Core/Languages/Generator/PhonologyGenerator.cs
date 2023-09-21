@@ -4,24 +4,27 @@ namespace SpaceOpera.Core.Languages.Generator
 {
     public class PhonologyGenerator
     {
-        public List<Frequent<PhonologyExclusion>> Exclusions { get; set; } = new();
+        public List<Frequent<List<PhonologyExclusion>>> Exclusions { get; set; } = new();
 
         public Phonology Generate(Phonetics phonetics, GeneratorContext context)
         {
             var builder = new Phonology.Builder(phonetics.Phonemes);
-            foreach (var exclusion in Exclusions.Where(x => context.Random.NextSingle() < x.Frequency))
+            foreach (var exclusionSet in Exclusions.Where(x => context.Random.NextSingle() < x.Frequency))
             {
-                switch (exclusion.Value!.Segment)
+                foreach (var exclusion in exclusionSet.Value!)
                 {
-                    case PhonologyExclusion.PhonologySegmentType.Onset:
-                        builder.AddOnsetExclusion(exclusion.Value.Left, exclusion.Value.Right);
-                        break;
-                    case PhonologyExclusion.PhonologySegmentType.Nucleus:
-                        builder.AddNucleusExclusion(exclusion.Value.Left, exclusion.Value.Right);
-                        break;
-                    case PhonologyExclusion.PhonologySegmentType.Offset:
-                        builder.AddOffsetExclusion(exclusion.Value.Left, exclusion.Value.Right);
-                        break;
+                    switch (exclusion.Segment)
+                    {
+                        case PhonologyExclusion.PhonologySegmentType.Onset:
+                            builder.AddOnsetExclusion(exclusion.Left, exclusion.Right);
+                            break;
+                        case PhonologyExclusion.PhonologySegmentType.Nucleus:
+                            builder.AddNucleusExclusion(exclusion.Left, exclusion.Right);
+                            break;
+                        case PhonologyExclusion.PhonologySegmentType.Offset:
+                            builder.AddOffsetExclusion(exclusion.Left, exclusion.Right);
+                            break;
+                    }
                 }
             }
             return builder.Build();
