@@ -1,3 +1,5 @@
+using SpaceOpera.Core.Politics;
+
 namespace SpaceOpera.Core.Universe
 {
     public class SolarOrbitRegion : INavigable
@@ -10,5 +12,7 @@ namespace SpaceOpera.Core.Universe
         {
             LocalOrbit = localOrbit;
         }
+
+        public void Enter(Faction faction) { }
     }
 }

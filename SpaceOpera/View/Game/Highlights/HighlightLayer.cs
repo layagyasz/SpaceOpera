@@ -166,6 +166,7 @@ namespace SpaceOpera.View.Game.Highlights
         {
             if (_layers.TryGetValue(layer, out var highlight))
             {
+                highlight.Highlight.Unhook(_domain);
                 highlight.Dispose();
                 _layers.Remove(layer);
             }
@@ -176,6 +177,7 @@ namespace SpaceOpera.View.Game.Highlights
             ClearLayer(layer);
             if (highlight != null)
             {
+                highlight.Hook(_domain);
                 _layers[layer] = SingleHighlightLayer.Create(highlight, _domain, _range, _borderWidth, _shaders);
             }
         }

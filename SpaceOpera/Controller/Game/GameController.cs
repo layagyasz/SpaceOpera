@@ -133,10 +133,6 @@ namespace SpaceOpera.Controller.Game
             }
             else
             {
-                if (_currentHighlights.TryGetValue(layer, out var current))
-                {
-                    current.Unhook();
-                }
                 _currentHighlights[layer] = highlight;
             }
             _screen?.Scene?.SetHighlight(layer, highlight);

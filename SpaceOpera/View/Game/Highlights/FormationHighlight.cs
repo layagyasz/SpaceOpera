@@ -18,10 +18,6 @@ namespace SpaceOpera.View.Game.Highlights
         public FormationHighlight(IEnumerable<IFormationDriver> drivers)
         {
             _drivers = new(drivers);
-            foreach (var driver in _drivers)
-            {
-                driver.OrderUpdated += HandleFleetUpdate;
-            }
         }
 
         public override bool Contains(object @object)
@@ -50,7 +46,15 @@ namespace SpaceOpera.View.Game.Highlights
             return _drivers.Any(x => x.GetActiveRegion().Contains(navigable));
         }
 
-        public override void Unhook()
+        public override void Hook(object domain)
+        {
+            foreach (var driver in _drivers)
+            {
+                driver.OrderUpdated += HandleFleetUpdate;
+            }
+        }
+
+        public override void Unhook(object domain)
         {
             foreach (var driver in _drivers)
             {

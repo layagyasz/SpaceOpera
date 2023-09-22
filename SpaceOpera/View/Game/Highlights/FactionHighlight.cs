@@ -36,9 +36,14 @@ namespace SpaceOpera.View.Game.Highlights
             return _highlights;
         }
 
-        public void Unhook()
+        public void Hook(object domain)
         {
-            _highlights.ForEach(x => x.Unhook());
+            _highlights.ForEach(x => x.Hook(domain));
+        }
+
+        public void Unhook(object domain)
+        {
+            _highlights.ForEach(x => x.Unhook(domain));
         }
     }
 }

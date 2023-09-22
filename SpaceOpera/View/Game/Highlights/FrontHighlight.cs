@@ -74,7 +74,26 @@ namespace SpaceOpera.View.Game.Highlights
             return new SpaceRegionView(outlineBuffer, shaders.Outline, fillBuffer, shaders.Fill);
         }
 
-        public void Unhook() { }
+        public void Hook(object domain)
+        {
+            if (domain is StellarBody body)
+            {
+                FrontManager.Get(body).Changed += HandleUpdate;
+            }
+        }
+
+        public void Unhook(object domain)
+        {
+            if (domain is StellarBody body)
+            {
+                FrontManager.Get(body).Changed -= HandleUpdate;
+            }
+        }
+
+        private void HandleUpdate(object? sender, EventArgs e)
+        {
+            Updated?.Invoke(this, e);
+        }
 
         private static Line3 Trace<TRange>(Front front, IDictionary<TRange, BoundsAndRegionKey> range)
         {

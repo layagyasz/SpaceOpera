@@ -21,9 +21,14 @@ namespace SpaceOpera.View.Game.Highlights
             yield return Highlight;
         }
 
-        public void Unhook()
+        public void Hook(object domain)
         {
-            Highlight.Unhook();
+            Highlight.Hook(domain);
+        }
+
+        public void Unhook(object domain)
+        {
+            Highlight.Unhook(domain);
         }
     }
 }

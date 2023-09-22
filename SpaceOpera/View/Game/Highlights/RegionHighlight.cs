@@ -20,7 +20,8 @@ namespace SpaceOpera.View.Game.Highlights
         public abstract Color4 BorderColor { get; }
         public abstract Color4 Color { get; }
         public abstract bool Contains(object @object);
-        public abstract void Unhook();
+        public abstract void Hook(object domain);
+        public abstract void Unhook(object domain);
 
         public IRenderable CreateHighlight<TDomain, TRange>(
             HighlightShaders shaders, 

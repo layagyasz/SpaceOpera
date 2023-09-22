@@ -4,6 +4,7 @@
     {
         EventHandler<ValueEventArgs<IHighlight>>? HighlightAdded { get; set; }
         IEnumerable<IHighlight> GetHighlights();
-        void Unhook();
+        void Hook(object domain);
+        void Unhook(object domain);
     }
 }

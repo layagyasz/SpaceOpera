@@ -109,6 +109,7 @@ namespace SpaceOpera.Core.Military
         {
             var temp = Position;
             Position = position;
+            position.Enter(Faction);
             Moved?.Invoke(this, MovementEventArgs.Create(temp, position));
         }
     }

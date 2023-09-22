@@ -23,6 +23,8 @@ namespace SpaceOpera.View.Game.Highlights
             return true;
         }
 
-        public override void Unhook() { }
+        public override void Hook(object domain) { }
+
+        public override void Unhook(object domain) { }
     }
 }

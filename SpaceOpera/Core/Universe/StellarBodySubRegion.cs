@@ -23,9 +23,19 @@ namespace SpaceOpera.Core.Universe
             Biome = biome;
         }
 
+        public void Enter(Faction faction)
+        {
+            SetOccupation(faction);
+        }
+
         public void SetOccupation(Faction faction)
         {
-            if (Occupation != faction)
+            if (faction == ParentRegion!.Sovereign)
+            {
+                Occupation = null;
+                ParentRegion!.ChangeOccupation();
+            }
+            else if (Occupation != faction)
             {
                 Occupation = faction;
                 ParentRegion!.ChangeOccupation();

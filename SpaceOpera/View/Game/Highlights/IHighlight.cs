@@ -9,7 +9,8 @@ namespace SpaceOpera.View.Game.Highlights
         IRenderable CreateHighlight<TDomain, TRange>(
             HighlightShaders shaders, TDomain domain, IDictionary<TRange, BoundsAndRegionKey> range, float borderWidth)
             where TDomain : notnull where TRange : notnull;
-            
-        void Unhook();
+
+        void Hook(object domain);
+        void Unhook(object domain);
     }
 }

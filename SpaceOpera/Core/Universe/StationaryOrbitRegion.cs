@@ -1,3 +1,5 @@
+using SpaceOpera.Core.Politics;
+
 namespace SpaceOpera.Core.Universe
 {
     public class StationaryOrbitRegion : INavigable
@@ -21,5 +23,7 @@ namespace SpaceOpera.Core.Universe
         {
             _parent = parent;
         }
+
+        public void Enter(Faction faction) { }
     }
 }

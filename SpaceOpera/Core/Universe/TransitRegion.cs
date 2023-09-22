@@ -1,4 +1,6 @@
-﻿namespace SpaceOpera.Core.Universe
+﻿using SpaceOpera.Core.Politics;
+
+namespace SpaceOpera.Core.Universe
 {
     public class TransitRegion : INavigable
     {
@@ -10,5 +12,7 @@
         {
             TransitSystem = transitSystem;
         }
+
+        public void Enter(Faction faction) { }
     }
 }
