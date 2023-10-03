@@ -13,7 +13,7 @@ namespace SpaceOpera.View.Game.Highlights
 {
     public class FrontHighlight : IHighlight
     {
-        private readonly static float s_BorderWidth = 16f;
+        private readonly static float s_BorderWidth = 4f;
         private readonly static Color4 s_DefaultColor = new(0.5f, 0.5f, 0.5f, 0.5f);
         private readonly static Color4 s_EnemyColor = new(1f, 0f, 0f, 0.5f);
 

@@ -7,14 +7,14 @@ namespace SpaceOpera.Controller.Game.Panes.DiplomacyPanes
         public override void Bind(object @object)
         {
             base.Bind(@object);
-            var pane = (DiplomacyPane)_pane!;
+            var pane = (DiplomaticRelationPane)_pane!;
             var controller = (IActionController)pane.Relations.ComponentController;
             controller.Interacted += HandleInteraction;
         }
 
         public override void Unbind()
         {
-            var pane = (DiplomacyPane)_pane!;
+            var pane = (DiplomaticRelationPane)_pane!;
             var controller = (IActionController)pane.Relations.ComponentController;
             controller.Interacted -= HandleInteraction;
             base.Unbind();

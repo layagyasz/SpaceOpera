@@ -8,7 +8,7 @@
         Unselect,
 
         // Overlay buttons
-        Diplomacy,
+        DiplomaticRelation,
         Equipment,
         Logistics,
         Military,

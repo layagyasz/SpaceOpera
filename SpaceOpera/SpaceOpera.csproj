@@ -761,7 +761,7 @@
     <None Update="Resources\View\Style\Game\Panes\Designer.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Style\Game\Panes\Diplomacy.json">
+    <None Update="Resources\View\Style\Game\Panes\DiplomaticRelation.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\View\Style\Game\Panes\Formation.json">

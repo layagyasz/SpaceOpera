@@ -23,7 +23,7 @@
     }
   },
   {
-    "$id": "game-overlay-diplomacy",
+    "$id": "game-overlay-diplomatic-relation",
     "Parent": "game-overlay-button",
     "Default": {
       "ForegroundColor": "#00ff00cc",

@@ -17,7 +17,7 @@ namespace SpaceOpera.View.Game.Panes
     {
         public BattlePane Battle { get; }
         public DesignerPane Designer { get; }
-        public DiplomacyPane Diplomacy { get; }
+        public DiplomaticRelationPane DiplomaticRelation { get; }
         public EquipmentPane Equipment { get; }
         public FormationPane Formation { get; }
         public LogisticsPane Logistics { get; }
@@ -31,7 +31,7 @@ namespace SpaceOpera.View.Game.Panes
         private PaneSet(
             BattlePane battle,
             DesignerPane designer,
-            DiplomacyPane diplomacy,
+            DiplomaticRelationPane diplomaticRelation,
             EquipmentPane equipment,
             FormationPane formation,
             LogisticsPane logistics,
@@ -44,7 +44,7 @@ namespace SpaceOpera.View.Game.Panes
         {
             Battle = battle;
             Designer = designer;
-            Diplomacy = diplomacy;
+            DiplomaticRelation = diplomaticRelation;
             Equipment = equipment;
             Formation = formation;
             Logistics = logistics;
@@ -62,7 +62,7 @@ namespace SpaceOpera.View.Game.Panes
             {
                 GamePaneId.Battle => Battle,
                 GamePaneId.Designer => Designer,
-                GamePaneId.Diplomacy => Diplomacy,
+                GamePaneId.DiplomaticRelation => DiplomaticRelation,
                 GamePaneId.Equipment => Equipment,
                 GamePaneId.Formation => Formation,
                 GamePaneId.Logistics => Logistics,
@@ -80,7 +80,7 @@ namespace SpaceOpera.View.Game.Panes
         {
             yield return Battle;
             yield return Designer;
-            yield return Diplomacy;
+            yield return DiplomaticRelation;
             yield return Equipment;
             yield return Formation;
             yield return Logistics;
@@ -108,8 +108,8 @@ namespace SpaceOpera.View.Game.Panes
             var designer = new DesignerPane(uiElementFactory, iconFactory);
             designer.Initialize();
 
-            var diplomacy = new DiplomacyPane(uiElementFactory, iconFactory);
-            diplomacy.Initialize();
+            var diplomaticRelation = new DiplomaticRelationPane(uiElementFactory, iconFactory);
+            diplomaticRelation.Initialize();
 
             var equipment = new EquipmentPane(uiElementFactory, iconFactory);
             equipment.Initialize();
@@ -141,7 +141,7 @@ namespace SpaceOpera.View.Game.Panes
             return new(
                 battle,
                 designer,
-                diplomacy,
+                diplomaticRelation,
                 equipment,
                 formation,
                 logistics,

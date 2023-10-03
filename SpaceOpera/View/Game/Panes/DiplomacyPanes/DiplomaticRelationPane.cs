@@ -10,30 +10,30 @@ using SpaceOpera.Controller.Game.Panes.DiplomacyPanes;
 
 namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
 {
-    public class DiplomacyPane : SimpleGamePane
+    public class DiplomaticRelationPane : SimpleGamePane
     {
-        private static readonly string s_Container = "diplomacy-pane";
-        private static readonly string s_Title = "diplomacy-pane-title";
-        private static readonly string s_Close = "diplomacy-pane-close";
-        private static readonly string s_Body = "diplomacy-pane-body";
+        private static readonly string s_Container = "diplomatic-relation-pane";
+        private static readonly string s_Title = "diplomatic-relation-pane-title";
+        private static readonly string s_Close = "diplomatic-relation-pane-close";
+        private static readonly string s_Body = "diplomatic-relation-pane-body";
 
-        private static readonly string s_RelationTable = "diplomacy-pane-relation-table";
+        private static readonly string s_RelationTable = "diplomatic-relation-pane-relation-table";
         private static readonly ActionRow<DiplomaticRelation>.Style s_RelationRowStyle =
             new()
             {
-                Container = "diplomacy-pane-relation-row",
-                ActionContainer = "diplomacy-pane-relation-row-action-container"
+                Container = "diplomatic-relation-pane-relation-row",
+                ActionContainer = "diplomatic-relation-pane-relation-row-action-container"
             };
-        private static readonly string s_Icon = "diplomacy-pane-relation-row-icon";
-        private static readonly string s_Text = "diplomacy-pane-relation-row-text";
-        private static readonly string s_Status = "diplomacy-pane-relation-row-status";
-        private static readonly string s_Approval = "diplomacy-pane-relation-row-approval";
+        private static readonly string s_Icon = "diplomatic-relation-pane-relation-row-icon";
+        private static readonly string s_Text = "diplomatic-relation-pane-relation-row-text";
+        private static readonly string s_Status = "diplomatic-relation-pane-relation-row-status";
+        private static readonly string s_Approval = "diplomatic-relation-pane-relation-row-approval";
         private static readonly List<ActionRow<DiplomaticRelation>.ActionConfiguration> s_RelationActions =
             new()
             {
                 new ()
                 {
-                    Button = "diplomacy-pane-relation-row-action-open",
+                    Button = "diplomatic-relation-pane-relation-row-action-open",
                     Action = ActionId.Select
                 }
             };
@@ -46,7 +46,7 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
 
         public UiCompoundComponent Relations { get; }
 
-        public DiplomacyPane(UiElementFactory uiElementFactory, IconFactory iconFactory)
+        public DiplomaticRelationPane(UiElementFactory uiElementFactory, IconFactory iconFactory)
             : base(
                   new DiplomacyPaneController(),
                   uiElementFactory.GetClass(s_Container),
