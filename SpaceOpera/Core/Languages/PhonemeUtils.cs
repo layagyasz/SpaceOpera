@@ -8,8 +8,8 @@ namespace SpaceOpera.Core.Languages
         {
             { 0, 0, 0 ,0 }, // NONE
             { 0, 0, 0, 0 }, // ANY
-            { 0, 0, 0, 4 * s_I }, // CONSONANT
-            { 0, 0, 4 * s_I, 0 } // VOWEL
+            { 0, 0, 0, 10 * s_I }, // CONSONANT
+            { 0, 0, 10 * s_I, 0 } // VOWEL
         };
 
         private static readonly float[,] s_PositionDistance = new float[17, 17]
