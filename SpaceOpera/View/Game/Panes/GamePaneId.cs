@@ -5,6 +5,7 @@
         Unknown,
         Battle,
         Designer,
+        Diplomacy,
         DiplomaticRelation,
         Equipment,
         Formation,

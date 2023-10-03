@@ -412,6 +412,12 @@ namespace SpaceOpera.Controller.Game
                     design.Configuration.Template);
                 return;
             }
+            if (type.IsAssignableTo(typeof(DiplomaticRelation)) && e.Action == ActionId.Select)
+            {
+                var diplomaticRelation = (DiplomaticRelation)e.GetOnlyObject()!;
+                OpenPane(GamePaneId.Diplomacy, /* closeOpenPanes= */ true, _world!, _faction, diplomaticRelation);
+                return;
+            }
             if (e.Button == MouseButton.Left || e.Action == ActionId.Select)
             {
                 if (type.IsAssignableTo(typeof(StellarBodySubRegion)))

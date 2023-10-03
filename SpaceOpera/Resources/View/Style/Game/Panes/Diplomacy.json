@@ -1,0 +1,24 @@
+[
+  {
+    "$id": "diplomacy-pane",
+    "Parent": "pane-standard",
+    "Default": {
+      "Size": [ 900, 700 ]
+    }
+  },
+  {
+    "$id": "diplomacy-pane-title",
+    "Parent": "pane-standard-title"
+  },
+  {
+    "$id": "diplomacy-pane-close",
+    "Parent": "pane-standard-close"
+  },
+  {
+    "$id": "diplomacy-pane-body",
+    "Parent": "pane-body-no-tabs",
+    "Default": {
+      "Size": [ 892, 620 ]
+    }
+  }
+]

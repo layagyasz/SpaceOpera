@@ -4,10 +4,11 @@ using SpaceOpera.View.Game.Overlay.EmpireOverlays;
 using SpaceOpera.View.Game.Overlay.GameOverlays;
 using SpaceOpera.View.Game.Overlay.StarSystemOverlays;
 using Cardamom.Graphics;
+using Cardamom;
 
 namespace SpaceOpera.View.Game.Overlay
 {
-    public class OverlaySet : GraphicsResource
+    public class OverlaySet : GraphicsResource, IInitializable
     {
         public EmpireOverlay Empire { get; }
         public GameOverlay Game { get; }
@@ -38,6 +39,14 @@ namespace SpaceOpera.View.Game.Overlay
             yield return StarSystem;
         }
 
+        public void Initialize()
+        {
+            foreach (var overlay in GetOverlays())
+            {
+                overlay.Initialize();
+            }
+        }
+
         protected override void DisposeImpl()
         {
             foreach (var overlay in GetOverlays())
@@ -48,16 +57,10 @@ namespace SpaceOpera.View.Game.Overlay
 
         public static OverlaySet Create(UiElementFactory uiElementFactory, IconFactory iconFactory)
         {
-            var empire = new EmpireOverlay(uiElementFactory, iconFactory);
-            empire.Initialize();
-
-            var game = GameOverlay.Create(uiElementFactory);
-            game.Initialize();
-
-            var starSystem = new StarSystemOverlay(uiElementFactory, iconFactory);
-            starSystem.Initialize();
-
-            return new(empire, game, starSystem);
+            return new(
+                /* empire= */ new EmpireOverlay(uiElementFactory, iconFactory),
+                /* game= */ GameOverlay.Create(uiElementFactory),
+                /* starSystem= */ new StarSystemOverlay(uiElementFactory, iconFactory));
         }
     }
 }

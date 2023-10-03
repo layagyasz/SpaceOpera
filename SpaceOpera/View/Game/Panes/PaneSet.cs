@@ -1,4 +1,5 @@
-﻿using Cardamom.Graphics;
+﻿using Cardamom;
+using Cardamom.Graphics;
 using Cardamom.Ui;
 using SpaceOpera.View.Game.Panes.BattlePanes;
 using SpaceOpera.View.Game.Panes.DesignPanes;
@@ -13,10 +14,11 @@ using SpaceOpera.View.Icons;
 
 namespace SpaceOpera.View.Game.Panes
 {
-    public class PaneSet : GraphicsResource
+    public class PaneSet : GraphicsResource, IInitializable
     {
         public BattlePane Battle { get; }
         public DesignerPane Designer { get; }
+        public DiplomacyPane Diplomacy { get; }
         public DiplomaticRelationPane DiplomaticRelation { get; }
         public EquipmentPane Equipment { get; }
         public FormationPane Formation { get; }
@@ -31,6 +33,7 @@ namespace SpaceOpera.View.Game.Panes
         private PaneSet(
             BattlePane battle,
             DesignerPane designer,
+            DiplomacyPane diplomacy,
             DiplomaticRelationPane diplomaticRelation,
             EquipmentPane equipment,
             FormationPane formation,
@@ -44,6 +47,7 @@ namespace SpaceOpera.View.Game.Panes
         {
             Battle = battle;
             Designer = designer;
+            Diplomacy = diplomacy;
             DiplomaticRelation = diplomaticRelation;
             Equipment = equipment;
             Formation = formation;
@@ -62,6 +66,7 @@ namespace SpaceOpera.View.Game.Panes
             {
                 GamePaneId.Battle => Battle,
                 GamePaneId.Designer => Designer,
+                GamePaneId.Diplomacy => Diplomacy,
                 GamePaneId.DiplomaticRelation => DiplomaticRelation,
                 GamePaneId.Equipment => Equipment,
                 GamePaneId.Formation => Formation,
@@ -73,13 +78,14 @@ namespace SpaceOpera.View.Game.Panes
                 GamePaneId.Research => Research,
                 GamePaneId.StellarBodyRegion => StellarBodyRegion,
                 _ => throw new ArgumentException($"Unsupported pane id: {id}"),
-            };
+            }; ;
         }
 
         public IEnumerable<IGamePane> GetPanes()
         {
             yield return Battle;
             yield return Designer;
+            yield return Diplomacy;
             yield return DiplomaticRelation;
             yield return Equipment;
             yield return Formation;
@@ -92,6 +98,14 @@ namespace SpaceOpera.View.Game.Panes
             yield return StellarBodyRegion;
         }
 
+        public void Initialize()
+        {
+            foreach (var pane in GetPanes())
+            {
+                pane.Initialize();
+            }
+        }
+
         protected override void DisposeImpl()
         {
             foreach (var pane in GetPanes())
@@ -102,55 +116,20 @@ namespace SpaceOpera.View.Game.Panes
 
         public static PaneSet Create(UiElementFactory uiElementFactory, IconFactory iconFactory)
         {
-            var battle = new BattlePane(uiElementFactory, iconFactory);
-            battle.Initialize();
-
-            var designer = new DesignerPane(uiElementFactory, iconFactory);
-            designer.Initialize();
-
-            var diplomaticRelation = new DiplomaticRelationPane(uiElementFactory, iconFactory);
-            diplomaticRelation.Initialize();
-
-            var equipment = new EquipmentPane(uiElementFactory, iconFactory);
-            equipment.Initialize();
-
-            var formation = new FormationPane(uiElementFactory, iconFactory);
-            formation.Initialize();
-
-            var logistics = new LogisticsPane(uiElementFactory, iconFactory);
-            logistics.Initialize();
-
-            var logisticsRoute = new LogisticsRoutePane(uiElementFactory, iconFactory);
-            logisticsRoute.Initialize();
-
-            var military = new MilitaryPane(uiElementFactory, iconFactory);
-            military.Initialize();
-
-            var militaryOrganization = new MilitaryOrganizationPane(uiElementFactory, iconFactory);
-            militaryOrganization.Initialize();
-
-            var orderConfirmation = new OrderConfirmationPane(uiElementFactory, iconFactory);
-            orderConfirmation.Initialize();
-
-            var research = ResearchPane.Create(uiElementFactory);
-            research.Initialize();
-
-            var stellarBodyRegion = new StellarBodyRegionPane(uiElementFactory, iconFactory);
-            stellarBodyRegion.Initialize();
-
             return new(
-                battle,
-                designer,
-                diplomaticRelation,
-                equipment,
-                formation,
-                logistics,
-                logisticsRoute,
-                military,
-                militaryOrganization,
-                orderConfirmation,
-                research,
-                stellarBodyRegion);
+                /* battle= */ new BattlePane(uiElementFactory, iconFactory),
+                /* designer= */  new DesignerPane(uiElementFactory, iconFactory),
+                /* diplomacy= */ new DiplomacyPane(uiElementFactory, iconFactory),
+                /* diplomaticRelation= */ new DiplomaticRelationPane(uiElementFactory, iconFactory),
+                /* equipment= */ new EquipmentPane(uiElementFactory, iconFactory),
+                /* formation= */ new FormationPane(uiElementFactory, iconFactory),
+                /* logistics= */ new LogisticsPane(uiElementFactory, iconFactory),
+                /* logisticsRoute= */ new LogisticsRoutePane(uiElementFactory, iconFactory),
+                /* military= */ new MilitaryPane(uiElementFactory, iconFactory),
+                /* militaryOrganization= */ new MilitaryOrganizationPane(uiElementFactory, iconFactory),
+                /* orderConfirmation= */ new OrderConfirmationPane(uiElementFactory, iconFactory),
+                /* research= */ ResearchPane.Create(uiElementFactory),
+                /* stellarBodyRegion= */ new StellarBodyRegionPane(uiElementFactory, iconFactory));
         }
     }
 }

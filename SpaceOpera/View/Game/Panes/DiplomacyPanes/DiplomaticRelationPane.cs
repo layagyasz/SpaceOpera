@@ -48,7 +48,7 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
 
         public DiplomaticRelationPane(UiElementFactory uiElementFactory, IconFactory iconFactory)
             : base(
-                  new DiplomacyPaneController(),
+                  new DiplomaticRelationPaneController(),
                   uiElementFactory.GetClass(s_Container),
                   new TextUiElement(uiElementFactory.GetClass(s_Title), new ButtonController(), "Diplomacy"),
                   uiElementFactory.CreateSimpleButton(s_Close).Item1)

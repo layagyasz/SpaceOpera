@@ -2,7 +2,7 @@
 
 namespace SpaceOpera.Controller.Game.Panes.DiplomacyPanes
 {
-    public class DiplomacyPaneController : GamePaneController
+    public class DiplomaticRelationPaneController : GamePaneController
     {
         public override void Bind(object @object)
         {

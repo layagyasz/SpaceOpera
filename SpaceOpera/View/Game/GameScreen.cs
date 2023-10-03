@@ -54,9 +54,11 @@ namespace SpaceOpera.View.Game
 
         public void Initialize()
         {
-            Controller.Bind(this);
+            PaneSet.Initialize();
+            OverlaySet.Initialize();
             OverlayLayer.Initialize();
             PaneLayer.Initialize();
+            Controller.Bind(this);
         }
 
         public void CloseOverlay(IOverlay overlay)
