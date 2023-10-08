@@ -31,7 +31,7 @@ namespace SpaceOpera.Core.Politics
 
         public bool CanAttack(Faction faction, Faction target)
         {
-            return Get(faction, target).Status == DiplomaticRelation.DiplomaticStatus.War;
+            return Get(faction, target).OverallStatus == DiplomaticRelation.DiplomaticStatus.War;
         }
 
         public IEnumerable<DiplomaticRelation> Get(Faction faction)

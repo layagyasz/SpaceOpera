@@ -98,7 +98,7 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
                     new DynamicTextUiElement(
                         _uiElementFactory.GetClass(s_Status),
                         new InlayController(), 
-                        () => EnumMapper.ToString(relation.Status)),
+                        () => EnumMapper.ToString(relation.OverallStatus)),
                     new DynamicTextUiElement(
                         _uiElementFactory.GetClass(s_Approval), 
                         new InlayController(),

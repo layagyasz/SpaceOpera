@@ -1,130 +1,132 @@
 using SpaceOpera.Core.Politics.Cultures;
+using SpaceOpera.Core.Politics.Diplomacy;
+using SpaceOpera.Core.Politics.Diplomacy.Statuses;
 
 namespace SpaceOpera.Core.Politics
 {
     public class DiplomaticRelation
     {
-        private static GameModifier s_AuthoritarianNegative = 
+        private static readonly GameModifier s_AuthoritarianNegative = 
             GameModifier.Create(
                 "modifier-diplomacy-authoritarian-negative",
                 "Authoritarian",
                 SingleGameModifier.Create(ModifierType.Diplomatic, Modifier.FromConstant(-5)));
-        private static GameModifier s_AuthoritarianPositive =
+        private static readonly GameModifier s_AuthoritarianPositive =
             GameModifier.Create(
                 "modifier-diplomacy-authoritarian-positive",
                 "Authoritarian",
                 SingleGameModifier.Create(ModifierType.Diplomatic, Modifier.FromConstant(5)));
-        private static GameModifier s_EgalitarianNegative =
+        private static readonly GameModifier s_EgalitarianNegative =
             GameModifier.Create(
                 "modifier-diplomacy-egalitarian-negative",
                 "Egalitarian",
                 SingleGameModifier.Create(ModifierType.Diplomatic, Modifier.FromConstant(-5)));
-        private static GameModifier s_EgalitarianPositive =
+        private static readonly GameModifier s_EgalitarianPositive =
             GameModifier.Create(
                 "modifier-diplomacy-egalitarian-positive",
                 "Egalitarian",
                 SingleGameModifier.Create(ModifierType.Diplomatic, Modifier.FromConstant(5)));
 
-        private static GameModifier s_IndividualistNegative =
+        private static readonly GameModifier s_IndividualistNegative =
             GameModifier.Create(
                 "modifier-diplomacy-individualist-negative",
                 "Individualist",
                 SingleGameModifier.Create(ModifierType.Diplomatic, Modifier.FromConstant(-5)));
-        private static GameModifier s_IndividualistPositive =
+        private static readonly GameModifier s_IndividualistPositive =
             GameModifier.Create(
                 "modifier-diplomacy-individualist-positive",
                 "Individualist",
                 SingleGameModifier.Create(ModifierType.Diplomatic, Modifier.FromConstant(5)));
-        private static GameModifier s_CollectivistNegative =
+        private static readonly GameModifier s_CollectivistNegative =
             GameModifier.Create(
                 "modifier-diplomacy-collectivist-negative",
                 "Collectivist",
                 SingleGameModifier.Create(ModifierType.Diplomatic, Modifier.FromConstant(-5)));
-        private static GameModifier s_CollectivistPositive =
+        private static readonly GameModifier s_CollectivistPositive =
             GameModifier.Create(
                 "modifier-diplomacy-collectivist-positive",
                 "Collectivist",
                 SingleGameModifier.Create(ModifierType.Diplomatic, Modifier.FromConstant(5)));
 
-        private static GameModifier s_AggressiveNegative =
+        private static readonly GameModifier s_AggressiveNegative =
             GameModifier.Create(
                 "modifier-diplomacy-aggressive-negative",
                 "Aggressive",
                 SingleGameModifier.Create(ModifierType.Diplomatic, Modifier.FromConstant(-5)));
-        private static GameModifier s_AggressivePositive =
+        private static readonly GameModifier s_AggressivePositive =
             GameModifier.Create(
                 "modifier-diplomacy-aggressive-positive",
                 "Aggressive",
                 SingleGameModifier.Create(ModifierType.Diplomatic, Modifier.FromConstant(5)));
-        private static GameModifier s_PassiveNegative =
+        private static readonly GameModifier s_PassiveNegative =
             GameModifier.Create(
                 "modifier-diplomacy-passive-negative",
                 "Passive",
                 SingleGameModifier.Create(ModifierType.Diplomatic, Modifier.FromConstant(-5)));
-        private static GameModifier s_PassivePositive =
+        private static readonly GameModifier s_PassivePositive =
             GameModifier.Create(
                 "modifier-diplomacy-passive-positive",
                 "Passive",
                 SingleGameModifier.Create(ModifierType.Diplomatic, Modifier.FromConstant(5)));
 
-        private static GameModifier s_ConventionalNegative =
+        private static readonly GameModifier s_ConventionalNegative =
             GameModifier.Create(
                 "modifier-diplomacy-conventional-negative",
                 "Conventional",
                 SingleGameModifier.Create(ModifierType.Diplomatic, Modifier.FromConstant(-5)));
-        private static GameModifier s_ConventionalPositive =
+        private static readonly GameModifier s_ConventionalPositive =
             GameModifier.Create(
                 "modifier-diplomacy-conventional-positive",
                 "Conventional",
                 SingleGameModifier.Create(ModifierType.Diplomatic, Modifier.FromConstant(5)));
-        private static GameModifier s_DynamicNegative =
+        private static readonly GameModifier s_DynamicNegative =
             GameModifier.Create(
                 "modifier-diplomacy-dynamic-negative",
                 "Dynamic",
                 SingleGameModifier.Create(ModifierType.Diplomatic, Modifier.FromConstant(-5)));
-        private static GameModifier s_DynamicPositive =
+        private static readonly GameModifier s_DynamicPositive =
             GameModifier.Create(
                 "modifier-diplomacy-dynamic-positive",
                 "Dynamic",
                 SingleGameModifier.Create(ModifierType.Diplomatic, Modifier.FromConstant(5)));
 
-        private static GameModifier s_MonumentalNegative =
+        private static readonly GameModifier s_MonumentalNegative =
             GameModifier.Create(
                 "modifier-diplomacy-monumental-negative",
                 "Monumental",
                 SingleGameModifier.Create(ModifierType.Diplomatic, Modifier.FromConstant(-5)));
-        private static GameModifier s_MonumentalPositive =
+        private static readonly GameModifier s_MonumentalPositive =
             GameModifier.Create(
                 "modifier-diplomacy-monumental-positive",
                 "Monumental",
                 SingleGameModifier.Create(ModifierType.Diplomatic, Modifier.FromConstant(5)));
-        private static GameModifier s_HumbleNegative =
+        private static readonly GameModifier s_HumbleNegative =
             GameModifier.Create(
                 "modifier-diplomacy-humble-negative",
                 "Humble",
                 SingleGameModifier.Create(ModifierType.Diplomatic, Modifier.FromConstant(-5)));
-        private static GameModifier s_HumblePositive =
+        private static readonly GameModifier s_HumblePositive =
             GameModifier.Create(
                 "modifier-diplomacy-humble-positive",
                 "Humble",
                 SingleGameModifier.Create(ModifierType.Diplomatic, Modifier.FromConstant(5)));
 
-        private static GameModifier s_IndulgentNegative =
+        private static readonly GameModifier s_IndulgentNegative =
             GameModifier.Create(
                 "modifier-diplomacy-indulgent-negative",
                 "Indulgent",
                 SingleGameModifier.Create(ModifierType.Diplomatic, Modifier.FromConstant(-5)));
-        private static GameModifier s_IndulgentPositive =
+        private static readonly GameModifier s_IndulgentPositive =
             GameModifier.Create(
                 "modifier-diplomacy-indulgent-positive",
                 "Indulgent",
                 SingleGameModifier.Create(ModifierType.Diplomatic, Modifier.FromConstant(5)));
-        private static GameModifier s_AustereNegative =
+        private static readonly GameModifier s_AustereNegative =
             GameModifier.Create(
                 "modifier-diplomacy-austere-negative",
                 "Austere",
                 SingleGameModifier.Create(ModifierType.Diplomatic, Modifier.FromConstant(-5)));
-        private static GameModifier s_AusterePositive =
+        private static readonly GameModifier s_AusterePositive =
             GameModifier.Create(
                 "modifier-diplomacy-austere-positive",
                 "Austere",
@@ -140,7 +142,10 @@ namespace SpaceOpera.Core.Politics
 
         public Faction Faction { get; }
         public Faction Target { get; }
-        public DiplomaticStatus Status { get; } = DiplomaticStatus.War;
+        public DiplomaticStatus OverallStatus { get; private set; } = DiplomaticStatus.War;
+        public IList<IDiplomaticStatus> Statuses => _statuses.AsReadOnly();
+
+        private readonly List<IDiplomaticStatus> _statuses = new();
 
         public DiplomaticRelation(Faction faction, Faction target)
         {
@@ -148,9 +153,41 @@ namespace SpaceOpera.Core.Politics
             Target = target;
         }
 
+        public void AddStatus(World world, IDiplomaticStatus status)
+        {
+            foreach (var currentStatus in _statuses)
+            {
+                currentStatus.Notify(world, this, status);
+            }
+            _statuses.Add(status);
+        }
+
+        public void Cancel(World world, ISet<DiplomacyType> types)
+        {
+            var newStatuses = new List<IDiplomaticStatus>();
+            foreach (var status in _statuses)
+            {
+                if (types.Contains(status.Type))
+                {
+                    status.Cancel(world, this);
+                }
+                else
+                {
+                    newStatuses.Add(status);
+                }
+            }
+            _statuses.Clear();
+            _statuses.AddRange(newStatuses);
+        }
+
         public ModifiedResult GetApproval()
         {
             return CalculateApproval(Target.Culture.Traits, Faction.Culture.Traits);
+        }
+
+        internal void SetOverallStatus(DiplomaticStatus status)
+        {
+            OverallStatus = status;
         }
 
         private static ModifiedResult CalculateApproval(CulturalTraits culture, CulturalTraits target)

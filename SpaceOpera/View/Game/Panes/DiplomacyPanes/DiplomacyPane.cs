@@ -26,7 +26,7 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
             : base(
                   new GamePaneController(),
                   uiElementFactory.GetClass(s_Container),
-                  new TextUiElement(uiElementFactory.GetClass(s_Title), new ButtonController(), "Diplomacy"),
+                  new TextUiElement(uiElementFactory.GetClass(s_Title), new ButtonController(), string.Empty),
                   uiElementFactory.CreateSimpleButton(s_Close).Item1)
         {
             _uiElementFactory = uiElementFactory;
