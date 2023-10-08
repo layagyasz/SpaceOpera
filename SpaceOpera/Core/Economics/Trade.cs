@@ -3,26 +3,9 @@ using SpaceOpera.Core.Advanceable;
 
 namespace SpaceOpera.Core.Economics
 {
-    public class Trade : ITickable
+    public record class Trade(
+        EconomicZone FromZone, EconomicZone ToZone, MultiQuantity<IMaterial> Materials) : ITickable
     {
-        public EconomicZone LeftZone { get; }
-        public MultiQuantity<IMaterial> LeftMaterials { get; }
-
-        public EconomicZone RightZone { get; set; }
-        public MultiQuantity<IMaterial> RightMaterials { get; }
-
-        public Trade(
-            EconomicZone leftZone,
-            MultiQuantity<IMaterial> leftMaterials, 
-            EconomicZone rightZone,
-            MultiQuantity<IMaterial> rightMaterials)
-        {
-            LeftZone = leftZone;
-            LeftMaterials = leftMaterials;
-            RightZone = rightZone;
-            RightMaterials = rightMaterials;
-        }
-
         public void Tick()
         {
             // Reimplement using Inventory

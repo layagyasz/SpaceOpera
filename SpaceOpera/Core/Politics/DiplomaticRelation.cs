@@ -1,6 +1,5 @@
 using SpaceOpera.Core.Politics.Cultures;
 using SpaceOpera.Core.Politics.Diplomacy;
-using SpaceOpera.Core.Politics.Diplomacy.Statuses;
 
 namespace SpaceOpera.Core.Politics
 {
@@ -143,9 +142,9 @@ namespace SpaceOpera.Core.Politics
         public Faction Faction { get; }
         public Faction Target { get; }
         public DiplomaticStatus OverallStatus { get; private set; } = DiplomaticStatus.War;
-        public IList<IDiplomaticStatus> Statuses => _statuses.AsReadOnly();
+        public IList<DiplomaticAgreement> CurrentAgreements => _currentAgreements.AsReadOnly();
 
-        private readonly List<IDiplomaticStatus> _statuses = new();
+        private readonly List<DiplomaticAgreement> _currentAgreements = new();
 
         public DiplomaticRelation(Faction faction, Faction target)
         {
@@ -153,31 +152,9 @@ namespace SpaceOpera.Core.Politics
             Target = target;
         }
 
-        public void AddStatus(World world, IDiplomaticStatus status)
+        public void Cancel(DiplomaticAgreement agreement)
         {
-            foreach (var currentStatus in _statuses)
-            {
-                currentStatus.Notify(world, this, status);
-            }
-            _statuses.Add(status);
-        }
-
-        public void Cancel(World world, ISet<DiplomacyType> types)
-        {
-            var newStatuses = new List<IDiplomaticStatus>();
-            foreach (var status in _statuses)
-            {
-                if (types.Contains(status.Type))
-                {
-                    status.Cancel(world, this);
-                }
-                else
-                {
-                    newStatuses.Add(status);
-                }
-            }
-            _statuses.Clear();
-            _statuses.AddRange(newStatuses);
+            _currentAgreements.Remove(agreement);
         }
 
         public ModifiedResult GetApproval()
