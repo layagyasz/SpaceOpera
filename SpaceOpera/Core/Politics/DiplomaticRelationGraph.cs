@@ -1,4 +1,5 @@
 using Cardamom;
+using SpaceOpera.Core.Politics.Diplomacy;
 
 namespace SpaceOpera.Core.Politics
 {
@@ -26,6 +27,49 @@ namespace SpaceOpera.Core.Politics
             foreach (var faction in factions)
             {
                 AddFaction(faction);
+            }
+        }
+
+        public void Apply(World world, DiplomaticAgreement agreement)
+        {
+            var left = Get(agreement.Proposer, agreement.Approver);
+            var right = Get(agreement.Approver, agreement.Proposer);
+
+            // Cancel conflicting agreements
+            foreach (var current in left.CurrentAgreements)
+            {
+                if (agreement.Cancels(current))
+                {
+                    current.Cancel(world);
+                    left.Cancel(current);
+                }
+            }
+            foreach (var current in right.CurrentAgreements)
+            {
+                if (agreement.Cancels(current))
+                {
+                    current.Cancel(world);
+                    right.Cancel(current);
+                }
+            }
+
+            // Apply the new agreement
+            agreement.Apply(world, left, right);
+
+            // Notify any existing agreements of the change
+            foreach (var relation in world.DiplomaticRelations.GetAsTarget(agreement.Proposer).Where(x => x != right))
+            {
+                foreach (var current in relation.CurrentAgreements)
+                {
+                    current.Notify(world, relation, agreement, /* isProposer= */ true);
+                }
+            }
+            foreach (var relation in world.DiplomaticRelations.GetAsTarget(agreement.Approver).Where(x => x != left))
+            {
+                foreach (var current in relation.CurrentAgreements)
+                {
+                    current.Notify(world, relation, agreement, /* isProposer= */ false);
+                }
             }
         }
 

@@ -22,20 +22,45 @@ namespace SpaceOpera.Core.Politics.Diplomacy
             Right = right.ToImmutableList();
         }
 
-        public void Apply(World world)
+        public bool Validate(World world)
         {
-            var typesToCancel = GetTypesToCancel();
-            var left = world.DiplomaticRelations.Get(Proposer, Approver);
-            var right = world.DiplomaticRelations.Get(Approver, Proposer);
-
-            // Cancel conflicting agreements
-            foreach (var agreement in 
-                left.CurrentAgreements.Where(x => x.GetTypesToCancel().Intersect(typesToCancel).Count() > 0))
+            if (!Validate(Left) || !Validate(Right))
             {
-                agreement.Cancel(world);
+                return false;
             }
 
-            // Apply this agreement's effects
+            foreach (var section in Left)
+            {
+                // Mirrored proposals must be in both lists.
+                if (section.IsMirrored && !Right.Contains(section))
+                {
+                    return false;
+                }
+            }
+            foreach (var section in Right)
+            {
+                // Mirrored proposals must be in both lists.
+                if (section.IsMirrored && !Left.Contains(section))
+                {
+                    return false;
+                }
+            }
+
+            // Existing agreements prevent this one from being made.
+            if (world.DiplomaticRelations.Get(Proposer, Approver).CurrentAgreements.Any(x => x.Prevents(this)))
+            {
+                return false;
+            }
+            if (world.DiplomaticRelations.Get(Approver, Proposer).CurrentAgreements.Any(x => x.Prevents(this)))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        internal void Apply(World world, DiplomaticRelation left, DiplomaticRelation right)
+        {
             foreach (var section in Left)
             {
                 section.Apply(world, left);
@@ -44,25 +69,9 @@ namespace SpaceOpera.Core.Politics.Diplomacy
             {
                 section.Apply(world, right);
             }
-
-            // Notify any existing agreements of the change
-            foreach (var relation in world.DiplomaticRelations.GetAsTarget(Proposer).Where(x => x != right))
-            {
-                foreach (var agreement in relation.CurrentAgreements)
-                {
-                    agreement.Notify(world, relation, this, /* isProposer= */ true);
-                }
-            }
-            foreach (var relation in world.DiplomaticRelations.GetAsTarget(Approver).Where(x => x != left))
-            {
-                foreach (var agreement in relation.CurrentAgreements)
-                {
-                    agreement.Notify(world, relation, this, /* isProposer= */ false);
-                }
-            }
         }
 
-        public void Cancel(World world)
+        internal void Cancel(World world)
         {
             var left = world.DiplomaticRelations.Get(Proposer, Approver);
             foreach (var section in Left)
@@ -77,31 +86,70 @@ namespace SpaceOpera.Core.Politics.Diplomacy
             }
         }
 
-        public ISet<DiplomacyType> GetTypesToCancel()
+        internal bool Cancels(DiplomaticAgreement other)
         {
-            return Left.Concat(Right).SelectMany(x => x.TypesToCancel).ToEnumSet();
+            return Cancels(Left, other.GetSections(Proposer)) || Cancels(Right, other.GetSections(Approver));
         }
 
-        private void Notify(World world, DiplomaticRelation relation, DiplomaticAgreement agreement, bool isProposer)
+        internal bool Prevents(DiplomaticAgreement other)
         {
-            foreach (var section in relation.Faction == agreement.Proposer ? Left : Right)
+            return Prevents(Left, other.GetSections(Proposer)) || Prevents(Right, other.GetSections(Approver));
+        }
+
+        internal void Notify(World world, DiplomaticRelation relation, DiplomaticAgreement agreement, bool isProposer)
+        {
+            foreach (var section in GetSections(relation.Faction)!)
             {
-                section.Notify(world, relation, section, isProposer);
+                foreach (var notification in agreement.GetSections(relation.Target)!)
+                {
+                    section.Notify(world, relation, notification, isProposer);
+                }
             }
         }
 
-        public bool Validate()
+        private IEnumerable<IDiplomaticAgreementSection>? GetSections(Faction faction)
         {
-            var typesToCancel = GetTypesToCancel();
-            foreach (var section in Left)
+            if (faction == Proposer)
             {
-                // Mirrored proposals must be in both lists.
-                if (section.IsMirrored && !Right.Contains(section))
-                {
-                    return false;
-                }
+                return Left;
+            }
+            if (faction == Approver)
+            {
+                return Right;
+            }
+            return null;
+        }
+
+        private static bool Cancels(
+            IEnumerable<IDiplomaticAgreementSection>? left, IEnumerable<IDiplomaticAgreementSection>? right)
+        {
+            if (left == null || right == null)
+            {
+                return false;
+            }
+            var typesToCancel = left.SelectMany(x => x.TypesToCancel).ToEnumSet();
+            return right.Any(x => typesToCancel.Contains(x.Type));
+        }
+
+        private static bool Prevents(
+            IEnumerable<IDiplomaticAgreementSection>? left, IEnumerable<IDiplomaticAgreementSection>? right)
+        {
+            if (left == null || right == null)
+            {
+                return false;
+            }
+            var typesToPrevent = left.SelectMany(x => x.TypesToBlock).ToEnumSet();
+            return right.Any(x => typesToPrevent.Contains(x.Type));
+        }
+
+        private static bool Validate(IList<IDiplomaticAgreementSection> sections)
+        {
+            var typesToCancel = sections.SelectMany(x => x.TypesToCancel).ToEnumSet();
+            var typesToPrevent = sections.SelectMany(x => x.TypesToBlock).ToEnumSet();
+            foreach (var section in sections)
+            {
                 // Only allow one unilateral declaration at a time.
-                if (section.IsUnilateral && Left.Count > 1)
+                if (section.IsUnilateral && sections.Count > 1)
                 {
                     return false;
                 }
@@ -110,22 +158,8 @@ namespace SpaceOpera.Core.Politics.Diplomacy
                 {
                     return false;
                 }
-            }
-
-            foreach (var section in Right)
-            {
-                // Mirrored proposals must be in both lists.
-                if (section.IsMirrored && !Left.Contains(section))
-                {
-                    return false;
-                }
-                // Only allow one unilateral declaration at a time.
-                if (section.IsUnilateral && Right.Count > 1)
-                {
-                    return false;
-                }
-                // Sections cannot cancel each other.
-                if (typesToCancel.Contains(section.Type))
+                // Sections cannot block each other.
+                if (typesToPrevent.Contains(section.Type))
                 {
                     return false;
                 }

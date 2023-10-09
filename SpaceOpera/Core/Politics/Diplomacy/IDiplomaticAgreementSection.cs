@@ -3,6 +3,7 @@
     public interface IDiplomaticAgreementSection
     {
         DiplomacyType Type { get; }
+        ISet<DiplomacyType> TypesToBlock { get; }
         ISet<DiplomacyType> TypesToCancel { get; }
         bool IsMirrored { get; }
         bool IsUnilateral { get; }
