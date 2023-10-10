@@ -10,7 +10,7 @@ namespace SpaceOpera.Controller.Components
 
         protected override void BindElement(IUiElement element)
         {
-            if (element is UiCompoundComponent row)
+            if (element is IUiComponent row)
             {
                 var controller = (IActionController)row.ComponentController;
                 controller!.Interacted += HandleInteraction;
@@ -19,7 +19,7 @@ namespace SpaceOpera.Controller.Components
 
         protected override void UnbindElement(IUiElement element)
         {
-            if (element is UiCompoundComponent row)
+            if (element is IUiComponent row)
             {
                 var controller = (IActionController)row.ComponentController;
                 controller!.Interacted -= HandleInteraction;

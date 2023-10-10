@@ -15,10 +15,40 @@
     "Parent": "pane-standard-close"
   },
   {
-    "$id": "diplomacy-pane-body",
-    "Parent": "pane-body-no-tabs",
+    "$id": "diplomacy-pane-diplomacy-container",
+    "Parent": "ui-container",
     "Default": {
       "Size": [ 892, 620 ]
+    }
+  },
+  {
+    "$id": "diplomacy-pane-diplomacy-side-container",
+    "Parent": "ui-element",
+    "Default": {
+      "Size": [ 215, 612 ],
+      "Margin": [ 4 ],
+      "Padding": [ 4 ],
+      "CornerRadius": [ [ 12, 12 ] ],
+      "DisableScissor": false
+    }
+  },
+  {
+    "$id": "diplomacy-pane-diplomacy-info-container",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 446, 612 ],
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "diplomacy-pane-diplomacy-agreement-container",
+    "Parent": "ui-element",
+    "Default": {
+      "Size": [ 438, 612 ],
+      "Margin": [ 4 ],
+      "Padding": [ 4 ],
+      "CornerRadius": [ [ 12, 12 ] ],
+      "DisableScissor": false
     }
   }
 ]

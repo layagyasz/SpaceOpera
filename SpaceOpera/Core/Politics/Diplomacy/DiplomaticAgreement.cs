@@ -5,6 +5,43 @@ namespace SpaceOpera.Core.Politics.Diplomacy
 {
     public class DiplomaticAgreement
     {
+        public class Builder
+        {
+            private Faction? _proposer;
+            private Faction? _approver;
+            private readonly List<IDiplomaticAgreementSection> _left = new();
+            private readonly List<IDiplomaticAgreementSection> _right = new();
+
+            public Builder SetProposer(Faction faction)
+            {
+                _proposer = faction;
+                return this;
+            }
+
+            public Builder SetApprover(Faction faction)
+            {
+                _approver = faction;
+                return this;
+            }
+
+            public Builder AddLeft(IDiplomaticAgreementSection section)
+            {
+                _left.Add(section);
+                return this;
+            }
+
+            public Builder AddRight(IDiplomaticAgreementSection section)
+            {
+                _right.Add(section);
+                return this;
+            }
+
+            public DiplomaticAgreement Build()
+            {
+                return new(_proposer!, _approver!, _left, _right);
+            }
+        }
+
         public Faction Proposer { get; }
         public Faction Approver { get; }
         public ImmutableList<IDiplomaticAgreementSection> Left { get; }
@@ -20,6 +57,16 @@ namespace SpaceOpera.Core.Politics.Diplomacy
             Approver = approver;
             Left = left.ToImmutableList();
             Right = right.ToImmutableList();
+        }
+
+        public ISet<DiplomacyType> GetBlocked(Faction faction)
+        {
+            return GetSections(faction).SelectMany(x => x.TypesToBlock).ToEnumSet();
+        }
+
+        public ISet<DiplomacyType> GetCanceled(Faction faction)
+        {
+            return GetSections(faction).SelectMany(x => x.TypesToCancel).ToEnumSet();
         }
 
         public bool Validate(World world)
@@ -47,11 +94,11 @@ namespace SpaceOpera.Core.Politics.Diplomacy
             }
 
             // Existing agreements prevent this one from being made.
-            if (world.DiplomaticRelations.Get(Proposer, Approver).CurrentAgreements.Any(x => x.Prevents(this)))
+            if (world.DiplomaticRelations.Get(Proposer, Approver).CurrentAgreements.Any(x => x.Blocks(this)))
             {
                 return false;
             }
-            if (world.DiplomaticRelations.Get(Approver, Proposer).CurrentAgreements.Any(x => x.Prevents(this)))
+            if (world.DiplomaticRelations.Get(Approver, Proposer).CurrentAgreements.Any(x => x.Blocks(this)))
             {
                 return false;
             }
@@ -88,12 +135,16 @@ namespace SpaceOpera.Core.Politics.Diplomacy
 
         internal bool Cancels(DiplomaticAgreement other)
         {
-            return Cancels(Left, other.GetSections(Proposer)) || Cancels(Right, other.GetSections(Approver));
+            var left = other.GetCanceled(Proposer);
+            var right = other.GetCanceled(Approver);
+            return Left.Any(x => left.Contains(x.Type)) || Right.Any(x => right.Contains(x.Type));
         }
 
-        internal bool Prevents(DiplomaticAgreement other)
+        internal bool Blocks(DiplomaticAgreement other)
         {
-            return Prevents(Left, other.GetSections(Proposer)) || Prevents(Right, other.GetSections(Approver));
+            var left = other.GetBlocked(Proposer);
+            var right = other.GetBlocked(Approver);
+            return Left.Any(x => left.Contains(x.Type)) || Right.Any(x => right.Contains(x.Type));
         }
 
         internal void Notify(World world, DiplomaticRelation relation, DiplomaticAgreement agreement, bool isProposer)
@@ -107,7 +158,7 @@ namespace SpaceOpera.Core.Politics.Diplomacy
             }
         }
 
-        private IEnumerable<IDiplomaticAgreementSection>? GetSections(Faction faction)
+        private IEnumerable<IDiplomaticAgreementSection> GetSections(Faction faction)
         {
             if (faction == Proposer)
             {
@@ -117,29 +168,7 @@ namespace SpaceOpera.Core.Politics.Diplomacy
             {
                 return Right;
             }
-            return null;
-        }
-
-        private static bool Cancels(
-            IEnumerable<IDiplomaticAgreementSection>? left, IEnumerable<IDiplomaticAgreementSection>? right)
-        {
-            if (left == null || right == null)
-            {
-                return false;
-            }
-            var typesToCancel = left.SelectMany(x => x.TypesToCancel).ToEnumSet();
-            return right.Any(x => typesToCancel.Contains(x.Type));
-        }
-
-        private static bool Prevents(
-            IEnumerable<IDiplomaticAgreementSection>? left, IEnumerable<IDiplomaticAgreementSection>? right)
-        {
-            if (left == null || right == null)
-            {
-                return false;
-            }
-            var typesToPrevent = left.SelectMany(x => x.TypesToBlock).ToEnumSet();
-            return right.Any(x => typesToPrevent.Contains(x.Type));
+            return Enumerable.Empty<IDiplomaticAgreementSection>();
         }
 
         private static bool Validate(IList<IDiplomaticAgreementSection> sections)

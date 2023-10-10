@@ -13,7 +13,8 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
         private static readonly string s_Container = "diplomacy-pane";
         private static readonly string s_Title = "diplomacy-pane-title";
         private static readonly string s_Close = "diplomacy-pane-close";
-        private static readonly string s_Body = "diplomacy-pane-body";
+
+        public DiplomacyComponent Diplomacy { get; }
 
         private readonly UiElementFactory _uiElementFactory;
         private readonly IconFactory _iconFactory;
@@ -29,15 +30,12 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
                   new TextUiElement(uiElementFactory.GetClass(s_Title), new ButtonController(), string.Empty),
                   uiElementFactory.CreateSimpleButton(s_Close).Item1)
         {
+            Diplomacy = new DiplomacyComponent(uiElementFactory);
+
             _uiElementFactory = uiElementFactory;
             _iconFactory = iconFactory;
 
-            var body = new
-                UiSerialContainer(
-                    uiElementFactory.GetClass(s_Body), 
-                    new NoOpElementController<UiSerialContainer>(), 
-                    UiSerialContainer.Orientation.Horizontal);
-            SetBody(body);
+            SetBody(Diplomacy);
         }
 
         public override void Populate(params object?[] args)
@@ -46,7 +44,7 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
             _faction = args[1] as Faction;
             _diplomaticRelation = args[2] as DiplomaticRelation;
             SetTitle(_diplomaticRelation!.Faction.Name);
-            Refresh();
+            Diplomacy.Populate(_diplomaticRelation);
             Populated?.Invoke(this, EventArgs.Empty);
         }
     }
