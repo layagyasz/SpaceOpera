@@ -152,6 +152,11 @@ namespace SpaceOpera.Core.Politics
             Target = target;
         }
 
+        public void Add(DiplomaticAgreement agreement)
+        {
+            _currentAgreements.Add(agreement);
+        }
+
         public void Cancel(DiplomaticAgreement agreement)
         {
             _currentAgreements.Remove(agreement);

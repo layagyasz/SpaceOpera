@@ -33,6 +33,15 @@
     }
   },
   {
+    "$id": "diplomacy-pane-diplomacy-side-simple-section",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 215, 28 ],
+      "FontSize": 14,
+      "Padding": [ 8 ]
+    }
+  },
+  {
     "$id": "diplomacy-pane-diplomacy-info-container",
     "Parent": "ui-container",
     "Default": {

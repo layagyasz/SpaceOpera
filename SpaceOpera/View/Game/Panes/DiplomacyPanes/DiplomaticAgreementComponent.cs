@@ -14,7 +14,7 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
 
         public DiplomaticAgreementComponent(UiElementFactory uiElementFactory)
             : base(
-                  new ActionComponentController(), 
+                  new AdderComponentController<IDiplomaticAgreementSection>(), 
                   new UiSerialContainer(
                       uiElementFactory.GetClass(s_Container),
                       new TableController(10f),

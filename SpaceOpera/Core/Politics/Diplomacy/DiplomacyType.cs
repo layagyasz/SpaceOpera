@@ -3,8 +3,8 @@
     public enum DiplomacyType
     {
         Unknown,
-        Exchange,
-        Pact,
+        // Exchange,
+        // Pact,
         Peace,
         War
     }

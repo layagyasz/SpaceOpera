@@ -54,6 +54,8 @@ namespace SpaceOpera.Core.Politics
             }
 
             // Apply the new agreement
+            left.Add(agreement);
+            right.Add(agreement);
             agreement.Apply(world, left, right);
 
             // Notify any existing agreements of the change
