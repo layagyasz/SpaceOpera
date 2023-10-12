@@ -10,8 +10,10 @@ namespace SpaceOpera.Controller.Game.Panes.DiplomacyPanes
     public class DiplomacyComponentController : IController
     {
         private DiplomacyComponent? _component;
-        private IAdderController<IDiplomaticAgreementSection>? _left;
-        private IAdderController<IDiplomaticAgreementSection>? _right;
+        private IAdderController<IDiplomaticAgreementSection>? _addLeft;
+        private IAdderController<IDiplomaticAgreementSection>? _addRight;
+        private IAdderController<IDiplomaticAgreementSection>? _removeLeft;
+        private IAdderController<IDiplomaticAgreementSection>? _removeRight;
 
         private DiplomaticRelation? _relation;
         private DiplomaticAgreement.Builder? _builder;
@@ -20,22 +22,28 @@ namespace SpaceOpera.Controller.Game.Panes.DiplomacyPanes
         public void Bind(object @object)
         {
             _component = (DiplomacyComponent)@object!;
-            _left = (IAdderController<IDiplomaticAgreementSection>)_component.Left.ComponentController;
-            _right = (IAdderController<IDiplomaticAgreementSection>)_component.Right.ComponentController;
+            _addLeft = (IAdderController<IDiplomaticAgreementSection>)_component.LeftOptions.ComponentController;
+            _addRight = (IAdderController<IDiplomaticAgreementSection>)_component.RightOptions.ComponentController;
+            _removeLeft = (IAdderController<IDiplomaticAgreementSection>)_component.LeftSections.ComponentController;
+            _removeRight = (IAdderController<IDiplomaticAgreementSection>)_component.RightSections.ComponentController;
 
             _component.Populated += HandlePopulated;
-            _left.Added += HandleLeftAdded;
-            _right.Added += HandleRightAdded;
+            _addLeft.Added += HandleLeftAdded;
+            _addRight.Added += HandleRightAdded;
+            _removeLeft.Added += HandleLeftRemoved;
+            _removeRight.Added += HandleRightRemoved;
         }
 
         public void Unbind()
         {
-            _left!.Added -= HandleLeftAdded;
-            _right!.Added -= HandleRightAdded;
+            _addLeft!.Added -= HandleLeftAdded;
+            _addRight!.Added -= HandleRightAdded;
+            _removeLeft!.Added -= HandleLeftRemoved;
+            _removeRight!.Added -= HandleRightRemoved;
 
             _component = null;
-            _left = null;
-            _right = null;
+            _addLeft = null;
+            _addRight = null;
         }
 
         private ISet<DiplomacyType> GetAllowed(bool isLeft)
@@ -47,8 +55,8 @@ namespace SpaceOpera.Controller.Game.Panes.DiplomacyPanes
                     .Where(x => !_agreement!.Cancels(x))
                     .SelectMany(x => x.GetBlocked(faction))
                     .ToEnumSet();
-            var canceled = _agreement!.GetCanceled(faction);
-            blocked.UnionWith(canceled);
+            blocked.UnionWith(_agreement!.GetCanceled(faction));
+            blocked.UnionWith(_agreement!.GetBlocked(faction));
             blocked.Add(DiplomacyType.Unknown);
             range.ExceptWith(blocked);
             return range;
@@ -80,13 +88,33 @@ namespace SpaceOpera.Controller.Game.Panes.DiplomacyPanes
             }
             UpdateAgreement();
         }
+
+        private void HandleLeftRemoved(object? sender, IDiplomaticAgreementSection section)
+        {
+            _builder!.RemoveLeft(section);
+            if (section.IsMirrored)
+            {
+                _builder!.RemoveRight(section);
+            }
+            UpdateAgreement();
+        }
+
+        private void HandleRightRemoved(object? sender, IDiplomaticAgreementSection section)
+        {
+            _builder!.RemoveRight(section);
+            if (section.IsMirrored)
+            {
+                _builder!.RemoveLeft(section);
+            }
+            UpdateAgreement();
+        }
+
         private void UpdateAgreement()
         {
             _agreement = _builder!.Build();
-            _component!.Left.SetRange(GetAllowed(/* isLeft= */ true));
-            _component!.Right.SetRange(GetAllowed(/* isLeft= */ false));
-            _component!.Agreement.SetAgreement(_agreement!);
+            _component!.LeftOptions.SetRange(GetAllowed(/* isLeft= */ true));
+            _component!.RightOptions.SetRange(GetAllowed(/* isLeft= */ false));
+            _component!.SetAgreement(_agreement!);
         }
-
     }
 }

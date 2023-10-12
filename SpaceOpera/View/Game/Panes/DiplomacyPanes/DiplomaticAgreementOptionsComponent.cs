@@ -9,7 +9,7 @@ using SpaceOpera.View.Components;
 
 namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
 {
-    public class DiplomaticAgreementSideComponent : UiCompoundComponent
+    public class DiplomaticAgreementOptionsComponent : UiCompoundComponent
     {
         private static readonly string s_Container = "diplomacy-pane-diplomacy-side-container";
         private static readonly string s_SimpleSection = "diplomacy-pane-diplomacy-side-simple-section";
@@ -20,7 +20,7 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
         private readonly EnumSet<DiplomacyType> _range = new();
         private readonly UiElementFactory _uiElementFactory;
 
-        public DiplomaticAgreementSideComponent(UiElementFactory uiElementFactory)
+        public DiplomaticAgreementOptionsComponent(UiElementFactory uiElementFactory)
             : base(new AdderComponentController<IDiplomaticAgreementSection>())
         {
             _uiElementFactory = uiElementFactory;
@@ -53,13 +53,13 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
                     KeyedUiComponent<DiplomacyType>.Wrap(
                         diplomacyType,
                         new UiSimpleComponent(
-                            new SimpleSectionComponentController(() => new PeaceProposal()),
+                            new SimpleOptionComponentController(() => new PeaceProposal()),
                             _uiElementFactory.CreateTextButton(s_SimpleSection, s_PeaceAgreement).Item1)),
                 DiplomacyType.War =>
                     KeyedUiComponent<DiplomacyType>.Wrap(
                         diplomacyType,
                         new UiSimpleComponent(
-                            new SimpleSectionComponentController(() => new PeaceProposal()),
+                            new SimpleOptionComponentController(() => new PeaceProposal()),
                             _uiElementFactory.CreateTextButton(s_SimpleSection, s_WarDeclaration).Item1)),
                 _ => throw new ArgumentException($"Unsupported DiplomacyType: [{diplomacyType}]"),
             };

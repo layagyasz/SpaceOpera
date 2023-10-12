@@ -6,7 +6,7 @@ namespace SpaceOpera.Core.Politics.Diplomacy
     {
         public DiplomacyType Type => DiplomacyType.War;
         public ISet<DiplomacyType> TypesToBlock =>
-            new EnumSet<DiplomacyType>(/* DiplomacyType.Exchange, DiplomacyType.Pact */);
+            new EnumSet<DiplomacyType>(/* DiplomacyType.Exchange, DiplomacyType.Pact, */ DiplomacyType.War);
         public ISet<DiplomacyType> TypesToCancel =>
             new EnumSet<DiplomacyType>(/* DiplomacyType.Exchange, DiplomacyType.Pact, */ DiplomacyType.Peace);
         public bool IsMirrored => true;

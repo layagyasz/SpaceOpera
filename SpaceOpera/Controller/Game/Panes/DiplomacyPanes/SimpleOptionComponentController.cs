@@ -4,16 +4,16 @@ using SpaceOpera.Core.Politics.Diplomacy;
 
 namespace SpaceOpera.Controller.Game.Panes.DiplomacyPanes
 {
-    public class SimpleSectionComponentController : IAdderController<IDiplomaticAgreementSection>
+    public class SimpleOptionComponentController : IAdderController<IDiplomaticAgreementSection>
     {
         public EventHandler<IDiplomaticAgreementSection>? Added { get; set; }
 
         private IUiComponent? _component;
-        private readonly IDiplomaticAgreementSection _section;
+        private readonly Func<IDiplomaticAgreementSection> _producerFn;
 
-        public SimpleSectionComponentController(IDiplomaticAgreementSection section)
+        public SimpleOptionComponentController(Func<IDiplomaticAgreementSection> producerFn)
         {
-            _section = section;
+            _producerFn = producerFn;
         }
 
         public void Bind(object @object)
@@ -30,7 +30,7 @@ namespace SpaceOpera.Controller.Game.Panes.DiplomacyPanes
 
         private void HandleClick(object? sender, MouseButtonClickEventArgs e)
         {
-            Added?.Invoke(this, _section);
+            Added?.Invoke(this, _producerFn());
         }
     }
 }

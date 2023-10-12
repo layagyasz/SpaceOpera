@@ -36,6 +36,18 @@ namespace SpaceOpera.Core.Politics.Diplomacy
                 return this;
             }
 
+            public Builder RemoveLeft(IDiplomaticAgreementSection section)
+            {
+                _left.Remove(section);
+                return this;
+            }
+
+            public Builder RemoveRight(IDiplomaticAgreementSection section)
+            {
+                _right.Remove(section);
+                return this;
+            }
+
             public DiplomaticAgreement Build()
             {
                 return new(_proposer!, _approver!, _left, _right);
