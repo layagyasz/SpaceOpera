@@ -38,11 +38,11 @@ namespace SpaceOpera.Controller.Game.Panes.DesignPanes
             base.Unbind();
         }
 
-        private void HandleCellSelected(object? sender, ValueEventArgs<IElementController> e)
+        private void HandleCellSelected(object? sender, IElementController e)
         {
             _activeCell?.SetSelected(false);
             _activeCell = null;
-            var newCell = e.Element as DesignerComponentCellController;
+            var newCell = e as DesignerComponentCellController;
 
             var pane = (DesignerPane)_pane!;
             pane.SetSlot(newCell?.Key);

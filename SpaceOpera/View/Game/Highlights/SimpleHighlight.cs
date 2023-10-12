@@ -2,7 +2,7 @@ namespace SpaceOpera.View.Game.Highlights
 {
     public class SimpleHighlight : ICompositeHighlight
     {
-        public EventHandler<ValueEventArgs<IHighlight>>? HighlightAdded { get; set; }
+        public EventHandler<IHighlight>? HighlightAdded { get; set; }
 
         IHighlight Highlight { get; }
 

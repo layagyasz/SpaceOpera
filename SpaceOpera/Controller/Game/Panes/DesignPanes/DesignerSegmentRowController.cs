@@ -11,7 +11,7 @@ namespace SpaceOpera.Controller.Game.Panes.DesignPanes
     public class DesignerSegmentRowController : IController
     {
         public EventHandler<KeyValuePair<DesignerSegmentRow, SegmentConfiguration>>? ConfigurationChanged { get; set; }
-        public EventHandler<ValueEventArgs<IElementController>>? CellSelected { get; set; }
+        public EventHandler<IElementController>? CellSelected { get; set; }
 
         private DesignerSegmentRow? _row;
 
@@ -75,7 +75,7 @@ namespace SpaceOpera.Controller.Game.Panes.DesignPanes
         {
             if (e.Button == MouseButton.Left)
             {
-                CellSelected?.Invoke(this, new((IElementController)sender!));
+                CellSelected?.Invoke(this, (IElementController)sender!);
             }
         }
 
