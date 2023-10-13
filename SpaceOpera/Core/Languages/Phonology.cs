@@ -4,7 +4,7 @@ namespace SpaceOpera.Core.Languages
 {
     public class Phonology
     {
-        public float Entropy { get; }
+        public float InvEntropy { get; }
 
         private readonly PhonologySegment _onset;
         private readonly PhonologySegment _nucleus;
@@ -16,7 +16,7 @@ namespace SpaceOpera.Core.Languages
             _nucleus = nucleus;
             _offset = offset;
 
-            Entropy = GetEntropy();
+            InvEntropy = 1f / GetEntropy();
         }
 
         public List<Phoneme> GenerateSyllable(Random random, bool requireOnset, out bool voidOffset)

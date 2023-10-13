@@ -8,6 +8,7 @@ namespace SpaceOpera.Core.Politics.Generator
     {
         public class ComponentNamePartGenerator
         {
+            public float Bits { get; set; }
             public RandomValue? RandomValue { get; set; }
             public ComponentTypeNameGenerator.ComponentNameSource Source { get; set; }
             public ComponentTypeNameGenerator.ComponentNameFilter Filter { get; set; }
@@ -17,13 +18,13 @@ namespace SpaceOpera.Core.Politics.Generator
                 if (Source == ComponentTypeNameGenerator.ComponentNameSource.Static)
                 {
                     return new ComponentTypeNameGenerator.ComponentNamePart(
-                        RandomValue!.Generate(random), null, Source, Filter);
+                        RandomValue!.Generate(random), Bits, null, Source, Filter);
                 }
                 if (Source == ComponentTypeNameGenerator.ComponentNameSource.Random)
                 {
-                    return new ComponentTypeNameGenerator.ComponentNamePart(null, RandomValue, Source, Filter);
+                    return new ComponentTypeNameGenerator.ComponentNamePart(null, Bits, RandomValue, Source, Filter);
                 }
-                return new ComponentTypeNameGenerator.ComponentNamePart(null, null, Source, Filter);
+                return new ComponentTypeNameGenerator.ComponentNamePart(null, Bits, null, Source, Filter);
             }
         }
 

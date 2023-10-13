@@ -64,7 +64,7 @@ namespace SpaceOpera
                 logger.AtInfo().Log(language.ToString());
                 for (int i=0; i<20; ++i)
                 {
-                    logger.AtInfo().Log(language.GenerateWord(generatorContext.Random));
+                    logger.AtInfo().Log(language.GenerateWord(generatorContext.Random, 40));
                 }
                 return;
             }

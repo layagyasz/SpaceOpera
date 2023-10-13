@@ -39,14 +39,20 @@ namespace SpaceOpera.Core.Politics
         public class ComponentNamePart
         {
             public object? StaticValue { get; }
+            public float Bits { get; }
             public RandomValue? RandomValue { get; }
             public ComponentNameSource Source { get; }
             public ComponentNameFilter Filter { get; }
 
             public ComponentNamePart(
-                object? staticValue, RandomValue? randomValue, ComponentNameSource source, ComponentNameFilter filter)
+                object? staticValue,
+                float bits, 
+                RandomValue? randomValue, 
+                ComponentNameSource source,
+                ComponentNameFilter filter)
             {
                 StaticValue = staticValue;
+                Bits = bits;
                 RandomValue = randomValue;
                 Source = source;
                 Filter = filter;
@@ -85,12 +91,12 @@ namespace SpaceOpera.Core.Politics
         {
             return part.Source switch
             {
-                ComponentNameSource.Static => part!.StaticValue!,
-                ComponentNameSource.Random => part!.RandomValue!.Generate(random),
+                ComponentNameSource.Static => part.StaticValue!,
+                ComponentNameSource.Random => part.RandomValue!.Generate(random),
                 ComponentNameSource.SequenceNumber => args.SequenceNumber,
                 ComponentNameSource.ParentName => args.ParentName,
                 ComponentNameSource.Tags => args.Tags,
-                ComponentNameSource.LanguageWord => language.GenerateWord(random),
+                ComponentNameSource.LanguageWord => language.GenerateWord(random, part.Bits),
                 ComponentNameSource.LanguageLetter => language.GenerateLetter(random),
                 _ => throw new ArgumentException($"Unsupported Source: [{part.Source}]."),
             };

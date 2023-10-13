@@ -147,11 +147,22 @@
             }
           }
         ],
-        "name": [
+        "name-short": [
           {
             "Frequency": 1,
             "Value": {
               "Source": "LanguageWord",
+              "Bits": 40,
+              "Filter": "String"
+            }
+          }
+        ],
+        "name-long": [
+          {
+            "Frequency": 1,
+            "Value": {
+              "Source": "LanguageWord",
+              "Bits": 60,
               "Filter": "String"
             }
           }
@@ -234,7 +245,7 @@
           "Frequency": 0.5,
           "Value": {
             "SupportedTypes": [ "Division" ],
-            "Pattern": [ "name", "division" ]
+            "Pattern": [ "name-long", "division" ]
           }
         },
         {
@@ -248,14 +259,14 @@
           "Frequency": 0.6,
           "Value": {
             "SupportedTypes": [ "Ship" ],
-            "Pattern": [ "name", "name-suffix", "classification" ]
+            "Pattern": [ "name-short", "name-suffix", "classification" ]
           }
         },
         {
           "Frequency": 0.25,
           "Value": {
             "SupportedTypes": [ "Ship" ],
-            "Pattern": [ "model", "model-number", "name", "classification" ]
+            "Pattern": [ "model", "model-number", "name-short", "classification" ]
           }
         },
         {
@@ -276,7 +287,7 @@
           "Frequency": 0.5,
           "Value": {
             "SupportedTypes": [ "Army" ],
-            "Pattern": [ "name", "army" ]
+            "Pattern": [ "name-short", "army" ]
           }
         },
         {
@@ -290,7 +301,7 @@
           "Frequency": 0.5,
           "Value": {
             "SupportedTypes": [ "Fleet" ],
-            "Pattern": [ "name", "fleet" ]
+            "Pattern": [ "name-short", "fleet" ]
           }
         },
         {
@@ -303,8 +314,15 @@
         {
           "Frequency": 1,
           "Value": {
-            "SupportedTypes": [ "Faction", "Star", "StellarBodyRegion" ],
-            "Pattern": [ "name" ]
+            "SupportedTypes": [ "Faction" ],
+            "Pattern": [ "name-short" ]
+          }
+        },
+        {
+          "Frequency": 1,
+          "Value": {
+            "SupportedTypes": [ "Star", "StellarBodyRegion" ],
+            "Pattern": [ "name-long" ]
           }
         },
         {

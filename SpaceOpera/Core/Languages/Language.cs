@@ -1,20 +1,21 @@
 using Cardamom.Utils.Generators.Samplers;
+using MathNet.Numerics.Distributions;
 
 namespace SpaceOpera.Core.Languages
 {
     public class Language
     {
-        public Phonetics? Phonetics { get; }
-        public Orthography? Orthography { get; }
-        public Phonology? Phonology { get; }
-        public ISampler WordLengthSampler { get; }
+        private static readonly float s_StdDevFactor = 0.2f;
+
+        public Phonetics Phonetics { get; }
+        public Orthography Orthography { get; }
+        public Phonology Phonology { get; }
 
         public Language(Phonetics phonetics, Orthography orthography, Phonology phonology)
         {
             Phonetics = phonetics;
             Orthography = orthography;
             Phonology = phonology;
-            WordLengthSampler = new NormalSampler(40 / phonology.Entropy, 8 / phonology.Entropy);
         }
 
         public string GenerateLetter(Random random)
@@ -23,11 +24,13 @@ namespace SpaceOpera.Core.Languages
                 Phonology!.GenerateSyllable(random, false, out bool _), random).First();
         }
 
-        public string GenerateWord(Random random)
+        public string GenerateWord(Random random, float bits)
         {
             var phonemes = new List<Phoneme>();
             bool requireOnset = false;
-            for (int i=0; i<Math.Max(1, Math.Round(WordLengthSampler!.Generate(random))); ++i)
+            var length = bits * Phonology.InvEntropy;
+            Console.WriteLine($"{length} {bits} {1 / Phonology.InvEntropy}");
+            for (int i=0; i<Math.Max(1, Math.Round(Normal.Sample(length, s_StdDevFactor * length))); ++i)
             {
                 phonemes.AddRange(Phonology!.GenerateSyllable(random, requireOnset, out bool voidOffset));
                 requireOnset = voidOffset;
