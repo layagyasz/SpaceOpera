@@ -2,6 +2,7 @@
 using Cardamom.Ui.Controller.Element;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using SpaceOpera.Core.Orders;
+using SpaceOpera.View.Forms;
 using SpaceOpera.View.Game.Panes;
 
 namespace SpaceOpera.Controller.Game.Panes
@@ -12,6 +13,7 @@ namespace SpaceOpera.Controller.Game.Panes
         public EventHandler<IInterceptor>? InterceptorCreated { get; set; }
         public EventHandler<IInterceptor>? InterceptorCancelled { get; set; }
         public EventHandler<IOrder>? OrderCreated { get; set; }
+        public EventHandler<FormLayout>? PopupCreated { get; set; }
 
         protected IBasicGamePane? _pane;
 

@@ -3,5 +3,5 @@
 namespace SpaceOpera.Controller.Game.Panes
 {
     public interface IGamePaneController 
-        : IActionController, IInterceptorController, IOrderController, IPaneController { }
+        : IActionController, IInterceptorController, IOrderController, IPaneController, IPopupController { }
 }

@@ -1,0 +1,26 @@
+[
+  {
+    "$id": "form-pane",
+    "Parent": "pane-standard",
+    "Default": {
+      "Size": [
+        220,
+        [ "DynamicContents", 0, 700 ]
+      ]
+    }
+  },
+  {
+    "$id": "form-pane-title",
+    "Parent": "ui-element-basic",
+    "Default": {
+      "Size": [ 168, 28 ]
+    }
+  },
+  {
+    "$id": "form-pane-close",
+    "Parent": "ui-element-basic",
+    "Default": {
+      "Size": [ 28, 28 ]
+    }
+  }
+]

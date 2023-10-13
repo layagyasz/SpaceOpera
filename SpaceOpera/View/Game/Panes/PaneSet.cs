@@ -5,6 +5,7 @@ using SpaceOpera.View.Game.Panes.BattlePanes;
 using SpaceOpera.View.Game.Panes.DesignPanes;
 using SpaceOpera.View.Game.Panes.DiplomacyPanes;
 using SpaceOpera.View.Game.Panes.FormationPanes;
+using SpaceOpera.View.Game.Panes.Forms;
 using SpaceOpera.View.Game.Panes.LogisticsPanes;
 using SpaceOpera.View.Game.Panes.MilitaryPanes;
 using SpaceOpera.View.Game.Panes.OrderConfirmationPanes;
@@ -21,6 +22,7 @@ namespace SpaceOpera.View.Game.Panes
         public DiplomacyPane Diplomacy { get; }
         public DiplomaticRelationPane DiplomaticRelation { get; }
         public EquipmentPane Equipment { get; }
+        public FormPane Form { get; }
         public FormationPane Formation { get; }
         public LogisticsPane Logistics { get; }
         public LogisticsRoutePane LogisticsRoute { get; }
@@ -36,6 +38,7 @@ namespace SpaceOpera.View.Game.Panes
             DiplomacyPane diplomacy,
             DiplomaticRelationPane diplomaticRelation,
             EquipmentPane equipment,
+            FormPane form,
             FormationPane formation,
             LogisticsPane logistics,
             LogisticsRoutePane logisticsRoute,
@@ -50,6 +53,7 @@ namespace SpaceOpera.View.Game.Panes
             Diplomacy = diplomacy;
             DiplomaticRelation = diplomaticRelation;
             Equipment = equipment;
+            Form = form;
             Formation = formation;
             Logistics = logistics;
             LogisticsRoute = logisticsRoute;
@@ -69,6 +73,7 @@ namespace SpaceOpera.View.Game.Panes
                 GamePaneId.Diplomacy => Diplomacy,
                 GamePaneId.DiplomaticRelation => DiplomaticRelation,
                 GamePaneId.Equipment => Equipment,
+                GamePaneId.Form => Form,
                 GamePaneId.Formation => Formation,
                 GamePaneId.Logistics => Logistics,
                 GamePaneId.LogisticsRoute => LogisticsRoute,
@@ -78,7 +83,7 @@ namespace SpaceOpera.View.Game.Panes
                 GamePaneId.Research => Research,
                 GamePaneId.StellarBodyRegion => StellarBodyRegion,
                 _ => throw new ArgumentException($"Unsupported pane id: {id}"),
-            }; ;
+            };
         }
 
         public IEnumerable<IGamePane> GetPanes()
@@ -88,6 +93,7 @@ namespace SpaceOpera.View.Game.Panes
             yield return Diplomacy;
             yield return DiplomaticRelation;
             yield return Equipment;
+            yield return Form;
             yield return Formation;
             yield return Logistics;
             yield return LogisticsRoute;
@@ -122,6 +128,7 @@ namespace SpaceOpera.View.Game.Panes
                 /* diplomacy= */ new DiplomacyPane(uiElementFactory, iconFactory),
                 /* diplomaticRelation= */ new DiplomaticRelationPane(uiElementFactory, iconFactory),
                 /* equipment= */ new EquipmentPane(uiElementFactory, iconFactory),
+                /* form= */ new FormPane(uiElementFactory),
                 /* formation= */ new FormationPane(uiElementFactory, iconFactory),
                 /* logistics= */ new LogisticsPane(uiElementFactory, iconFactory),
                 /* logisticsRoute= */ new LogisticsRoutePane(uiElementFactory, iconFactory),

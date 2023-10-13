@@ -29,7 +29,6 @@ namespace SpaceOpera.Core.Languages
             var phonemes = new List<Phoneme>();
             bool requireOnset = false;
             var length = bits * Phonology.InvEntropy;
-            Console.WriteLine($"{length} {bits} {1 / Phonology.InvEntropy}");
             for (int i=0; i<Math.Max(1, Math.Round(Normal.Sample(length, s_StdDevFactor * length))); ++i)
             {
                 phonemes.AddRange(Phonology!.GenerateSyllable(random, requireOnset, out bool voidOffset));

@@ -210,6 +210,7 @@ namespace SpaceOpera.Controller.Game
 
         private void ChangeSubcontrollerTo(ISubcontroller? subcontroller)
         {
+            _logger.AtInfo().Log($"Set subcontroller {subcontroller}");
             if (_subcontroller != null)
             {
                 _subcontroller.OrderCreated -= HandleOrder;

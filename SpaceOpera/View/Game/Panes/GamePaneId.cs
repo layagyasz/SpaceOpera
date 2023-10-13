@@ -8,6 +8,7 @@
         Diplomacy,
         DiplomaticRelation,
         Equipment,
+        Form,
         Formation,
         Logistics,
         LogisticsRoute,
