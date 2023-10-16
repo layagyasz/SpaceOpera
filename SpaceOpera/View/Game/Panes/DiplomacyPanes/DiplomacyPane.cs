@@ -4,7 +4,7 @@ using Cardamom.Ui;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.Core;
 using SpaceOpera.View.Icons;
-using SpaceOpera.Controller.Game.Panes;
+using SpaceOpera.Controller.Game.Panes.DiplomacyPanes;
 
 namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
 {
@@ -25,7 +25,7 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
 
         public DiplomacyPane(UiElementFactory uiElementFactory, IconFactory iconFactory)
             : base(
-                  new GamePaneController(),
+                  new DiplomacyPaneController(),
                   uiElementFactory.GetClass(s_Container),
                   new TextUiElement(uiElementFactory.GetClass(s_Title), new ButtonController(), string.Empty),
                   uiElementFactory.CreateSimpleButton(s_Close).Item1)

@@ -1,5 +1,4 @@
 ﻿using Cardamom.Collections;
-using Cardamom.Ui.Controller;
 using SpaceOpera.Controller.Components;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Politics.Diplomacy;
@@ -7,11 +6,13 @@ using SpaceOpera.View.Game.Panes.DiplomacyPanes;
 
 namespace SpaceOpera.Controller.Game.Panes.DiplomacyPanes
 {
-    public class DiplomacyComponentController : IController
+    public class DiplomacyComponentController : IPopupController
     {
+        public EventHandler<PopupEventArgs>? PopupCreated { get; set; }
+
         private DiplomacyComponent? _component;
-        private IAdderController<IDiplomaticAgreementSection>? _addLeft;
-        private IAdderController<IDiplomaticAgreementSection>? _addRight;
+        private DiplomaticAgreementOptionsComponentController? _addLeft;
+        private DiplomaticAgreementOptionsComponentController? _addRight;
         private IAdderController<IDiplomaticAgreementSection>? _removeLeft;
         private IAdderController<IDiplomaticAgreementSection>? _removeRight;
 
@@ -22,8 +23,8 @@ namespace SpaceOpera.Controller.Game.Panes.DiplomacyPanes
         public void Bind(object @object)
         {
             _component = (DiplomacyComponent)@object!;
-            _addLeft = (IAdderController<IDiplomaticAgreementSection>)_component.LeftOptions.ComponentController;
-            _addRight = (IAdderController<IDiplomaticAgreementSection>)_component.RightOptions.ComponentController;
+            _addLeft = (DiplomaticAgreementOptionsComponentController)_component.LeftOptions.ComponentController;
+            _addRight = (DiplomaticAgreementOptionsComponentController)_component.RightOptions.ComponentController;
             _removeLeft = (IAdderController<IDiplomaticAgreementSection>)_component.LeftSections.ComponentController;
             _removeRight = (IAdderController<IDiplomaticAgreementSection>)_component.RightSections.ComponentController;
 

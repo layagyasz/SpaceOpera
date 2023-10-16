@@ -1,6 +1,5 @@
 ﻿using Cardamom.Ui;
 using Cardamom.Ui.Controller.Element;
-using SpaceOpera.View.Components;
 
 namespace SpaceOpera.Controller.Components
 {

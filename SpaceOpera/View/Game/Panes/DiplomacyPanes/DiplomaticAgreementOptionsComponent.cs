@@ -21,7 +21,7 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
         private readonly UiElementFactory _uiElementFactory;
 
         public DiplomaticAgreementOptionsComponent(UiElementFactory uiElementFactory)
-            : base(new AdderComponentController<IDiplomaticAgreementSection>())
+            : base(new DiplomaticAgreementOptionsComponentController())
         {
             _uiElementFactory = uiElementFactory;
 

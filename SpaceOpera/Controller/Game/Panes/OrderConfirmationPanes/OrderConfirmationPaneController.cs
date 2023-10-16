@@ -24,7 +24,7 @@ namespace SpaceOpera.Controller.Game.Panes.OrderConfirmationPanes
         {
             var pane = (OrderConfirmationPane)_pane!;
             Interacted?.Invoke(this, UiInteractionEventArgs.Create(pane.GetOrder(), ActionId.Confirm));
-            Closed?.Invoke(this, EventArgs.Empty);
+            Close();
         }
     }
 }

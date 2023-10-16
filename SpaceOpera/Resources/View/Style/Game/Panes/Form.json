@@ -3,10 +3,7 @@
     "$id": "form-pane",
     "Parent": "pane-standard",
     "Default": {
-      "Size": [
-        220,
-        [ "DynamicContents", 0, 700 ]
-      ]
+      "Size": [ 220, "DynamicContents" ]
     }
   },
   {
@@ -21,6 +18,40 @@
     "Parent": "ui-element-basic",
     "Default": {
       "Size": [ 28, 28 ]
+    }
+  },
+  {
+    "$id": "form-pane-body",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [
+        176,
+        [ "DynamicContents", 0, 628 ]
+      ]
+    }
+  },
+  {
+    "$id": "form-pane-submit",
+    "Parent": "ui-element-basic",
+    "Default": {
+      "Size": [ 168, 28 ],
+      "Align": "Center"
+    }
+  },
+  {
+    "$id": "form-pane-form-container",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 176, "DynamicContents" ]
+    }
+  },
+  {
+    "$id": "form-pane-form-field-header",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 176, 20 ],
+      "Padding": [ 4 ],
+      "FontSize": 12
     }
   }
 ]

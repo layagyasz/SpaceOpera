@@ -1,12 +1,12 @@
 ﻿using Cardamom.Ui;
-using SpaceOpera.Controller.Components;
 using SpaceOpera.Core.Politics.Diplomacy;
 
 namespace SpaceOpera.Controller.Game.Panes.DiplomacyPanes
 {
-    public class SimpleOptionComponentController : IAdderController<IDiplomaticAgreementSection>
+    public class SimpleOptionComponentController : IDiplomacyOptionController
     {
         public EventHandler<IDiplomaticAgreementSection>? Added { get; set; }
+        public EventHandler<PopupEventArgs>? PopupCreated { get; set; }
 
         private IUiComponent? _component;
         private readonly Func<IDiplomaticAgreementSection> _producerFn;

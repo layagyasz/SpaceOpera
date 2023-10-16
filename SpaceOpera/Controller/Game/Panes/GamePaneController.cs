@@ -2,7 +2,6 @@
 using Cardamom.Ui.Controller.Element;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using SpaceOpera.Core.Orders;
-using SpaceOpera.View.Forms;
 using SpaceOpera.View.Game.Panes;
 
 namespace SpaceOpera.Controller.Game.Panes
@@ -13,7 +12,7 @@ namespace SpaceOpera.Controller.Game.Panes
         public EventHandler<IInterceptor>? InterceptorCreated { get; set; }
         public EventHandler<IInterceptor>? InterceptorCancelled { get; set; }
         public EventHandler<IOrder>? OrderCreated { get; set; }
-        public EventHandler<FormLayout>? PopupCreated { get; set; }
+        public EventHandler<PopupEventArgs>? PopupCreated { get; set; }
 
         protected IBasicGamePane? _pane;
 
@@ -30,11 +29,16 @@ namespace SpaceOpera.Controller.Game.Panes
             base.Unbind();
         }
 
+        public virtual void Close()
+        {
+            Closed?.Invoke(this, EventArgs.Empty);
+        }
+
         private void HandleClose(object? sender, MouseButtonClickEventArgs e)
         {
             if (e.Button == MouseButton.Left)
             {
-                Closed?.Invoke(this, EventArgs.Empty);
+                Close();
             }
         }
     }

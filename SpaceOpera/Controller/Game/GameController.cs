@@ -80,6 +80,7 @@ namespace SpaceOpera.Controller.Game
                     paneController.InterceptorCreated += HandleInterceptorCreated;
                     paneController.InterceptorCancelled += HandleInterceptorCancelled;
                     paneController.OrderCreated += HandleOrder;
+                    paneController.PopupCreated += HandlePopup;
                 }
             }
 
@@ -107,6 +108,7 @@ namespace SpaceOpera.Controller.Game
                     paneController.InterceptorCreated -= HandleInterceptorCreated;
                     paneController.InterceptorCancelled -= HandleInterceptorCancelled;
                     paneController.OrderCreated -= HandleOrder;
+                    paneController.PopupCreated -= HandlePopup;
                 }
             }
             foreach (var scene in _scenes)
@@ -248,6 +250,11 @@ namespace SpaceOpera.Controller.Game
             {
                 ExecuteOrder(e);
             }
+        }
+
+        private void HandlePopup(object? sender, PopupEventArgs e)
+        {
+            OpenPane(GamePaneId.Form, /* closeOpenPanes= */ false, _world, e.Layout, e.Promise);
         }
 
         private void HandleInteraction(object? sender, UiInteractionEventArgs e)

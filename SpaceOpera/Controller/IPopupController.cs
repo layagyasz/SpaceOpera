@@ -1,9 +1,9 @@
-﻿using SpaceOpera.View.Forms;
+﻿using Cardamom.Ui.Controller;
 
 namespace SpaceOpera.Controller
 {
-    public interface IPopupController
+    public interface IPopupController : IController
     {
-        EventHandler<FormLayout>? PopupCreated { get; set; }
+        EventHandler<PopupEventArgs>? PopupCreated { get; set; }
     }
 }
