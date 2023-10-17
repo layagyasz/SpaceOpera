@@ -15,6 +15,7 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
         private static readonly string s_Header = "diplomacy-pane-diplomacy-side-header";
         private static readonly string s_SimpleSection = "diplomacy-pane-diplomacy-side-simple-section";
 
+        private static readonly string s_DefensePact = "Defense Pact";
         private static readonly string s_PeaceAgreement = "Peace Treaty";
         private static readonly string s_WarDeclaration = "Declare War";
 
@@ -62,6 +63,12 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
         {
             return diplomacyType switch
             {
+                DiplomacyType.DefensePact =>
+                    KeyedUiComponent<DiplomacyType>.Wrap(
+                        diplomacyType,
+                        new UiSimpleComponent(
+                            new SimpleOptionComponentController(() => new DefensePact()),
+                            _uiElementFactory.CreateTextButton(s_SimpleSection, s_DefensePact).Item1)),
                 DiplomacyType.Peace => 
                     KeyedUiComponent<DiplomacyType>.Wrap(
                         diplomacyType,
@@ -72,7 +79,7 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
                     KeyedUiComponent<DiplomacyType>.Wrap(
                         diplomacyType,
                         new UiSimpleComponent(
-                            new SimpleOptionComponentController(() => new PeaceProposal()),
+                            new SimpleOptionComponentController(() => new WarDeclaration()),
                             _uiElementFactory.CreateTextButton(s_SimpleSection, s_WarDeclaration).Item1)),
                 _ => throw new ArgumentException($"Unsupported DiplomacyType: [{diplomacyType}]"),
             };

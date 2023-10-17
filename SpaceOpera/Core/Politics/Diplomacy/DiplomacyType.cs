@@ -4,7 +4,7 @@
     {
         Unknown,
         // Exchange,
-        // Pact,
+        DefensePact,
         Peace,
         War
     }

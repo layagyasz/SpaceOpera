@@ -180,7 +180,7 @@ namespace SpaceOpera.Core.Politics.Diplomacy
             {
                 return Right;
             }
-            return Enumerable.Empty<IDiplomaticAgreementSection>();
+            throw new ArgumentException($"{faction} is not part of this agreement.");
         }
 
         private static bool Validate(IList<IDiplomaticAgreementSection> sections)

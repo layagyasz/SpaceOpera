@@ -12,6 +12,7 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
         private static readonly string s_Container = "diplomacy-pane-diplomacy-proposal-table";
         private static readonly string s_Section = "diplomacy-pane-diplomacy-proposal-section";
 
+        private static readonly string s_DefensePact = "Defense Pact";
         private static readonly string s_PeaceAgreement = "Peace Treaty";
         private static readonly string s_WarDeclaration = "Declare War";
 
@@ -43,6 +44,10 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
         {
             return section.Type switch
             {
+                DiplomacyType.DefensePact =>
+                    new UiSimpleComponent(
+                        new SimpleSectionComponentController(section),
+                        _uiElementFactory.CreateTextButton(s_Section, s_DefensePact).Item1),
                 DiplomacyType.Peace =>
                     new UiSimpleComponent(
                         new SimpleSectionComponentController(section),
