@@ -2,7 +2,6 @@
 using Cardamom.Ui;
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
-using SpaceOpera.Controller.Components;
 using SpaceOpera.Controller.Game.Panes.DiplomacyPanes;
 using SpaceOpera.Core.Politics.Diplomacy;
 using SpaceOpera.View.Components;
@@ -12,6 +11,8 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
     public class DiplomaticAgreementOptionsComponent : UiCompoundComponent
     {
         private static readonly string s_Container = "diplomacy-pane-diplomacy-side-container";
+        private static readonly string s_Table = "diplomacy-pane-diplomacy-side-table";
+        private static readonly string s_Header = "diplomacy-pane-diplomacy-side-header";
         private static readonly string s_SimpleSection = "diplomacy-pane-diplomacy-side-simple-section";
 
         private static readonly string s_PeaceAgreement = "Peace Treaty";
@@ -20,19 +21,31 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
         private readonly EnumSet<DiplomacyType> _range = new();
         private readonly UiElementFactory _uiElementFactory;
 
-        public DiplomaticAgreementOptionsComponent(UiElementFactory uiElementFactory)
-            : base(new DiplomaticAgreementOptionsComponentController())
+        public IUiComponent Options { get; }
+
+        public DiplomaticAgreementOptionsComponent(string header, UiElementFactory uiElementFactory)
+            : base(
+                  new DiplomaticAgreementOptionsComponentController(), 
+                  new UiSerialContainer(
+                      uiElementFactory.GetClass(s_Container), 
+                      new NoOpElementController<UiSerialContainer>(),
+                      UiSerialContainer.Orientation.Vertical))
         {
             _uiElementFactory = uiElementFactory;
 
-            SetContainer(
-                new DynamicKeyedTable<DiplomacyType, IKeyedUiElement<DiplomacyType>>(
-                      uiElementFactory.GetClass(s_Container),
-                      new TableController(10f),
-                      UiSerialContainer.Orientation.Vertical,
-                      GetRange,
-                      CreateRow,
-                      Comparer<DiplomacyType>.Create((x, y) => (int)x - (int)y)));
+            Add(uiElementFactory.CreateTextButton(s_Header, header).Item1);
+
+            Options =
+                new DynamicUiCompoundComponent(
+                    new DiplomaticAgreementOptionsComponentController(),
+                    new DynamicKeyedTable<DiplomacyType, IKeyedUiElement<DiplomacyType>>(
+                          uiElementFactory.GetClass(s_Table),
+                          new TableController(10f),
+                          UiSerialContainer.Orientation.Vertical,
+                          GetRange,
+                          CreateRow,
+                          Comparer<DiplomacyType>.Create((x, y) => (int)x - (int)y)));
+            Add(Options);
         }
 
         public void SetRange(IEnumerable<DiplomacyType> range)
@@ -42,7 +55,7 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
             {
                 _range.Add(type);
             }
-            ((IDynamic)_container!).Refresh();
+            ((IDynamic)Options).Refresh();
         }
 
         private KeyedUiComponent<DiplomacyType> CreateRow(DiplomacyType diplomacyType)

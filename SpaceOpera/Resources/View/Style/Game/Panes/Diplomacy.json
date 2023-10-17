@@ -23,9 +23,24 @@
   },
   {
     "$id": "diplomacy-pane-diplomacy-side-container",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 223, 620 ]
+    }
+  },
+  {
+    "$id": "diplomacy-pane-diplomacy-side-header",
+    "Parent": "ui-element-basic",
+    "Default": {
+      "Size": [ 215, 28 ],
+      "Align": "Center"
+    }
+  },
+  {
+    "$id": "diplomacy-pane-diplomacy-side-table",
     "Parent": "ui-element",
     "Default": {
-      "Size": [ 215, 612 ],
+      "Size": [ 215, 580 ],
       "Margin": [ 4 ],
       "Padding": [ 4 ],
       "CornerRadius": [ [ 12, 12 ] ],
@@ -50,10 +65,18 @@
     }
   },
   {
+    "$id": "diplomacy-pane-diplomacy-image",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 446, 290 ],
+      "DisableScissor": true
+    }
+  },
+  {
     "$id": "diplomacy-pane-diplomacy-proposal-container",
     "Parent": "ui-element",
     "Default": {
-      "Size": [ 438, 612 ],
+      "Size": [ 438, 290 ],
       "Margin": [ 4 ],
       "Padding": [ 0, 12, 0, 12 ],
       "CornerRadius": [ [ 12, 12 ] ],
@@ -75,6 +98,14 @@
       "Size": [ 219, 28 ],
       "FontSize": 14,
       "Padding": [ 8 ]
+    }
+  },
+  {
+    "$id": "diplomacy-pane-diplomacy-submit",
+    "Parent": "ui-element-basic",
+    "Default": {
+      "Size": [ 438, 28 ],
+      "Align": "Center"
     }
   }
 ]

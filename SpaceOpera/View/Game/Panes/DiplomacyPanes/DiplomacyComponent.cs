@@ -12,6 +12,8 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
         private static readonly string s_Container = "diplomacy-pane-diplomacy-container";
         private static readonly string s_InfoContainer = "diplomacy-pane-diplomacy-info-container";
         private static readonly string s_ProposalContainer = "diplomacy-pane-diplomacy-proposal-container";
+        private static readonly string s_Image = "diplomacy-pane-diplomacy-image";
+        private static readonly string s_Submit = "diplomacy-pane-diplomacy-submit";
 
         public EventHandler<DiplomaticRelation>? Populated { get; set; }
 
@@ -19,6 +21,8 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
         public DiplomaticAgreementOptionsComponent RightOptions { get; }
         public DiplomaticAgreementSectionsComponent LeftSections { get; }
         public DiplomaticAgreementSectionsComponent RightSections { get; }
+        public IUiElement Image { get; }
+        public IUiElement Submit { get; }
 
         public DiplomacyComponent(UiElementFactory uiElementFactory)
             : base(
@@ -28,10 +32,13 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
                       new NoOpElementController<UiSerialContainer>(),
                       UiSerialContainer.Orientation.Horizontal))
         {
-            LeftOptions = new DiplomaticAgreementOptionsComponent(uiElementFactory);
-            RightOptions = new DiplomaticAgreementOptionsComponent(uiElementFactory);
+            LeftOptions = new DiplomaticAgreementOptionsComponent("We Provide", uiElementFactory);
+            RightOptions = new DiplomaticAgreementOptionsComponent("They Provide", uiElementFactory);
             LeftSections = new DiplomaticAgreementSectionsComponent(uiElementFactory);
             RightSections = new DiplomaticAgreementSectionsComponent(uiElementFactory);
+            Image =
+                new SimpleUiElement(uiElementFactory.GetClass(s_Image), new NoOpElementController<SimpleUiElement>());
+            Submit = uiElementFactory.CreateTextButton(s_Submit, "Submit").Item1;
 
             Add(LeftOptions);
             Add(
@@ -40,6 +47,7 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
                     new TableController(0f),
                     UiSerialContainer.Orientation.Vertical) 
                 { 
+                    Image,
                     new UiSerialContainer(
                         uiElementFactory.GetClass(s_ProposalContainer), 
                         new NoOpElementController<UiSerialContainer>(),
@@ -47,7 +55,8 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
                     {
                         LeftSections,
                         RightSections
-                    }
+                    },
+                    Submit
                 });
             Add(RightOptions);
         }
