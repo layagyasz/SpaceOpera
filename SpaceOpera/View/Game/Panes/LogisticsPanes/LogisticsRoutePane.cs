@@ -123,12 +123,12 @@ namespace SpaceOpera.View.Game.Panes.LogisticsPanes
             var anchorsContainer =
                 new UiSerialContainer(
                     uiElementFactory.GetClass(s_AnchorsContainer),
-                    new NoOpElementController<UiSerialContainer>(),
+                    new NoOpElementController(),
                     UiSerialContainer.Orientation.Horizontal)
                 {
                     new UiSerialContainer(
                         uiElementFactory.GetClass(s_AnchorContainer),
-                        new NoOpElementController<UiSerialContainer>(),
+                        new NoOpElementController(),
                         UiSerialContainer.Orientation.Vertical)
                     {
                         uiElementFactory.CreateTextButton(s_AnchorHeader, "Left Anchor").Item1,
@@ -136,7 +136,7 @@ namespace SpaceOpera.View.Game.Panes.LogisticsPanes
                     },
                     new UiSerialContainer(
                         uiElementFactory.GetClass(s_AnchorContainer),
-                        new NoOpElementController<UiSerialContainer>(),
+                        new NoOpElementController(),
                         UiSerialContainer.Orientation.Vertical)
                     {
                         uiElementFactory.CreateTextButton(s_AnchorHeader, "Right Anchor").Item1,
@@ -161,12 +161,12 @@ namespace SpaceOpera.View.Game.Panes.LogisticsPanes
             var materialsContainer =
                 new DynamicUiSerialContainer(
                     uiElementFactory.GetClass(s_MaterialsContainer),
-                    new NoOpElementController<UiSerialContainer>(),
+                    new NoOpElementController(),
                     UiSerialContainer.Orientation.Horizontal)
                 {
                     new DynamicUiSerialContainer(
                         uiElementFactory.GetClass(s_MaterialContainer), 
-                        new NoOpElementController<UiSerialContainer>(), 
+                        new NoOpElementController(), 
                         UiSerialContainer.Orientation.Vertical) 
                     {
                         uiElementFactory.CreateTextButton(s_MaterialHeader, "Left Materials").Item1,
@@ -174,7 +174,7 @@ namespace SpaceOpera.View.Game.Panes.LogisticsPanes
                     },
                     new DynamicUiSerialContainer(
                         uiElementFactory.GetClass(s_MaterialContainer),
-                        new NoOpElementController<UiSerialContainer>(),
+                        new NoOpElementController(),
                         UiSerialContainer.Orientation.Vertical)
                     {
                         uiElementFactory.CreateTextButton(s_MaterialHeader, "Right Materials").Item1,
@@ -199,7 +199,7 @@ namespace SpaceOpera.View.Game.Panes.LogisticsPanes
                 {
                     new DynamicUiSerialContainer(
                         uiElementFactory.GetClass(s_RouteContainer),
-                        new NoOpElementController<UiSerialContainer>(),
+                        new NoOpElementController(),
                         UiSerialContainer.Orientation.Vertical)
                     {
                         anchorsContainer,

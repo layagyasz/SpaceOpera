@@ -15,7 +15,7 @@ namespace SpaceOpera.View.Components
             : base(
                   new ActionTableController<T>(),
                   new DynamicUiSerialContainer(
-                      @class, new NoOpElementController<UiSerialContainer>(), UiSerialContainer.Orientation.Vertical))
+                      @class, new NoOpElementController(), UiSerialContainer.Orientation.Vertical))
         {
             Header = header;
             Table = new DynamicUiCompoundComponent(new RadioController<T>(), table);

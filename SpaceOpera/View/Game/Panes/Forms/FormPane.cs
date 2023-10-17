@@ -42,7 +42,7 @@ namespace SpaceOpera.View.Game.Panes.Forms
             Contents = 
                 new UiSerialContainer(
                     uiElementFactory.GetClass(s_Body),
-                    new NoOpElementController<UiSerialContainer>(),
+                    new NoOpElementController(),
                     UiSerialContainer.Orientation.Vertical);
             Submit = uiElementFactory.CreateTextButton(s_Submit, "Submit").Item1;
             SetBody(Contents);

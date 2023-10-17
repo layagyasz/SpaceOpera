@@ -10,7 +10,7 @@ using SpaceOpera.View.Icons;
 
 namespace SpaceOpera.View.Game.Panes.StellarBodyRegionPanes
 {
-    public class StructureTab : DynamicUiSerialContainer
+    public class StructureTab : DynamicUiCompoundComponent
     {
         private static readonly string s_Container = "stellar-body-region-pane-body";
 
@@ -173,9 +173,11 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyRegionPanes
 
         public StructureTab(UiElementFactory uiElementFactory, IconFactory iconFactory)
             : base(
-                  uiElementFactory.GetClass(s_Container),
-                  new StructureTabController(),
-                  Orientation.Horizontal)
+                  new StructureTabController(), 
+                  new DynamicUiSerialContainer(
+                      uiElementFactory.GetClass(s_Container),
+                      new NoOpElementController(),
+                      UiSerialContainer.Orientation.Horizontal))
         {
             _iconFactory = iconFactory;
 
@@ -194,8 +196,8 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyRegionPanes
             Add(
                 new DynamicUiSerialContainer(
                     uiElementFactory.GetClass(s_StructureContainer),
-                    new NoOpElementController<UiSerialContainer>(),
-                    Orientation.Vertical)
+                    new NoOpElementController(),
+                    UiSerialContainer.Orientation.Vertical)
                 {
                     new TextUiElement(
                         uiElementFactory.GetClass(s_StructureHeader), new ButtonController(), "Structures"),
@@ -218,8 +220,8 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyRegionPanes
             Add(
                 new DynamicUiSerialContainer(
                     uiElementFactory.GetClass(s_RecipeContainer),
-                    new NoOpElementController<UiSerialContainer>(),
-                    Orientation.Vertical)
+                    new NoOpElementController(),
+                    UiSerialContainer.Orientation.Vertical)
                 {
                     new TextUiElement(
                         uiElementFactory.GetClass(s_RecipeHeader), new ButtonController(), "Production"),

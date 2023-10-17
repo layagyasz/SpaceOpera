@@ -46,7 +46,7 @@ namespace SpaceOpera.View.Game.Panes.BattlePanes
             var wrappedOffenseTable =
                 new DynamicUiSerialContainer(
                     _uiElementFactory.GetClass(s_Side),
-                    new NoOpElementController<UiSerialContainer>(),
+                    new NoOpElementController(),
                     UiSerialContainer.Orientation.Vertical)
                 {
                     new TextUiElement(_uiElementFactory.GetClass(s_SideHeader), new ButtonController(), "Attackers"),
@@ -64,7 +64,7 @@ namespace SpaceOpera.View.Game.Panes.BattlePanes
             var wrappedDefenseTable =
                 new DynamicUiSerialContainer(
                     _uiElementFactory.GetClass(s_Side),
-                    new NoOpElementController<UiSerialContainer>(),
+                    new NoOpElementController(),
                     UiSerialContainer.Orientation.Vertical)
                 {
                     new TextUiElement(_uiElementFactory.GetClass(s_SideHeader), new ButtonController(), "Defenders"),
@@ -73,7 +73,7 @@ namespace SpaceOpera.View.Game.Panes.BattlePanes
 
             var body = new
                 DynamicUiSerialContainer(uiElementFactory.GetClass(s_Body),
-                new NoOpElementController<UiSerialContainer>(),
+                new NoOpElementController(),
                 UiSerialContainer.Orientation.Horizontal)
             {
                 wrappedOffenseTable,

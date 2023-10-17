@@ -41,7 +41,7 @@ namespace SpaceOpera.View.Game.Panes.FormationPanes
                   new FormationComponentController(),
                   new DynamicUiSerialContainer(
                       uiElementFactory.GetClass(s_Container),
-                      new NoOpElementController<UiSerialContainer>(),
+                      new NoOpElementController(),
                       UiSerialContainer.Orientation.Vertical))
         {
             Driver = driver;
@@ -56,7 +56,7 @@ namespace SpaceOpera.View.Game.Panes.FormationPanes
                     new ActionComponentController(),
                     new DynamicKeyedTable<Division, ActionRow<Division>>(
                         uiElementFactory.GetClass(s_DivisionTable),
-                        new NoOpElementController<UiSerialContainer>(),
+                        new NoOpElementController(),
                         UiSerialContainer.Orientation.Vertical,
                         GetRange,
                         CreateRow,
@@ -81,14 +81,14 @@ namespace SpaceOpera.View.Game.Panes.FormationPanes
                     _iconFactory.Create(_uiElementFactory.GetClass(s_DivisionIcon), new InlayController(), division),
                     new DynamicUiSerialContainer(
                         _uiElementFactory.GetClass(s_DivisionInfo),
-                        new NoOpElementController<UiSerialContainer>(),
+                        new NoOpElementController(),
                         UiSerialContainer.Orientation.Vertical)
                     {
                         new TextUiElement(
                             _uiElementFactory.GetClass(s_DivisionText), new InlayController(), division.Name),
                         new DynamicUiSerialContainer(
                             _uiElementFactory.GetClass(s_DivisionStatus),
-                            new NoOpElementController<UiSerialContainer>(),
+                            new NoOpElementController(),
                             UiSerialContainer.Orientation.Vertical)
                         {
                             new DynamicTextUiElement(

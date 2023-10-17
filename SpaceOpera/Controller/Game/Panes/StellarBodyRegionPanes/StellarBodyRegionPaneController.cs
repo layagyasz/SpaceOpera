@@ -12,8 +12,8 @@ namespace SpaceOpera.Controller.Game.Panes.StellarBodyRegionPanes
             base.Bind(@object);
             var pane = (StellarBodyRegionPane)_pane!;
             pane.Populated += HandlePopulated;
-            BindTab((ITabController)pane.StructureTab.Controller);
-            BindTab((ITabController)pane.ProjectTab.Controller);
+            BindTab((ITabController)pane.StructureTab.ComponentController);
+            BindTab((ITabController)pane.ProjectTab.ComponentController);
         }
 
         public override void Unbind()

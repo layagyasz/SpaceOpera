@@ -23,7 +23,7 @@ namespace SpaceOpera.View.Components
                   controller, 
                   new UiSerialContainer(
                       @class,
-                      new NoOpElementController<UiSerialContainer>(),
+                      new NoOpElementController(),
                       UiSerialContainer.Orientation.Horizontal))
         {
             Input = input;

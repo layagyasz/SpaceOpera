@@ -75,7 +75,7 @@ namespace SpaceOpera.View.Game.Panes.BattlePanes
             Add(
                 new UiSerialContainer(
                     uiElementFactory.GetClass(s_Info),
-                    new NoOpElementController<UiSerialContainer>(),
+                    new NoOpElementController(),
                     Orientation.Vertical)
                 {
                     new TextUiElement(uiElementFactory.GetClass(s_Text), new InlayController(), unit.Name),

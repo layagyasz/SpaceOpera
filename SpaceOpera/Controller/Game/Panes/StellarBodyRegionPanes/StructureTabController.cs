@@ -7,32 +7,33 @@ using SpaceOpera.View.Game.Panes.StellarBodyRegionPanes;
 
 namespace SpaceOpera.Controller.Game.Panes.StellarBodyRegionPanes
 {
-    public class StructureTabController : NoOpElementController<StructureTab>, ITabController
+    public class StructureTabController : ITabController
     {
         public EventHandler<UiInteractionEventArgs>? Interacted { get; set; }
         public EventHandler<IOrder>? OrderCreated { get; set; }
 
+        private StructureTab? _tab;
         private AutoNumericInputTableController<Structure>? _structureController;
         private AutoNumericInputTableController<Recipe>? _recipeController;
 
-        public override void Bind(object @object)
+        public void Bind(object @object)
         {
-            base.Bind(@object);
+            _tab = (StructureTab)@object;
             _structureController = 
-                (AutoNumericInputTableController<Structure>)_element!.Structures.ComponentController;
+                (AutoNumericInputTableController<Structure>)_tab!.Structures.ComponentController;
             _structureController.RowSelected += HandleStructureSelected;
-            _element!.StructureSubmit.Controller.Clicked += HandleStructureSubmitted;
+            _tab!.StructureSubmit.Controller.Clicked += HandleStructureSubmitted;
             _recipeController =
-                (AutoNumericInputTableController<Recipe>)_element!.Recipes.ComponentController;
-            _element!.RecipeSubmit.Controller.Clicked += HandleRecipeSubmitted;
+                (AutoNumericInputTableController<Recipe>)_tab!.Recipes.ComponentController;
+            _tab!.RecipeSubmit.Controller.Clicked += HandleRecipeSubmitted;
         }
 
-        public override void Unbind()
+        public void Unbind()
         {
             _structureController!.RowSelected -= HandleStructureSelected;
-            _element!.StructureSubmit.Controller.Clicked -= HandleStructureSubmitted;
-            _element!.RecipeSubmit.Controller.Clicked -= HandleRecipeSubmitted;
-            base.Unbind();
+            _tab!.StructureSubmit.Controller.Clicked -= HandleStructureSubmitted;
+            _tab!.RecipeSubmit.Controller.Clicked -= HandleRecipeSubmitted;
+            _tab = null;
         }
 
         public void Reset()
@@ -43,7 +44,7 @@ namespace SpaceOpera.Controller.Game.Panes.StellarBodyRegionPanes
 
         private void HandleStructureSelected(object? sender, Structure? e)
         {
-            _element!.SetStructure(e);
+            _tab!.SetStructure(e);
             _recipeController!.Reset();
         }
 
@@ -55,7 +56,7 @@ namespace SpaceOpera.Controller.Game.Panes.StellarBodyRegionPanes
                 _recipeController.Reset();
                 OrderCreated?.Invoke(
                     this,
-                    new AdjustProductionOrder(_element!.GetHolding()!, _structureController!.GetSelected(), deltas));
+                    new AdjustProductionOrder(_tab!.GetHolding()!, _structureController!.GetSelected(), deltas));
             }
         }
 
@@ -65,7 +66,7 @@ namespace SpaceOpera.Controller.Game.Panes.StellarBodyRegionPanes
             if (deltas.Count > 0)
             {
                 _structureController!.Reset();
-                OrderCreated?.Invoke(this, new BuildOrder(_element!.GetHolding()!, deltas));
+                OrderCreated?.Invoke(this, new BuildOrder(_tab!.GetHolding()!, deltas));
             }
         }
     }

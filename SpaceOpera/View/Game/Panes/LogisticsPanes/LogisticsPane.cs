@@ -101,7 +101,7 @@ namespace SpaceOpera.View.Game.Panes.LogisticsPanes
                             .Comparing(x => x.LeftAnchor.Parent.Name)
                             .Then(x => x.RightAnchor.Parent.Name)));
             var body =
-                new DynamicUiContainer(uiElementFactory.GetClass(s_Body), new NoOpElementController<UiContainer>())
+                new DynamicUiContainer(uiElementFactory.GetClass(s_Body), new NoOpElementController())
                 {
                     Routes
                 };

@@ -104,7 +104,7 @@ namespace SpaceOpera.View
             return new(
                 controller,
                 OverlaySet.Create(UiElementFactory, IconFactory),
-                new DynamicUiGroup(new NoOpController<UiGroup>()),
+                new DynamicUiGroup(new NoOpController()),
                 PaneSet.Create(UiElementFactory, IconFactory),
                 new DynamicUiGroup(new PaneLayerController()));
         }

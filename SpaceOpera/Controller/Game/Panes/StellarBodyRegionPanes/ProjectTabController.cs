@@ -4,24 +4,26 @@ using SpaceOpera.View.Game.Panes.StellarBodyRegionPanes;
 
 namespace SpaceOpera.Controller.Game.Panes.StellarBodyRegionPanes
 {
-    public class ProjectTabController : NoOpElementController<ProjectTab>, ITabController
+    public class ProjectTabController : ITabController
     {
         public EventHandler<UiInteractionEventArgs>? Interacted { get; set; }
         public EventHandler<IOrder>? OrderCreated { get; set; }
 
+        private ProjectTab? _tab;
         private IActionController? _projectController;
 
-        public override void Bind(object @object)
+        public void Bind(object @object)
         {
-            base.Bind(@object);
-            _projectController = (IActionController)_element!.Projects.ComponentController;
+            _tab = (ProjectTab)@object;
+            _projectController = (IActionController)_tab!.Projects.ComponentController;
             _projectController.Interacted += HandleInteraction;
         }
 
-        public override void Unbind()
+        public void Unbind()
         {
             _projectController!.Interacted -= HandleInteraction;
-            base.Unbind();
+            _projectController = null;
+            _tab = null;
         }
 
         public void Reset() { }

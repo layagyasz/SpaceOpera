@@ -140,7 +140,7 @@ namespace SpaceOpera.View.GameSetup
             var body = 
                 new UiSerialContainer(
                     uiElementFactory.GetClass(s_Body),
-                    new NoOpElementController<UiSerialContainer>(),
+                    new NoOpElementController(),
                     UiSerialContainer.Orientation.Horizontal);
 
             Banner = 
@@ -149,7 +149,7 @@ namespace SpaceOpera.View.GameSetup
             body.Add(
                 new UiSerialContainer(
                     uiElementFactory.GetClass(s_Column), 
-                    new NoOpElementController<UiSerialContainer>(),
+                    new NoOpElementController(),
                     UiSerialContainer.Orientation.Vertical)
                 {
                     Banner
@@ -166,7 +166,7 @@ namespace SpaceOpera.View.GameSetup
             body.Add(
                 new UiSerialContainer(
                     uiElementFactory.GetClass(s_Column),
-                    new NoOpElementController<UiSerialContainer>(),
+                    new NoOpElementController(),
                     UiSerialContainer.Orientation.Vertical)
                 {
                     Government,
@@ -178,7 +178,7 @@ namespace SpaceOpera.View.GameSetup
             body.Add(
                 new UiSerialContainer(
                     uiElementFactory.GetClass(s_Column),
-                    new NoOpElementController<UiSerialContainer>(),
+                    new NoOpElementController(),
                     UiSerialContainer.Orientation.Vertical)
                 {
                     Galaxy,
@@ -189,7 +189,7 @@ namespace SpaceOpera.View.GameSetup
             body.Add(
                 new UiSerialContainer(
                     uiElementFactory.GetClass(s_Column),
-                    new NoOpElementController<UiSerialContainer>(),
+                    new NoOpElementController(),
                     UiSerialContainer.Orientation.Vertical)
                 {
                     Start

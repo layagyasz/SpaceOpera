@@ -73,7 +73,7 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
             _iconFactory = iconFactory;
             var body = new
                 DynamicUiContainer(
-                    uiElementFactory.GetClass(s_Body), new NoOpElementController<UiContainer>());
+                    uiElementFactory.GetClass(s_Body), new NoOpElementController());
 
             Formations =
                 new ActionTable<IFormationDriver>(

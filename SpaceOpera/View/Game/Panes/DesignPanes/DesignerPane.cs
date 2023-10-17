@@ -56,7 +56,7 @@ namespace SpaceOpera.View.Game.Panes.DesignPanes
             var body = new 
                 UiSerialContainer(
                     uiElementFactory.GetClass(s_Body),
-                    new NoOpElementController<UiSerialContainer>(),
+                    new NoOpElementController(),
                     UiSerialContainer.Orientation.Horizontal);
 
             ComponentOptionTable =

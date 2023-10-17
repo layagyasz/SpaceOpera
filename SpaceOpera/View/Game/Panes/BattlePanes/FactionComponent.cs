@@ -26,7 +26,7 @@ namespace SpaceOpera.View.Game.Panes.BattlePanes
             Faction faction, ReportWrapper report, UiElementFactory uiElementFactory, IconFactory iconFactory)
             : base(
                 uiElementFactory.GetClass(s_Container),
-                new NoOpElementController<UiSerialContainer>(),
+                new NoOpElementController(),
                 Orientation.Vertical)
         {
             Key = faction;
@@ -46,7 +46,7 @@ namespace SpaceOpera.View.Game.Panes.BattlePanes
             var units =
                 new DynamicKeyedTable<Unit, UnitComponent>(
                     _uiElementFactory.GetClass(s_UnitTable),
-                    new NoOpElementController<UiSerialContainer>(),
+                    new NoOpElementController(),
                     Orientation.Vertical,
                     GetRange,
                     CreateRow,

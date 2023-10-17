@@ -29,7 +29,7 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
                   new DiplomacyComponentController(),
                   new UiSerialContainer(
                       uiElementFactory.GetClass(s_Container),
-                      new NoOpElementController<UiSerialContainer>(),
+                      new NoOpElementController(),
                       UiSerialContainer.Orientation.Horizontal))
         {
             LeftOptions = new DiplomaticAgreementOptionsComponent("We Provide", uiElementFactory);
@@ -37,7 +37,7 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
             LeftSections = new DiplomaticAgreementSectionsComponent(uiElementFactory);
             RightSections = new DiplomaticAgreementSectionsComponent(uiElementFactory);
             Image =
-                new SimpleUiElement(uiElementFactory.GetClass(s_Image), new NoOpElementController<SimpleUiElement>());
+                new SimpleUiElement(uiElementFactory.GetClass(s_Image), new NoOpElementController());
             Submit = uiElementFactory.CreateTextButton(s_Submit, "Submit").Item1;
 
             Add(LeftOptions);
@@ -50,7 +50,7 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
                     Image,
                     new UiSerialContainer(
                         uiElementFactory.GetClass(s_ProposalContainer), 
-                        new NoOpElementController<UiSerialContainer>(),
+                        new NoOpElementController(),
                         UiSerialContainer.Orientation.Horizontal)
                     {
                         LeftSections,

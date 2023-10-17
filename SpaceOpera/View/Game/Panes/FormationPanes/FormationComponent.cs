@@ -49,7 +49,7 @@ namespace SpaceOpera.View.Game.Panes.FormationPanes
                   new FormationComponentController(), 
                   new DynamicUiSerialContainer(
                       uiElementFactory.GetClass(s_Container),
-                      new NoOpElementController<UiSerialContainer>(),
+                      new NoOpElementController(),
                       UiSerialContainer.Orientation.Vertical))
         {
             Driver = driver;
@@ -64,7 +64,7 @@ namespace SpaceOpera.View.Game.Panes.FormationPanes
                     new ActionComponentController(),
                     new DynamicKeyedTable<UnitGrouping, ActionRow<UnitGrouping>>(
                         uiElementFactory.GetClass(s_UnitGroupingTable),
-                        new NoOpElementController<UiSerialContainer>(),
+                        new NoOpElementController(),
                         UiSerialContainer.Orientation.Vertical,
                         GetRange,
                         CreateRow,
@@ -90,12 +90,12 @@ namespace SpaceOpera.View.Game.Panes.FormationPanes
                         _uiElementFactory.GetClass(s_UnitGroupingIcon), new InlayController(), unitGrouping),
                     new DynamicUiSerialContainer(
                         _uiElementFactory.GetClass(s_UnitGroupingInfo),
-                        new NoOpElementController<UiSerialContainer>(),
+                        new NoOpElementController(),
                         UiSerialContainer.Orientation.Vertical)
                     {
                         new DynamicUiSerialContainer(
                             _uiElementFactory.GetClass(s_UnitGroupingTextContainer),
-                            new NoOpElementController<UiSerialContainer>(), 
+                            new NoOpElementController(), 
                             UiSerialContainer.Orientation.Horizontal)
                         {
                             new TextUiElement(
@@ -109,7 +109,7 @@ namespace SpaceOpera.View.Game.Panes.FormationPanes
                         },
                         new DynamicUiSerialContainer(
                             _uiElementFactory.GetClass(s_UnitGroupingStatus),
-                            new NoOpElementController<UiSerialContainer>(), 
+                            new NoOpElementController(), 
                             UiSerialContainer.Orientation.Vertical)
                         {
                             new DynamicTextUiElement(

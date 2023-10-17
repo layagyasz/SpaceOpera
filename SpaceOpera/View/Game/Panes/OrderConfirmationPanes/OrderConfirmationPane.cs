@@ -45,7 +45,7 @@ namespace SpaceOpera.View.Game.Panes.OrderConfirmationPanes
             SetBody(
                 new UiSerialContainer(
                     uiElementFactory.GetClass(s_BodyClass),
-                    new NoOpElementController<UiSerialContainer>(),
+                    new NoOpElementController(),
                     UiSerialContainer.Orientation.Vertical) 
                 { 
                     _info,

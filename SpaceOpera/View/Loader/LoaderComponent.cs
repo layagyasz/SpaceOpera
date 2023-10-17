@@ -17,10 +17,10 @@ namespace SpaceOpera.View.Loader
 
         public LoaderComponent(UiElementFactory uiElementFactory, LoaderStatus loaderStatus)
             : base(
-                  new NoOpController<UiCompoundComponent>(),
+                  new NoOpController(),
                   new DynamicUiSerialContainer(
                       uiElementFactory.GetClass(s_Container),
-                      new NoOpElementController<UiSerialContainer>(),
+                      new NoOpElementController(),
                       UiSerialContainer.Orientation.Vertical))
         {
             Status = loaderStatus;

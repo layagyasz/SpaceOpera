@@ -46,7 +46,7 @@ namespace SpaceOpera.View.Game.Overlay.StarSystemOverlays
                     new ActionComponentController(),
                     new DynamicUiSerialContainer(
                         uiElementFactory.GetClass(s_TableContainer),
-                        new NoOpElementController<UiSerialContainer>(),
+                        new NoOpElementController(),
                         UiSerialContainer.Orientation.Vertical)
                     {
                         new DynamicTextUiElement(

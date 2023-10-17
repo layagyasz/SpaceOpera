@@ -32,7 +32,7 @@ namespace SpaceOpera.View.GameSetup
                 new PoliticsComponentController(random),
                 new UiSerialContainer(
                     uiElementFactory.GetClass(style.Container!),
-                new NoOpElementController<UiSerialContainer>(),
+                new NoOpElementController(),
                         UiSerialContainer.Orientation.Vertical))
         {
             Randomize = new SimpleUiElement(uiElementFactory.GetClass(style.Randomize!), new ButtonController());
@@ -47,7 +47,7 @@ namespace SpaceOpera.View.GameSetup
             Add(
                 new UiSerialContainer(
                     uiElementFactory.GetClass(style.SectionHeaderContainer!),
-                    new NoOpElementController<UiSerialContainer>(),
+                    new NoOpElementController(),
                     UiSerialContainer.Orientation.Horizontal)
                 {
                     new TextUiElement(

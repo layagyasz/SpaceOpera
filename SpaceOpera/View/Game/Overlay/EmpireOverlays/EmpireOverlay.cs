@@ -47,7 +47,7 @@ namespace SpaceOpera.View.Game.Overlay.EmpireOverlays
                     new ActionComponentController(),
                     new DynamicUiSerialContainer(
                         uiElementFactory.GetClass(s_TableContainer),
-                        new NoOpElementController<UiSerialContainer>(),
+                        new NoOpElementController(),
                         UiSerialContainer.Orientation.Vertical)
                     {
                         new TextUiElement(
@@ -70,7 +70,7 @@ namespace SpaceOpera.View.Game.Overlay.EmpireOverlays
                     new ActionComponentController(),
                     new DynamicUiSerialContainer(
                         uiElementFactory.GetClass(s_TableContainer),
-                        new NoOpElementController<UiSerialContainer>(),
+                        new NoOpElementController(),
                         UiSerialContainer.Orientation.Vertical)
                     {
                         new TextUiElement(
@@ -93,7 +93,7 @@ namespace SpaceOpera.View.Game.Overlay.EmpireOverlays
                     new ActionComponentController(),
                     new DynamicUiSerialContainer(
                         uiElementFactory.GetClass(s_TableContainer),
-                        new NoOpElementController<UiSerialContainer>(),
+                        new NoOpElementController(),
                         UiSerialContainer.Orientation.Vertical)
                     {
                         new TextUiElement(

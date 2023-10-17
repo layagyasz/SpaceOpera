@@ -58,7 +58,7 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
 
             var body = new
                 DynamicUiContainer(
-                    uiElementFactory.GetClass(s_Body), new NoOpElementController<UiContainer>());
+                    uiElementFactory.GetClass(s_Body), new NoOpElementController());
 
             Relations =
                 new DynamicUiCompoundComponent(

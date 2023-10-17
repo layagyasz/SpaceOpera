@@ -29,7 +29,7 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
                   new DiplomaticAgreementOptionsComponentController(), 
                   new UiSerialContainer(
                       uiElementFactory.GetClass(s_Container), 
-                      new NoOpElementController<UiSerialContainer>(),
+                      new NoOpElementController(),
                       UiSerialContainer.Orientation.Vertical))
         {
             _uiElementFactory = uiElementFactory;

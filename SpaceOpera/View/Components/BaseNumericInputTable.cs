@@ -37,7 +37,7 @@ namespace SpaceOpera.View.Components
                   controller,
                   new DynamicUiSerialContainer(
                       uiElementFactory.GetClass(style.Container!),
-                      new NoOpElementController<DynamicUiSerialContainer>(),
+                      new NoOpElementController(),
                       UiSerialContainer.Orientation.Vertical))
         {
             _style = style;

@@ -121,7 +121,7 @@ namespace SpaceOpera.View.Game.Panes.DesignPanes
             var body = 
                 new DynamicUiSerialContainer(
                     uiElementFactory.GetClass(s_Body),
-                    new NoOpElementController<UiSerialContainer>(), 
+                    new NoOpElementController(), 
                     UiSerialContainer.Orientation.Horizontal)
                 {
                     Designs,

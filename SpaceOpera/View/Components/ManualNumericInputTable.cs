@@ -45,7 +45,7 @@ namespace SpaceOpera.View.Components
             Add(
                 new UiSerialContainer(
                     uiElementFactory.GetClass(style.SelectWrapper!),
-                    new NoOpElementController<UiSerialContainer>(),
+                    new NoOpElementController(),
                     UiSerialContainer.Orientation.Horizontal)
                 {
                     Select,

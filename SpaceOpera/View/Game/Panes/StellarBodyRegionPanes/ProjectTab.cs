@@ -9,7 +9,7 @@ using SpaceOpera.View.Icons;
 
 namespace SpaceOpera.View.Game.Panes.StellarBodyRegionPanes
 {
-    public class ProjectTab : DynamicUiSerialContainer
+    public class ProjectTab : DynamicUiCompoundComponent
     {
         private static readonly string s_Container = "stellar-body-region-pane-body";
 
@@ -45,9 +45,11 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyRegionPanes
 
         public ProjectTab(UiElementFactory uiElementFactory, IconFactory iconFactory)
             : base(
-                uiElementFactory.GetClass(s_Container),
-                new ProjectTabController(),
-                Orientation.Horizontal)
+                  new ProjectTabController(), 
+                  new DynamicUiSerialContainer(
+                      uiElementFactory.GetClass(s_Container),
+                      new NoOpElementController(),
+                      UiSerialContainer.Orientation.Horizontal))
         {
             _uiElementFactory = uiElementFactory;
             _iconFactory = iconFactory;
@@ -58,7 +60,7 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyRegionPanes
                     new DynamicKeyedTable<IProject, ActionRow<IProject>>(
                         uiElementFactory.GetClass(s_ProjectTable),
                         new TableController(10f),
-                        Orientation.Vertical,
+                        UiSerialContainer.Orientation.Vertical,
                         GetRange,
                         CreateRow,
                         Comparer<IProject>.Create(
@@ -83,15 +85,15 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyRegionPanes
                     _iconFactory.Create(_uiElementFactory.GetClass(s_Icon), new InlayController(), project.Key),
                     new DynamicUiSerialContainer(
                         _uiElementFactory.GetClass(s_Info),
-                        new NoOpElementController<UiSerialContainer>(),
-                        Orientation.Vertical)
+                        new NoOpElementController(),
+                        UiSerialContainer.Orientation.Vertical)
                     {
                         new TextUiElement(
                             _uiElementFactory.GetClass(s_Text), new InlayController(), project.Name),
                         new DynamicUiSerialContainer(
                             _uiElementFactory.GetClass(s_Status),
-                            new NoOpElementController<UiSerialContainer>(),
-                            Orientation.Vertical)
+                            new NoOpElementController(),
+                            UiSerialContainer.Orientation.Vertical)
                         {
                             new DynamicTextUiElement(
                                 _uiElementFactory.GetClass(s_StatusText),

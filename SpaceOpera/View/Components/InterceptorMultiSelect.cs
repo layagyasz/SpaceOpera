@@ -31,7 +31,7 @@ namespace SpaceOpera.View.Components
                   new InterceptorMultiSelectController<T>(), 
                   new DynamicUiSerialContainer(
                       uiElementFactory.GetClass(style.Container!), 
-                      new NoOpElementController<UiSerialContainer>(), 
+                      new NoOpElementController(), 
                       UiSerialContainer.Orientation.Vertical))
         {
             Table = 
@@ -39,7 +39,7 @@ namespace SpaceOpera.View.Components
                     new ActionComponentController(), 
                     new DynamicKeyedTable<T, ActionRow<T>>(
                         uiElementFactory.GetClass(style.Table!),
-                        new NoOpElementController<UiSerialContainer>(),
+                        new NoOpElementController(),
                         UiSerialContainer.Orientation.Vertical,
                         GetRange, 
                         rowFn, 
