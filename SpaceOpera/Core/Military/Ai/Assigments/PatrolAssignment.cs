@@ -112,7 +112,7 @@ namespace SpaceOpera.Core.Military.Ai.Assigments
                     targetBuffer.Recompute().Check(
                         (x, y) =>
                             y.Driver.AtomicFormation.Position == x.Position
-                            && y.World.GetIntelligenceFor(y.Driver.Formation.Faction).FleetIntelligence.IsSpotted(x))
+                            && y.World.Intelligence.Get(y.Driver.Formation.Faction).FleetIntelligence.IsSpotted(x))
                         .Transform(EngageAction.Create),
                     targetBuffer.Check(
                         (x, y) => y.Driver.AtomicFormation.Position == x.Position).Transform(SpotAction.Create),

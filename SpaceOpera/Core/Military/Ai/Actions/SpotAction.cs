@@ -27,7 +27,7 @@ namespace SpaceOpera.Core.Military.Ai.Actions
 
         public ActionStatus Progress(AtomicFormationDriver driver, World world)
         {
-            world.GetIntelligenceFor(driver.AtomicFormation.Faction).FleetIntelligence.Spot(Target, .5);
+            world.Intelligence.Get(driver.AtomicFormation.Faction).FleetIntelligence.Spot(Target, .5);
             return ActionStatus.InProgress;
         }
 

@@ -1,6 +1,6 @@
-﻿namespace SpaceOpera.Core.Politics
+﻿namespace SpaceOpera.Core.Military.Intelligence
 {
-    public class Intelligence
+    public class FactionIntelligence
     {
         public FormationIntelligence FleetIntelligence { get; } = new();
     }

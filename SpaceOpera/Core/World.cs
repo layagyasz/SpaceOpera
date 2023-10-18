@@ -7,6 +7,7 @@ using SpaceOpera.Core.Events;
 using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Military.Battles;
 using SpaceOpera.Core.Military.Fronts;
+using SpaceOpera.Core.Military.Intelligence;
 using SpaceOpera.Core.Orders;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Politics.Cultures;
@@ -21,21 +22,23 @@ namespace SpaceOpera.Core
         public StarCalendar Calendar { get; }
         public Galaxy Galaxy { get; }
         public NavigationMap NavigationMap { get; }
-        public DiplomaticRelationGraph DiplomaticRelations { get; } = new();
+
         public AdvancementManager AdvancementManager { get; } = new();
+        public BattleManager BattleManager { get; }
+        public DiplomaticRelationGraph DiplomaticRelations { get; } = new();
         public Economy Economy { get; }
         public EconomyGraph EconomyGraph { get; } = new();
         public EventManager EventManager { get; } = new();
         public FormationManager FormationManager { get; } = new();
-        public BattleManager BattleManager { get; }
+        public IntelligenceManager Intelligence { get; } = new();
         public FrontManager FrontManager { get; }
         public ProjectManager ProjectManager { get; } = new();
+
         public DesignBuilder DesignBuilder { get; }
         public AutoDesigner AutoDesigner { get; }
 
         private readonly List<Culture> _cultures = new();
         private readonly List<Faction> _factions = new();
-        private readonly Dictionary<Faction, Intelligence> _intelligence = new();
 
         private readonly List<Design> _designs = new();
         private readonly List<DesignLicense> _designLicenses = new();
@@ -52,11 +55,13 @@ namespace SpaceOpera.Core
             Random = random;
             Galaxy = galaxy;
             NavigationMap = navigationMap;
+
             AdvancementManager = new();
+            BattleManager = new(DiplomaticRelations);
             Economy = new(AdvancementManager, FormationManager, coreData.MaterialSink!);
             EconomyGraph.AddRecipes(coreData.Recipes.Values);
-            BattleManager = new(DiplomaticRelations);
             FrontManager = FrontManager.Create(galaxy);
+
             DesignBuilder = new(new ComponentClassifier(coreData.ComponentClassifiers));
             AutoDesigner = new(coreData.DesignTemplates.Values);
         }
@@ -107,7 +112,7 @@ namespace SpaceOpera.Core
             foreach (var faction in factions)
             {
                 AdvancementManager.Add(faction);
-                _intelligence.Add(faction, new());
+                Intelligence.Add(faction);
             }
         }
 
@@ -148,11 +153,6 @@ namespace SpaceOpera.Core
         public IEnumerable<Faction> GetFactions()
         {
             return _factions;
-        }
-
-        public Intelligence GetIntelligenceFor(Faction faction)
-        {
-            return _intelligence[faction];
         }
 
         public IEnumerable<IAdvancement> GetResearchableAdvancementsFor(Faction faction)

@@ -1,6 +1,4 @@
-using SpaceOpera.Core.Military;
-
-namespace SpaceOpera.Core.Politics
+namespace SpaceOpera.Core.Military.Intelligence
 {
     public class FormationIntelligence
     {
