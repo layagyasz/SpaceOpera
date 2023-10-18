@@ -3,6 +3,7 @@ using SpaceOpera.Core.Advancement;
 using SpaceOpera.Core.Designs;
 using SpaceOpera.Core.Economics;
 using SpaceOpera.Core.Economics.Projects;
+using SpaceOpera.Core.Events;
 using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Military.Battles;
 using SpaceOpera.Core.Military.Fronts;
@@ -24,6 +25,7 @@ namespace SpaceOpera.Core
         public AdvancementManager AdvancementManager { get; } = new();
         public Economy Economy { get; }
         public EconomyGraph EconomyGraph { get; } = new();
+        public EventManager EventManager { get; } = new();
         public FormationManager FormationManager { get; } = new();
         public BattleManager BattleManager { get; }
         public FrontManager FrontManager { get; }

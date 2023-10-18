@@ -81,8 +81,26 @@ namespace SpaceOpera.Core.Politics.Diplomacy
             return GetSections(faction).SelectMany(x => x.TypesToCancel).ToEnumSet();
         }
 
+        public Builder ToBuilder()
+        {
+            var builder = new Builder().SetProposer(Proposer).SetApprover(Approver);
+            foreach (var section in Left)
+            {
+                builder.AddLeft(section);
+            }
+            foreach (var section in Right)
+            {
+                builder.AddRight(section);
+            }
+            return builder;
+        }
+
         public bool Validate(World world)
         {
+            if (Left.IsEmpty && Right.IsEmpty)
+            {
+                return false;
+            }
             if (!Validate(Left) || !Validate(Right))
             {
                 return false;
@@ -186,7 +204,6 @@ namespace SpaceOpera.Core.Politics.Diplomacy
         private static bool Validate(IList<IDiplomaticAgreementSection> sections)
         {
             var typesToCancel = sections.SelectMany(x => x.TypesToCancel).ToEnumSet();
-            var typesToPrevent = sections.SelectMany(x => x.TypesToBlock).ToEnumSet();
             foreach (var section in sections)
             {
                 // Only allow one unilateral declaration at a time.
@@ -200,7 +217,7 @@ namespace SpaceOpera.Core.Politics.Diplomacy
                     return false;
                 }
                 // Sections cannot block each other.
-                if (typesToPrevent.Contains(section.Type))
+                if (sections.Any(x => x.Type != section.Type && x.TypesToBlock.Contains(section.Type)))
                 {
                     return false;
                 }
