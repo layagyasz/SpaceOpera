@@ -31,7 +31,7 @@ namespace SpaceOpera.View.Game.Panes
                     new TextUiElement(
                         tabOptionClass, new OptionElementController<object>(definition.Key!), definition.Text));
             }
-            return new UiCompoundComponent(new RadioController<object>(), container);
+            return new UiCompoundComponent(new RadioController<object>(definitions.First().Key), container);
         }
     }
 }

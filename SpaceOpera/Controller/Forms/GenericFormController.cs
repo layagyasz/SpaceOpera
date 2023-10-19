@@ -8,7 +8,14 @@ namespace SpaceOpera.Controller.Forms
         public EventHandler<EventArgs>? Canceled { get; set; }
         public EventHandler<EventArgs>? ValueChanged { get; set; }
 
+        private readonly Dictionary<string, object> _hiddens;
+
         private Form? _form;
+
+        public GenericFormController(Dictionary<string, object> hiddens)
+        {
+            _hiddens = hiddens;
+        }
 
         public void Bind(object @object)
         {
@@ -37,6 +44,10 @@ namespace SpaceOpera.Controller.Forms
             {
                 var controller = (IGenericFormFieldController)field.Value.ComponentController;
                 result.Add(field.Key, controller.Get());
+            }
+            foreach (var hidden in _hiddens)
+            {
+                result.Add(hidden.Key, hidden.Value);
             }
             return result;
         }

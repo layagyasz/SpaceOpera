@@ -53,5 +53,79 @@
       "Padding": [ 4 ],
       "FontSize": 12
     }
+  },
+  {
+    "$id": "form-pane-dial",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 176, 32 ],
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "form-pane-dial-text",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 112, 32 ],
+      "Padding": [ 8 ],
+      "Align": "Center"
+    }
+  },
+  {
+    "$id": "form-pane-dial-left-button",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 32, 32 ],
+      "Align": "Center",
+      "VerticalAlign": "Center"
+    }
+  },
+  {
+    "$id": "form-pane-dial-right-button",
+    "Parent": "form-pane-dial-left-button"
+  },
+  {
+    "$id": "form-pane-select",
+    "Parent": "ui-element",
+    "Default": {
+      "Size": [ 176, 32 ],
+      "Padding": [ 8 ],
+      "BorderWidth": [ 1, 0, 0, 0 ]
+    }
+  },
+  {
+    "$id": "form-pane-select-option-container",
+    "Parent": "form-pane-select",
+    "Default": {
+      "Size": [
+        172,
+        [ "DynamicContents", 0, 512 ]
+      ],
+      "Padding": [ 0 ]
+    }
+  },
+  {
+    "$id": "form-pane-select-option",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 176, 32 ],
+      "Padding": [ 8 ]
+    }
+  },
+  {
+    "$id": "form-pane-radio",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 176, "DynamicContents" ],
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "form-pane-radio-option",
+    "Parent": "ui-element-basic",
+    "Default": {
+      "Size": [ 172, 28 ],
+      "Align": "Center"
+    }
   }
 ]

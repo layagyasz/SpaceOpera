@@ -32,16 +32,32 @@ namespace SpaceOpera.Controller.Game.Panes.Forms
             _promise = null;
         }
 
+        public void Submit()
+        {
+            _form!.ValueChanged -= HandleValueChanged;
+            _form = null;
+            _promise!.Set(_form!.GetValue());
+            Close();
+        }
+
         private void HandlePopulate(object? sender, EventArgs e)
         {
             _form = (GenericFormController)((FormPane)_pane!).GetForm().ComponentController;
+            _form.ValueChanged += HandleValueChanged;
             _promise = ((FormPane)_pane!).GetPromise();
         }
 
         private void HandleSubmit(object? sender, MouseButtonClickEventArgs e)
         {
-            _promise!.Set(_form!.GetValue());
-            Close();
+            Submit();
+        }
+
+        private void HandleValueChanged(object? sender, EventArgs e)
+        {
+            if (((FormPane)_pane!).GetForm().AutoSubmit)
+            {
+                Submit();
+            }
         }
     }
 }

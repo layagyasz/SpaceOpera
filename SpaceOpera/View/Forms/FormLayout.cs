@@ -2,35 +2,66 @@
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
 using SpaceOpera.Controller.Forms;
-using System.Collections.Immutable;
 
 namespace SpaceOpera.View.Forms
 {
     public class FormLayout
     {
-        private record class FieldDefinition(string Id, string Name, IFieldLayout Layout);
-
         public class Builder
         {
-            private readonly List<FieldDefinition> _fields = new();
+            private readonly Dictionary<string, object> _hiddens = new();
+            private readonly List<IFieldLayout.IBuilder> _fields = new();
+            private bool _autoSubmit;
 
-            public Builder Add(string id, string name, IFieldLayout field)
+            public SelectorFieldLayout.Builder AddSelector(SelectorFieldLayout.SelectorType selectorType)
             {
-                _fields.Add(new(id,name, field));
+                var layout = new SelectorFieldLayout.Builder(this).SetSelectorType(selectorType);
+                _fields.Add(layout);
+                return layout;
+            }
+
+            public SelectorFieldLayout.Builder AddDropDown()
+            {
+                return AddSelector(SelectorFieldLayout.SelectorType.DropDown);
+            }
+
+            public SelectorFieldLayout.Builder AddDial()
+            {
+                return AddSelector(SelectorFieldLayout.SelectorType.Dial);
+            }
+
+            public Builder AddHidden(string id, object value)
+            {
+                _hiddens.Add(id, value);
+                return this;
+            }
+
+            public SelectorFieldLayout.Builder AddRadio()
+            {
+                return AddSelector(SelectorFieldLayout.SelectorType.Radio);
+            }
+
+            public Builder AutoSubmit()
+            {
+                _autoSubmit = true;
                 return this;
             }
 
             public FormLayout Build()
             {
-                return new(_fields);
+                return new(_hiddens, _fields.Select(x => x.Build()).ToList(), _autoSubmit);
             }
         }
 
-        private readonly ImmutableList<FieldDefinition> _fields;
+        private readonly Dictionary<string, object> _hiddens;
+        private readonly List<IFieldLayout> _fields;
+        private readonly bool _autoSubmit;
 
-        private FormLayout(IEnumerable<FieldDefinition> fields)
+        private FormLayout(Dictionary<string, object> hiddens, List<IFieldLayout> fields, bool autoSubmit)
         {
-            _fields = fields.ToImmutableList();
+            _hiddens = hiddens;
+            _fields = fields;
+            _autoSubmit = autoSubmit;
         }
 
         public Form CreateForm(Form.Style style, UiElementFactory uiElementFactory)
@@ -48,14 +79,14 @@ namespace SpaceOpera.View.Forms
                     container.Add(uiElementFactory.CreateTextButton(style.FieldHeader!, field.Name).Item1);
                 }
 
-                var f = field.Layout.CreateField(style, uiElementFactory);
+                var f = field.CreateField(style, uiElementFactory);
                 container.Add(f);
                 if (f is IUiComponent)
                 {
                     fields.Add(field.Id, f);
                 }
             }
-            return new(new GenericFormController(), container, fields);
+            return new(new GenericFormController(_hiddens), container, fields, _autoSubmit);
         }
     }
 }

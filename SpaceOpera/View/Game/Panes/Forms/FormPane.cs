@@ -17,10 +17,31 @@ namespace SpaceOpera.View.Game.Panes.Forms
         private static readonly string s_Submit = "form-pane-submit";
 
         private static readonly Form.Style s_Style =
-            new() 
+            new()
             {
-                Container = "form-pane-form-container", 
-                FieldHeader = "form-pane-form-field-header"
+                Container = "form-pane-form-container",
+                FieldHeader = "form-pane-form-field-header",
+                DropDown =
+                    new()
+                    {
+                        Root = "form-pane-select",
+                        OptionContainer = "form-pane-select-option-container",
+                        Option = "form-pane-select-option"
+                    },
+                Dial =
+                    new()
+                    {
+                        Container = "form-pane-dial",
+                        Text = "form-pane-dial-text",
+                        LeftButton = "form-pane-dial-left-button",
+                        RightButton = "form-pane-dial-right-button"
+                    },
+                Radio = 
+                    new()
+                    {
+                        Container = "form-pane-radio",
+                        Option = "form-pane-radio-option"
+                    }
             };
 
         public UiSerialContainer Contents { get; }

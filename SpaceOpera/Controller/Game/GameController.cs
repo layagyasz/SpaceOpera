@@ -83,8 +83,6 @@ namespace SpaceOpera.Controller.Game
                     paneController.PopupCreated += HandlePopup;
                 }
             }
-
-            _screen.OverlaySet.Game.Calendar.SetGameSpeed(ActionId.GameSpeedNormal);
         }
 
         public void Unbind()
