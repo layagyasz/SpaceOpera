@@ -37,6 +37,8 @@ namespace SpaceOpera.Core
         public DesignBuilder DesignBuilder { get; }
         public AutoDesigner AutoDesigner { get; }
 
+        public PlayerManager PlayerManager { get; } = new();
+
         private readonly List<Culture> _cultures = new();
         private readonly List<Faction> _factions = new();
 
@@ -105,14 +107,21 @@ namespace SpaceOpera.Core
             _cultures.AddRange(cultures);
         }
 
-        public void AddAllFactions(IEnumerable<Faction> factions)
+        public void AddAllFactions(Faction playerFaction, IEnumerable<Faction> factions)
         {
+            _factions.Add(playerFaction);
+            AdvancementManager.Add(playerFaction);
+            DiplomaticRelations.Add(playerFaction);
+            Intelligence.Add(playerFaction);
+            PlayerManager.Add(playerFaction, /* isHuman= */ true);
+
             _factions.AddRange(factions);
-            DiplomaticRelations.AddAllFactions(factions);
             foreach (var faction in factions)
             {
                 AdvancementManager.Add(faction);
+                DiplomaticRelations.Add(faction);
                 Intelligence.Add(faction);
+                PlayerManager.Add(faction, /* isHuman= */ false);
             }
         }
 

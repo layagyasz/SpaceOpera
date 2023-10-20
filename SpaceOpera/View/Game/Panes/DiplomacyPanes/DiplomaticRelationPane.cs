@@ -102,7 +102,10 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
                     new DynamicTextUiElement(
                         _uiElementFactory.GetClass(s_Approval), 
                         new InlayController(),
-                        () => relation.GetApproval().Result.ToString("N0"))
+                        () => _world?.PlayerManager
+                            .Get(relation.Faction)
+                            .GetApproval(relation.Target)?.Result
+                            .ToString("N0") ?? "0")
                 },
                 s_RelationActions);
         }

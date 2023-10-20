@@ -79,11 +79,6 @@ namespace SpaceOpera.Controller.Forms
             }
         }
 
-        public void Cancel()
-        {
-            Canceled?.Invoke(this, EventArgs.Empty);
-        }
-
         private void HandleValueChanged(object? sender, EventArgs e)
         {
             ValueChanged?.Invoke(sender, e);

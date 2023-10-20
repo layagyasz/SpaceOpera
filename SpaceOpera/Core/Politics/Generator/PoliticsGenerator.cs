@@ -161,7 +161,6 @@ namespace SpaceOpera.Core.Politics.Generator
 
             var states = new List<FactionWrapper>();
             var playerStateWrapper = new FactionWrapper(playerFaction, playerHomeRegion);
-            states.Add(playerStateWrapper);
             context.LoaderStatus!.DoWork(WorldGenerator.Step.States);
 
             var closedRegions = new HashSet<RegionWrapper>
@@ -195,7 +194,8 @@ namespace SpaceOpera.Core.Politics.Generator
                             homeRegion.CultureWeights.ArgMax(x => x.Value).Key, banners[i], context), homeRegion);
                 states.Add(stateWrapper);
             }
-            world.AddAllFactions(states.Select(x => x.Faction));
+            world.AddAllFactions(playerStateWrapper.Faction, states.Select(x => x.Faction));
+            states.Add(playerStateWrapper);
 
             context.LoaderStatus!.AddWork(WorldGenerator.Step.States, parameters.States + 1);
             context.LoaderStatus!.SetStatus(WorldGenerator.Step.States, "Placing States");

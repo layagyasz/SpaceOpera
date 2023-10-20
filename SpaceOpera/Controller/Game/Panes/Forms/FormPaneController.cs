@@ -28,6 +28,7 @@ namespace SpaceOpera.Controller.Game.Panes.Forms
         public override void Close()
         {
             base.Close();
+            _form = null;
             _promise?.Cancel();
             _promise = null;
         }
@@ -42,6 +43,7 @@ namespace SpaceOpera.Controller.Game.Panes.Forms
 
         private void HandlePopulate(object? sender, EventArgs e)
         {
+            _promise?.Cancel();
             _form = (GenericFormController)((FormPane)_pane!).GetForm().ComponentController;
             _form.ValueChanged += HandleValueChanged;
             _promise = ((FormPane)_pane!).GetPromise();

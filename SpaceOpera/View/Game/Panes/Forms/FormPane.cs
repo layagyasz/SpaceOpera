@@ -92,6 +92,7 @@ namespace SpaceOpera.View.Game.Panes.Forms
             _form = layout.CreateForm(s_Style, _uiElementFactory);
             _promise = (Promise<FormValue>)args[2]!;
             Contents.Insert(0, _form);
+            Submit.Visible = !_form.AutoSubmit;
             Populated?.Invoke(this, EventArgs.Empty);
         }
     }

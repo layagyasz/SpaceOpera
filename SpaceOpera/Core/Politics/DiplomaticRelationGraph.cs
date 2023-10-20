@@ -8,7 +8,7 @@ namespace SpaceOpera.Core.Politics
         private readonly List<Faction> _factions = new();
         private readonly Dictionary<CompositeKey<Faction, Faction>, DiplomaticRelation> _relations = new();
 
-        public void AddFaction(Faction newFaction)
+        public void Add(Faction newFaction)
         {
             foreach (var target in _factions)
             {
@@ -20,14 +20,6 @@ namespace SpaceOpera.Core.Politics
                     new DiplomaticRelation(newFaction, target));
             }
             _factions.Add(newFaction);
-        }
-
-        public void AddAllFactions(IEnumerable<Faction> factions)
-        {
-            foreach (var faction in factions)
-            {
-                AddFaction(faction);
-            }
         }
 
         public void Apply(World world, DiplomaticAgreement agreement)
