@@ -4,6 +4,7 @@
     {
         Unknown,
         Empire,
+        Event,
         Game,
         StarSystem
     }

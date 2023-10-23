@@ -1,0 +1,73 @@
+[
+  {
+    "$id": "event-overlay-container",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ "DynamicContents", 44 ],
+      "Margin": [ 8 ],
+      "Padding": [ 2 ]
+    }
+  },
+  {
+    "$id": "event-overlay-list",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ "DynamicContents", 42 ]
+    }
+  },
+  {
+    "$id": "event-overlay-event-container",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 42, 42 ]
+    }
+  },
+  {
+    "$id": "event-overlay-event",
+    "Parent": "ui-element",
+    "Default": {
+      "Size": [ 40, 40 ],
+      "Margin": [ 2 ],
+      "BorderWidth": [ 2 ],
+      "CornerRadius": [
+        [ 20, 20 ]
+      ]
+    }
+  },
+  {
+    "$id": "event-overlay-event-peace",
+    "Parent": "event-overlay-event",
+    "Default": {
+      "ForegroundColor": "#ffffffcc",
+      "BorderColor": [ "#ffffffcc" ],
+      "Texture": "icon-peace"
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "ForegroundColor": "#ffffff",
+          "BorderColor": [ "#ffffff" ]
+        }
+      }
+    ]
+  },
+  {
+    "$id": "event-overlay-event-war",
+    "Parent": "event-overlay-event",
+    "Default": {
+      "ForegroundColor": "#ff0000cc",
+      "BorderColor": [ "#ff0000cc" ],
+      "Texture": "icon-war"
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "ForegroundColor": "#ff0000",
+          "BorderColor": [ "#ff0000" ]
+        }
+      }
+    ]
+  }
+]

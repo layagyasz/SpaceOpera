@@ -17,5 +17,10 @@ namespace SpaceOpera.Core.Events
             @event.Decide(decisionId, world);
             _events.Remove(@event.Faction, @event);
         }
+
+        public IEnumerable<IEvent> Get(Faction faction)
+        {
+            return _events[faction];
+        }
     }
 }

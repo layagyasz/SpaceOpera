@@ -11,9 +11,17 @@ namespace SpaceOpera.Controller.Components
         public EventHandler<UiInteractionEventArgs>? Interacted { get; set; }
         public EventHandler<EventArgs>? Selected { get; set; }
 
+        public object? Object { get; }
         public ActionId Key { get; }
 
+        public ActionButtonController(object? @object, ActionId id)
+        {
+            Object = @object;
+            Key = id;
+        }
+
         public ActionButtonController(ActionId id)
+            : this(null, id)
         {
             Key = id;
         }
@@ -27,7 +35,10 @@ namespace SpaceOpera.Controller.Components
         {
             if (e.Button == MouseButton.Left)
             {
-                Interacted?.Invoke(this, UiInteractionEventArgs.Create(Enumerable.Empty<object>(), Key));
+                Interacted?.Invoke(
+                    this, 
+                    UiInteractionEventArgs.Create(
+                        Object == null ? Enumerable.Empty<object>() : new List<object>() { Object }, Key));
                 Selected?.Invoke(this, EventArgs.Empty);
             }
             return base.HandleMouseButtonClicked(e);

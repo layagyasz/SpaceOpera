@@ -173,6 +173,7 @@ namespace SpaceOpera.Controller.Game
         {
             OpenOverlay(OverlayId.Game, _world);
             OpenOverlay(OverlayId.Empire, _world, _faction);
+            OpenOverlay(OverlayId.Event, _world, _faction);
             if (cleanUp)
             {
                 _screen?.Scene?.Dispose();

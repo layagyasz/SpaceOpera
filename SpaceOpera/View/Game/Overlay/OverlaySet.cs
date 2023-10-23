@@ -5,18 +5,21 @@ using SpaceOpera.View.Game.Overlay.GameOverlays;
 using SpaceOpera.View.Game.Overlay.StarSystemOverlays;
 using Cardamom.Graphics;
 using Cardamom;
+using SpaceOpera.View.Game.Overlay.EventOverlays;
 
 namespace SpaceOpera.View.Game.Overlay
 {
     public class OverlaySet : GraphicsResource, IInitializable
     {
         public EmpireOverlay Empire { get; }
+        public EventOverlay Event { get; }
         public GameOverlay Game { get; }
         public StarSystemOverlay StarSystem { get; }
 
-        private OverlaySet(EmpireOverlay empire, GameOverlay game, StarSystemOverlay starSystem)
+        private OverlaySet(EmpireOverlay empire, EventOverlay @event, GameOverlay game, StarSystemOverlay starSystem)
         {
             Empire = empire;
+            Event = @event;
             Game = game;
             StarSystem = starSystem;
         }
@@ -26,15 +29,17 @@ namespace SpaceOpera.View.Game.Overlay
             return id switch
             {
                 OverlayId.Empire => Empire,
+                OverlayId.Event => Event,
                 OverlayId.Game => Game,
                 OverlayId.StarSystem => StarSystem,
                 _ => throw new ArgumentException($"Unsupported overlay id: {id}"),
-            };
+            };;
         }
 
         public IEnumerable<IOverlay> GetOverlays()
         {
             yield return Empire;
+            yield return Event;
             yield return Game;
             yield return StarSystem;
         }
@@ -59,6 +64,7 @@ namespace SpaceOpera.View.Game.Overlay
         {
             return new(
                 /* empire= */ new EmpireOverlay(uiElementFactory, iconFactory),
+                /* event= */ new EventOverlay(uiElementFactory),
                 /* game= */ GameOverlay.Create(uiElementFactory),
                 /* starSystem= */ new StarSystemOverlay(uiElementFactory, iconFactory));
         }

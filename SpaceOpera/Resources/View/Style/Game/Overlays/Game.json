@@ -7,7 +7,7 @@
       "Margin": [ 8 ],
       "Padding": [ 2 ],
       "CornerRadius": [
-        [ 14, 14 ]
+        [ 12, 12 ]
       ]
     }
   },
@@ -18,7 +18,7 @@
       "Size": [ 40, 40 ],
       "Margin": [ 2 ],
       "CornerRadius": [
-        [ 10, 10 ]
+        [ 8, 8 ]
       ]
     }
   },
