@@ -9,6 +9,7 @@ namespace SpaceOpera.View.Forms
     {
         public class Builder
         {
+            private string _title = string.Empty;
             private readonly Dictionary<string, object> _hiddens = new();
             private readonly List<IFieldLayout.IBuilder> _fields = new();
             private bool _autoSubmit;
@@ -47,18 +48,27 @@ namespace SpaceOpera.View.Forms
                 return this;
             }
 
+            public Builder SetTitle(string title)
+            {
+                _title = title;
+                return this;
+            }
+
             public FormLayout Build()
             {
-                return new(_hiddens, _fields.Select(x => x.Build()).ToList(), _autoSubmit);
+                return new(_title, _hiddens, _fields.Select(x => x.Build()).ToList(), _autoSubmit);
             }
         }
 
+        private readonly string _title;
         private readonly Dictionary<string, object> _hiddens;
         private readonly List<IFieldLayout> _fields;
         private readonly bool _autoSubmit;
 
-        private FormLayout(Dictionary<string, object> hiddens, List<IFieldLayout> fields, bool autoSubmit)
+        private FormLayout(
+            string title, Dictionary<string, object> hiddens, List<IFieldLayout> fields, bool autoSubmit)
         {
+            _title = title;
             _hiddens = hiddens;
             _fields = fields;
             _autoSubmit = autoSubmit;
@@ -86,7 +96,7 @@ namespace SpaceOpera.View.Forms
                     fields.Add(field.Id, f);
                 }
             }
-            return new(new GenericFormController(_hiddens), container, fields, _autoSubmit);
+            return new(new GenericFormController(_hiddens), container, _title, fields, _autoSubmit);
         }
     }
 }

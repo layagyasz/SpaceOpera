@@ -3,6 +3,7 @@ using Cardamom.Logging;
 using Cardamom.Ui;
 using Cardamom.Ui.Controller;
 using Cardamom.Ui.Elements;
+using Cardamom.Utils.Suppliers;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using SpaceOpera.Controller.Game.Panes;
 using SpaceOpera.Controller.Game.Subcontrollers;
@@ -10,6 +11,7 @@ using SpaceOpera.Core;
 using SpaceOpera.Core.Designs;
 using SpaceOpera.Core.Economics;
 using SpaceOpera.Core.Economics.Projects;
+using SpaceOpera.Core.Events;
 using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Military.Ai.Assigments;
 using SpaceOpera.Core.Orders;
@@ -17,11 +19,13 @@ using SpaceOpera.Core.Orders.Formations;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Universe;
 using SpaceOpera.View;
+using SpaceOpera.View.Forms;
 using SpaceOpera.View.Game;
 using SpaceOpera.View.Game.Highlights;
 using SpaceOpera.View.Game.Overlay;
 using SpaceOpera.View.Game.Panes;
 using SpaceOpera.View.Game.Panes.FormationPanes;
+using SpaceOpera.View.Game.Panes.Forms;
 using SpaceOpera.View.Game.Panes.StellarBodyRegionPanes;
 using SpaceOpera.View.Game.Scenes;
 
@@ -363,6 +367,22 @@ namespace SpaceOpera.Controller.Game
                     return;
                 }
             }
+            if (type.IsAssignableTo(typeof(IEvent)))
+            {
+                if (e.Action == ActionId.Select)
+                {
+                    var promise = new Promise<FormValue>();
+                    promise.Finished += HandleEventDecision;
+                    promise.Canceled += HandleEventDecisionCanceled;
+                    OpenPane(
+                        GamePaneId.Form,
+                        /* closeOpenPanes= */ true,
+                        _world,
+                        FormHelper.ForEvent((IEvent)e.GetOnlyObject()!), 
+                        promise);
+                    return;
+                }
+            }
             if (type.IsAssignableTo(typeof(IFormationDriver)))
             {
                 var assigment =
@@ -511,6 +531,19 @@ namespace SpaceOpera.Controller.Game
             var result = _world?.Execute(order);
             _logger.AtInfo().Log(order.ToString() + " " + result);
             _screen!.Refresh();
+        }
+
+        private void HandleEventDecision(object? sender, EventArgs e)
+        {
+            Promise<FormValue> promise = (Promise<FormValue>)sender!;
+            promise.Finished -= HandleEventDecision;
+            _world!.Execute(new DecideEventOrder((IEvent)promise.Get()["event"]!, (int)promise.Get()["decisionId"]!));
+        }
+
+        private void HandleEventDecisionCanceled(object? sender, EventArgs e)
+        {
+            Promise<FormValue> promise = (Promise<FormValue>)sender!;
+            promise.Finished -= HandleEventDecision;
         }
 
         private void HandlePaneClosed(object? sender, ElementEventArgs e)

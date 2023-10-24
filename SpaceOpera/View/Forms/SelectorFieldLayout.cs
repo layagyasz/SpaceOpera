@@ -17,7 +17,7 @@ namespace SpaceOpera.View.Forms
         {
             private readonly FormLayout.Builder _root;
             private string? _id;
-            private string? _name;
+            private string _name = string.Empty;
             private readonly List<SelectOption<object>> _options = new();
 
             private SelectorType _type;
@@ -25,6 +25,12 @@ namespace SpaceOpera.View.Forms
             internal Builder(FormLayout.Builder root)
             {
                 _root = root;
+            }
+
+            public Builder AddOption(string name, object value)
+            {
+                _options.Add(SelectOption<object>.Create(value, name));
+                return this;
             }
 
             public Builder SetId(string id)
@@ -52,7 +58,7 @@ namespace SpaceOpera.View.Forms
 
             public IFieldLayout Build()
             {
-                return new SelectorFieldLayout(_id!, _name!, _type, _options);
+                return new SelectorFieldLayout(_id!, _name, _type, _options);
             }
         }
 

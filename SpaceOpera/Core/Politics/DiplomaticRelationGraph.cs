@@ -17,7 +17,7 @@ namespace SpaceOpera.Core.Politics
                     new DiplomaticRelation(newFaction, target));
                 _relations.Add(
                     CompositeKey<Faction, Faction>.Create(target, newFaction),
-                    new DiplomaticRelation(newFaction, target));
+                    new DiplomaticRelation(target, newFaction));
             }
             _factions.Add(newFaction);
         }

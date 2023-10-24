@@ -7,7 +7,7 @@ namespace SpaceOpera.Core.Events
     {
         private readonly MultiMap<Faction, IEvent> _events = new();
 
-        public void AddEvent(IEvent @event)
+        public void Add(IEvent @event)
         {
             _events.Add(@event.Faction, @event);
         }

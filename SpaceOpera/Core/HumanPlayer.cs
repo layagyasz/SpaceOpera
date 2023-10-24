@@ -1,4 +1,5 @@
 ﻿using SpaceOpera.Core.Politics;
+using SpaceOpera.Core.Politics.Diplomacy;
 
 namespace SpaceOpera.Core
 {
@@ -15,5 +16,12 @@ namespace SpaceOpera.Core
         {
             return null;
         }
+
+        public ModifiedResult? GetApproval(DiplomaticAgreement agreement)
+        {
+            return null;
+        }
+
+        public void Tick(World world) { }
     }
 }

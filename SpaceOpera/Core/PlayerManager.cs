@@ -16,5 +16,13 @@ namespace SpaceOpera.Core
         {
             return _players[faction];
         }
+
+        public void Tick(World world)
+        {
+            foreach (var player in _players.Values)
+            {
+                player.Tick(world);
+            }
+        }
     }
 }

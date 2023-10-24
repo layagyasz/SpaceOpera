@@ -36,13 +36,15 @@ namespace SpaceOpera.View.Game.Overlay.EventOverlays
             _uiElementFactory = uiElementFactory;
 
             Add(
-                new DynamicKeyedTable<IEvent, ActionRow<IEvent>>(
-                    uiElementFactory.GetClass(s_List),
-                    new NoOpElementController(),
-                    UiSerialContainer.Orientation.Horizontal,
-                    GetRange,
-                    CreateCell,
-                    Comparer<IEvent>.Create((x, y) => 0)));
+                new DynamicUiCompoundComponent(
+                    new ActionComponentController(),
+                    new DynamicKeyedTable<IEvent, ActionRow<IEvent>>(
+                        uiElementFactory.GetClass(s_List),
+                        new NoOpElementController(),
+                        UiSerialContainer.Orientation.Horizontal,
+                        GetRange,
+                        CreateCell,
+                        Comparer<IEvent>.Create((x, y) => 0))));
             Position = new(0, 68, 0);
         }
 

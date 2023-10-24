@@ -39,5 +39,10 @@ namespace SpaceOpera.Core.Politics
         {
             OverallStatus = status;
         }
+
+        public override string ToString()
+        {
+            return $"[DiplomaticRelation: Faction={Faction}, Target={Target}, OverallStatus={OverallStatus}]";
+        }
     }
 }

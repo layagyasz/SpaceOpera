@@ -1,5 +1,6 @@
 ﻿using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Politics.Cultures;
+using SpaceOpera.Core.Politics.Diplomacy;
 
 namespace SpaceOpera.Core.Ai.Diplomacy
 {
@@ -12,7 +13,19 @@ namespace SpaceOpera.Core.Ai.Diplomacy
             Faction = faction;
         }
 
-        public ModifiedResult? GetApproval(Faction faction)
+        public ModifiedResult GetApproval(DiplomaticAgreement agreement)
+        {
+            return ModifiedResult.Create(
+                new List<GameModifier>() 
+                { 
+                    GameModifier.Create(
+                        "modifier-diplomacy-base",
+                        "Base",
+                        SingleGameModifier.Create(ModifierType.Diplomatic, Modifier.FromConstant(10)))
+                });
+        }
+
+        public ModifiedResult GetApproval(Faction faction)
         {
             CulturalTraits culture = Faction.Culture.Traits;
             CulturalTraits target = faction.Culture.Traits;

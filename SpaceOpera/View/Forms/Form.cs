@@ -16,16 +16,19 @@ namespace SpaceOpera.View.Forms
             public Radio.Style? Radio { get; set; }
         }
 
+        public string Title { get; }
         public bool AutoSubmit { get; }
         public Dictionary<string, IUiComponent> Fields { get; }
 
         public Form(
             IController controller,
             UiSerialContainer container,
+            string title,
             Dictionary<string, IUiComponent> components, 
             bool autoSubmit)
             : base(controller, container)
         {
+            Title = title;
             Fields = components;
             AutoSubmit = autoSubmit;
         }

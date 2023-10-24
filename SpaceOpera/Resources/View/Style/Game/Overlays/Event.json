@@ -3,23 +3,26 @@
     "$id": "event-overlay-container",
     "Parent": "ui-container",
     "Default": {
-      "Size": [ "DynamicContents", 44 ],
+      "Size": [ "DynamicContents", 48 ],
       "Margin": [ 8 ],
-      "Padding": [ 2 ]
+      "Padding": [ 2 ],
+      "DisableScissor": true
     }
   },
   {
     "$id": "event-overlay-list",
     "Parent": "ui-container",
     "Default": {
-      "Size": [ "DynamicContents", 42 ]
+      "Size": [ "DynamicContents", 44 ],
+      "DisableScissor": true
     }
   },
   {
     "$id": "event-overlay-event-container",
     "Parent": "ui-container",
     "Default": {
-      "Size": [ 42, 42 ]
+      "Size": [ 44, 44 ],
+      "DisableScissor": true
     }
   },
   {

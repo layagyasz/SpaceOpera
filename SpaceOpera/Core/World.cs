@@ -96,7 +96,8 @@ namespace SpaceOpera.Core
                         new ActionTickable(() => FormationManager.Tick(this)),
                         new ActionTickable(FrontManager.Tick),
                         new ActionTickable(ProjectManager.Tick),
-                        new CycleTickable(new CompositeTickable(ticks), 30)
+                        new CycleTickable(new CompositeTickable(ticks), 30),
+                        new ActionTickable(() => PlayerManager.Tick(this))
                     },
                     1000)
             };

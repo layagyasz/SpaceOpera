@@ -36,8 +36,9 @@ namespace SpaceOpera.Controller.Game.Panes.Forms
         public void Submit()
         {
             _form!.ValueChanged -= HandleValueChanged;
-            _form = null;
             _promise!.Set(_form!.GetValue());
+            _form = null;
+            _promise = null;
             Close();
         }
 

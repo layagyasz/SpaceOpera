@@ -1,4 +1,5 @@
 ﻿using Cardamom.Collections;
+using SpaceOpera.Core.Events;
 
 namespace SpaceOpera.Core.Politics.Diplomacy
 {
@@ -13,6 +14,8 @@ namespace SpaceOpera.Core.Politics.Diplomacy
         public void Apply(World world, DiplomaticRelation relation)
         {
             relation.SetOverallStatus(DiplomaticRelation.DiplomaticStatus.Peace);
+            world.EventManager.Add(
+                new DiplomaticStatusChangeNotification(relation, DiplomaticRelation.DiplomaticStatus.Peace));
         }
 
         public void Cancel(World world, DiplomaticRelation relation) { }
