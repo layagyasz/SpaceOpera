@@ -135,7 +135,7 @@ namespace SpaceOpera.View.Game.Overlay.EmpireOverlays
             {
                 return Enumerable.Empty<ArmyDriver>();
             }
-            return _world.FormationManager.GetArmyDriversFor(_faction);
+            return _world.Formations.GetArmyDriversFor(_faction);
         }
 
         private IEnumerable<AtomicFormationDriver> GetFleetRange()
@@ -144,7 +144,7 @@ namespace SpaceOpera.View.Game.Overlay.EmpireOverlays
             {
                 return Enumerable.Empty<AtomicFormationDriver>();
             }
-            return _world.FormationManager.GetFleetDriversFor(_faction);
+            return _world.Formations.GetFleetDriversFor(_faction);
         }
 
         private IEnumerable<StellarBodyHolding> GetHoldingRange()

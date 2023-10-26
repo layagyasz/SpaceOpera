@@ -26,7 +26,7 @@
 
         public ActionStatus Progress(AtomicFormationDriver driver, World world)
         {
-            world.BattleManager.Engage(driver.AtomicFormation, Target);
+            world.Battles.Engage(driver.AtomicFormation, Target);
             return ActionStatus.Done;
         }
     }

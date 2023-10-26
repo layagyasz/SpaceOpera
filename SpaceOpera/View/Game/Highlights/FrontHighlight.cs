@@ -33,7 +33,7 @@ namespace SpaceOpera.View.Game.Highlights
 
         public static ICompositeHighlight Create(Faction faction, World world)
         {
-            return SimpleHighlight.Wrap(new FrontHighlight(faction, world.FrontManager, world.DiplomaticRelations));
+            return SimpleHighlight.Wrap(new FrontHighlight(faction, world.Fronts, world.DiplomaticRelations));
         }
 
         public IRenderable CreateHighlight<TDomain, TRange>(

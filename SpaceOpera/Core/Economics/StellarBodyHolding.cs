@@ -1,6 +1,4 @@
-using SpaceOpera.Core.Advancement;
 using SpaceOpera.Core.Military;
-using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Universe;
 
 namespace SpaceOpera.Core.Economics
@@ -12,9 +10,8 @@ namespace SpaceOpera.Core.Economics
 
         private readonly List<Division> _divisions = new();
 
-        public StellarBodyHolding(
-            Faction owner, FactionAdvancementManager advancementManager, StellarBody stellarBody)
-            : base(owner, advancementManager)
+        public StellarBodyHolding(EconomicRoot root, StellarBody stellarBody)
+            : base(root)
         {
             StellarBody = stellarBody;
         }

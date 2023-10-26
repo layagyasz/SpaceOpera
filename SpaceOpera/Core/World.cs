@@ -23,21 +23,21 @@ namespace SpaceOpera.Core
         public Galaxy Galaxy { get; }
         public NavigationMap NavigationMap { get; }
 
-        public AdvancementManager AdvancementManager { get; } = new();
-        public BattleManager BattleManager { get; }
+        public AdvancementManager Advancements { get; }
+        public BattleManager Battles { get; }
         public DiplomaticRelationGraph DiplomaticRelations { get; } = new();
         public Economy Economy { get; }
         public EconomyGraph EconomyGraph { get; } = new();
-        public EventManager EventManager { get; } = new();
-        public FormationManager FormationManager { get; } = new();
+        public EventManager Events { get; } = new();
+        public FormationManager Formations { get; } = new();
         public IntelligenceManager Intelligence { get; } = new();
-        public FrontManager FrontManager { get; }
-        public ProjectManager ProjectManager { get; } = new();
+        public FrontManager Fronts { get; }
+        public ProjectManager Projects { get; } = new();
 
         public DesignBuilder DesignBuilder { get; }
         public AutoDesigner AutoDesigner { get; }
 
-        public PlayerManager PlayerManager { get; } = new();
+        public PlayerManager Players { get; } = new();
 
         private readonly List<Culture> _cultures = new();
         private readonly List<Faction> _factions = new();
@@ -58,11 +58,11 @@ namespace SpaceOpera.Core
             Galaxy = galaxy;
             NavigationMap = navigationMap;
 
-            AdvancementManager = new();
-            BattleManager = new(DiplomaticRelations);
-            Economy = new(AdvancementManager, FormationManager, coreData.MaterialSink!);
+            Advancements = new(coreData.Materials.Values.Where(x => x.Type == MaterialType.Research));
+            Battles = new(DiplomaticRelations);
+            Economy = new(Advancements, Formations, coreData.MaterialSink!);
             EconomyGraph.AddRecipes(coreData.Recipes.Values);
-            FrontManager = FrontManager.Create(galaxy);
+            Fronts = FrontManager.Create(galaxy);
 
             DesignBuilder = new(new ComponentClassifier(coreData.ComponentClassifiers));
             AutoDesigner = new(coreData.DesignTemplates.Values);
@@ -83,7 +83,7 @@ namespace SpaceOpera.Core
         {
             var ticks = new List<ITickable>
             {
-                AdvancementManager,
+                Advancements,
                 Economy
             };
 
@@ -92,12 +92,12 @@ namespace SpaceOpera.Core
                 Calendar,
                 new TickUpdateable(
                     new CompositeTickable() {
-                        new ActionTickable(() => BattleManager.Tick(Random)),
-                        new ActionTickable(() => FormationManager.Tick(this)),
-                        new ActionTickable(FrontManager.Tick),
-                        new ActionTickable(ProjectManager.Tick),
+                        new ActionTickable(() => Battles.Tick(Random)),
+                        new ActionTickable(() => Formations.Tick(this)),
+                        new ActionTickable(Fronts.Tick),
+                        new ActionTickable(Projects.Tick),
                         new CycleTickable(new CompositeTickable(ticks), 30),
-                        new ActionTickable(() => PlayerManager.Tick(this))
+                        new ActionTickable(() => Players.Tick(this))
                     },
                     1000)
             };
@@ -111,18 +111,20 @@ namespace SpaceOpera.Core
         public void AddAllFactions(Faction playerFaction, IEnumerable<Faction> factions)
         {
             _factions.Add(playerFaction);
-            AdvancementManager.Add(playerFaction);
+            Advancements.Add(playerFaction);
             DiplomaticRelations.Add(playerFaction);
+            Economy.Add(playerFaction);
             Intelligence.Add(playerFaction);
-            PlayerManager.Add(playerFaction, /* isHuman= */ true);
+            Players.Add(playerFaction, /* isHuman= */ true);
 
             _factions.AddRange(factions);
             foreach (var faction in factions)
             {
-                AdvancementManager.Add(faction);
+                Advancements.Add(faction);
                 DiplomaticRelations.Add(faction);
+                Economy.Add(faction);
                 Intelligence.Add(faction);
-                PlayerManager.Add(faction, /* isHuman= */ false);
+                Players.Add(faction, /* isHuman= */ false);
             }
         }
 
@@ -146,7 +148,7 @@ namespace SpaceOpera.Core
             {
                 return Enumerable.Empty<IComponent>();
             }
-            var advancements = AdvancementManager.Get(faction);
+            var advancements = Advancements.Get(faction);
             return GetDesignsFor(faction).SelectMany(x => x.Components).Cast<IComponent>().Concat(
                 CoreData.Components.Values).Where(advancements.HasPrerequisiteResearch);
         }
@@ -167,7 +169,7 @@ namespace SpaceOpera.Core
 
         public IEnumerable<IAdvancement> GetResearchableAdvancementsFor(Faction faction)
         {
-            var advancements = AdvancementManager.Get(faction);
+            var advancements = Advancements.Get(faction);
             return CoreData.Advancements.Select(x => x.Value).Where(advancements.HasPrerequisiteResearch);
         }
 
@@ -177,7 +179,7 @@ namespace SpaceOpera.Core
             {
                 return Enumerable.Empty<Recipe>();
             }
-            var advancements = AdvancementManager.Get(faction);
+            var advancements = Advancements.Get(faction);
             return _designLicenses.Where(x => x.Faction == faction).SelectMany(x => x.Design.Recipes).Concat(
                 CoreData.Recipes.Values)
                 .Where(advancements.HasPrerequisiteResearch);

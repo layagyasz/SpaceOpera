@@ -22,7 +22,7 @@ namespace SpaceOpera.Core.Orders
 
         public bool Execute(World world)
         {
-            world.EventManager.Decide(Event, DecisionId, world);
+            world.Events.Decide(Event, DecisionId, world);
             return true;
         }
     }

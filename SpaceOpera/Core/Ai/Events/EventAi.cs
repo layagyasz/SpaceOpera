@@ -19,7 +19,7 @@ namespace SpaceOpera.Core.Ai.Events
 
         public void Tick(World world)
         {
-            foreach (var @event in world.EventManager.Get(Faction).ToList())
+            foreach (var @event in world.Events.Get(Faction).ToList())
             {
                 if (@event is NotificationBase)
                 {

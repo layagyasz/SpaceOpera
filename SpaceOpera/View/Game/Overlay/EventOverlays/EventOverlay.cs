@@ -75,7 +75,7 @@ namespace SpaceOpera.View.Game.Overlay.EventOverlays
             {
                 return Enumerable.Empty<IEvent>();
             }
-            return _world.EventManager.Get(_faction);
+            return _world.Events.Get(_faction);
         }
 
         private static string GetClass(IEvent @event)

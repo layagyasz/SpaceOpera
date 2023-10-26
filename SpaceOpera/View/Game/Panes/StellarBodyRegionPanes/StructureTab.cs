@@ -129,7 +129,7 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyRegionPanes
                     return Enumerable.Empty<Recipe>();
                 }
                 return _world
-                    .GetRecipesFor(_holding?.Parent.Owner)
+                    .GetRecipesFor(_holding?.Parent.Root.Owner)
                     .Where(x => x.Structure == _structure)
                     .Where(x => _holding?.GetResourceNodes(x.BoundResourceNode) > 0);
             }

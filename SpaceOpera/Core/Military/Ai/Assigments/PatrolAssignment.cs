@@ -66,14 +66,14 @@ namespace SpaceOpera.Core.Military.Ai.Assigments
                 var activeRegions = _parent.GetActiveRegion();
                 if (_cachedTarget == null
                     || !activeRegions.Contains(_cachedTarget.Position!)
-                    || !context.World.BattleManager.CanEngage(context.Driver.AtomicFormation, _cachedTarget))
+                    || !context.World.Battles.CanEngage(context.Driver.AtomicFormation, _cachedTarget))
                 {
                     var options =
-                        context.World.FormationManager.GetFleetDrivers()
+                        context.World.Formations.GetFleetDrivers()
                             .Where(x => x.AtomicFormation.Position == currentPosition)
                             .Where(x => activeRegions.Contains(x.AtomicFormation.Position!))
                             .Where(x => x.AtomicFormation.Faction != faction)
-                            .Where(x => context.World.BattleManager.CanEngage(
+                            .Where(x => context.World.Battles.CanEngage(
                                 context.Driver.AtomicFormation, x.AtomicFormation))
                             .Select(x => x.AtomicFormation)
                             .ToList();

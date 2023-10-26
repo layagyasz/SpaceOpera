@@ -361,7 +361,7 @@ namespace SpaceOpera.Controller.Game
                         /* closeOpenPanes= */ true,
                         e.Objects.Cast<AtomicFormationDriver>()
                             .Select(x => x.AtomicFormation)
-                            .Select(_world!.BattleManager.GetBattle)
+                            .Select(_world!.Battles.GetBattle)
                             .Where(x => x != null)
                             .FirstOrDefault());
                     return;

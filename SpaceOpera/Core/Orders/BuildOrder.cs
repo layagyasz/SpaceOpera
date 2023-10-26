@@ -43,7 +43,7 @@ namespace SpaceOpera.Core.Orders
         {
             foreach (var construction in Structures.GetCounts())
             {
-                world.ProjectManager.Add(new BuildProject(Holding, construction));
+                world.Projects.Add(new BuildProject(Holding, construction));
             }
             return true;
         }

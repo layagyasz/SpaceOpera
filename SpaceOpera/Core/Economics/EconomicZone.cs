@@ -1,26 +1,22 @@
 using Cardamom.Trackers;
 using SpaceOpera.Core.Advanceable;
-using SpaceOpera.Core.Advancement;
 using SpaceOpera.Core.Economics.Projects;
-using SpaceOpera.Core.Politics;
 
 namespace SpaceOpera.Core.Economics
 {
     public abstract class EconomicZone : ProjectHub, ITickable
     {
         public abstract string Name { get; }
-        public Faction Owner { get; }
-        public FactionAdvancementManager AdvancementManager { get; }
+        public EconomicRoot Root { get; }
         public uint Population { get; protected set; }
 
         private readonly Dictionary<object, EconomicSubzone> _subzones = new();
         private readonly Inventory _inventory = new(float.MaxValue);
         private readonly MultiCount<Recipe> _production = new ();
 
-        protected EconomicZone(Faction owner, FactionAdvancementManager advancementManager)
+        protected EconomicZone(EconomicRoot root)
         {
-            Owner = owner;
-            AdvancementManager = advancementManager;
+            Root = root;
         }
 
         public void AddSubzone(object key, EconomicSubzone subzone)
@@ -67,7 +63,7 @@ namespace SpaceOpera.Core.Economics
                             _inventory.MaxAdd(transform.Key, total);
                             break;
                         case MaterialType.Research:
-                            AdvancementManager.AddResearch(transform.Key, total);
+                            Root.Add(transform.Key, total);
                             break;
                         default:
                             throw new InvalidOperationException(

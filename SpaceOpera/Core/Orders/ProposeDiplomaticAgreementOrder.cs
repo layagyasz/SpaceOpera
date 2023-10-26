@@ -19,7 +19,7 @@ namespace SpaceOpera.Core.Orders
 
         public bool Execute(World world)
         {
-            world.EventManager.Add(new ProposeDiplomaticAgreementEvent(Agreement));
+            world.Events.Add(new ProposeDiplomaticAgreementEvent(Agreement));
             return true;
         }
     }

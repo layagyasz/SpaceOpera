@@ -28,7 +28,7 @@ namespace SpaceOpera.View.Game.FormationViews
                         IconFactory));
             if (world != null)
             {
-                foreach (var formation in world.FormationManager.GetAtomicDrivers())
+                foreach (var formation in world.Formations.GetAtomicDrivers())
                 {
                     formationLayer.Add(formation);
                 }
@@ -49,7 +49,7 @@ namespace SpaceOpera.View.Game.FormationViews
                     subLayers);
             if (world != null)
             {
-                foreach (var formation in world.FormationManager.GetAtomicDrivers())
+                foreach (var formation in world.Formations.GetAtomicDrivers())
                 {
                     formationLayer.Add(formation);
                 }
@@ -77,7 +77,7 @@ namespace SpaceOpera.View.Game.FormationViews
                     new FormationSubLayer<INavigable>(stellarBody, UiElementFactory, IconFactory));
             if (world != null)
             {
-                foreach (var formation in world.FormationManager.GetAtomicDrivers())
+                foreach (var formation in world.Formations.GetAtomicDrivers())
                 {
                     formationLayer.Add(formation);
                 }

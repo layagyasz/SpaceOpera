@@ -18,7 +18,7 @@ namespace SpaceOpera.Core.Orders
 
         public bool Execute(World World)
         {
-            World.ProjectManager.Cancel(Project);
+            World.Projects.Cancel(Project);
             return true;
         }
     }

@@ -143,8 +143,8 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
             }
             return _tab switch
             {
-                TabId.Army => _world.FormationManager.GetArmyDriversFor(_faction),
-                TabId.Fleet => _world.FormationManager.GetFleetDriversFor(_faction),
+                TabId.Army => _world.Formations.GetArmyDriversFor(_faction),
+                TabId.Fleet => _world.Formations.GetFleetDriversFor(_faction),
                 _ => Enumerable.Empty<IFormationDriver>(),
             };
         }

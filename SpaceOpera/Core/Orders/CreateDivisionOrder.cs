@@ -23,8 +23,8 @@ namespace SpaceOpera.Core.Orders
         public bool Execute(World world)
         {
             // TODO: Set name
-            var division = new Division(Holding.Owner, Template);
-            world.ProjectManager.Add(new CreateDivisionProject(Holding, division));
+            var division = new Division(Holding.Root.Owner, Template);
+            world.Projects.Add(new CreateDivisionProject(Holding, division));
             return true;
         }
     }

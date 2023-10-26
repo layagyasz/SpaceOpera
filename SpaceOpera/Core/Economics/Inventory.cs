@@ -29,6 +29,13 @@ namespace SpaceOpera.Core.Economics
             return Contents.All(x => x.Value >= materials.Get(x.Key));
         }
 
+        public float Extract(IMaterial material)
+        {
+            var value = Contents[material];
+            Contents.Remove(material);
+            return value;
+        }
+
         public bool IsFull()
         {
             return _space.IsFull();

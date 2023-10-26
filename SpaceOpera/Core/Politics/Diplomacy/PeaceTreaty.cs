@@ -14,7 +14,7 @@ namespace SpaceOpera.Core.Politics.Diplomacy
         public void Apply(World world, DiplomaticRelation relation)
         {
             relation.SetOverallStatus(DiplomaticRelation.DiplomaticStatus.Peace);
-            world.EventManager.Add(
+            world.Events.Add(
                 new DiplomaticStatusChangeNotification(relation, DiplomaticRelation.DiplomaticStatus.Peace));
         }
 

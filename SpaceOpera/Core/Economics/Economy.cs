@@ -14,6 +14,7 @@ namespace SpaceOpera.Core.Economics
         public FormationManager FormationManager { get; }
         public MaterialSink MaterialSink { get; }
 
+        private readonly Dictionary<Faction, EconomicRoot> _roots = new();
         private readonly Dictionary<CompositeKey<Faction, StellarBody>, StellarBodyHolding> _holdings = new();
         private readonly List<PersistentRoute> _routes = new();
         private readonly List<Trade> _trades = new();
@@ -24,6 +25,11 @@ namespace SpaceOpera.Core.Economics
             AdvancementManager = advancementManager;
             FormationManager = formationManager;
             MaterialSink = materialSink;
+        }
+
+        public void Add(Faction faction)
+        {
+            _roots.Add(faction, new EconomicRoot(faction));
         }
 
         public StellarBodyRegionHolding CreateSovereignHolding(Faction faction, StellarBodyRegion stellarBodyRegion)
@@ -107,6 +113,15 @@ namespace SpaceOpera.Core.Economics
             {
                 holding.Consume(MaterialSink);
             }
+            
+            foreach (var root in _roots.Values)
+            {
+                var advancement = AdvancementManager.Get(root.Owner);
+                foreach (var research in AdvancementManager.Research)
+                {
+                    advancement.AddResearch(research, root.Extract(research));
+                }
+            }
         }
 
         private StellarBodyHolding GetOrCreateHolding(Faction faction, StellarBody stellarBody)
@@ -114,7 +129,7 @@ namespace SpaceOpera.Core.Economics
             var holding = GetHolding(faction, stellarBody);
             if (holding == null)
             {
-                holding = new StellarBodyHolding(faction, AdvancementManager.Get(faction), stellarBody);
+                holding = new StellarBodyHolding(_roots[faction], stellarBody);
                 _holdings.Add(CompositeKey<Faction, StellarBody>.Create(faction, stellarBody), holding);
             }
             return holding;

@@ -40,11 +40,11 @@ namespace SpaceOpera.Core.Politics.Generator
                         division.Add(template.Key.Composition);
                         division.SetName(faction.NameGenerator.GenerateNameFor(template.Key, context.Random));
                         division.SetPosition(headquarters);
-                        world.FormationManager.AddDivision(division);
+                        world.Formations.AddDivision(division);
                         army.Divisions.Add(division);
                     }
                 }
-                world.FormationManager.AddArmy(army);
+                world.Formations.AddArmy(army);
             }
         }
     }

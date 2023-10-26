@@ -40,7 +40,7 @@ namespace SpaceOpera.Core.Orders.Formations
             world.Economy.AddPersistentRoute(Route);
             foreach (var fleet in Route.AssignedFleets)
             {
-                ((FleetDriver)world.FormationManager.GetDriver(fleet)).SetPersistentRoute(Route);
+                ((FleetDriver)world.Formations.GetDriver(fleet)).SetPersistentRoute(Route);
             }
             return true;
         }

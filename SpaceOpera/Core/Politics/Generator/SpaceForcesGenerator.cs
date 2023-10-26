@@ -33,7 +33,7 @@ namespace SpaceOpera.Core.Politics.Generator
                 fleet.SetName(faction.NameGenerator.GenerateNameForFleet(context.Random));
                 fleet.Add(composition);
                 fleet.SetPosition(headquarters);
-                world.FormationManager.AddFleet(fleet);
+                world.Formations.AddFleet(fleet);
             }
         }
     }
