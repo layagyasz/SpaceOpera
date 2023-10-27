@@ -11,7 +11,8 @@ namespace SpaceOpera.Core.Events
 
         public abstract Faction Faction { get; }
         public abstract string Title { get; }
-        public abstract string Description { get; }
+
+        public abstract string GetDescription();
 
         public IEnumerable<EventDecision> GetDecisions()
         {

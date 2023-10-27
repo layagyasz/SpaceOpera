@@ -6,13 +6,13 @@ namespace SpaceOpera.View.Forms
     {
         public interface IBuilder
         {
-            FormLayout.Builder CompleteField();
+            FormLayout.Builder Complete();
             IFieldLayout Build();
         }
 
         string Id { get; }
         string Name { get; }
 
-        IUiComponent CreateField(Form.Style style, UiElementFactory uiElementFactory);
+        IUiElement CreateField(Form.Style style, UiElementFactory uiElementFactory);
     }
 }

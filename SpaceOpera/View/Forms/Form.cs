@@ -10,6 +10,7 @@ namespace SpaceOpera.View.Forms
         public class Style
         {
             public string? Container { get; set; }
+            public string? Paragraph { get; set; }
             public string? FieldHeader { get; set; }
             public Select.Style? DropDown { get; set; }
             public DialSelect.Style? Dial { get; set; }

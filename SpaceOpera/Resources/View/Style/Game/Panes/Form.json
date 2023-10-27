@@ -3,14 +3,14 @@
     "$id": "form-pane",
     "Parent": "pane-standard",
     "Default": {
-      "Size": [ 220, "DynamicContents" ]
+      "Size": [ 450, "DynamicContents" ]
     }
   },
   {
     "$id": "form-pane-title",
     "Parent": "ui-element-basic",
     "Default": {
-      "Size": [ 176, 28 ]
+      "Size": [ 406, 28 ]
     }
   },
   {
@@ -26,7 +26,7 @@
     "Parent": "ui-container",
     "Default": {
       "Size": [
-        212,
+        442,
         [ "DynamicContents", 0, 628 ]
       ],
       "DisableScissor": true
@@ -36,7 +36,7 @@
     "$id": "form-pane-submit",
     "Parent": "ui-element-basic",
     "Default": {
-      "Size": [ 208, 28 ],
+      "Size": [ 438, 28 ],
       "Align": "Center"
     }
   },
@@ -44,15 +44,24 @@
     "$id": "form-pane-form-container",
     "Parent": "ui-container",
     "Default": {
-      "Size": [ 212, "DynamicContents" ],
+      "Size": [ 442, "DynamicContents" ],
       "DisableScissor": true
+    }
+  },
+  {
+    "$id": "form-pane-paragraph",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 434, "DynamicContents" ],
+      "Margin": [ 4, 8, 4, 8 ],
+      "FontSize": 12
     }
   },
   {
     "$id": "form-pane-form-field-header",
     "Parent": "ui-element-internal",
     "Default": {
-      "Size": [ 212, 20 ],
+      "Size": [ 442, 20 ],
       "Padding": [ 4 ],
       "FontSize": 12
     }
@@ -61,7 +70,7 @@
     "$id": "form-pane-dial",
     "Parent": "ui-container",
     "Default": {
-      "Size": [ 212, 32 ],
+      "Size": [ 442, 32 ],
       "DisableScissor": true
     }
   },
@@ -69,7 +78,7 @@
     "$id": "form-pane-dial-text",
     "Parent": "ui-element-internal",
     "Default": {
-      "Size": [ 148, 32 ],
+      "Size": [ 378, 32 ],
       "Padding": [ 8 ],
       "Align": "Center"
     }
@@ -91,7 +100,7 @@
     "$id": "form-pane-select",
     "Parent": "ui-element",
     "Default": {
-      "Size": [ 212, 32 ],
+      "Size": [ 442, 32 ],
       "Padding": [ 8 ],
       "BorderWidth": [ 1, 0, 0, 0 ]
     }
@@ -101,7 +110,7 @@
     "Parent": "form-pane-select",
     "Default": {
       "Size": [
-        212,
+        442,
         [ "DynamicContents", 0, 512 ]
       ],
       "Padding": [ 0 ]
@@ -111,7 +120,7 @@
     "$id": "form-pane-select-option",
     "Parent": "ui-element-internal",
     "Default": {
-      "Size": [ 212, 32 ],
+      "Size": [ 442, 32 ],
       "Padding": [ 8 ]
     }
   },
@@ -119,7 +128,7 @@
     "$id": "form-pane-radio",
     "Parent": "ui-container",
     "Default": {
-      "Size": [ 212, "DynamicContents" ],
+      "Size": [ 442, "DynamicContents" ],
       "DisableScissor": true
     }
   },
@@ -127,7 +136,7 @@
     "$id": "form-pane-radio-option",
     "Parent": "ui-element-basic",
     "Default": {
-      "Size": [ 208, 28 ],
+      "Size": [ 438, 28 ],
       "Align": "Center"
     }
   }

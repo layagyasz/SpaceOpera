@@ -12,13 +12,16 @@ namespace SpaceOpera.View.Game.Panes.Forms
                     .SetTitle(@event.Title)
                     .AutoSubmit()
                     .AddHidden("event", @event)
+                    .AddParagraph()
+                        .SetText(@event.GetDescription())
+                        .Complete()
                     .AddRadio()
                         .SetId("decisionId");
             foreach (var decision in @event.GetDecisions())
             {
                 field.AddOption(decision.Description, decision.Id);
             }
-            return field.CompleteField().Build();
+            return field.Complete().Build();
         }
     }
 }

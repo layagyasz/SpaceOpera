@@ -20,6 +20,7 @@ namespace SpaceOpera.View.Game.Panes.Forms
             new()
             {
                 Container = "form-pane-form-container",
+                Paragraph = "form-pane-paragraph",
                 FieldHeader = "form-pane-form-field-header",
                 DropDown =
                     new()

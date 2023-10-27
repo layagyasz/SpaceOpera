@@ -51,7 +51,7 @@ namespace SpaceOpera.View.Forms
                 return this;
             }
 
-            public FormLayout.Builder CompleteField()
+            public FormLayout.Builder Complete()
             {
                 return _root;
             }
@@ -77,7 +77,7 @@ namespace SpaceOpera.View.Forms
             _options = options.ToList();
         }
 
-        public IUiComponent CreateField(Form.Style style, UiElementFactory uiElementFactory)
+        public IUiElement CreateField(Form.Style style, UiElementFactory uiElementFactory)
         {
             return _type switch
             {

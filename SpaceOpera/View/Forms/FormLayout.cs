@@ -14,11 +14,15 @@ namespace SpaceOpera.View.Forms
             private readonly List<IFieldLayout.IBuilder> _fields = new();
             private bool _autoSubmit;
 
+            public T AddField<T>(T builder) where T : IFieldLayout.IBuilder
+            {
+                _fields.Add(builder);
+                return builder;
+            }
+
             public SelectorFieldLayout.Builder AddSelector(SelectorFieldLayout.SelectorType selectorType)
             {
-                var layout = new SelectorFieldLayout.Builder(this).SetSelectorType(selectorType);
-                _fields.Add(layout);
-                return layout;
+                return AddField(new SelectorFieldLayout.Builder(this).SetSelectorType(selectorType));
             }
 
             public SelectorFieldLayout.Builder AddDropDown()
@@ -37,9 +41,19 @@ namespace SpaceOpera.View.Forms
                 return this;
             }
 
+            public TextLayout.Builder AddParagraph()
+            {
+                return AddField(new TextLayout.Builder(this).SupportsLineBreaks());
+            }
+
             public SelectorFieldLayout.Builder AddRadio()
             {
                 return AddSelector(SelectorFieldLayout.SelectorType.Radio);
+            }
+
+            public TextLayout.Builder AddText()
+            {
+                return AddField(new TextLayout.Builder(this));
             }
 
             public Builder AutoSubmit()
@@ -91,9 +105,9 @@ namespace SpaceOpera.View.Forms
 
                 var f = field.CreateField(style, uiElementFactory);
                 container.Add(f);
-                if (f is IUiComponent)
+                if (f is IUiComponent c)
                 {
-                    fields.Add(field.Id, f);
+                    fields.Add(field.Id, c);
                 }
             }
             return new(new GenericFormController(_hiddens), container, _title, fields, _autoSubmit);

@@ -6,7 +6,7 @@ namespace SpaceOpera.Core.Events
     {
         Faction Faction { get; }
         string Title { get; }
-        string Description { get; }
+        string GetDescription();
         IEnumerable<EventDecision> GetDecisions();
         bool Decide(int decisionId, World world);
     }
