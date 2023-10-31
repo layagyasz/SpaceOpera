@@ -2,6 +2,7 @@
 using Cardamom.Ui.Controller;
 using Cardamom.Ui.Elements;
 using SpaceOpera.View.Components;
+using SpaceOpera.View.Info;
 
 namespace SpaceOpera.View.Forms
 {
@@ -12,6 +13,7 @@ namespace SpaceOpera.View.Forms
             public string? Container { get; set; }
             public string? Paragraph { get; set; }
             public string? FieldHeader { get; set; }
+            public InfoPanel.Style Info { get; set; }
             public Select.Style? DropDown { get; set; }
             public DialSelect.Style? Dial { get; set; }
             public Radio.Style? Radio { get; set; }

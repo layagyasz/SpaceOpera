@@ -1,6 +1,7 @@
 ﻿using Cardamom.Ui;
 using Cardamom.Ui.Controller;
 using SpaceOpera.View.Components;
+using SpaceOpera.View.Icons;
 
 namespace SpaceOpera.View.Forms
 {
@@ -77,7 +78,7 @@ namespace SpaceOpera.View.Forms
             _options = options.ToList();
         }
 
-        public IUiElement CreateField(Form.Style style, UiElementFactory uiElementFactory)
+        public IUiElement CreateField(Form.Style style, UiElementFactory uiElementFactory, IconFactory iconFactory)
         {
             return _type switch
             {

@@ -6,8 +6,8 @@ using SpaceOpera.Core;
 using SpaceOpera.Core.Designs;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.View.Components;
-using SpaceOpera.View.Game.Info;
 using SpaceOpera.View.Icons;
+using SpaceOpera.View.Info;
 
 namespace SpaceOpera.View.Game.Panes.DesignPanes
 {

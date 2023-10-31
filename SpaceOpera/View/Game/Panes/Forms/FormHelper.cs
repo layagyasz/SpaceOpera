@@ -1,4 +1,5 @@
 ﻿using SpaceOpera.Core.Events;
+using SpaceOpera.Core.Orders;
 using SpaceOpera.View.Forms;
 
 namespace SpaceOpera.View.Game.Panes.Forms
@@ -22,6 +23,22 @@ namespace SpaceOpera.View.Game.Panes.Forms
                 field.AddOption(decision.Description, decision.Id);
             }
             return field.Complete().Build();
+        }
+
+        public static FormLayout ForOrder(IOrder order)
+        {
+            return 
+                new FormLayout.Builder()
+                    .SetTitle("Confirm Order")
+                    .AutoSubmit()
+                    .AddHidden("order", order)
+                    .AddInfo(order)
+                    .AddRadio()
+                        .SetId("decisionId")
+                        .AddOption("Confirm", 0)
+                        .AddOption("Cancel", 1)
+                    .Complete()
+                    .Build();
         }
     }
 }

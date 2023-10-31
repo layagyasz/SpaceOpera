@@ -1,6 +1,6 @@
 ﻿using SpaceOpera.Core.Orders;
 
-namespace SpaceOpera.View.Game.Info
+namespace SpaceOpera.View.Info
 {
     public class OrderDescriber : IDescriber
     {

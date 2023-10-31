@@ -2,6 +2,7 @@
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
 using SpaceOpera.Controller.Forms;
+using SpaceOpera.View.Icons;
 
 namespace SpaceOpera.View.Forms
 {
@@ -38,6 +39,12 @@ namespace SpaceOpera.View.Forms
             public Builder AddHidden(string id, object value)
             {
                 _hiddens.Add(id, value);
+                return this;
+            }
+
+            public Builder AddInfo(object @object)
+            {
+                _fields.Add(new InfoLayout.Builder(this).SetObject(@object));
                 return this;
             }
 
@@ -88,7 +95,7 @@ namespace SpaceOpera.View.Forms
             _autoSubmit = autoSubmit;
         }
 
-        public Form CreateForm(Form.Style style, UiElementFactory uiElementFactory)
+        public Form CreateForm(Form.Style style, UiElementFactory uiElementFactory, IconFactory iconFactory)
         {
             var container =
                 new UiSerialContainer(
@@ -103,7 +110,7 @@ namespace SpaceOpera.View.Forms
                     container.Add(uiElementFactory.CreateTextButton(style.FieldHeader!, field.Name).Item1);
                 }
 
-                var f = field.CreateField(style, uiElementFactory);
+                var f = field.CreateField(style, uiElementFactory, iconFactory);
                 container.Add(f);
                 if (f is IUiComponent c)
                 {

@@ -788,9 +788,6 @@
     <None Update="Resources\View\Style\Game\Panes\Military.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Style\Game\Panes\OrderConfirmation.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="Resources\View\Style\Game\Panes\LogisticsRoute.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

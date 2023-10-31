@@ -3,7 +3,7 @@ using SpaceOpera.Core.Designs;
 using SpaceOpera.Core.Economics;
 using SpaceOpera.Core.Military;
 
-namespace SpaceOpera.View.Game.Info
+namespace SpaceOpera.View.Info
 {
     public class ComponentDescriber : IDescriber
     {

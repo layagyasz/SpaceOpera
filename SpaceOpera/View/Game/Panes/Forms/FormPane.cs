@@ -5,6 +5,7 @@ using Cardamom.Utils.Suppliers;
 using SpaceOpera.Controller.Game.Panes.Forms;
 using SpaceOpera.Core;
 using SpaceOpera.View.Forms;
+using SpaceOpera.View.Icons;
 
 namespace SpaceOpera.View.Game.Panes.Forms
 {
@@ -22,6 +23,17 @@ namespace SpaceOpera.View.Game.Panes.Forms
                 Container = "form-pane-form-container",
                 Paragraph = "form-pane-paragraph",
                 FieldHeader = "form-pane-form-field-header",
+                Info =
+                    new()
+                    {
+                        Container = "form-pane-info-container",
+                        Row = "form-pane-info-row",
+                        RowHeading = "form-pane-info-heading",
+                        RowValue = "form-pane-info-value",
+                        MaterialCell = "form-pane-info-material-cell",
+                        MaterialIcon = "form-pane-info-material-icon",
+                        MaterialText = "form-pane-info-material-text"
+                    },
                 DropDown =
                     new()
                     {
@@ -49,12 +61,13 @@ namespace SpaceOpera.View.Game.Panes.Forms
         public IUiElement Submit { get; }
 
         private readonly UiElementFactory _uiElementFactory;
+        private readonly IconFactory _iconFactory;
 
         private World? _world;
         private Form? _form;
         private Promise<FormValue>? _promise;
 
-        public FormPane(UiElementFactory uiElementFactory)
+        public FormPane(UiElementFactory uiElementFactory, IconFactory iconFactory)
             : base(
                   new FormPaneController(),
                   uiElementFactory.GetClass(s_Container),
@@ -69,6 +82,7 @@ namespace SpaceOpera.View.Game.Panes.Forms
             Submit = uiElementFactory.CreateTextButton(s_Submit, "Submit").Item1;
             SetBody(Contents);
             _uiElementFactory = uiElementFactory;
+            _iconFactory = iconFactory;
         }
 
         public Form GetForm()
@@ -90,7 +104,7 @@ namespace SpaceOpera.View.Game.Panes.Forms
 
             _world = (World)args[0]!;
             var layout = (FormLayout)args[1]!;
-            _form = layout.CreateForm(s_Style, _uiElementFactory);
+            _form = layout.CreateForm(s_Style, _uiElementFactory, _iconFactory);
             _form.Initialize();
             _promise = (Promise<FormValue>)args[2]!;
             Contents.Insert(0, _form);

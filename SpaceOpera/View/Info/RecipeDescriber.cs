@@ -1,7 +1,7 @@
 using Cardamom.Trackers;
 using SpaceOpera.Core.Economics;
 
-namespace SpaceOpera.View.Game.Info
+namespace SpaceOpera.View.Info
 {
     public class RecipeDescriber : IDescriber
     {

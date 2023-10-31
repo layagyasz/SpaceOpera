@@ -14,7 +14,6 @@
         LogisticsRoute,
         Military,
         MilitaryOrganization,
-        OrderConfirmation,
         Research,
         StellarBodyRegion,
         Trade

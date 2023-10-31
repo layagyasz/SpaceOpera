@@ -1,6 +1,6 @@
 ﻿using SpaceOpera.Core.Designs;
 
-namespace SpaceOpera.View.Game.Info
+namespace SpaceOpera.View.Info
 {
     public class DesignDescriber : IDescriber
     {

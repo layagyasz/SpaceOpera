@@ -1,4 +1,4 @@
-﻿namespace SpaceOpera.View.Game.Info
+﻿namespace SpaceOpera.View.Info
 {
     public interface IDescriber
     {

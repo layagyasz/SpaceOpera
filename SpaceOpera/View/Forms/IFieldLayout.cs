@@ -1,4 +1,5 @@
 ﻿using Cardamom.Ui;
+using SpaceOpera.View.Icons;
 
 namespace SpaceOpera.View.Forms
 {
@@ -13,6 +14,6 @@ namespace SpaceOpera.View.Forms
         string Id { get; }
         string Name { get; }
 
-        IUiElement CreateField(Form.Style style, UiElementFactory uiElementFactory);
+        IUiElement CreateField(Form.Style style, UiElementFactory uiElementFactory, IconFactory iconFactory);
     }
 }

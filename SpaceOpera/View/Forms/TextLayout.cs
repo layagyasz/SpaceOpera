@@ -1,6 +1,7 @@
 ﻿using Cardamom.Ui;
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
+using SpaceOpera.View.Icons;
 
 namespace SpaceOpera.View.Forms
 {
@@ -53,7 +54,7 @@ namespace SpaceOpera.View.Forms
             _supportLineBreaks = supportLineBreaks;
         }
 
-        public IUiElement CreateField(Form.Style style, UiElementFactory uiElementFactory)
+        public IUiElement CreateField(Form.Style style, UiElementFactory uiElementFactory, IconFactory iconFactory)
         {
             return new TextUiElement(
                 uiElementFactory.GetClass(style.Paragraph!), new InlayController(), _text, _supportLineBreaks);

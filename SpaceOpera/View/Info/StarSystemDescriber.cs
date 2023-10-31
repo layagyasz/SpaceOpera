@@ -1,6 +1,6 @@
 using SpaceOpera.Core.Universe;
 
-namespace SpaceOpera.View.Game.Info
+namespace SpaceOpera.View.Info
 {
     public class StarSystemDescriber : IDescriber
     {

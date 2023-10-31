@@ -247,7 +247,16 @@ namespace SpaceOpera.Controller.Game
             // Orders that require manual confirmation.
             if (e is BuildOrder)
             {
-                OpenPane(GamePaneId.OrderConfirmation, /* closeOpenPanes= */ false, e);
+                var promise = new Promise<FormValue>();
+                promise.Finished += HandleOrderDecision;
+                promise.Canceled += HandleOrderDecisionCanceled;
+                OpenPane(
+                    GamePaneId.Form,
+                    /* closeOpenPanes= */ false,
+                    _world,
+                    FormHelper.ForOrder(e),
+                    promise);
+                return;
             }
             else
             {
@@ -406,11 +415,6 @@ namespace SpaceOpera.Controller.Game
                     return;
                 }
             }
-            if (type.IsAssignableTo(typeof(IOrder)) && e.Action == ActionId.Confirm)
-            {
-                ExecuteOrder((IOrder)e.GetOnlyObject()!);
-                return;
-            }
             if (type.IsAssignableTo(typeof(IProject)) && e.Action == ActionId.Cancel)
             {
                 ExecuteOrder(new CancelProjectOrder((IProject)e.GetOnlyObject()!));
@@ -537,6 +541,7 @@ namespace SpaceOpera.Controller.Game
         {
             Promise<FormValue> promise = (Promise<FormValue>)sender!;
             promise.Finished -= HandleEventDecision;
+            promise.Canceled -= HandleEventDecisionCanceled;
             _world!.Execute(new DecideEventOrder((IEvent)promise.Get()["event"]!, (int)promise.Get()["decisionId"]!));
         }
 
@@ -544,6 +549,25 @@ namespace SpaceOpera.Controller.Game
         {
             Promise<FormValue> promise = (Promise<FormValue>)sender!;
             promise.Finished -= HandleEventDecision;
+            promise.Canceled -= HandleEventDecisionCanceled;
+        }
+
+        private void HandleOrderDecision(object? sender, EventArgs e)
+        {
+            Promise<FormValue> promise = (Promise<FormValue>)sender!;
+            promise.Finished -= HandleOrderDecision;
+            promise.Canceled -= HandleOrderDecisionCanceled;
+            if ((int)promise.Get()["decisionId"]! == 0)
+            {
+                ExecuteOrder((IOrder)promise.Get()["order"]!);
+            }
+        }
+
+        private void HandleOrderDecisionCanceled(object? sender, EventArgs e)
+        {
+            Promise<FormValue> promise = (Promise<FormValue>)sender!;
+            promise.Finished -= HandleOrderDecision;
+            promise.Canceled -= HandleOrderDecisionCanceled;
         }
 
         private void HandlePaneClosed(object? sender, ElementEventArgs e)

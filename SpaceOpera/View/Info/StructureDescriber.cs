@@ -1,6 +1,6 @@
 using SpaceOpera.Core.Economics;
 
-namespace SpaceOpera.View.Game.Info
+namespace SpaceOpera.View.Info
 {
     public class StructureDescriber : IDescriber
     {

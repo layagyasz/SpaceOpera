@@ -4,7 +4,7 @@ using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
 using SpaceOpera.View.Icons;
 
-namespace SpaceOpera.View.Game.Info
+namespace SpaceOpera.View.Info
 {
     public class InfoPanel : UiSerialContainer
     {
@@ -32,7 +32,7 @@ namespace SpaceOpera.View.Game.Info
             IconFactory iconFactory)
             : base(
                   uiElementFactory.GetClass(style.Container!),
-                  new TableController(10f), 
+                  new TableController(10f),
                   Orientation.Vertical)
         {
             _style = style;
@@ -80,7 +80,7 @@ namespace SpaceOpera.View.Game.Info
             {
                 InitializeAndAdd(
                     _uiElementFactory.CreateTableRow(
-                        _style.MaterialCell!, 
+                        _style.MaterialCell!,
                         new List<IUiElement>()
                         {
                             _iconFactory.Create(
@@ -116,6 +116,11 @@ namespace SpaceOpera.View.Game.Info
         public void AddBreak()
         {
             AddRow(_style.Row!, Enumerable.Empty<IUiElement>());
+        }
+
+        public void SetObject(object @object)
+        {
+
         }
 
         private void AddRow(string rowClass, IEnumerable<IUiElement> cells)

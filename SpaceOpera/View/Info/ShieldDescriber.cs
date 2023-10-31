@@ -1,6 +1,6 @@
 using SpaceOpera.Core.Military;
 
-namespace SpaceOpera.View.Game.Info
+namespace SpaceOpera.View.Info
 {
     public class ShieldDescriber : IDescriber
     {

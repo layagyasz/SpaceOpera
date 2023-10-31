@@ -8,7 +8,7 @@ using SpaceOpera.Core.Politics;
 using SpaceOpera.Core;
 using SpaceOpera.Controller.Game.Panes.DesignPanes;
 using Cardamom.Collections;
-using SpaceOpera.View.Game.Info;
+using SpaceOpera.View.Info;
 
 namespace SpaceOpera.View.Game.Panes.DesignPanes
 {
