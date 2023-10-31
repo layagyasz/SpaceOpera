@@ -4,6 +4,11 @@ namespace SpaceOpera.Core.Politics.Diplomacy
 {
     public class DiplomaticAgreement
     {
+        public record struct RelationTransition(int SetId, bool Origination)
+        {
+            public static readonly RelationTransition None = new(-1, false);
+        }
+
         public class Builder
         {
             private Faction? _proposer;
@@ -74,21 +79,16 @@ namespace SpaceOpera.Core.Politics.Diplomacy
         {
             var left = GetSetId(Proposer);
             var right= GetSetId(Approver);
-            return (left.Item2 && left.Item1 != other.GetSetId(Approver).Item1) 
-                || (right.Item2 && right.Item1 != other.GetSetId(Approver).Item1);
+            return (left.Origination && left.SetId != other.GetSetId(Approver).SetId) 
+                || (right.Origination && right.SetId != other.GetSetId(Approver).SetId);
         }
 
         public bool Blocks(DiplomaticAgreement other)
         {
             var left = other.GetSetId(Proposer);
             var right = other.GetSetId(Approver);
-            return (!left.Item2 && GetSetId(Proposer).Item1 != left.Item1)
-                || (!right.Item2 && GetSetId(Approver).Item1 != right.Item1);
-        }
-
-        public IEnumerable<IDiplomaticAgreementSection> GetSections(bool isLeft)
-        {
-            return isLeft ? Left : Right;
+            return (!left.Origination && GetSetId(Proposer).SetId != left.SetId)
+                || (!right.Origination && GetSetId(Approver).SetId != right.SetId);
         }
 
         public IEnumerable<IDiplomaticAgreementSection> GetSections(Faction faction)
@@ -104,7 +104,7 @@ namespace SpaceOpera.Core.Politics.Diplomacy
             throw new ArgumentException($"{faction} is not part of this agreement.");
         }
 
-        public (int, bool) GetSetId(Faction faction)
+        public RelationTransition GetSetId(Faction faction)
         {
             int setId = -1;
             bool originate = false;
@@ -113,7 +113,7 @@ namespace SpaceOpera.Core.Politics.Diplomacy
                 setId = section.Type.SetId;
                 originate = section.Type.IsOriginator;
             }
-            return (setId, originate);
+            return new(setId, originate);
         }
 
         public Builder ToBuilder()

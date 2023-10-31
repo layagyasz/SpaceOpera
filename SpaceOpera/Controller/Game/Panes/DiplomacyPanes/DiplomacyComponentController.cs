@@ -1,5 +1,4 @@
-﻿using Cardamom.Collections;
-using Cardamom.Ui;
+﻿using Cardamom.Ui;
 using Cardamom.Ui.Controller;
 using SpaceOpera.Controller.Components;
 using SpaceOpera.Core.Politics;
@@ -77,10 +76,13 @@ namespace SpaceOpera.Controller.Game.Panes.DiplomacyPanes
                 Enumerable.Concat(
                     new List<DiplomaticAgreement>() { _agreement! }, 
                     _relation!.CurrentAgreements.Where(x => !_agreement!.Cancels(x)));
-            var currentSet =  agreements.Select(x => x.GetSetId(faction)).FirstOrDefault((-1, false));
-            var sections = agreements.SelectMany(x => x.GetSections(isLeft));
+            var currentSet =  
+                agreements
+                    .Select(x => x.GetSetId(faction))
+                    .FirstOrDefault(DiplomaticAgreement.RelationTransition.None);
+            var sections = agreements.SelectMany(x => x.GetSections(faction));
             return DiplomacyType.All
-                .Where(x => currentSet.Item1 < 0 || x.SetId == currentSet.Item1)
+                .Where(x => currentSet.SetId < 0 || x.SetId == currentSet.SetId)
                 .Where(x => !x.IsUnique || !sections.Any(y => x == y.Type));
         }
 
