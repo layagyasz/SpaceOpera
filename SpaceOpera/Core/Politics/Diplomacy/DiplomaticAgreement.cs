@@ -61,7 +61,9 @@ namespace SpaceOpera.Core.Politics.Diplomacy
         public Faction Proposer { get; }
         public Faction Approver { get; }
         public ImmutableList<IDiplomaticAgreementSection> Left { get; }
+        public RelationTransition LeftTransition { get; }
         public ImmutableList<IDiplomaticAgreementSection> Right { get; }
+        public RelationTransition RightTransition { get; }
 
         public DiplomaticAgreement(
             Faction proposer,
@@ -72,23 +74,29 @@ namespace SpaceOpera.Core.Politics.Diplomacy
             Proposer = proposer;
             Approver = approver;
             Left = left.ToImmutableList();
+            LeftTransition =
+                Left.Aggregate(
+                    RelationTransition.None, (x, y) => new(y.Type.SetId, y.Type.IsOriginator | x.Origination));
             Right = right.ToImmutableList();
+            RightTransition =
+                Right.Aggregate(
+                    RelationTransition.None, (x, y) => new(y.Type.SetId, y.Type.IsOriginator | x.Origination));
         }
 
         public bool Cancels(DiplomaticAgreement other)
         {
-            var left = GetSetId(Proposer);
-            var right= GetSetId(Approver);
-            return (left.Origination && left.SetId != other.GetSetId(Approver).SetId) 
-                || (right.Origination && right.SetId != other.GetSetId(Approver).SetId);
+            var left = GetTransition(Proposer);
+            var right= GetTransition(Approver);
+            return (left.Origination && left.SetId != other.GetTransition(Approver).SetId) 
+                || (right.Origination && right.SetId != other.GetTransition(Approver).SetId);
         }
 
         public bool Blocks(DiplomaticAgreement other)
         {
-            var left = other.GetSetId(Proposer);
-            var right = other.GetSetId(Approver);
-            return (!left.Origination && GetSetId(Proposer).SetId != left.SetId)
-                || (!right.Origination && GetSetId(Approver).SetId != right.SetId);
+            var left = other.GetTransition(Proposer);
+            var right = other.GetTransition(Approver);
+            return (!left.Origination && GetTransition(Proposer).SetId != left.SetId)
+                || (!right.Origination && GetTransition(Approver).SetId != right.SetId);
         }
 
         public IEnumerable<IDiplomaticAgreementSection> GetSections(Faction faction)
@@ -104,16 +112,17 @@ namespace SpaceOpera.Core.Politics.Diplomacy
             throw new ArgumentException($"{faction} is not part of this agreement.");
         }
 
-        public RelationTransition GetSetId(Faction faction)
+        public RelationTransition GetTransition(Faction faction)
         {
-            int setId = -1;
-            bool originate = false;
-            foreach (var section in GetSections(faction))
+            if (faction == Proposer)
             {
-                setId = section.Type.SetId;
-                originate = section.Type.IsOriginator;
+                return LeftTransition;
             }
-            return new(setId, originate);
+            if (faction == Approver)
+            {
+                return RightTransition;
+            }
+            throw new ArgumentException($"{faction} is not part of this agreement.");
         }
 
         public Builder ToBuilder()

@@ -78,7 +78,7 @@ namespace SpaceOpera.Controller.Game.Panes.DiplomacyPanes
                     _relation!.CurrentAgreements.Where(x => !_agreement!.Cancels(x)));
             var currentSet =  
                 agreements
-                    .Select(x => x.GetSetId(faction))
+                    .Select(x => x.GetTransition(faction))
                     .FirstOrDefault(DiplomaticAgreement.RelationTransition.None);
             var sections = agreements.SelectMany(x => x.GetSections(faction));
             return DiplomacyType.All
