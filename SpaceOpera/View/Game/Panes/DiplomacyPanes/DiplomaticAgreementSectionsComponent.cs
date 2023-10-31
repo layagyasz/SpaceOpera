@@ -42,22 +42,25 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
 
         private IUiComponent CreateRow(IDiplomaticAgreementSection section)
         {
-            return section.Type switch
+            if (section is DefensePact)
             {
-                DiplomacyType.DefensePact =>
-                    new UiSimpleComponent(
-                        new SimpleSectionComponentController(section),
-                        _uiElementFactory.CreateTextButton(s_Section, s_DefensePact).Item1),
-                DiplomacyType.Peace =>
-                    new UiSimpleComponent(
-                        new SimpleSectionComponentController(section),
-                        _uiElementFactory.CreateTextButton(s_Section, s_PeaceAgreement).Item1),
-                DiplomacyType.War =>
-                    new UiSimpleComponent(
-                        new SimpleSectionComponentController(section),
-                        _uiElementFactory.CreateTextButton(s_Section, s_WarDeclaration).Item1),
-                _ => throw new ArgumentException($"Unsupported DiplomacyType: [{section.Type}]"),
-            };
+                return new UiSimpleComponent(
+                    new SimpleSectionComponentController(section),
+                    _uiElementFactory.CreateTextButton(s_Section, s_DefensePact).Item1);
+            }
+            if (section is PeaceProposal)
+            {
+                return new UiSimpleComponent(
+                    new SimpleSectionComponentController(section),
+                    _uiElementFactory.CreateTextButton(s_Section, s_PeaceAgreement).Item1);
+            }
+            if (section is WarDeclaration)
+            {
+                return new UiSimpleComponent(
+                    new SimpleSectionComponentController(section),
+                    _uiElementFactory.CreateTextButton(s_Section, s_WarDeclaration).Item1);
+            }
+            throw new ArgumentException($"Unsupported DiplomacyType: [{section.Type}]");
         }
     }
 }

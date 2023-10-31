@@ -1,5 +1,4 @@
-﻿using Cardamom.Collections;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 
 namespace SpaceOpera.Core.Politics.Diplomacy
 {
@@ -71,14 +70,50 @@ namespace SpaceOpera.Core.Politics.Diplomacy
             Right = right.ToImmutableList();
         }
 
-        public ISet<DiplomacyType> GetBlocked(Faction faction)
+        public bool Cancels(DiplomaticAgreement other)
         {
-            return GetSections(faction).SelectMany(x => x.TypesToBlock).ToEnumSet();
+            var left = GetSetId(Proposer);
+            var right= GetSetId(Approver);
+            return (left.Item2 && left.Item1 != other.GetSetId(Approver).Item1) 
+                || (right.Item2 && right.Item1 != other.GetSetId(Approver).Item1);
         }
 
-        public ISet<DiplomacyType> GetCanceled(Faction faction)
+        public bool Blocks(DiplomaticAgreement other)
         {
-            return GetSections(faction).SelectMany(x => x.TypesToCancel).ToEnumSet();
+            var left = other.GetSetId(Proposer);
+            var right = other.GetSetId(Approver);
+            return (!left.Item2 && GetSetId(Proposer).Item1 != left.Item1)
+                || (!right.Item2 && GetSetId(Approver).Item1 != right.Item1);
+        }
+
+        public IEnumerable<IDiplomaticAgreementSection> GetSections(bool isLeft)
+        {
+            return isLeft ? Left : Right;
+        }
+
+        public IEnumerable<IDiplomaticAgreementSection> GetSections(Faction faction)
+        {
+            if (faction == Proposer)
+            {
+                return Left;
+            }
+            if (faction == Approver)
+            {
+                return Right;
+            }
+            throw new ArgumentException($"{faction} is not part of this agreement.");
+        }
+
+        public (int, bool) GetSetId(Faction faction)
+        {
+            int setId = -1;
+            bool originate = false;
+            foreach (var section in GetSections(faction))
+            {
+                setId = section.Type.SetId;
+                originate = section.Type.IsOriginator;
+            }
+            return (setId, originate);
         }
 
         public Builder ToBuilder()
@@ -109,7 +144,7 @@ namespace SpaceOpera.Core.Politics.Diplomacy
             foreach (var section in Left)
             {
                 // Mirrored proposals must be in both lists.
-                if (section.IsMirrored && !Right.Contains(section))
+                if (section.Type.IsMirrored && !Right.Contains(section))
                 {
                     return false;
                 }
@@ -117,20 +152,41 @@ namespace SpaceOpera.Core.Politics.Diplomacy
             foreach (var section in Right)
             {
                 // Mirrored proposals must be in both lists.
-                if (section.IsMirrored && !Left.Contains(section))
+                if (section.Type.IsMirrored && !Left.Contains(section))
                 {
                     return false;
                 }
             }
 
             // Existing agreements prevent this one from being made.
-            if (world.DiplomaticRelations.Get(Proposer, Approver).CurrentAgreements.Any(x => x.Blocks(this)))
+            var relation = world.DiplomaticRelations.Get(Proposer, Approver);
+            if (relation.CurrentAgreements.Any(x => x.Blocks(this)))
             {
                 return false;
             }
-            if (world.DiplomaticRelations.Get(Approver, Proposer).CurrentAgreements.Any(x => x.Blocks(this)))
+            foreach (var section in Left)
             {
-                return false;
+                if (section.Type.IsUnique)
+                {
+                    if (relation.CurrentAgreements
+                            .SelectMany(x => x.GetSections(Proposer))
+                            .Any(x => section.Type == x.Type))
+                    {
+                        return false;
+                    }
+                }
+            }
+            foreach (var section in Right)
+            {
+                if (section.Type.IsUnique)
+                {
+                    if (relation.CurrentAgreements
+                            .SelectMany(x => x.GetSections(Approver))
+                            .Any(x => section.Type == x.Type))
+                    {
+                        return false;
+                    }
+                }
             }
 
             return true;
@@ -163,20 +219,6 @@ namespace SpaceOpera.Core.Politics.Diplomacy
             }
         }
 
-        internal bool Cancels(DiplomaticAgreement other)
-        {
-            var left = other.GetCanceled(Proposer);
-            var right = other.GetCanceled(Approver);
-            return Left.Any(x => left.Contains(x.Type)) || Right.Any(x => right.Contains(x.Type));
-        }
-
-        internal bool Blocks(DiplomaticAgreement other)
-        {
-            var left = other.GetBlocked(Proposer);
-            var right = other.GetBlocked(Approver);
-            return Left.Any(x => left.Contains(x.Type)) || Right.Any(x => right.Contains(x.Type));
-        }
-
         internal void Notify(World world, DiplomaticRelation relation, DiplomaticAgreement agreement, bool isProposer)
         {
             foreach (var section in GetSections(relation.Faction)!)
@@ -188,36 +230,23 @@ namespace SpaceOpera.Core.Politics.Diplomacy
             }
         }
 
-        private IEnumerable<IDiplomaticAgreementSection> GetSections(Faction faction)
-        {
-            if (faction == Proposer)
-            {
-                return Left;
-            }
-            if (faction == Approver)
-            {
-                return Right;
-            }
-            throw new ArgumentException($"{faction} is not part of this agreement.");
-        }
-
         private static bool Validate(IList<IDiplomaticAgreementSection> sections)
         {
-            var typesToCancel = sections.SelectMany(x => x.TypesToCancel).ToEnumSet();
+            var setId = sections.Select(x => x.Type.SetId).FirstOrDefault(-1);
             foreach (var section in sections)
             {
                 // Only allow one unilateral declaration at a time.
-                if (section.IsUnilateral && sections.Count > 1)
+                if (section.Type.IsUnilateral && sections.Count > 1)
                 {
                     return false;
                 }
-                // Sections cannot cancel each other.
-                if (typesToCancel.Contains(section.Type))
+                // Sections cannot conflict with eachother.
+                if (section.Type.SetId != setId)
                 {
                     return false;
                 }
-                // Sections cannot block each other.
-                if (sections.Any(x => x.Type != section.Type && x.TypesToBlock.Contains(section.Type)))
+                // Unique sections must be unique
+                if (section.Type.IsUnique && sections.Count(x => x.Type == section.Type) > 1)
                 {
                     return false;
                 }

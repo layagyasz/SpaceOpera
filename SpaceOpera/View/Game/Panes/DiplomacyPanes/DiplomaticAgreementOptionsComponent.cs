@@ -19,7 +19,7 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
         private static readonly string s_PeaceAgreement = "Peace Treaty";
         private static readonly string s_WarDeclaration = "Declare War";
 
-        private readonly EnumSet<DiplomacyType> _range = new();
+        private readonly HashSet<DiplomacyType> _range = new();
         private readonly UiElementFactory _uiElementFactory;
 
         public IUiComponent Options { get; }
@@ -45,7 +45,7 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
                           UiSerialContainer.Orientation.Vertical,
                           GetRange,
                           CreateRow,
-                          Comparer<DiplomacyType>.Create((x, y) => (int)x - (int)y)));
+                          Comparer<DiplomacyType>.Create((x, y) => 0)));
             Add(Options);
         }
 
@@ -61,28 +61,31 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
 
         private KeyedUiComponent<DiplomacyType> CreateRow(DiplomacyType diplomacyType)
         {
-            return diplomacyType switch
+            if (diplomacyType == DiplomacyType.DefensePact)
             {
-                DiplomacyType.DefensePact =>
-                    KeyedUiComponent<DiplomacyType>.Wrap(
-                        diplomacyType,
-                        new UiSimpleComponent(
-                            new SimpleOptionComponentController(() => new DefensePact()),
-                            _uiElementFactory.CreateTextButton(s_SimpleSection, s_DefensePact).Item1)),
-                DiplomacyType.Peace => 
-                    KeyedUiComponent<DiplomacyType>.Wrap(
-                        diplomacyType,
-                        new UiSimpleComponent(
-                            new SimpleOptionComponentController(() => new PeaceProposal()),
-                            _uiElementFactory.CreateTextButton(s_SimpleSection, s_PeaceAgreement).Item1)),
-                DiplomacyType.War =>
-                    KeyedUiComponent<DiplomacyType>.Wrap(
-                        diplomacyType,
-                        new UiSimpleComponent(
-                            new SimpleOptionComponentController(() => new WarDeclaration()),
-                            _uiElementFactory.CreateTextButton(s_SimpleSection, s_WarDeclaration).Item1)),
-                _ => throw new ArgumentException($"Unsupported DiplomacyType: [{diplomacyType}]"),
-            };
+                return KeyedUiComponent<DiplomacyType>.Wrap(
+                    diplomacyType,
+                    new UiSimpleComponent(
+                        new SimpleOptionComponentController(() => new DefensePact()),
+                        _uiElementFactory.CreateTextButton(s_SimpleSection, s_DefensePact).Item1));
+            }
+            if (diplomacyType == DiplomacyType.Peace)
+            {
+                return KeyedUiComponent<DiplomacyType>.Wrap(
+                    diplomacyType,
+                    new UiSimpleComponent(
+                        new SimpleOptionComponentController(() => new PeaceProposal()),
+                        _uiElementFactory.CreateTextButton(s_SimpleSection, s_PeaceAgreement).Item1));
+            }
+            if (diplomacyType == DiplomacyType.War)
+            {
+                return KeyedUiComponent<DiplomacyType>.Wrap(
+                    diplomacyType,
+                    new UiSimpleComponent(
+                        new SimpleOptionComponentController(() => new WarDeclaration()),
+                        _uiElementFactory.CreateTextButton(s_SimpleSection, s_WarDeclaration).Item1));
+            }
+            throw new ArgumentException($"Unsupported DiplomacyType: [{diplomacyType}]");
         }
 
         private IEnumerable<DiplomacyType> GetRange()

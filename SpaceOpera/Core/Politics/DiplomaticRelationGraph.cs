@@ -28,7 +28,7 @@ namespace SpaceOpera.Core.Politics
             var right = Get(agreement.Approver, agreement.Proposer);
 
             // Cancel conflicting agreements
-            foreach (var current in left.CurrentAgreements)
+            foreach (var current in left.CurrentAgreements.ToList())
             {
                 if (agreement.Cancels(current))
                 {
@@ -36,7 +36,7 @@ namespace SpaceOpera.Core.Politics
                     left.Cancel(current);
                 }
             }
-            foreach (var current in right.CurrentAgreements)
+            foreach (var current in right.CurrentAgreements.ToList())
             {
                 if (agreement.Cancels(current))
                 {

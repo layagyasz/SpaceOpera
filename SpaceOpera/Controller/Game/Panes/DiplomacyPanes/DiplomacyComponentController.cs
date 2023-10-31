@@ -70,20 +70,18 @@ namespace SpaceOpera.Controller.Game.Panes.DiplomacyPanes
             }
         }
 
-        private ISet<DiplomacyType> GetAllowed(bool isLeft)
+        private IEnumerable<DiplomacyType> GetAllowed(bool isLeft)
         {
             var faction = isLeft ? _relation!.Faction : _relation!.Target;
-            var range = Enum.GetValues(typeof(DiplomacyType)).Cast<DiplomacyType>().ToEnumSet();
-            var blocked = 
-                _relation!.CurrentAgreements
-                    .Where(x => !_agreement!.Cancels(x))
-                    .SelectMany(x => x.GetBlocked(faction))
-                    .ToEnumSet();
-            blocked.UnionWith(_agreement!.GetCanceled(faction));
-            blocked.UnionWith(_agreement!.GetBlocked(faction));
-            blocked.Add(DiplomacyType.Unknown);
-            range.ExceptWith(blocked);
-            return range;
+            var agreements = 
+                Enumerable.Concat(
+                    new List<DiplomaticAgreement>() { _agreement! }, 
+                    _relation!.CurrentAgreements.Where(x => !_agreement!.Cancels(x)));
+            var currentSet =  agreements.Select(x => x.GetSetId(faction)).FirstOrDefault((-1, false));
+            var sections = agreements.SelectMany(x => x.GetSections(isLeft));
+            return DiplomacyType.All
+                .Where(x => currentSet.Item1 < 0 || x.SetId == currentSet.Item1)
+                .Where(x => !x.IsUnique || !sections.Any(y => x == y.Type));
         }
 
         private void HandlePopulated(object? sender, DiplomaticRelation relation)
@@ -96,7 +94,7 @@ namespace SpaceOpera.Controller.Game.Panes.DiplomacyPanes
         private void HandleLeftAdded(object? sender, IDiplomaticAgreementSection section)
         {
             _builder!.AddLeft(section);
-            if (section.IsMirrored)
+            if (section.Type.IsMirrored)
             {
                 _builder!.AddRight(section);
             }
@@ -106,7 +104,7 @@ namespace SpaceOpera.Controller.Game.Panes.DiplomacyPanes
         private void HandleRightAdded(object? sender, IDiplomaticAgreementSection section)
         {
             _builder!.AddRight(section);
-            if (section.IsMirrored)
+            if (section.Type.IsMirrored)
             {
                 _builder!.AddLeft(section);
             }
@@ -116,7 +114,7 @@ namespace SpaceOpera.Controller.Game.Panes.DiplomacyPanes
         private void HandleLeftRemoved(object? sender, IDiplomaticAgreementSection section)
         {
             _builder!.RemoveLeft(section);
-            if (section.IsMirrored)
+            if (section.Type.IsMirrored)
             {
                 _builder!.RemoveRight(section);
             }
@@ -126,7 +124,7 @@ namespace SpaceOpera.Controller.Game.Panes.DiplomacyPanes
         private void HandleRightRemoved(object? sender, IDiplomaticAgreementSection section)
         {
             _builder!.RemoveRight(section);
-            if (section.IsMirrored)
+            if (section.Type.IsMirrored)
             {
                 _builder!.RemoveLeft(section);
             }
