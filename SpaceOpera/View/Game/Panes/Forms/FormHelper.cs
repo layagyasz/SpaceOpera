@@ -29,7 +29,7 @@ namespace SpaceOpera.View.Game.Panes.Forms
         {
             return 
                 new FormLayout.Builder()
-                    .SetTitle("Confirm Order")
+                    .SetTitle(ToConfirmationString(order))
                     .AutoSubmit()
                     .AddHidden("order", order)
                     .AddInfo(order)
@@ -39,6 +39,15 @@ namespace SpaceOpera.View.Game.Panes.Forms
                         .AddOption("Cancel", 1)
                     .Complete()
                     .Build();
+        }
+
+        private static string ToConfirmationString(IOrder order)
+        {
+            if (order is BuildOrder)
+            {
+                return "Confirm Build Order";
+            }
+            throw new ArgumentException($"Unsupported order type: {order.GetType()}");
         }
     }
 }
