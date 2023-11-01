@@ -16,9 +16,6 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
 
         public DiplomacyComponent Diplomacy { get; }
 
-        private readonly UiElementFactory _uiElementFactory;
-        private readonly IconFactory _iconFactory;
-
         private World? _world;
         private Faction? _faction;
         private DiplomaticRelation? _diplomaticRelation;
@@ -31,10 +28,6 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
                   uiElementFactory.CreateSimpleButton(s_Close).Item1)
         {
             Diplomacy = new DiplomacyComponent(uiElementFactory);
-
-            _uiElementFactory = uiElementFactory;
-            _iconFactory = iconFactory;
-
             SetBody(Diplomacy);
         }
 
@@ -44,7 +37,7 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
             _faction = args[1] as Faction;
             _diplomaticRelation = args[2] as DiplomaticRelation;
             SetTitle(_diplomaticRelation!.Faction.Name);
-            Diplomacy.Populate(_diplomaticRelation);
+            Diplomacy.Populate(_world!, _diplomaticRelation);
             Populated?.Invoke(this, EventArgs.Empty);
         }
     }

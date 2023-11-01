@@ -2,6 +2,7 @@
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
 using SpaceOpera.Controller.Game.Panes.DiplomacyPanes;
+using SpaceOpera.Core;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Politics.Diplomacy;
 
@@ -9,13 +10,15 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
 {
     public class DiplomacyComponent : UiCompoundComponent
     {
+        public record struct PopulatedEventArgs(World World, DiplomaticRelation Relation);
+
         private static readonly string s_Container = "diplomacy-pane-diplomacy-container";
         private static readonly string s_InfoContainer = "diplomacy-pane-diplomacy-info-container";
         private static readonly string s_ProposalContainer = "diplomacy-pane-diplomacy-proposal-container";
         private static readonly string s_Image = "diplomacy-pane-diplomacy-image";
         private static readonly string s_Submit = "diplomacy-pane-diplomacy-submit";
 
-        public EventHandler<DiplomaticRelation>? Populated { get; set; }
+        public EventHandler<PopulatedEventArgs>? Populated { get; set; }
 
         public DiplomaticAgreementOptionsComponent LeftOptions { get; }
         public DiplomaticAgreementOptionsComponent RightOptions { get; }
@@ -61,9 +64,9 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
             Add(RightOptions);
         }
 
-        public void Populate(DiplomaticRelation relation)
+        public void Populate(World world, DiplomaticRelation relation)
         {
-            Populated?.Invoke(this, relation);
+            Populated?.Invoke(this, new(world, relation));
         }
 
         public void SetAgreement(DiplomaticAgreement agreement)

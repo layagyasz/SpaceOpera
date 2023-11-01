@@ -57,6 +57,31 @@
     }
   },
   {
+    "$id": "diplomacy-pane-diplomacy-side-trade-section",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 215, "DynamicContents" ]
+    }
+  },
+  {
+    "$id": "diplomacy-pane-diplomacy-side-trade-section-header",
+    "Parent": "diplomacy-pane-diplomacy-side-simple-section"
+  },
+  {
+    "$id": "diplomacy-pane-diplomacy-side-trade-section-option-table",
+    "Parent": "diplomacy-pane-diplomacy-side-trade-section"
+  },
+  {
+    "$id": "diplomacy-pane-diplomacy-side-trade-section-option",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 215, 24 ],
+      "FontSize": 12,
+      "Padding": [ 6 ],
+      "Margin": [ 16, 0, 0, 0 ]
+    }
+  },
+  {
     "$id": "diplomacy-pane-diplomacy-info-container",
     "Parent": "ui-container",
     "Default": {

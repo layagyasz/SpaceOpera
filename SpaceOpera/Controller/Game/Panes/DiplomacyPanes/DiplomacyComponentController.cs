@@ -1,9 +1,11 @@
 ﻿using Cardamom.Ui;
 using Cardamom.Ui.Controller;
 using SpaceOpera.Controller.Components;
+using SpaceOpera.Core;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Politics.Diplomacy;
 using SpaceOpera.View.Game.Panes.DiplomacyPanes;
+using static SpaceOpera.View.Game.Panes.DiplomacyPanes.DiplomaticAgreementOptionsComponent;
 
 namespace SpaceOpera.Controller.Game.Panes.DiplomacyPanes
 {
@@ -19,6 +21,7 @@ namespace SpaceOpera.Controller.Game.Panes.DiplomacyPanes
         private IAdderController<IDiplomaticAgreementSection>? _removeLeft;
         private IAdderController<IDiplomaticAgreementSection>? _removeRight;
 
+        private World? _world;
         private DiplomaticRelation? _relation;
         private DiplomaticAgreement.Builder? _builder;
         private DiplomaticAgreement? _agreement;
@@ -69,7 +72,7 @@ namespace SpaceOpera.Controller.Game.Panes.DiplomacyPanes
             }
         }
 
-        private IEnumerable<DiplomacyType> GetAllowed(bool isLeft)
+        private IEnumerable<OptionKey> GetAllowed(bool isLeft)
         {
             var faction = isLeft ? _relation!.Faction : _relation!.Target;
             var agreements = 
@@ -83,13 +86,17 @@ namespace SpaceOpera.Controller.Game.Panes.DiplomacyPanes
             var sections = agreements.SelectMany(x => x.GetSections(faction));
             return DiplomacyType.All
                 .Where(x => currentSet.SetId < 0 || x.SetId == currentSet.SetId)
-                .Where(x => !x.IsUnique || !sections.Any(y => x == y.Type));
+                .Where(x => !x.IsUnique || !sections.Any(y => x == y.Type))
+                .Select(x => new OptionKey(_world!, faction, x));
         }
 
-        private void HandlePopulated(object? sender, DiplomaticRelation relation)
+        private void HandlePopulated(object? sender, DiplomacyComponent.PopulatedEventArgs e)
         {
-            _relation = relation;
-            _builder = new DiplomaticAgreement.Builder().SetProposer(relation.Target).SetApprover(relation.Faction);
+            _world = e.World;
+            _relation = e.Relation;
+            _builder = new DiplomaticAgreement.Builder().SetProposer(_relation.Target).SetApprover(_relation.Faction);
+            _component!.LeftOptions.SetRange(Enumerable.Empty<OptionKey>());
+            _component!.RightOptions.SetRange(Enumerable.Empty<OptionKey>());
             UpdateAgreement();
         }
 

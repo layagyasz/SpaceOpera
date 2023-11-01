@@ -2,7 +2,6 @@
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
 using SpaceOpera.Controller.Components;
-using SpaceOpera.Controller.Game.Panes.DiplomacyPanes;
 using SpaceOpera.Core.Politics.Diplomacy;
 
 namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
@@ -45,19 +44,19 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
             if (section is DefensePact)
             {
                 return new UiSimpleComponent(
-                    new SimpleSectionComponentController(section),
+                    new StaticAdderController<IDiplomaticAgreementSection>(section),
                     _uiElementFactory.CreateTextButton(s_Section, s_DefensePact).Item1);
             }
             if (section is PeaceProposal)
             {
                 return new UiSimpleComponent(
-                    new SimpleSectionComponentController(section),
+                    new StaticAdderController<IDiplomaticAgreementSection>(section),
                     _uiElementFactory.CreateTextButton(s_Section, s_PeaceAgreement).Item1);
             }
             if (section is WarDeclaration)
             {
                 return new UiSimpleComponent(
-                    new SimpleSectionComponentController(section),
+                    new StaticAdderController<IDiplomaticAgreementSection>(section),
                     _uiElementFactory.CreateTextButton(s_Section, s_WarDeclaration).Item1);
             }
             throw new ArgumentException($"Unsupported DiplomacyType: [{section.Type}]");

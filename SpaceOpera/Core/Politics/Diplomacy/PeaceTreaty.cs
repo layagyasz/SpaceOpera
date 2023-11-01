@@ -1,5 +1,4 @@
-﻿using Cardamom.Collections;
-using SpaceOpera.Core.Events;
+﻿using SpaceOpera.Core.Events;
 
 namespace SpaceOpera.Core.Politics.Diplomacy
 {

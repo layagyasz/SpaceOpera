@@ -1,36 +1,14 @@
-﻿using Cardamom.Ui;
+﻿using SpaceOpera.Controller.Game.Panes.DiplomacyPanes;
 using SpaceOpera.Core.Politics.Diplomacy;
 
-namespace SpaceOpera.Controller.Game.Panes.DiplomacyPanes
+namespace SpaceOpera.Controller.Components
 {
-    public class SimpleOptionComponentController : IDiplomacyOptionController
+    public class SimpleOptionComponentController 
+        : FuncAdderController<IDiplomaticAgreementSection>, IDiplomacyOptionController
     {
-        public EventHandler<IDiplomaticAgreementSection>? Added { get; set; }
         public EventHandler<PopupEventArgs>? PopupCreated { get; set; }
 
-        private IUiComponent? _component;
-        private readonly Func<IDiplomaticAgreementSection> _producerFn;
-
         public SimpleOptionComponentController(Func<IDiplomaticAgreementSection> producerFn)
-        {
-            _producerFn = producerFn;
-        }
-
-        public void Bind(object @object)
-        {
-            _component = (IUiComponent)@object!;
-            _component.Controller.Clicked += HandleClick;
-        }
-
-        public void Unbind()
-        {
-            _component!.Controller.Clicked -= HandleClick;
-            _component = null;
-        }
-
-        private void HandleClick(object? sender, MouseButtonClickEventArgs e)
-        {
-            Added?.Invoke(this, _producerFn());
-        }
+            : base(producerFn) { }
     }
 }

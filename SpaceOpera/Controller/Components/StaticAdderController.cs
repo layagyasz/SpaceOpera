@@ -1,19 +1,19 @@
 ﻿using Cardamom.Ui;
-using SpaceOpera.Controller.Components;
 using SpaceOpera.Core.Politics.Diplomacy;
 
-namespace SpaceOpera.Controller.Game.Panes.DiplomacyPanes
+namespace SpaceOpera.Controller.Components
 {
-    public class SimpleSectionComponentController : IAdderController<IDiplomaticAgreementSection>
+    public class StaticAdderController<T> : IAdderController<T>
     {
-        public EventHandler<IDiplomaticAgreementSection>? Added { get; set; }
+        public EventHandler<T>? Added { get; set; }
+        public EventHandler<PopupEventArgs>? PopupCreated { get; set; }
 
         private IUiComponent? _component;
-        private readonly IDiplomaticAgreementSection _section;
+        private readonly T _value;
 
-        public SimpleSectionComponentController(IDiplomaticAgreementSection section)
+        public StaticAdderController(T value)
         {
-            _section = section;
+            _value = value;
         }
 
         public void Bind(object @object)
@@ -30,7 +30,7 @@ namespace SpaceOpera.Controller.Game.Panes.DiplomacyPanes
 
         private void HandleClick(object? sender, MouseButtonClickEventArgs e)
         {
-            Added?.Invoke(this, _section);
+            Added?.Invoke(this, _value);
         }
     }
 }

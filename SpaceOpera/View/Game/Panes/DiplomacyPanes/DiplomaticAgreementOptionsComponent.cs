@@ -1,8 +1,10 @@
-﻿using Cardamom.Collections;
-using Cardamom.Ui;
+﻿using Cardamom.Ui;
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
+using SpaceOpera.Controller.Components;
 using SpaceOpera.Controller.Game.Panes.DiplomacyPanes;
+using SpaceOpera.Core;
+using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Politics.Diplomacy;
 using SpaceOpera.View.Components;
 
@@ -10,6 +12,8 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
 {
     public class DiplomaticAgreementOptionsComponent : UiCompoundComponent
     {
+        public record class OptionKey(World World, Faction Faction, DiplomacyType DiplomacyType);
+
         private static readonly string s_Container = "diplomacy-pane-diplomacy-side-container";
         private static readonly string s_Table = "diplomacy-pane-diplomacy-side-table";
         private static readonly string s_Header = "diplomacy-pane-diplomacy-side-header";
@@ -19,7 +23,7 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
         private static readonly string s_PeaceAgreement = "Peace Treaty";
         private static readonly string s_WarDeclaration = "Declare War";
 
-        private readonly HashSet<DiplomacyType> _range = new();
+        private readonly HashSet<OptionKey> _range = new();
         private readonly UiElementFactory _uiElementFactory;
 
         public IUiComponent Options { get; }
@@ -39,17 +43,17 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
             Options =
                 new DynamicUiCompoundComponent(
                     new DiplomaticAgreementOptionsComponentController(),
-                    new DynamicKeyedTable<DiplomacyType, IKeyedUiElement<DiplomacyType>>(
+                    new DynamicKeyedTable<OptionKey, IKeyedUiElement<OptionKey>>(
                           uiElementFactory.GetClass(s_Table),
                           new TableController(10f),
                           UiSerialContainer.Orientation.Vertical,
                           GetRange,
                           CreateRow,
-                          Comparer<DiplomacyType>.Create((x, y) => 0)));
+                          Comparer<OptionKey>.Create((x, y) => 0)));
             Add(Options);
         }
 
-        public void SetRange(IEnumerable<DiplomacyType> range)
+        public void SetRange(IEnumerable<OptionKey> range)
         {
             _range.Clear();
             foreach (var type in range)
@@ -59,28 +63,34 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
             ((IDynamic)Options).Refresh();
         }
 
-        private KeyedUiComponent<DiplomacyType> CreateRow(DiplomacyType diplomacyType)
+        private KeyedUiComponent<OptionKey> CreateRow(OptionKey key)
         {
+            var diplomacyType = key.DiplomacyType;
             if (diplomacyType == DiplomacyType.DefensePact)
             {
-                return KeyedUiComponent<DiplomacyType>.Wrap(
-                    diplomacyType,
+                return KeyedUiComponent<OptionKey>.Wrap(
+                    key,
                     new UiSimpleComponent(
                         new SimpleOptionComponentController(() => new DefensePact()),
                         _uiElementFactory.CreateTextButton(s_SimpleSection, s_DefensePact).Item1));
             }
             if (diplomacyType == DiplomacyType.Peace)
             {
-                return KeyedUiComponent<DiplomacyType>.Wrap(
-                    diplomacyType,
+                return KeyedUiComponent<OptionKey>.Wrap(
+                    key,
                     new UiSimpleComponent(
                         new SimpleOptionComponentController(() => new PeaceProposal()),
                         _uiElementFactory.CreateTextButton(s_SimpleSection, s_PeaceAgreement).Item1));
             }
+            if (diplomacyType == DiplomacyType.Trade)
+            {
+                return KeyedUiComponent<OptionKey>.Wrap(
+                    key, TradeComponent.Create(_uiElementFactory, key.World.Economy.GetHoldingsFor(key.Faction)));
+            }
             if (diplomacyType == DiplomacyType.War)
             {
-                return KeyedUiComponent<DiplomacyType>.Wrap(
-                    diplomacyType,
+                return KeyedUiComponent<OptionKey>.Wrap(
+                    key,
                     new UiSimpleComponent(
                         new SimpleOptionComponentController(() => new WarDeclaration()),
                         _uiElementFactory.CreateTextButton(s_SimpleSection, s_WarDeclaration).Item1));
@@ -88,7 +98,7 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
             throw new ArgumentException($"Unsupported DiplomacyType: [{diplomacyType}]");
         }
 
-        private IEnumerable<DiplomacyType> GetRange()
+        private IEnumerable<OptionKey> GetRange()
         {
             return _range;
         }

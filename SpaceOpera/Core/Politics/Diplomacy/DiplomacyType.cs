@@ -20,6 +20,14 @@ namespace SpaceOpera.Core.Politics.Diplomacy
                 /* IsUnique= */ true,
                 /* SetId= */ 0);
 
+        public static readonly DiplomacyType Trade =
+            new(
+                /* IsMirrored= */ false,
+                /* IsOriginator= */ false,
+                /* IsUnilateral= */ false,
+                /* IsUnique= */ false,
+                /* SetId= */ 0);
+
         public static readonly DiplomacyType War =
             new(
                 /* IsMirrored= */ true,
@@ -28,6 +36,6 @@ namespace SpaceOpera.Core.Politics.Diplomacy
                 /* IsUnique= */ true,
                 /* SetId= */ 1);
 
-        public static readonly ImmutableList<DiplomacyType> All = ImmutableList.Create(DefensePact, Peace, War);
+        public static readonly ImmutableList<DiplomacyType> All = ImmutableList.Create(DefensePact, Peace, Trade, War);
     }
 }

@@ -32,6 +32,22 @@ namespace SpaceOpera.Core.Economics
             _roots.Add(faction, new EconomicRoot(faction));
         }
 
+        public void AddPersistentRoute(PersistentRoute route)
+        {
+            lock (_routes)
+            {
+                _routes.Add(route);
+            }
+        }
+
+        public void AddTrade(Trade trade)
+        {
+            lock (_trades)
+            {
+                _trades.Add(trade);
+            }
+        }
+
         public StellarBodyRegionHolding CreateSovereignHolding(Faction faction, StellarBodyRegion stellarBodyRegion)
         {
             var holding = GetOrCreateHolding(faction, stellarBodyRegion.Parent!);
@@ -67,17 +83,14 @@ namespace SpaceOpera.Core.Economics
             return _holdings.Where(x => x.Key.Key1 == faction).Select(x => x.Value).Cast<StellarBodyHolding>();
         }
 
-        public void AddPersistentRoute(PersistentRoute route)
-        {
-            lock (_routes)
-            {
-                _routes.Add(route);
-            }
-        }
-
         public IEnumerable<PersistentRoute> GetPersistentRoutesFor(Faction faction)
         {
             return _routes.Where(x => x.Faction == faction);
+        }
+
+        public IEnumerable<StellarBodyRegionHolding> GetSubzoneHoldings(Faction faction)
+        {
+            return GetHoldingsFor(faction).SelectMany(x => x.GetSubzones()).Cast<StellarBodyRegionHolding>();
         }
 
         public void RemovePersistentRoute(PersistentRoute route)
@@ -88,9 +101,12 @@ namespace SpaceOpera.Core.Economics
             }
         }
 
-        public IEnumerable<StellarBodyRegionHolding> GetSubzoneHoldings(Faction faction)
+        public void RemoveTrade(Trade trade)
         {
-            return GetHoldingsFor(faction).SelectMany(x => x.GetSubzones()).Cast<StellarBodyRegionHolding>();
+            lock(_trades)
+            {
+                _trades.Remove(trade);
+            }
         }
 
         public void Tick()
@@ -100,14 +116,21 @@ namespace SpaceOpera.Core.Economics
                 holding.Tick();
             }
 
-            foreach (var route in _routes)
+            lock (_routes)
             {
-                foreach (var fleet in route.AssignedFleets)
+                foreach (var route in _routes)
                 {
-                    ((FleetDriver)FormationManager.GetDriver(fleet)).SetPersistentRoute(route);
+                    foreach (var fleet in route.AssignedFleets)
+                    {
+                        ((FleetDriver)FormationManager.GetDriver(fleet)).SetPersistentRoute(route);
+                    }
                 }
             }
-            _trades.ForEach(x => x.Tick());
+
+            lock (_trades)
+            {
+                _trades.ForEach(x => x.Tick());
+            }
 
             foreach (var holding in _holdings.Values)
             {

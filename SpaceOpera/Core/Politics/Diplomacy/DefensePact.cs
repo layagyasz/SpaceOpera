@@ -1,6 +1,4 @@
-﻿using Cardamom.Collections;
-
-namespace SpaceOpera.Core.Politics.Diplomacy
+﻿namespace SpaceOpera.Core.Politics.Diplomacy
 {
     public class DefensePact : IDiplomaticAgreementSection
     {
