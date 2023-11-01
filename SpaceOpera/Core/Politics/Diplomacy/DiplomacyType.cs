@@ -2,10 +2,12 @@
 
 namespace SpaceOpera.Core.Politics.Diplomacy
 {
-    public record class DiplomacyType(bool IsMirrored, bool IsOriginator, bool IsUnilateral, bool IsUnique, int SetId)
+    public record class DiplomacyType(
+        string Name, bool IsMirrored, bool IsOriginator, bool IsUnilateral, bool IsUnique, int SetId)
     {
         public static readonly DiplomacyType DefensePact = 
             new(
+                /* Name= */ "Defense Pact",
                 /* IsMirrored= */ true, 
                 /* IsOriginator= */ false,
                 /* IsUnilateral= */ false,
@@ -14,6 +16,7 @@ namespace SpaceOpera.Core.Politics.Diplomacy
 
         public static readonly DiplomacyType Peace =
             new(
+                /* Name= */ "Peace Treaty",
                 /* IsMirrored= */ true,
                 /* IsOriginator= */ true,
                 /* IsUnilateral= */ false,
@@ -22,6 +25,7 @@ namespace SpaceOpera.Core.Politics.Diplomacy
 
         public static readonly DiplomacyType Trade =
             new(
+                /* Name= */ "Trade",
                 /* IsMirrored= */ false,
                 /* IsOriginator= */ false,
                 /* IsUnilateral= */ false,
@@ -30,6 +34,7 @@ namespace SpaceOpera.Core.Politics.Diplomacy
 
         public static readonly DiplomacyType War =
             new(
+                /* Name= */ "War Declaration",
                 /* IsMirrored= */ true,
                 /* IsOriginator= */ true,
                 /* IsUnilateral= */ true,

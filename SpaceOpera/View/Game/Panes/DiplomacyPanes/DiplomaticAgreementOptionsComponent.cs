@@ -19,10 +19,6 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
         private static readonly string s_Header = "diplomacy-pane-diplomacy-side-header";
         private static readonly string s_SimpleSection = "diplomacy-pane-diplomacy-side-simple-section";
 
-        private static readonly string s_DefensePact = "Defense Pact";
-        private static readonly string s_PeaceAgreement = "Peace Treaty";
-        private static readonly string s_WarDeclaration = "Declare War";
-
         private readonly HashSet<OptionKey> _range = new();
         private readonly UiElementFactory _uiElementFactory;
 
@@ -72,7 +68,7 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
                     key,
                     new UiSimpleComponent(
                         new SimpleOptionComponentController(() => new DefensePact()),
-                        _uiElementFactory.CreateTextButton(s_SimpleSection, s_DefensePact).Item1));
+                        _uiElementFactory.CreateTextButton(s_SimpleSection, diplomacyType.Name).Item1));
             }
             if (diplomacyType == DiplomacyType.Peace)
             {
@@ -80,7 +76,7 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
                     key,
                     new UiSimpleComponent(
                         new SimpleOptionComponentController(() => new PeaceProposal()),
-                        _uiElementFactory.CreateTextButton(s_SimpleSection, s_PeaceAgreement).Item1));
+                        _uiElementFactory.CreateTextButton(s_SimpleSection, diplomacyType.Name).Item1));
             }
             if (diplomacyType == DiplomacyType.Trade)
             {
@@ -93,7 +89,7 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
                     key,
                     new UiSimpleComponent(
                         new SimpleOptionComponentController(() => new WarDeclaration()),
-                        _uiElementFactory.CreateTextButton(s_SimpleSection, s_WarDeclaration).Item1));
+                        _uiElementFactory.CreateTextButton(s_SimpleSection, diplomacyType.Name).Item1));
             }
             throw new ArgumentException($"Unsupported DiplomacyType: [{diplomacyType}]");
         }

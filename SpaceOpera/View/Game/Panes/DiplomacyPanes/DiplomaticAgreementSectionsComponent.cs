@@ -11,10 +11,6 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
         private static readonly string s_Container = "diplomacy-pane-diplomacy-proposal-table";
         private static readonly string s_Section = "diplomacy-pane-diplomacy-proposal-section";
 
-        private static readonly string s_DefensePact = "Defense Pact";
-        private static readonly string s_PeaceAgreement = "Peace Treaty";
-        private static readonly string s_WarDeclaration = "Declare War";
-
         private readonly UiElementFactory _uiElementFactory;
 
         public DiplomaticAgreementSectionsComponent(UiElementFactory uiElementFactory)
@@ -41,25 +37,9 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
 
         private IUiComponent CreateRow(IDiplomaticAgreementSection section)
         {
-            if (section is DefensePact)
-            {
-                return new UiSimpleComponent(
-                    new StaticAdderController<IDiplomaticAgreementSection>(section),
-                    _uiElementFactory.CreateTextButton(s_Section, s_DefensePact).Item1);
-            }
-            if (section is PeaceProposal)
-            {
-                return new UiSimpleComponent(
-                    new StaticAdderController<IDiplomaticAgreementSection>(section),
-                    _uiElementFactory.CreateTextButton(s_Section, s_PeaceAgreement).Item1);
-            }
-            if (section is WarDeclaration)
-            {
-                return new UiSimpleComponent(
-                    new StaticAdderController<IDiplomaticAgreementSection>(section),
-                    _uiElementFactory.CreateTextButton(s_Section, s_WarDeclaration).Item1);
-            }
-            throw new ArgumentException($"Unsupported DiplomacyType: [{section.Type}]");
+            return new UiSimpleComponent(
+                new StaticAdderController<IDiplomaticAgreementSection>(section),
+                _uiElementFactory.CreateTextButton(s_Section, section.Type.Name).Item1);
         }
     }
 }

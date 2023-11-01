@@ -4,13 +4,12 @@ using Cardamom.Ui.Elements;
 using SpaceOpera.Controller.Components;
 using SpaceOpera.Controller.Game.Panes.DiplomacyPanes;
 using SpaceOpera.Core.Economics;
+using SpaceOpera.Core.Politics.Diplomacy;
 
 namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
 {
     public class TradeComponent : UiCompoundComponent
     {
-        private static readonly string s_Title = "Trade";
-
         private static readonly string s_Container = "diplomacy-pane-diplomacy-side-trade-section";
         private static readonly string s_Header = "diplomacy-pane-diplomacy-side-trade-section-header";
         private static readonly string s_OptionTable = "diplomacy-pane-diplomacy-side-trade-section-option-table";
@@ -50,7 +49,8 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
             }
             return new(
                 uiElementFactory.GetClass(s_Container), 
-                new TextUiElement(uiElementFactory.GetClass(s_Header), new ButtonController(), s_Title),
+                new TextUiElement(
+                    uiElementFactory.GetClass(s_Header), new ButtonController(), DiplomacyType.Trade.Name),
                 optionsTable);
         }
     }
