@@ -92,9 +92,9 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
                 s_RelationRowStyle,
                 new List<IUiElement>()
                 {
-                    _iconFactory.Create(_uiElementFactory.GetClass(s_Icon), new InlayController(), relation.Faction),
+                    _iconFactory.Create(_uiElementFactory.GetClass(s_Icon), new InlayController(), relation.Target),
                     new TextUiElement(
-                        _uiElementFactory.GetClass(s_Text), new InlayController(), relation.Faction.Name),
+                        _uiElementFactory.GetClass(s_Text), new InlayController(), relation.Target.Name),
                     new DynamicTextUiElement(
                         _uiElementFactory.GetClass(s_Status),
                         new InlayController(), 
@@ -103,8 +103,8 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
                         _uiElementFactory.GetClass(s_Approval), 
                         new InlayController(),
                         () => _world?.Players
-                            .Get(relation.Faction)
-                            .GetApproval(relation.Target)?.Result
+                            .Get(relation.Target)
+                            .GetApproval(relation.Faction)?.Result
                             .ToString("N0") ?? "0")
                 },
                 s_RelationActions);
@@ -116,7 +116,7 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
             {
                 return Enumerable.Empty<DiplomaticRelation>();
             }
-            return _world.DiplomaticRelations.GetAsTarget(_faction);
+            return _world.DiplomaticRelations.Get(_faction);
         }
     }
 }

@@ -64,7 +64,7 @@ namespace SpaceOpera.Controller.Game.Panes.DiplomacyPanes
         {
             _builder = 
                 value?.ToBuilder() 
-                ?? new DiplomaticAgreement.Builder().SetProposer(_relation!.Target).SetApprover(_relation!.Faction);
+                ?? new DiplomaticAgreement.Builder().SetProposer(_relation!.Faction).SetApprover(_relation!.Target);
             UpdateAgreement();
             if (notify)
             {
@@ -94,7 +94,7 @@ namespace SpaceOpera.Controller.Game.Panes.DiplomacyPanes
         {
             _world = e.World;
             _relation = e.Relation;
-            _builder = new DiplomaticAgreement.Builder().SetProposer(_relation.Target).SetApprover(_relation.Faction);
+            _builder = new DiplomaticAgreement.Builder().SetProposer(_relation.Faction).SetApprover(_relation.Target);
             _component!.LeftOptions.SetRange(Enumerable.Empty<OptionKey>());
             _component!.RightOptions.SetRange(Enumerable.Empty<OptionKey>());
             UpdateAgreement();
