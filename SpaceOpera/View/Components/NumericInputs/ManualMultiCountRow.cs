@@ -1,22 +1,17 @@
 ﻿using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
 using Cardamom.Ui;
-using SpaceOpera.Controller.Components;
+using SpaceOpera.Controller.Components.NumericInputs;
 using SpaceOpera.View.Icons;
 using Cardamom.Ui.Controller;
 
-namespace SpaceOpera.View.Components
+namespace SpaceOpera.View.Components.NumericInputs
 {
-    public class ManualNumericInputTableRow<T> : NumericInputTableRow<T> where T : notnull
+    public class ManualMultiCountRow<T> : MultiCountInputRow<T> where T : notnull
     {
-        new public class Style : NumericInputTableRow<T>.Style
-        {
-            public string? Remove { get; set; }
-        }
-
         public IUiElement RemoveButton { get; }
 
-        private ManualNumericInputTableRow(
+        private ManualMultiCountRow(
             Class @class,
             T key,
             IController controller,
@@ -29,17 +24,17 @@ namespace SpaceOpera.View.Components
             Add(RemoveButton);
         }
 
-        public static ManualNumericInputTableRow<T> Create(
+        public static ManualMultiCountRow<T> Create(
             T key,
             string name,
             UiElementFactory uiElementFactory,
             IconFactory iconFactory,
-            Style style)
+            MultiCountInputStyles.ManualMultiCountInputRowStyle style)
         {
             return new(
                 uiElementFactory.GetClass(style.Container!),
                 key,
-                new ManualNumericInputTableRowController<T>(key),
+                new ManualMultiCountInputRowController<T>(key),
                 new UiSerialContainer(
                     uiElementFactory.GetClass(style.Info!),
                     new ButtonController(),

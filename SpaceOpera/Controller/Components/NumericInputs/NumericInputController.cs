@@ -2,9 +2,9 @@
 using Cardamom.Ui;
 using Cardamom.Ui.Controller;
 using OpenTK.Windowing.GraphicsLibraryFramework;
-using SpaceOpera.View.Components;
+using SpaceOpera.View.Components.NumericInputs;
 
-namespace SpaceOpera.Controller.Components
+namespace SpaceOpera.Controller.Components.NumericInputs
 {
     public class NumericInputController : IController, IFormFieldController<int>
     {

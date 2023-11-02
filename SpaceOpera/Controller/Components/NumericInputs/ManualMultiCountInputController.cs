@@ -1,12 +1,12 @@
 ﻿using Cardamom.Mathematics;
 using Cardamom.Trackers;
 using Cardamom.Ui;
-using SpaceOpera.View.Components;
+using SpaceOpera.View.Components.NumericInputs;
 using Cardamom.Ui.Controller;
 
-namespace SpaceOpera.Controller.Components
+namespace SpaceOpera.Controller.Components.NumericInputs
 {
-    public class ManualNumericInputTableController<T> : BaseNumericInputTableController<T> where T : notnull
+    public class ManualMultiCountInputController<T> : BaseMultiCountInputController<T> where T : notnull
     {
         public override IntInterval GetRange()
         {
@@ -15,13 +15,10 @@ namespace SpaceOpera.Controller.Components
 
         private SelectController<T>? _select;
 
-        public ManualNumericInputTableController(string key)
-            : base(key) { }
-
         public override void Bind(object @object)
         {
             base.Bind(@object);
-            var table = (ManualNumericInputTable<T>)_table!;
+            var table = (ManualMultiCountInput<T>)_table!;
             table.AddButton.Controller.Clicked += HandleAdded;
             _select = (SelectController<T>)table.Select.ComponentController;
         }
@@ -35,34 +32,34 @@ namespace SpaceOpera.Controller.Components
         public override void SetValue(MultiCount<T>? value, bool notify = true)
         {
             value ??= new();
-            ((ManualNumericInputTable<T>)_table!).SetRange(value.Keys);
+            ((ManualMultiCountInput<T>)_table!).SetRange(value.Keys);
             base.SetValue(value, notify);
         }
 
-        protected override void BindElement(NumericInputTableRow<T> row)
+        protected override void BindElement(MultiCountInputRow<T> row)
         {
             base.BindElement(row);
-            var controller = (ManualNumericInputTableRowController<T>)row.ComponentController;
+            var controller = (ManualMultiCountInputRowController<T>)row.ComponentController;
             controller.Removed += HandleRemoved;
         }
 
-        protected override void UnbindElement(NumericInputTableRow<T> row)
+        protected override void UnbindElement(MultiCountInputRow<T> row)
         {
-            var controller = (ManualNumericInputTableRowController<T>)row.ComponentController;
+            var controller = (ManualMultiCountInputRowController<T>)row.ComponentController;
             controller.Removed -= HandleRemoved;
             base.UnbindElement(row);
         }
 
         private void HandleAdded(object? sender, MouseButtonClickEventArgs e)
         {
-            ((ManualNumericInputTable<T>)_table!).Add(_select!.GetValue()!);
+            ((ManualMultiCountInput<T>)_table!).Add(_select!.GetValue()!);
             UpdateTotal();
         }
 
         private void HandleRemoved(object? sender, EventArgs e)
         {
             var controller = (IOptionController<T>)sender!;
-            ((ManualNumericInputTable<T>)_table!).Remove(controller.Key);
+            ((ManualMultiCountInput<T>)_table!).Remove(controller.Key);
             UpdateTotal();
         }
     }

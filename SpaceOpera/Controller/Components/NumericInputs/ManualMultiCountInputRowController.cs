@@ -1,13 +1,13 @@
 ﻿using Cardamom.Ui;
-using SpaceOpera.View.Components;
+using SpaceOpera.View.Components.NumericInputs;
 
-namespace SpaceOpera.Controller.Components
+namespace SpaceOpera.Controller.Components.NumericInputs
 {
-    public class ManualNumericInputTableRowController<T> : BaseNumericInputTableRowController<T> where T : notnull
+    public class ManualMultiCountInputRowController<T> : BaseMultiCountInputRowController<T> where T : notnull
     {
         public EventHandler<EventArgs>? Removed { get; set; }
 
-        public ManualNumericInputTableRowController(T key)
+        public ManualMultiCountInputRowController(T key)
             : base(key) { }
 
         public override int GetDefaultValue()
@@ -18,13 +18,13 @@ namespace SpaceOpera.Controller.Components
         public override void Bind(object @object)
         {
             base.Bind(@object);
-            var row = (ManualNumericInputTableRow<T>)_element!;
+            var row = (ManualMultiCountRow<T>)_element!;
             row.RemoveButton.Controller.Clicked += HandleRemoved;
         }
 
         public override void Unbind()
         {
-            var row = (ManualNumericInputTableRow<T>)_element!;
+            var row = (ManualMultiCountRow<T>)_element!;
             row.RemoveButton.Controller.Clicked -= HandleRemoved;
             base.Unbind();
         }

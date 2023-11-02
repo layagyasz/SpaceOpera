@@ -6,6 +6,7 @@ using SpaceOpera.Controller.Game.Panes.StellarBodyRegionPanes;
 using SpaceOpera.Core;
 using SpaceOpera.Core.Economics;
 using SpaceOpera.View.Components;
+using SpaceOpera.View.Components.NumericInputs;
 using SpaceOpera.View.Icons;
 
 namespace SpaceOpera.View.Game.Panes.StellarBodyRegionPanes
@@ -17,7 +18,7 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyRegionPanes
         private static readonly string s_StructureContainer = "stellar-body-region-pane-structure-container";
         private static readonly string s_StructureHeader = "stellar-body-region-pane-structure-header";
         private static readonly string s_StructureSubmit = "stellar-body-region-pane-structure-submit";
-        private static readonly BaseNumericInputTable<Structure>.Style s_StructureTableStyle =
+        private static readonly MultiCountInputStyles.MultiCountInputStyle s_StructureTableStyle =
             new()
             {
                 Container = "stellar-body-region-pane-structure-table-container",
@@ -44,31 +45,10 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyRegionPanes
         private static readonly string s_RecipeContainer = "stellar-body-region-pane-structure-container";
         private static readonly string s_RecipeHeader = "stellar-body-region-pane-structure-header";
         private static readonly string s_RecipeSubmit = "stellar-body-region-pane-structure-submit";
-        private static readonly BaseNumericInputTable<Recipe>.Style s_RecipeTableStyle =
-            new()
-            {
-                Container = "stellar-body-region-pane-structure-table-container",
-                Table = "stellar-body-region-pane-structure-table",
-                Row = new()
-                {
-                    Container = "stellar-body-region-pane-structure-table-row",
-                    Info = "stellar-body-region-pane-structure-table-row-info",
-                    Icon = "stellar-body-region-pane-structure-table-row-icon",
-                    Text = "stellar-body-region-pane-structure-table-row-text",
-                    NumericInput = new()
-                    {
-                        Container = "stellar-body-region-pane-structure-table-row-numeric-input",
-                        Text = "stellar-body-region-pane-structure-table-row-numeric-input-text",
-                        SubtractButton = "stellar-body-region-pane-structure-table-row-numeric-input-subtract",
-                        AddButton = "stellar-body-region-pane-structure-table-row-numeric-input-add"
-                    }
-                },
-                TotalContainer = "stellar-body-region-pane-structure-table-total-row",
-                TotalText = "stellar-body-region-pane-structure-table-total-text",
-                TotalNumber = "stellar-body-region-pane-structure-table-total-number",
-            };
+        private static readonly MultiCountInputStyles.MultiCountInputStyle s_RecipeTableStyle = 
+            s_StructureTableStyle;
 
-        class StructureTableConfiguration : AutoNumericInputTable<Structure>.IRowConfiguration
+        class StructureTableConfiguration : AutoMultiCountInput<Structure>.IRowConfiguration
         {
             private World? _world;
             private StellarBodyRegionHolding? _holding;
@@ -105,7 +85,7 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyRegionPanes
             }
         }
 
-        class RecipeTableConfiguration : AutoNumericInputTable<Recipe>.IRowConfiguration
+        class RecipeTableConfiguration : AutoMultiCountInput<Recipe>.IRowConfiguration
         {
             private World? _world;
             private StellarBodyRegionHolding? _holding;
@@ -166,9 +146,9 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyRegionPanes
 
         private StellarBodyRegionHolding? _holding;
 
-        public AutoNumericInputTable<Structure> Structures { get; }
+        public AutoMultiCountInput<Structure> Structures { get; }
         public IUiElement StructureSubmit { get; }
-        public AutoNumericInputTable<Recipe> Recipes { get; }
+        public AutoMultiCountInput<Recipe> Recipes { get; }
         public IUiElement RecipeSubmit { get; }
 
         public StructureTab(UiElementFactory uiElementFactory, IconFactory iconFactory)

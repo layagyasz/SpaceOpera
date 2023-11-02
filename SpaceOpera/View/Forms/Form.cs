@@ -2,6 +2,7 @@
 using Cardamom.Ui.Controller;
 using Cardamom.Ui.Elements;
 using SpaceOpera.View.Components;
+using SpaceOpera.View.Components.NumericInputs;
 using SpaceOpera.View.Info;
 
 namespace SpaceOpera.View.Forms
@@ -17,6 +18,7 @@ namespace SpaceOpera.View.Forms
             public Select.Style? DropDown { get; set; }
             public DialSelect.Style? Dial { get; set; }
             public Radio.Style? Radio { get; set; }
+            public MultiCountInputStyles.ManualMultiCountInputStyle? MultiCount { get; set; }
         }
 
         public string Title { get; }

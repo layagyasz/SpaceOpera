@@ -1,5 +1,7 @@
 ﻿using SpaceOpera.Controller.Components;
+using SpaceOpera.Core;
 using SpaceOpera.Core.Economics;
+using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Politics.Diplomacy;
 using SpaceOpera.View.Game.Panes.DiplomacyPanes;
 
@@ -10,8 +12,17 @@ namespace SpaceOpera.Controller.Game.Panes.DiplomacyPanes
         public EventHandler<IDiplomaticAgreementSection>? Added { get; set; }
         public EventHandler<PopupEventArgs>? PopupCreated { get; set; }
 
+        private readonly World _world;
+        private readonly Faction _faction;
+
         private TradeComponent? _component;
         private IAdderController<StellarBodyHolding>? _options;
+
+        public TradeComponentController(World world, Faction faction)
+        {
+            _world = world;
+            _faction = faction;
+        }
 
         public void Bind(object @object)
         {

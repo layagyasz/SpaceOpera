@@ -1,4 +1,4 @@
-﻿using SpaceOpera.Controller.Components;
+﻿using SpaceOpera.Controller.Components.NumericInputs;
 using SpaceOpera.Core.Economics;
 using SpaceOpera.Core.Orders;
 using SpaceOpera.View.Game.Panes.StellarBodyRegionPanes;
@@ -50,8 +50,8 @@ namespace SpaceOpera.Controller.Game.Panes.StellarBodyRegionPanes
         private void HandlePopulated(object? sender, EventArgs e)
         {
             var pane = (StellarBodyRegionPane)_pane!;
-            ((AutoNumericInputTableController<Structure>)pane.StructureTab.Structures.ComponentController).Reset();
-            ((AutoNumericInputTableController<Recipe>)pane.StructureTab.Recipes.ComponentController).Reset();
+            ((AutoMultiCountInputController<Structure>)pane.StructureTab.Structures.ComponentController).Reset();
+            ((AutoMultiCountInputController<Recipe>)pane.StructureTab.Recipes.ComponentController).Reset();
         }
     }
 }

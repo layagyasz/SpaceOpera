@@ -1,9 +1,12 @@
 ﻿using Cardamom.Ui;
+using Cardamom.Ui.Controller;
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
 using SpaceOpera.Controller.Components;
 using SpaceOpera.Controller.Game.Panes.DiplomacyPanes;
+using SpaceOpera.Core;
 using SpaceOpera.Core.Economics;
+using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Politics.Diplomacy;
 
 namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
@@ -18,9 +21,9 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
         public IUiElement Header { get; }
         public IUiComponent Options { get; }
 
-        private TradeComponent(Class @class, IUiElement header, IUiComponent options)
+        private TradeComponent(Class @class, IController controller, IUiElement header, IUiComponent options)
             : base(
-                  new TradeComponentController(), 
+                  controller, 
                   new UiSerialContainer(@class, new TableController(0f), UiSerialContainer.Orientation.Vertical))
         {
             Header = header;
@@ -30,7 +33,7 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
             Add(Options);
         }
 
-        public static TradeComponent Create(UiElementFactory uiElementFactory, IEnumerable<StellarBodyHolding> options)
+        public static TradeComponent Create(UiElementFactory uiElementFactory, World world, Faction faction)
         {
             var optionsTable =
                 new UiCompoundComponent(
@@ -40,7 +43,7 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
                         new TableController(0f), 
                         UiSerialContainer.Orientation.Vertical));
             var optionClass = uiElementFactory.GetClass(s_Option);
-            foreach (var option in options)
+            foreach (var option in world.Economy.GetHoldingsFor(faction))
             {
                 optionsTable.Add(
                     new UiSimpleComponent(
@@ -48,7 +51,8 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
                         new TextUiElement(optionClass, new ButtonController(), option.Name)));
             }
             return new(
-                uiElementFactory.GetClass(s_Container), 
+                uiElementFactory.GetClass(s_Container),
+                new TradeComponentController(world, faction),
                 new TextUiElement(
                     uiElementFactory.GetClass(s_Header), new ButtonController(), DiplomacyType.Trade.Name),
                 optionsTable);

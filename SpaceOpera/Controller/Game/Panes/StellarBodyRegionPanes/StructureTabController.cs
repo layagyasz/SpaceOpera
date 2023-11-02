@@ -1,6 +1,6 @@
 ﻿using Cardamom.Ui;
 using Cardamom.Ui.Controller.Element;
-using SpaceOpera.Controller.Components;
+using SpaceOpera.Controller.Components.NumericInputs;
 using SpaceOpera.Core.Economics;
 using SpaceOpera.Core.Orders;
 using SpaceOpera.View.Game.Panes.StellarBodyRegionPanes;
@@ -13,18 +13,18 @@ namespace SpaceOpera.Controller.Game.Panes.StellarBodyRegionPanes
         public EventHandler<IOrder>? OrderCreated { get; set; }
 
         private StructureTab? _tab;
-        private AutoNumericInputTableController<Structure>? _structureController;
-        private AutoNumericInputTableController<Recipe>? _recipeController;
+        private AutoMultiCountInputController<Structure>? _structureController;
+        private AutoMultiCountInputController<Recipe>? _recipeController;
 
         public void Bind(object @object)
         {
             _tab = (StructureTab)@object;
             _structureController = 
-                (AutoNumericInputTableController<Structure>)_tab!.Structures.ComponentController;
+                (AutoMultiCountInputController<Structure>)_tab!.Structures.ComponentController;
             _structureController.RowSelected += HandleStructureSelected;
             _tab!.StructureSubmit.Controller.Clicked += HandleStructureSubmitted;
             _recipeController =
-                (AutoNumericInputTableController<Recipe>)_tab!.Recipes.ComponentController;
+                (AutoMultiCountInputController<Recipe>)_tab!.Recipes.ComponentController;
             _tab!.RecipeSubmit.Controller.Clicked += HandleRecipeSubmitted;
         }
 

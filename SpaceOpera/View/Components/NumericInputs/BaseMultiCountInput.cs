@@ -4,32 +4,22 @@ using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
 using SpaceOpera.View.Icons;
 
-namespace SpaceOpera.View.Components
+namespace SpaceOpera.View.Components.NumericInputs
 {
-    public abstract class BaseNumericInputTable<T> : DynamicUiCompoundComponent where T : notnull
+    public abstract class BaseMultiCountInput<T> : DynamicUiCompoundComponent where T : notnull
     {
-        public class Style
-        {
-            public string? Container { get; set; }
-            public string? Table { get; set; }
-            public NumericInputTableRow<T>.Style? Row { get; set; }
-            public string? TotalContainer { get; set; }
-            public string? TotalText { get; set; }
-            public string? TotalNumber { get; set; }
-        }
-
         public DynamicUiCompoundComponent Table { get; }
         public TextUiElement Total { get; }
 
-        protected readonly Style _style;
+        protected readonly MultiCountInputStyles.MultiCountInputStyle _style;
         protected readonly UiElementFactory _uiElementFactory;
         protected readonly IconFactory _iconFactory;
 
-        private readonly DynamicKeyedTable<T, NumericInputTableRow<T>> _table;
+        private readonly DynamicKeyedTable<T, MultiCountInputRow<T>> _table;
 
-        public BaseNumericInputTable(
+        public BaseMultiCountInput(
             IController controller,
-            Style style,
+            MultiCountInputStyles.MultiCountInputStyle style,
             UiElementFactory uiElementFactory,
             IconFactory iconFactory,
             IComparer<T> comparer)
@@ -45,7 +35,7 @@ namespace SpaceOpera.View.Components
             _iconFactory = iconFactory;
 
             _table =
-                new DynamicKeyedTable<T, NumericInputTableRow<T>>(
+                new DynamicKeyedTable<T, MultiCountInputRow<T>>(
                         uiElementFactory.GetClass(style.Table!),
                         new TableController(10f),
                         UiSerialContainer.Orientation.Vertical,
@@ -68,12 +58,12 @@ namespace SpaceOpera.View.Components
                 });
         }
 
-        public bool TryGetRow(T key, out NumericInputTableRow<T>? row)
+        public bool TryGetRow(T key, out MultiCountInputRow<T>? row)
         {
             return _table.TryGetRow(key, out row);
         }
 
         protected abstract IEnumerable<T> GetKeys();
-        protected abstract NumericInputTableRow<T> CreateRow(T key);
+        protected abstract MultiCountInputRow<T> CreateRow(T key);
     }
 }

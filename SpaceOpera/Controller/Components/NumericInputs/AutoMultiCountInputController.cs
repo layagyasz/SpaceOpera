@@ -2,16 +2,15 @@
 using Cardamom.Trackers;
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
-using SpaceOpera.View.Components;
+using SpaceOpera.View.Components.NumericInputs;
 
-namespace SpaceOpera.Controller.Components
+namespace SpaceOpera.Controller.Components.NumericInputs
 {
-    public class AutoNumericInputTableController<T> : BaseNumericInputTableController<T> where T : notnull
+    public class AutoMultiCountInputController<T> : BaseMultiCountInputController<T> where T : notnull
     {
         private readonly Func<IntInterval> _rangeFn;
 
-        public AutoNumericInputTableController(string key, Func<IntInterval> rangeFn)
-            : base(key)
+        public AutoMultiCountInputController(Func<IntInterval> rangeFn)
         {
             _rangeFn = rangeFn;
         }
@@ -38,7 +37,7 @@ namespace SpaceOpera.Controller.Components
         {
             return _table!.Table
                 .Select(x => ((UiCompoundComponent)x).ComponentController)
-                .Cast<AutoNumericInputTableRowController<T>>()
+                .Cast<AutoMultiCountInputRowController<T>>()
                 .Select(x => new KeyValuePair<T, int>(x.Key, x.GetDelta()))
                 .Where(x => x.Value != 0)
                 .ToMultiCount(x => x.Key, x => x.Value);
@@ -48,9 +47,9 @@ namespace SpaceOpera.Controller.Components
         {
             _table!.Refresh();
             ((TableController)_table!.Table.Controller).ResetOffset();
-            foreach (var row in _table!.Table.Cast<NumericInputTableRow<T>>())
+            foreach (var row in _table!.Table.Cast<MultiCountInputRow<T>>())
             {
-                ((AutoNumericInputTableRowController<T>)row.ComponentController).Reset();
+                ((AutoMultiCountInputRowController<T>)row.ComponentController).Reset();
             }
             UpdateTotal();
         }

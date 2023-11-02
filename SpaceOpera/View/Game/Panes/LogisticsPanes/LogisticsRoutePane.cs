@@ -9,6 +9,7 @@ using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Universe;
 using SpaceOpera.View.Components;
+using SpaceOpera.View.Components.NumericInputs;
 using SpaceOpera.View.Icons;
 
 namespace SpaceOpera.View.Game.Panes.LogisticsPanes
@@ -33,7 +34,7 @@ namespace SpaceOpera.View.Game.Panes.LogisticsPanes
         private static readonly string s_MaterialsContainer = "logistics-route-pane-materials-container";
         private static readonly string s_MaterialContainer = "logistics-route-pane-material-container";
         private static readonly string s_MaterialHeader = "logistics-route-pane-material-header";
-        private static readonly ManualNumericInputTable<IMaterial>.Style s_MaterialStyle = new()
+        private static readonly MultiCountInputStyles.ManualMultiCountInputStyle s_MaterialStyle = new()
         {
             Container = "logistics-route-pane-material-table-container",
             Table = "logistics-route-pane-material-table",
@@ -45,7 +46,7 @@ namespace SpaceOpera.View.Game.Panes.LogisticsPanes
                 Option = "logistics-route-pane-material-select-option"
             },
             Add = "logistics-route-pane-material-add",
-            Row = new ManualNumericInputTableRow<IMaterial>.Style()
+            Row = new MultiCountInputStyles.ManualMultiCountInputRowStyle()
             {
                 Container = "logistics-route-pane-material-row",
                 Info = "logistics-route-pane-material-row-info",
@@ -92,8 +93,8 @@ namespace SpaceOpera.View.Game.Panes.LogisticsPanes
 
         public InterceptorInput<EconomicSubzone> LeftAnchor { get; }
         public InterceptorInput<EconomicSubzone> RightAnchor { get; }
-        public ManualNumericInputTable<IMaterial> LeftMaterials { get; }
-        public ManualNumericInputTable<IMaterial> RightMaterials { get; }
+        public ManualMultiCountInput<IMaterial> LeftMaterials { get; }
+        public ManualMultiCountInput<IMaterial> RightMaterials { get; }
         public InterceptorMultiSelect<FleetDriver> Fleets { get; }
         public IUiElement Submit { get; }
 
@@ -145,14 +146,14 @@ namespace SpaceOpera.View.Game.Panes.LogisticsPanes
                 };
 
             LeftMaterials =
-                new ManualNumericInputTable<IMaterial>(
+                new ManualMultiCountInput<IMaterial>(
                     s_MaterialStyle,
                     x => x.Name,
                     uiElementFactory,
                     iconFactory,
                     Comparer<IMaterial>.Create((x, y) => x.Name.CompareTo(y.Name)));
             RightMaterials =
-                new ManualNumericInputTable<IMaterial>(
+                new ManualMultiCountInput<IMaterial>(
                     s_MaterialStyle,
                     x => x.Name,
                     uiElementFactory,

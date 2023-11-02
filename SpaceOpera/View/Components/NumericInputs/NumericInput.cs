@@ -3,9 +3,9 @@ using Cardamom.Ui;
 using Cardamom.Ui.Controller;
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
-using SpaceOpera.Controller.Components;
+using SpaceOpera.Controller.Components.NumericInputs;
 
-namespace SpaceOpera.View.Components
+namespace SpaceOpera.View.Components.NumericInputs
 {
     public class NumericInput : UiCompoundComponent
     {
@@ -24,7 +24,7 @@ namespace SpaceOpera.View.Components
         private NumericInput(
             Class @class, IController controller, TextUiElement text, IUiElement subtractButton, IUiElement addButton)
             : base(
-                  controller, 
+                  controller,
                   new UiSerialContainer(@class, new ButtonController(), UiSerialContainer.Orientation.Horizontal))
         {
             Text = text;
@@ -39,10 +39,10 @@ namespace SpaceOpera.View.Components
         public static NumericInput Create(UiElementFactory uiElementFactory, Style style)
         {
             return new(
-                uiElementFactory.GetClass(style.Container!), 
+                uiElementFactory.GetClass(style.Container!),
                 new NumericInputController(IntInterval.Unbounded),
-                new TextUiElement(uiElementFactory.GetClass(style.Text!), new ButtonController(), string.Empty), 
-                uiElementFactory.CreateTextButton(style.SubtractButton!, "-").Item1, 
+                new TextUiElement(uiElementFactory.GetClass(style.Text!), new ButtonController(), string.Empty),
+                uiElementFactory.CreateTextButton(style.SubtractButton!, "-").Item1,
                 uiElementFactory.CreateTextButton(style.AddButton!, "+").Item1);
         }
     }

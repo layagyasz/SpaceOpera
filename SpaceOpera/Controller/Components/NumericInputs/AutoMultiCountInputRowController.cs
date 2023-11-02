@@ -1,14 +1,14 @@
-﻿using SpaceOpera.View.Components;
+﻿using SpaceOpera.View.Components.NumericInputs;
 
-namespace SpaceOpera.Controller.Components
+namespace SpaceOpera.Controller.Components.NumericInputs
 {
-    public class AutoNumericInputTableRowController<T> : BaseNumericInputTableRowController<T> where T : notnull
+    public class AutoMultiCountInputRowController<T> : BaseMultiCountInputRowController<T> where T : notnull
     {
-        private readonly AutoNumericInputTable<T>.IRowConfiguration _configuration;
+        private readonly AutoMultiCountInput<T>.IRowConfiguration _configuration;
 
         private int _defaultValue;
 
-        public AutoNumericInputTableRowController(T key, AutoNumericInputTable<T>.IRowConfiguration configuration)
+        public AutoMultiCountInputRowController(T key, AutoMultiCountInput<T>.IRowConfiguration configuration)
             : base(key)
         {
             _configuration = configuration;

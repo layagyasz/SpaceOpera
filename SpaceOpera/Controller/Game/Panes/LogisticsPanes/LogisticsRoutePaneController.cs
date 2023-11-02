@@ -2,6 +2,7 @@
 using Cardamom.Ui;
 using Cardamom.Ui.Controller;
 using SpaceOpera.Controller.Components;
+using SpaceOpera.Controller.Components.NumericInputs;
 using SpaceOpera.Core.Economics;
 using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Orders.Formations;
@@ -64,9 +65,9 @@ namespace SpaceOpera.Controller.Game.Panes.LogisticsPanes
             var rightAnchor = (IFormFieldController<EconomicSubzone>)pane.RightAnchor.Controller;
             rightAnchor.SetValue(null);
 
-            var leftMaterials = (ManualNumericInputTableController<IMaterial>)pane.LeftMaterials.ComponentController;
+            var leftMaterials = (ManualMultiCountInputController<IMaterial>)pane.LeftMaterials.ComponentController;
             leftMaterials.SetValue(pane.GetSeedRoute()?.LeftMaterials.ToMultiCount(x => x.Key, x => (int)x.Value));
-            var rightMaterials = (ManualNumericInputTableController<IMaterial>)pane.RightMaterials.ComponentController;
+            var rightMaterials = (ManualMultiCountInputController<IMaterial>)pane.RightMaterials.ComponentController;
             rightMaterials.SetValue(pane.GetSeedRoute()?.RightMaterials.ToMultiCount(x => x.Key, x => (int)x.Value));
 
             var fleets = (InterceptorMultiSelectController<FleetDriver>)pane.Fleets.ComponentController;
@@ -80,8 +81,8 @@ namespace SpaceOpera.Controller.Game.Panes.LogisticsPanes
             var leftAnchor = (IFormFieldController<EconomicSubzone>)pane.LeftAnchor.Controller;
             var rightAnchor = (IFormFieldController<EconomicSubzone>)pane.RightAnchor.Controller;
 
-            var leftMaterials = (ManualNumericInputTableController<IMaterial>)pane.LeftMaterials.ComponentController;
-            var rightMaterials = (ManualNumericInputTableController<IMaterial>)pane.RightMaterials.ComponentController;
+            var leftMaterials = (ManualMultiCountInputController<IMaterial>)pane.LeftMaterials.ComponentController;
+            var rightMaterials = (ManualMultiCountInputController<IMaterial>)pane.RightMaterials.ComponentController;
 
             var fleets = (InterceptorMultiSelectController<FleetDriver>)pane.Fleets.ComponentController;
 

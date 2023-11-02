@@ -1,11 +1,11 @@
 ﻿using Cardamom.Ui;
 using Cardamom.Ui.Controller;
 using Cardamom.Ui.Controller.Element;
-using SpaceOpera.View.Components;
+using SpaceOpera.View.Components.NumericInputs;
 
-namespace SpaceOpera.Controller.Components
+namespace SpaceOpera.Controller.Components.NumericInputs
 {
-    public abstract class BaseNumericInputTableRowController<T> :
+    public abstract class BaseMultiCountInputRowController<T> :
         IController, IOptionController<T>, IFormFieldController<int> where T : notnull
     {
         public EventHandler<EventArgs>? Selected { get; set; }
@@ -13,11 +13,11 @@ namespace SpaceOpera.Controller.Components
 
         public T Key { get; }
 
-        protected NumericInputTableRow<T>? _element;
+        protected MultiCountInputRow<T>? _element;
         protected ClassedUiElementController<ClassedUiElement>? _infoController;
         protected NumericInputController? _inputController;
 
-        public BaseNumericInputTableRowController(T key)
+        public BaseMultiCountInputRowController(T key)
         {
             Key = key;
         }
@@ -26,7 +26,7 @@ namespace SpaceOpera.Controller.Components
 
         public virtual void Bind(object @object)
         {
-            _element = (NumericInputTableRow<T>)@object;
+            _element = (MultiCountInputRow<T>)@object;
             _infoController = (ClassedUiElementController<ClassedUiElement>)_element.Info.Controller;
             _infoController.Clicked += HandleSelected;
             _inputController = (NumericInputController)_element.NumericInput.ComponentController;

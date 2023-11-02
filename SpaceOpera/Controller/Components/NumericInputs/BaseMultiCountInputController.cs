@@ -3,31 +3,24 @@ using Cardamom.Trackers;
 using Cardamom.Ui;
 using Cardamom.Ui.Controller;
 using Cardamom.Ui.Elements;
-using SpaceOpera.View.Components;
+using SpaceOpera.View.Components.NumericInputs;
 
-namespace SpaceOpera.Controller.Components
+namespace SpaceOpera.Controller.Components.NumericInputs
 {
-    public abstract class BaseNumericInputTableController<T> 
+    public abstract class BaseMultiCountInputController<T>
         : IController, IFormFieldController<MultiCount<T>> where T : notnull
     {
         public EventHandler<EventArgs>? ValueChanged { get; set; }
         public EventHandler<T?>? RowSelected { get; set; }
 
-        public string Key { get; }
-
-        protected BaseNumericInputTable<T>? _table;
+        protected BaseMultiCountInput<T>? _table;
         protected RadioController<T>? _tableController;
-
-        public BaseNumericInputTableController(string key)
-        {
-            Key = key;
-        }
 
         public abstract IntInterval GetRange();
 
         public virtual void Bind(object @object)
         {
-            _table = (BaseNumericInputTable<T>)@object;
+            _table = (BaseMultiCountInput<T>)@object;
             _table.Table.ElementAdded += HandleElementAdded;
             _table.Table.ElementRemoved += HandleElementRemoved;
             _tableController = (RadioController<T>)_table.Table.ComponentController;
@@ -54,7 +47,7 @@ namespace SpaceOpera.Controller.Components
         {
             return _table!.Table
                 .Select(x => ((UiCompoundComponent)x).ComponentController)
-                .Cast<BaseNumericInputTableRowController<T>>()
+                .Cast<BaseMultiCountInputRowController<T>>()
                 .Select(x => new KeyValuePair<T, int>(x.Key, x.GetValue()))
                 .Where(x => x.Value != 0)
                 .ToMultiCount(x => x.Key, x => x.Value);
@@ -67,7 +60,7 @@ namespace SpaceOpera.Controller.Components
             {
                 if (_table!.TryGetRow(entry.Key, out var row))
                 {
-                    var controller = (BaseNumericInputTableRowController<T>)row!.ComponentController;
+                    var controller = (BaseMultiCountInputRowController<T>)row!.ComponentController;
                     controller.SetValue(entry.Value, /* notify= */ false);
                 }
             }
@@ -82,7 +75,7 @@ namespace SpaceOpera.Controller.Components
         {
             if (_table!.TryGetRow(key, out var row))
             {
-                var controller = (BaseNumericInputTableRowController<T>)row!.ComponentController;
+                var controller = (BaseMultiCountInputRowController<T>)row!.ComponentController;
                 controller.SetValue(value, /* notify= */ false);
             }
             UpdateTotal();
@@ -92,26 +85,26 @@ namespace SpaceOpera.Controller.Components
             }
         }
 
-        protected virtual void BindElement(NumericInputTableRow<T> row)
+        protected virtual void BindElement(MultiCountInputRow<T> row)
         {
-            var controller = (BaseNumericInputTableRowController<T>)row.ComponentController;
+            var controller = (BaseMultiCountInputRowController<T>)row.ComponentController;
             controller.ValueChanged += HandleValueChanged;
         }
 
-        protected virtual void UnbindElement(NumericInputTableRow<T> row)
+        protected virtual void UnbindElement(MultiCountInputRow<T> row)
         {
-            var controller = (BaseNumericInputTableRowController<T>)row.ComponentController;
+            var controller = (BaseMultiCountInputRowController<T>)row.ComponentController;
             controller.ValueChanged -= HandleValueChanged;
         }
 
         private void HandleElementAdded(object? @object, ElementEventArgs e)
         {
-            BindElement((NumericInputTableRow<T>)e.Element);
+            BindElement((MultiCountInputRow<T>)e.Element);
         }
 
         private void HandleElementRemoved(object? @object, ElementEventArgs e)
         {
-            UnbindElement((NumericInputTableRow<T>)e.Element);
+            UnbindElement((MultiCountInputRow<T>)e.Element);
         }
 
         private void HandleRefresh(object? @object, EventArgs e)
@@ -133,9 +126,9 @@ namespace SpaceOpera.Controller.Components
         protected void UpdateTotal()
         {
             int total = 0;
-            foreach (var row in _table!.Table.Cast<NumericInputTableRow<T>>())
+            foreach (var row in _table!.Table.Cast<MultiCountInputRow<T>>())
             {
-                var controller = (BaseNumericInputTableRowController<T>)row.ComponentController;
+                var controller = (BaseMultiCountInputRowController<T>)row.ComponentController;
                 total += controller.GetValue();
             }
             _table!.Total.SetText(ToDisplayedString(total, GetRange()));

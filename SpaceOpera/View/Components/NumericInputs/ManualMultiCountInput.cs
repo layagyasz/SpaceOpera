@@ -2,35 +2,28 @@
 using Cardamom.Ui.Controller;
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
-using SpaceOpera.Controller.Components;
+using SpaceOpera.Controller.Components.NumericInputs;
 using SpaceOpera.View.Icons;
 
-namespace SpaceOpera.View.Components
+namespace SpaceOpera.View.Components.NumericInputs
 {
-    public class ManualNumericInputTable<T> : BaseNumericInputTable<T> where T : notnull
+    public class ManualMultiCountInput<T> : BaseMultiCountInput<T> where T : notnull
     {
-        new public class Style : BaseNumericInputTable<T>.Style
-        {
-            public string? SelectWrapper { get; set; }
-            public Select.Style? Select { get; set; }
-            public string? Add { get; set; }
-        }
-
         public Select Select { get; }
         public IUiElement AddButton { get; }
 
-        new private readonly Style _style;
+        new private readonly MultiCountInputStyles.ManualMultiCountInputStyle _style;
         private readonly Func<T, string> _nameFn;
         private readonly HashSet<T> _range = new();
 
-        public ManualNumericInputTable(
-            Style style,
+        public ManualMultiCountInput(
+            MultiCountInputStyles.ManualMultiCountInputStyle style,
             Func<T, string> nameFn,
             UiElementFactory uiElementFactory,
             IconFactory iconFactory,
             IComparer<T> comparer)
             : base(
-                  new ManualNumericInputTableController<T>("manual-numeric-input-table"),
+                  new ManualMultiCountInputController<T>(),
                   style,
                   uiElementFactory,
                   iconFactory,
@@ -86,10 +79,14 @@ namespace SpaceOpera.View.Components
             return _range;
         }
 
-        protected override NumericInputTableRow<T> CreateRow(T key)
+        protected override MultiCountInputRow<T> CreateRow(T key)
         {
-            return ManualNumericInputTableRow<T>.Create(
-                key, _nameFn(key), _uiElementFactory, _iconFactory, (ManualNumericInputTableRow<T>.Style)_style.Row!);
+            return ManualMultiCountRow<T>.Create(
+                key, 
+                _nameFn(key), 
+                _uiElementFactory,
+                _iconFactory, 
+                (MultiCountInputStyles.ManualMultiCountInputRowStyle)_style.Row!);
         }
     }
 }

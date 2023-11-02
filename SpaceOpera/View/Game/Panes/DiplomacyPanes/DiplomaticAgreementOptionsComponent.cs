@@ -81,7 +81,7 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
             if (diplomacyType == DiplomacyType.Trade)
             {
                 return KeyedUiComponent<OptionKey>.Wrap(
-                    key, TradeComponent.Create(_uiElementFactory, key.World.Economy.GetHoldingsFor(key.Faction)));
+                    key, TradeComponent.Create(_uiElementFactory, key.World, key.Faction));
             }
             if (diplomacyType == DiplomacyType.War)
             {

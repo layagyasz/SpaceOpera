@@ -1,11 +1,11 @@
 ﻿using Cardamom.Mathematics;
 using Cardamom.Ui;
-using SpaceOpera.Controller.Components;
+using SpaceOpera.Controller.Components.NumericInputs;
 using SpaceOpera.View.Icons;
 
-namespace SpaceOpera.View.Components
+namespace SpaceOpera.View.Components.NumericInputs
 {
-    public class AutoNumericInputTable<T> : BaseNumericInputTable<T> where T : notnull
+    public class AutoMultiCountInput<T> : BaseMultiCountInput<T> where T : notnull
     {
         public interface IRowConfiguration
         {
@@ -17,8 +17,8 @@ namespace SpaceOpera.View.Components
         private readonly Func<IEnumerable<T>> _keysFn;
         private readonly IRowConfiguration _configuration;
 
-        public AutoNumericInputTable(
-            Style style,
+        public AutoMultiCountInput(
+            MultiCountInputStyles.MultiCountInputStyle style,
             Func<IEnumerable<T>> keysFn,
             Func<IntInterval> rangeFn,
             UiElementFactory uiElementFactory,
@@ -26,7 +26,7 @@ namespace SpaceOpera.View.Components
             IComparer<T> comparer,
             IRowConfiguration configuration)
             : base(
-                  new AutoNumericInputTableController<T>("auto-numeric-input-table", rangeFn),
+                  new AutoMultiCountInputController<T>(rangeFn),
                   style,
                   uiElementFactory,
                   iconFactory,
@@ -41,9 +41,9 @@ namespace SpaceOpera.View.Components
             return _keysFn();
         }
 
-        protected override NumericInputTableRow<T> CreateRow(T key)
+        protected override MultiCountInputRow<T> CreateRow(T key)
         {
-            return NumericInputTableRow<T>.CreateAuto(
+            return MultiCountInputRow<T>.CreateAuto(
                 key, _configuration.GetName(key), _uiElementFactory, _iconFactory, _style.Row!, _configuration);
         }
     }
