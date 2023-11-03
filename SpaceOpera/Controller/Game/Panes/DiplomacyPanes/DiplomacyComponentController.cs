@@ -36,7 +36,9 @@ namespace SpaceOpera.Controller.Game.Panes.DiplomacyPanes
 
             _component.Populated += HandlePopulated;
             _addLeft.Added += HandleLeftAdded;
+            _addLeft.PopupCreated += HandlePopup;
             _addRight.Added += HandleRightAdded;
+            _addRight.PopupCreated += HandlePopup;
             _removeLeft.Added += HandleLeftRemoved;
             _removeRight.Added += HandleRightRemoved;
             _component.Submit.Controller.Clicked += HandleSubmit;
@@ -45,7 +47,9 @@ namespace SpaceOpera.Controller.Game.Panes.DiplomacyPanes
         public void Unbind()
         {
             _addLeft!.Added -= HandleLeftAdded;
+            _addLeft!.PopupCreated -= HandlePopup;
             _addRight!.Added -= HandleRightAdded;
+            _addRight!.PopupCreated -= HandlePopup;
             _removeLeft!.Added -= HandleLeftRemoved;
             _removeRight!.Added -= HandleRightRemoved;
             _component!.Submit.Controller.Clicked -= HandleSubmit;
@@ -98,6 +102,11 @@ namespace SpaceOpera.Controller.Game.Panes.DiplomacyPanes
             _component!.LeftOptions.SetRange(Enumerable.Empty<OptionKey>());
             _component!.RightOptions.SetRange(Enumerable.Empty<OptionKey>());
             UpdateAgreement();
+        }
+
+        private void HandlePopup(object? sender, PopupEventArgs e)
+        {
+            PopupCreated?.Invoke(this, e);
         }
 
         private void HandleLeftAdded(object? sender, IDiplomaticAgreementSection section)

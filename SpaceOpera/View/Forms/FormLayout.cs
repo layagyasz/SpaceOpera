@@ -48,6 +48,11 @@ namespace SpaceOpera.View.Forms
                 return this;
             }
 
+            public MultiCountFieldLayout.Builder AddMultiCount()
+            {
+                return AddField(new MultiCountFieldLayout.Builder(this));
+            }
+
             public TextLayout.Builder AddParagraph()
             {
                 return AddField(new TextLayout.Builder(this).SupportsLineBreaks());

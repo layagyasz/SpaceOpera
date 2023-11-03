@@ -4,6 +4,7 @@ using Cardamom.Ui.Elements;
 using Cardamom.Utils.Suppliers;
 using SpaceOpera.Controller.Game.Panes.Forms;
 using SpaceOpera.Core;
+using SpaceOpera.View.Components.NumericInputs;
 using SpaceOpera.View.Forms;
 using SpaceOpera.View.Icons;
 
@@ -38,8 +39,8 @@ namespace SpaceOpera.View.Game.Panes.Forms
                     new()
                     {
                         Root = "form-pane-select",
-                        OptionContainer = "form-pane-select-option-container",
-                        Option = "form-pane-select-option"
+                        OptionContainer = "form-pane-option-container",
+                        Option = "form-pane-option"
                     },
                 Dial =
                     new()
@@ -54,6 +55,40 @@ namespace SpaceOpera.View.Game.Panes.Forms
                     {
                         Container = "form-pane-radio",
                         Option = "form-pane-radio-option"
+                    },
+                MultiCount =
+                    new()
+                    {
+                        Container = "form-pane-multi-count",
+                        Table = "form-pane-multi-count-table",
+                        SelectWrapper = "form-pane-multi-count-select-wrapper",
+                        Select = 
+                            new()
+                            {
+                                Root = "form-pane-multi-count-select",
+                                OptionContainer = "form-pane-multi-count-select-option-container",
+                                Option = "form-pane-multi-count-select-option"
+                            },
+                        Add = "form-pane-multi-count-add",
+                        Row = 
+                            new MultiCountInputStyles.ManualMultiCountInputRowStyle()
+                            {
+                                Container = "form-pane-multi-count-row",
+                                Info = "form-pane-multi-count-row-info",
+                                Icon = "form-pane-multi-count-row-icon",
+                                Text = "form-pane-multi-count-row-text",
+                                NumericInput = new()
+                                {
+                                    Container = "form-pane-multi-count-row-numeric-input",
+                                    Text = "form-pane-multi-count-row-numeric-input-text",
+                                    SubtractButton = "form-pane-multi-count-row-numeric-input-subtract",
+                                    AddButton = "form-pane-multi-count-row-numeric-input-add"
+                                },
+                                Remove = "form-pane-multi-count-row-remove"
+                            },
+                        TotalContainer = "form-pane-multi-count-total-row",
+                        TotalText = "form-pane-multi-count-total-text",
+                        TotalNumber = "form-pane-multi-count-total-number",
                     }
             };
 
@@ -74,12 +109,15 @@ namespace SpaceOpera.View.Game.Panes.Forms
                   new TextUiElement(uiElementFactory.GetClass(s_Title), new ButtonController(), string.Empty),
                   uiElementFactory.CreateSimpleButton(s_Close).Item1)
         {
-            Contents = 
+            Submit = uiElementFactory.CreateTextButton(s_Submit, "Submit").Item1;
+            Contents =
                 new UiSerialContainer(
                     uiElementFactory.GetClass(s_Body),
                     new NoOpElementController(),
-                    UiSerialContainer.Orientation.Vertical);
-            Submit = uiElementFactory.CreateTextButton(s_Submit, "Submit").Item1;
+                    UiSerialContainer.Orientation.Vertical)
+                {
+                    Submit
+                };
             SetBody(Contents);
             _uiElementFactory = uiElementFactory;
             _iconFactory = iconFactory;
@@ -99,7 +137,7 @@ namespace SpaceOpera.View.Game.Panes.Forms
         {
             if (_form != null)
             {
-                Contents.Remove(_form);
+                Contents.Remove(_form, /* dispose= */ true);
             }
 
             _world = (World)args[0]!;

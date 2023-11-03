@@ -166,7 +166,8 @@
         219,
         [ "DynamicContents", 0, 512 ]
       ],
-      "Padding": [ 0 ]
+      "Padding": [ 0 ],
+      "DisableScissor": false
     }
   },
   {

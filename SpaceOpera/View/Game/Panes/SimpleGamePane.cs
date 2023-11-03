@@ -34,7 +34,7 @@ namespace SpaceOpera.View.Game.Panes
         {
             if (Body != null)
             {
-                Remove(Body);
+                Remove(Body, /* dispose= */ false);
             }
             body.Position = new(0, Header.Size.Y, 0);
             Add(body);

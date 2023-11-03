@@ -31,7 +31,7 @@ namespace SpaceOpera.Controller.Game.Panes.FormationPanes
                 var row = _component!.Where(x => ((IFormationComponent)x).Key == e.GetOnlyObject()).FirstOrDefault();
                 if (row != null)
                 {
-                    _component!.Remove(row);
+                    _component!.Remove(row, /* dispose= */ false);
                 }
                 if (_component!.Count == 0)
                 {

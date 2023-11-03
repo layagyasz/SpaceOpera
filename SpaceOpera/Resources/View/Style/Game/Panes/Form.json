@@ -169,7 +169,8 @@
         442,
         [ "DynamicContents", 0, 512 ]
       ],
-      "Padding": [ 0 ]
+      "Padding": [ 0 ],
+      "DisableScissor": false
     }
   },
   {
@@ -194,6 +195,179 @@
     "Default": {
       "Size": [ 438, 28 ],
       "Align": "Center"
+    }
+  },
+  {
+    "$id": "form-pane-multi-count-select-wrapper",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 442, 32 ]
+    }
+  },
+  {
+    "$id": "form-pane-multi-count-select",
+    "Parent": "form-pane-select",
+    "Default": {
+      "Size": [ 410, 32 ]
+    }
+  },
+  {
+    "$id": "form-pane-multi-count-select-option-container",
+    "Parent": "form-pane-select-option-container",
+    "Default": {
+      "Size": [
+        410,
+        [ "DynamicContents", 0, 512 ]
+      ]
+    }
+  },
+  {
+    "$id": "form-pane-multi-count-select-option",
+    "Parent": "form-pane-select-option",
+    "Default": {
+      "Size": [ 410, 32 ]
+    }
+  },
+  {
+    "$id": "form-pane-multi-count-add",
+    "Parent": "ui-element-basic",
+    "Default": {
+      "Size": [ 28, 28 ],
+      "CornerRadius": [ [ 14, 14 ] ],
+      "Align": "Center"
+    }
+  },
+  {
+    "$id": "form-pane-multi-count",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 442, "DynamicContents" ],
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "form-pane-multi-count-table",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 442, "DynamicContents" ],
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "form-pane-multi-count-total-row",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 442, 32 ],
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "form-pane-multi-count-total-text",
+    "Parent": "ui-element-basic",
+    "Default": {
+      "Size": [ 264, 28 ],
+      "Padding": [ 50, 8, 8, 8 ]
+    }
+  },
+  {
+    "$id": "form-pane-multi-count-total-number",
+    "Parent": "ui-element-basic",
+    "Default": {
+      "Size": [ 172, 28 ],
+      "Align": "Center"
+    }
+  },
+  {
+    "$id": "form-pane-multi-count-row",
+    "Parent": "form-pane-multi-count-total-row"
+  },
+  {
+    "$id": "form-pane-multi-count-row-info",
+    "Parent": "form-pane-multi-count-total-text",
+    "Default": {
+      "Padding": [ 14, 0, 14, 0 ]
+    }
+  },
+  {
+    "$id": "form-pane-multi-count-row-icon",
+    "Parent": "ui-icon",
+    "Default": {
+      "Size": [ 24, 24 ],
+      "Margin": [ 2 ]
+    }
+  },
+  {
+    "$id": "form-pane-multi-count-row-text",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 176, 24 ],
+      "Padding": [ 8 ]
+    }
+  },
+  {
+    "$id": "form-pane-multi-count-row-numeric-input",
+    "Parent": "ui-element-basic",
+    "Default": {
+      "Size": [ 140, 28 ],
+      "Padding": [ 0 ],
+      "Align": "Left"
+    }
+  },
+  {
+    "$id": "form-pane-multi-count-row-numeric-input-text",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 84, 24 ],
+      "Padding": [ 0, 8, 0, 8 ],
+      "Align": "Center"
+    }
+  },
+  {
+    "$id": "form-pane-multi-count-row-numeric-input-subtract",
+    "Parent": "ui-element-basic",
+    "Default": {
+      "Size": [ 24, 24 ],
+      "Padding": [ 0, 5, 0, 5 ],
+      "Margin": [ 2 ],
+      "CornerRadius": [ [ 12, 12 ] ],
+      "Align": "Center",
+      "Color": "#ff8800cc",
+      "BorderColor": [ "#ff8800cc" ]
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "Color": "#ff8800",
+          "BorderColor": [ "#ff8800" ]
+        }
+      }
+    ]
+  },
+  {
+    "$id": "form-pane-multi-count-row-numeric-input-add",
+    "Parent": "form-pane-multi-count-row-numeric-input-subtract",
+    "Default": {
+      "Color": "#0088ffcc",
+      "BorderColor": [ "#0088ffcc" ]
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "Color": "#0088ff",
+          "BorderColor": [ "#0088ff" ]
+        }
+      }
+    ]
+  },
+  {
+    "$id": "form-pane-multi-count-row-remove",
+    "Parent": "ui-element-basic",
+    "Default": {
+      "Size": [ 28, 28 ],
+      "CornerRadius": [ [ 14, 14 ] ],
+      "Texture": "icon-x"
     }
   }
 ]

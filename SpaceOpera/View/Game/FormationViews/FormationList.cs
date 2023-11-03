@@ -80,9 +80,8 @@ namespace SpaceOpera.View.Game.FormationViews
                 row.Remove(driver);
                 if (row.FormationCount == 0)
                 {
-                    Remove(row);
+                    Remove(row, /* dispose= */ true);
                     _rows.Remove(key);
-                    row.Dispose();
                 }
             }
         }

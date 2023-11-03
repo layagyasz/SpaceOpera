@@ -108,8 +108,7 @@ namespace SpaceOpera.View.GameSetup
         {
             if (_icon != null)
             {
-                Remove(_icon);
-                _icon.Dispose();
+                Remove(_icon, /* dispose= */ true);
             }
             _icon = _iconFactory.Create(_iconClass, new InlayController(), banner, IconResolution.High);
             _icon.Initialize();

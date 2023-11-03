@@ -92,7 +92,7 @@ namespace SpaceOpera.View.Game.FormationViews
             {
                 if (_action != null)
                 {
-                    Remove(_action);
+                    Remove(_action, /* dispose= */ false);
                     ActionRemoved?.Invoke(this, new(_action));
                 }
                 var @class = GetClass(newActionType);
