@@ -16,5 +16,10 @@
                 // Implement event
             }
         }
+
+        public bool Validate(World world)
+        {
+            return true;
+        }
     }
 }

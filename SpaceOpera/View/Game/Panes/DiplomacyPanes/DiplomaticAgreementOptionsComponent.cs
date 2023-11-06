@@ -12,7 +12,7 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
 {
     public class DiplomaticAgreementOptionsComponent : UiCompoundComponent
     {
-        public record class OptionKey(World World, Faction Faction, DiplomacyType DiplomacyType);
+        public record class OptionKey(World World, DiplomaticRelation Relation, DiplomacyType DiplomacyType);
 
         private static readonly string s_Container = "diplomacy-pane-diplomacy-side-container";
         private static readonly string s_Table = "diplomacy-pane-diplomacy-side-table";
@@ -22,9 +22,10 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
         private readonly HashSet<OptionKey> _range = new();
         private readonly UiElementFactory _uiElementFactory;
 
+        public bool IsLeft { get; }
         public IUiComponent Options { get; }
 
-        public DiplomaticAgreementOptionsComponent(string header, UiElementFactory uiElementFactory)
+        public DiplomaticAgreementOptionsComponent(bool isLeft, string header, UiElementFactory uiElementFactory)
             : base(
                   new DiplomaticAgreementOptionsComponentController(), 
                   new UiSerialContainer(
@@ -81,7 +82,12 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
             if (diplomacyType == DiplomacyType.Trade)
             {
                 return KeyedUiComponent<OptionKey>.Wrap(
-                    key, TradeComponent.Create(_uiElementFactory, key.World, key.Faction));
+                    key, 
+                    TradeComponent.Create(
+                        _uiElementFactory, 
+                        key.World, 
+                        IsLeft ? key.Relation.Faction : key.Relation.Target,
+                        IsLeft ? key.Relation.Target : key.Relation.Faction));
             }
             if (diplomacyType == DiplomacyType.War)
             {

@@ -5,9 +5,9 @@ using Cardamom.Ui.Elements;
 using SpaceOpera.Controller.Components;
 using SpaceOpera.Controller.Game.Panes.DiplomacyPanes;
 using SpaceOpera.Core;
-using SpaceOpera.Core.Economics;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Politics.Diplomacy;
+using SpaceOpera.Core.Universe;
 
 namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
 {
@@ -33,26 +33,30 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
             Add(Options);
         }
 
-        public static TradeComponent Create(UiElementFactory uiElementFactory, World world, Faction faction)
+        public static TradeComponent Create(
+            UiElementFactory uiElementFactory, World world, Faction left, Faction right)
         {
             var optionsTable =
                 new UiCompoundComponent(
-                    new AdderComponentController<StellarBodyHolding>(),
+                    new AdderComponentController<StellarBody>(),
                     new UiSerialContainer(
                         uiElementFactory.GetClass(s_OptionTable),
                         new TableController(0f), 
                         UiSerialContainer.Orientation.Vertical));
             var optionClass = uiElementFactory.GetClass(s_Option);
-            foreach (var option in world.Economy.GetHoldingsFor(faction))
+            foreach (
+                var option in 
+                world.Economy.GetHoldingsFor(left).Select(x => x.StellarBody)
+                    .Intersect(world.Economy.GetHoldingsFor(right).Select(x => x.StellarBody)))
             {
                 optionsTable.Add(
                     new UiSimpleComponent(
-                        new StaticAdderController<StellarBodyHolding>(option),
+                        new StaticAdderController<StellarBody>(option),
                         new TextUiElement(optionClass, new ButtonController(), option.Name)));
             }
             return new(
                 uiElementFactory.GetClass(s_Container),
-                new TradeComponentController(world, faction),
+                new TradeComponentController(world, left, right),
                 new TextUiElement(
                     uiElementFactory.GetClass(s_Header), new ButtonController(), DiplomacyType.Trade.Name),
                 optionsTable);

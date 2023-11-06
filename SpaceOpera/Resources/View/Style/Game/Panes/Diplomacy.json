@@ -118,11 +118,28 @@
   },
   {
     "$id": "diplomacy-pane-diplomacy-proposal-section",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 216, "DynamicContents" ]
+    }
+  },
+  {
+    "$id": "diplomacy-pane-diplomacy-proposal-section-header",
     "Parent": "ui-element-internal",
     "Default": {
       "Size": [ 219, 28 ],
       "FontSize": 14,
       "Padding": [ 8 ]
+    }
+  },
+  {
+    "$id": "diplomacy-pane-diplomacy-proposal-section-contents",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 2156, 24 ],
+      "FontSize": 12,
+      "Padding": [ 6 ],
+      "Margin": [ 16, 0, 0, 0 ]
     }
   },
   {

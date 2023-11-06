@@ -91,7 +91,7 @@ namespace SpaceOpera.Controller.Game.Panes.DiplomacyPanes
             return DiplomacyType.All
                 .Where(x => currentSet.SetId < 0 || x.SetId == currentSet.SetId)
                 .Where(x => !x.IsUnique || !sections.Any(y => x == y.Type))
-                .Select(x => new OptionKey(_world!, faction, x));
+                .Select(x => new OptionKey(_world!, _relation!, x));
         }
 
         private void HandlePopulated(object? sender, DiplomacyComponent.PopulatedEventArgs e)

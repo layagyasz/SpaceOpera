@@ -35,8 +35,9 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
                       new NoOpElementController(),
                       UiSerialContainer.Orientation.Horizontal))
         {
-            LeftOptions = new DiplomaticAgreementOptionsComponent("We Provide", uiElementFactory);
-            RightOptions = new DiplomaticAgreementOptionsComponent("They Provide", uiElementFactory);
+            LeftOptions = new DiplomaticAgreementOptionsComponent(/* IsLeft= */ true, "We Provide", uiElementFactory);
+            RightOptions = 
+                new DiplomaticAgreementOptionsComponent(/* IsLeft= */ false, "They Provide", uiElementFactory);
             LeftSections = new DiplomaticAgreementSectionsComponent(uiElementFactory);
             RightSections = new DiplomaticAgreementSectionsComponent(uiElementFactory);
             Image =

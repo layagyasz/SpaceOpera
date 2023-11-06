@@ -145,7 +145,7 @@ namespace SpaceOpera.Core.Politics.Diplomacy
             {
                 return false;
             }
-            if (!Validate(Left) || !Validate(Right))
+            if (!Validate(world, Left) || !Validate(world, Right))
             {
                 return false;
             }
@@ -239,11 +239,16 @@ namespace SpaceOpera.Core.Politics.Diplomacy
             }
         }
 
-        private static bool Validate(IList<IDiplomaticAgreementSection> sections)
+        private static bool Validate(World world, IList<IDiplomaticAgreementSection> sections)
         {
             var setId = sections.Select(x => x.Type.SetId).FirstOrDefault(-1);
             foreach (var section in sections)
             {
+                if (!section.Validate(world))
+                {
+                    return false;
+                }
+
                 // Only allow one unilateral declaration at a time.
                 if (section.Type.IsUnilateral && sections.Count > 1)
                 {

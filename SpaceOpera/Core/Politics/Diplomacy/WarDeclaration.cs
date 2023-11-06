@@ -17,5 +17,10 @@ namespace SpaceOpera.Core.Politics.Diplomacy
 
         public void Notify(
             World world, DiplomaticRelation relation, IDiplomaticAgreementSection agreement, bool isProposer) { }
+
+        public bool Validate(World world)
+        {
+            return true;
+        }
     }
 }

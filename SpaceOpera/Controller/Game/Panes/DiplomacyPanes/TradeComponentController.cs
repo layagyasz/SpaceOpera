@@ -5,6 +5,7 @@ using SpaceOpera.Core;
 using SpaceOpera.Core.Economics;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Politics.Diplomacy;
+using SpaceOpera.Core.Universe;
 using SpaceOpera.View.Forms;
 using SpaceOpera.View.Game.Panes.DiplomacyPanes;
 
@@ -16,21 +17,23 @@ namespace SpaceOpera.Controller.Game.Panes.DiplomacyPanes
         public EventHandler<PopupEventArgs>? PopupCreated { get; set; }
 
         private readonly World _world;
-        private readonly Faction _faction;
+        private readonly Faction _left;
+        private readonly Faction _right;
 
         private TradeComponent? _component;
-        private IAdderController<StellarBodyHolding>? _options;
+        private IAdderController<StellarBody>? _options;
 
-        public TradeComponentController(World world, Faction faction)
+        public TradeComponentController(World world, Faction left, Faction right)
         {
             _world = world;
-            _faction = faction;
+            _left = left;
+            _right = right;
         }
 
         public void Bind(object @object)
         {
             _component = (TradeComponent)@object;
-            _options = (IAdderController<StellarBodyHolding>)_component.Options.ComponentController;
+            _options = (IAdderController<StellarBody>)_component.Options.ComponentController;
             _options.Added += HandleAdd;
         }
 
@@ -41,17 +44,17 @@ namespace SpaceOpera.Controller.Game.Panes.DiplomacyPanes
             _component = null;
         }
 
-        private void HandleAdd(object? sender, StellarBodyHolding holding)
+        private void HandleAdd(object? sender, StellarBody stellarBody)
         {
             var materials = 
-                _world.GetRecipesFor(_faction)
+                _world.GetRecipesFor(_left)
                     .SelectMany(x => x.Transformation)
                     .Where(x => x.Value > 0)
                     .Select(x => x.Key);
             var materialsInput = 
                 new FormLayout.Builder()
                     .SetTitle("Trade Proposal")
-                    .AddHidden("holding", holding)
+                    .AddHidden("stellarBody", stellarBody)
                     .AddMultiCount()
                         .SetId("materials")
                         .SetOptionNameFn(x => ((IMaterial)x).Name);
@@ -78,12 +81,12 @@ namespace SpaceOpera.Controller.Game.Panes.DiplomacyPanes
             promise.Canceled -= HandleFormCanceled;
             promise.Finished -= HandleFormComplete;
 
-            var left = (StellarBodyHolding)promise.Get()["holding"]!;
-            // TODO: Transfer to other faction's holding.
-            var right = left;
+            var stellarBody = (StellarBody)promise.Get()["stellarBody"]!;
+            var leftHolding = _world.Economy.GetHolding(_left, stellarBody)!;
+            var rightHolding = _world.Economy.GetHolding(_right, stellarBody)!;
             var materials =
                 ((MultiCount<object>)promise.Get()["materials"]!).ToMultiQuantity(x => (IMaterial)x.Key, x => x.Value);
-            Added?.Invoke(this, new TradeAgreement(new(left, right, materials)));
+            Added?.Invoke(this, new TradeAgreement(new(leftHolding, rightHolding, materials)));
         }
     }
 }

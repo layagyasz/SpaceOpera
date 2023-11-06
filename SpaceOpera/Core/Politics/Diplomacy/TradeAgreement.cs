@@ -25,5 +25,10 @@ namespace SpaceOpera.Core.Politics.Diplomacy
         public void Notify(
             World world, DiplomaticRelation relation, IDiplomaticAgreementSection section, bool isProposer)
         { }
+
+        public bool Validate(World world)
+        {
+            return ((StellarBodyHolding)Trade.FromZone).StellarBody == ((StellarBodyHolding)Trade.ToZone).StellarBody;
+        }
     }
 }
