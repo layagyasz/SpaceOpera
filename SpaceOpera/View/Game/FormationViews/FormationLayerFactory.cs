@@ -1,6 +1,7 @@
 ﻿using Cardamom.Ui;
 using OpenTK.Mathematics;
 using SpaceOpera.Core;
+using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Universe;
 using SpaceOpera.View.Icons;
 
@@ -21,18 +22,12 @@ namespace SpaceOpera.View.Game.FormationViews
         {
             var formationLayer =
                 new FormationLayer<StarSystem>(
+                    world?.Formations ?? new FormationManager(),
                     new IFormationLayerMapper<StarSystem>.GalaxyMapper(world, galaxy, scale),
                     new FormationSubLayer<StarSystem>(
                         galaxy,
                         UiElementFactory,
                         IconFactory));
-            if (world != null)
-            {
-                foreach (var formation in world.Formations.GetAtomicDrivers())
-                {
-                    formationLayer.Add(formation);
-                }
-            }
             return formationLayer;
         }
 
@@ -45,15 +40,9 @@ namespace SpaceOpera.View.Game.FormationViews
         {
             var formationLayer =
                 new FormationLayer<object>(
+                    world?.Formations ?? new FormationManager(),
                     new IFormationLayerMapper<object>.StarSystemMapper(world, starSystem, scale, transitPins), 
                     subLayers);
-            if (world != null)
-            {
-                foreach (var formation in world.Formations.GetAtomicDrivers())
-                {
-                    formationLayer.Add(formation);
-                }
-            }
             return formationLayer;
         }
 
@@ -72,16 +61,10 @@ namespace SpaceOpera.View.Game.FormationViews
         {
             var formationLayer =
                 new FormationLayer<INavigable>(
+                    world?.Formations ?? new FormationManager(),
                     new IFormationLayerMapper<INavigable>.StellarBodyMapper(
                         world, stellarBody, surfaceRadius, atmosphereRadius),
                     new FormationSubLayer<INavigable>(stellarBody, UiElementFactory, IconFactory));
-            if (world != null)
-            {
-                foreach (var formation in world.Formations.GetAtomicDrivers())
-                {
-                    formationLayer.Add(formation);
-                }
-            }
             return formationLayer;
         }
     }

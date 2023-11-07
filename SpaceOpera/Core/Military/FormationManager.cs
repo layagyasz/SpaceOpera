@@ -5,21 +5,25 @@ namespace SpaceOpera.Core.Military
 {
     public class FormationManager
     {
+        public EventHandler<IFormationDriver>? Created { get; set; }
+        public EventHandler<MovementEventArgs>? Moved { get; set; }
+        public EventHandler<IFormationDriver>? Removed { get; set; }
+
         private readonly Dictionary<IFormation, IFormationDriver> _drivers = new();
 
         public void AddArmy(Army army)
         {
-            _drivers.Add(army, new ArmyDriver(army, army.Divisions.Select(x => (DivisionDriver)_drivers[x])));
+            Add(new ArmyDriver(army, army.Divisions.Select(x => (DivisionDriver)_drivers[x])));
         }
 
         public void AddDivision(Division division)
         {
-            _drivers.Add(division, new DivisionDriver(division));
+            Add(new DivisionDriver(division));
         }
 
         public void AddFleet(Fleet fleet)
         {
-            _drivers.Add(fleet, new FleetDriver(fleet));
+            Add(new FleetDriver(fleet));
         }
 
         public IEnumerable<ArmyDriver> GetArmyDrivers()
@@ -69,6 +73,21 @@ namespace SpaceOpera.Core.Military
             {
                 driver.Tick(context);
             }
+        }
+
+        private void Add(IFormationDriver driver)
+        {
+            _drivers.Add(driver.Formation, driver);
+            if (driver is AtomicFormationDriver atomic)
+            {
+                atomic.Moved += HandleMove;
+            }
+            Created?.Invoke(this, driver);
+        }
+
+        private void HandleMove(object? sender, MovementEventArgs e)
+        {
+            Moved?.Invoke(sender, e);
         }
     }
 }

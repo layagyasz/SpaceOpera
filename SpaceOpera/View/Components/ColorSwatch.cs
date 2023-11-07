@@ -2,17 +2,13 @@
 using Cardamom.Mathematics.Geometry;
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui;
-using Cardamom;
 using OpenTK.Mathematics;
-using SpaceOpera.View.Icons;
 using OpenTK.Graphics.OpenGL4;
 
 namespace SpaceOpera.View.Components
 {
     public class ColorSwatch : ClassedUiElement
     {
-        public CompositeKey<object, IconResolution> Key { get; }
-
         private readonly Vertex3[] _vertices;
 
         private Vector2 _size;

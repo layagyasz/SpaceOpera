@@ -8,40 +8,48 @@ namespace SpaceOpera.View.Game.FormationViews
 {
     public class FormationLayer<T> : DynamicUiGroup where T : notnull
     {
-        private readonly EventBuffer<MovementEventArgs> _events;
+        private readonly EventBuffer<IFormationDriver> _createEvents;
+        private readonly EventBuffer<MovementEventArgs> _moveEvents;
+        private readonly EventBuffer<IFormationDriver> _removeEvents;
+
+        private readonly FormationManager _formationManager;
         private readonly IFormationLayerMapper<T> _mapper;
         private readonly Dictionary<object, FormationSubLayer<T>> _subLayers = new();
 
         private bool _dirty;
 
-        public FormationLayer(IFormationLayerMapper<T> mapper, FormationSubLayer<T> singleSubLayer)
+        private FormationLayer(FormationManager formationManager, IFormationLayerMapper<T> mapper)
             : base(new FormationLayerController<T>())
         {
-            _events = new(HandleMove);
+            _createEvents = new(HandleCreate);
+            _moveEvents = new(HandleMove);
+            _removeEvents = new(HandleRemove);
+
+            _formationManager = formationManager;
             _mapper = mapper;
+        }
+
+        public FormationLayer(
+            FormationManager formationManager, IFormationLayerMapper<T> mapper, FormationSubLayer<T> singleSubLayer)
+            : this(formationManager, mapper)
+        {
             _subLayers.Add(singleSubLayer.Key, singleSubLayer);
             Add(singleSubLayer);
             Dirty();
         }
 
-        public FormationLayer(IFormationLayerMapper<T> mapper, IEnumerable<FormationSubLayer<T>> subLayers)
-            : base(new FormationLayerController<T>())
+        public FormationLayer(
+            FormationManager formationManager, 
+            IFormationLayerMapper<T> mapper, 
+            IEnumerable<FormationSubLayer<T>> subLayers)
+            : this(formationManager, mapper)
         {
-            _events = new(HandleMove);
-            _mapper = mapper;
             foreach (var subLayer in subLayers)
             {
                 _subLayers.Add(subLayer.Key, subLayer);
                 Add(subLayer);
             }
             Dirty();
-        }
-
-        public void Add(AtomicFormationDriver driver)
-        {
-            driver.Moved += _events.QueueEvent;
-            Add(driver, driver.AtomicFormation.Position, /* initialize= */ false);
-
         }
 
         public void Dirty()
@@ -55,18 +63,25 @@ namespace SpaceOpera.View.Game.FormationViews
 
         protected override void DisposeImpl()
         {
-            foreach (var driver in _subLayers.Values.SelectMany(x => x.GetDrivers()))
-            {
-                driver.Moved -= _events.QueueEvent;
-            }
+            _formationManager.Created -= _createEvents.QueueEvent;
+            _formationManager.Moved -= _moveEvents.QueueEvent;
+            _formationManager.Removed -= _removeEvents.QueueEvent;
+
             base.DisposeImpl();
         }
 
-
-        public void Remove(AtomicFormationDriver driver)
+        public override void Initialize()
         {
-            driver.Moved -= _events.QueueEvent;
-            Remove(driver, driver.AtomicFormation.Position);
+            _formationManager.Created += _createEvents.QueueEvent;
+            _formationManager.Moved += _moveEvents.QueueEvent;
+            _formationManager.Removed += _removeEvents.QueueEvent;
+
+            foreach (var formation in _formationManager.GetAtomicDrivers())
+            {
+                Add(formation);
+            }
+
+            base.Initialize();
         }
 
         public void UpdateFromCamera(IRenderTarget target)
@@ -90,8 +105,23 @@ namespace SpaceOpera.View.Game.FormationViews
 
         public override void Update(long delta)
         {
-            _events.DispatchEvents();
+            _createEvents.DispatchEvents();
+            _moveEvents.DispatchEvents();
+            _removeEvents.DispatchEvents();
             base.Update(delta);
+        }
+
+        private void Add(AtomicFormationDriver driver)
+        {
+            Add(driver, driver.AtomicFormation.Position, /* initialize= */ false);
+        }
+
+        private void HandleCreate(object? sender, IFormationDriver e)
+        {
+            if (e is AtomicFormationDriver driver)
+            {
+                Add(driver, driver.AtomicFormation.Position, /* initialize= */ true);
+            }
         }
 
         private void HandleMove(object? sender, MovementEventArgs e)
@@ -99,6 +129,14 @@ namespace SpaceOpera.View.Game.FormationViews
             var driver = (AtomicFormationDriver)sender!;
             Remove(driver, e.Origin);
             Add(driver, e.Destination, /* initialize= */ true);
+        }
+
+        private void HandleRemove(object? sender, IFormationDriver e)
+        {
+            if (e is AtomicFormationDriver driver)
+            {
+                Remove(driver);
+            }
         }
 
         private void Add(AtomicFormationDriver driver, INavigable? location, bool initialize)
@@ -113,6 +151,11 @@ namespace SpaceOpera.View.Game.FormationViews
                 subLayer.Add(driver, bucket, _mapper.MapToPin(bucket), _mapper.GetOffset(bucket), initialize);
                 Dirty();
             }
+        }
+
+        private void Remove(AtomicFormationDriver driver)
+        {
+            Remove(driver, driver.AtomicFormation.Position);
         }
 
         private void Remove(AtomicFormationDriver driver, INavigable? location)
