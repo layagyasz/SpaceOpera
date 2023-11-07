@@ -20,8 +20,8 @@ namespace SpaceOpera.Controller.Game.Panes.StellarBodyRegionPanes
         {
             var pane = (StellarBodyRegionPane)_pane!;
             pane.Populated -= HandlePopulated;
-            UnbindTab((ITabController)pane.StructureTab.Controller);
-            UnbindTab((ITabController)pane.ProjectTab.Controller);
+            UnbindTab((ITabController)pane.StructureTab.ComponentController);
+            UnbindTab((ITabController)pane.ProjectTab.ComponentController);
             base.Unbind();
         }
 

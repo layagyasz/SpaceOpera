@@ -465,6 +465,12 @@ namespace SpaceOpera.Controller.Game
                         SimpleHighlight.Wrap(new StellarBodyRegionHighlight(subRegion.ParentRegion!)));
                     return;
                 }
+                if (type.IsAssignableTo(typeof(StellarBodyHolding))) {
+                    var holding = (StellarBodyHolding)e.GetOnlyObject()!;
+                    OpenPane(
+                        GamePaneId.StellarBody, /* closeOpenPanes= */ true, _world!, _faction, holding.StellarBody);
+                    return;
+                }
                 if (s_SceneTypes.Contains(type))
                 {
                     PushScene(e.GetOnlyObject()!);

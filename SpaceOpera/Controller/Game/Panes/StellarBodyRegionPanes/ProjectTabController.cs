@@ -1,5 +1,6 @@
-﻿using Cardamom.Ui.Controller.Element;
+﻿using SpaceOpera.Core.Economics.Projects;
 using SpaceOpera.Core.Orders;
+using SpaceOpera.View;
 using SpaceOpera.View.Game.Panes.StellarBodyRegionPanes;
 
 namespace SpaceOpera.Controller.Game.Panes.StellarBodyRegionPanes
@@ -30,7 +31,13 @@ namespace SpaceOpera.Controller.Game.Panes.StellarBodyRegionPanes
 
         private void HandleInteraction(object? sender, UiInteractionEventArgs e)
         {
-            Interacted?.Invoke(this, e);
+            if (e.GetOnlyObject() is IProject project)
+            {
+                if (e.Action == ActionId.Cancel)
+                {
+                    OrderCreated?.Invoke(this, new CancelProjectOrder(project));
+                }
+            }
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Cardamom.Ui;
-using Cardamom.Ui.Controller.Element;
 using SpaceOpera.Controller.Components.NumericInputs;
 using SpaceOpera.Core.Economics;
 using SpaceOpera.Core.Orders;

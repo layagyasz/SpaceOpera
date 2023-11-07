@@ -1,0 +1,87 @@
+﻿using SpaceOpera.Core.Politics;
+using SpaceOpera.Core;
+using SpaceOpera.View.Icons;
+using Cardamom.Ui.Controller.Element;
+using Cardamom.Ui.Elements;
+using Cardamom.Ui;
+using SpaceOpera.Core.Economics;
+using SpaceOpera.Core.Universe;
+using SpaceOpera.Controller.Game.Panes;
+
+namespace SpaceOpera.View.Game.Panes.StellarBodyPanes
+{
+    public class StellarBodyPane : MultiTabGamePane
+    {
+        enum TabId
+        {
+            Overview,
+            Military,
+            Projects,
+            Regions,
+            Inventory
+        }
+
+        private static readonly string s_Container = "stellar-body-pane";
+        private static readonly string s_Title = "stellar-body-pane-title";
+        private static readonly string s_Close = "stellar-body-pane-close";
+        private static readonly string s_TabContainer = "stellar-body-pane-tab-container";
+        private static readonly string s_TabOption = "stellar-body-pane-tab-option";
+
+        private World? _world;
+        private Faction? _faction;
+        private StellarBody? _stellarBody;
+        private StellarBodyHolding? _holding;
+        private TabId _tab;
+
+
+        public StellarBodyPane(UiElementFactory uiElementFactory, IconFactory iconFactory)
+            : base(
+                  new MultiTabGamePaneController(),
+                  uiElementFactory.GetClass(s_Container),
+                  new TextUiElement(uiElementFactory.GetClass(s_Title), new ButtonController(), string.Empty),
+                  uiElementFactory.CreateSimpleButton(s_Close).Item1,
+                  TabBar<TabId>.Create(
+                    new List<TabBar<TabId>.Definition>()
+                    {
+                        new(TabId.Overview, "Overview"),
+                        new(TabId.Military, "Military"),
+                        new(TabId.Projects, "Projects"),
+                        new(TabId.Regions, "Regions"),
+                        new(TabId.Inventory, "Inventory")
+                    },
+                    uiElementFactory.GetClass(s_TabContainer),
+                    uiElementFactory.GetClass(s_TabOption)))
+        { }
+
+        public StellarBodyHolding GetHolding()
+        {
+            return _holding!;
+        }
+
+        public override void Populate(params object?[] args)
+        {
+            _world = args[0] as World;
+            _faction = args[1] as Faction;
+            _stellarBody = args[2] as StellarBody;
+            if (_world != null && _faction != null && _stellarBody != null)
+            {
+                _holding = _world.Economy.GetHolding(_faction, _stellarBody);
+            }
+
+
+            SetTitle(_stellarBody?.Name ?? "Unknown Stellar Body");
+            Refresh();
+            Populated?.Invoke(this, EventArgs.Empty);
+        }
+
+        public override object GetTab()
+        {
+            return _tab;
+        }
+
+        public override void SetTab(object id)
+        {
+            _tab = (TabId)id;
+        }
+    }
+}

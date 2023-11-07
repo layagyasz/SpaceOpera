@@ -15,6 +15,7 @@
         Military,
         MilitaryOrganization,
         Research,
+        StellarBody,
         StellarBodyRegion,
         Trade
     }

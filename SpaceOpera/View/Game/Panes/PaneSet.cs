@@ -9,6 +9,7 @@ using SpaceOpera.View.Game.Panes.Forms;
 using SpaceOpera.View.Game.Panes.LogisticsPanes;
 using SpaceOpera.View.Game.Panes.MilitaryPanes;
 using SpaceOpera.View.Game.Panes.ResearchPanes;
+using SpaceOpera.View.Game.Panes.StellarBodyPanes;
 using SpaceOpera.View.Game.Panes.StellarBodyRegionPanes;
 using SpaceOpera.View.Icons;
 
@@ -28,6 +29,7 @@ namespace SpaceOpera.View.Game.Panes
         public MilitaryPane Military { get; }
         public MilitaryOrganizationPane MilitaryOrganization { get; }
         public ResearchPane Research { get; }
+        public StellarBodyPane StellarBody { get; }
         public StellarBodyRegionPane StellarBodyRegion { get; }
 
         private PaneSet(
@@ -43,6 +45,7 @@ namespace SpaceOpera.View.Game.Panes
             MilitaryPane military, 
             MilitaryOrganizationPane militaryOrganization,
             ResearchPane research,
+            StellarBodyPane stellarBody,
             StellarBodyRegionPane stellarBodyRegion)
         {
             Battle = battle;
@@ -57,6 +60,7 @@ namespace SpaceOpera.View.Game.Panes
             Military = military;
             MilitaryOrganization = militaryOrganization;
             Research = research;
+            StellarBody = stellarBody;
             StellarBodyRegion = stellarBodyRegion;
         }
 
@@ -76,6 +80,7 @@ namespace SpaceOpera.View.Game.Panes
                 GamePaneId.Military => Military,
                 GamePaneId.MilitaryOrganization => MilitaryOrganization,
                 GamePaneId.Research => Research,
+                GamePaneId.StellarBody => StellarBody,
                 GamePaneId.StellarBodyRegion => StellarBodyRegion,
                 _ => throw new ArgumentException($"Unsupported pane id: {id}"),
             };
@@ -95,6 +100,7 @@ namespace SpaceOpera.View.Game.Panes
             yield return Military;
             yield return MilitaryOrganization;
             yield return Research;
+            yield return StellarBody;
             yield return StellarBodyRegion;
         }
 
@@ -129,6 +135,7 @@ namespace SpaceOpera.View.Game.Panes
                 /* military= */ new MilitaryPane(uiElementFactory, iconFactory),
                 /* militaryOrganization= */ new MilitaryOrganizationPane(uiElementFactory, iconFactory),
                 /* research= */ ResearchPane.Create(uiElementFactory),
+                /* stellarBody= */ new StellarBodyPane(uiElementFactory, iconFactory),
                 /* stellarBodyRegion= */ new StellarBodyRegionPane(uiElementFactory, iconFactory));
         }
     }
