@@ -100,6 +100,7 @@ namespace SpaceOpera.View.Game.Panes.DesignPanes
                     ActionRow<Type>.Create(
                         typeof(Design),
                         ActionId.Unknown,
+                        ActionId.Unknown,
                         uiElementFactory,
                         s_DesignHeaderStyle,
                         new List<IUiElement>()
@@ -161,6 +162,7 @@ namespace SpaceOpera.View.Game.Panes.DesignPanes
         {
             return ActionRow<Design>.Create(
                 design,
+                ActionId.Unknown,
                 ActionId.Unknown,
                 _uiElementFactory,
                 s_DesignRowStyle, 

@@ -78,6 +78,7 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyRegionPanes
             return ActionRow<IProject>.Create(
                 project,
                 ActionId.Unknown,
+                ActionId.Unknown,
                 _uiElementFactory,
                 s_ProjectRowStyle,
                 new List<IUiElement>()

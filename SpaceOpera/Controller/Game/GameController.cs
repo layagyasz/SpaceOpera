@@ -378,6 +378,7 @@ namespace SpaceOpera.Controller.Game
             }
             if (type.IsAssignableTo(typeof(IEvent)))
             {
+                var @event = (IEvent)e.GetOnlyObject()!;
                 if (e.Action == ActionId.Select)
                 {
                     var promise = new Promise<FormValue>();
@@ -387,9 +388,13 @@ namespace SpaceOpera.Controller.Game
                         GamePaneId.Form,
                         /* closeOpenPanes= */ true,
                         _world,
-                        FormHelper.ForEvent((IEvent)e.GetOnlyObject()!), 
+                        FormHelper.ForEvent(@event), 
                         promise);
                     return;
+                }
+                if (e.Action == ActionId.Ignore && @event is NotificationBase notification)
+                {
+                    ExecuteOrder(new DecideEventOrder(@event, 0));
                 }
             }
             if (type.IsAssignableTo(typeof(IFormationDriver)))

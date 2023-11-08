@@ -81,6 +81,7 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
                     ActionRow<Type>.Create(
                         typeof(IFormationDriver),
                         ActionId.Unknown,
+                        ActionId.Unknown,
                         uiElementFactory,
                         s_FormationHeaderStyle,
                         new List<IUiElement>()
@@ -124,6 +125,7 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
             return ActionRow<IFormationDriver>.Create(
                 driver,
                 ActionId.Select,
+                ActionId.Unknown,
                 _uiElementFactory,
                 s_FormationRowStyle,
                 new List<IUiElement>()

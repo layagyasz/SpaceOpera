@@ -83,6 +83,7 @@ namespace SpaceOpera.View.Game.Panes.LogisticsPanes
                     ActionRow<Type>.Create(
                         typeof(PersistentRoute),
                         ActionId.Unknown,
+                        ActionId.Unknown,
                         uiElementFactory,
                         s_RouteHeaderStyle,
                         new List<IUiElement>()
@@ -129,6 +130,7 @@ namespace SpaceOpera.View.Game.Panes.LogisticsPanes
             var right = ((StellarBodyRegionHolding)route.RightAnchor).Region;
             return ActionRow<PersistentRoute>.Create(
                 route,
+                ActionId.Unknown,
                 ActionId.Unknown,
                 _uiElementFactory,
                 s_RouteStyle,

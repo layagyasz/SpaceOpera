@@ -98,6 +98,7 @@ namespace SpaceOpera.View.Game.Overlay.StarSystemOverlays
                 ActionRow<StellarBody>.Create(
                     stellarBody,
                     ActionId.Select,
+                    ActionId.Unknown,
                     _uiElementFactory,
                     s_RowStyle,
                     new List<IUiElement>()

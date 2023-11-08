@@ -82,6 +82,7 @@ namespace SpaceOpera.View.Game.Panes.FormationPanes
             return ActionRow<UnitGrouping>.Create(
                 unitGrouping,
                 ActionId.Unknown,
+                ActionId.Unknown,
                 _uiElementFactory,
                 s_UnitGroupingRowStyle,
                 new List<IUiElement>()

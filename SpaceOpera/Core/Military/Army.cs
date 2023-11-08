@@ -13,6 +13,19 @@ namespace SpaceOpera.Core.Military
             Faction = faction;
         }
 
+        public void CheckDivisions()
+        {
+            lock (Divisions)
+            {
+                Divisions.RemoveAll(x => x.IsDestroyed());
+            }
+        }
+
+        public bool IsDestroyed()
+        {
+            return !Divisions.Any();
+        }
+
         public void SetName(string name)
         {
             Name = name;

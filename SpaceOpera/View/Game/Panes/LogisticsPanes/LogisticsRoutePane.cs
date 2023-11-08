@@ -263,6 +263,7 @@ namespace SpaceOpera.View.Game.Panes.LogisticsPanes
             return ActionRow<FleetDriver>.Create(
                 driver,
                 ActionId.Select,
+                ActionId.Unknown,
                 _uiElementFactory,
                 s_FleetStyle.Row!,
                 new List<IUiElement>()

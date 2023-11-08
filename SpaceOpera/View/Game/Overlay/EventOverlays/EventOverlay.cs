@@ -59,7 +59,8 @@ namespace SpaceOpera.View.Game.Overlay.EventOverlays
         {
             return ActionRow<IEvent>.Create(
                 @event, 
-                ActionId.Select, 
+                ActionId.Select,
+                ActionId.Ignore,
                 _uiElementFactory,
                 s_CellStyle,
                 new List<IUiElement>() 
@@ -89,6 +90,10 @@ namespace SpaceOpera.View.Game.Overlay.EventOverlays
                     case DiplomaticRelation.DiplomaticStatus.War:
                         return "event-overlay-event-war";
                 }
+            }
+            if (@event is FormationDestroyedEvent)
+            {
+                return "event-overlay-event-formation-destroyed";
             }
 
             throw new ArgumentException($"Unsupported event {@event}");

@@ -27,6 +27,7 @@
         Cancel,
         Defend,
         Edit,
+        Ignore,
         Move,
         NoAssignment,
         Patrol,

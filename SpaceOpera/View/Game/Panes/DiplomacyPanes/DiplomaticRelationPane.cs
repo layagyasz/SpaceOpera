@@ -88,6 +88,7 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
             return ActionRow<DiplomaticRelation>.Create(
                 relation,
                 ActionId.Unknown,
+                ActionId.Unknown,
                 _uiElementFactory,
                 s_RelationRowStyle,
                 new List<IUiElement>()

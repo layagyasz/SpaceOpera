@@ -161,6 +161,7 @@ namespace SpaceOpera.View.Game.Overlay.EmpireOverlays
             return ActionRow<ArmyDriver>.Create(
                 driver,
                 ActionId.Select,
+                ActionId.Unknown,
                 _uiElementFactory,
                 new() { Container = s_Row },
                 new List<IUiElement>()
@@ -178,6 +179,7 @@ namespace SpaceOpera.View.Game.Overlay.EmpireOverlays
             return ActionRow<AtomicFormationDriver>.Create(
                 driver,
                 ActionId.Select,
+                ActionId.Unknown,
                 _uiElementFactory,
                 new() { Container = s_Row },
                 new List<IUiElement>()
@@ -195,6 +197,7 @@ namespace SpaceOpera.View.Game.Overlay.EmpireOverlays
             return ActionRow<StellarBodyHolding>.Create(
                 holding,
                 ActionId.Select,
+                ActionId.Unknown,
                 _uiElementFactory,
                 new() { Container = s_Row },
                 new List<IUiElement>()

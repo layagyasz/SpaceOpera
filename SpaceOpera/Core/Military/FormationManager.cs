@@ -1,3 +1,4 @@
+using SpaceOpera.Core.Events;
 using SpaceOpera.Core.Military.Ai;
 using SpaceOpera.Core.Politics;
 
@@ -9,7 +10,7 @@ namespace SpaceOpera.Core.Military
         public EventHandler<MovementEventArgs>? Moved { get; set; }
         public EventHandler<IFormationDriver>? Removed { get; set; }
 
-        private readonly Dictionary<IFormation, IFormationDriver> _drivers = new();
+        private Dictionary<IFormation, IFormationDriver> _drivers = new();
 
         public void AddArmy(Army army)
         {
@@ -68,16 +69,36 @@ namespace SpaceOpera.Core.Military
 
         public void Tick(World world)
         {
-            var context = new SpaceOperaContext(world);
-            foreach (var driver in _drivers.Values)
+            lock (_drivers)
             {
-                driver.Tick(context);
+                var context = new SpaceOperaContext(world);
+                var driversCopy = new Dictionary<IFormation, IFormationDriver>();
+                foreach (var driver in _drivers.Values)
+                {
+                    if (driver.Formation.IsDestroyed())
+                    {
+                        if (driver is FleetDriver || driver is ArmyDriver)
+                        {
+                            world.Events.Add(new FormationDestroyedEvent(driver.Formation));
+                        }
+                        Removed?.Invoke(this, driver);
+                    }
+                    else
+                    {
+                        driver.Tick(context);
+                        driversCopy.Add(driver.Formation, driver);
+                    }
+                }
+                _drivers = driversCopy;
             }
         }
 
         private void Add(IFormationDriver driver)
         {
-            _drivers.Add(driver.Formation, driver);
+            lock (_drivers)
+            {
+                _drivers.Add(driver.Formation, driver);
+            }
             if (driver is AtomicFormationDriver atomic)
             {
                 atomic.Moved += HandleMove;

@@ -10,7 +10,7 @@ namespace SpaceOpera.View.Game.Panes.Forms
         {
             var field =
                 new FormLayout.Builder()
-                    .SetTitle(@event.Title)
+                    .SetTitle(@event.GetTitle())
                     .AutoSubmit()
                     .AddHidden("event", @event)
                     .AddParagraph()

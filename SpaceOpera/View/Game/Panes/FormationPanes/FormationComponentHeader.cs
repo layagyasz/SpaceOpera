@@ -105,7 +105,7 @@ namespace SpaceOpera.View.Game.Panes.FormationPanes
         public FormationComponentHeader(
             IFormationDriver driver, UiElementFactory uiElementFactory, IconFactory iconFactory)
             : base(
-                new ActionRowController<IFormationDriver>(driver, ActionId.Unknown),
+                new ActionRowController<IFormationDriver>(driver, ActionId.Unknown, ActionId.Unknown),
                 new DynamicUiSerialContainer(
                     uiElementFactory.GetClass(s_HeaderStyle.Container!),
                     new ButtonController(), 

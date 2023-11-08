@@ -13,11 +13,15 @@ namespace SpaceOpera.Core.Events
 
         public Faction Faction => Agreement.Approver;
         public DiplomaticAgreement Agreement { get; }
-        public string Title => "Diplomatic Request";
 
         public ProposeDiplomaticAgreementEvent(DiplomaticAgreement agreement)
         {
             Agreement = agreement;
+        }
+
+        public string GetTitle()
+        {
+            return "Diplomatic Proposal";
         }
 
         public string GetDescription()

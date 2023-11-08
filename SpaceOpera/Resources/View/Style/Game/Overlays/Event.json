@@ -72,5 +72,23 @@
         }
       }
     ]
+  },
+  {
+    "$id": "event-overlay-event-formation-destroyed",
+    "Parent": "event-overlay-event",
+    "Default": {
+      "ForegroundColor": "#ff0000cc",
+      "BorderColor": [ "#ff0000cc" ],
+      "Texture": "icon-skull"
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "ForegroundColor": "#ff0000",
+          "BorderColor": [ "#ff0000" ]
+        }
+      }
+    ]
   }
 ]

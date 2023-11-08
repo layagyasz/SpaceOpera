@@ -458,6 +458,9 @@
     <None Update="Resources\View\Icons\personal-armor.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\View\Icons\skull.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\View\Icons\small-arm.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

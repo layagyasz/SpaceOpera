@@ -100,6 +100,11 @@ namespace SpaceOpera.Core.Military
             };
         }
 
+        public bool IsDestroyed()
+        {
+            return Health.IsEmpty();
+        }
+
         public void SetName(string name)
         {
             Name = name;

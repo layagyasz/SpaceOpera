@@ -59,6 +59,11 @@ namespace SpaceOpera.Core.Military
 
         public void Tick(SpaceOperaContext context)
         {
+            lock (Divisions)
+            {
+                Divisions.RemoveAll(x => x.Formation.IsDestroyed());
+            }
+            Army.CheckDivisions();
             _assigner.Tick(Divisions, context);
         }
 

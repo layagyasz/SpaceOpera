@@ -12,13 +12,15 @@ namespace SpaceOpera.Controller.Components
 
         public T Key { get; }
         public ActionId ClickAction { get; }
+        public ActionId RightClickAction { get; }
 
         private IActionRow? _row;
 
-        public ActionRowController(T key, ActionId clickAction)
+        public ActionRowController(T key, ActionId clickAction, ActionId rightClickAction)
         {
             Key = key;
             ClickAction = clickAction;
+            RightClickAction = rightClickAction;
         }
 
         public void Bind(object @object)
@@ -62,6 +64,10 @@ namespace SpaceOpera.Controller.Components
             if (e.Button == MouseButton.Left)
             {
                 Interacted?.Invoke(this, UiInteractionEventArgs.Create(Key!, ClickAction));
+            }
+            else if(e.Button == MouseButton.Right)
+            {
+                Interacted?.Invoke(this, UiInteractionEventArgs.Create(Key!, RightClickAction));
             }
         }
 

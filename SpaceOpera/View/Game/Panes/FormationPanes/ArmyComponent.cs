@@ -74,6 +74,7 @@ namespace SpaceOpera.View.Game.Panes.FormationPanes
             return ActionRow<Division>.Create(
                 division,
                 ActionId.Unknown,
+                ActionId.Unknown,
                 _uiElementFactory,
                 s_DivisionRowStyle,
                 new List<IUiElement>()
