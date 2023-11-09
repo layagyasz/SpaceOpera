@@ -259,7 +259,7 @@ namespace SpaceOpera.View.Game.Scenes
                 StarViewFactory.CreateView(
                     Enumerable.Repeat(stellarBody.Orbit.Focus, 1),
                     Enumerable.Repeat(s_StellarBodySceneStarPosition, 1),
-                    s_StellarBodySceneStarScale / (MathF.Log(stellarBody.Orbit.MajorAxis + 1)),
+                    s_StellarBodySceneStarScale / (MathF.Log(stellarBody.Orbit.MajorAxisAu + 1)),
                     /* depthTest= */ false);
 
             var bounds = SpaceSubRegionBounds.CreateBounds(
@@ -272,7 +272,7 @@ namespace SpaceOpera.View.Game.Scenes
                     Identity,
                     bounds,
                     s_StellarBodyBorderWidth,
-                    Matrix4.CreateScale(1 + s_StellarBodySceneSurfaceHighlightHeight / stellarBody.Radius),
+                    Matrix4.CreateScale(1 + s_StellarBodySceneSurfaceHighlightHeight / stellarBody.RadiusKm),
                     HighlightShaders);
             var orbitHighlight = 
                 HighlightLayer<Orbit, StellarBodySubRegion>.Create(
@@ -288,7 +288,7 @@ namespace SpaceOpera.View.Game.Scenes
                 FormationLayerFactory.CreateForStellarBody(
                     world, 
                     stellarBody,
-                    model.Radius * (1 + s_StellarBodySceneSurfaceFormationHeightFactor / stellarBody.Radius),
+                    model.Radius * (1 + s_StellarBodySceneSurfaceFormationHeightFactor / stellarBody.RadiusKm),
                     model.Radius * s_StellarBodySceneOrbitFormationHeightFactor);
 
             var controller =
@@ -387,7 +387,7 @@ namespace SpaceOpera.View.Game.Scenes
 
         private static float GetLuminance(Star star)
         {
-            return s_LuminanceRange.Clamp(s_LightPower * MathF.Log(star.Luminosity + 1));
+            return s_LuminanceRange.Clamp(s_LightPower * MathF.Log(star.LuminosityS + 1));
         }
 
         private static IEnumerable<T> Identity<T>(T @object)

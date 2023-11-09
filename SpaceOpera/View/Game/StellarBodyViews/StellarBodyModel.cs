@@ -9,7 +9,7 @@ namespace SpaceOpera.View.Game.StellarBodyViews
     {
         private static readonly int s_AtmospherePrecision = 10;
 
-        public float Radius => _scale * _stellarBody.Radius;
+        public float Radius => _scale * _stellarBody.RadiusKm;
 
         private readonly StellarBody _stellarBody;
         private readonly float _scale;
@@ -46,7 +46,7 @@ namespace SpaceOpera.View.Game.StellarBodyViews
             _atmosphereShader.SetVector3(
                 "center_position", (new Vector4(0f, 0f, 0f, 1f) * target.GetModelMatrix()).Xyz);
             _atmosphereShader.SetFloat("outer_radius", _scale * _stellarBody.Atmosphere.Radius);
-            _atmosphereShader.SetFloat("inner_radius", _scale * _stellarBody.Radius);
+            _atmosphereShader.SetFloat("inner_radius", _scale * _stellarBody.RadiusKm);
             _atmosphereShader.SetFloat("atmosphere_density", _stellarBody.Atmosphere.Density);
             _atmosphereShader.SetFloat("atmosphere_density_falloff", _stellarBody.Atmosphere.Falloff);
             _atmosphereShader.SetInt32("atmosphere_precision", s_AtmospherePrecision);

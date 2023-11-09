@@ -40,8 +40,8 @@ namespace SpaceOpera.View.Icons
                     new(),
                     ColorSystem.Ntsc.Transform(
                         StellarBodyViewFactory.HumanEyeSensitivity.GetColor(
-                            new BlackbodySpectrum(stellarBody.Orbit.Focus.Temperature))),
-                    s_LuminanceRange.Clamp(s_LightPower * MathF.Log(stellarBody.Orbit.Focus.Luminosity + 1)),
+                            new BlackbodySpectrum(stellarBody.Orbit.Focus.TemperatureK))),
+                    s_LuminanceRange.Clamp(s_LightPower * MathF.Log(stellarBody.Orbit.Focus.LuminosityS + 1)),
                     logDistance * logDistance / (1000 * 1000));
 
             target.PushModelMatrix(Matrix4.Identity);

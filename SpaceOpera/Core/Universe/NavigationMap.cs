@@ -307,7 +307,7 @@ namespace SpaceOpera.Core.Universe
                 return MathUtils.ArcLength(
                     ((StellarBodySubRegion)left.Navigable).Center, 
                     ((StellarBodySubRegion)right.Navigable).Center, 
-                    left.StellarBody.Radius);
+                    left.StellarBody.RadiusKm);
             }
             else
             {
@@ -369,7 +369,7 @@ namespace SpaceOpera.Core.Universe
                                     neighborRegion, starSystem, orbit, averageDistance, starSystem.Orbiters[i]);
                             var distance = 
                                 MathUtils.ArcLength(
-                                    groundRegion.Center, neighborRegion.Center, starSystem.Orbiters[i].Radius) 
+                                    groundRegion.Center, neighborRegion.Center, starSystem.Orbiters[i].RadiusKm) 
                                 * Constants.AstralUnit;
                             groundNode.Edges.Add(
                                 new NavigableEdge(groundNode, neighborNode, NavigableEdgeType.Ground, distance));

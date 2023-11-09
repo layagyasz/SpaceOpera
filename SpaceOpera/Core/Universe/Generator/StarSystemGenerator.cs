@@ -79,24 +79,24 @@ namespace SpaceOpera.Core.Universe.Generator
 
         private static float GetDistanceForTemperature(Star star, float temperature)
         {
-            return Constants.AstralUnit * (9 * star.Temperature * star.Temperature * star.Radius) 
+            return Constants.AstralUnit * (9 * star.TemperatureK * star.TemperatureK * star.RadiusS) 
                 / (16 * temperature * temperature);
         }
 
         private static float GetTemperatureForDistance(Star star, float distance)
         {
-            return 3 * star.Temperature * MathF.Sqrt(star.Radius)
+            return 3 * star.TemperatureK * MathF.Sqrt(star.RadiusS)
                 / (4 * MathF.Sqrt(distance / Constants.AstralUnit));
         }
 
         private static float GetDistanceForGravity(Star star, float gravity)
         {
-            return Constants.AstralUnit * (float)Math.Sqrt(Constants.GravitationalConstant * star.Mass / gravity);
+            return Constants.AstralUnit * (float)Math.Sqrt(Constants.GravitationalConstant * star.MassS / gravity);
         }
 
         private static float GetGravityForDistance(Star star, float distance)
         {
-            return Constants.AstralUnit * Constants.AstralUnit * Constants.GravitationalConstant * star.Mass
+            return Constants.AstralUnit * Constants.AstralUnit * Constants.GravitationalConstant * star.MassS
                 / (distance * distance);
         }
     }

@@ -9,8 +9,8 @@ namespace SpaceOpera.Core.Universe
         public string Name { get; private set; } = string.Empty;
         public string Type { get; }
         public Dictionary<string, object> Parameters { get; }
-        public float Radius { get; }
-        public float Mass { get; }
+        public float RadiusKm { get; }
+        public float MassKg { get; }
         public Orbit Orbit { get; }
         public Atmosphere Atmosphere { get; }
         public List<StellarBodyRegion> Regions { get; }
@@ -19,8 +19,8 @@ namespace SpaceOpera.Core.Universe
         public StellarBody(
             string type,
             Dictionary<string, object> parameters,
-            float radius,
-            float mass,
+            float radiusKm,
+            float massKg,
             Orbit orbit,
             Atmosphere atmosphere,
             IEnumerable<StellarBodyRegion> regions, 
@@ -28,8 +28,8 @@ namespace SpaceOpera.Core.Universe
         {
             Type = type;
             Parameters = parameters;
-            Radius = radius;
-            Mass = mass;
+            RadiusKm = radiusKm;
+            MassKg = massKg;
             Orbit = orbit;
             Atmosphere = atmosphere;
             Regions = regions.ToList();
@@ -54,8 +54,8 @@ namespace SpaceOpera.Core.Universe
         {
             // 24hrs.  Use random day length instead.
             return .001f 
-                * MathF.Pow(7464960000 * Constants.GravitationalConstant * Mass / (4 * MathF.PI * MathF.PI), 0.3333f)
-                    - Radius;
+                * MathF.Pow(7464960000 * Constants.GravitationalConstant * MassKg / (4 * MathF.PI * MathF.PI), 0.3333f)
+                    - RadiusKm;
         }
 
         public float GetHighOrbitAltitude()

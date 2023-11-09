@@ -6,19 +6,19 @@ namespace SpaceOpera.Core.Universe
 
         public string Name { get; private set; } = string.Empty;
         public string Type { get; }
-        public float Temperature { get; }
-        public float Radius { get; }
-        public float Mass { get; }
-        public float Luminosity { get; }
+        public float TemperatureK { get; }
+        public float RadiusS { get; }
+        public float MassS { get; }
+        public float LuminosityS { get; }
 
-        public Star(string type, float temperature, float radius, float mass)
+        public Star(string type, float temperatureK, float radiusS, float massS)
         {
             Type = type;
-            Temperature = temperature;
-            Radius = radius;
-            Mass = mass;
-            Luminosity = 
-                4 * s_BoltzmanConstant * MathF.PI * MathF.Pow(radius, 2) * MathF.Pow(temperature, 4) 
+            TemperatureK = temperatureK;
+            RadiusS = radiusS;
+            MassS = massS;
+            LuminosityS = 
+                4 * s_BoltzmanConstant * MathF.PI * MathF.Pow(radiusS, 2) * MathF.Pow(temperatureK, 4) 
                 / Constants.SolarLuminosity;
         }
 
@@ -32,10 +32,10 @@ namespace SpaceOpera.Core.Universe
             return string.Format(
                 "[Star: Name={0}, Temperature={1}, Radius={2}, Mass={3}, Luminosity={4}",
                 Name, 
-                Temperature,
-                Radius,
-                Mass, 
-                Luminosity);
+                TemperatureK,
+                RadiusS,
+                MassS, 
+                LuminosityS);
         }
     }
 }

@@ -51,8 +51,8 @@ namespace SpaceOpera.View.Game.StellarBodyViews
 
         public StellarBodyModel Create(StellarBody stellarBody, float scale, bool highRes)
         {
-            scale *= MathF.Log(s_DefaultRadiusInv * stellarBody.Radius + 1) / stellarBody.Radius;
-            var spectrum = new BlackbodySpectrum(stellarBody.Orbit.Focus.Temperature);
+            scale *= MathF.Log(s_DefaultRadiusInv * stellarBody.RadiusKm + 1) / stellarBody.RadiusKm;
+            var spectrum = new BlackbodySpectrum(stellarBody.Orbit.Focus.TemperatureK);
             var peakWavelength =
                 Math.Min(
                     HumanEyeSensitivity.Range.Maximum - 1,
@@ -72,7 +72,7 @@ namespace SpaceOpera.View.Game.StellarBodyViews
                             x => BiomeRenderDetails[x].GetLighting(),
                             highRes ? _resourcesHighRes : _resourcesLowRes));
             var surface = CreateSphere(
-                scale * stellarBody.Radius,
+                scale * stellarBody.RadiusKm,
                 highRes ? s_SphereSubdivisionsHighRes : s_SphereSubdivisionsLowRes, 
                 Color4.White);
             var atmosphere = 

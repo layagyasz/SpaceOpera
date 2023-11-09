@@ -1,5 +1,4 @@
 using Cardamom.Mathematics.Coordinates;
-using MathNet.Numerics;
 using OpenTK.Mathematics;
 
 namespace SpaceOpera.Core.Universe
@@ -7,28 +6,28 @@ namespace SpaceOpera.Core.Universe
     public class Orbit
     {
         public Star Focus { get; }
-        public float MajorAxis { get; }
-        public float MinorAxis { get; }
+        public float MajorAxisAu { get; }
+        public float MinorAxisAu { get; }
         public float Eccentricity { get; }
         public float TimeOffset { get; }
 
-        public Orbit(Star focus, float majorAxis, float eccentricity, float timeOffset)
+        public Orbit(Star focus, float majorAxisAu, float eccentricity, float timeOffset)
         {
             Focus = focus;
-            MajorAxis = majorAxis;
-            MinorAxis = majorAxis * MathF.Sqrt(eccentricity * eccentricity + 1);
+            MajorAxisAu = majorAxisAu;
+            MinorAxisAu = majorAxisAu * MathF.Sqrt(eccentricity * eccentricity + 1);
             Eccentricity = eccentricity;
             TimeOffset = timeOffset;
         }
 
         public float GetAverageDistance()
         {
-            return 0.5f * MajorAxis * (1 + Eccentricity * Eccentricity / 2);
+            return 0.5f * MajorAxisAu * (1 + Eccentricity * Eccentricity / 2);
         }
 
         public float GetCircumference()
         {
-            return 0.5f * (float)Math.PI * (MajorAxis + MinorAxis);
+            return 0.5f * (float)Math.PI * (MajorAxisAu + MinorAxisAu);
         }
 
         public Vector2d GetPoint(double angle)
@@ -39,7 +38,7 @@ namespace SpaceOpera.Core.Universe
 
         public double GetDistance(double angle)
         {
-            return 0.5f * MajorAxis * (1 - Eccentricity * Eccentricity) / (1 + Eccentricity * Math.Cos(angle));
+            return 0.5f * MajorAxisAu * (1 - Eccentricity * Eccentricity) / (1 + Eccentricity * Math.Cos(angle));
         }
 
         public Polar2 GetPosition(double angle)
@@ -75,13 +74,13 @@ namespace SpaceOpera.Core.Universe
         public float GetYearLengthInSeconds()
         {
             return 2 * MathHelper.Pi * MathF.Sqrt(
-                MathF.Pow(1000 * MajorAxis / (2 * Constants.AstralUnit), 3) 
-                / (Constants.GravitationalConstant * Focus.Mass));
+                MathF.Pow(1000 * MajorAxisAu / (2 * Constants.AstralUnit), 3) 
+                / (Constants.GravitationalConstant * Focus.MassS));
         }
 
         public float GetStellarTemperature()
         {
-            return 3 * Focus.Temperature * MathF.Sqrt(Focus.Radius) 
+            return 3 * Focus.TemperatureK * MathF.Sqrt(Focus.RadiusS) 
                 / (4 * MathF.Sqrt(GetAverageDistance() / Constants.AstralUnit));
         }
     }

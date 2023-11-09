@@ -40,10 +40,10 @@ namespace SpaceOpera.View.Game.StarViews
         private VertexPseudo3 CreateVertex(Star star, Vector3 position, float scale)
         {
             var color = 
-                ColorSystem.Ntsc.Transform(HumanEyeSensitivity.GetColor(new BlackbodySpectrum(star.Temperature)));
+                ColorSystem.Ntsc.Transform(HumanEyeSensitivity.GetColor(new BlackbodySpectrum(star.TemperatureK)));
             color.A = _random.NextSingle();
             float relativeScale = 
-                s_ScaleBounds.Clamp(s_InvLog2 * MathF.Log(star.Radius / Constants.SolarRadius + 1));
+                s_ScaleBounds.Clamp(s_InvLog2 * MathF.Log(star.RadiusS / Constants.SolarRadius + 1));
             return new(position, color, new(scale * relativeScale, scale * relativeScale));
         }
     }
