@@ -53,7 +53,7 @@ namespace SpaceOpera.Controller.Game.Panes.DiplomacyPanes
                     .Select(x => x.Key);
             var materialsInput = 
                 new FormLayout.Builder()
-                    .SetTitle("Trade Proposal")
+                    .SetName("Trade Proposal")
                     .AddHidden("stellarBody", stellarBody)
                     .AddMultiCount()
                         .SetId("materials")
@@ -65,7 +65,7 @@ namespace SpaceOpera.Controller.Game.Panes.DiplomacyPanes
             var promise = new Promise<FormValue>();
             promise.Canceled += HandleFormCanceled;
             promise.Finished += HandleFormComplete;
-            PopupCreated?.Invoke(this, new(materialsInput.Complete().Build(), promise));
+            PopupCreated?.Invoke(this, new((FormLayout)materialsInput.Complete().Build(), promise));
         }
 
         private void HandleFormCanceled(object? sender, EventArgs e)

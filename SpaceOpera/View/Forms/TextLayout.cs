@@ -77,7 +77,7 @@ namespace SpaceOpera.View.Forms
             _supportLineBreaks = supportLineBreaks;
         }
 
-        public IUiElement CreateField(Form.Style style, UiElementFactory uiElementFactory, IconFactory iconFactory)
+        public IUiElement Create(Form.Style style, UiElementFactory uiElementFactory, IconFactory iconFactory)
         {
             return new TextUiElement(
                 uiElementFactory.GetClass(GetClass(_type, style)), new InlayController(), _text, _supportLineBreaks);

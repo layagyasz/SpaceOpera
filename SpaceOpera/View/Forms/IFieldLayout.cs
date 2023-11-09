@@ -14,6 +14,6 @@ namespace SpaceOpera.View.Forms
         string Id { get; }
         string Name { get; }
 
-        IUiElement CreateField(Form.Style style, UiElementFactory uiElementFactory, IconFactory iconFactory);
+        IUiElement Create(Form.Style style, UiElementFactory uiElementFactory, IconFactory iconFactory);
     }
 }

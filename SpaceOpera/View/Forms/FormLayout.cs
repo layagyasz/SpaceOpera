@@ -6,14 +6,25 @@ using SpaceOpera.View.Icons;
 
 namespace SpaceOpera.View.Forms
 {
-    public class FormLayout
+    public class FormLayout : IFieldLayout
     {
-        public class Builder
+        public class Builder : IFieldLayout.IBuilder
         {
-            private string _title = string.Empty;
+            private readonly Builder? _root;
+
+            private string _name = string.Empty;
+            private UiSerialContainer.Orientation _orientation = UiSerialContainer.Orientation.Vertical;
             private readonly Dictionary<string, object> _hiddens = new();
             private readonly List<IFieldLayout.IBuilder> _fields = new();
             private bool _autoSubmit;
+            private string? _overrideClass;
+
+            public Builder() { }
+
+            private Builder(Builder root)
+            {
+                _root = root;
+            }
 
             public T AddField<T>(T builder) where T : IFieldLayout.IBuilder
             {
@@ -34,6 +45,11 @@ namespace SpaceOpera.View.Forms
             public SelectorFieldLayout.Builder AddDial()
             {
                 return AddSelector(SelectorFieldLayout.SelectorType.Dial);
+            }
+
+            public Builder AddDiv(string @class)
+            {
+                return AddField(new Builder(this).SetOverrideClass(@class));
             }
 
             public TextLayout.Builder AddHeader1()
@@ -85,39 +101,73 @@ namespace SpaceOpera.View.Forms
                 return this;
             }
 
-            public Builder SetTitle(string title)
+            public Builder SetName(string name)
             {
-                _title = title;
+                _name = name;
                 return this;
             }
 
-            public FormLayout Build()
+            public Builder SetOrientation(UiSerialContainer.Orientation orientation)
             {
-                return new(_title, _hiddens, _fields.Select(x => x.Build()).ToList(), _autoSubmit);
+                _orientation = orientation;
+                return this;
+            }
+
+            public Builder SetOverrideClass(string @class)
+            {
+                _overrideClass = @class;
+                return this;
+            }
+
+            public Builder Complete()
+            {
+                return _root!;
+            }
+
+            public IFieldLayout Build()
+            {
+                return new FormLayout(
+                    _name, 
+                    _orientation,
+                    _hiddens, 
+                    _fields.Select(x => x.Build()).ToList(),
+                    _autoSubmit, 
+                    _overrideClass);
             }
         }
 
-        private readonly string _title;
+        public string Id => string.Empty;
+        public string Name { get; }
+
+        private readonly UiSerialContainer.Orientation _orientation;
         private readonly Dictionary<string, object> _hiddens;
         private readonly List<IFieldLayout> _fields;
         private readonly bool _autoSubmit;
+        private readonly string? _overrideClass;
 
         private FormLayout(
-            string title, Dictionary<string, object> hiddens, List<IFieldLayout> fields, bool autoSubmit)
+            string name, 
+            UiSerialContainer.Orientation orientation,
+            Dictionary<string, object> hiddens,
+            List<IFieldLayout> fields,
+            bool autoSubmit,
+            string? overrideClass)
         {
-            _title = title;
+            Name = name;
+            _orientation = orientation;
             _hiddens = hiddens;
             _fields = fields;
             _autoSubmit = autoSubmit;
+            _overrideClass = overrideClass;
         }
 
-        public Form CreateForm(Form.Style style, UiElementFactory uiElementFactory, IconFactory iconFactory)
+        public IUiElement Create(Form.Style style, UiElementFactory uiElementFactory, IconFactory iconFactory)
         {
             var container =
                 new UiSerialContainer(
-                    uiElementFactory.GetClass(style.Container!), 
+                    uiElementFactory.GetClass(_overrideClass ?? style.Container!), 
                     new TableController(10f),
-                    UiSerialContainer.Orientation.Vertical);
+                    _orientation);
             var fields = new Dictionary<string, IUiComponent>();
             foreach (var field in _fields)
             {
@@ -126,14 +176,14 @@ namespace SpaceOpera.View.Forms
                     container.Add(uiElementFactory.CreateTextButton(style.Header3!, field.Name).Item1);
                 }
 
-                var f = field.CreateField(style, uiElementFactory, iconFactory);
+                var f = field.Create(style, uiElementFactory, iconFactory);
                 container.Add(f);
-                if (f is IUiComponent c)
+                if (field.Id.Length > 0 && f is IUiComponent c)
                 {
                     fields.Add(field.Id, c);
                 }
             }
-            return new(new GenericFormController(_hiddens), container, _title, fields, _autoSubmit);
+            return new Form(new GenericFormController(_hiddens), container, Name, fields, _autoSubmit);
         }
     }
 }

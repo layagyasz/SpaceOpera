@@ -38,8 +38,8 @@
     "$id": "stellar-body-pane-overview-p",
     "Parent": "ui-element-internal",
     "Default": {
-      "Size": [ 219, 22 ],
-      "Padding": [ 4 ],
+      "Size": [ 219, 30 ],
+      "Padding": [ 8 ],
       "FontSize": 14
     }
   }

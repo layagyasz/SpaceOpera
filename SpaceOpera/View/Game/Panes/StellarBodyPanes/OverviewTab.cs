@@ -1,6 +1,7 @@
 ﻿using Cardamom.Ui;
 using Cardamom.Ui.Controller;
 using Cardamom.Ui.Controller.Element;
+using Cardamom.Ui.Elements;
 using SpaceOpera.Core.Economics;
 using SpaceOpera.View.Components;
 using SpaceOpera.View.Forms;
@@ -11,7 +12,7 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyPanes
     public class OverviewTab : DynamicUiCompoundComponent
     {
         private static readonly string s_Container = "stellar-body-pane-body";
-        private static readonly string s_Column = "stellar-body-pane-body-column";
+        private static readonly string s_Column = "stellar-body-pane-overview-column";
 
         private Form.Style s_Style =
             new()
@@ -32,7 +33,7 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyPanes
                   new DynamicUiSerialContainer(
                       uiElementFactory.GetClass(s_Container),
                       new TableController(10f),
-                      Cardamom.Ui.Elements.UiSerialContainer.Orientation.Vertical))
+                      UiSerialContainer.Orientation.Vertical))
         {
             _uiElementFactory = uiElementFactory; 
             _iconFactory = iconFactory;
@@ -41,40 +42,66 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyPanes
         public void SetHolding(StellarBodyHolding holding)
         {
             Clear(/* dispose= */ true);
-            var layout =
-                new FormLayout.Builder()
-                    .AddIcon()
-                        .SetObject(holding.StellarBody)
-                        .Complete();
-            layout
-                .AddHeader1()
-                    .SetText("Surface")
-                    .Complete()
-                .AddText()
-                    .SetName("Classification")
-                    .SetText(holding.StellarBody.Type);
+            var stellarBody = holding.StellarBody;
             var orbit = holding.StellarBody.Orbit;
-            layout
-                .AddHeader1()
-                    .SetText("Orbit")
+            var layout = new FormLayout.Builder()
+                .SetOrientation(UiSerialContainer.Orientation.Horizontal)
+                .AddDiv(s_Column)
+                    .AddIcon()
+                        .SetObject(stellarBody)
+                        .Complete()
+                    .AddHeader1()
+                        .SetText("Surface")
+                        .Complete()
+                    .AddText()
+                        .SetName("Classification")
+                        .SetText(stellarBody.Type)
+                        .Complete()
+                    .AddText()
+                        .SetName("Mass")
+                        .SetText($"{stellarBody.Mass / Constants.EarthMass:N2} e")
+                        .Complete()
+                    .AddText()
+                        .SetName("Radius")
+                        .SetText($"{stellarBody.Radius:N0} km")
+                        .Complete()
+                    .AddText()
+                        .SetName("Land Cover")
+                        .SetText(
+                            $"{1f * stellarBody.Regions.Count(x => x.DominantBiome.IsTraversable)
+                                / stellarBody.Regions.Count:P0}")
+                        .Complete()
                     .Complete()
-                .AddText()
-                    .SetName("Solar Distance")
-                    .SetText($"{orbit.GetAverageDistance():N2} au")
-                    .Complete()
-                .AddText()
-                    .SetName("Eccentricity")
-                    .SetText($"{orbit.Eccentricity:N2}")
-                    .Complete()
-                .AddText()
-                    .SetName("Year Length")
-                    .SetText($"{orbit.GetYearLengthInSeconds() * Constants.DaysPerSecond:N2} days")
-                    .Complete()
-                .AddText()
-                    .SetName("Day Length")
-                    .SetText($"{orbit.GetDayLengthInSeconds() * Constants.HoursPerSecond:N2} hours")
+                .AddDiv(s_Column)
+                    .AddHeader1()
+                        .SetText("Orbit")
+                        .Complete()
+                    .AddText()
+                        .SetName("Solar Distance")
+                        .SetText($"{orbit.GetAverageDistance():N2} au")
+                        .Complete()
+                    .AddText()
+                        .SetName("Eccentricity")
+                        .SetText($"{orbit.Eccentricity:N2}")
+                        .Complete()
+                    .AddText()
+                        .SetName("Geosynchronous Altitude")
+                        .SetText($"{stellarBody.GetGeosynchronousOrbitAltitude():N0} km")
+                        .Complete()
+                    .AddText()
+                        .SetName("High Orbit Altitude")
+                        .SetText($"{stellarBody.GetHighOrbitAltitude():N0} km")
+                        .Complete()
+                    .AddText()
+                        .SetName("Year Length")
+                        .SetText($"{orbit.GetYearLengthInSeconds() * Constants.DaysPerSecond:N2} days")
+                        .Complete()
+                    .AddText()
+                        .SetName("Day Length")
+                        .SetText($"{orbit.GetDayLengthInSeconds() * Constants.HoursPerSecond:N2} hours")
+                        .Complete()
                     .Complete();
-            var form = layout.Build().CreateForm(s_Style, _uiElementFactory, _iconFactory);
+            var form = layout.Build().Create(s_Style, _uiElementFactory, _iconFactory);
             form.Initialize();
             Add(form);
         }

@@ -68,7 +68,7 @@ namespace SpaceOpera.View.Forms
             _options = options.ToList();
         }
 
-        public IUiElement CreateField(Form.Style style, UiElementFactory uiElementFactory, IconFactory iconFactory)
+        public IUiElement Create(Form.Style style, UiElementFactory uiElementFactory, IconFactory iconFactory)
         {
             var table = 
                 new ManualMultiCountInput<object>(

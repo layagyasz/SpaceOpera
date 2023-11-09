@@ -10,7 +10,7 @@ namespace SpaceOpera.View.Game.Panes.Forms
         {
             var field =
                 new FormLayout.Builder()
-                    .SetTitle(@event.GetTitle())
+                    .SetName(@event.GetTitle())
                     .AutoSubmit()
                     .AddHidden("event", @event)
                     .AddParagraph()
@@ -22,14 +22,14 @@ namespace SpaceOpera.View.Game.Panes.Forms
             {
                 field.AddOption(decision.Description, decision.Id);
             }
-            return field.Complete().Build();
+            return (FormLayout)field.Complete().Build();
         }
 
         public static FormLayout ForOrder(IOrder order)
         {
-            return 
-                new FormLayout.Builder()
-                    .SetTitle(ToConfirmationString(order))
+            return
+                (FormLayout)new FormLayout.Builder()
+                    .SetName(ToConfirmationString(order))
                     .AutoSubmit()
                     .AddHidden("order", order)
                     .AddInfo(order)

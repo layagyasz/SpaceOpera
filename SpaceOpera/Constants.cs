@@ -7,6 +7,7 @@ namespace SpaceOpera
         public static readonly double Boltzman = 1.3806488e-23f;
         public static readonly float C = 299792458;
         public static readonly float EarthGravity = 9.8f;
+        public static readonly float EarthMass = 5.972e24f;
         public static readonly float GravitationalConstant = 6.67408e-11f;
         public static readonly float AstralUnitPerLightYear = 63241.1f;
         public static readonly double Planck = 6.62606957e-34f;

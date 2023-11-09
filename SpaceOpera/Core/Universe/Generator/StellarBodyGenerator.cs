@@ -244,7 +244,7 @@ namespace SpaceOpera.Core.Universe.Generator
                 orbitRegions.Add(new($"{(char)(i + 65)}", (i + 0.5f) * atmosphereArc, atmosphereRegionMembers[i]));
             }
 
-            float mass = 4 * Density * MathF.PI * radius * radius * radius / 3;
+            float mass = 4000000000 * Density * MathF.PI * radius * radius * radius / 3;
             return new StellarBody(
                 Key,
                 parameters,

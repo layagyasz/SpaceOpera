@@ -34,7 +34,7 @@ namespace SpaceOpera.Core.Universe.Generator
 
             float g = 
                 MathF.Sqrt(
-                    1000 * Constants.GravitationalConstant * bodyMass 
+                    .000001f * Constants.GravitationalConstant * bodyMass 
                     / (bodyRadius * bodyRadius * Constants.EarthGravity));
             float falloff = s_BaseFalloff * g;
             return new(

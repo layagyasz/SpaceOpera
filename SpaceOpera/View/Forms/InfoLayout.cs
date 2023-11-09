@@ -43,7 +43,7 @@ namespace SpaceOpera.View.Forms
             _object = @object;
         }
 
-        public IUiElement CreateField(Form.Style style, UiElementFactory uiElementFactory, IconFactory iconFactory)
+        public IUiElement Create(Form.Style style, UiElementFactory uiElementFactory, IconFactory iconFactory)
         {
             return new InfoPanel(style.Info!, uiElementFactory, iconFactory);
         }

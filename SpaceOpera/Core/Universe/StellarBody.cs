@@ -53,9 +53,9 @@ namespace SpaceOpera.Core.Universe
         public float GetGeosynchronousOrbitAltitude()
         {
             // 24hrs.  Use random day length instead.
-            return Constants.AstralUnit 
-                * (MathF.Pow(7464960000 * Constants.GravitationalConstant * Mass / (4 * MathF.PI * MathF.PI), 0.3333f) 
-                    - Radius);
+            return .001f 
+                * MathF.Pow(7464960000 * Constants.GravitationalConstant * Mass / (4 * MathF.PI * MathF.PI), 0.3333f)
+                    - Radius;
         }
 
         public float GetHighOrbitAltitude()

@@ -23,19 +23,19 @@ namespace SpaceOpera.View.Forms
             public MultiCountInputStyles.ManualMultiCountInputStyle? MultiCount { get; set; }
         }
 
-        public string Title { get; }
+        public string Name { get; }
         public bool AutoSubmit { get; }
         public Dictionary<string, IUiComponent> Fields { get; }
 
         public Form(
             IController controller,
             UiSerialContainer container,
-            string title,
+            string name,
             Dictionary<string, IUiComponent> components, 
             bool autoSubmit)
             : base(controller, container)
         {
-            Title = title;
+            Name = name;
             Fields = components;
             AutoSubmit = autoSubmit;
         }
