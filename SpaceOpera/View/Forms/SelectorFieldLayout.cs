@@ -19,9 +19,8 @@ namespace SpaceOpera.View.Forms
             private readonly FormLayout.Builder _root;
             private string? _id;
             private string _name = string.Empty;
-            private readonly List<SelectOption<object>> _options = new();
-
             private SelectorType _type;
+            private readonly List<SelectOption<object>> _options = new();
 
             internal Builder(FormLayout.Builder root)
             {

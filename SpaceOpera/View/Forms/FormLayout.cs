@@ -36,10 +36,20 @@ namespace SpaceOpera.View.Forms
                 return AddSelector(SelectorFieldLayout.SelectorType.Dial);
             }
 
+            public TextLayout.Builder AddHeader1()
+            {
+                return AddField(new TextLayout.Builder(this).SetTextType(TextLayout.TextType.Header1));
+            }
+
             public Builder AddHidden(string id, object value)
             {
                 _hiddens.Add(id, value);
                 return this;
+            }
+
+            public IconLayout.Builder AddIcon()
+            {
+                return AddField(new IconLayout.Builder(this));
             }
 
             public Builder AddInfo(object @object)
@@ -55,7 +65,8 @@ namespace SpaceOpera.View.Forms
 
             public TextLayout.Builder AddParagraph()
             {
-                return AddField(new TextLayout.Builder(this).SupportsLineBreaks());
+                return AddField(
+                    new TextLayout.Builder(this).SetTextType(TextLayout.TextType.Paragraph).SupportsLineBreaks());
             }
 
             public SelectorFieldLayout.Builder AddRadio()
@@ -112,7 +123,7 @@ namespace SpaceOpera.View.Forms
             {
                 if (field.Name.Length > 0)
                 {
-                    container.Add(uiElementFactory.CreateTextButton(style.FieldHeader!, field.Name).Item1);
+                    container.Add(uiElementFactory.CreateTextButton(style.Header3!, field.Name).Item1);
                 }
 
                 var f = field.CreateField(style, uiElementFactory, iconFactory);

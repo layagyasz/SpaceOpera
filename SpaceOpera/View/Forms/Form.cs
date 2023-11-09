@@ -12,8 +12,10 @@ namespace SpaceOpera.View.Forms
         public class Style
         {
             public string? Container { get; set; }
+            public string? IconTitle { get; set; }
+            public string? Header1 { get; set; }
             public string? Paragraph { get; set; }
-            public string? FieldHeader { get; set; }
+            public string? Header3 { get; set; }
             public InfoPanel.Style Info { get; set; }
             public Select.Style? DropDown { get; set; }
             public DialSelect.Style? Dial { get; set; }

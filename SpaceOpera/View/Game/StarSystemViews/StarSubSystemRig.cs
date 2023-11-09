@@ -12,7 +12,6 @@ namespace SpaceOpera.View.Game.StarSystemViews
 {
     public class StarSubSystemRig : GraphicsResource, IRenderable, IControlledElement
     {
-        private static readonly float s_GameYearInMillis = 360000f;
         private static readonly int s_OrbitAccuracy = 20;
         private static readonly float s_OrbitPrecision = 0.01f;
 
@@ -48,8 +47,8 @@ namespace SpaceOpera.View.Game.StarSystemViews
             }
             _scale = scale;
             _offset = 2 * Math.PI * stellarBody.Orbit.TimeOffset;
-            _yearLength = (long)stellarBody.GetYearLengthInMillis();
-            _step = -Math.PI * 0.002 * s_GameYearInMillis / _yearLength;
+            _yearLength = (long)(1000 * stellarBody.Orbit.GetYearLengthInSeconds() * Constants.DaysPerSecond);
+            _step = -2 * Math.PI / _yearLength;
         }
 
         protected override void DisposeImpl()
@@ -61,8 +60,8 @@ namespace SpaceOpera.View.Game.StarSystemViews
         public void Draw(IRenderTarget target, IUiContext context)
         {
             var positionPolar = 
-                _stellarBody.GetSolarOrbitPosition(
-                    _stellarBody.GetSolarOrbitProgression(
+                _stellarBody.Orbit.GetPosition(
+                    _stellarBody.Orbit.GetProgression(
                         _offset + _step * (_calendar.GetMillis() % _yearLength),
                         s_OrbitPrecision,
                         s_OrbitAccuracy));

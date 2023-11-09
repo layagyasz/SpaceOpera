@@ -7,6 +7,7 @@ using Cardamom.Ui;
 using SpaceOpera.Core.Economics;
 using SpaceOpera.Core.Universe;
 using SpaceOpera.Controller.Game.Panes;
+using SpaceOpera.View.Game.Panes.StellarBodyRegionPanes;
 
 namespace SpaceOpera.View.Game.Panes.StellarBodyPanes
 {
@@ -33,6 +34,7 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyPanes
         private StellarBodyHolding? _holding;
         private TabId _tab;
 
+        public OverviewTab OverviewTab { get; }
 
         public StellarBodyPane(UiElementFactory uiElementFactory, IconFactory iconFactory)
             : base(
@@ -51,11 +53,19 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyPanes
                     },
                     uiElementFactory.GetClass(s_TabContainer),
                     uiElementFactory.GetClass(s_TabOption)))
-        { }
+        {
+            OverviewTab = new(uiElementFactory, iconFactory);
+        }
 
         public StellarBodyHolding GetHolding()
         {
             return _holding!;
+        }
+
+        public override void Initialize()
+        {
+            base.Initialize();
+            OverviewTab.Initialize();
         }
 
         public override void Populate(params object?[] args)
@@ -68,7 +78,7 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyPanes
                 _holding = _world.Economy.GetHolding(_faction, _stellarBody);
             }
 
-
+            OverviewTab.SetHolding(_holding!);
             SetTitle(_stellarBody?.Name ?? "Unknown Stellar Body");
             Refresh();
             Populated?.Invoke(this, EventArgs.Empty);
@@ -82,6 +92,12 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyPanes
         public override void SetTab(object id)
         {
             _tab = (TabId)id;
+            switch (_tab)
+            {
+                case TabId.Overview:
+                    SetBody(OverviewTab);
+                    break;
+            }
         }
     }
 }

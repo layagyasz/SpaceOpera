@@ -23,7 +23,7 @@ namespace SpaceOpera.View.Game.Panes.Forms
             {
                 Container = "form-pane-form-container",
                 Paragraph = "form-pane-paragraph",
-                FieldHeader = "form-pane-form-field-header",
+                Header3 = "form-pane-form-field-header",
                 Info =
                     new()
                     {

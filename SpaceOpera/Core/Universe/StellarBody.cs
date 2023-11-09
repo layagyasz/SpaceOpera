@@ -1,5 +1,3 @@
-using Cardamom.Mathematics.Coordinates;
-using OpenTK.Mathematics;
 using SpaceOpera.Core.Politics;
 
 namespace SpaceOpera.Core.Universe
@@ -63,42 +61,6 @@ namespace SpaceOpera.Core.Universe
         public float GetHighOrbitAltitude()
         {
             return 4 * GetGeosynchronousOrbitAltitude();
-        }
-
-        public double GetSolarOrbitDistance(double angle)
-        {
-            return Orbit.GetDistance(angle);
-        }
-
-        public Polar2 GetSolarOrbitPosition(double angle)
-        {
-            return new((float)GetSolarOrbitDistance(angle), (float)angle);
-        }
-
-        public double GetSolarOrbitProgression(double angle, float precision, int accuracy)
-        {
-            double e = angle;
-            double f = e - Orbit.Eccentricity * Math.Sin(angle) - angle;
-
-            int i = 0;
-            while ((Math.Abs(f) > precision) && (i < accuracy))
-            {
-                e -= f / (1f - Orbit.Eccentricity * Math.Cos(e));
-                f = e - Orbit.Eccentricity * Math.Sin(e) - angle;
-                ++i;
-            }
-
-            double sin = Math.Sin(e);
-            double cos = Math.Cos(e);
-            double fak = Math.Sqrt(1f - Orbit.Eccentricity * Orbit.Eccentricity);
-            return Math.Atan2(fak * sin, cos - Orbit.Eccentricity);
-        }
-
-        public float GetYearLengthInMillis()
-        {
-            return 2 * MathHelper.Pi * MathF.Sqrt(
-                MathF.Pow(1000 * Orbit.MajorAxis / (2 * Constants.AstralUnit), 3)
-                / (Constants.GravitationalConstant * Orbit.Focus.Mass));
         }
 
         public int GetSize()

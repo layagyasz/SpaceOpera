@@ -2,7 +2,7 @@ namespace SpaceOpera
 {
     public static class Constants
     {
-        // PHYSICS
+        // Physics
         public static readonly float AstralUnit = 6.68459e-9f;
         public static readonly double Boltzman = 1.3806488e-23f;
         public static readonly float C = 299792458;
@@ -14,5 +14,9 @@ namespace SpaceOpera
         public static readonly float SolarMass = 1.98847e30f;
         public static readonly float SolarRadius = 695700;
         public static readonly float Wien = 2897771;
+
+        // Time
+        public static readonly float DaysPerSecond = 1.15741e-5f;
+        public static readonly float HoursPerSecond = 2.77778e-4f;
     }
 }

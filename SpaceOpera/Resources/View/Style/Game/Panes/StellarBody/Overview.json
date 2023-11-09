@@ -1,0 +1,46 @@
+[
+  {
+    "$id": "stellar-body-pane-overview-column",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 223, 620 ],
+      "Padding": [ 2 ]
+    }
+  },
+  {
+    "$id": "stellar-body-pane-overview-icon-title",
+    "Parent": "ui-icon",
+    "Default": {
+      "Size": [ 211, 211 ],
+      "Margin": [ 4 ]
+    }
+  },
+  {
+    "$id": "stellar-body-pane-overview-h1",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ "DynamicContents", 40 ],
+      "Padding": [ 10 ],
+      "Align": "Center",
+      "FontSize": 20
+    }
+  },
+  {
+    "$id": "stellar-body-pane-overview-h3",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 219, 20 ],
+      "Padding": [ 4 ],
+      "FontSize": 12
+    }
+  },
+  {
+    "$id": "stellar-body-pane-overview-p",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 219, 22 ],
+      "Padding": [ 4 ],
+      "FontSize": 14
+    }
+  }
+]
