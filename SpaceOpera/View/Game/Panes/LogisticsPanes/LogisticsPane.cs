@@ -8,16 +8,12 @@ using SpaceOpera.Core;
 using SpaceOpera.Core.Economics;
 using Cardamom.Utils;
 using SpaceOpera.Controller.Game.Panes.LogisticsPanes;
+using SpaceOpera.View.Components.Dynamics;
 
 namespace SpaceOpera.View.Game.Panes.LogisticsPanes
 {
     public class LogisticsPane : MultiTabGamePane
     {
-        public enum TabId
-        {
-            Persistent
-        }
-
         private static readonly string s_Container = "logistics-pane";
         private static readonly string s_Title = "logistics-pane-title";
         private static readonly string s_Close = "logistics-pane-close";
@@ -52,13 +48,29 @@ namespace SpaceOpera.View.Game.Panes.LogisticsPanes
         private static readonly string s_RouteIcon = "logistics-pane-route-table-row-icon";
         private static readonly string s_RouteInfo = "logistics-pane-route-table-row-info";
 
+        public enum TabId
+        {
+            Persistent
+        }
+
+        class LogisticsRouteRange : IRange<PersistentRoute>
+        {
+            public World? World { get; set; }
+            public Faction? Faction { get; set; }
+
+            public IEnumerable<PersistentRoute> GetRange()
+            {
+                if (World == null || Faction == null)
+                {
+                    return Enumerable.Empty<PersistentRoute>();
+                }
+                return World.Economy.GetPersistentRoutesFor(Faction);
+            }
+        }
+
         public UiCompoundComponent Routes { get; }
 
-        private World? _world;
-        private Faction? _faction;
-
-        private readonly UiElementFactory _uiElementFactory;
-        private readonly IconFactory _iconFactory;
+        private readonly LogisticsRouteRange _range = new();
 
         public LogisticsPane(UiElementFactory uiElementFactory, IconFactory iconFactory)
             : base(
@@ -74,12 +86,9 @@ namespace SpaceOpera.View.Game.Panes.LogisticsPanes
                     uiElementFactory.GetClass(s_TabContainer),
                     uiElementFactory.GetClass(s_TabOption)))
         {
-            _uiElementFactory = uiElementFactory;
-            _iconFactory = iconFactory;
-
             Routes = 
                 new ActionTable<PersistentRoute>(
-                    _uiElementFactory.GetClass(s_RouteContainer), 
+                    uiElementFactory.GetClass(s_RouteContainer), 
                     ActionRow<Type>.Create(
                         typeof(PersistentRoute),
                         ActionId.Unknown,
@@ -92,12 +101,12 @@ namespace SpaceOpera.View.Game.Panes.LogisticsPanes
                                 uiElementFactory.GetClass(s_RouteHeaderSpace), new InlayController())
                         },
                         s_RouteHeaderActions), 
-                    new DynamicKeyedTable<PersistentRoute, ActionRow<PersistentRoute>>(
+                    new DynamicKeyedTable<PersistentRoute>(
                         uiElementFactory.GetClass(s_RouteTable),
                         new TableController(10f),
                         UiSerialContainer.Orientation.Vertical,
-                        GetRange,
-                        CreateRow,
+                        _range,
+                        new SimpleKeyedElementFactory<PersistentRoute>(uiElementFactory, iconFactory, CreateRow),
                         FluentComparator<PersistentRoute>
                             .Comparing(x => x.LeftAnchor.Parent.Name)
                             .Then(x => x.RightAnchor.Parent.Name)));
@@ -111,8 +120,8 @@ namespace SpaceOpera.View.Game.Panes.LogisticsPanes
 
         public override void Populate(params object?[] args)
         {
-            _world = args[0] as World;
-            _faction = args[1] as Faction;
+            _range.World = args[0] as World;
+            _range.Faction = args[1] as Faction;
             Refresh();
             Populated?.Invoke(this, EventArgs.Empty);
         }
@@ -124,7 +133,8 @@ namespace SpaceOpera.View.Game.Panes.LogisticsPanes
 
         public override void SetTab(object id) { }
 
-        private ActionRow<PersistentRoute> CreateRow(PersistentRoute route)
+        private static IKeyedUiElement<PersistentRoute> CreateRow(
+            PersistentRoute route, UiElementFactory uiElementFactory, IconFactory iconFactory)
         {
             var left = ((StellarBodyRegionHolding)route.LeftAnchor).Region;
             var right = ((StellarBodyRegionHolding)route.RightAnchor).Region;
@@ -132,29 +142,20 @@ namespace SpaceOpera.View.Game.Panes.LogisticsPanes
                 route,
                 ActionId.Unknown,
                 ActionId.Unknown,
-                _uiElementFactory,
+                uiElementFactory,
                 s_RouteStyle,
                 new List<IUiElement>()
                 {
-                    _iconFactory.Create(
-                        _uiElementFactory.GetClass(s_RouteIcon), new InlayController(), left.Parent!),
-                    new TextUiElement(
-                        _uiElementFactory.GetClass(s_RouteInfo), 
-                        new InlayController(),
-                        $"{left.Parent!.Name}\n{right.Parent!.Name}"),
-                    _iconFactory.Create(
-                        _uiElementFactory.GetClass(s_RouteInfo), new InlayController(), right.Parent!)
+                        iconFactory.Create(
+                            uiElementFactory.GetClass(s_RouteIcon), new InlayController(), left.Parent!),
+                        new TextUiElement(
+                            uiElementFactory.GetClass(s_RouteInfo),
+                            new InlayController(),
+                            $"{left.Parent!.Name}\n{right.Parent!.Name}"),
+                        iconFactory.Create(
+                            uiElementFactory.GetClass(s_RouteInfo), new InlayController(), right.Parent!)
                 },
                 Enumerable.Empty<ActionRow<PersistentRoute>.ActionConfiguration>());
-        }
-
-        private IEnumerable<PersistentRoute> GetRange()
-        {
-            if (_world == null || _faction == null)
-            {
-                return Enumerable.Empty<PersistentRoute>();
-            }
-            return _world.Economy.GetPersistentRoutesFor(_faction);
         }
     }
 }

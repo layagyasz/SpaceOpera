@@ -5,6 +5,7 @@ using SpaceOpera.Controller.Components;
 using SpaceOpera.Controller.Game.Panes.StellarBodyRegionPanes;
 using SpaceOpera.Core.Economics.Projects;
 using SpaceOpera.View.Components;
+using SpaceOpera.View.Components.Dynamics;
 using SpaceOpera.View.Icons;
 
 namespace SpaceOpera.View.Game.Panes.StellarBodyRegionPanes
@@ -36,12 +37,19 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyRegionPanes
                 }
             };
 
+        class ProjectRange : IRange<IProject>
+        {
+            public ProjectHub? ProjectHub { get; set; }
+
+            public IEnumerable<IProject> GetRange()
+            {
+                return ProjectHub?.GetProjects() ?? Enumerable.Empty<IProject>();
+            }
+        }
+
         public UiCompoundComponent Projects { get; }
 
-        private readonly UiElementFactory _uiElementFactory;
-        private readonly IconFactory _iconFactory;
-
-        private ProjectHub? _projectHub;
+        private readonly ProjectRange _range = new();
 
         public ProjectTab(UiElementFactory uiElementFactory, IconFactory iconFactory)
             : base(
@@ -51,18 +59,15 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyRegionPanes
                       new NoOpElementController(),
                       UiSerialContainer.Orientation.Horizontal))
         {
-            _uiElementFactory = uiElementFactory;
-            _iconFactory = iconFactory;
-
             Projects =
                 new DynamicUiCompoundComponent(
                     new ActionComponentController(),
-                    new DynamicKeyedTable<IProject, ActionRow<IProject>>(
+                    new DynamicKeyedTable<IProject>(
                         uiElementFactory.GetClass(s_ProjectTable),
                         new TableController(10f),
                         UiSerialContainer.Orientation.Vertical,
-                        GetRange,
-                        CreateRow,
+                        _range,
+                        new SimpleKeyedElementFactory<IProject>(uiElementFactory, iconFactory, CreateRow),
                         Comparer<IProject>.Create(
                             (x, y) => y.Progress.PercentFull().CompareTo(x.Progress.PercentFull()))));
             Add(Projects);
@@ -70,53 +75,45 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyRegionPanes
 
         public void Populate(ProjectHub? projectHub)
         {
-            _projectHub = projectHub;
+            _range.ProjectHub = projectHub;
         }
 
-        private ActionRow<IProject> CreateRow(IProject project)
+        private static ActionRow<IProject> CreateRow(
+            IProject project, UiElementFactory uiElementFactory, IconFactory iconFactory)
         {
             return ActionRow<IProject>.Create(
                 project,
                 ActionId.Unknown,
                 ActionId.Unknown,
-                _uiElementFactory,
+                uiElementFactory,
                 s_ProjectRowStyle,
                 new List<IUiElement>()
                 {
-                    _iconFactory.Create(_uiElementFactory.GetClass(s_Icon), new InlayController(), project.Key),
+                    iconFactory.Create(uiElementFactory.GetClass(s_Icon), new InlayController(), project.Key),
                     new DynamicUiSerialContainer(
-                        _uiElementFactory.GetClass(s_Info),
+                        uiElementFactory.GetClass(s_Info),
                         new NoOpElementController(),
                         UiSerialContainer.Orientation.Vertical)
                     {
                         new TextUiElement(
-                            _uiElementFactory.GetClass(s_Text), new InlayController(), project.Name),
+                            uiElementFactory.GetClass(s_Text), new InlayController(), project.Name),
                         new DynamicUiSerialContainer(
-                            _uiElementFactory.GetClass(s_Status),
+                            uiElementFactory.GetClass(s_Status),
                             new NoOpElementController(),
                             UiSerialContainer.Orientation.Vertical)
                         {
                             new DynamicTextUiElement(
-                                _uiElementFactory.GetClass(s_StatusText),
+                                uiElementFactory.GetClass(s_StatusText),
                                 new InlayController(),
                                 () => GetStatusString(project)),
                             new PoolBar(
-                                _uiElementFactory.GetClass(s_StatusProgress),
+                                uiElementFactory.GetClass(s_StatusProgress),
                                 new InlayController(),
                                 project.Progress),
                         }
                     }
                 },
                 s_ProjectActions);
-        }
-
-        private IEnumerable<IProject> GetRange()
-        {
-            if (_projectHub == null)
-            {
-                return Enumerable.Empty<IProject>();
-            }
-            return _projectHub.GetProjects();
         }
 
         private static string GetStatusString(IProject project)

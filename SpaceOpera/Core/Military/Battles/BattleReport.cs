@@ -261,5 +261,30 @@ namespace SpaceOpera.Core.Military.Battles
         {
             FactionReports = factionReports.ToList();
         }
+
+        public FactionReport Get(Faction faction)
+        {
+            return FactionReports.First(x => x.Faction == faction);
+        }
+
+        public UnitReport Get(Faction faction, Unit unit)
+        {
+            return Get(faction).UnitReports.First(x => x.Unit == unit);
+        }
+
+        public IEnumerable<Faction> GetOffense()
+        {
+            return GetSide(BattleSideType.Offense);
+        }
+
+        public IEnumerable<Faction> GetDefense()
+        {
+            return GetSide(BattleSideType.Defense);
+        }
+
+        private IEnumerable<Faction> GetSide(BattleSideType side)
+        {
+            return FactionReports.Where(x => x.Side == side).Select(x => x.Faction);
+        }
     }
 }

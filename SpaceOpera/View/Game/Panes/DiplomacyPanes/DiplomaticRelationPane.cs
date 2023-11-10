@@ -7,6 +7,7 @@ using SpaceOpera.Core;
 using SpaceOpera.View.Components;
 using SpaceOpera.Controller.Components;
 using SpaceOpera.Controller.Game.Panes.DiplomacyPanes;
+using SpaceOpera.View.Components.Dynamics;
 
 namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
 {
@@ -38,13 +39,67 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
                 }
             };
 
-        private readonly UiElementFactory _uiElementFactory;
-        private readonly IconFactory _iconFactory;
+        class DiplomaticRelationRange : IRange<DiplomaticRelation>
+        {
+            public World? World { get; set; }
+            public Faction? Faction { get; set; }
 
-        private World? _world;
-        private Faction? _faction;
+            public IEnumerable<DiplomaticRelation> GetRange()
+            {
+                if (World == null || Faction == null)
+                {
+                    return Enumerable.Empty<DiplomaticRelation>();
+                }
+                return World.DiplomaticRelations.Get(Faction);
+            }
+        }
+
+        class DiplomaticRelationComponentFactory : IKeyedElementFactory<DiplomaticRelation>
+        {
+            private readonly UiElementFactory _uiElementFactory;
+            private readonly IconFactory _iconFactory;
+
+            public World? World { get; set; }
+
+            public DiplomaticRelationComponentFactory(UiElementFactory uiElementFactory, IconFactory iconFactory)
+            {
+                _uiElementFactory = uiElementFactory;
+                _iconFactory = iconFactory;
+            }
+
+            public IKeyedUiElement<DiplomaticRelation> Create(DiplomaticRelation relation)
+            {
+                return ActionRow<DiplomaticRelation>.Create(
+                    relation,
+                    ActionId.Unknown,
+                    ActionId.Unknown,
+                    _uiElementFactory,
+                    s_RelationRowStyle,
+                    new List<IUiElement>()
+                    {
+                    _iconFactory.Create(_uiElementFactory.GetClass(s_Icon), new InlayController(), relation.Target),
+                    new TextUiElement(
+                        _uiElementFactory.GetClass(s_Text), new InlayController(), relation.Target.Name),
+                    new DynamicTextUiElement(
+                        _uiElementFactory.GetClass(s_Status),
+                        new InlayController(),
+                        () => EnumMapper.ToString(relation.OverallStatus)),
+                    new DynamicTextUiElement(
+                        _uiElementFactory.GetClass(s_Approval),
+                        new InlayController(),
+                        () => World?.Players
+                            .Get(relation.Target)
+                            .GetApproval(relation.Faction)?.Result
+                            .ToString("N0") ?? "0")
+                    },
+                    s_RelationActions);
+            }
+        }
 
         public UiCompoundComponent Relations { get; }
+
+        private readonly DiplomaticRelationRange _range = new();
+        private readonly DiplomaticRelationComponentFactory _elementFactory;
 
         public DiplomaticRelationPane(UiElementFactory uiElementFactory, IconFactory iconFactory)
             : base(
@@ -53,8 +108,7 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
                   new TextUiElement(uiElementFactory.GetClass(s_Title), new ButtonController(), "Diplomacy"),
                   uiElementFactory.CreateSimpleButton(s_Close).Item1)
         {
-            _uiElementFactory = uiElementFactory;
-            _iconFactory = iconFactory;
+            _elementFactory = new DiplomaticRelationComponentFactory(uiElementFactory, iconFactory);
 
             var body = new
                 DynamicUiContainer(
@@ -63,12 +117,12 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
             Relations =
                 new DynamicUiCompoundComponent(
                     new ActionComponentController(),
-                    new DynamicKeyedTable<DiplomaticRelation, ActionRow<DiplomaticRelation>>(
+                    new DynamicKeyedTable<DiplomaticRelation>(
                         uiElementFactory.GetClass(s_RelationTable),
                         new TableController(10f),
                         UiSerialContainer.Orientation.Vertical,
-                        GetRange,
-                        CreateRow,
+                        _range,
+                        _elementFactory,
                         Comparer<DiplomaticRelation>.Create((x, y) => x.Faction.Name.CompareTo(y.Faction.Name))));
 
             body.Add(Relations);
@@ -77,47 +131,11 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
 
         public override void Populate(params object?[] args)
         {
-            _world = args[0] as World;
-            _faction = args[1] as Faction;
+            _range.World = args[0] as World;
+            _range.Faction = args[1] as Faction;
+            _elementFactory.World = _range.World;
             Refresh();
             Populated?.Invoke(this, EventArgs.Empty);
-        }
-
-        private ActionRow<DiplomaticRelation> CreateRow(DiplomaticRelation relation)
-        {
-            return ActionRow<DiplomaticRelation>.Create(
-                relation,
-                ActionId.Unknown,
-                ActionId.Unknown,
-                _uiElementFactory,
-                s_RelationRowStyle,
-                new List<IUiElement>()
-                {
-                    _iconFactory.Create(_uiElementFactory.GetClass(s_Icon), new InlayController(), relation.Target),
-                    new TextUiElement(
-                        _uiElementFactory.GetClass(s_Text), new InlayController(), relation.Target.Name),
-                    new DynamicTextUiElement(
-                        _uiElementFactory.GetClass(s_Status),
-                        new InlayController(), 
-                        () => EnumMapper.ToString(relation.OverallStatus)),
-                    new DynamicTextUiElement(
-                        _uiElementFactory.GetClass(s_Approval), 
-                        new InlayController(),
-                        () => _world?.Players
-                            .Get(relation.Target)
-                            .GetApproval(relation.Faction)?.Result
-                            .ToString("N0") ?? "0")
-                },
-                s_RelationActions);
-        }
-
-        private IEnumerable<DiplomaticRelation> GetRange()
-        {
-            if (_world == null || _faction == null)
-            {
-                return Enumerable.Empty<DiplomaticRelation>();
-            }
-            return _world.DiplomaticRelations.Get(_faction);
         }
     }
 }

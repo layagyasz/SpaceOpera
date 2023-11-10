@@ -1,10 +1,8 @@
 ﻿using Cardamom.Collections;
 using Cardamom.Ui;
 using Cardamom.Ui.Controller;
-using Cardamom.Ui.Elements;
 using SpaceOpera.Core;
 using SpaceOpera.View.BannerViews;
-using SpaceOpera.View.Components;
 using SpaceOpera.View.Game;
 using SpaceOpera.View.Game.GalaxyViews;
 using SpaceOpera.View.Game.FormationViews;
@@ -20,6 +18,7 @@ using SpaceOpera.Controller.GameSetup;
 using SpaceOpera.View.Loader;
 using SpaceOpera.Core.Loader;
 using SpaceOpera.View.Game.Highlights;
+using SpaceOpera.View.Components.Dynamics;
 
 namespace SpaceOpera.View
 {

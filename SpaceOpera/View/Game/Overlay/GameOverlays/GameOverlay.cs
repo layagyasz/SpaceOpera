@@ -6,6 +6,7 @@ using SpaceOpera.Controller.Components;
 using SpaceOpera.Controller.Game.Overlay;
 using SpaceOpera.Core;
 using SpaceOpera.View.Components;
+using SpaceOpera.View.Components.Dynamics;
 
 namespace SpaceOpera.View.Game.Overlay.GameOverlays
 {

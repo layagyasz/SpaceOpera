@@ -2,7 +2,7 @@
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
 
-namespace SpaceOpera.View.Components
+namespace SpaceOpera.View.Components.Dynamics
 {
     public class DynamicUiSerialContainer : UiSerialContainer, IDynamic
     {

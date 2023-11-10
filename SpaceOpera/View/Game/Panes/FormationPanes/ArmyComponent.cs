@@ -5,6 +5,7 @@ using SpaceOpera.Controller.Components;
 using SpaceOpera.Controller.Game.Panes.FormationPanes;
 using SpaceOpera.Core.Military;
 using SpaceOpera.View.Components;
+using SpaceOpera.View.Components.Dynamics;
 using SpaceOpera.View.Icons;
 
 namespace SpaceOpera.View.Game.Panes.FormationPanes
@@ -33,9 +34,6 @@ namespace SpaceOpera.View.Game.Panes.FormationPanes
         public UiCompoundComponent Header { get; }
         public UiCompoundComponent CompositionTable { get; }
 
-        private readonly UiElementFactory _uiElementFactory;
-        private readonly IconFactory _iconFactory;
-
         public ArmyComponent(ArmyDriver driver, UiElementFactory uiElementFactory, IconFactory iconFactory)
             : base(
                   new FormationComponentController(),
@@ -45,67 +43,60 @@ namespace SpaceOpera.View.Game.Panes.FormationPanes
                       UiSerialContainer.Orientation.Vertical))
         {
             Driver = driver;
-            _uiElementFactory = uiElementFactory;
-            _iconFactory = iconFactory;
-
             Header = new FormationComponentHeader(driver, uiElementFactory, iconFactory);
             Add(Header);
 
             CompositionTable =
                 new DynamicUiCompoundComponent(
                     new ActionComponentController(),
-                    new DynamicKeyedTable<Division, ActionRow<Division>>(
+                    new DynamicKeyedTable<Division>(
                         uiElementFactory.GetClass(s_DivisionTable),
                         new NoOpElementController(),
                         UiSerialContainer.Orientation.Vertical,
-                        GetRange,
-                        CreateRow,
+                        new FunctionRange<Division>(() => Driver.Army.Divisions),
+                        new SimpleKeyedElementFactory<Division>(uiElementFactory, iconFactory, CreateRow),
                         Comparer<Division>.Create((x, y) => x.Name.CompareTo(y.Name))));
             Add(CompositionTable);
         }
 
-        private IEnumerable<Division> GetRange()
-        {
-            return Driver.Army.Divisions;
-        }
-
-        private ActionRow<Division> CreateRow(Division division)
+        private static ActionRow<Division> CreateRow(
+            Division division, UiElementFactory uiElementFactory, IconFactory iconFactory)
         {
             return ActionRow<Division>.Create(
                 division,
                 ActionId.Unknown,
                 ActionId.Unknown,
-                _uiElementFactory,
+                uiElementFactory,
                 s_DivisionRowStyle,
                 new List<IUiElement>()
                 {
-                    _iconFactory.Create(_uiElementFactory.GetClass(s_DivisionIcon), new InlayController(), division),
+                    iconFactory.Create(uiElementFactory.GetClass(s_DivisionIcon), new InlayController(), division),
                     new DynamicUiSerialContainer(
-                        _uiElementFactory.GetClass(s_DivisionInfo),
+                        uiElementFactory.GetClass(s_DivisionInfo),
                         new NoOpElementController(),
                         UiSerialContainer.Orientation.Vertical)
                     {
                         new TextUiElement(
-                            _uiElementFactory.GetClass(s_DivisionText), new InlayController(), division.Name),
+                            uiElementFactory.GetClass(s_DivisionText), new InlayController(), division.Name),
                         new DynamicUiSerialContainer(
-                            _uiElementFactory.GetClass(s_DivisionStatus),
+                            uiElementFactory.GetClass(s_DivisionStatus),
                             new NoOpElementController(),
                             UiSerialContainer.Orientation.Vertical)
                         {
                             new DynamicTextUiElement(
-                                _uiElementFactory.GetClass(s_DivisionHealthText),
+                                uiElementFactory.GetClass(s_DivisionHealthText),
                                 new InlayController(),
                                 () => division.Health.ToString("N0")),
                             new PoolBar(
-                                _uiElementFactory.GetClass(s_DivisionHealth),
+                                uiElementFactory.GetClass(s_DivisionHealth),
                                 new InlayController(),
                                 division.Health),
                             new DynamicTextUiElement(
-                                _uiElementFactory.GetClass(s_DivisionCohesionText),
+                                uiElementFactory.GetClass(s_DivisionCohesionText),
                                 new InlayController(),
                                 () => division.Cohesion.ToString("P0")),
                             new PoolBar(
-                                _uiElementFactory.GetClass(s_DivisionCohesion),
+                                uiElementFactory.GetClass(s_DivisionCohesion),
                                 new InlayController(),
                                 division.Cohesion)
                         }

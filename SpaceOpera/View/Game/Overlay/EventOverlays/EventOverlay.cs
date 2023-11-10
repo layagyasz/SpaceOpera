@@ -6,6 +6,8 @@ using SpaceOpera.Core.Politics;
 using SpaceOpera.Core;
 using SpaceOpera.View.Components;
 using SpaceOpera.Core.Events;
+using SpaceOpera.View.Components.Dynamics;
+using SpaceOpera.View.Icons;
 
 namespace SpaceOpera.View.Game.Overlay.EventOverlays
 {
@@ -20,12 +22,24 @@ namespace SpaceOpera.View.Game.Overlay.EventOverlays
                 Container = "event-overlay-event-container"
             };
 
-        private readonly UiElementFactory _uiElementFactory;
+        class EventRange : IRange<IEvent>
+        {
+            public World? World { get; set; }
+            public Faction? Faction { get; set; }
 
-        private World? _world;
-        private Faction? _faction;
+            public IEnumerable<IEvent> GetRange()
+            {
+                if (World == null || Faction == null)
+                {
+                    return Enumerable.Empty<IEvent>();
+                }
+                return World.Events.Get(Faction);
+            }
+        }
 
-        public EventOverlay(UiElementFactory uiElementFactory)
+        private readonly EventRange _range = new();
+
+        public EventOverlay(UiElementFactory uiElementFactory, IconFactory iconFactory)
             : base(
                 new ActionComponentController(),
                 new DynamicUiSerialContainer(
@@ -33,50 +47,40 @@ namespace SpaceOpera.View.Game.Overlay.EventOverlays
                   new NoOpElementController(),
                   UiSerialContainer.Orientation.Vertical))
         {
-            _uiElementFactory = uiElementFactory;
-
             Add(
                 new DynamicUiCompoundComponent(
                     new ActionComponentController(),
-                    new DynamicKeyedTable<IEvent, ActionRow<IEvent>>(
+                    new DynamicKeyedTable<IEvent>(
                         uiElementFactory.GetClass(s_List),
                         new NoOpElementController(),
                         UiSerialContainer.Orientation.Horizontal,
-                        GetRange,
-                        CreateCell,
+                        _range,
+                        new SimpleKeyedElementFactory<IEvent>(uiElementFactory, iconFactory, CreateCell),
                         Comparer<IEvent>.Create((x, y) => 0))));
             Position = new(0, 68, 0);
         }
 
         public void Populate(params object?[] args)
         {
-            _world = (World?)args[0];
-            _faction = (Faction?)args[1];
+            _range.World = (World?)args[0];
+            _range.Faction = (Faction?)args[1];
             Refresh();
         }
 
-        private ActionRow<IEvent> CreateCell(IEvent @event)
+        private static IKeyedUiElement<IEvent> CreateCell(
+            IEvent @event, UiElementFactory uiElementFactory, IconFactory iconFactory)
         {
             return ActionRow<IEvent>.Create(
-                @event, 
+                @event,
                 ActionId.Select,
                 ActionId.Ignore,
-                _uiElementFactory,
+                uiElementFactory,
                 s_CellStyle,
-                new List<IUiElement>() 
-                { 
-                    new SimpleUiElement(_uiElementFactory.GetClass(GetClass(@event)), new InlayController())
+                new List<IUiElement>()
+                {
+                    new SimpleUiElement(uiElementFactory.GetClass(GetClass(@event)), new InlayController())
                 },
                 Enumerable.Empty<ActionRow<IEvent>.ActionConfiguration>());
-        }
-
-        private IEnumerable<IEvent> GetRange()
-        {
-            if (_world == null || _faction == null)
-            {
-                return Enumerable.Empty<IEvent>();
-            }
-            return _world.Events.Get(_faction);
         }
 
         private static string GetClass(IEvent @event)

@@ -2,7 +2,7 @@
 using Cardamom.Ui.Controller;
 using Cardamom.Ui.Elements;
 
-namespace SpaceOpera.View.Components
+namespace SpaceOpera.View.Components.Dynamics
 {
     public class DynamicUiCompoundComponent : UiCompoundComponent, IDynamic
     {

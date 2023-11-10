@@ -2,7 +2,7 @@
 using Cardamom.Ui;
 using Cardamom.Ui.Controller;
 using OpenTK.Mathematics;
-using SpaceOpera.View.Components;
+using SpaceOpera.View.Components.Dynamics;
 using SpaceOpera.View.Game.Overlay;
 using SpaceOpera.View.Game.Panes;
 using SpaceOpera.View.Game.Scenes;

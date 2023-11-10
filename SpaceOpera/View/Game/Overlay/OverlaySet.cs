@@ -64,7 +64,7 @@ namespace SpaceOpera.View.Game.Overlay
         {
             return new(
                 /* empire= */ new EmpireOverlay(uiElementFactory, iconFactory),
-                /* event= */ new EventOverlay(uiElementFactory),
+                /* event= */ new EventOverlay(uiElementFactory, iconFactory),
                 /* game= */ GameOverlay.Create(uiElementFactory),
                 /* starSystem= */ new StarSystemOverlay(uiElementFactory, iconFactory));
         }

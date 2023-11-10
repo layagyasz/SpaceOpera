@@ -2,7 +2,7 @@
 using Cardamom.Ui.Controller;
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
-using SpaceOpera.View.Icons;
+using SpaceOpera.View.Components.Dynamics;
 
 namespace SpaceOpera.View.Components.NumericInputs
 {
@@ -12,16 +12,15 @@ namespace SpaceOpera.View.Components.NumericInputs
         public TextUiElement Total { get; }
 
         protected readonly MultiCountInputStyles.MultiCountInputStyle _style;
-        protected readonly UiElementFactory _uiElementFactory;
-        protected readonly IconFactory _iconFactory;
 
-        private readonly DynamicKeyedTable<T, MultiCountInputRow<T>> _table;
+        private readonly DynamicKeyedTable<T> _table;
 
         public BaseMultiCountInput(
             IController controller,
             MultiCountInputStyles.MultiCountInputStyle style,
             UiElementFactory uiElementFactory,
-            IconFactory iconFactory,
+            IRange<T> range,
+            IKeyedElementFactory<T> elementFactory,
             IComparer<T> comparer)
             : base(
                   controller,
@@ -31,16 +30,14 @@ namespace SpaceOpera.View.Components.NumericInputs
                       UiSerialContainer.Orientation.Vertical))
         {
             _style = style;
-            _uiElementFactory = uiElementFactory;
-            _iconFactory = iconFactory;
 
             _table =
-                new DynamicKeyedTable<T, MultiCountInputRow<T>>(
+                new DynamicKeyedTable<T>(
                         uiElementFactory.GetClass(style.Table!),
                         new TableController(10f),
                         UiSerialContainer.Orientation.Vertical,
-                        GetKeys,
-                        CreateRow,
+                        range,
+                        elementFactory,
                         comparer);
             Table = new(new RadioController<T>(), _table);
             Add(Table);
@@ -60,10 +57,7 @@ namespace SpaceOpera.View.Components.NumericInputs
 
         public bool TryGetRow(T key, out MultiCountInputRow<T>? row)
         {
-            return _table.TryGetRow(key, out row);
+            return _table.TryGetRowAs(key, out row);
         }
-
-        protected abstract IEnumerable<T> GetKeys();
-        protected abstract MultiCountInputRow<T> CreateRow(T key);
     }
 }

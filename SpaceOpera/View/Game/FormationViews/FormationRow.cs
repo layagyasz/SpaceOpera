@@ -7,6 +7,7 @@ using SpaceOpera.Controller.Game.FormationsViews;
 using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Military.Ai.Actions;
 using SpaceOpera.View.Components;
+using SpaceOpera.View.Components.Dynamics;
 using SpaceOpera.View.Icons;
 
 namespace SpaceOpera.View.Game.FormationViews

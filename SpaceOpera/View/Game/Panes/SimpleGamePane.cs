@@ -1,7 +1,7 @@
 ﻿using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui;
 using Cardamom.Ui.Elements;
-using SpaceOpera.View.Components;
+using SpaceOpera.View.Components.Dynamics;
 
 namespace SpaceOpera.View.Game.Panes
 {

@@ -1,4 +1,5 @@
 ﻿using Cardamom.Ui;
+using SpaceOpera.View.Components.Dynamics;
 using SpaceOpera.View.Components.NumericInputs;
 using SpaceOpera.View.Icons;
 
@@ -11,7 +12,7 @@ namespace SpaceOpera.View.Forms
             private readonly FormLayout.Builder _root;
             private string? _id;
             private string _name = string.Empty;
-            private Func<object, string>? _nameFn;
+            private NameMapper<object>? _nameFn;
             private readonly List<object> _options = new();
 
             internal Builder(FormLayout.Builder root)
@@ -37,7 +38,7 @@ namespace SpaceOpera.View.Forms
                 return this;
             }
 
-            public Builder SetOptionNameFn(Func<object, string> nameFn)
+            public Builder SetOptionNameFn(NameMapper<object> nameFn)
             {
                 _nameFn = nameFn;
                 return this;
@@ -57,10 +58,10 @@ namespace SpaceOpera.View.Forms
         public string Id { get; }
         public string Name { get; }
 
-        private readonly Func<object, string> _nameFn;
+        private readonly NameMapper<object> _nameFn;
         private readonly List<object> _options;
 
-        private MultiCountFieldLayout(string id, string name, Func<object, string> nameFn, IEnumerable<object> options)
+        private MultiCountFieldLayout(string id, string name, NameMapper<object> nameFn, IEnumerable<object> options)
         {
             Id = id;
             Name = name;
@@ -71,7 +72,7 @@ namespace SpaceOpera.View.Forms
         public IUiElement Create(Form.Style style, UiElementFactory uiElementFactory, IconFactory iconFactory)
         {
             var table = 
-                new ManualMultiCountInput<object>(
+                ManualMultiCountInput<object>.Create(
                     style.MultiCount!,
                     _nameFn,
                     uiElementFactory,

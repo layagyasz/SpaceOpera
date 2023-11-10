@@ -9,6 +9,7 @@ using SpaceOpera.Core.Economics;
 using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.View.Components;
+using SpaceOpera.View.Components.Dynamics;
 using SpaceOpera.View.Icons;
 
 namespace SpaceOpera.View.Game.Overlay.EmpireOverlays
@@ -24,9 +25,6 @@ namespace SpaceOpera.View.Game.Overlay.EmpireOverlays
         private static readonly string s_Icon = "empire-overlay-row-icon";
         private static readonly string s_Text = "empire-overlay-row-text";
 
-        private readonly UiElementFactory _uiElementFactory;
-        private readonly IconFactory _iconFactory;
-
         private World? _world;
         private Faction? _faction;
         private Vector2 _bounds;
@@ -39,9 +37,6 @@ namespace SpaceOpera.View.Game.Overlay.EmpireOverlays
                     new TableController(10f),
                     UiSerialContainer.Orientation.Vertical))
         {
-            _uiElementFactory = uiElementFactory;
-            _iconFactory = iconFactory;
-
             var holdingTable = 
                 new DynamicUiCompoundComponent(
                     new ActionComponentController(),
@@ -54,12 +49,13 @@ namespace SpaceOpera.View.Game.Overlay.EmpireOverlays
                             uiElementFactory.GetClass(s_TableHeader), new ButtonController(), "Holdings"),
                         new DynamicUiCompoundComponent(
                             new ActionComponentController(),
-                            new DynamicKeyedTable<StellarBodyHolding, ActionRow<StellarBodyHolding>>(
+                            new DynamicKeyedTable<StellarBodyHolding>(
                                 uiElementFactory.GetClass(s_Table), 
                                 new TableController(10f),
                                 UiSerialContainer.Orientation.Vertical,
-                                GetHoldingRange, 
-                                CreateHoldingRow, 
+                                new FunctionRange<StellarBodyHolding>(GetHoldingRange), 
+                                new SimpleKeyedElementFactory<StellarBodyHolding>(
+                                    uiElementFactory, iconFactory, CreateHoldingRow), 
                                 Comparer<StellarBodyHolding>.Create(
                                     (x, y) => x.StellarBody.Name.CompareTo(y.StellarBody.Name))))
                     });
@@ -77,12 +73,13 @@ namespace SpaceOpera.View.Game.Overlay.EmpireOverlays
                             uiElementFactory.GetClass(s_TableHeader), new ButtonController(), "Fleets"),
                         new DynamicUiCompoundComponent(
                             new ActionComponentController(),
-                            new DynamicKeyedTable<AtomicFormationDriver, ActionRow<AtomicFormationDriver>>(
+                            new DynamicKeyedTable<AtomicFormationDriver>(
                                 uiElementFactory.GetClass(s_Table),
                                 new TableController(10f),
                                 UiSerialContainer.Orientation.Vertical,
-                                GetFleetRange,
-                                CreateFleetRow,
+                                new FunctionRange<AtomicFormationDriver>(GetFleetRange),
+                                new SimpleKeyedElementFactory<AtomicFormationDriver>(
+                                    uiElementFactory, iconFactory, CreateFleetRow),
                                 Comparer<AtomicFormationDriver>.Create(
                                     (x, y) => x.AtomicFormation.Name.CompareTo(y.AtomicFormation.Name))))
             });
@@ -100,12 +97,13 @@ namespace SpaceOpera.View.Game.Overlay.EmpireOverlays
                             uiElementFactory.GetClass(s_TableHeader), new ButtonController(), "Armies"),
                         new DynamicUiCompoundComponent(
                             new ActionComponentController(),
-                            new DynamicKeyedTable<ArmyDriver, ActionRow<ArmyDriver>>(
+                            new DynamicKeyedTable<ArmyDriver>(
                                 uiElementFactory.GetClass(s_Table),
                                 new TableController(10f),
                                 UiSerialContainer.Orientation.Vertical,
-                                GetArmyRange,
-                                CreateArmyRow,
+                                new FunctionRange<ArmyDriver>(GetArmyRange),
+                                new SimpleKeyedElementFactory<ArmyDriver>(
+                                    uiElementFactory, iconFactory, CreateArmyRow),
                                 Comparer<ArmyDriver>.Create((x, y) => x.Army.Name.CompareTo(y.Army.Name))))
                     });
             Add(armyTable);
@@ -156,56 +154,59 @@ namespace SpaceOpera.View.Game.Overlay.EmpireOverlays
             return _world.Economy.GetHoldingsFor(_faction);
         }
 
-        private ActionRow<ArmyDriver> CreateArmyRow(ArmyDriver driver)
+        private static ActionRow<ArmyDriver> CreateArmyRow(
+            ArmyDriver driver, UiElementFactory uiElementFactory, IconFactory iconFactory)
         {
             return ActionRow<ArmyDriver>.Create(
                 driver,
                 ActionId.Select,
                 ActionId.Unknown,
-                _uiElementFactory,
+                uiElementFactory,
                 new() { Container = s_Row },
                 new List<IUiElement>()
                 {
-                    _iconFactory.Create(
-                        _uiElementFactory.GetClass(s_Icon), new InlayController(), driver.Army),
+                    iconFactory.Create(
+                        uiElementFactory.GetClass(s_Icon), new InlayController(), driver.Army),
                     new TextUiElement(
-                        _uiElementFactory.GetClass(s_Text), new InlayController(), driver.Army.Name)
+                        uiElementFactory.GetClass(s_Text), new InlayController(), driver.Army.Name)
                 },
                 Enumerable.Empty<ActionRow<ArmyDriver>.ActionConfiguration>());
         }
 
-        private ActionRow<AtomicFormationDriver> CreateFleetRow(AtomicFormationDriver driver)
+        private static ActionRow<AtomicFormationDriver> CreateFleetRow(
+            AtomicFormationDriver driver, UiElementFactory uiElementFactory, IconFactory iconFactory)
         {
             return ActionRow<AtomicFormationDriver>.Create(
                 driver,
                 ActionId.Select,
                 ActionId.Unknown,
-                _uiElementFactory,
+                uiElementFactory,
                 new() { Container = s_Row },
                 new List<IUiElement>()
                 {
-                    _iconFactory.Create(
-                        _uiElementFactory.GetClass(s_Icon), new InlayController(), driver.AtomicFormation),
+                    iconFactory.Create(
+                        uiElementFactory.GetClass(s_Icon), new InlayController(), driver.AtomicFormation),
                     new TextUiElement(
-                        _uiElementFactory.GetClass(s_Text), new InlayController(), driver.AtomicFormation.Name)
+                        uiElementFactory.GetClass(s_Text), new InlayController(), driver.AtomicFormation.Name)
                 },
                 Enumerable.Empty<ActionRow<AtomicFormationDriver>.ActionConfiguration>());
         }
 
-        private ActionRow<StellarBodyHolding> CreateHoldingRow(StellarBodyHolding holding)
+        private static ActionRow<StellarBodyHolding> CreateHoldingRow(
+            StellarBodyHolding holding, UiElementFactory uiElementFactory, IconFactory iconFactory)
         {
             return ActionRow<StellarBodyHolding>.Create(
                 holding,
                 ActionId.Select,
                 ActionId.Unknown,
-                _uiElementFactory,
+                uiElementFactory,
                 new() { Container = s_Row },
                 new List<IUiElement>()
                 {
-                    _iconFactory.Create(
-                        _uiElementFactory.GetClass(s_Icon), new InlayController(), holding.StellarBody),
+                    iconFactory.Create(
+                        uiElementFactory.GetClass(s_Icon), new InlayController(), holding.StellarBody),
                     new TextUiElement(
-                        _uiElementFactory.GetClass(s_Text), new InlayController(), holding.StellarBody.Name)
+                        uiElementFactory.GetClass(s_Text), new InlayController(), holding.StellarBody.Name)
                 }, 
                 Enumerable.Empty<ActionRow<StellarBodyHolding>.ActionConfiguration>());
         }

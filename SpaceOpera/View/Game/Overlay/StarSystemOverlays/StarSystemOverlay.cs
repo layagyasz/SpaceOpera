@@ -6,6 +6,7 @@ using OpenTK.Mathematics;
 using SpaceOpera.Controller.Components;
 using SpaceOpera.Core.Universe;
 using SpaceOpera.View.Components;
+using SpaceOpera.View.Components.Dynamics;
 using SpaceOpera.View.Icons;
 
 namespace SpaceOpera.View.Game.Overlay.StarSystemOverlays
@@ -24,10 +25,22 @@ namespace SpaceOpera.View.Game.Overlay.StarSystemOverlays
         private static readonly string s_Icon = "star-system-overlay-row-icon";
         private static readonly string s_Text = "star-system-overlay-row-text";
 
-        private readonly UiElementFactory _uiElementFactory;
-        private readonly IconFactory _iconFactory;
+        class StellarBodyRange : IRange<StellarBody>
+        {
+            public StarSystem? StarSystem { get; set; }
 
-        private StarSystem? _starSystem;
+            public string GetHeading()
+            {
+                return StarSystem?.Name ?? string.Empty;
+            }
+
+            public IEnumerable<StellarBody> GetRange()
+            {
+                return StarSystem?.Orbiters ?? Enumerable.Empty<StellarBody>();
+            }
+        }
+
+        private StellarBodyRange _range = new();
         private float _verticalSpace;
 
         public StarSystemOverlay(UiElementFactory uiElementFactory, IconFactory iconFactory)
@@ -38,9 +51,6 @@ namespace SpaceOpera.View.Game.Overlay.StarSystemOverlays
                     new TableController(10f),
                     UiSerialContainer.Orientation.Vertical))
         {
-            _uiElementFactory = uiElementFactory;
-            _iconFactory = iconFactory;
-
             var stellarBodyTable =
                 new DynamicUiCompoundComponent(
                     new ActionComponentController(),
@@ -50,15 +60,15 @@ namespace SpaceOpera.View.Game.Overlay.StarSystemOverlays
                         UiSerialContainer.Orientation.Vertical)
                     {
                         new DynamicTextUiElement(
-                            uiElementFactory.GetClass(s_TableHeader), new ButtonController(), GetHeading),
+                            uiElementFactory.GetClass(s_TableHeader), new ButtonController(), _range.GetHeading),
                         new DynamicUiCompoundComponent(
                             new ActionComponentController(),
-                            new DynamicKeyedTable<StellarBody, ActionRow<StellarBody>>(
+                            new DynamicKeyedTable<StellarBody>(
                                 uiElementFactory.GetClass(s_Table),
                                 new TableController(10f),
                                 UiSerialContainer.Orientation.Vertical,
-                                GetRange,
-                                CreateRow,
+                                _range,
+                                new SimpleKeyedElementFactory<StellarBody>(uiElementFactory, iconFactory, CreateRow),
                                 Comparer<StellarBody>.Create(
                                     (x, y) => x.Name.CompareTo(y.Name))))
                     });
@@ -73,7 +83,7 @@ namespace SpaceOpera.View.Game.Overlay.StarSystemOverlays
 
         public void Populate(params object?[] args)
         {
-            _starSystem = (StarSystem)args[0]!;
+            _range.StarSystem = (StarSystem)args[0]!;
             Refresh();
         }
 
@@ -82,31 +92,22 @@ namespace SpaceOpera.View.Game.Overlay.StarSystemOverlays
             _verticalSpace = bounds.Y;
         }
 
-        private string GetHeading()
-        {
-            return _starSystem?.Name ?? string.Empty;
-        }
-
-        private IEnumerable<StellarBody> GetRange()
-        {
-            return _starSystem?.Orbiters ?? Enumerable.Empty<StellarBody>();
-        }
-
-        private ActionRow<StellarBody> CreateRow(StellarBody stellarBody)
+        private static ActionRow<StellarBody> CreateRow(
+            StellarBody stellarBody, UiElementFactory uiElementFactory, IconFactory iconFactory)
         {
             return
                 ActionRow<StellarBody>.Create(
                     stellarBody,
                     ActionId.Select,
                     ActionId.Unknown,
-                    _uiElementFactory,
+                    uiElementFactory,
                     s_RowStyle,
                     new List<IUiElement>()
                     {
-                        _iconFactory.Create(
-                            _uiElementFactory.GetClass(s_Icon), new InlayController(), stellarBody),
+                        iconFactory.Create(
+                            uiElementFactory.GetClass(s_Icon), new InlayController(), stellarBody),
                         new TextUiElement(
-                            _uiElementFactory.GetClass(s_Text), new InlayController(), stellarBody.Name)
+                            uiElementFactory.GetClass(s_Text), new InlayController(), stellarBody.Name)
                     },
                     Enumerable.Empty<ActionRow<StellarBody>.ActionConfiguration>());
         }

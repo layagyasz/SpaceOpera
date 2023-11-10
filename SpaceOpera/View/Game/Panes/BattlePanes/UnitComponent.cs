@@ -108,7 +108,7 @@ namespace SpaceOpera.View.Game.Panes.BattlePanes
 
         public void Refresh()
         {
-            var report = _report.Get(_faction, Key);
+            var report = _report.Report?.Get(_faction, Key)!;
             _outputRaw.SetText(report.TotalOutputRawDamage.ToString("N0"));
             _outputOnTarget.SetText(
                 string.Format("{0:N0} ({1:P0})", report.TotalOutputOnTargetDamage, report.GetTargetingEfficiency()));

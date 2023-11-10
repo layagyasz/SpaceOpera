@@ -9,6 +9,7 @@ using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Universe;
 using SpaceOpera.View.Components;
+using SpaceOpera.View.Components.Dynamics;
 using SpaceOpera.View.Components.NumericInputs;
 using SpaceOpera.View.Icons;
 
@@ -146,14 +147,14 @@ namespace SpaceOpera.View.Game.Panes.LogisticsPanes
                 };
 
             LeftMaterials =
-                new ManualMultiCountInput<IMaterial>(
+                ManualMultiCountInput<IMaterial>.Create(
                     s_MaterialStyle,
                     x => x.Name,
                     uiElementFactory,
                     iconFactory,
                     Comparer<IMaterial>.Create((x, y) => x.Name.CompareTo(y.Name)));
             RightMaterials =
-                new ManualMultiCountInput<IMaterial>(
+                ManualMultiCountInput<IMaterial>.Create(
                     s_MaterialStyle,
                     x => x.Name,
                     uiElementFactory,
@@ -185,7 +186,7 @@ namespace SpaceOpera.View.Game.Panes.LogisticsPanes
 
             Fleets = new InterceptorMultiSelect<FleetDriver>(
                 s_FleetStyle,
-                CreateFleetRow,
+                new SimpleKeyedElementFactory<FleetDriver>(uiElementFactory, iconFactory, CreateFleetRow),
                 CreateFleetInterceptor,
                 uiElementFactory,
                 Comparer<FleetDriver>.Create((x, y) => x.Formation.Name.CompareTo(y.Formation.Name)));
@@ -258,26 +259,27 @@ namespace SpaceOpera.View.Game.Panes.LogisticsPanes
                 x => _world?.Economy.GetHolding(_faction!, x.ParentRegion!), x => true);
         }
 
-        private ActionRow<FleetDriver> CreateFleetRow(FleetDriver driver)
+        private IValueInterceptor<FleetDriver> CreateFleetInterceptor()
+        {
+            return new BasicInterceptor<FleetDriver, FleetDriver>(x => x, x => x.Formation.Faction == _faction);
+        }
+
+        private static ActionRow<FleetDriver> CreateFleetRow(
+            FleetDriver driver, UiElementFactory uiElementFactory, IconFactory iconFactory)
         {
             return ActionRow<FleetDriver>.Create(
                 driver,
                 ActionId.Select,
                 ActionId.Unknown,
-                _uiElementFactory,
+                uiElementFactory,
                 s_FleetStyle.Row!,
                 new List<IUiElement>()
                 {
-                    _iconFactory.Create(_uiElementFactory.GetClass(s_FleetIcon), new InlayController(), driver),
+                    iconFactory.Create(uiElementFactory.GetClass(s_FleetIcon), new InlayController(), driver),
                     new TextUiElement(
-                        _uiElementFactory.GetClass(s_FleetText), new InlayController(), driver.AtomicFormation.Name)
+                        uiElementFactory.GetClass(s_FleetText), new InlayController(), driver.AtomicFormation.Name)
                 },
                 s_FleetClose);
-        }
-
-        private IValueInterceptor<FleetDriver> CreateFleetInterceptor()
-        {
-            return new BasicInterceptor<FleetDriver, FleetDriver>(x => x, x => x.Formation.Faction == _faction);
         }
     }
 }

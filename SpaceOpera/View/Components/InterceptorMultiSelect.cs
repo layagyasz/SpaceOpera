@@ -3,6 +3,7 @@ using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
 using SpaceOpera.Controller;
 using SpaceOpera.Controller.Components;
+using SpaceOpera.View.Components.Dynamics;
 
 namespace SpaceOpera.View.Components
 {
@@ -19,11 +20,11 @@ namespace SpaceOpera.View.Components
         public UiCompoundComponent Table { get; }
         public IUiElement Adder { get; }
 
-        private readonly HashSet<T> _range = new();
+        private readonly StaticRange<T> _range = new();
 
         public InterceptorMultiSelect(
             Style style,
-            Func<T, ActionRow<T>> rowFn,
+            IKeyedElementFactory<T> elementFactory,
             Func<IValueInterceptor<T>> interceptorFn,
             UiElementFactory uiElementFactory,
             IComparer<T> comparer)
@@ -37,12 +38,12 @@ namespace SpaceOpera.View.Components
             Table = 
                 new DynamicUiCompoundComponent(
                     new ActionComponentController(), 
-                    new DynamicKeyedTable<T, ActionRow<T>>(
+                    new DynamicKeyedTable<T>(
                         uiElementFactory.GetClass(style.Table!),
                         new NoOpElementController(),
                         UiSerialContainer.Orientation.Vertical,
-                        GetRange, 
-                        rowFn, 
+                        _range, 
+                        elementFactory, 
                         comparer));
             Add(Table);
 
@@ -68,17 +69,8 @@ namespace SpaceOpera.View.Components
 
         public void SetRange(IEnumerable<T> range)
         {
-            _range.Clear();
-            foreach (var item in range)
-            {
-                _range.Add(item);
-            }
+            _range.Set(range);
             Refresh();
-        }
-
-        private IEnumerable<T> GetRange()
-        {
-            return _range;
         }
     }
 }

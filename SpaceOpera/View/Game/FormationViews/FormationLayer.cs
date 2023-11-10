@@ -2,7 +2,7 @@
 using SpaceOpera.Controller.Game.FormationsViews;
 using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Universe;
-using SpaceOpera.View.Components;
+using SpaceOpera.View.Components.Dynamics;
 
 namespace SpaceOpera.View.Game.FormationViews
 {

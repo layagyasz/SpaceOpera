@@ -5,6 +5,7 @@ using SpaceOpera.Controller.Components;
 using SpaceOpera.Controller.Game.Panes.FormationPanes;
 using SpaceOpera.Core.Military;
 using SpaceOpera.View.Components;
+using SpaceOpera.View.Components.Dynamics;
 using SpaceOpera.View.Icons;
 
 namespace SpaceOpera.View.Game.Panes.FormationPanes
@@ -62,71 +63,67 @@ namespace SpaceOpera.View.Game.Panes.FormationPanes
             CompositionTable =
                 new DynamicUiCompoundComponent(
                     new ActionComponentController(),
-                    new DynamicKeyedTable<UnitGrouping, ActionRow<UnitGrouping>>(
+                    new DynamicKeyedTable<UnitGrouping>(
                         uiElementFactory.GetClass(s_UnitGroupingTable),
                         new NoOpElementController(),
                         UiSerialContainer.Orientation.Vertical,
-                        GetRange,
-                        CreateRow,
+                        new FunctionRange<UnitGrouping>(() => Driver.AtomicFormation.Composition),
+                        new SimpleKeyedElementFactory<UnitGrouping>(uiElementFactory, iconFactory, CreateRow),
                         Comparer<UnitGrouping>.Create((x, y) => x.Unit.Name.CompareTo(y.Unit.Name))));
             Add(CompositionTable);
         }
 
-        private IEnumerable<UnitGrouping> GetRange()
-        {
-            return Driver.AtomicFormation.Composition;
-        }
-
-        private ActionRow<UnitGrouping> CreateRow(UnitGrouping unitGrouping)
+        private static ActionRow<UnitGrouping> CreateRow(
+            UnitGrouping unitGrouping, UiElementFactory uiElementFactory, IconFactory iconFactory)
         {
             return ActionRow<UnitGrouping>.Create(
                 unitGrouping,
                 ActionId.Unknown,
                 ActionId.Unknown,
-                _uiElementFactory,
+                uiElementFactory,
                 s_UnitGroupingRowStyle,
                 new List<IUiElement>()
                 {
-                    _iconFactory.Create(
-                        _uiElementFactory.GetClass(s_UnitGroupingIcon), new InlayController(), unitGrouping),
+                    iconFactory.Create(
+                        uiElementFactory.GetClass(s_UnitGroupingIcon), new InlayController(), unitGrouping),
                     new DynamicUiSerialContainer(
-                        _uiElementFactory.GetClass(s_UnitGroupingInfo),
+                        uiElementFactory.GetClass(s_UnitGroupingInfo),
                         new NoOpElementController(),
                         UiSerialContainer.Orientation.Vertical)
                     {
                         new DynamicUiSerialContainer(
-                            _uiElementFactory.GetClass(s_UnitGroupingTextContainer),
+                            uiElementFactory.GetClass(s_UnitGroupingTextContainer),
                             new NoOpElementController(), 
                             UiSerialContainer.Orientation.Horizontal)
                         {
                             new TextUiElement(
-                                _uiElementFactory.GetClass(s_UnitGroupingText),
+                                uiElementFactory.GetClass(s_UnitGroupingText),
                                 new InlayController(),
                                 unitGrouping.Unit.Name),
                             new DynamicTextUiElement(
-                                _uiElementFactory.GetClass(s_UnitGroupingCount),
+                                uiElementFactory.GetClass(s_UnitGroupingCount),
                                 new InlayController(),
                                 () => unitGrouping.Count.ToString("N0")),
                         },
                         new DynamicUiSerialContainer(
-                            _uiElementFactory.GetClass(s_UnitGroupingStatus),
+                            uiElementFactory.GetClass(s_UnitGroupingStatus),
                             new NoOpElementController(), 
                             UiSerialContainer.Orientation.Vertical)
                         {
                             new DynamicTextUiElement(
-                                _uiElementFactory.GetClass(s_UnitGroupingHealthText),
+                                uiElementFactory.GetClass(s_UnitGroupingHealthText),
                                 new InlayController(),
                                 () => unitGrouping.Hitpoints.ToString("N0")),
                             new PoolBar(
-                                _uiElementFactory.GetClass(s_UnitGroupingHealth),
+                                uiElementFactory.GetClass(s_UnitGroupingHealth),
                                 new InlayController(), 
                                 unitGrouping.Hitpoints),
                             new DynamicTextUiElement(
-                                _uiElementFactory.GetClass(s_UnitGroupingShieldsText),
+                                uiElementFactory.GetClass(s_UnitGroupingShieldsText),
                                 new InlayController(),
                                 () => unitGrouping.Shielding.ToString("N0")),
                             new PoolBar(
-                                _uiElementFactory.GetClass(s_UnitGroupingShields),
+                                uiElementFactory.GetClass(s_UnitGroupingShields),
                                 new InlayController(), 
                                 unitGrouping.Shielding)
                         }

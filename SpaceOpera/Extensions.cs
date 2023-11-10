@@ -27,5 +27,18 @@ namespace SpaceOpera
             }
             return options[Random.Next(0, options.Count)];
         }
+
+        public static bool TryGetValueAs<TKey, TValue, TOut>(
+            this IDictionary<TKey, TValue> dictionary, TKey key, out TOut? value) where TOut : TValue
+        {
+            if (dictionary.TryGetValue(key, out TValue? v))
+            {
+                value = (TOut)v!;
+                return true;
+            }
+
+            value = default;
+            return false;
+        }
     }
 }

@@ -6,18 +6,13 @@ using SpaceOpera.Core;
 using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.View.Components;
+using SpaceOpera.View.Components.Dynamics;
 using SpaceOpera.View.Icons;
 
 namespace SpaceOpera.View.Game.Panes.MilitaryPanes
 {
     public class MilitaryPane : MultiTabGamePane
     {
-        public enum TabId
-        {
-            Army,
-            Fleet
-        }
-
         private static readonly string s_Container = "military-pane";
         private static readonly string s_Title = "military-pane-title";
         private static readonly string s_Close = "military-pane-close";
@@ -45,14 +40,65 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
         private static readonly string s_Text = "military-pane-formation-row-text";
         private static readonly List<ActionRow<IFormationDriver>.ActionConfiguration> s_FormationActions = new();
 
-        private World? _world;
-        private Faction? _faction;
-        private TabId _tab;
+        public enum TabId
+        {
+            Army,
+            Fleet
+        }
 
-        private readonly UiElementFactory _uiElementFactory;
-        private readonly IconFactory _iconFactory;
+        class FormationRange : IRange<IFormationDriver>
+        {
+            public World? World { get; set; }
+            public Faction? Faction { get; set; }
+            public TabId Tab { get; set; }
+
+            public IEnumerable<IFormationDriver> GetRange()
+            {
+                if (World == null || Faction == null)
+                {
+                    return Enumerable.Empty<IFormationDriver>();
+                }
+                return Tab switch
+                {
+                    TabId.Army => World.Formations.GetArmyDriversFor(Faction),
+                    TabId.Fleet => World.Formations.GetFleetDriversFor(Faction),
+                    _ => Enumerable.Empty<IFormationDriver>(),
+                };
+            }
+        }
+
+        class FormationComponentFactory : IKeyedElementFactory<IFormationDriver>
+        {
+            private readonly UiElementFactory _uiElementFactory;
+            private readonly IconFactory _iconFactory;
+
+            public FormationComponentFactory(UiElementFactory uiElementFactory, IconFactory iconFactory)
+            {
+                _uiElementFactory = uiElementFactory;
+                _iconFactory = iconFactory;
+            }
+
+            public IKeyedUiElement<IFormationDriver> Create(IFormationDriver driver)
+            {
+                return ActionRow<IFormationDriver>.Create(
+                    driver,
+                    ActionId.Select,
+                    ActionId.Unknown,
+                    _uiElementFactory,
+                    s_FormationRowStyle,
+                    new List<IUiElement>()
+                    {
+                        _iconFactory.Create(_uiElementFactory.GetClass(s_Icon), new InlayController(), driver),
+                        new TextUiElement(
+                            _uiElementFactory.GetClass(s_Text), new InlayController(), driver.Formation.Name)
+                    },
+                    s_FormationActions);
+            }
+        }
 
         public UiCompoundComponent Formations { get; }
+
+        private readonly FormationRange _range = new();
 
         public MilitaryPane(UiElementFactory uiElementFactory, IconFactory iconFactory)
             : base(
@@ -69,15 +115,13 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
                     uiElementFactory.GetClass(s_TabContainer),
                     uiElementFactory.GetClass(s_TabOption)))
         {
-            _uiElementFactory = uiElementFactory;
-            _iconFactory = iconFactory;
             var body = new
                 DynamicUiContainer(
                     uiElementFactory.GetClass(s_Body), new NoOpElementController());
 
             Formations =
                 new ActionTable<IFormationDriver>(
-                    _uiElementFactory.GetClass(s_FormationContainer),
+                    uiElementFactory.GetClass(s_FormationContainer),
                     ActionRow<Type>.Create(
                         typeof(IFormationDriver),
                         ActionId.Unknown,
@@ -90,12 +134,12 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
                                 uiElementFactory.GetClass(s_FormationHeaderSpace), new InlayController())
                         },
                         s_FormationHeaderActions),
-                    new DynamicKeyedTable<IFormationDriver, ActionRow<IFormationDriver>>(
+                    new DynamicKeyedTable<IFormationDriver>(
                         uiElementFactory.GetClass(s_FormationTable),
                         new TableController(10f),
                         UiSerialContainer.Orientation.Vertical,
-                        GetRange,
-                        CreateRow,
+                        _range,
+                        new FormationComponentFactory(uiElementFactory, iconFactory),
                         Comparer<IFormationDriver>.Create((x, y) => x.Formation.Name.CompareTo(y.Formation.Name))));
 
             body.Add(Formations);
@@ -104,51 +148,20 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
 
         public override void Populate(params object?[] args)
         {
-            _world = args[0] as World;
-            _faction = args[1] as Faction;
+            _range.World = args[0] as World;
+            _range.Faction = args[1] as Faction;
             Refresh();
             Populated?.Invoke(this, EventArgs.Empty);
         }
 
         public override object GetTab()
         {
-            return _tab;
+            return _range.Tab;
         }
 
         public override void SetTab(object id)
         {
-            _tab = (TabId)id;
-        }
-
-        private ActionRow<IFormationDriver> CreateRow(IFormationDriver driver)
-        {
-            return ActionRow<IFormationDriver>.Create(
-                driver,
-                ActionId.Select,
-                ActionId.Unknown,
-                _uiElementFactory,
-                s_FormationRowStyle,
-                new List<IUiElement>()
-                {
-                    _iconFactory.Create(_uiElementFactory.GetClass(s_Icon), new InlayController(), driver),
-                    new TextUiElement(
-                        _uiElementFactory.GetClass(s_Text), new InlayController(), driver.Formation.Name)
-                },
-                s_FormationActions);
-        }
-
-        private IEnumerable<IFormationDriver> GetRange()
-        {
-            if (_world == null || _faction == null)
-            {
-                return Enumerable.Empty<IFormationDriver>();
-            }
-            return _tab switch
-            {
-                TabId.Army => _world.Formations.GetArmyDriversFor(_faction),
-                TabId.Fleet => _world.Formations.GetFleetDriversFor(_faction),
-                _ => Enumerable.Empty<IFormationDriver>(),
-            };
+            _range.Tab = (TabId)id;
         }
     }
 }

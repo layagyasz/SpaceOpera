@@ -3,6 +3,7 @@ using Cardamom.Ui.Controller;
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
 using SpaceOpera.Controller.Components;
+using SpaceOpera.View.Components.Dynamics;
 
 namespace SpaceOpera.View.Components
 {

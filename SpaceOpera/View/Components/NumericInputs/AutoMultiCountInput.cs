@@ -1,6 +1,7 @@
 ﻿using Cardamom.Mathematics;
 using Cardamom.Ui;
 using SpaceOpera.Controller.Components.NumericInputs;
+using SpaceOpera.View.Components.Dynamics;
 using SpaceOpera.View.Icons;
 
 namespace SpaceOpera.View.Components.NumericInputs
@@ -14,12 +15,35 @@ namespace SpaceOpera.View.Components.NumericInputs
             int GetValue(T key);
         }
 
-        private readonly Func<IEnumerable<T>> _keysFn;
-        private readonly IRowConfiguration _configuration;
+        class ElementFactory : IKeyedElementFactory<T>
+        {
+            private MultiCountInputStyles.MultiCountInputStyle _style;
+            private readonly IRowConfiguration _configuration;
+            private readonly UiElementFactory _uiElementFactory;
+            private readonly IconFactory _iconFactory;
+
+            public ElementFactory(
+                MultiCountInputStyles.MultiCountInputStyle style,
+                IRowConfiguration configuration,
+                UiElementFactory uiElementFactory,
+                IconFactory iconFactory)
+            {
+                _style = style;
+                _uiElementFactory = uiElementFactory;
+                _iconFactory = iconFactory;
+                _configuration = configuration;
+            }
+
+            public IKeyedUiElement<T> Create(T key)
+            {
+                return MultiCountInputRow<T>.CreateAuto(
+                    key, _configuration.GetName(key), _uiElementFactory, _iconFactory, _style.Row!, _configuration);
+            }
+        }
 
         public AutoMultiCountInput(
             MultiCountInputStyles.MultiCountInputStyle style,
-            Func<IEnumerable<T>> keysFn,
+            IRange<T> range,
             Func<IntInterval> rangeFn,
             UiElementFactory uiElementFactory,
             IconFactory iconFactory,
@@ -29,22 +53,9 @@ namespace SpaceOpera.View.Components.NumericInputs
                   new AutoMultiCountInputController<T>(rangeFn),
                   style,
                   uiElementFactory,
-                  iconFactory,
+                  range,
+                  new ElementFactory(style, configuration, uiElementFactory, iconFactory),
                   comparer)
-        {
-            _keysFn = keysFn;
-            _configuration = configuration;
-        }
-
-        protected override IEnumerable<T> GetKeys()
-        {
-            return _keysFn();
-        }
-
-        protected override MultiCountInputRow<T> CreateRow(T key)
-        {
-            return MultiCountInputRow<T>.CreateAuto(
-                key, _configuration.GetName(key), _uiElementFactory, _iconFactory, _style.Row!, _configuration);
-        }
+        { }
     }
 }

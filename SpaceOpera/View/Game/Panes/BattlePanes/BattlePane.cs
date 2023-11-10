@@ -4,8 +4,9 @@ using Cardamom.Ui;
 using SpaceOpera.Controller.Game.Panes;
 using SpaceOpera.Core.Military.Battles;
 using SpaceOpera.View.Icons;
-using SpaceOpera.View.Components;
+using SpaceOpera.View.Components.Dynamics;
 using SpaceOpera.Core.Politics;
+using SpaceOpera.View.Components;
 
 namespace SpaceOpera.View.Game.Panes.BattlePanes
 {
@@ -19,8 +20,47 @@ namespace SpaceOpera.View.Game.Panes.BattlePanes
         private static readonly string s_SideHeader = "battle-pane-side-header";
         private static readonly string s_SideFactionTable = "battle-pane-side-faction-table";
 
-        private readonly UiElementFactory _uiElementFactory;
-        private readonly IconFactory _iconFactory;
+        class FactionRange : IRange<Faction>
+        {
+            private readonly bool _isOffense;
+            private readonly ReportWrapper _report;
+
+            public FactionRange(bool isOffense, ReportWrapper report)
+            {
+                _isOffense = isOffense;
+                _report = report;
+            }
+
+            public IEnumerable<Faction> GetRange()
+            {
+                if (_report.Report == null)
+                {
+                    return Enumerable.Empty<Faction>();
+                }
+                return _isOffense ? _report.Report.GetOffense() : _report.Report.GetDefense();
+            }
+        }
+
+        class FactionComponentFactory : IKeyedElementFactory<Faction>
+        {
+            private readonly UiElementFactory _uiElementFactory;
+            private readonly IconFactory _iconFactory;
+            private readonly ReportWrapper _report;
+
+            public FactionComponentFactory(
+                UiElementFactory uiElementFactory, IconFactory iconFactory, ReportWrapper report)
+            {
+                _uiElementFactory = uiElementFactory;
+                _iconFactory = iconFactory;
+                _report = report;
+            }
+
+            public IKeyedUiElement<Faction> Create(Faction faction)
+            {
+                return new FactionComponent(faction, _report, _uiElementFactory, _iconFactory);
+            }
+        }
+
         private readonly ReportWrapper _report = new();
 
         private Battle? _battle;
@@ -32,42 +72,40 @@ namespace SpaceOpera.View.Game.Panes.BattlePanes
                   new TextUiElement(uiElementFactory.GetClass(s_Title), new ButtonController(), string.Empty),
                   uiElementFactory.CreateSimpleButton(s_Close).Item1)
         {
-            _uiElementFactory = uiElementFactory;
-            _iconFactory = iconFactory;
-
+            var componentFactory = new FactionComponentFactory(uiElementFactory, iconFactory, _report);
             var offenseTable =
-                new DynamicKeyedTable<Faction, FactionComponent>(
+                new DynamicKeyedTable<Faction>(
                     uiElementFactory.GetClass(s_SideFactionTable),
                     new TableController(10f),
                     UiSerialContainer.Orientation.Vertical,
-                    _report.GetOffense,
-                    CreateRow,
+                    new FactionRange(/* isOffense= */ true, _report),
+                    componentFactory,
                     Comparer<Faction>.Create((x, y) => x.Name.CompareTo(y.Name)));
             var wrappedOffenseTable =
                 new DynamicUiSerialContainer(
-                    _uiElementFactory.GetClass(s_Side),
+                    uiElementFactory.GetClass(s_Side),
                     new NoOpElementController(),
                     UiSerialContainer.Orientation.Vertical)
                 {
-                    new TextUiElement(_uiElementFactory.GetClass(s_SideHeader), new ButtonController(), "Attackers"),
+                    new TextUiElement(uiElementFactory.GetClass(s_SideHeader), new ButtonController(), "Attackers"),
                     offenseTable
                 };
 
             var defenseTable =
-                new DynamicKeyedTable<Faction, FactionComponent>(
+                new DynamicKeyedTable<Faction>(
                     uiElementFactory.GetClass(s_SideFactionTable),
                     new TableController(10f),
                     UiSerialContainer.Orientation.Vertical,
-                    _report.GetDefense,
-                    CreateRow,
+                    new FactionRange(/* isOffense= */ false, _report),
+                    componentFactory,
                     Comparer<Faction>.Create((x, y) => x.Name.CompareTo(y.Name)));
             var wrappedDefenseTable =
                 new DynamicUiSerialContainer(
-                    _uiElementFactory.GetClass(s_Side),
+                    uiElementFactory.GetClass(s_Side),
                     new NoOpElementController(),
                     UiSerialContainer.Orientation.Vertical)
                 {
-                    new TextUiElement(_uiElementFactory.GetClass(s_SideHeader), new ButtonController(), "Defenders"),
+                    new TextUiElement(uiElementFactory.GetClass(s_SideHeader), new ButtonController(), "Defenders"),
                     defenseTable
                 };
 
@@ -92,13 +130,8 @@ namespace SpaceOpera.View.Game.Panes.BattlePanes
 
         public override void Refresh()
         {
-            _report.SetReport(_battle?.GetReport());
+            _report.Report = _battle?.GetReport();
             base.Refresh();
-        }
-
-        private FactionComponent CreateRow(Faction faction)
-        {
-            return new FactionComponent(faction, _report, _uiElementFactory, _iconFactory);
         }
     }
 }

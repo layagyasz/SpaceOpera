@@ -2,9 +2,11 @@
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
 using SpaceOpera.Controller.Components;
+using SpaceOpera.Controller.Components.Dynamics;
 using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Military.Ai.Actions;
 using SpaceOpera.View.Components;
+using SpaceOpera.View.Components.Dynamics;
 using SpaceOpera.View.Icons;
 
 namespace SpaceOpera.View.Game.Panes.FormationPanes

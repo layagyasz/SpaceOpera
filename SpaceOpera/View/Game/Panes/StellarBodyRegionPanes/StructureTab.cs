@@ -5,7 +5,7 @@ using Cardamom.Ui.Elements;
 using SpaceOpera.Controller.Game.Panes.StellarBodyRegionPanes;
 using SpaceOpera.Core;
 using SpaceOpera.Core.Economics;
-using SpaceOpera.View.Components;
+using SpaceOpera.View.Components.Dynamics;
 using SpaceOpera.View.Components.NumericInputs;
 using SpaceOpera.View.Icons;
 
@@ -48,7 +48,7 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyRegionPanes
         private static readonly MultiCountInputStyles.MultiCountInputStyle s_RecipeTableStyle = 
             s_StructureTableStyle;
 
-        class StructureTableConfiguration : AutoMultiCountInput<Structure>.IRowConfiguration
+        class StructureTableConfiguration : AutoMultiCountInput<Structure>.IRowConfiguration, IRange<Structure>
         {
             private World? _world;
             private StellarBodyRegionHolding? _holding;
@@ -59,12 +59,12 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyRegionPanes
                 _holding = holding;
             }
 
-            public IEnumerable<Structure> GetKeys()
+            public IEnumerable<Structure> GetRange()
             {
                 return _world?.GetStructures() ?? Enumerable.Empty<Structure>();
             }
 
-            public IntInterval GetRange()
+            public IntInterval GetInputRange()
             {
                 return _holding == null ? new(0, 0) : new(0, _holding.GetStructureNodes());
             }
@@ -85,7 +85,7 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyRegionPanes
             }
         }
 
-        class RecipeTableConfiguration : AutoMultiCountInput<Recipe>.IRowConfiguration
+        class RecipeTableConfiguration : AutoMultiCountInput<Recipe>.IRowConfiguration, IRange<Recipe>
         {
             private World? _world;
             private StellarBodyRegionHolding? _holding;
@@ -102,7 +102,7 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyRegionPanes
                 _structure = structure;
             }
 
-            public IEnumerable<Recipe> GetKeys()
+            public IEnumerable<Recipe> GetRange()
             {
                 if (_world == null || _holding == null || _structure == null)
                 {
@@ -114,7 +114,7 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyRegionPanes
                     .Where(x => _holding?.GetResourceNodes(x.BoundResourceNode) > 0);
             }
 
-            public IntInterval GetRange()
+            public IntInterval GetInputRange()
             {
                 return _holding == null || _structure == null
                     ? new(0, 0) : new(0, _holding.GetStructureCount(_structure));
@@ -165,8 +165,8 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyRegionPanes
             Structures =
                 new(
                     s_StructureTableStyle,
-                    _structureTableConfiguration.GetKeys,
-                    _structureTableConfiguration.GetRange,
+                    _structureTableConfiguration,
+                    _structureTableConfiguration.GetInputRange,
                     uiElementFactory,
                     _iconFactory,
                     Comparer<Structure>.Create((x, y) => x.Name.CompareTo(y.Name)),
@@ -189,8 +189,8 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyRegionPanes
             Recipes =
                 new(
                     s_RecipeTableStyle,
-                    _recipeTableConfiguration.GetKeys,
-                    _recipeTableConfiguration.GetRange,
+                    _recipeTableConfiguration,
+                    _recipeTableConfiguration.GetInputRange,
                     uiElementFactory,
                     _iconFactory,
                     Comparer<Recipe>.Create((x, y) => x.Name.CompareTo(y.Name)),

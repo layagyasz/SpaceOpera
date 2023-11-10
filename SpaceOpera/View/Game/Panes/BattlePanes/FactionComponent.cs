@@ -5,6 +5,7 @@ using SpaceOpera.Core.Politics;
 using SpaceOpera.View.Components;
 using SpaceOpera.View.Icons;
 using SpaceOpera.Core.Military;
+using SpaceOpera.View.Components.Dynamics;
 
 namespace SpaceOpera.View.Game.Panes.BattlePanes
 {
@@ -16,11 +17,46 @@ namespace SpaceOpera.View.Game.Panes.BattlePanes
         private static readonly string s_HeaderText = "battle-pane-faction-header-text";
         private static readonly string s_UnitTable = "battle-pane-faction-unit-table";
 
-        public Faction Key { get; }
+        class UnitRange : IRange<Unit>
+        {
+            private readonly Faction _faction;
+            private readonly ReportWrapper _report;
 
-        private readonly ReportWrapper _report;
-        private readonly UiElementFactory _uiElementFactory;
-        private readonly IconFactory _iconFactory;
+            public UnitRange(Faction faction, ReportWrapper report)
+            {
+                _faction = faction;
+                _report = report;
+            }
+
+            public IEnumerable<Unit> GetRange()
+            {
+                return _report.Report?.Get(_faction).UnitReports.Select(x => x.Unit) ?? Enumerable.Empty<Unit>();
+            }
+        }
+
+        class UnitComponentFactory : IKeyedElementFactory<Unit>
+        {
+            private readonly UiElementFactory _uiElementFactory;
+            private readonly IconFactory _iconFactory;
+            private readonly Faction _faction;
+            private readonly ReportWrapper _report;
+
+            public UnitComponentFactory(
+                UiElementFactory uiElementFactory, IconFactory iconFactory, Faction faction, ReportWrapper report)
+            {
+                _uiElementFactory = uiElementFactory;
+                _iconFactory = iconFactory;
+                _faction = faction;
+                _report = report;
+            }
+
+            public IKeyedUiElement<Unit> Create(Unit unit)
+            {
+                return new UnitComponent(_faction, unit, _report, _uiElementFactory, _iconFactory);
+            }
+        }
+
+        public Faction Key { get; }
 
         public FactionComponent(
             Faction faction, ReportWrapper report, UiElementFactory uiElementFactory, IconFactory iconFactory)
@@ -30,38 +66,25 @@ namespace SpaceOpera.View.Game.Panes.BattlePanes
                 Orientation.Vertical)
         {
             Key = faction;
-            _report = report;
-            _uiElementFactory = uiElementFactory;
-            _iconFactory = iconFactory;
 
             var header =
                 new UiSerialContainer(
-                    _uiElementFactory.GetClass(s_HeaderContainer), new ButtonController(), Orientation.Horizontal)
+                    uiElementFactory.GetClass(s_HeaderContainer), new ButtonController(), Orientation.Horizontal)
                 {
-                    _iconFactory.Create(_uiElementFactory.GetClass(s_HeaderIcon), new InlayController(), faction),
-                    new TextUiElement(_uiElementFactory.GetClass(s_HeaderText), new InlayController(), faction.Name)
+                    iconFactory.Create(uiElementFactory.GetClass(s_HeaderIcon), new InlayController(), faction),
+                    new TextUiElement(uiElementFactory.GetClass(s_HeaderText), new InlayController(), faction.Name)
                 };
             Add(header);
 
             var units =
-                new DynamicKeyedTable<Unit, UnitComponent>(
-                    _uiElementFactory.GetClass(s_UnitTable),
+                new DynamicKeyedTable<Unit>(
+                    uiElementFactory.GetClass(s_UnitTable),
                     new NoOpElementController(),
                     Orientation.Vertical,
-                    GetRange,
-                    CreateRow,
+                    new UnitRange(faction, report),
+                    new UnitComponentFactory(uiElementFactory, iconFactory, faction, report),
                     Comparer<Unit>.Create((x, y) => x.Name.CompareTo(y.Name)));
             Add(units);
-        }
-
-        private IEnumerable<Unit> GetRange()
-        {
-            return _report.Get(Key).UnitReports.Select(x => x.Unit);
-        }
-
-        private UnitComponent CreateRow(Unit unit)
-        {
-            return new UnitComponent(Key, unit, _report, _uiElementFactory, _iconFactory);
         }
     }
 }

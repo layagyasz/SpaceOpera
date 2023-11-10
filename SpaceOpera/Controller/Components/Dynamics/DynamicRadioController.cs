@@ -1,7 +1,7 @@
 ﻿using Cardamom.Ui.Controller;
-using SpaceOpera.View.Components;
+using SpaceOpera.View.Components.Dynamics;
 
-namespace SpaceOpera.Controller.Components
+namespace SpaceOpera.Controller.Components.Dynamics
 {
     public class DynamicRadioController<T> : RadioController<T>
     {

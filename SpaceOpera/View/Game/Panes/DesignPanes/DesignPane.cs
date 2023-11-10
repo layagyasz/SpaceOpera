@@ -6,6 +6,7 @@ using SpaceOpera.Core;
 using SpaceOpera.Core.Designs;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.View.Components;
+using SpaceOpera.View.Components.Dynamics;
 using SpaceOpera.View.Icons;
 using SpaceOpera.View.Info;
 
@@ -69,15 +70,26 @@ namespace SpaceOpera.View.Game.Panes.DesignPanes
                 MaterialText = "design-pane-info-material-text"
             };
 
-        private World? _world;
-        private Faction? _faction;
-        private ComponentType _componentType;
+        class DesignRange : IRange<Design>
+        {
+            public World? World { get; set; }
+            public Faction? Faction { get; set; }
+            public ComponentType ComponentType { get; set; }
 
-        private readonly UiElementFactory _uiElementFactory;
-        private readonly IconFactory _iconFactory;
+            public IEnumerable<Design> GetRange()
+            {
+                if (World == null || Faction == null)
+                {
+                    return Enumerable.Empty<Design>();
+                }
+                return World.GetDesignsFor(Faction).Where(x => x.Configuration.Template.Type == ComponentType);
+            }
+        }
 
         public UiCompoundComponent Designs { get; }
         public InfoPanel InfoPanel { get; }
+
+        private readonly DesignRange _range = new();
 
         protected DesignPane(
             UiElementFactory uiElementFactory, IconFactory iconFactory, IEnumerable<ComponentType> componentTypes)
@@ -91,12 +103,9 @@ namespace SpaceOpera.View.Game.Panes.DesignPanes
                     uiElementFactory.GetClass(s_TabContainer),
                     uiElementFactory.GetClass(s_TabOption)))
         {
-            _uiElementFactory = uiElementFactory;
-            _iconFactory = iconFactory;
-
             Designs =
                 new ActionTable<Design>(
-                    _uiElementFactory.GetClass(s_DesignContainer),
+                    uiElementFactory.GetClass(s_DesignContainer),
                     ActionRow<Type>.Create(
                         typeof(Design),
                         ActionId.Unknown,
@@ -109,12 +118,12 @@ namespace SpaceOpera.View.Game.Panes.DesignPanes
                                 uiElementFactory.GetClass(s_DesignHeaderSpace), new InlayController())
                         },
                         s_DesignHeaderActions),
-                    new DynamicKeyedTable<Design, ActionRow<Design>>(
+                    new DynamicKeyedTable<Design>(
                         uiElementFactory.GetClass(s_DesignTable),
                         new TableController(10f),
                         UiSerialContainer.Orientation.Vertical,
-                        GetRange,
-                        CreateRow,
+                        _range,
+                        new SimpleKeyedElementFactory<Design>(uiElementFactory, iconFactory, CreateRow),
                         Comparer<Design>.Create((x, y) => x.Name.CompareTo(y.Name))));
 
             InfoPanel = new(s_InfoPaneStyle, uiElementFactory, iconFactory);
@@ -133,20 +142,20 @@ namespace SpaceOpera.View.Game.Panes.DesignPanes
 
         public override void Populate(params object?[] args)
         {
-            _world = args[0] as World;
-            _faction = args[1] as Faction;
+            _range.World = args[0] as World;
+            _range.Faction = args[1] as Faction;
             Refresh();
             Populated?.Invoke(this, EventArgs.Empty);
         }
 
         public override object GetTab()
         {
-            return _componentType;
+            return _range.ComponentType;
         }
 
         public override void SetTab(object id)
         {
-            _componentType = (ComponentType)id;
+            _range.ComponentType = (ComponentType)id;
         }
 
         public void SetInfo(object? @object)
@@ -158,30 +167,22 @@ namespace SpaceOpera.View.Game.Panes.DesignPanes
             }
         }
 
-        private ActionRow<Design> CreateRow(Design design)
+        private static IKeyedUiElement<Design> CreateRow(
+            Design design, UiElementFactory uiElementFactory, IconFactory iconFactory)
         {
             return ActionRow<Design>.Create(
                 design,
                 ActionId.Unknown,
                 ActionId.Unknown,
-                _uiElementFactory,
-                s_DesignRowStyle, 
-                new List<IUiElement>() 
+                uiElementFactory,
+                s_DesignRowStyle,
+                new List<IUiElement>()
                 {
-                    _iconFactory.Create(_uiElementFactory.GetClass(s_Icon), new InlayController(), design), 
-                    new TextUiElement(
-                        _uiElementFactory.GetClass(s_Text), new InlayController(), design.Name)
-                }, 
+                        iconFactory.Create(uiElementFactory.GetClass(s_Icon), new InlayController(), design),
+                        new TextUiElement(
+                            uiElementFactory.GetClass(s_Text), new InlayController(), design.Name)
+                },
                 s_DesignActions);
-        }
-
-        private IEnumerable<Design> GetRange()
-        {
-            if (_world == null || _faction == null)
-            {
-                return Enumerable.Empty<Design>();
-            }
-            return _world.GetDesignsFor(_faction).Where(x => x.Configuration.Template.Type == _componentType);
         }
     }
 }
