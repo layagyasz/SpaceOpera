@@ -2,12 +2,13 @@
 using Cardamom.Ui.Controller;
 using Cardamom.Ui.Elements;
 using SpaceOpera.View.Components;
+using SpaceOpera.View.Components.Dynamics;
 using SpaceOpera.View.Components.NumericInputs;
 using SpaceOpera.View.Info;
 
 namespace SpaceOpera.View.Forms
 {
-    public class Form : UiCompoundComponent
+    public class Form : DynamicUiCompoundComponent
     {
         public class Style
         {
@@ -17,6 +18,7 @@ namespace SpaceOpera.View.Forms
             public string? Paragraph { get; set; }
             public string? Header3 { get; set; }
             public InfoPanel.Style Info { get; set; }
+            public ChipSetStyles.ChipSetStyle? ChipSet { get; set; }
             public Select.Style? DropDown { get; set; }
             public DialSelect.Style? Dial { get; set; }
             public Radio.Style? Radio { get; set; }

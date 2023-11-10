@@ -42,5 +42,37 @@
       "Padding": [ 8 ],
       "FontSize": 14
     }
+  },
+  {
+    "$id": "stellar-body-pane-overview-chip-set",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 219, "DynamicContents" ]
+    }
+  },
+  {
+    "$id": "stellar-body-pane-overview-chip",
+    "Parent": "ui-element-basic",
+    "Default": {
+      "Size": [ "DynamicContents", 28 ],
+      "Padding": [ 14, 0, 14, 0 ]
+    }
+  },
+  {
+    "$id": "stellar-body-pane-overview-chip-icon",
+    "Parent": "ui-icon",
+    "Default": {
+      "Size": [ 24, 24 ],
+      "Margin": [ 2 ]
+    }
+  },
+  {
+    "$id": "stellar-body-pane-overview-chip-text",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ "DynamicContents", 28 ],
+      "Padding": [ 0, 8, 0, 8 ],
+      "FontSize": 12
+    }
   }
 ]

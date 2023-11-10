@@ -81,6 +81,16 @@ namespace SpaceOpera.View.Components.Dynamics
             _comparer = new RowComparer(comparer);
         }
 
+        public static DynamicKeyedContainer<T> CreateChip(
+            Class @class, 
+            IElementController controller, 
+            IRange<T> range, 
+            IKeyedElementFactory<T> elementFactory, 
+            IComparer<T> comparer)
+        {
+            return new(new UiChipContainer(@class, controller), range, elementFactory, comparer);
+        }
+
         public static DynamicKeyedContainer<T> CreateSerial(
             Class @class,
             IElementController controller,
@@ -95,14 +105,6 @@ namespace SpaceOpera.View.Components.Dynamics
         public void Add(IUiElement element)
         {
             throw new NotSupportedException();
-        }
-
-        public void Add(T key)
-        {
-            var element = _elementFactory.Create(key);
-            element.Initialize();
-            _currentRows.Add(key, element);
-            _container.Add(element);
         }
 
         public void Clear(bool dispose)
@@ -204,6 +206,14 @@ namespace SpaceOpera.View.Components.Dynamics
             _container.Dispose();
             _container.ElementAdded -= HandleElementAdded;
             _container.ElementRemoved -= HandleElementRemoved;
+        }
+
+        private void Add(T key)
+        {
+            var element = _elementFactory.Create(key);
+            element.Initialize();
+            _currentRows.Add(key, element);
+            _container.Add(element);
         }
 
         private void HandleElementAdded(object? sender, ElementEventArgs e)

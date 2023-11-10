@@ -60,6 +60,11 @@ namespace SpaceOpera.Core.Economics
             return 0;
         }
 
+        public IEnumerable<IMaterial> GetResources()
+        {
+            return _resourceNodes.Keys;
+        }
+
         public int GetResourceNodes(IMaterial? resource)
         {
             if (resource == null)

@@ -2,6 +2,7 @@
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
 using SpaceOpera.Controller.Forms;
+using SpaceOpera.View.Components.Dynamics;
 using SpaceOpera.View.Icons;
 
 namespace SpaceOpera.View.Forms
@@ -35,6 +36,11 @@ namespace SpaceOpera.View.Forms
             public SelectorFieldLayout.Builder AddSelector(SelectorFieldLayout.SelectorType selectorType)
             {
                 return AddField(new SelectorFieldLayout.Builder(this).SetSelectorType(selectorType));
+            }
+
+            public ChipSetLayout<T>.Builder AddChipSet<T>() where T : notnull
+            {
+                return AddField(new ChipSetLayout<T>.Builder(this));
             }
 
             public SelectorFieldLayout.Builder AddDropDown()
@@ -164,7 +170,7 @@ namespace SpaceOpera.View.Forms
         public IUiElement Create(Form.Style style, UiElementFactory uiElementFactory, IconFactory iconFactory)
         {
             var container =
-                new UiSerialContainer(
+                new DynamicUiSerialContainer(
                     uiElementFactory.GetClass(_overrideClass ?? style.Container!), 
                     new TableController(10f),
                     _orientation);

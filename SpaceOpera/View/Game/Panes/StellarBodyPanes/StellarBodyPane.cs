@@ -98,6 +98,7 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyPanes
                     SetBody(OverviewTab);
                     break;
             }
+            Refresh();
         }
     }
 }
