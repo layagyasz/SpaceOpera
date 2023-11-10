@@ -134,7 +134,7 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
                                 uiElementFactory.GetClass(s_FormationHeaderSpace), new InlayController())
                         },
                         s_FormationHeaderActions),
-                    new DynamicKeyedTable<IFormationDriver>(
+                    DynamicKeyedContainer<IFormationDriver>.CreateSerial(
                         uiElementFactory.GetClass(s_FormationTable),
                         new TableController(10f),
                         UiSerialContainer.Orientation.Vertical,

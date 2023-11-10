@@ -118,7 +118,7 @@ namespace SpaceOpera.View.Game.Panes.DesignPanes
                                 uiElementFactory.GetClass(s_DesignHeaderSpace), new InlayController())
                         },
                         s_DesignHeaderActions),
-                    new DynamicKeyedTable<Design>(
+                    DynamicKeyedContainer<Design>.CreateSerial(
                         uiElementFactory.GetClass(s_DesignTable),
                         new TableController(10f),
                         UiSerialContainer.Orientation.Vertical,

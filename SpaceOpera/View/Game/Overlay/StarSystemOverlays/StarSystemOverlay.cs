@@ -63,7 +63,7 @@ namespace SpaceOpera.View.Game.Overlay.StarSystemOverlays
                             uiElementFactory.GetClass(s_TableHeader), new ButtonController(), _range.GetHeading),
                         new DynamicUiCompoundComponent(
                             new ActionComponentController(),
-                            new DynamicKeyedTable<StellarBody>(
+                            DynamicKeyedContainer<StellarBody>.CreateSerial(
                                 uiElementFactory.GetClass(s_Table),
                                 new TableController(10f),
                                 UiSerialContainer.Orientation.Vertical,

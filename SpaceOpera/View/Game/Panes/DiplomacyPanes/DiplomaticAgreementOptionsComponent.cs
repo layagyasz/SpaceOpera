@@ -92,7 +92,7 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
             Options =
                 new DynamicUiCompoundComponent(
                     new DiplomaticAgreementOptionsComponentController(),
-                    new DynamicKeyedTable<OptionKey>(
+                    DynamicKeyedContainer<OptionKey>.CreateSerial(
                           uiElementFactory.GetClass(s_Table),
                           new TableController(10f),
                           UiSerialContainer.Orientation.Vertical,

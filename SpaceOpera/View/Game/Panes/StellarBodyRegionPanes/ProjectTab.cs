@@ -62,7 +62,7 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyRegionPanes
             Projects =
                 new DynamicUiCompoundComponent(
                     new ActionComponentController(),
-                    new DynamicKeyedTable<IProject>(
+                    DynamicKeyedContainer<IProject>.CreateSerial(
                         uiElementFactory.GetClass(s_ProjectTable),
                         new TableController(10f),
                         UiSerialContainer.Orientation.Vertical,

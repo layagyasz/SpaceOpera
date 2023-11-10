@@ -38,7 +38,7 @@ namespace SpaceOpera.View.Components
             Table = 
                 new DynamicUiCompoundComponent(
                     new ActionComponentController(), 
-                    new DynamicKeyedTable<T>(
+                    DynamicKeyedContainer<T>.CreateSerial(
                         uiElementFactory.GetClass(style.Table!),
                         new NoOpElementController(),
                         UiSerialContainer.Orientation.Vertical,

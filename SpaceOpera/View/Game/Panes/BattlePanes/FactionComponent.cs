@@ -77,7 +77,7 @@ namespace SpaceOpera.View.Game.Panes.BattlePanes
             Add(header);
 
             var units =
-                new DynamicKeyedTable<Unit>(
+                DynamicKeyedContainer<Unit>.CreateSerial(
                     uiElementFactory.GetClass(s_UnitTable),
                     new NoOpElementController(),
                     Orientation.Vertical,

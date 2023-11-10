@@ -63,7 +63,7 @@ namespace SpaceOpera.View.Game.Panes.FormationPanes
             CompositionTable =
                 new DynamicUiCompoundComponent(
                     new ActionComponentController(),
-                    new DynamicKeyedTable<UnitGrouping>(
+                    DynamicKeyedContainer<UnitGrouping>.CreateSerial(
                         uiElementFactory.GetClass(s_UnitGroupingTable),
                         new NoOpElementController(),
                         UiSerialContainer.Orientation.Vertical,

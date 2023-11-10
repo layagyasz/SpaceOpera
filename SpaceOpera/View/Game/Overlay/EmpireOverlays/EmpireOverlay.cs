@@ -49,7 +49,7 @@ namespace SpaceOpera.View.Game.Overlay.EmpireOverlays
                             uiElementFactory.GetClass(s_TableHeader), new ButtonController(), "Holdings"),
                         new DynamicUiCompoundComponent(
                             new ActionComponentController(),
-                            new DynamicKeyedTable<StellarBodyHolding>(
+                            DynamicKeyedContainer<StellarBodyHolding>.CreateSerial(
                                 uiElementFactory.GetClass(s_Table), 
                                 new TableController(10f),
                                 UiSerialContainer.Orientation.Vertical,
@@ -73,7 +73,7 @@ namespace SpaceOpera.View.Game.Overlay.EmpireOverlays
                             uiElementFactory.GetClass(s_TableHeader), new ButtonController(), "Fleets"),
                         new DynamicUiCompoundComponent(
                             new ActionComponentController(),
-                            new DynamicKeyedTable<AtomicFormationDriver>(
+                            DynamicKeyedContainer<AtomicFormationDriver>.CreateSerial(
                                 uiElementFactory.GetClass(s_Table),
                                 new TableController(10f),
                                 UiSerialContainer.Orientation.Vertical,
@@ -97,7 +97,7 @@ namespace SpaceOpera.View.Game.Overlay.EmpireOverlays
                             uiElementFactory.GetClass(s_TableHeader), new ButtonController(), "Armies"),
                         new DynamicUiCompoundComponent(
                             new ActionComponentController(),
-                            new DynamicKeyedTable<ArmyDriver>(
+                            DynamicKeyedContainer<ArmyDriver>.CreateSerial(
                                 uiElementFactory.GetClass(s_Table),
                                 new TableController(10f),
                                 UiSerialContainer.Orientation.Vertical,

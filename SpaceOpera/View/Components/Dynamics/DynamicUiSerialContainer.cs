@@ -13,7 +13,7 @@ namespace SpaceOpera.View.Components.Dynamics
 
         public virtual void Refresh()
         {
-            foreach (var element in _elements)
+            foreach (var element in this)
             {
                 if (element is IDynamic dynamic)
                 {

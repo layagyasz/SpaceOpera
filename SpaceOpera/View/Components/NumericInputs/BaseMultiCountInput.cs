@@ -13,7 +13,7 @@ namespace SpaceOpera.View.Components.NumericInputs
 
         protected readonly MultiCountInputStyles.MultiCountInputStyle _style;
 
-        private readonly DynamicKeyedTable<T> _table;
+        private readonly DynamicKeyedContainer<T> _table;
 
         public BaseMultiCountInput(
             IController controller,
@@ -32,7 +32,7 @@ namespace SpaceOpera.View.Components.NumericInputs
             _style = style;
 
             _table =
-                new DynamicKeyedTable<T>(
+                DynamicKeyedContainer<T>.CreateSerial(
                         uiElementFactory.GetClass(style.Table!),
                         new TableController(10f),
                         UiSerialContainer.Orientation.Vertical,

@@ -117,7 +117,7 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
             Relations =
                 new DynamicUiCompoundComponent(
                     new ActionComponentController(),
-                    new DynamicKeyedTable<DiplomaticRelation>(
+                    DynamicKeyedContainer<DiplomaticRelation>.CreateSerial(
                         uiElementFactory.GetClass(s_RelationTable),
                         new TableController(10f),
                         UiSerialContainer.Orientation.Vertical,

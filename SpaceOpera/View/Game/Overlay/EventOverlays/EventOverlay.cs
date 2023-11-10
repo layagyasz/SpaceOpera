@@ -50,7 +50,7 @@ namespace SpaceOpera.View.Game.Overlay.EventOverlays
             Add(
                 new DynamicUiCompoundComponent(
                     new ActionComponentController(),
-                    new DynamicKeyedTable<IEvent>(
+                    DynamicKeyedContainer<IEvent>.CreateSerial(
                         uiElementFactory.GetClass(s_List),
                         new NoOpElementController(),
                         UiSerialContainer.Orientation.Horizontal,

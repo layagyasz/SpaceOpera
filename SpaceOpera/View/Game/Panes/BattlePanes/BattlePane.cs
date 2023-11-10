@@ -74,7 +74,7 @@ namespace SpaceOpera.View.Game.Panes.BattlePanes
         {
             var componentFactory = new FactionComponentFactory(uiElementFactory, iconFactory, _report);
             var offenseTable =
-                new DynamicKeyedTable<Faction>(
+                DynamicKeyedContainer<Faction>.CreateSerial(
                     uiElementFactory.GetClass(s_SideFactionTable),
                     new TableController(10f),
                     UiSerialContainer.Orientation.Vertical,
@@ -92,7 +92,7 @@ namespace SpaceOpera.View.Game.Panes.BattlePanes
                 };
 
             var defenseTable =
-                new DynamicKeyedTable<Faction>(
+                DynamicKeyedContainer<Faction>.CreateSerial(
                     uiElementFactory.GetClass(s_SideFactionTable),
                     new TableController(10f),
                     UiSerialContainer.Orientation.Vertical,

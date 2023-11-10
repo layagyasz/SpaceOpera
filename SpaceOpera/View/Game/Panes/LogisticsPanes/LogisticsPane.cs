@@ -100,8 +100,8 @@ namespace SpaceOpera.View.Game.Panes.LogisticsPanes
                             new SimpleUiElement(
                                 uiElementFactory.GetClass(s_RouteHeaderSpace), new InlayController())
                         },
-                        s_RouteHeaderActions), 
-                    new DynamicKeyedTable<PersistentRoute>(
+                        s_RouteHeaderActions),
+                    DynamicKeyedContainer<PersistentRoute>.CreateSerial(
                         uiElementFactory.GetClass(s_RouteTable),
                         new TableController(10f),
                         UiSerialContainer.Orientation.Vertical,
