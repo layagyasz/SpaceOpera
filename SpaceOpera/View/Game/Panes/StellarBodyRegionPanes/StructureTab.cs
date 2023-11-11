@@ -48,7 +48,7 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyRegionPanes
         private static readonly MultiCountInputStyles.MultiCountInputStyle s_RecipeTableStyle = 
             s_StructureTableStyle;
 
-        class StructureTableConfiguration : AutoMultiCountInput<Structure>.IRowConfiguration, IRange<Structure>
+        class StructureTableConfiguration : AutoMultiCountInput<Structure>.IRowConfiguration
         {
             private World? _world;
             private StellarBodyRegionHolding? _holding;
@@ -85,7 +85,7 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyRegionPanes
             }
         }
 
-        class RecipeTableConfiguration : AutoMultiCountInput<Recipe>.IRowConfiguration, IRange<Recipe>
+        class RecipeTableConfiguration : AutoMultiCountInput<Recipe>.IRowConfiguration
         {
             private World? _world;
             private StellarBodyRegionHolding? _holding;
@@ -165,7 +165,7 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyRegionPanes
             Structures =
                 new(
                     s_StructureTableStyle,
-                    _structureTableConfiguration,
+                    _structureTableConfiguration.GetRange,
                     _structureTableConfiguration.GetInputRange,
                     uiElementFactory,
                     _iconFactory,
@@ -189,7 +189,7 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyRegionPanes
             Recipes =
                 new(
                     s_RecipeTableStyle,
-                    _recipeTableConfiguration,
+                    _recipeTableConfiguration.GetRange,
                     _recipeTableConfiguration.GetInputRange,
                     uiElementFactory,
                     _iconFactory,

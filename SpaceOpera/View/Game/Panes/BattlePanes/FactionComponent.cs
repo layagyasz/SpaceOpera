@@ -17,23 +17,6 @@ namespace SpaceOpera.View.Game.Panes.BattlePanes
         private static readonly string s_HeaderText = "battle-pane-faction-header-text";
         private static readonly string s_UnitTable = "battle-pane-faction-unit-table";
 
-        class UnitRange : IRange<Unit>
-        {
-            private readonly Faction _faction;
-            private readonly ReportWrapper _report;
-
-            public UnitRange(Faction faction, ReportWrapper report)
-            {
-                _faction = faction;
-                _report = report;
-            }
-
-            public IEnumerable<Unit> GetRange()
-            {
-                return _report.Report?.Get(_faction).UnitReports.Select(x => x.Unit) ?? Enumerable.Empty<Unit>();
-            }
-        }
-
         class UnitComponentFactory : IKeyedElementFactory<Unit>
         {
             private readonly UiElementFactory _uiElementFactory;
@@ -81,7 +64,7 @@ namespace SpaceOpera.View.Game.Panes.BattlePanes
                     uiElementFactory.GetClass(s_UnitTable),
                     new NoOpElementController(),
                     Orientation.Vertical,
-                    new UnitRange(faction, report),
+                    () => report.Report?.Get(faction).UnitReports.Select(x => x.Unit) ?? Enumerable.Empty<Unit>(),
                     new UnitComponentFactory(uiElementFactory, iconFactory, faction, report),
                     Comparer<Unit>.Create((x, y) => x.Name.CompareTo(y.Name)));
             Add(units);

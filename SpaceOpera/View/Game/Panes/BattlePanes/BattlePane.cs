@@ -20,27 +20,6 @@ namespace SpaceOpera.View.Game.Panes.BattlePanes
         private static readonly string s_SideHeader = "battle-pane-side-header";
         private static readonly string s_SideFactionTable = "battle-pane-side-faction-table";
 
-        class FactionRange : IRange<Faction>
-        {
-            private readonly bool _isOffense;
-            private readonly ReportWrapper _report;
-
-            public FactionRange(bool isOffense, ReportWrapper report)
-            {
-                _isOffense = isOffense;
-                _report = report;
-            }
-
-            public IEnumerable<Faction> GetRange()
-            {
-                if (_report.Report == null)
-                {
-                    return Enumerable.Empty<Faction>();
-                }
-                return _isOffense ? _report.Report.GetOffense() : _report.Report.GetDefense();
-            }
-        }
-
         class FactionComponentFactory : IKeyedElementFactory<Faction>
         {
             private readonly UiElementFactory _uiElementFactory;
@@ -78,7 +57,7 @@ namespace SpaceOpera.View.Game.Panes.BattlePanes
                     uiElementFactory.GetClass(s_SideFactionTable),
                     new TableController(10f),
                     UiSerialContainer.Orientation.Vertical,
-                    new FactionRange(/* isOffense= */ true, _report),
+                    () => _report.Report?.GetOffense() ?? Enumerable.Empty<Faction>(),
                     componentFactory,
                     Comparer<Faction>.Create((x, y) => x.Name.CompareTo(y.Name)));
             var wrappedOffenseTable =
@@ -96,7 +75,7 @@ namespace SpaceOpera.View.Game.Panes.BattlePanes
                     uiElementFactory.GetClass(s_SideFactionTable),
                     new TableController(10f),
                     UiSerialContainer.Orientation.Vertical,
-                    new FactionRange(/* isOffense= */ false, _report),
+                    () => _report.Report?.GetDefense() ?? Enumerable.Empty<Faction>(),
                     componentFactory,
                     Comparer<Faction>.Create((x, y) => x.Name.CompareTo(y.Name)));
             var wrappedDefenseTable =

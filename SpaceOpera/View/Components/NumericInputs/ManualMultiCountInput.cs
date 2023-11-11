@@ -57,7 +57,7 @@ namespace SpaceOpera.View.Components.NumericInputs
                   new ManualMultiCountInputController<T>(),
                   style,
                   uiElementFactory,
-                  range,
+                  range.GetRange,
                   elementFactory,
                   comparer)
         {

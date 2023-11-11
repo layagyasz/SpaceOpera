@@ -67,7 +67,7 @@ namespace SpaceOpera.View.Game.Panes.FormationPanes
                         uiElementFactory.GetClass(s_UnitGroupingTable),
                         new NoOpElementController(),
                         UiSerialContainer.Orientation.Vertical,
-                        new FunctionRange<UnitGrouping>(() => Driver.AtomicFormation.Composition),
+                        () => Driver.AtomicFormation.Composition,
                         new SimpleKeyedElementFactory<UnitGrouping>(uiElementFactory, iconFactory, CreateRow),
                         Comparer<UnitGrouping>.Create((x, y) => x.Unit.Name.CompareTo(y.Unit.Name))));
             Add(CompositionTable);

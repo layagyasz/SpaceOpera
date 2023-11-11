@@ -39,7 +39,7 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
                 }
             };
 
-        class DiplomaticRelationRange : IRange<DiplomaticRelation>
+        class DiplomaticRelationRange
         {
             public World? World { get; set; }
             public Faction? Faction { get; set; }
@@ -121,7 +121,7 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
                         uiElementFactory.GetClass(s_RelationTable),
                         new TableController(10f),
                         UiSerialContainer.Orientation.Vertical,
-                        _range,
+                        _range.GetRange,
                         _elementFactory,
                         Comparer<DiplomaticRelation>.Create((x, y) => x.Faction.Name.CompareTo(y.Faction.Name))));
 

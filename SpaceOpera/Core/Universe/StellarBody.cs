@@ -50,7 +50,7 @@ namespace SpaceOpera.Core.Universe
             return Regions.Any(x => x.Sovereign == faction);
         }
 
-        public float GetGeosynchronousOrbitAltitude()
+        public float GetGeosynchronousOrbitAltitudeKm()
         {
             // 24hrs.  Use random day length instead.
             return .001f 
@@ -58,9 +58,9 @@ namespace SpaceOpera.Core.Universe
                     - RadiusKm;
         }
 
-        public float GetHighOrbitAltitude()
+        public float GetHighOrbitAltitudeKm()
         {
-            return 4 * GetGeosynchronousOrbitAltitude();
+            return 4 * GetGeosynchronousOrbitAltitudeKm();
         }
 
         public int GetSize()

@@ -43,7 +43,7 @@ namespace SpaceOpera.View.Components.NumericInputs
 
         public AutoMultiCountInput(
             MultiCountInputStyles.MultiCountInputStyle style,
-            IRange<T> range,
+            KeyRange<T> range,
             Func<IntInterval> rangeFn,
             UiElementFactory uiElementFactory,
             IconFactory iconFactory,

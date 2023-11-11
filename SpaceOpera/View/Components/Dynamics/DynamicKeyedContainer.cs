@@ -65,13 +65,13 @@ namespace SpaceOpera.View.Components.Dynamics
 
         private readonly IUiContainer _container;
         private readonly Dictionary<T, IKeyedUiElement<T>> _currentRows = new();
-        protected readonly IRange<T> _range;
+        protected readonly KeyRange<T> _range;
         private readonly IKeyedElementFactory<T> _elementFactory;
         private readonly IComparer<IUiElement> _comparer;
 
         private DynamicKeyedContainer(
             IUiContainer container,
-            IRange<T> range,
+            KeyRange<T> range,
             IKeyedElementFactory<T> elementFactory,
             IComparer<T> comparer)
         {
@@ -83,8 +83,8 @@ namespace SpaceOpera.View.Components.Dynamics
 
         public static DynamicKeyedContainer<T> CreateChip(
             Class @class, 
-            IElementController controller, 
-            IRange<T> range, 
+            IElementController controller,
+            KeyRange<T> range, 
             IKeyedElementFactory<T> elementFactory, 
             IComparer<T> comparer)
         {
@@ -95,7 +95,7 @@ namespace SpaceOpera.View.Components.Dynamics
             Class @class,
             IElementController controller,
             UiSerialContainer.Orientation orientation,
-            IRange<T> range,
+            KeyRange<T> range,
             IKeyedElementFactory<T> elementFactory, 
             IComparer<T> comparer)
         {
@@ -141,7 +141,7 @@ namespace SpaceOpera.View.Components.Dynamics
 
         public void Refresh()
         {
-            var elements = _range.GetRange().ToHashSet();
+            var elements = _range().ToHashSet();
             foreach (var element in elements)
             {
                 if (!_currentRows.ContainsKey(element))

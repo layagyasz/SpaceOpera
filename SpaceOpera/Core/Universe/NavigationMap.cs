@@ -313,11 +313,11 @@ namespace SpaceOpera.Core.Universe
             {
                 if (left.StellarBody != null)
                 {
-                    distance += Constants.AstralUnit * left.StellarBody.GetGeosynchronousOrbitAltitude();
+                    distance += Constants.AstralUnit * left.StellarBody.GetGeosynchronousOrbitAltitudeKm();
                 }
                 if (right.StellarBody != null)
                 {
-                    distance += Constants.AstralUnit *  right.StellarBody.GetGeosynchronousOrbitAltitude();
+                    distance += Constants.AstralUnit *  right.StellarBody.GetGeosynchronousOrbitAltitudeKm();
                 }
             }
             if (left.StarSystem != right.StarSystem)
@@ -338,8 +338,8 @@ namespace SpaceOpera.Core.Universe
             for (int i=0; i<starSystem.OrbitalRegions.Count;++i)
             {
                 var geosynchronousOrbitAltitude = 
-                    Constants.AstralUnit * starSystem.Orbiters[i].GetGeosynchronousOrbitAltitude();
-                var highOrbitAltitude = Constants.AstralUnit * starSystem.Orbiters[i].GetHighOrbitAltitude();
+                    Constants.AstralUnit * starSystem.Orbiters[i].GetGeosynchronousOrbitAltitudeKm();
+                var highOrbitAltitude = Constants.AstralUnit * starSystem.Orbiters[i].GetHighOrbitAltitudeKm();
                 var averageDistance = starSystem.OrbitalRegions[i].LocalOrbit.StellarBody.Orbit.GetAverageDistance();
                 var circumference = starSystem.OrbitalRegions[i].LocalOrbit.StellarBody.Orbit.GetCircumference();
 

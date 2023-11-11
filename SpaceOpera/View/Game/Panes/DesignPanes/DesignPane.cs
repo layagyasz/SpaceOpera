@@ -70,7 +70,7 @@ namespace SpaceOpera.View.Game.Panes.DesignPanes
                 MaterialText = "design-pane-info-material-text"
             };
 
-        class DesignRange : IRange<Design>
+        class DesignRange
         {
             public World? World { get; set; }
             public Faction? Faction { get; set; }
@@ -122,7 +122,7 @@ namespace SpaceOpera.View.Game.Panes.DesignPanes
                         uiElementFactory.GetClass(s_DesignTable),
                         new TableController(10f),
                         UiSerialContainer.Orientation.Vertical,
-                        _range,
+                        _range.GetRange,
                         new SimpleKeyedElementFactory<Design>(uiElementFactory, iconFactory, CreateRow),
                         Comparer<Design>.Create((x, y) => x.Name.CompareTo(y.Name))));
 

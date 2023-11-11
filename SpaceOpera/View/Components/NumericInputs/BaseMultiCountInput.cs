@@ -19,7 +19,7 @@ namespace SpaceOpera.View.Components.NumericInputs
             IController controller,
             MultiCountInputStyles.MultiCountInputStyle style,
             UiElementFactory uiElementFactory,
-            IRange<T> range,
+            KeyRange<T> range,
             IKeyedElementFactory<T> elementFactory,
             IComparer<T> comparer)
             : base(

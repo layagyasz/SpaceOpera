@@ -37,7 +37,7 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyRegionPanes
                 }
             };
 
-        class ProjectRange : IRange<IProject>
+        class ProjectRange
         {
             public ProjectHub? ProjectHub { get; set; }
 
@@ -66,7 +66,7 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyRegionPanes
                         uiElementFactory.GetClass(s_ProjectTable),
                         new TableController(10f),
                         UiSerialContainer.Orientation.Vertical,
-                        _range,
+                        _range.GetRange,
                         new SimpleKeyedElementFactory<IProject>(uiElementFactory, iconFactory, CreateRow),
                         Comparer<IProject>.Create(
                             (x, y) => y.Progress.PercentFull().CompareTo(x.Progress.PercentFull()))));

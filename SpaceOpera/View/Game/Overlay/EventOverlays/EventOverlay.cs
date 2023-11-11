@@ -22,7 +22,7 @@ namespace SpaceOpera.View.Game.Overlay.EventOverlays
                 Container = "event-overlay-event-container"
             };
 
-        class EventRange : IRange<IEvent>
+        class EventRange
         {
             public World? World { get; set; }
             public Faction? Faction { get; set; }
@@ -54,7 +54,7 @@ namespace SpaceOpera.View.Game.Overlay.EventOverlays
                         uiElementFactory.GetClass(s_List),
                         new NoOpElementController(),
                         UiSerialContainer.Orientation.Horizontal,
-                        _range,
+                        _range.GetRange,
                         new SimpleKeyedElementFactory<IEvent>(uiElementFactory, iconFactory, CreateCell),
                         Comparer<IEvent>.Create((x, y) => 0))));
             Position = new(0, 68, 0);

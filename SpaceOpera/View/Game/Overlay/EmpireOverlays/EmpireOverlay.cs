@@ -53,7 +53,7 @@ namespace SpaceOpera.View.Game.Overlay.EmpireOverlays
                                 uiElementFactory.GetClass(s_Table), 
                                 new TableController(10f),
                                 UiSerialContainer.Orientation.Vertical,
-                                new FunctionRange<StellarBodyHolding>(GetHoldingRange), 
+                                GetHoldingRange, 
                                 new SimpleKeyedElementFactory<StellarBodyHolding>(
                                     uiElementFactory, iconFactory, CreateHoldingRow), 
                                 Comparer<StellarBodyHolding>.Create(
@@ -77,7 +77,7 @@ namespace SpaceOpera.View.Game.Overlay.EmpireOverlays
                                 uiElementFactory.GetClass(s_Table),
                                 new TableController(10f),
                                 UiSerialContainer.Orientation.Vertical,
-                                new FunctionRange<AtomicFormationDriver>(GetFleetRange),
+                                GetFleetRange,
                                 new SimpleKeyedElementFactory<AtomicFormationDriver>(
                                     uiElementFactory, iconFactory, CreateFleetRow),
                                 Comparer<AtomicFormationDriver>.Create(
@@ -101,7 +101,7 @@ namespace SpaceOpera.View.Game.Overlay.EmpireOverlays
                                 uiElementFactory.GetClass(s_Table),
                                 new TableController(10f),
                                 UiSerialContainer.Orientation.Vertical,
-                                new FunctionRange<ArmyDriver>(GetArmyRange),
+                                GetArmyRange,
                                 new SimpleKeyedElementFactory<ArmyDriver>(
                                     uiElementFactory, iconFactory, CreateArmyRow),
                                 Comparer<ArmyDriver>.Create((x, y) => x.Army.Name.CompareTo(y.Army.Name))))

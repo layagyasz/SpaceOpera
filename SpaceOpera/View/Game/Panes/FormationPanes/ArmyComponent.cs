@@ -53,7 +53,7 @@ namespace SpaceOpera.View.Game.Panes.FormationPanes
                         uiElementFactory.GetClass(s_DivisionTable),
                         new NoOpElementController(),
                         UiSerialContainer.Orientation.Vertical,
-                        new FunctionRange<Division>(() => Driver.Army.Divisions),
+                        () => Driver.Army.Divisions,
                         new SimpleKeyedElementFactory<Division>(uiElementFactory, iconFactory, CreateRow),
                         Comparer<Division>.Create((x, y) => x.Name.CompareTo(y.Name))));
             Add(CompositionTable);

@@ -25,7 +25,7 @@ namespace SpaceOpera.View.Game.Overlay.StarSystemOverlays
         private static readonly string s_Icon = "star-system-overlay-row-icon";
         private static readonly string s_Text = "star-system-overlay-row-text";
 
-        class StellarBodyRange : IRange<StellarBody>
+        class StellarBodyRange
         {
             public StarSystem? StarSystem { get; set; }
 
@@ -67,7 +67,7 @@ namespace SpaceOpera.View.Game.Overlay.StarSystemOverlays
                                 uiElementFactory.GetClass(s_Table),
                                 new TableController(10f),
                                 UiSerialContainer.Orientation.Vertical,
-                                _range,
+                                _range.GetRange,
                                 new SimpleKeyedElementFactory<StellarBody>(uiElementFactory, iconFactory, CreateRow),
                                 Comparer<StellarBody>.Create(
                                     (x, y) => x.Name.CompareTo(y.Name))))

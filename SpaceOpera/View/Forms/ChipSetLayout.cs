@@ -14,7 +14,7 @@ namespace SpaceOpera.View.Forms
 
             private string _name = string.Empty;
             private NameMapper<T>? _nameMapper;
-            private IRange<T>? _range;
+            private KeyRange<T>? _range;
 
             internal Builder(FormLayout.Builder root)
             {
@@ -33,7 +33,7 @@ namespace SpaceOpera.View.Forms
                 return this;
             }
 
-            public Builder SetRange(IRange<T> range)
+            public Builder SetRange(KeyRange<T> range)
             {
                 _range = range;
                 return this;
@@ -54,9 +54,9 @@ namespace SpaceOpera.View.Forms
         public string Name { get; }
 
         private readonly NameMapper<T> _nameMapper;
-        private readonly IRange<T> _range;
+        private readonly KeyRange<T> _range;
 
-        private ChipSetLayout(string name, NameMapper<T> nameMapper, IRange<T> range)
+        private ChipSetLayout(string name, NameMapper<T> nameMapper, KeyRange<T> range)
         {
             Name = name;
             _nameMapper = nameMapper;

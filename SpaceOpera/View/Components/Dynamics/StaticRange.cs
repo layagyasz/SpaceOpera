@@ -1,6 +1,6 @@
 ﻿namespace SpaceOpera.View.Components.Dynamics
 {
-    public class StaticRange<T> : IRange<T>
+    public class StaticRange<T>
     {
         private readonly List<T> _values = new();
 

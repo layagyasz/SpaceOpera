@@ -96,7 +96,7 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
                           uiElementFactory.GetClass(s_Table),
                           new TableController(10f),
                           UiSerialContainer.Orientation.Vertical,
-                          _range,
+                          _range.GetRange,
                           new OptionKeyElementFactory(isLeft, uiElementFactory),
                           Comparer<OptionKey>.Create((x, y) => 0)));
             Add(Options);

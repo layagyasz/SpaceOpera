@@ -42,7 +42,7 @@ namespace SpaceOpera.View.Components
                         uiElementFactory.GetClass(style.Table!),
                         new NoOpElementController(),
                         UiSerialContainer.Orientation.Vertical,
-                        _range, 
+                        _range.GetRange, 
                         elementFactory, 
                         comparer));
             Add(Table);

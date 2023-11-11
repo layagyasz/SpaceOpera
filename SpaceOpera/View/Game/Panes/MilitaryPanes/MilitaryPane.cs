@@ -46,7 +46,7 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
             Fleet
         }
 
-        class FormationRange : IRange<IFormationDriver>
+        class FormationRange
         {
             public World? World { get; set; }
             public Faction? Faction { get; set; }
@@ -138,7 +138,7 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
                         uiElementFactory.GetClass(s_FormationTable),
                         new TableController(10f),
                         UiSerialContainer.Orientation.Vertical,
-                        _range,
+                        _range.GetRange,
                         new FormationComponentFactory(uiElementFactory, iconFactory),
                         Comparer<IFormationDriver>.Create((x, y) => x.Formation.Name.CompareTo(y.Formation.Name))));
 

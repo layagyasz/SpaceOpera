@@ -53,7 +53,7 @@ namespace SpaceOpera.View.Game.Panes.LogisticsPanes
             Persistent
         }
 
-        class LogisticsRouteRange : IRange<PersistentRoute>
+        class LogisticsRouteRange
         {
             public World? World { get; set; }
             public Faction? Faction { get; set; }
@@ -105,7 +105,7 @@ namespace SpaceOpera.View.Game.Panes.LogisticsPanes
                         uiElementFactory.GetClass(s_RouteTable),
                         new TableController(10f),
                         UiSerialContainer.Orientation.Vertical,
-                        _range,
+                        _range.GetRange,
                         new SimpleKeyedElementFactory<PersistentRoute>(uiElementFactory, iconFactory, CreateRow),
                         FluentComparator<PersistentRoute>
                             .Comparing(x => x.LeftAnchor.Parent.Name)
