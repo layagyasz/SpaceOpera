@@ -6,10 +6,10 @@ namespace SpaceOpera.Core.Orders
 {
     public class MobilizeDivisionOrder : IOrder
     {
-        public StellarBodyRegionHolding Holding { get; }
+        public EconomicSubzoneHolding Holding { get; }
         public Division Division { get; }
 
-        public MobilizeDivisionOrder(StellarBodyRegionHolding holding, Division division)
+        public MobilizeDivisionOrder(EconomicSubzoneHolding holding, Division division)
         {
             Holding = holding;
             Division = division;

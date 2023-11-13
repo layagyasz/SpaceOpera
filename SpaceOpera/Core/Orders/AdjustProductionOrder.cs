@@ -5,12 +5,12 @@ namespace SpaceOpera.Core.Orders
 {
     class AdjustProductionOrder : IOrder
     {
-        public StellarBodyRegionHolding Holding { get; }
+        public EconomicSubzoneHolding Holding { get; }
         public Structure Structure { get; }
         public MultiCount<Recipe> Production { get; }
 
         public AdjustProductionOrder(
-            StellarBodyRegionHolding holding, Structure structure, MultiCount<Recipe> production)
+            EconomicSubzoneHolding holding, Structure structure, MultiCount<Recipe> production)
         {
             Holding = holding;
             Structure = structure;

@@ -6,9 +6,9 @@ namespace SpaceOpera.Core.Military.Ai.Actions
     {
         public ActionType Type => ActionType.Unload;
 
-        public EconomicZone EconomicZone { get; }
+        public EconomicZoneHolding EconomicZone { get; }
 
-        public UnloadAction(EconomicZone economicZone)
+        public UnloadAction(EconomicZoneHolding economicZone)
         {
             EconomicZone = economicZone;
         }

@@ -7,11 +7,11 @@ namespace SpaceOpera.Core.Economics.Projects
         public override object Key => Construction.Key;
         public override string Name => $"Build {Construction.Value} x {Construction.Key.Name}";
         public override Pool Progress { get; }
-        public StellarBodyRegionHolding Holding { get; }
+        public EconomicSubzoneHolding Holding { get; }
         public Count<Structure> Construction { get; }
         public MultiQuantity<IMaterial> Cost { get; }
 
-        public BuildProject(StellarBodyRegionHolding holding, Count<Structure> construction)
+        public BuildProject(EconomicSubzoneHolding holding, Count<Structure> construction)
         {
             Holding = holding;
             Construction = construction;

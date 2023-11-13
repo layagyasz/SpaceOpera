@@ -12,7 +12,7 @@ namespace SpaceOpera.Core.Economics.Generator
         {
             int factions = world.GetFactions().Count();
             Resources!.Generate(world, context);
-            var holdings = new MultiMap<Faction, StellarBodyRegionHolding>();
+            var holdings = new MultiMap<Faction, EconomicSubzoneHolding>();
             context.LoaderStatus!.AddWork(WorldGenerator.Step.Economy, factions);
             context.LoaderStatus!.SetStatus(WorldGenerator.Step.Economy, "Initializing Economy");
             foreach (var region in world.Galaxy.Systems.SelectMany(x => x.Orbiters).SelectMany(x => x.Regions))
@@ -33,7 +33,7 @@ namespace SpaceOpera.Core.Economics.Generator
         }
 
         private static void Generate(
-            World world, IEnumerable<StellarBodyRegionHolding> holdings, GeneratorContext context)
+            World world, IEnumerable<EconomicSubzoneHolding> holdings, GeneratorContext context)
         {
             var totalSinks = new MultiQuantity<IMaterial>();
             foreach (var holding in holdings)
@@ -71,7 +71,7 @@ namespace SpaceOpera.Core.Economics.Generator
         }
 
         private static float PopulateRecipe(
-            Recipe recipe, float recipeAmount, IEnumerable<StellarBodyRegionHolding> holdings)
+            Recipe recipe, float recipeAmount, IEnumerable<EconomicSubzoneHolding> holdings)
         {
             int neededStructures = (int)Math.Ceiling(recipeAmount / recipe.Structure!.MaxWorkers);
             float distributed = 0;

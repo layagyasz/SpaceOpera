@@ -7,17 +7,17 @@ namespace SpaceOpera.Core.Economics
     public class PersistentRoute
     {
         public Faction Faction { get; set; }
-        public EconomicSubzone LeftAnchor { get; }
+        public EconomicSubzoneHolding LeftAnchor { get; }
         public MultiQuantity<IMaterial> LeftMaterials { get; }
-        public EconomicSubzone RightAnchor { get; set; }
+        public EconomicSubzoneHolding RightAnchor { get; set; }
         public MultiQuantity<IMaterial> RightMaterials { get; }
         public List<Fleet> AssignedFleets { get; set; }
 
         public PersistentRoute(
             Faction faction,
-            EconomicSubzone leftAnchor, 
+            EconomicSubzoneHolding leftAnchor, 
             MultiQuantity<IMaterial> leftMaterials,
-            EconomicSubzone rightAnchor, 
+            EconomicSubzoneHolding rightAnchor, 
             MultiQuantity<IMaterial> rightMaterials,
             List<Fleet> assignedFleets)
         {

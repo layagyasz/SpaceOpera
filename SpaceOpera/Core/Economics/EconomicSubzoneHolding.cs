@@ -1,21 +1,25 @@
 ﻿using Cardamom.Trackers;
 using SpaceOpera.Core.Economics.Projects;
+using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Universe;
 
 namespace SpaceOpera.Core.Economics
 {
-    public class EconomicSubzone : ProjectHub
+    public class EconomicSubzoneHolding : ProjectHub
     {
-        public EconomicZone Parent { get; set; }
+        public Faction Owner => Parent.Parent.Owner;
+        public EconomicZoneHolding Parent { get; set; }
+        public StellarBodyRegion Region { get; }
 
         private readonly IntPool _structureNodes = new(0);
         private readonly MultiCount<Structure> _structures = new();
         private readonly Dictionary<IMaterial, IntPool> _resourceNodes = new();
         private readonly MultiCount<Recipe> _production = new();
 
-        public EconomicSubzone(EconomicZone parent)
+        public EconomicSubzoneHolding(EconomicZoneHolding parent, StellarBodyRegion region)
         {
             Parent = parent;
+            Region = region;
         }
 
         public void AddResourceNodes(Count<ResourceNode> nodes)

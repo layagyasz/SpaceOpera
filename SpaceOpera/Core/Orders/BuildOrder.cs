@@ -6,10 +6,10 @@ namespace SpaceOpera.Core.Orders
 {
     class BuildOrder : IOrder
     {
-        public StellarBodyRegionHolding Holding { get; }
+        public EconomicSubzoneHolding Holding { get; }
         public MultiCount<Structure> Structures { get; }
 
-        public BuildOrder(StellarBodyRegionHolding holding, MultiCount<Structure> structures)
+        public BuildOrder(EconomicSubzoneHolding holding, MultiCount<Structure> structures)
         {
             Holding = holding;
             Structures = structures;

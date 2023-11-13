@@ -82,8 +82,8 @@ namespace SpaceOpera.Controller.Game.Panes.DiplomacyPanes
             promise.Finished -= HandleFormComplete;
 
             var stellarBody = (StellarBody)promise.Get()["stellarBody"]!;
-            var leftHolding = _world.Economy.GetHolding(_left, stellarBody)!;
-            var rightHolding = _world.Economy.GetHolding(_right, stellarBody)!;
+            var leftHolding = _world.Economy.GetHolding(_left).GetHolding(stellarBody)!;
+            var rightHolding = _world.Economy.GetHolding(_right).GetHolding(stellarBody)!;
             var materials =
                 ((MultiCount<object>)promise.Get()["materials"]!).ToMultiQuantity(x => (IMaterial)x.Key, x => x.Value);
             Added?.Invoke(this, new TradeAgreement(new(leftHolding, rightHolding, materials)));

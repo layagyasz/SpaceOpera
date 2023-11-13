@@ -14,8 +14,9 @@ namespace SpaceOpera.Core.Economics
         public FormationManager FormationManager { get; }
         public MaterialSink MaterialSink { get; }
 
-        private readonly Dictionary<Faction, EconomicRoot> _roots = new();
-        private readonly Dictionary<CompositeKey<Faction, StellarBody>, StellarBodyHolding> _holdings = new();
+        private readonly Dictionary<Faction, EconomicFactionHolding> _holdings = new();
+        private readonly Dictionary<StellarBody, EconomicZoneRoot> _roots = new();
+
         private readonly List<PersistentRoute> _routes = new();
         private readonly List<Trade> _trades = new();
 
@@ -29,7 +30,7 @@ namespace SpaceOpera.Core.Economics
 
         public void Add(Faction faction)
         {
-            _roots.Add(faction, new EconomicRoot(faction));
+            _holdings.Add(faction, new EconomicFactionHolding(faction));
         }
 
         public void AddPersistentRoute(PersistentRoute route)
@@ -48,49 +49,30 @@ namespace SpaceOpera.Core.Economics
             }
         }
 
-        public StellarBodyRegionHolding CreateSovereignHolding(Faction faction, StellarBodyRegion stellarBodyRegion)
+        public EconomicSubzoneHolding CreateSovereignHolding(Faction faction, StellarBodyRegion region)
         {
-            var holding = GetOrCreateHolding(faction, stellarBodyRegion.Parent!);
-            var regionHolding = new StellarBodyRegionHolding(holding, stellarBodyRegion);
-            holding.AddSubzone(stellarBodyRegion, regionHolding);
-            regionHolding.AddStructureNodes((int)stellarBodyRegion.StructureNodes);
-            foreach (var resource in stellarBodyRegion.Resources)
+            var holding = GetOrCreateHolding(faction, region);
+            holding.AddStructureNodes((int)region.StructureNodes);
+            foreach (var resource in region.Resources)
             {
-                regionHolding.AddResourceNodes(Count<ResourceNode>.Create(resource, resource.Size));
+                holding.AddResourceNodes(Count<ResourceNode>.Create(resource, resource.Size));
             }
-            return regionHolding;
-        }
-
-        public StellarBodyHolding? GetHolding(Faction faction, StellarBody stellarBody)
-        {
-            _holdings.TryGetValue(
-                CompositeKey<Faction, StellarBody>.Create(faction, stellarBody), out var holding);
             return holding;
         }
 
-        public StellarBodyRegionHolding? GetHolding(Faction faction, StellarBodyRegion stellarBodyRegion)
+        public EconomicZoneRoot? GetRoot(StellarBody stellarBody)
         {
-            var holding = GetHolding(faction, stellarBodyRegion.Parent!);
-            if (holding != null)
-            {
-                return (StellarBodyRegionHolding?)holding.GetSubzone(stellarBodyRegion);
-            }
-            return null;
+            return _roots.GetValueOrDefault(stellarBody);
         }
 
-        public IEnumerable<StellarBodyHolding> GetHoldingsFor(Faction faction)
+        public EconomicFactionHolding GetHolding(Faction faction)
         {
-            return _holdings.Where(x => x.Key.Key1 == faction).Select(x => x.Value).Cast<StellarBodyHolding>();
+            return _holdings[faction];
         }
 
         public IEnumerable<PersistentRoute> GetPersistentRoutesFor(Faction faction)
         {
             return _routes.Where(x => x.Faction == faction);
-        }
-
-        public IEnumerable<StellarBodyRegionHolding> GetSubzoneHoldings(Faction faction)
-        {
-            return GetHoldingsFor(faction).SelectMany(x => x.GetSubzones()).Cast<StellarBodyRegionHolding>();
         }
 
         public void RemovePersistentRoute(PersistentRoute route)
@@ -111,7 +93,7 @@ namespace SpaceOpera.Core.Economics
 
         public void Tick()
         {
-            foreach (var holding in _holdings.Values)
+            foreach (var holding in _roots.Values)
             {
                 holding.Tick();
             }
@@ -132,12 +114,12 @@ namespace SpaceOpera.Core.Economics
                 _trades.ForEach(x => x.Tick());
             }
 
-            foreach (var holding in _holdings.Values)
+            foreach (var holding in _roots.Values)
             {
                 holding.Consume(MaterialSink);
             }
             
-            foreach (var root in _roots.Values)
+            foreach (var root in _holdings.Values)
             {
                 var advancement = AdvancementManager.Get(root.Owner);
                 foreach (var research in AdvancementManager.Research)
@@ -147,15 +129,53 @@ namespace SpaceOpera.Core.Economics
             }
         }
 
-        private StellarBodyHolding GetOrCreateHolding(Faction faction, StellarBody stellarBody)
+        private EconomicZoneHolding GetOrCreateHolding(Faction faction, StellarBody stellarBody)
         {
-            var holding = GetHolding(faction, stellarBody);
+            var parentHolding = _holdings[faction];
+            var holding = parentHolding.GetHolding(stellarBody);
             if (holding == null)
             {
-                holding = new StellarBodyHolding(_roots[faction], stellarBody);
-                _holdings.Add(CompositeKey<Faction, StellarBody>.Create(faction, stellarBody), holding);
+                holding = new EconomicZoneHolding(parentHolding, stellarBody);
+                parentHolding.AddHolding(holding);
+                GetOrCreateRoot(stellarBody).AddHolding(holding);
             }
             return holding;
+        }
+
+        private EconomicSubzoneHolding GetOrCreateHolding(Faction faction, StellarBodyRegion region)
+        {
+            var parentHolding = GetOrCreateHolding(faction, region.Parent!);
+            var holding = parentHolding.GetHolding(region);
+            if (holding == null)
+            {
+                holding = new EconomicSubzoneHolding(parentHolding, region);
+                parentHolding.AddHolding(holding);
+                GetOrCreateRoot(region).AddHolding(holding);
+            }
+            return holding;
+        }
+
+        private EconomicZoneRoot GetOrCreateRoot(StellarBody stellarBody)
+        {
+            if (_roots.TryGetValue(stellarBody, out var root))
+            {
+                return root;
+            }
+            var newRoot = new EconomicZoneRoot(stellarBody);
+            _roots.Add(stellarBody, newRoot);
+            return newRoot;
+        }
+
+        private EconomicSubzoneRoot GetOrCreateRoot(StellarBodyRegion region)
+        {
+            var parentRoot = GetOrCreateRoot(region.Parent!);
+            var root = parentRoot.GetChild(region);
+            if (root == null)
+            {
+                root = new EconomicSubzoneRoot(region);
+                parentRoot.AddChild(root);
+            }
+            return root;
         }
     }
 }

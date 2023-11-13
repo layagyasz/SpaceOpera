@@ -27,7 +27,7 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyRegionPanes
         private World? _world;
         private Faction? _faction;
         private StellarBodyRegion? _region;
-        private StellarBodyRegionHolding? _holding;
+        private EconomicSubzoneHolding? _holding;
         private TabId _tab;
 
         public StructureTab StructureTab { get; }
@@ -59,7 +59,7 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyRegionPanes
             ProjectTab.Initialize();
         }
 
-        public StellarBodyRegionHolding GetHolding()
+        public EconomicSubzoneHolding GetHolding()
         {
             return _holding!;
         }
@@ -71,7 +71,7 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyRegionPanes
             _region = args[2] as StellarBodyRegion;
             if (_world != null && _faction != null && _region != null)
             {
-                _holding = _world.Economy.GetHolding(_faction, _region);
+                _holding = _world.Economy.GetRoot(_region.Parent!)?.GetChild(_region)?.GetHolding(_faction);
             }
             StructureTab.Populate(_world, _holding);
             ProjectTab.Populate(_holding);

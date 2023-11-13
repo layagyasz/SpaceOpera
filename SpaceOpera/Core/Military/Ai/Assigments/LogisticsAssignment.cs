@@ -94,8 +94,8 @@ namespace SpaceOpera.Core.Military.Ai.Assigments
         {
             return new List<INavigable>()
             {
-                ((StellarBodyRegionHolding)Route.LeftAnchor).Region.Center,
-                ((StellarBodyRegionHolding)Route.RightAnchor).Region.Center
+                Route.LeftAnchor.Region.Center,
+                Route.RightAnchor.Region.Center
             };
         }
 
@@ -104,7 +104,7 @@ namespace SpaceOpera.Core.Military.Ai.Assigments
             return _routine.Execute(context);
         }
 
-        private EconomicZone GetAnchor()
+        private EconomicZoneHolding GetAnchor()
         {
             return _leg == 0 ? Route.LeftAnchor.Parent : Route.RightAnchor.Parent;
         }
@@ -119,9 +119,9 @@ namespace SpaceOpera.Core.Military.Ai.Assigments
             return _leg == 0 ? Route.LeftMaterials : Route.RightMaterials;
         }
 
-        private static INavigable GetExchangePosition(EconomicSubzone anchor)
+        private static INavigable GetExchangePosition(EconomicSubzoneHolding anchor)
         {
-            var region = ((StellarBodyRegionHolding)anchor).Region;
+            var region = anchor.Region;
             return region.Parent!.OrbitRegions.FirstOrDefault(x => x.SubRegions.Contains(region.Center))!;
         }
     }

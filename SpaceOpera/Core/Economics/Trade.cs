@@ -4,7 +4,7 @@ using SpaceOpera.Core.Advanceable;
 namespace SpaceOpera.Core.Economics
 {
     public record class Trade(
-        EconomicZone FromZone, EconomicZone ToZone, MultiQuantity<IMaterial> Materials) : ITickable
+        EconomicZoneHolding FromZone, EconomicZoneHolding ToZone, MultiQuantity<IMaterial> Materials) : ITickable
     {
         public void Tick()
         {

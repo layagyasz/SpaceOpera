@@ -7,10 +7,10 @@ namespace SpaceOpera.Core.Military.Ai.Actions
     {
         public ActionType Type => ActionType.Load;
 
-        public EconomicZone EconomicZone { get; }
+        public EconomicZoneHolding EconomicZone { get; }
         public MultiQuantity<IMaterial> Materials { get; }
 
-        public LoadAction(EconomicZone economicZone, MultiQuantity<IMaterial> materials)
+        public LoadAction(EconomicZoneHolding economicZone, MultiQuantity<IMaterial> materials)
         {
             EconomicZone = economicZone;
             Materials = materials;

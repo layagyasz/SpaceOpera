@@ -6,10 +6,10 @@ namespace SpaceOpera.Core.Economics.Projects
     {
         public override object Key => Division;
         public override string Name => $"Mobilize {Division.Name}"; 
-        public StellarBodyRegionHolding Holding { get; }
+        public EconomicSubzoneHolding Holding { get; }
         public Division Division { get; }
 
-        public MobilizeDivisionProject(StellarBodyRegionHolding holding, Division division)
+        public MobilizeDivisionProject(EconomicSubzoneHolding holding, Division division)
             : base(10)
         {
             Holding = holding;
@@ -29,8 +29,9 @@ namespace SpaceOpera.Core.Economics.Projects
         public override void Finish()
         {
             Holding.RemoveProject(this);
-            ((StellarBodyHolding)Holding.Parent).RemoveDivision(Division);
-            Division.SetPosition(Holding.Region.Center);
+            // TODO: Reimplement division mobilization
+            // Holding.Parent.RemoveDivision(Division);
+            // Division.SetPosition(Holding.Region.Center);
         }
     }
 }

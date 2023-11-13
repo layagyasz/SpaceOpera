@@ -45,9 +45,9 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
                         UiSerialContainer.Orientation.Vertical));
             var optionClass = uiElementFactory.GetClass(s_Option);
             foreach (
-                var option in 
-                world.Economy.GetHoldingsFor(left).Select(x => x.StellarBody)
-                    .Intersect(world.Economy.GetHoldingsFor(right).Select(x => x.StellarBody)))
+                var option in
+                world.Economy.GetHolding(left).GetHoldings().Select(x => x.StellarBody)
+                    .Intersect(world.Economy.GetHolding(right).GetHoldings().Select(x => x.StellarBody)))
             {
                 optionsTable.Add(
                     new UiSimpleComponent(

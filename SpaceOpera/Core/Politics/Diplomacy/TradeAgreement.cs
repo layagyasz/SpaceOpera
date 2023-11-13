@@ -28,7 +28,7 @@ namespace SpaceOpera.Core.Politics.Diplomacy
 
         public bool Validate(World world)
         {
-            return ((StellarBodyHolding)Trade.FromZone).StellarBody == ((StellarBodyHolding)Trade.ToZone).StellarBody;
+            return Trade.FromZone.StellarBody == Trade.ToZone.StellarBody;
         }
     }
 }

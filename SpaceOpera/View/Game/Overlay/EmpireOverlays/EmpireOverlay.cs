@@ -49,14 +49,14 @@ namespace SpaceOpera.View.Game.Overlay.EmpireOverlays
                             uiElementFactory.GetClass(s_TableHeader), new ButtonController(), "Holdings"),
                         new DynamicUiCompoundComponent(
                             new ActionComponentController(),
-                            DynamicKeyedContainer<StellarBodyHolding>.CreateSerial(
+                            DynamicKeyedContainer<EconomicZoneHolding>.CreateSerial(
                                 uiElementFactory.GetClass(s_Table), 
                                 new TableController(10f),
                                 UiSerialContainer.Orientation.Vertical,
                                 GetHoldingRange, 
-                                new SimpleKeyedElementFactory<StellarBodyHolding>(
+                                new SimpleKeyedElementFactory<EconomicZoneHolding>(
                                     uiElementFactory, iconFactory, CreateHoldingRow), 
-                                Comparer<StellarBodyHolding>.Create(
+                                Comparer<EconomicZoneHolding>.Create(
                                     (x, y) => x.StellarBody.Name.CompareTo(y.StellarBody.Name))))
                     });
             Add(holdingTable);
@@ -145,13 +145,13 @@ namespace SpaceOpera.View.Game.Overlay.EmpireOverlays
             return _world.Formations.GetFleetDriversFor(_faction);
         }
 
-        private IEnumerable<StellarBodyHolding> GetHoldingRange()
+        private IEnumerable<EconomicZoneHolding> GetHoldingRange()
         {
             if (_world == null || _faction == null)
             {
-                return Enumerable.Empty<StellarBodyHolding>();
+                return Enumerable.Empty<EconomicZoneHolding>();
             }
-            return _world.Economy.GetHoldingsFor(_faction);
+            return _world.Economy.GetHolding(_faction).GetHoldings();
         }
 
         private static ActionRow<ArmyDriver> CreateArmyRow(
@@ -192,10 +192,10 @@ namespace SpaceOpera.View.Game.Overlay.EmpireOverlays
                 Enumerable.Empty<ActionRow<AtomicFormationDriver>.ActionConfiguration>());
         }
 
-        private static ActionRow<StellarBodyHolding> CreateHoldingRow(
-            StellarBodyHolding holding, UiElementFactory uiElementFactory, IconFactory iconFactory)
+        private static ActionRow<EconomicZoneHolding> CreateHoldingRow(
+            EconomicZoneHolding holding, UiElementFactory uiElementFactory, IconFactory iconFactory)
         {
-            return ActionRow<StellarBodyHolding>.Create(
+            return ActionRow<EconomicZoneHolding>.Create(
                 holding,
                 ActionId.Select,
                 ActionId.Unknown,
@@ -208,7 +208,7 @@ namespace SpaceOpera.View.Game.Overlay.EmpireOverlays
                     new TextUiElement(
                         uiElementFactory.GetClass(s_Text), new InlayController(), holding.StellarBody.Name)
                 }, 
-                Enumerable.Empty<ActionRow<StellarBodyHolding>.ActionConfiguration>());
+                Enumerable.Empty<ActionRow<EconomicZoneHolding>.ActionConfiguration>());
         }
     }
 }

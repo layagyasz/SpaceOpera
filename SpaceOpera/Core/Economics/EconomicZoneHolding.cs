@@ -1,27 +1,32 @@
 using Cardamom.Trackers;
 using SpaceOpera.Core.Advanceable;
 using SpaceOpera.Core.Economics.Projects;
+using SpaceOpera.Core.Politics;
+using SpaceOpera.Core.Universe;
 
 namespace SpaceOpera.Core.Economics
 {
-    public abstract class EconomicZone : ProjectHub, ITickable
+    public class EconomicZoneHolding : ProjectHub, ITickable
     {
-        public abstract string Name { get; }
-        public EconomicRoot Root { get; }
+        public string Name => StellarBody.Name;
+        public Faction Owner => Parent.Owner;
+        public EconomicFactionHolding Parent { get; }
+        public StellarBody StellarBody { get; }
         public uint Population { get; protected set; }
 
-        private readonly Dictionary<object, EconomicSubzone> _subzones = new();
+        private readonly Dictionary<StellarBodyRegion, EconomicSubzoneHolding> _holdings = new();
         private readonly Inventory _inventory = new(float.MaxValue);
         private readonly MultiCount<Recipe> _production = new ();
 
-        protected EconomicZone(EconomicRoot root)
+        public EconomicZoneHolding(EconomicFactionHolding parent, StellarBody stellarBody)
         {
-            Root = root;
+            Parent = parent;
+            StellarBody = stellarBody;
         }
 
-        public void AddSubzone(object key, EconomicSubzone subzone)
+        public void AddHolding(EconomicSubzoneHolding holding)
         {
-            _subzones.Add(key, subzone);
+            _holdings.Add(holding.Region, holding);
         }
 
         public void AdjustProduction(MultiCount<Recipe> allocation)
@@ -29,15 +34,15 @@ namespace SpaceOpera.Core.Economics
             _production.Add(allocation);
         }
 
-        public EconomicSubzone? GetSubzone(object key)
+        public EconomicSubzoneHolding? GetHolding(StellarBodyRegion region)
         {
-            _subzones.TryGetValue(key, out var result);
+            _holdings.TryGetValue(region, out var result);
             return result;
         }
 
-        public IEnumerable<EconomicSubzone> GetSubzones()
+        public IEnumerable<EconomicSubzoneHolding> GetHoldings()
         {
-            return _subzones.Values;
+            return _holdings.Values;
         }
 
         public void Return(MultiQuantity<IMaterial> materials)
@@ -63,7 +68,7 @@ namespace SpaceOpera.Core.Economics
                             _inventory.MaxAdd(transform.Key, total);
                             break;
                         case MaterialType.Research:
-                            Root.Add(transform.Key, total);
+                            Parent.Add(transform.Key, total);
                             break;
                         default:
                             throw new InvalidOperationException(

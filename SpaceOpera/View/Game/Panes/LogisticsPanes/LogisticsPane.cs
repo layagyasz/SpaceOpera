@@ -136,8 +136,8 @@ namespace SpaceOpera.View.Game.Panes.LogisticsPanes
         private static IKeyedUiElement<PersistentRoute> CreateRow(
             PersistentRoute route, UiElementFactory uiElementFactory, IconFactory iconFactory)
         {
-            var left = ((StellarBodyRegionHolding)route.LeftAnchor).Region;
-            var right = ((StellarBodyRegionHolding)route.RightAnchor).Region;
+            var left = route.LeftAnchor.Region;
+            var right = route.RightAnchor.Region;
             return ActionRow<PersistentRoute>.Create(
                 route,
                 ActionId.Unknown,

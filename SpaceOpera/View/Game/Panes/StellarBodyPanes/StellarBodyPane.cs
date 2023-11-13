@@ -31,7 +31,7 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyPanes
         private World? _world;
         private Faction? _faction;
         private StellarBody? _stellarBody;
-        private StellarBodyHolding? _holding;
+        private EconomicZoneHolding? _holding;
         private TabId _tab;
 
         public OverviewTab OverviewTab { get; }
@@ -57,7 +57,7 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyPanes
             OverviewTab = new(uiElementFactory, iconFactory);
         }
 
-        public StellarBodyHolding GetHolding()
+        public EconomicZoneHolding GetHolding()
         {
             return _holding!;
         }
@@ -75,7 +75,7 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyPanes
             _stellarBody = args[2] as StellarBody;
             if (_world != null && _faction != null && _stellarBody != null)
             {
-                _holding = _world.Economy.GetHolding(_faction, _stellarBody);
+                _holding = _world.Economy.GetRoot(_stellarBody)!.GetHolding(_faction)!;
             }
 
             OverviewTab.SetHolding(_holding!);

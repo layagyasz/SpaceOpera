@@ -3,6 +3,7 @@ using Cardamom.Ui.Controller;
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
 using SpaceOpera.Core.Economics;
+using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Universe;
 using SpaceOpera.View.Components;
 using SpaceOpera.View.Components.Dynamics;
@@ -29,7 +30,7 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyPanes
             }
         };
 
-        private StellarBodyHolding? _holding;
+        private EconomicZoneHolding? _holding;
         private StellarBody? _stellarBody;
 
         public OverviewTab(UiElementFactory uiElementFactory, IconFactory iconFactory)
@@ -127,10 +128,10 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyPanes
                     DynamicKeyedContainer<IMaterial>.CreateChip(
                         uiElementFactory.GetClass(s_ChipSet.Container!), 
                         new NoOpElementController(), 
-                        () => _holding?.GetSubzones().SelectMany(y => y.GetResources()).Distinct()
+                        () => _holding?.GetHoldings().SelectMany(y => y.GetResources()).Distinct()
                             ?? Enumerable.Empty<IMaterial>(), 
                         new UiChip<IMaterial>.Factory(
-                            x => _holding?.GetSubzones().Sum(y => y.GetResourceNodes(x)).ToString("N0") 
+                            x => _holding?.GetHoldings().Sum(y => y.GetResourceNodes(x)).ToString("N0") 
                                 ?? string.Empty,
                             s_ChipSet.Chip!, 
                             uiElementFactory,
@@ -139,7 +140,7 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyPanes
                 });
         }
 
-        public void SetHolding(StellarBodyHolding holding)
+        public void SetHolding(EconomicZoneHolding holding)
         {
             _holding = holding;
             _stellarBody = holding.StellarBody;

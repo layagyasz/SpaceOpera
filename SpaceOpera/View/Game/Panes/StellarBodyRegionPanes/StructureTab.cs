@@ -51,9 +51,9 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyRegionPanes
         class StructureTableConfiguration : AutoMultiCountInput<Structure>.IRowConfiguration
         {
             private World? _world;
-            private StellarBodyRegionHolding? _holding;
+            private EconomicSubzoneHolding? _holding;
 
-            public void Populate(World? world, StellarBodyRegionHolding? holding)
+            public void Populate(World? world, EconomicSubzoneHolding? holding)
             {
                 _world = world;
                 _holding = holding;
@@ -88,10 +88,10 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyRegionPanes
         class RecipeTableConfiguration : AutoMultiCountInput<Recipe>.IRowConfiguration
         {
             private World? _world;
-            private StellarBodyRegionHolding? _holding;
+            private EconomicSubzoneHolding? _holding;
             private Structure? _structure;
 
-            public void Populate(World? world, StellarBodyRegionHolding? holding)
+            public void Populate(World? world, EconomicSubzoneHolding? holding)
             {
                 _world = world;
                 _holding = holding;
@@ -109,7 +109,7 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyRegionPanes
                     return Enumerable.Empty<Recipe>();
                 }
                 return _world
-                    .GetRecipesFor(_holding?.Parent.Root.Owner)
+                    .GetRecipesFor(_holding?.Parent.Parent.Owner)
                     .Where(x => x.Structure == _structure)
                     .Where(x => _holding?.GetResourceNodes(x.BoundResourceNode) > 0);
             }
@@ -144,7 +144,7 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyRegionPanes
         private readonly StructureTableConfiguration _structureTableConfiguration;
         private readonly RecipeTableConfiguration _recipeTableConfiguration;
 
-        private StellarBodyRegionHolding? _holding;
+        private EconomicSubzoneHolding? _holding;
 
         public AutoMultiCountInput<Structure> Structures { get; }
         public IUiElement StructureSubmit { get; }
@@ -210,12 +210,12 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyRegionPanes
                 });
         }
 
-        public StellarBodyRegionHolding? GetHolding()
+        public EconomicSubzoneHolding? GetHolding()
         {
             return _holding;
         }
 
-        public void Populate(World? world, StellarBodyRegionHolding? holding)
+        public void Populate(World? world, EconomicSubzoneHolding? holding)
         {
             _holding = holding;
             _structureTableConfiguration.Populate(world, holding);
