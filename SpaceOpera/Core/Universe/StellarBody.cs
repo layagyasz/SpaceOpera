@@ -15,7 +15,9 @@ namespace SpaceOpera.Core.Universe
         public Atmosphere Atmosphere { get; }
         public List<StellarBodyRegion> Regions { get; }
         public List<StationaryOrbitRegion> OrbitRegions { get; }
-        
+
+        public Cache<long> Population { get; }
+
         public StellarBody(
             string type,
             Dictionary<string, object> parameters,
@@ -43,6 +45,8 @@ namespace SpaceOpera.Core.Universe
             {
                 region.SetParent(this);
             }
+
+            Population = new(() => Regions.Sum(x => x.Population));
         }
 
         public bool ContainsFaction(Faction faction)
@@ -61,6 +65,11 @@ namespace SpaceOpera.Core.Universe
         public float GetHighOrbitAltitudeKm()
         {
             return 4 * GetGeosynchronousOrbitAltitudeKm();
+        }
+
+        public int GetRegionCount(bool isTraversable)
+        {
+            return Regions.Sum(x => x.GetRegionCount(isTraversable));
         }
 
         public int GetSize()

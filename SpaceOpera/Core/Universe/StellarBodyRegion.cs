@@ -31,6 +31,7 @@ namespace SpaceOpera.Core.Universe
         public void AddPopulation(uint population)
         {
             Population += population;
+            Parent!.Population.Invalidate();
         }
 
         public void AddResources(IEnumerable<ResourceNode> resourceNodes)
@@ -57,6 +58,11 @@ namespace SpaceOpera.Core.Universe
         public void ChangeOccupation()
         {
             Parent!.ChangeOccupation();
+        }
+
+        public int GetRegionCount(bool isTraversable)
+        {
+            return DominantBiome.IsTraversable == isTraversable ? SubRegions.Count : 0;
         }
 
         public int GetResourceSize(IMaterial resource)

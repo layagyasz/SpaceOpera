@@ -12,7 +12,6 @@ namespace SpaceOpera.Core.Economics
         public Faction Owner => Parent.Owner;
         public EconomicFactionHolding Parent { get; }
         public StellarBody StellarBody { get; }
-        public uint Population { get; protected set; }
 
         private readonly Dictionary<StellarBodyRegion, EconomicSubzoneHolding> _holdings = new();
         private readonly Inventory _inventory = new(float.MaxValue);
@@ -43,6 +42,16 @@ namespace SpaceOpera.Core.Economics
         public IEnumerable<EconomicSubzoneHolding> GetHoldings()
         {
             return _holdings.Values;
+        }
+
+        public long GetPopulation()
+        {
+            return _holdings.Values.Sum(x => x.GetPopulation());
+        }
+
+        public int GetRegionCount(bool isTraversable)
+        {
+            return _holdings.Values.Sum(x => x.GetRegionCount(isTraversable));
         }
 
         public void Return(MultiQuantity<IMaterial> materials)
@@ -82,7 +91,7 @@ namespace SpaceOpera.Core.Economics
         {
             foreach (var sink in MaterialSink.PopulationSink)
             {
-                Spend(sink.Materials, Population);
+                Spend(sink.Materials, GetPopulation());
             }
         }
 

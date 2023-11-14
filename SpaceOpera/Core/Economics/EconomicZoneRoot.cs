@@ -41,6 +41,11 @@ namespace SpaceOpera.Core.Economics
             return _holdings.FirstOrDefault(x => x.Owner == faction);
         }
 
+        public IEnumerable<EconomicZoneHolding> GetHoldings()
+        {
+            return _holdings;
+        }
+
         public void Tick()
         {
             foreach (var holding in _holdings)

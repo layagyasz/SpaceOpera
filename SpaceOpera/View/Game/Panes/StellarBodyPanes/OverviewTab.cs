@@ -3,7 +3,6 @@ using Cardamom.Ui.Controller;
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
 using SpaceOpera.Core.Economics;
-using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Universe;
 using SpaceOpera.View.Components;
 using SpaceOpera.View.Components.Dynamics;
@@ -15,10 +14,16 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyPanes
     {
         private static readonly string s_Container = "stellar-body-pane-body";
         private static readonly string s_Column = "stellar-body-pane-overview-column";
+        private static readonly string s_Header2Container = "stellar-body-pane-overview-container-h2";
         private static readonly string s_IconTitle = "stellar-body-pane-overview-icon-title";
+        private static readonly string s_IconHeader2 = "stellar-body-pane-overview-icon-h2";
         private static readonly string s_Header1 = "stellar-body-pane-overview-h1";
+        private static readonly string s_Header2 = "stellar-body-pane-overview-h2";
         private static readonly string s_Header3 = "stellar-body-pane-overview-h3";
         private static readonly string s_Paragraph = "stellar-body-pane-overview-p";
+
+        private static readonly string s_Table = "stellar-body-pane-overview-table";
+        private static readonly string s_HoldingContainer = "stellar-body-pane-overview-holding-container";
         private static readonly ChipSetStyles.ChipSetStyle s_ChipSet = new()
         {
             Container = "stellar-body-pane-overview-chip-set",
@@ -30,8 +35,9 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyPanes
             }
         };
 
-        private EconomicZoneHolding? _holding;
         private StellarBody? _stellarBody;
+        private EconomicZoneRoot? _root;
+        private EconomicZoneHolding? _holding;
 
         public OverviewTab(UiElementFactory uiElementFactory, IconFactory iconFactory)
             : base(
@@ -138,12 +144,63 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyPanes
                             iconFactory),
                         Comparer<IMaterial>.Create((x, y) => x.Name.CompareTo(y.Name)))
                 });
+            Add(
+                new DynamicUiSerialContainer(
+                    uiElementFactory.GetClass(s_Column),
+                    new NoOpElementController(),
+                    UiSerialContainer.Orientation.Vertical)
+                {
+                    new TextUiElement(uiElementFactory.GetClass(s_Header1), new InlayController(), "Politics"),
+                    DynamicKeyedContainer<EconomicZoneHolding>.CreateSerial(
+                        uiElementFactory.GetClass(s_Table),
+                        new NoOpElementController(), 
+                        UiSerialContainer.Orientation.Vertical, 
+                        () => _root?.GetHoldings() ?? Enumerable.Empty<EconomicZoneHolding>(),
+                        new SimpleKeyedElementFactory<EconomicZoneHolding>(
+                            uiElementFactory, iconFactory, CreateHoldingDescription),
+                        Comparer<EconomicZoneHolding>.Create((x, y) => x.Owner.Name.CompareTo(y.Owner.Name)))
+                });
         }
 
-        public void SetHolding(EconomicZoneHolding holding)
+        public void SetHolding(EconomicZoneRoot root, EconomicZoneHolding holding)
         {
             _holding = holding;
+            _root = root;
             _stellarBody = holding.StellarBody;
+        }
+
+        private IKeyedUiElement<EconomicZoneHolding> CreateHoldingDescription(
+            EconomicZoneHolding holding, UiElementFactory uiElementFactory, IconFactory iconFactory)
+        {
+            return KeyedUiElementWrapper<EconomicZoneHolding>.Wrap(
+                holding, 
+                new DynamicUiSerialContainer(
+                    uiElementFactory.GetClass(s_HoldingContainer),
+                    new NoOpElementController(),
+                    UiSerialContainer.Orientation.Vertical)
+                {
+                    new UiSerialContainer(
+                        uiElementFactory.GetClass(s_Header2Container), 
+                        new NoOpElementController(),
+                        UiSerialContainer.Orientation.Horizontal)
+                    {
+                        iconFactory.Create(
+                            uiElementFactory.GetClass(s_IconHeader2), new InlayController(), holding.Owner),
+                        new TextUiElement(
+                            uiElementFactory.GetClass(s_Header2), new InlayController(), holding.Owner.Name),
+                    },
+                    new TextUiElement(uiElementFactory.GetClass(s_Header3), new InlayController(), "Population"),
+                    new DynamicTextUiElement(
+                        uiElementFactory.GetClass(s_Paragraph), 
+                        new InlayController(), 
+                        () => (1f * holding.GetPopulation() / holding.StellarBody.Population.Get()).ToString("P0")),
+                    new TextUiElement(uiElementFactory.GetClass(s_Header3), new InlayController(), "Land Mass"),
+                    new DynamicTextUiElement(
+                        uiElementFactory.GetClass(s_Paragraph),
+                        new InlayController(),
+                        () => (1f * holding.GetRegionCount(/* isTraversable= */ true) 
+                            / holding.StellarBody.GetRegionCount(/* isTraversable= */ true)).ToString("P0"))
+                });
         }
     }
 }

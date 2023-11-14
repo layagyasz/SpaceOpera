@@ -31,6 +31,7 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyPanes
         private World? _world;
         private Faction? _faction;
         private StellarBody? _stellarBody;
+        private EconomicZoneRoot? _root;
         private EconomicZoneHolding? _holding;
         private TabId _tab;
 
@@ -75,10 +76,11 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyPanes
             _stellarBody = args[2] as StellarBody;
             if (_world != null && _faction != null && _stellarBody != null)
             {
-                _holding = _world.Economy.GetRoot(_stellarBody)!.GetHolding(_faction)!;
+                _root = _world.Economy.GetRoot(_stellarBody);
+                _holding = _root!.GetHolding(_faction)!;
             }
 
-            OverviewTab.SetHolding(_holding!);
+            OverviewTab.SetHolding(_root!, _holding!);
             SetTitle(_stellarBody?.Name ?? "Unknown Stellar Body");
             Refresh();
             Populated?.Invoke(this, EventArgs.Empty);

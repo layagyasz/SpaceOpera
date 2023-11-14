@@ -64,6 +64,16 @@ namespace SpaceOpera.Core.Economics
             return 0;
         }
 
+        public long GetPopulation()
+        {
+            return Region.Population;
+        }
+
+        public int GetRegionCount(bool isTraversable)
+        {
+            return Region.GetRegionCount(isTraversable);
+        }
+
         public IEnumerable<IMaterial> GetResources()
         {
             return _resourceNodes.Keys;
