@@ -25,7 +25,7 @@ namespace SpaceOpera.Core.Economics.Projects
         }
 
         public abstract void Setup();
-        public abstract void Finish();
+        public abstract void Finish(World world);
         protected abstract void TickImpl();
         protected abstract void CancelImpl();
     }

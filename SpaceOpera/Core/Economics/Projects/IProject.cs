@@ -12,6 +12,6 @@ namespace SpaceOpera.Core.Economics.Projects
 
         void Cancel();
         void Setup();
-        void Finish();
+        void Finish(World world);
     }
 }

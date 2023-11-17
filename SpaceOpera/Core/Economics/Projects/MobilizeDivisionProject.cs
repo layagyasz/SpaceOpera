@@ -10,7 +10,7 @@ namespace SpaceOpera.Core.Economics.Projects
         public Division Division { get; }
 
         public MobilizeDivisionProject(EconomicSubzoneHolding holding, Division division)
-            : base(10)
+            : base(/* time= */ 10)
         {
             Holding = holding;
             Division = division;
@@ -26,12 +26,11 @@ namespace SpaceOpera.Core.Economics.Projects
             Holding.AddProject(this);
         }
 
-        public override void Finish()
+        public override void Finish(World world)
         {
             Holding.RemoveProject(this);
-            // TODO: Reimplement division mobilization
-            // Holding.Parent.RemoveDivision(Division);
-            // Division.SetPosition(Holding.Region.Center);
+            Holding.RemoveDivision(Division);
+            Division.SetPosition(Holding.Region.Center);
         }
     }
 }

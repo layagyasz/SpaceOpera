@@ -1,5 +1,6 @@
 ﻿using Cardamom.Trackers;
 using SpaceOpera.Core.Economics.Projects;
+using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Universe;
 
@@ -15,11 +16,17 @@ namespace SpaceOpera.Core.Economics
         private readonly MultiCount<Structure> _structures = new();
         private readonly Dictionary<IMaterial, IntPool> _resourceNodes = new();
         private readonly MultiCount<Recipe> _production = new();
+        private readonly List<Division> _divisions = new();
 
         public EconomicSubzoneHolding(EconomicZoneHolding parent, StellarBodyRegion region)
         {
             Parent = parent;
             Region = region;
+        }
+
+        public void AddDivision(Division division)
+        {
+            _divisions.Add(division);
         }
 
         public void AddResourceNodes(Count<ResourceNode> nodes)
@@ -62,6 +69,11 @@ namespace SpaceOpera.Core.Economics
                 return node.Remaining;
             }
             return 0;
+        }
+
+        public IEnumerable<Division> GetDivisions()
+        {
+            return _divisions;
         }
 
         public long GetPopulation()
@@ -120,6 +132,11 @@ namespace SpaceOpera.Core.Economics
         public void ReleaseStructureNodes(Count<Structure> construction)
         {
             _structureNodes.Change(-construction.Value);
+        }
+
+        public void RemoveDivision(Division division)
+        {
+            _divisions.Remove(division);
         }
     }
 }

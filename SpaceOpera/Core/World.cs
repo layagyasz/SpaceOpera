@@ -95,7 +95,7 @@ namespace SpaceOpera.Core
                         new ActionTickable(() => Battles.Tick(Random)),
                         new ActionTickable(() => Formations.Tick(this)),
                         new ActionTickable(Fronts.Tick),
-                        new ActionTickable(Projects.Tick),
+                        new ActionTickable(() => Projects.Tick(this)),
                         new CycleTickable(new CompositeTickable(ticks), 30),
                         new ActionTickable(() => Players.Tick(this))
                     },

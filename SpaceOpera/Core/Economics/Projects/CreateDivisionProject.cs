@@ -1,36 +1,43 @@
 ﻿using SpaceOpera.Core.Military;
+using SpaceOpera.Core.Politics;
 
 namespace SpaceOpera.Core.Economics.Projects
 {
-    public class CreateDivisionProject : TimedProject
+    public class CreateDivisionProject : BaseResourcedProject
     {
-        public override object Key => Division;
-        public override string Name => $"Create {Division.Name}";
-        public EconomicZoneHolding Holding { get; }
-        public Division Division { get; }
+        public override object Key => Template;
+        public override string Name => $"Create {DivisionName}";
+        public Faction Faction { get; }
+        public string DivisionName { get; }
+        public DivisionTemplate Template { get; }
 
-        public CreateDivisionProject(EconomicZoneHolding holding, Division division)
-            : base(10)
+        public CreateDivisionProject(
+            EconomicSubzoneHolding holding, Faction faction, string name, DivisionTemplate template)
+            : base(holding, /* time= */ 10, template.GetMaterialCost())
         {
-            Holding = holding; 
-            Division = division;
+            Faction = faction;
+            DivisionName = name;
+            Template = template;
         }
 
         protected override void CancelImpl()
         {
-            // Holding.RemoveProject(this);
+            Holding.RemoveProject(this);
         }
 
         public override void Setup()
         {
-            // Holding.AddProject(this);
+            Holding.AddProject(this);
         }
 
-        public override void Finish()
+        public override void Finish(World world)
         {
-            // Holding.RemoveProject(this);
-            // TODO: Reimplement division creation
-            // Holding.AddDivision(Division);
+            Holding.RemoveProject(this);
+            var division = new Division(Faction, Template);
+            division.Add(Template.Composition);
+            division.SetName(DivisionName);
+            world.Formations.AddDivision(division);
+            Holding.AddDivision(division);
         }
     }
 }

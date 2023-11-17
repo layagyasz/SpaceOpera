@@ -2,48 +2,36 @@
 
 namespace SpaceOpera.Core.Economics.Projects
 {
-    public class BuildProject : BaseProject
+    public class BuildProject : BaseResourcedProject
     {
         public override object Key => Construction.Key;
         public override string Name => $"Build {Construction.Value} x {Construction.Key.Name}";
-        public override Pool Progress { get; }
-        public EconomicSubzoneHolding Holding { get; }
         public Count<Structure> Construction { get; }
-        public MultiQuantity<IMaterial> Cost { get; }
 
         public BuildProject(EconomicSubzoneHolding holding, Count<Structure> construction)
+            : base(holding, construction.Key.BuildTime, construction.Value * construction.Key.Cost)
         {
-            Holding = holding;
             Construction = construction;
-            Progress = new(construction.Key.BuildTime, /* startFull= */ false);
-            Cost = construction.Value * construction.Key.Cost;
         }
 
         public override void Setup()
         {
-            Holding.AddProject(this);
+            base.Setup();
             Holding.ReserveStructureNodes(Construction);
         }
 
-        public override void Finish()
+        public override void Finish(World world)
         {
-            Holding.RemoveProject(this);
+            base.Finish(world);
             Holding.ReleaseStructureNodes(Construction);
             Holding.AddStructures(Construction);
         }
 
         protected override void CancelImpl()
         {
+            base.CancelImpl();
             Holding.Parent.Return(Progress.PercentFull() * Cost);
-            Holding.RemoveProject(this);
-            Holding.ReleaseStructureNodes(Construction);
         }
 
-        protected override void TickImpl()
-        {
-            var progress = Holding.Parent.Spend(Cost, 1f / Construction.Key.BuildTime);
-            Progress.Change(progress * Construction.Key.BuildTime);
-            Status = progress > float.Epsilon ? ProjectStatus.InProgress : ProjectStatus.Blocked;
-        }
     }
 }

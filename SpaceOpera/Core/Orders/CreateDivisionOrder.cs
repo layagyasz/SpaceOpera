@@ -6,10 +6,10 @@ namespace SpaceOpera.Core.Orders
 {
     public class CreateDivisionOrder : IOrder
     {
-        public EconomicZoneHolding Holding { get; }
+        public EconomicSubzoneHolding Holding { get; }
         public DivisionTemplate Template { get; }
 
-        public CreateDivisionOrder(EconomicZoneHolding holding, DivisionTemplate template)
+        public CreateDivisionOrder(EconomicSubzoneHolding holding, DivisionTemplate template)
         {
             Holding = holding;
             Template = template;
@@ -22,9 +22,12 @@ namespace SpaceOpera.Core.Orders
 
         public bool Execute(World world)
         {
-            // TODO: Set name
-            var division = new Division(Holding.Parent.Owner, Template);
-            world.Projects.Add(new CreateDivisionProject(Holding, division));
+            world.Projects.Add(
+                new CreateDivisionProject(
+                    Holding,
+                    Holding.Owner, 
+                    Holding.Owner.NameGenerator.GenerateNameFor(Template, world.Random),
+                    Template));
             return true;
         }
     }

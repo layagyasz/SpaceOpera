@@ -17,14 +17,14 @@
             project.Cancel();
         }
 
-        public void Tick()
+        public void Tick(World world)
         {
             foreach (var project in _projects)
             {
                 project.Tick();
                 if (project.Status == ProjectStatus.Done)
                 {
-                    project.Finish();
+                    project.Finish(world);
                 }
                 else
                 {
