@@ -7,6 +7,7 @@ using Cardamom.Ui;
 using SpaceOpera.Core.Economics;
 using SpaceOpera.Core.Universe;
 using SpaceOpera.Controller.Game.Panes.StellarBodyRegionPanes;
+using SpaceOpera.View.Game.Panes.Common;
 
 namespace SpaceOpera.View.Game.Panes.StellarBodyRegionPanes
 {
@@ -23,6 +24,24 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyRegionPanes
         private static readonly string s_Close = "stellar-body-region-pane-close";
         private static readonly string s_TabContainer = "stellar-body-region-pane-tab-container";
         private static readonly string s_TabOption = "stellar-body-region-pane-tab-option";
+        private static readonly string s_Body = "stellar-body-region-pane-body";
+
+        private static readonly ProjectsComponent.Style s_ProjectTabStyle = new()
+        {
+            Container = "stellar-body-region-pane-project-table",
+            RowContainer = new()
+            {
+                Container = "stellar-body-region-pane-project-row",
+                ActionContainer = "stellar-body-region-pane-project-row-action-container"
+            },
+            Icon = "stellar-body-region-pane-project-row-icon",
+            Info = "stellar-body-region-pane-project-row-info",
+            Text = "stellar-body-region-pane-project-row-text",
+            Status = "stellar-body-region-pane-project-row-status-container",
+            StatusText = "stellar-body-region-pane-project-row-status-text",
+            StatusProgress = "stellar-body-region-pane-project-row-status-progress",
+            Cancel = "stellar-body-region-pane-project-row-action-cancel"
+        };
 
         private World? _world;
         private Faction? _faction;
@@ -49,7 +68,7 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyRegionPanes
                     uiElementFactory.GetClass(s_TabOption)))
         {
             StructureTab = new(uiElementFactory, iconFactory);
-            ProjectTab = new(uiElementFactory, iconFactory);
+            ProjectTab = new(uiElementFactory.GetClass(s_Body), s_ProjectTabStyle, uiElementFactory, iconFactory);
         }
 
         public override void Initialize()
@@ -74,7 +93,7 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyRegionPanes
                 _holding = _world.Economy.GetRoot(_region.Parent!)?.GetChild(_region)?.GetHolding(_faction);
             }
             StructureTab.Populate(_world, _holding);
-            ProjectTab.Populate(_holding);
+            ProjectTab.SetProjectHub(_holding);
 
             SetTitle(_region?.Name ?? "Unknown Region");
             Refresh();

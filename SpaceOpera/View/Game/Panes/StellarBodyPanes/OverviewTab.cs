@@ -50,7 +50,7 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyPanes
             Add(
                 new DynamicUiSerialContainer(
                     uiElementFactory.GetClass(s_Column),
-                    new NoOpElementController(),
+                    new TableController(10f),
                     UiSerialContainer.Orientation.Vertical)
                 {
                     new DynamicIcon(
@@ -85,7 +85,7 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyPanes
             Add(
                 new DynamicUiSerialContainer(
                     uiElementFactory.GetClass(s_Column),
-                    new NoOpElementController(),
+                    new TableController(10f),
                     UiSerialContainer.Orientation.Vertical)
                 {
                     new TextUiElement(uiElementFactory.GetClass(s_Header1), new InlayController(), "Orbit"),
@@ -127,7 +127,7 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyPanes
             Add(
                 new DynamicUiSerialContainer(
                     uiElementFactory.GetClass(s_Column),
-                    new NoOpElementController(),
+                    new TableController(10f),
                     UiSerialContainer.Orientation.Vertical)
                 {
                     new TextUiElement(uiElementFactory.GetClass(s_Header1), new InlayController(), "Resources"),
@@ -147,7 +147,7 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyPanes
             Add(
                 new DynamicUiSerialContainer(
                     uiElementFactory.GetClass(s_Column),
-                    new NoOpElementController(),
+                    new TableController(10f),
                     UiSerialContainer.Orientation.Vertical)
                 {
                     new TextUiElement(uiElementFactory.GetClass(s_Header1), new InlayController(), "Politics"),

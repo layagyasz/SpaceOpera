@@ -5,7 +5,7 @@ using SpaceOpera.Core.Universe;
 
 namespace SpaceOpera.Core.Economics
 {
-    public class EconomicSubzoneHolding : ProjectHub
+    public class EconomicSubzoneHolding : BaseProjectHub
     {
         public Faction Owner => Parent.Parent.Owner;
         public EconomicZoneHolding Parent { get; set; }

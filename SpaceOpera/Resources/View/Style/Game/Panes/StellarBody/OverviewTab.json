@@ -4,7 +4,8 @@
     "Parent": "ui-container",
     "Default": {
       "Size": [ 223, 620 ],
-      "Padding": [ 2 ]
+      "Padding": [ 2 ],
+      "DisableScissor": false
     }
   },
   {

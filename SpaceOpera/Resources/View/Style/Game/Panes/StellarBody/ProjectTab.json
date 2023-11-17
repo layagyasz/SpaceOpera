@@ -1,0 +1,110 @@
+[
+  {
+    "$id": "stellar-body-pane-project-table",
+    "Parent": "ui-element",
+    "Default": {
+      "Size": [ 884, 572 ],
+      "Margin": [ 4 ],
+      "Padding": [ 4 ],
+      "CornerRadius": [ [ 12, 12 ] ],
+      "DisableScissor": false
+    }
+  },
+  {
+    "$id": "stellar-body-pane-project-row",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 884, 56 ],
+      "Padding": [ 0 ]
+    }
+  },
+  {
+    "$id": "stellar-body-pane-project-row-icon",
+    "Parent": "ui-icon",
+    "Default": {
+      "Size": [ 52, 52 ],
+      "Margin": [ 2 ]
+    }
+  },
+  {
+    "$id": "stellar-body-pane-project-row-info",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 784, 56 ],
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "stellar-body-pane-project-row-text",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 784, 28 ],
+      "Padding": [ 8 ]
+    }
+  },
+  {
+    "$id": "stellar-body-pane-project-row-action-container",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 36, 46 ],
+      "Padding": [ 4, 14, 4, 14 ]
+    }
+  },
+  {
+    "$id": "stellar-body-pane-project-row-action-cancel",
+    "Parent": "pane-action-button",
+    "Default": {
+      "Texture": "icon-x"
+    }
+  },
+  {
+    "$id": "stellar-body-pane-project-row-status-container",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 784, 28 ],
+      "Padding": [ 4 ],
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "stellar-body-pane-project-row-status-text",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 720, 10 ],
+      "Margin": [ 32, 0, 32, 0 ],
+      "FontSize": 10,
+      "Color": "#ffff00cc",
+      "DisableScissor": true
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "Color": "#ffff00"
+        }
+      }
+    ]
+  },
+  {
+    "$id": "stellar-body-pane-project-row-status-progress",
+    "Default": {
+      "Size": [
+        [ "DynamicContents", 6, 772 ],
+        6
+      ],
+      "Margin": [ 2 ],
+      "CornerRadius": [ [ 3, 3 ] ],
+      "BackgroundColor": [ "#ffff00cc" ],
+      "BackgroundShader": "shader-ui",
+      "DisableScissor": true
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "BackgroundColor": [ "#ffff00" ]
+        }
+      }
+    ]
+  }
+]

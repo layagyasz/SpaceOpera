@@ -6,7 +6,7 @@ using SpaceOpera.Core.Universe;
 
 namespace SpaceOpera.Core.Economics
 {
-    public class EconomicZoneHolding : ProjectHub, ITickable
+    public class EconomicZoneHolding : IProjectHub, ITickable
     {
         public string Name => StellarBody.Name;
         public Faction Owner => Parent.Owner;
@@ -47,6 +47,11 @@ namespace SpaceOpera.Core.Economics
         public long GetPopulation()
         {
             return _holdings.Values.Sum(x => x.GetPopulation());
+        }
+
+        public IEnumerable<IProject> GetProjects()
+        {
+            return _holdings.Values.SelectMany(x => x.GetProjects());
         }
 
         public int GetRegionCount(bool isTraversable)

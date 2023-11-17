@@ -1,9 +1,9 @@
 ﻿using SpaceOpera.Core.Economics.Projects;
 using SpaceOpera.Core.Orders;
 using SpaceOpera.View;
-using SpaceOpera.View.Game.Panes.StellarBodyRegionPanes;
+using SpaceOpera.View.Game.Panes.Common;
 
-namespace SpaceOpera.Controller.Game.Panes.StellarBodyRegionPanes
+namespace SpaceOpera.Controller.Game.Panes.Common
 {
     public class ProjectTabController : ITabController
     {

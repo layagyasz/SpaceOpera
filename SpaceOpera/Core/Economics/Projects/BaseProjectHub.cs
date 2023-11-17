@@ -1,6 +1,6 @@
 namespace SpaceOpera.Core.Economics.Projects
 {
-    public abstract class ProjectHub
+    public abstract class BaseProjectHub : IProjectHub
     {
         private readonly List<IProject> _projects = new();
 

@@ -12,23 +12,23 @@ namespace SpaceOpera.Core.Economics.Projects
         public CreateDivisionProject(EconomicZoneHolding holding, Division division)
             : base(10)
         {
-            Holding = holding;
+            Holding = holding; 
             Division = division;
         }
 
         protected override void CancelImpl()
         {
-            Holding.RemoveProject(this);
+            // Holding.RemoveProject(this);
         }
 
         public override void Setup()
         {
-            Holding.AddProject(this);
+            // Holding.AddProject(this);
         }
 
         public override void Finish()
         {
-            Holding.RemoveProject(this);
+            // Holding.RemoveProject(this);
             // TODO: Reimplement division creation
             // Holding.AddDivision(Division);
         }

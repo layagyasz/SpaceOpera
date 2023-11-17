@@ -803,10 +803,13 @@
     <None Update="Resources\View\Style\Game\Panes\StellarBodyRegion\StructureTab.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Style\Game\Panes\StellarBody\Overview.json">
+    <None Update="Resources\View\Style\Game\Panes\StellarBody\OverviewTab.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\View\Style\Game\Panes\StellarBody\Pane.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\View\Style\Game\Panes\StellarBody\ProjectTab.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\View\Style\Loader\Loader.json">
