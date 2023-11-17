@@ -16,7 +16,7 @@ namespace SpaceOpera.View.Game.Overlay.EventOverlays
         private static readonly string s_Container = "event-overlay-container";
         private static readonly string s_List = "event-overlay-list";
 
-        private static readonly ActionRow<IEvent>.Style s_CellStyle =
+        private static readonly ActionRowStyles.Style s_CellStyle =
             new()
             {
                 Container = "event-overlay-event-container"
@@ -80,7 +80,7 @@ namespace SpaceOpera.View.Game.Overlay.EventOverlays
                 {
                     new SimpleUiElement(uiElementFactory.GetClass(GetClass(@event)), new InlayController())
                 },
-                Enumerable.Empty<ActionRow<IEvent>.ActionConfiguration>());
+                Enumerable.Empty<ActionRowStyles.ActionConfiguration>());
         }
 
         private static string GetClass(IEvent @event)

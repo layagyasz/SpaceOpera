@@ -15,7 +15,7 @@ namespace SpaceOpera.View.Game.Panes.FormationPanes
         private static readonly string s_Container = "formation-pane-formation-container";
         private static readonly string s_UnitGroupingTable = "formation-pane-formation-unit-grouping-table";
 
-        private static readonly ActionRow<UnitGrouping>.Style s_UnitGroupingRowStyle =
+        private static readonly ActionRowStyles.Style s_UnitGroupingRowStyle =
             new() 
             {
                 Container = "formation-pane-formation-unit-grouping-row"
@@ -129,7 +129,7 @@ namespace SpaceOpera.View.Game.Panes.FormationPanes
                         }
                     }
                 },
-                Enumerable.Empty<ActionRow<UnitGrouping>.ActionConfiguration>());
+                Enumerable.Empty<ActionRowStyles.ActionConfiguration>());
         }
     }
 }

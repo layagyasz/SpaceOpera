@@ -68,7 +68,7 @@ namespace SpaceOpera.View.Game.Panes.LogisticsPanes
         };
 
         private static readonly string s_FleetHeader = "logistics-route-pane-fleet-header";
-        private static readonly InterceptorMultiSelect<FleetDriver>.Style s_FleetStyle = new()
+        private static readonly InterceptorStyles.MultiSelectStyle s_FleetStyle = new()
         {
             Container = "logistics-route-pane-fleet-table-container",
             Table = "logistics-route-pane-fleet-table",
@@ -81,7 +81,7 @@ namespace SpaceOpera.View.Game.Panes.LogisticsPanes
         };
         private static readonly string s_FleetIcon = "logistics-route-pane-fleet-row-icon";
         private static readonly string s_FleetText = "logistics-route-pane-fleet-row-text";
-        private static readonly List<ActionRow<FleetDriver>.ActionConfiguration> s_FleetClose = new()
+        private static readonly List<ActionRowStyles.ActionConfiguration> s_FleetClose = new()
         {
             new ()
             {

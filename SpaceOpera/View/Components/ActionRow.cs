@@ -8,18 +8,6 @@ namespace SpaceOpera.View.Components
 {
     public class ActionRow<T> : DynamicUiCompoundComponent, IKeyedUiElement<T>, IActionRow where T : notnull
     {
-        public class Style
-        {
-            public string? Container { get; set; }
-            public string? ActionContainer { get; set; }
-        }
-
-        public struct ActionConfiguration
-        {
-            public string Button { get; set; }
-            public ActionId Action { get; set; }
-        }
-
         public EventHandler<ElementEventArgs>? ActionAdded { get; set; }
         public EventHandler<ElementEventArgs>? ActionRemoved { get; set; }
 
@@ -55,9 +43,9 @@ namespace SpaceOpera.View.Components
             ActionId clickAction,
             ActionId rightClickAction,
             UiElementFactory uiElementFactory,
-            Style style,
+            ActionRowStyles.Style style,
             IEnumerable<IUiElement> info,
-            IEnumerable<ActionConfiguration> actions)
+            IEnumerable<ActionRowStyles.ActionConfiguration> actions)
         {
             return new(
                 uiElementFactory.GetClass(style.Container!),
@@ -71,7 +59,7 @@ namespace SpaceOpera.View.Components
                             uiElementFactory.GetClass(style.ActionContainer!),
                             new ButtonController(),
                             new SimpleUiElement(
-                                uiElementFactory.GetClass(x.Button),
+                                uiElementFactory.GetClass(x.Button!),
                                 new ActionButtonController(x.Action)))));
         }
 

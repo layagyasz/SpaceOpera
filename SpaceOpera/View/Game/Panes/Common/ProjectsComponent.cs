@@ -14,7 +14,7 @@ namespace SpaceOpera.View.Game.Panes.Common
         public class Style
         {
             public string? Container { get; set; }
-            public ActionRow<IProject>.Style? RowContainer { get; set; }
+            public ActionRowStyles.Style? RowContainer { get; set; }
             public string? Icon { get; set; }
             public string? Info { get; set; }
             public string? Text { get; set; }
@@ -82,7 +82,7 @@ namespace SpaceOpera.View.Game.Panes.Common
                             }
                         }
                     },
-                    new List<ActionRow<IProject>.ActionConfiguration>()
+                    new List<ActionRowStyles.ActionConfiguration>()
                     {
                         new ()
                         {

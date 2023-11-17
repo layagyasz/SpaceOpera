@@ -1,6 +1,6 @@
 ﻿namespace SpaceOpera.View.Components
 {
-    public class ChipSetStyles
+    public static class ChipSetStyles
     {
         public class ChipSetStyle
         {

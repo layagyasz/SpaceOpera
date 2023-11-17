@@ -14,7 +14,7 @@ namespace SpaceOpera.View.Game.Panes.FormationPanes
     public class FormationComponentHeader 
         : DynamicUiCompoundComponent, IKeyedUiElement<IFormationDriver>, IActionRow
     {
-        private static readonly ActionRow<AtomicFormationDriver>.Style s_HeaderStyle =
+        private static readonly ActionRowStyles.Style s_HeaderStyle =
             new()
             {
                 Container = "formation-pane-formation-header",
@@ -30,7 +30,7 @@ namespace SpaceOpera.View.Game.Panes.FormationPanes
         private static readonly string s_Cohesion = "formation-pane-formation-header-cohesion";
         private static readonly string s_AssignmentContainer = "formation-pane-formation-header-assignment-container";
 
-        private static readonly List<ActionRow<AtomicFormationDriver>.ActionConfiguration> s_ArmyAssignments =
+        private static readonly List<ActionRowStyles.ActionConfiguration> s_ArmyAssignments =
             new()
             {
                 new()
@@ -49,7 +49,7 @@ namespace SpaceOpera.View.Game.Panes.FormationPanes
                     Action = ActionId.Train
                 }
             };
-        private static readonly List<ActionRow<AtomicFormationDriver>.ActionConfiguration> s_FleetAssignments =
+        private static readonly List<ActionRowStyles.ActionConfiguration> s_FleetAssignments =
             new()
             {
                 new()
@@ -68,7 +68,7 @@ namespace SpaceOpera.View.Game.Panes.FormationPanes
                     Action = ActionId.Patrol
                 }
             };
-        private static readonly List<ActionRow<AtomicFormationDriver>.ActionConfiguration> s_DivisionAssignments =
+        private static readonly List<ActionRowStyles.ActionConfiguration> s_DivisionAssignments =
             new()
             {
                 new()
@@ -88,7 +88,7 @@ namespace SpaceOpera.View.Game.Panes.FormationPanes
                 }
             };
 
-        private static readonly List<ActionRow<AtomicFormationDriver>.ActionConfiguration> s_HeaderActions =
+        private static readonly List<ActionRowStyles.ActionConfiguration> s_HeaderActions =
             new()
             {
                 new ()
@@ -161,7 +161,7 @@ namespace SpaceOpera.View.Game.Panes.FormationPanes
             {
                 var a =
                     new SimpleUiElement(
-                        uiElementFactory.GetClass(assignment.Button),
+                        uiElementFactory.GetClass(assignment.Button!),
                         new ActionButtonController(assignment.Action));
                 assignments.Add(a);
                 _actions.Add(a);
@@ -175,7 +175,7 @@ namespace SpaceOpera.View.Game.Panes.FormationPanes
                         uiElementFactory.GetClass(s_HeaderStyle.ActionContainer!),
                         new ButtonController(),
                         new SimpleUiElement(
-                            uiElementFactory.GetClass(action.Button),
+                            uiElementFactory.GetClass(action.Button!),
                             new ActionButtonController(action.Action)));
                 Add(wrapper);
                 _actions.AddRange(wrapper);
@@ -238,8 +238,7 @@ namespace SpaceOpera.View.Game.Panes.FormationPanes
             return action.GetType().ToString();
         }
 
-        private static IEnumerable<ActionRow<AtomicFormationDriver>.ActionConfiguration> GetAssignments(
-            IFormationDriver driver)
+        private static IEnumerable<ActionRowStyles.ActionConfiguration> GetAssignments(IFormationDriver driver)
         {
             if (driver is ArmyDriver)
             {
@@ -253,7 +252,7 @@ namespace SpaceOpera.View.Game.Panes.FormationPanes
             {
                 return s_DivisionAssignments;
             }
-            return Enumerable.Empty<ActionRow<AtomicFormationDriver>.ActionConfiguration>();
+            return Enumerable.Empty<ActionRowStyles.ActionConfiguration>();
         }
     }
 }

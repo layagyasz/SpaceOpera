@@ -19,7 +19,7 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
         private static readonly string s_Body = "diplomatic-relation-pane-body";
 
         private static readonly string s_RelationTable = "diplomatic-relation-pane-relation-table";
-        private static readonly ActionRow<DiplomaticRelation>.Style s_RelationRowStyle =
+        private static readonly ActionRowStyles.Style s_RelationRowStyle =
             new()
             {
                 Container = "diplomatic-relation-pane-relation-row",
@@ -29,7 +29,7 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
         private static readonly string s_Text = "diplomatic-relation-pane-relation-row-text";
         private static readonly string s_Status = "diplomatic-relation-pane-relation-row-status";
         private static readonly string s_Approval = "diplomatic-relation-pane-relation-row-approval";
-        private static readonly List<ActionRow<DiplomaticRelation>.ActionConfiguration> s_RelationActions =
+        private static readonly List<ActionRowStyles.ActionConfiguration> s_RelationActions =
             new()
             {
                 new ()

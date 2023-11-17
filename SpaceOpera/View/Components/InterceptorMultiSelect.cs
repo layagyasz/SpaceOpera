@@ -9,21 +9,13 @@ namespace SpaceOpera.View.Components
 {
     public class InterceptorMultiSelect<T> : DynamicUiCompoundComponent where T : notnull
     {
-        public class Style
-        {
-            public string? Container { get; set; }
-            public string? Table { get; set; }
-            public ActionRow<T>.Style? Row { get; set; }
-            public string? Adder { get; set; }
-        }
-
         public UiCompoundComponent Table { get; }
         public IUiElement Adder { get; }
 
         private readonly StaticRange<T> _range = new();
 
         public InterceptorMultiSelect(
-            Style style,
+            InterceptorStyles.MultiSelectStyle style,
             IKeyedElementFactory<T> elementFactory,
             Func<IValueInterceptor<T>> interceptorFn,
             UiElementFactory uiElementFactory,

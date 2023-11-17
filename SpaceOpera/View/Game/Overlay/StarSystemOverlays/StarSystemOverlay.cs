@@ -17,7 +17,7 @@ namespace SpaceOpera.View.Game.Overlay.StarSystemOverlays
         private static readonly string s_TableContainer = "empire-overlay-table-container";
         private static readonly string s_TableHeader = "empire-overlay-table-header";
         private static readonly string s_Table = "empire-overlay-table";
-        private static readonly ActionRow<StellarBody>.Style s_RowStyle =
+        private static readonly ActionRowStyles.Style s_RowStyle =
             new()
             {
                 Container = "star-system-overlay-row"
@@ -109,7 +109,7 @@ namespace SpaceOpera.View.Game.Overlay.StarSystemOverlays
                         new TextUiElement(
                             uiElementFactory.GetClass(s_Text), new InlayController(), stellarBody.Name)
                     },
-                    Enumerable.Empty<ActionRow<StellarBody>.ActionConfiguration>());
+                    Enumerable.Empty<ActionRowStyles.ActionConfiguration>());
         }
     }
 }

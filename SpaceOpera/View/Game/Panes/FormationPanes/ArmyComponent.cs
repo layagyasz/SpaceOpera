@@ -15,7 +15,7 @@ namespace SpaceOpera.View.Game.Panes.FormationPanes
         private static readonly string s_Container = "formation-pane-army-container";
 
         private static readonly string s_DivisionTable = "formation-pane-army-division-table";
-        private static readonly ActionRow<Division>.Style s_DivisionRowStyle =
+        private static readonly ActionRowStyles.Style s_DivisionRowStyle =
             new()
             {
                 Container = "formation-pane-army-division-row"
@@ -102,7 +102,7 @@ namespace SpaceOpera.View.Game.Panes.FormationPanes
                         }
                     }
                 },
-                Enumerable.Empty<ActionRow<Division>.ActionConfiguration>());
+                Enumerable.Empty<ActionRowStyles.ActionConfiguration>());
         }
     }
 }

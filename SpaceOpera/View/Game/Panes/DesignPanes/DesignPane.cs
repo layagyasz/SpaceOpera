@@ -22,14 +22,14 @@ namespace SpaceOpera.View.Game.Panes.DesignPanes
         private static readonly string s_Body = "design-pane-body";
 
         private static readonly string s_DesignContainer = "design-pane-design-container";
-        private static readonly ActionRow<Type>.Style s_DesignHeaderStyle =
+        private static readonly ActionRowStyles.Style s_DesignHeaderStyle =
             new()
             {
                 Container = "design-pane-design-header",
                 ActionContainer = "design-pane-design-header-action-container"
             };
         private static readonly string s_DesignHeaderSpace = "design-pane-design-header-space";
-        private static readonly List<ActionRow<Type>.ActionConfiguration> s_DesignHeaderActions =
+        private static readonly List<ActionRowStyles.ActionConfiguration> s_DesignHeaderActions =
             new()
             {
                 new()
@@ -40,7 +40,7 @@ namespace SpaceOpera.View.Game.Panes.DesignPanes
             };
 
         private static readonly string s_DesignTable = "design-pane-design-table";
-        private static readonly ActionRow<Design>.Style s_DesignRowStyle =
+        private static readonly ActionRowStyles.Style s_DesignRowStyle =
             new()
             {
                 Container = "design-pane-design-row",
@@ -48,7 +48,7 @@ namespace SpaceOpera.View.Game.Panes.DesignPanes
             };
         private static readonly string s_Icon = "design-pane-design-row-icon";
         private static readonly string s_Text = "design-pane-design-row-text";
-        private static readonly List<ActionRow<Design>.ActionConfiguration> s_DesignActions =
+        private static readonly List<ActionRowStyles.ActionConfiguration> s_DesignActions =
             new()
             {
                 new ()

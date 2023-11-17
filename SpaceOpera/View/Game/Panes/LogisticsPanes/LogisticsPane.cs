@@ -22,14 +22,14 @@ namespace SpaceOpera.View.Game.Panes.LogisticsPanes
         private static readonly string s_Body = "logistics-pane-body";
 
         private static readonly string s_RouteContainer = "logistics-pane-route-container";
-        private static readonly ActionRow<Type>.Style s_RouteHeaderStyle =
+        private static readonly ActionRowStyles.Style s_RouteHeaderStyle =
             new()
             {
                 Container = "logistics-pane-route-header",
                 ActionContainer = "logistics-pane-route-header-action-container"
             };
         private static readonly string s_RouteHeaderSpace = "logistics-pane-route-header-space";
-        private static readonly List<ActionRow<Type>.ActionConfiguration> s_RouteHeaderActions =
+        private static readonly List<ActionRowStyles.ActionConfiguration> s_RouteHeaderActions =
             new()
             {
                 new()
@@ -40,7 +40,7 @@ namespace SpaceOpera.View.Game.Panes.LogisticsPanes
             };
 
         private static readonly string s_RouteTable = "logistics-pane-route-table";
-        private static readonly ActionRow<PersistentRoute>.Style s_RouteStyle =
+        private static readonly ActionRowStyles.Style s_RouteStyle =
             new()
             {
                 Container = "logistics-pane-route-table-row"
@@ -155,7 +155,7 @@ namespace SpaceOpera.View.Game.Panes.LogisticsPanes
                         iconFactory.Create(
                             uiElementFactory.GetClass(s_RouteInfo), new InlayController(), right.Parent!)
                 },
-                Enumerable.Empty<ActionRow<PersistentRoute>.ActionConfiguration>());
+                Enumerable.Empty<ActionRowStyles.ActionConfiguration>());
         }
     }
 }

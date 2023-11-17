@@ -170,7 +170,7 @@ namespace SpaceOpera.View.Game.Overlay.EmpireOverlays
                     new TextUiElement(
                         uiElementFactory.GetClass(s_Text), new InlayController(), driver.Army.Name)
                 },
-                Enumerable.Empty<ActionRow<ArmyDriver>.ActionConfiguration>());
+                Enumerable.Empty<ActionRowStyles.ActionConfiguration>());
         }
 
         private static ActionRow<AtomicFormationDriver> CreateFleetRow(
@@ -189,7 +189,7 @@ namespace SpaceOpera.View.Game.Overlay.EmpireOverlays
                     new TextUiElement(
                         uiElementFactory.GetClass(s_Text), new InlayController(), driver.AtomicFormation.Name)
                 },
-                Enumerable.Empty<ActionRow<AtomicFormationDriver>.ActionConfiguration>());
+                Enumerable.Empty<ActionRowStyles.ActionConfiguration>());
         }
 
         private static ActionRow<EconomicZoneHolding> CreateHoldingRow(
@@ -208,7 +208,7 @@ namespace SpaceOpera.View.Game.Overlay.EmpireOverlays
                     new TextUiElement(
                         uiElementFactory.GetClass(s_Text), new InlayController(), holding.StellarBody.Name)
                 }, 
-                Enumerable.Empty<ActionRow<EconomicZoneHolding>.ActionConfiguration>());
+                Enumerable.Empty<ActionRowStyles.ActionConfiguration>());
         }
     }
 }

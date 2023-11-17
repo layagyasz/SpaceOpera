@@ -21,16 +21,16 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
         private static readonly string s_Body = "military-pane-body";
 
         private static readonly string s_FormationContainer = "military-pane-formation-container";
-        private static readonly ActionRow<Type>.Style s_FormationHeaderStyle =
+        private static readonly ActionRowStyles.Style s_FormationHeaderStyle =
             new()
             {
                 Container = "military-pane-formation-header"
             };
         private static readonly string s_FormationHeaderSpace = "military-pane-formation-header-space";
-        private static readonly List<ActionRow<Type>.ActionConfiguration> s_FormationHeaderActions = new();
+        private static readonly List<ActionRowStyles.ActionConfiguration> s_FormationHeaderActions = new();
 
         private static readonly string s_FormationTable = "military-pane-formation-table";
-        private static readonly ActionRow<IFormationDriver>.Style s_FormationRowStyle =
+        private static readonly ActionRowStyles.Style s_FormationRowStyle =
             new()
             {
                 Container = "military-pane-formation-row",
@@ -38,7 +38,7 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
             };
         private static readonly string s_Icon = "military-pane-formation-row-icon";
         private static readonly string s_Text = "military-pane-formation-row-text";
-        private static readonly List<ActionRow<IFormationDriver>.ActionConfiguration> s_FormationActions = new();
+        private static readonly List<ActionRowStyles.ActionConfiguration> s_FormationActions = new();
 
         public enum TabId
         {
