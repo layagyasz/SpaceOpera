@@ -57,6 +57,11 @@ namespace SpaceOpera.Core.Military
             return _drivers[formation];
         }
 
+        public IEnumerable<IFormationDriver> GetDrivers(Faction faction)
+        {
+            return _drivers.Values.Where(x => x.Formation.Faction == faction);
+        }
+
         public IEnumerable<FleetDriver> GetFleetDrivers()
         {
             return _drivers.Values.Where(x => x is FleetDriver).Cast<FleetDriver>();

@@ -25,9 +25,9 @@ namespace SpaceOpera.View.Game.Panes.Common
             Add(Projects);
         }
 
-        public void SetProjectHub(IProjectHub? projectHub)
+        public void SetRange(KeyRange<IProject>? range)
         {
-            Projects.SetProjectHub(projectHub);
+            Projects.SetRange(range);
         }
     }
 }

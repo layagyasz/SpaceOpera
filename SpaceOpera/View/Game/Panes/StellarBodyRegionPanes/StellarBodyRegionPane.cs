@@ -93,7 +93,7 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyRegionPanes
                 _holding = _world.Economy.GetRoot(_region.Parent!)?.GetChild(_region)?.GetHolding(_faction);
             }
             StructureTab.Populate(_world, _holding);
-            ProjectTab.SetProjectHub(_holding);
+            ProjectTab.SetRange(_holding == null ? null : _holding.GetProjects);
 
             SetTitle(_region?.Name ?? "Unknown Region");
             Refresh();

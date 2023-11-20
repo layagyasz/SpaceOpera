@@ -100,7 +100,7 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyPanes
             }
 
             OverviewTab.SetHolding(_root!, _holding!);
-            ProjectTab.SetProjectHub(_holding);
+            ProjectTab.SetRange(_holding == null ? null : _holding.GetProjects);
             SetTitle(_stellarBody?.Name ?? "Unknown Stellar Body");
             Refresh();
             Populated?.Invoke(this, EventArgs.Empty);
@@ -123,7 +123,6 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyPanes
                     SetBody(ProjectTab);
                     break;
             }
-            Refresh();
         }
     }
 }

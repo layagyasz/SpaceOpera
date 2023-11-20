@@ -1,0 +1,32 @@
+[
+  {
+    "$id": "military-pane",
+    "Parent": "pane-standard",
+    "Default": {
+      "Size": [ 900, 700 ]
+    }
+  },
+  {
+    "$id": "military-pane-title",
+    "Parent": "pane-standard-title"
+  },
+  {
+    "$id": "military-pane-close",
+    "Parent": "pane-standard-close"
+  },
+  {
+    "$id": "military-pane-tab-container",
+    "Parent": "pane-tab-container"
+  },
+  {
+    "$id": "military-pane-tab-option",
+    "Parent": "pane-tab-option"
+  },
+  {
+    "$id": "military-pane-body",
+    "Parent": "pane-body",
+    "Default": {
+      "Size": [ 892, 580 ]
+    }
+  }
+]

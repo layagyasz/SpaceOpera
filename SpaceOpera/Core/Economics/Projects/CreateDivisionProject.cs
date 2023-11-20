@@ -6,7 +6,7 @@ namespace SpaceOpera.Core.Economics.Projects
     public class CreateDivisionProject : BaseResourcedProject
     {
         public override object Key => Template;
-        public override string Name => $"Create {DivisionName}";
+        public override string Name => $"Create {Template.Name}";
         public Faction Faction { get; }
         public string DivisionName { get; }
         public DivisionTemplate Template { get; }

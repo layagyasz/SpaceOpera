@@ -24,16 +24,6 @@ namespace SpaceOpera.View.Game.Panes.Common
             public string? Cancel { get; set; }
         }
 
-        class ProjectRange
-        {
-            public IProjectHub? ProjectHub { get; set; }
-
-            public IEnumerable<IProject> GetRange()
-            {
-                return ProjectHub?.GetProjects() ?? Enumerable.Empty<IProject>();
-            }
-        }
-
         class ProjectComponentFactory : IKeyedElementFactory<IProject>
         {
             private readonly Style _style;
@@ -98,9 +88,10 @@ namespace SpaceOpera.View.Game.Panes.Common
             }
         }
 
-        private readonly ProjectRange _range;
+        private readonly DelegatedRange<IProject> _range;
 
-        private ProjectsComponent(Class @class, ProjectRange range, ProjectComponentFactory componentFactory)
+        private ProjectsComponent(
+            Class @class, DelegatedRange<IProject> range, ProjectComponentFactory componentFactory)
             : base(
                     new ActionComponentController(),
                     DynamicKeyedContainer<IProject>.CreateSerial(
@@ -115,14 +106,14 @@ namespace SpaceOpera.View.Game.Panes.Common
             _range = range;
         }
 
-        public void SetProjectHub(IProjectHub? projectHub)
+        public void SetRange(KeyRange<IProject>? range)
         {
-            _range.ProjectHub = projectHub;
+            _range.SetRange(range);
         }
 
         public static ProjectsComponent Create(Style style, UiElementFactory uiElementFactory, IconFactory iconFactory)
         {
-            var range = new ProjectRange();
+            var range = new DelegatedRange<IProject>();
             return new(
                 uiElementFactory.GetClass(style.Container!),
                 range,
