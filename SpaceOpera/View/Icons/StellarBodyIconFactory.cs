@@ -25,9 +25,9 @@ namespace SpaceOpera.View.Icons
             StellarBodyViewFactory = stellarBodyViewFactory;
         }
 
-        public void Rasterize(StellarBody stellarBody, IRenderTarget target)
+        public void Rasterize(StellarBody stellarBody, IRenderTarget target, IconResolution resolution)
         {
-            var model = StellarBodyViewFactory.Create(stellarBody, 1, false);
+            var model = StellarBodyViewFactory.Create(stellarBody, 1, resolution == IconResolution.High);
 
             var camera = new SubjectiveCamera3d(s_SceneDepth);
             camera.SetDistance(1.5f * model.Radius);

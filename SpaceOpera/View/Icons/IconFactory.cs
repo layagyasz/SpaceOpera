@@ -156,7 +156,7 @@ namespace SpaceOpera.View.Icons
             {
                 var rasterTexture = _rasterTextures[resolution];
                 rasterTexture.Clear();
-                _stellarBodyIconFactory.Rasterize(stellarBody, rasterTexture);
+                _stellarBodyIconFactory.Rasterize(stellarBody, rasterTexture, resolution);
                 rasterTexture.Display();
                 var tex = rasterTexture.CopyTexture();
                 _cache.Put(key, tex);
