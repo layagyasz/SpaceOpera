@@ -7,7 +7,7 @@ namespace SpaceOpera.Core.Economics.Projects
     {
         public override object Key => Template;
         public override string Name => $"Create {Template.Name}";
-        public Faction Faction { get; }
+        public override Faction Faction { get; }
         public string DivisionName { get; }
         public DivisionTemplate Template { get; }
 

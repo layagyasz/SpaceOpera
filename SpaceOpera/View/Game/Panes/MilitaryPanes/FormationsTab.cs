@@ -32,35 +32,6 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
         private static readonly string s_Text = "military-pane-formation-row-text";
         private static readonly List<ActionRowStyles.ActionConfiguration> s_FormationActions = new();
 
-        class FormationComponentFactory : IKeyedElementFactory<IFormationDriver>
-        {
-            private readonly UiElementFactory _uiElementFactory;
-            private readonly IconFactory _iconFactory;
-
-            public FormationComponentFactory(UiElementFactory uiElementFactory, IconFactory iconFactory)
-            {
-                _uiElementFactory = uiElementFactory;
-                _iconFactory = iconFactory;
-            }
-
-            public IKeyedUiElement<IFormationDriver> Create(IFormationDriver driver)
-            {
-                return ActionRow<IFormationDriver>.Create(
-                    driver,
-                    ActionId.Select,
-                    ActionId.Unknown,
-                    _uiElementFactory,
-                    s_FormationRowStyle,
-                    new List<IUiElement>()
-                    {
-                        _iconFactory.Create(_uiElementFactory.GetClass(s_Icon), new InlayController(), driver),
-                        new TextUiElement(
-                            _uiElementFactory.GetClass(s_Text), new InlayController(), driver.Formation.Name)
-                    },
-                    s_FormationActions);
-            }
-        }
-
         public ActionTable<IFormationDriver> Formations { get; }
 
         private readonly DelegatedRange<IFormationDriver> _range;
@@ -107,9 +78,27 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
                         new TableController(10f),
                         UiSerialContainer.Orientation.Vertical,
                         range.GetRange,
-                        new FormationComponentFactory(uiElementFactory, iconFactory),
+                        new SimpleKeyedElementFactory<IFormationDriver>(uiElementFactory, iconFactory, CreateRow),
                         Comparer<IFormationDriver>.Create((x, y) => x.Formation.Name.CompareTo(y.Formation.Name)))),
                 range);
+        }
+
+        private static IKeyedUiElement<IFormationDriver> CreateRow(
+            IFormationDriver driver, UiElementFactory uiElementFactory, IconFactory iconFactory)
+        {
+            return ActionRow<IFormationDriver>.Create(
+                driver,
+                ActionId.Select,
+                ActionId.Unknown,
+                uiElementFactory,
+                s_FormationRowStyle,
+                new List<IUiElement>()
+                {
+                    iconFactory.Create(uiElementFactory.GetClass(s_Icon), new InlayController(), driver),
+                    new TextUiElement(
+                        uiElementFactory.GetClass(s_Text), new InlayController(), driver.Formation.Name)
+                },
+                s_FormationActions);
         }
     }
 }

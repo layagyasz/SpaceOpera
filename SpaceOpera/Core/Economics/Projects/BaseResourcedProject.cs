@@ -1,9 +1,11 @@
 ﻿using Cardamom.Trackers;
+using SpaceOpera.Core.Politics;
 
 namespace SpaceOpera.Core.Economics.Projects
 {
     public abstract class BaseResourcedProject : BaseProject
     {
+        public override Faction Faction => Holding.Owner;
         public EconomicSubzoneHolding Holding { get; }
         public float Time { get; }
         public override Pool Progress { get; }

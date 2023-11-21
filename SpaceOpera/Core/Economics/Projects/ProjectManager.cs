@@ -1,4 +1,6 @@
-﻿namespace SpaceOpera.Core.Economics.Projects
+﻿using SpaceOpera.Core.Politics;
+
+namespace SpaceOpera.Core.Economics.Projects
 {
     public class ProjectManager
     {
@@ -15,6 +17,11 @@
         {
             _projects.Remove(project);
             project.Cancel();
+        }
+
+        public IEnumerable<IProject> GetFor(Faction faction)
+        {
+            return _projects.Where(x => x.Faction == faction);
         }
 
         public void Tick(World world)

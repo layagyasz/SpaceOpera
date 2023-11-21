@@ -1,4 +1,5 @@
 ﻿using Cardamom.Trackers;
+using SpaceOpera.Core.Politics;
 
 namespace SpaceOpera.Core.Economics.Projects
 {
@@ -6,6 +7,7 @@ namespace SpaceOpera.Core.Economics.Projects
     {
         public abstract object Key { get; }
         public abstract string Name { get; }
+        public abstract Faction Faction { get; }
         public abstract Pool Progress { get; }
         public ProjectStatus Status { get; protected set; } = ProjectStatus.InProgress;
 

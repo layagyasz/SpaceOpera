@@ -20,7 +20,8 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
         public enum TabId
         {
             Army,
-            Fleet
+            Fleet,
+            Recruitment
         }
 
         class FormationRange
@@ -39,6 +40,7 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
         }
 
         public FormationsTab Formations { get; }
+        public RecruitmentTab Recruitment { get; }
 
         private readonly FormationRange _range = new();
 
@@ -54,18 +56,21 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
                     new List<TabBar<TabId>.Definition>()
                     {
                         new(TabId.Army, "Army"),
-                        new(TabId.Fleet, "Fleet")
+                        new(TabId.Fleet, "Fleet"),
+                        new(TabId.Recruitment, "Recruitment")
                     },
                     uiElementFactory.GetClass(s_TabContainer),
                     uiElementFactory.GetClass(s_TabOption)))
         {
             Formations = FormationsTab.Create(uiElementFactory, iconFactory);
+            Recruitment = RecruitmentTab.Create(uiElementFactory, iconFactory);
         }
 
         public override void Populate(params object?[] args)
         {
             _range.World = args[0] as World;
             _range.Faction = args[1] as Faction;
+            Recruitment.Populate(_range.World, _range.Faction);
             Refresh();
             Populated?.Invoke(this, EventArgs.Empty);
         }
@@ -79,6 +84,7 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
         {
             base.Initialize();
             Formations.Initialize();
+            Recruitment.Initialize();
         }
 
         public override void SetTab(object id)
@@ -93,6 +99,9 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
                 case TabId.Fleet:
                     SetBody(Formations);
                     Formations.SetRange(() => _range.GetRange().Where(x => x is FleetDriver));
+                    break;
+                case TabId.Recruitment:
+                    SetBody(Recruitment);
                     break;
             }
         }

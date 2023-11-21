@@ -86,6 +86,7 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyPanes
         {
             base.Initialize();
             OverviewTab.Initialize();
+            ProjectTab.Initialize();
         }
 
         public override void Populate(params object?[] args)

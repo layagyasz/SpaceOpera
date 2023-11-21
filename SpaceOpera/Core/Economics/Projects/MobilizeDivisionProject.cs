@@ -1,11 +1,13 @@
 ﻿using SpaceOpera.Core.Military;
+using SpaceOpera.Core.Politics;
 
 namespace SpaceOpera.Core.Economics.Projects
 {
     public class MobilizeDivisionProject : TimedProject
     {
         public override object Key => Division;
-        public override string Name => $"Mobilize {Division.Name}"; 
+        public override string Name => $"Mobilize {Division.Name}";
+        public override Faction Faction => Division.Faction;
         public EconomicSubzoneHolding Holding { get; }
         public Division Division { get; }
 
