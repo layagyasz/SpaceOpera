@@ -1,7 +1,7 @@
 ﻿using Cardamom.Ui;
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
-using SpaceOpera.Controller.Game.Panes;
+using SpaceOpera.Controller.Game.Panes.MilitaryPanes;
 using SpaceOpera.Core;
 using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Politics;
@@ -39,8 +39,8 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
             }
         }
 
-        public FormationsTab Formations { get; }
-        public RecruitmentTab Recruitment { get; }
+        public FormationsTab FormationsTab { get; }
+        public RecruitmentTab RecruitmentTab { get; }
 
         private readonly FormationRange _range = new();
 
@@ -48,7 +48,7 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
 
         public MilitaryPane(UiElementFactory uiElementFactory, IconFactory iconFactory)
             : base(
-                  new MultiTabGamePaneController(),
+                  new MilitaryPaneController(),
                   uiElementFactory.GetClass(s_Container), 
                   new TextUiElement(uiElementFactory.GetClass(s_Title), new ButtonController(), "Military"),
                   uiElementFactory.CreateSimpleButton(s_Close).Item1,
@@ -62,15 +62,15 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
                     uiElementFactory.GetClass(s_TabContainer),
                     uiElementFactory.GetClass(s_TabOption)))
         {
-            Formations = FormationsTab.Create(uiElementFactory, iconFactory);
-            Recruitment = RecruitmentTab.Create(uiElementFactory, iconFactory);
+            FormationsTab = FormationsTab.Create(uiElementFactory, iconFactory);
+            RecruitmentTab = RecruitmentTab.Create(uiElementFactory, iconFactory);
         }
 
         public override void Populate(params object?[] args)
         {
             _range.World = args[0] as World;
             _range.Faction = args[1] as Faction;
-            Recruitment.Populate(_range.World, _range.Faction);
+            RecruitmentTab.Populate(_range.World, _range.Faction);
             Refresh();
             Populated?.Invoke(this, EventArgs.Empty);
         }
@@ -83,8 +83,8 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
         public override void Initialize()
         {
             base.Initialize();
-            Formations.Initialize();
-            Recruitment.Initialize();
+            FormationsTab.Initialize();
+            RecruitmentTab.Initialize();
         }
 
         public override void SetTab(object id)
@@ -93,15 +93,15 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
             switch (_tab)
             {
                 case TabId.Army:
-                    SetBody(Formations);
-                    Formations.SetRange(() => _range.GetRange().Where(x => x is ArmyDriver));
+                    SetBody(FormationsTab);
+                    FormationsTab.SetRange(() => _range.GetRange().Where(x => x is ArmyDriver));
                     break;
                 case TabId.Fleet:
-                    SetBody(Formations);
-                    Formations.SetRange(() => _range.GetRange().Where(x => x is FleetDriver));
+                    SetBody(FormationsTab);
+                    FormationsTab.SetRange(() => _range.GetRange().Where(x => x is FleetDriver));
                     break;
                 case TabId.Recruitment:
-                    SetBody(Recruitment);
+                    SetBody(RecruitmentTab);
                     break;
             }
         }

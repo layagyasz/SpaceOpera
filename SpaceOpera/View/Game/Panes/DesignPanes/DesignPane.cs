@@ -124,7 +124,8 @@ namespace SpaceOpera.View.Game.Panes.DesignPanes
                         UiSerialContainer.Orientation.Vertical,
                         _range.GetRange,
                         new SimpleKeyedElementFactory<Design>(uiElementFactory, iconFactory, CreateRow),
-                        Comparer<Design>.Create((x, y) => x.Name.CompareTo(y.Name))));
+                        Comparer<Design>.Create((x, y) => x.Name.CompareTo(y.Name))),
+                    /* isSelectable=*/ true);
 
             InfoPanel = new(s_InfoPaneStyle, uiElementFactory, iconFactory);
 

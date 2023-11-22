@@ -10,15 +10,25 @@ namespace SpaceOpera.Controller.Components
         public EventHandler<UiInteractionEventArgs>? Interacted { get; set; }
         public EventHandler<T?>? RowSelected { get; set; }
 
+        private bool _isSelectable;
+
         private ActionTable<T>? _table;
+
+        public ActionTableController(bool isSelectable)
+        {
+            _isSelectable = isSelectable;
+        }
 
         public void Bind(object @object)
         {
             _table = (ActionTable<T>)@object!;
             var headerController = (IActionController)_table.Header.ComponentController;
             headerController.Interacted += HandleInteraction;
-            var tableController = (RadioController<T>)_table.Table.ComponentController;
-            tableController.ValueChanged += HandleRowSelected;
+            if (_isSelectable)
+            {
+                var tableController = (RadioController<T>)_table.Table.ComponentController;
+                tableController.ValueChanged += HandleRowSelected;
+            }
             _table.Table.ElementAdded += HandleRowAdded;
             _table.Table.ElementRemoved += HandleRowRemoved;
             foreach (var row in _table.Table)
@@ -31,8 +41,11 @@ namespace SpaceOpera.Controller.Components
         {
             var headerController = (IActionController)_table!.Header.ComponentController;
             headerController.Interacted -= HandleInteraction;
-            var tableController = (RadioController<T>)_table.Table.ComponentController;
-            tableController.ValueChanged -= HandleRowSelected;
+            if (_isSelectable)
+            {
+                var tableController = (RadioController<T>)_table.Table.ComponentController;
+                tableController.ValueChanged -= HandleRowSelected;
+            }
             _table.Table.ElementAdded -= HandleRowAdded;
             _table.Table.ElementRemoved -= HandleRowRemoved;
             foreach (var row in _table.Table)

@@ -79,7 +79,8 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
                         UiSerialContainer.Orientation.Vertical,
                         range.GetRange,
                         new SimpleKeyedElementFactory<IFormationDriver>(uiElementFactory, iconFactory, CreateRow),
-                        Comparer<IFormationDriver>.Create((x, y) => x.Formation.Name.CompareTo(y.Formation.Name)))),
+                        Comparer<IFormationDriver>.Create((x, y) => x.Formation.Name.CompareTo(y.Formation.Name))),
+                    /* isSelectable=*/ true),
                 range);
         }
 

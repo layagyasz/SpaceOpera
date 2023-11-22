@@ -791,13 +791,13 @@
     <None Update="Resources\View\Style\Game\Panes\LogisticsRoute.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Style\Game\Panes\Military\Formations.json">
+    <None Update="Resources\View\Style\Game\Panes\Military\FormationsTab.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\View\Style\Game\Panes\Military\Pane.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Style\Game\Panes\Military\Recruitment.json">
+    <None Update="Resources\View\Style\Game\Panes\Military\RecruitmentTab.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\View\Style\Game\Panes\StellarBodyRegion\Pane.json">
@@ -1567,7 +1567,6 @@
     <Folder Include="Resources\View\Designs\Ship\" />
     <Folder Include="Resources\View\Designs\ShipShield\" />
     <Folder Include="Resources\View\Style\GameSetup\" />
-    <Folder Include="Resources\View\Style\Game\Panes\Military\" />
     <Folder Include="Resources\View\Style\Loader\" />
   </ItemGroup>
 

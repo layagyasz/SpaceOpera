@@ -109,7 +109,8 @@ namespace SpaceOpera.View.Game.Panes.LogisticsPanes
                         new SimpleKeyedElementFactory<PersistentRoute>(uiElementFactory, iconFactory, CreateRow),
                         FluentComparator<PersistentRoute>
                             .Comparing(x => x.LeftAnchor.Parent.Name)
-                            .Then(x => x.RightAnchor.Parent.Name)));
+                            .Then(x => x.RightAnchor.Parent.Name)),
+                    /* isSelectable=*/ true);
             var body =
                 new DynamicUiContainer(uiElementFactory.GetClass(s_Body), new NoOpElementController())
                 {

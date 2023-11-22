@@ -12,14 +12,15 @@ namespace SpaceOpera.View.Components
         public UiCompoundComponent Header { get; }
         public UiCompoundComponent Table { get; }
 
-        public ActionTable(Class @class, UiCompoundComponent header, IUiContainer table)
+        public ActionTable(Class @class, UiCompoundComponent header, IUiContainer table, bool isSelectable)
             : base(
-                  new ActionTableController<T>(),
+                  new ActionTableController<T>(isSelectable),
                   new DynamicUiSerialContainer(
                       @class, new NoOpElementController(), UiSerialContainer.Orientation.Vertical))
         {
             Header = header;
-            Table = new DynamicUiCompoundComponent(new RadioController<T>(), table);
+            Table = 
+                new DynamicUiCompoundComponent(isSelectable ? new RadioController<T>() : new NoOpController(), table);
 
             Add(Header);
             Add(Table);

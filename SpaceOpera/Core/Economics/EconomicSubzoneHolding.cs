@@ -8,6 +8,7 @@ namespace SpaceOpera.Core.Economics
 {
     public class EconomicSubzoneHolding : BaseProjectHub
     {
+        public string Name => Region.Name;
         public Faction Owner => Parent.Parent.Owner;
         public EconomicZoneHolding Parent { get; set; }
         public StellarBodyRegion Region { get; }

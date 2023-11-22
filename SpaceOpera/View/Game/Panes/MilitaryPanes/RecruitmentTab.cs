@@ -2,6 +2,7 @@
 using Cardamom.Ui.Controller;
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
+using SpaceOpera.Controller.Game.Panes.MilitaryPanes;
 using SpaceOpera.Core;
 using SpaceOpera.Core.Designs;
 using SpaceOpera.Core.Economics;
@@ -77,12 +78,12 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
 
         public EventHandler<EventArgs>? Populated { get; set; }
 
-        public IUiComponent Holdings { get; }
+        public IUiComponent Holding { get; }
         public ActionTable<DivisionTemplate> Templates { get; }
         public ProjectsComponent Projects { get; }
 
-        private StaticRange<DivisionTemplate> _templateRange;
-        private ProjectRange _projectRange;
+        private readonly StaticRange<DivisionTemplate> _templateRange;
+        private readonly ProjectRange _projectRange;
 
         private RecruitmentTab(
             Class @class,
@@ -92,11 +93,11 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
             ProjectsComponent projects,
             ProjectRange projectRange)
             : base(
-                  new NoOpController(), 
+                  new RecruitmentTabController(), 
                   new DynamicUiSerialContainer(@class, new NoOpElementController(), 
                       UiSerialContainer.Orientation.Horizontal))
         {
-            Holdings = holdings;
+            Holding = holdings;
             Templates = templates;
             Projects = projects;
 
@@ -117,13 +118,14 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
                     Enumerable.Empty<SelectOption<EconomicSubzoneHolding>>(),
                     scrollSpeed: 10f).Item1;
             var projects = ProjectsComponent.Create(s_ProjectsStyle, uiElementFactory, iconFactory);
+            projects.SetRange(projectRange.GetRange);
             return new(
                 uiElementFactory.GetClass(s_Container),
                 holdings,
                 new ActionTable<DivisionTemplate>(
                     uiElementFactory.GetClass(s_TemplateContainer),
                     ActionRow<Type>.Create(
-                        typeof(IFormationDriver),
+                        typeof(DivisionTemplate),
                         ActionId.Unknown,
                         ActionId.Unknown,
                         uiElementFactory,
@@ -140,7 +142,8 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
                         UiSerialContainer.Orientation.Vertical,
                         templateRange.GetRange,
                         new SimpleKeyedElementFactory<DivisionTemplate>(uiElementFactory, iconFactory, CreateRow),
-                        Comparer<DivisionTemplate>.Create((x, y) => x.Name.CompareTo(y.Name)))),
+                        Comparer<DivisionTemplate>.Create((x, y) => x.Name.CompareTo(y.Name))),
+                    /* isSelectable=*/ false),
                 templateRange,
                 projects,
                 projectRange);
