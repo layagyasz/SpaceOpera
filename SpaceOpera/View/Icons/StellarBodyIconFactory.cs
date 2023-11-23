@@ -13,6 +13,7 @@ namespace SpaceOpera.View.Icons
 {
     public class StellarBodyIconFactory
     {
+        private static Matrix4 s_Invert = Matrix4.CreateScale(1f, -1f, 1f);
         private static readonly float s_SceneDepth = 1110f;
         private static readonly Vector3 s_LightPosition = new(1000, 0, 0);
         private static readonly float s_LightPower = 1f;
@@ -45,7 +46,8 @@ namespace SpaceOpera.View.Icons
                     logDistance * logDistance / (1000 * 1000));
 
             target.PushModelMatrix(Matrix4.Identity);
-            target.PushViewMatrix(camera.GetViewMatrix());
+            // Renders upside-down by default, so flip it back.
+            target.PushViewMatrix(camera.GetViewMatrix() * s_Invert);
             target.PushProjection(camera.GetProjection());
 
             var surfaceShader = StellarBodyViewFactory.SurfaceShader;

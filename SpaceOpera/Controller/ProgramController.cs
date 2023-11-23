@@ -7,7 +7,6 @@ using SpaceOpera.Controller.Loader;
 using SpaceOpera.Core;
 using SpaceOpera.Core.Loader;
 using SpaceOpera.Core.Politics;
-using SpaceOpera.Core.Universe.Generator;
 using SpaceOpera.View;
 
 namespace SpaceOpera.Controller
@@ -16,6 +15,7 @@ namespace SpaceOpera.Controller
     {
         private class GenerateWorldTask : ILoaderTask
         {
+            public bool IsGL => true;
             public GameParameters Parameters { get; }
             public CoreData CoreData { get; }
             public GeneratorContext GeneratorContext { get; }
@@ -52,7 +52,7 @@ namespace SpaceOpera.Controller
         }
 
         private readonly UiWindow _window;
-        private readonly LoaderThread _loaderThread;
+        private readonly Core.Loader.Loader _loaderThread;
         private readonly ILogger _logger;
         private readonly CoreData _coreData;
         private readonly ViewFactory _viewFactory;
@@ -60,7 +60,7 @@ namespace SpaceOpera.Controller
         private IScreen? _screen;
 
         public ProgramController(
-            UiWindow window, LoaderThread loaderThread, ILogger logger, CoreData coreData, ViewFactory viewFactory)
+            UiWindow window, Core.Loader.Loader loaderThread, ILogger logger, CoreData coreData, ViewFactory viewFactory)
         {
             _window = window;
             _loaderThread = loaderThread;

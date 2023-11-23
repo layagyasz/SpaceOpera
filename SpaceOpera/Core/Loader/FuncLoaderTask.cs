@@ -4,11 +4,14 @@ namespace SpaceOpera.Core.Loader
 {
     public class FuncLoaderTask<T> : ILoaderTask
     {
+        public bool IsGL { get; }
+
         private readonly Func<T> _func;
         private readonly Promise<T> _promise = new();
 
-        public FuncLoaderTask(Func<T> func)
+        public FuncLoaderTask(Func<T> func, bool isGL)
         {
+            IsGL = isGL;
             _func = func;
         }
 

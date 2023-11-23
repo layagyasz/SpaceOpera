@@ -49,10 +49,10 @@ namespace SpaceOpera
             ui.Bind(
                 new KeyboardListener(SimpleKeyMapper.Us, new Keys[] { Keys.Left, Keys.Right, Keys.Up, Keys.Down }));
 
-            var loader = new LoaderThread(window);
+            ILogger logger = new Logger(new ConsoleBackend(), LogLevel.Info);
+            var loader = new Loader(window, /* numWorkers= */ 2, /* numGLWorkers= */ 2, logger);
             loader.Start();
 
-            ILogger logger = new Logger(new ConsoleBackend(), LogLevel.Info);
             var coreData = CoreData.LoadFrom("Resources/Core/CoreData.json", logger);
             var viewData = ViewData.LoadFrom("Resources/View/ViewData.json", logger);
             var viewFactory = ViewFactory.Create(viewData, coreData, loader);

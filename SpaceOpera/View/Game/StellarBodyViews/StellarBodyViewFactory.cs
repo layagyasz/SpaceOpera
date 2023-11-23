@@ -25,7 +25,7 @@ namespace SpaceOpera.View.Game.StellarBodyViews
         public RenderShader SurfaceShader { get; }
         public RenderShader AtmosphereShader { get; }
         public SpectrumSensitivity HumanEyeSensitivity { get; }
-        public LoaderThread LoaderThread { get; }
+        public Core.Loader.Loader LoaderThread { get; }
 
         private readonly StellarBodySurfaceGeneratorResources _resourcesHighRes;
         private readonly StellarBodySurfaceGeneratorResources _resourcesLowRes;
@@ -36,7 +36,7 @@ namespace SpaceOpera.View.Game.StellarBodyViews
             RenderShader surfaceShader,
             RenderShader atmosphereShader,
             SpectrumSensitivity humanEyeSensitivity,
-            LoaderThread loaderThread)
+            Core.Loader.Loader loaderThread)
         {
             BiomeRenderDetails = biomeRenderDetails;
             StellarBodyGenerators = stellarBodyGenerators;
@@ -62,7 +62,7 @@ namespace SpaceOpera.View.Game.StellarBodyViews
             var peakColor = ToColor(HumanEyeSensitivity.GetColor(peakWavelength));
             var scatteredColor = ToColor(HumanEyeSensitivity.GetColor(new RayleighScatteredSpectrum(spectrum)));
 
-            var material = LoaderThread.Load(
+            var material = LoaderThread.LoadGL(
                 () => StellarBodyGenerators[stellarBody.Type]
                     .SurfaceGenerator!
                         .GenerateSurface(

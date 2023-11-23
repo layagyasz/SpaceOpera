@@ -17,7 +17,7 @@ namespace SpaceOpera.View.Icons
 {
     public class IconFactory : IIconDisposer
     {
-        private static EnumMap<IconResolution, Vector2i> s_Resolution =
+        private static readonly EnumMap<IconResolution, Vector2i> s_Resolution =
             new()
             {
                 { IconResolution.Low, new(64, 64) },
