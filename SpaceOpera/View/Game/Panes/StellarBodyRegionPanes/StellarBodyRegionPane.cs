@@ -71,13 +71,6 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyRegionPanes
             ProjectTab = new(uiElementFactory.GetClass(s_Body), s_ProjectTabStyle, uiElementFactory, iconFactory);
         }
 
-        public override void Initialize()
-        {
-            base.Initialize();
-            StructureTab.Initialize();
-            ProjectTab.Initialize();
-        }
-
         public EconomicSubzoneHolding GetHolding()
         {
             return _holding!;
@@ -100,9 +93,10 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyRegionPanes
             Populated?.Invoke(this, EventArgs.Empty);
         }
 
-        public override object GetTab()
+        public override IEnumerable<IUiComponent> GetTabs()
         {
-            return _tab;
+            yield return StructureTab;
+            yield return ProjectTab;
         }
 
         public override void SetTab(object id)

@@ -1,6 +1,5 @@
 ﻿using SpaceOpera.Controller.Components;
 using SpaceOpera.Core.Designs;
-using SpaceOpera.View.Game.Panes;
 using SpaceOpera.View.Game.Panes.DesignPanes;
 
 namespace SpaceOpera.Controller.Game.Panes.DesignPanes
@@ -31,7 +30,7 @@ namespace SpaceOpera.Controller.Game.Panes.DesignPanes
             {
                 if (type == typeof(Design))
                 {
-                    Interacted?.Invoke(this, e.WithObject(((MultiTabGamePane)_pane!).GetTab()));
+                    Interacted?.Invoke(this, e.WithObject(GetTab()));
                 }
             }
             else

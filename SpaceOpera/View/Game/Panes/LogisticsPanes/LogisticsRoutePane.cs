@@ -234,9 +234,9 @@ namespace SpaceOpera.View.Game.Panes.LogisticsPanes
             Populated?.Invoke(this, EventArgs.Empty);
         }
 
-        private IEnumerable<IUiElement> CreateAnchorContents(EconomicSubzoneHolding? subzone)
+        private IEnumerable<IUiElement> CreateAnchorContents(EconomicSubzoneHolding? holding)
         {
-            if (subzone == null)
+            if (holding == null)
             {
                 yield return new TextUiElement(
                     _uiElementFactory.GetClass(s_AnchorInstruction),
@@ -245,7 +245,6 @@ namespace SpaceOpera.View.Game.Panes.LogisticsPanes
             }
             else
             {
-                var holding = (EconomicSubzoneHolding)subzone;
                 yield return _iconFactory.Create(
                     _uiElementFactory.GetClass(s_AnchorIcon), new InlayController(), holding.Region.Parent!);
                 yield return new TextUiElement(

@@ -82,11 +82,10 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyPanes
             return _holding!;
         }
 
-        public override void Initialize()
+        public override IEnumerable<IUiComponent> GetTabs()
         {
-            base.Initialize();
-            OverviewTab.Initialize();
-            ProjectTab.Initialize();
+            yield return OverviewTab;
+            yield return ProjectTab;
         }
 
         public override void Populate(params object?[] args)
@@ -105,11 +104,6 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyPanes
             SetTitle(_stellarBody?.Name ?? "Unknown Stellar Body");
             Refresh();
             Populated?.Invoke(this, EventArgs.Empty);
-        }
-
-        public override object GetTab()
-        {
-            return _tab;
         }
 
         public override void SetTab(object id)

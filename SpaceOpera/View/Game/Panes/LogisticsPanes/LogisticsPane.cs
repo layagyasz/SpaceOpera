@@ -119,17 +119,17 @@ namespace SpaceOpera.View.Game.Panes.LogisticsPanes
             SetBody(body);
         }
 
+        public override IEnumerable<IUiComponent> GetTabs()
+        {
+            yield break;
+        }
+
         public override void Populate(params object?[] args)
         {
             _range.World = args[0] as World;
             _range.Faction = args[1] as Faction;
             Refresh();
             Populated?.Invoke(this, EventArgs.Empty);
-        }
-
-        public override object GetTab()
-        {
-            return TabId.Persistent;
         }
 
         public override void SetTab(object id) { }

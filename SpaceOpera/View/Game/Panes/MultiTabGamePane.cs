@@ -33,6 +33,17 @@ namespace SpaceOpera.View.Game.Panes
             Add(tabs);
         }
 
+        public abstract IEnumerable<IUiComponent> GetTabs();
+
+        public override void Initialize()
+        {
+            base.Initialize();
+            foreach (var tab in GetTabs())
+            {
+                tab.Initialize();
+            }
+        }
+
         public abstract void Populate(params object?[] args);
 
         public void SetBody(IUiElement body)
@@ -50,7 +61,6 @@ namespace SpaceOpera.View.Game.Panes
             Body = body;
         }
 
-        public abstract object GetTab();
         public abstract void SetTab(object id);
 
         public void SetTitle(string title)

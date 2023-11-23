@@ -20,21 +20,21 @@ namespace SpaceOpera.View.Game.Panes.ResearchPanes
         private static readonly string s_Body = "pane-body";
 
         public ResearchPane(
-            IElementController controller, 
+            IElementController controller,
             Class @class,
-            TextUiElement header, 
+            TextUiElement header,
             IUiElement closeButton,
             UiCompoundComponent tabs)
             : base(controller, @class, header, closeButton, tabs) { }
 
+        public override IEnumerable<IUiComponent> GetTabs()
+        {
+            yield break;
+        }
+
         public override void Populate(params object?[] args)
         {
             Populated?.Invoke(this, EventArgs.Empty);
-        }
-
-        public override object GetTab()
-        {
-            return TabId.Current;
         }
 
         public override void SetTab(object id) { }

@@ -5,7 +5,7 @@ using SpaceOpera.Core.Military;
 using SpaceOpera.View.Components;
 using SpaceOpera.View.Components.Dynamics;
 using SpaceOpera.View.Icons;
-using Cardamom.Ui.Controller;
+using SpaceOpera.Controller.Game.Panes;
 
 namespace SpaceOpera.View.Game.Panes.MilitaryPanes
 {
@@ -39,7 +39,7 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
         private FormationsTab(
             Class @class, ActionTable<IFormationDriver> formations, DelegatedRange<IFormationDriver> range)
             : base(
-                  new NoOpController(), 
+                  new NoOpTabController(), 
                   new DynamicUiSerialContainer(
                       @class, new NoOpElementController(), UiSerialContainer.Orientation.Horizontal))
         {

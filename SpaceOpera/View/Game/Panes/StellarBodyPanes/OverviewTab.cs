@@ -1,7 +1,7 @@
 ﻿using Cardamom.Ui;
-using Cardamom.Ui.Controller;
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
+using SpaceOpera.Controller.Game.Panes;
 using SpaceOpera.Core.Economics;
 using SpaceOpera.Core.Universe;
 using SpaceOpera.View.Components;
@@ -41,7 +41,7 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyPanes
 
         public OverviewTab(UiElementFactory uiElementFactory, IconFactory iconFactory)
             : base(
-                  new NoOpController(),
+                  new NoOpTabController(),
                   new DynamicUiSerialContainer(
                       uiElementFactory.GetClass(s_Container),
                       new NoOpElementController(),

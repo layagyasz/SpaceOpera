@@ -1,7 +1,7 @@
 ﻿using Cardamom.Ui;
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
-using SpaceOpera.Controller.Game.Panes.MilitaryPanes;
+using SpaceOpera.Controller.Game.Panes;
 using SpaceOpera.Core;
 using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Politics;
@@ -48,7 +48,7 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
 
         public MilitaryPane(UiElementFactory uiElementFactory, IconFactory iconFactory)
             : base(
-                  new MilitaryPaneController(),
+                  new MultiTabGamePaneController(),
                   uiElementFactory.GetClass(s_Container), 
                   new TextUiElement(uiElementFactory.GetClass(s_Title), new ButtonController(), "Military"),
                   uiElementFactory.CreateSimpleButton(s_Close).Item1,
@@ -66,6 +66,12 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
             RecruitmentTab = RecruitmentTab.Create(uiElementFactory, iconFactory);
         }
 
+        public override IEnumerable<IUiComponent> GetTabs()
+        {
+            yield return FormationsTab;
+            yield return RecruitmentTab;
+        }
+
         public override void Populate(params object?[] args)
         {
             _range.World = args[0] as World;
@@ -73,18 +79,6 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
             RecruitmentTab.Populate(_range.World, _range.Faction);
             Refresh();
             Populated?.Invoke(this, EventArgs.Empty);
-        }
-
-        public override object GetTab()
-        {
-            return _tab;
-        }
-
-        public override void Initialize()
-        {
-            base.Initialize();
-            FormationsTab.Initialize();
-            RecruitmentTab.Initialize();
         }
 
         public override void SetTab(object id)
