@@ -43,7 +43,7 @@ namespace SpaceOpera.View.Game.Panes.DiplomacyPanes
                 new StaticAdderController<IDiplomaticAgreementSection>(section),
                 new UiSerialContainer(
                     _uiElementFactory.GetClass(s_Section),
-                    new NoOpElementController(), UiSerialContainer.Orientation.Vertical))
+                    new ButtonController(), UiSerialContainer.Orientation.Vertical))
             {
                 new TextUiElement(
                     _uiElementFactory.GetClass(s_SectionHeader), new InlayController(), section.Type.Name)

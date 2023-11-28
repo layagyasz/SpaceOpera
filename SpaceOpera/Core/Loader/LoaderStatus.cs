@@ -16,18 +16,18 @@ namespace SpaceOpera.Core.Loader
             _logLength = logLength;
             Progress = 
                 new VirtualPool(
-                    () => _segments.Sum(x => x.Value.Progress.MaxAmount > 0 ? x.Value.Progress.PercentFull() : 0),
+                    () => _segments.Sum(x => x.Value.GetPercentDone()),
                     () => _segments.Count);
         }
 
         public void AddWork(object segment, int amount)
         {
-            _segments[segment].Progress.ChangeMax(amount);
+            _segments[segment].AddWork(amount);
         }
 
         public void DoWork(object segment)
         {
-            _segments[segment].Progress.Change(1);
+            _segments[segment].DoWork();
         }
 
         public IEnumerable<string> GetStatus()
@@ -37,10 +37,13 @@ namespace SpaceOpera.Core.Loader
 
         public void SetStatus(object segment, string status)
         {
-            _status.Insert(0, status);
-            if (_status.Count > _logLength)
+            lock (_status)
             {
-                _status.RemoveRange(_logLength, _status.Count - _logLength);
+                _status.Insert(0, status);
+                if (_status.Count > _logLength)
+                {
+                    _status.RemoveRange(_logLength, _status.Count - _logLength);
+                }
             }
             _segments[segment].SetStatus(status);
         }

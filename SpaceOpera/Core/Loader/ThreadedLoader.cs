@@ -8,8 +8,10 @@ using OpenTK.Windowing.Desktop;
 
 namespace SpaceOpera.Core.Loader
 {
-    public class Loader : GraphicsResource
+    public class ThreadedLoader : GraphicsResource
     {
+        delegate void QueueCallback(ILoaderTask task);
+
         interface IWorker : IDisposable
         {
             int GetTaskCount();
@@ -20,12 +22,14 @@ namespace SpaceOpera.Core.Loader
         class Worker : IWorker
         {
             private readonly ILogger _logger;
+            private readonly QueueCallback _queueCallback;
             private readonly Queue<ILoaderTask> _tasks = new();
             private readonly Thread _thread;
 
-            public Worker(ILogger logger)
+            public Worker(ILogger logger, QueueCallback queueCallback)
             {
                 _logger = logger.ForType(typeof(Worker));
+                _queueCallback = queueCallback;
                 _thread = new Thread(WorkThread);
             }
 
@@ -72,6 +76,17 @@ namespace SpaceOpera.Core.Loader
                     }
                     Monitor.Exit(_tasks);
                     task.Perform();
+                    foreach (var child in task.GetChildren())
+                    {
+                        lock (child)
+                        {
+                            child.Notify(task);
+                            if (child.IsReady())
+                            {
+                                _queueCallback(child);
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -80,8 +95,8 @@ namespace SpaceOpera.Core.Loader
         {
             private readonly NativeWindow _window;
 
-            public GLWorker(RenderWindow parentWindow, ILogger logger)
-                : base(logger)
+            public GLWorker(RenderWindow parentWindow, ILogger logger, QueueCallback queueCallback)
+                : base(logger, queueCallback)
             {
                 _window = new NativeWindow(
                     new NativeWindowSettings()
@@ -108,31 +123,27 @@ namespace SpaceOpera.Core.Loader
         private readonly List<IWorker> _workers = new();
         private readonly List<IWorker> _glWorkers = new();
 
-        public Loader(RenderWindow parentWindow, int numWorkers, int numGLWorkers, ILogger logger)
+        public ThreadedLoader(RenderWindow parentWindow, int numWorkers, int numGLWorkers, ILogger logger)
         {
-            _logger = logger.ForType(typeof(Loader));
+            _logger = logger.ForType(typeof(ThreadedLoader));
             for (int i=0; i<numWorkers; ++i)
             {
-                _workers.Add(new Worker(logger));
+                _workers.Add(new Worker(logger, QueueTask));
             }
             for (int i=0; i<numGLWorkers; ++i)
             {
-                var worker = new GLWorker(parentWindow, logger);
+                var worker = new GLWorker(parentWindow, logger, QueueTask);
                 _workers.Add(worker);
                 _glWorkers.Add(worker);
             }
             parentWindow.MakeCurrent();
         }
 
-        public void QueueTask(ILoaderTask task)
+        public void QueueTaskTree(ILoaderTask task)
         {
-            if (task.IsGL)
+            foreach (var ancestor in GetProgenitors(task))
             {
-                _glWorkers.ArgMin(x => x.GetTaskCount())!.QueueTask(task);
-            }
-            else
-            {
-                _workers.ArgMin(x => x.GetTaskCount())!.QueueTask(task);
+                QueueTask(ancestor);
             }
         }
 
@@ -148,7 +159,7 @@ namespace SpaceOpera.Core.Loader
 
         public Promise<T> Load<T>(Func<T> loaderFn, bool isGL)
         {
-            var task = new FuncLoaderTask<T>(loaderFn, isGL);
+            var task = new SourceLoaderTask<T>(loaderFn, isGL);
             QueueTask(task);
             return task.GetPromise();
         }
@@ -169,6 +180,27 @@ namespace SpaceOpera.Core.Loader
                 worker.Dispose();
             }
             _workers.Clear();
+        }
+
+        private IEnumerable<ILoaderTask> GetProgenitors(ILoaderTask task)
+        {
+            if (!task.GetParents().Any())
+            {
+                return Enumerable.Repeat(task, 1);
+            }
+            return task.GetParents().SelectMany(GetProgenitors);
+        }
+
+        private void QueueTask(ILoaderTask task)
+        {
+            if (task.IsGL)
+            {
+                _glWorkers.ArgMin(x => x.GetTaskCount())!.QueueTask(task);
+            }
+            else
+            {
+                _workers.ArgMin(x => x.GetTaskCount())!.QueueTask(task);
+            }
         }
     }
 }

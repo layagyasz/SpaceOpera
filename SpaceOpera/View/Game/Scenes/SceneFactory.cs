@@ -54,7 +54,7 @@ namespace SpaceOpera.View.Game.Scenes
 
         private static Skybox? _skyBox;
 
-        public Core.Loader.Loader LoaderThread { get; }
+        public Core.Loader.ThreadedLoader LoaderThread { get; }
         public GalaxyViewFactory GalaxyViewFactory { get; }
         public StellarBodyViewFactory StellarBodyViewFactory { get; }
         public StarSystemViewFactory StarSystemViewFactory { get; }
@@ -64,7 +64,7 @@ namespace SpaceOpera.View.Game.Scenes
         public HighlightShaders HighlightShaders;
 
         public SceneFactory(
-            Core.Loader.Loader loaderThread,
+            Core.Loader.ThreadedLoader loaderThread,
             GalaxyViewFactory galaxyViewFactory,
             StellarBodyViewFactory stellarBodyViewFactory,
             StarSystemViewFactory starSystemViewFactory,

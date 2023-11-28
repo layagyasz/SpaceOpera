@@ -1,6 +1,5 @@
 ﻿using Cardamom.Logging;
 using Cardamom.Ui;
-using Cardamom.Utils.Suppliers;
 using SpaceOpera.Controller.Game;
 using SpaceOpera.Controller.GameSetup;
 using SpaceOpera.Controller.Loader;
@@ -13,46 +12,20 @@ namespace SpaceOpera.Controller
 {
     public class ProgramController
     {
-        private class GenerateWorldTask : ILoaderTask
+        private class GenerateWorldTask : MapLoaderTask<World, World>
         {
-            public bool IsGL => true;
             public GameParameters Parameters { get; }
-            public CoreData CoreData { get; }
-            public GeneratorContext GeneratorContext { get; }
 
-            private readonly Promise<World> _promise = new();
-
-            public GenerateWorldTask(GameParameters parameters, CoreData coreData, GeneratorContext generatorContext)
+            public GenerateWorldTask(GameParameters parameters, LoaderTaskNode<World> generator)
+                : base(generator, x => x, /* isGL= */ false)
             {
                 Parameters = parameters;
-                CoreData = coreData;
-                GeneratorContext = generatorContext;
-            }
-
-            public Promise<World> GetPromise()
-            {
-                return _promise;
-            }
-
-            public bool IsDone()
-            {
-                return _promise.HasValue();
-            }
-
-            public void Perform()
-            {
-                var world = 
-                    WorldGenerator.Generate(
-                        Parameters.WorldParameters,
-                        Parameters.PlayerFaction, 
-                        CoreData, 
-                        GeneratorContext);
-                _promise.Set(world);
+                generator.AddChild(this);
             }
         }
 
         private readonly UiWindow _window;
-        private readonly Core.Loader.Loader _loaderThread;
+        private readonly ThreadedLoader _loaderThread;
         private readonly ILogger _logger;
         private readonly CoreData _coreData;
         private readonly ViewFactory _viewFactory;
@@ -60,7 +33,7 @@ namespace SpaceOpera.Controller
         private IScreen? _screen;
 
         public ProgramController(
-            UiWindow window, Core.Loader.Loader loaderThread, ILogger logger, CoreData coreData, ViewFactory viewFactory)
+            UiWindow window, ThreadedLoader loaderThread, ILogger logger, CoreData coreData, ViewFactory viewFactory)
         {
             _window = window;
             _loaderThread = loaderThread;
@@ -114,11 +87,18 @@ namespace SpaceOpera.Controller
         private void GenerateWorld(GameParameters parameters)
         {
             var context = WorldGenerator.CreateContext(_logger);
-            var task = new GenerateWorldTask(parameters, _coreData, context);
+            var task =
+                new GenerateWorldTask(
+                    parameters,
+                    WorldGenerator.Generate(
+                        parameters.WorldParameters,
+                        parameters.PlayerFaction,
+                        _coreData,
+                        context));
             var screen = _viewFactory.CreateLoaderScreen(task, context.LoaderStatus!);
             var controller = (LoaderController)screen.Controller;
             controller.Finished += HandleWorldGenerated;
-            _loaderThread.QueueTask(task);
+            _loaderThread.QueueTaskTree(task);
             ChangeScreen(screen);
         }
 

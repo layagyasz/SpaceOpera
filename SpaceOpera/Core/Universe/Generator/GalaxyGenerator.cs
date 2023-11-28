@@ -2,6 +2,7 @@ using Cardamom.Graphing;
 using Cardamom.Utils.Generators.Samplers;
 using DelaunayTriangulator;
 using OpenTK.Mathematics;
+using SpaceOpera.Core.Loader;
 
 namespace SpaceOpera.Core.Universe.Generator
 {
@@ -44,7 +45,7 @@ namespace SpaceOpera.Core.Universe.Generator
             }
         }
 
-        public Galaxy Generate(Parameters parameters, GeneratorContext context)
+        public LoaderTaskNode<Galaxy> Generate(Parameters parameters, GeneratorContext context)
         {
             var random = context.Random;
             List<Vertex> vertices = new();
@@ -72,53 +73,75 @@ namespace SpaceOpera.Core.Universe.Generator
             List<Triad> triads = triangulator.Triangulation(vertices);
             VoronoiGrapher.VoronoiNeighborsResult result = VoronoiGrapher.GetNeighbors(vertices, triads);
 
-            List<SystemWrapper> systemWrappers = new();
+            List<LoaderTaskNode<StarSystem>> systemTasks = new();
             context.LoaderStatus!.AddWork(WorldGenerator.Step.Galaxy, starCount);
-            for (int i=0; i < starCount; ++i)
+            for (int i = 0; i < starCount; ++i)
             {
-                context.LoaderStatus!.SetStatus(WorldGenerator.Step.Galaxy, $"Creating System {i + 1}/{starCount}");
-                systemWrappers.Add(
-                    new SystemWrapper(
-                        StarSystemGenerator!.Generate(
-                            new Vector3(vertices[i].x, s_YSampler.Generate(random), vertices[i].y), context)));
-                context.LoaderStatus!.DoWork(WorldGenerator.Step.Galaxy);
+                int id = i;
+                systemTasks.Add(
+                    new SourceLoaderTask<StarSystem>(
+                        () =>
+                        {
+                            context.LoaderStatus!.SetStatus(
+                                WorldGenerator.Step.Galaxy, $"Creating System {id + 1}/{starCount}");
+                            var system =
+                                StarSystemGenerator!.Generate(
+                                    new Vector3(vertices[id].x, s_YSampler.Generate(random), vertices[id].y), context);
+                            context.LoaderStatus!.DoWork(WorldGenerator.Step.Galaxy);
+                            return system;
+                        },
+                        /* isGL= */ true));
             }
-            for (int i=0; i < starCount; ++i)
+            LoaderTaskNode<List<SystemWrapper>> wrappersTask =
+                AggregateLoaderTask<StarSystem, List<SystemWrapper>>.Aggregate(
+                    systemTasks,
+                    () => new List<SystemWrapper>(), 
+                    (x, y) => 
+                    { 
+                        x.Add(new SystemWrapper(y));
+                        return x;
+                    });
+
+            return wrappersTask.Map(systemWrappers =>
             {
-                var neighbors = result.Neighbors[i].Where(x => x >= 0).Select(x => systemWrappers[x]).ToList();
-                systemWrappers[i].SetNeighbors(neighbors);
-            }
-            foreach (var transit in MinimalSpanningTree.Compute(systemWrappers))
-            {
-                var start = (SystemWrapper)transit.Start;
-                var end = (SystemWrapper)transit.End;
-                start.System.AddTransit(end.System);
-                end.System.AddTransit(start.System);
-            }
-            var distances = systemWrappers.SelectMany(x => x.GetEdges().Select(y => y.Cost)).ToList();
-            var mean = distances.Average();
-            var stdDev = MathUtils.StandardDeviation(distances, mean);
-            var closed = new HashSet<SystemWrapper>();
-            foreach (var systemWrapper in systemWrappers)
-            {
-                closed.Add(systemWrapper);
-                foreach (var edge in systemWrapper.GetEdges())
+                for (int i = 0; i < starCount; ++i)
                 {
-                    var neighbor = (SystemWrapper)edge.End;
-                    if (closed.Contains(neighbor) 
-                        || systemWrapper.System.Transits.Values.Any(x => x.TransitSystem == neighbor.System))
+                    var neighbors = result.Neighbors[i].Where(x => x >= 0).Select(x => systemWrappers[x]).ToList();
+                    systemWrappers[i].SetNeighbors(neighbors);
+                }
+                foreach (var transit in MinimalSpanningTree.Compute(systemWrappers))
+                {
+                    var start = (SystemWrapper)transit.Start;
+                    var end = (SystemWrapper)transit.End;
+                    start.System.AddTransit(end.System);
+                    end.System.AddTransit(start.System);
+                }
+                var distances = systemWrappers.SelectMany(x => x.GetEdges().Select(y => y.Cost)).ToList();
+                var mean = distances.Average();
+                var stdDev = MathUtils.StandardDeviation(distances, mean);
+                var closed = new HashSet<SystemWrapper>();
+                foreach (var systemWrapper in systemWrappers)
+                {
+                    closed.Add(systemWrapper);
+                    foreach (var edge in systemWrapper.GetEdges())
                     {
-                        continue;
-                    }
-                    if (random.NextSingle() 
-                        < TransitDensityFn(parameters.TransitDensity, (edge.Cost - mean) / stdDev)) {
-                        systemWrapper.System.AddTransit(neighbor.System);
-                        neighbor.System.AddTransit(systemWrapper.System);
+                        var neighbor = (SystemWrapper)edge.End;
+                        if (closed.Contains(neighbor)
+                            || systemWrapper.System.Transits.Values.Any(x => x.TransitSystem == neighbor.System))
+                        {
+                            continue;
+                        }
+                        if (random.NextSingle()
+                            < TransitDensityFn(parameters.TransitDensity, (edge.Cost - mean) / stdDev))
+                        {
+                            systemWrapper.System.AddTransit(neighbor.System);
+                            neighbor.System.AddTransit(systemWrapper.System);
+                        }
                     }
                 }
-            }
 
-            return new Galaxy(parameters.Radius, systemWrappers.Select(x => x.System));
+                return new Galaxy(parameters.Radius, systemWrappers.Select(x => x.System));
+            });
         }
 
         private static float StarDensityFn(int arms, float rotation, float angle, float radius)

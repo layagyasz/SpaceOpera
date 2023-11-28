@@ -1,6 +1,6 @@
 ﻿using Cardamom.Logging;
+using SpaceOpera.Core.Loader;
 using SpaceOpera.Core.Politics;
-using SpaceOpera.Core.Politics.Cultures;
 using SpaceOpera.Core.Politics.Generator;
 using SpaceOpera.Core.Universe;
 using SpaceOpera.Core.Universe.Generator;
@@ -33,21 +33,24 @@ namespace SpaceOpera.Core
                 new());
         }
 
-        public static World Generate(
+        public static LoaderTaskNode<World> Generate(
             Parameters parameters, Faction playerFaction, CoreData coreData, GeneratorContext context)
         {
-            var galaxy = coreData.GalaxyGenerator!.Generate(parameters.Galaxy, context);
-            var navigationMap = NavigationMap.Create(galaxy);
-            var world =
-                new World(
-                    coreData,
-                    context.Random,
-                    galaxy,
-                    new StarCalendar(/* startDate= */ 900000000),
-                    navigationMap);
-            coreData.PoliticsGenerator!.Generate(parameters.Politics, world, playerFaction, context);
-            coreData.EconomyGenerator!.Generate(world, context);
-            return world;
+            return coreData.GalaxyGenerator!.Generate(parameters.Galaxy, context).Map(
+                galaxy =>
+                {
+                    var navigationMap = NavigationMap.Create(galaxy);
+                    var world =
+                        new World(
+                            coreData,
+                            context.Random,
+                            galaxy,
+                            new StarCalendar(/* startDate= */ 900000000),
+                            navigationMap);
+                    coreData.PoliticsGenerator!.Generate(parameters.Politics, world, playerFaction, context);
+                    coreData.EconomyGenerator!.Generate(world, context);
+                    return world;
+                });
         }
     }
 }

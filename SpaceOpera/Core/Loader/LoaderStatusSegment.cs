@@ -4,8 +4,7 @@ namespace SpaceOpera.Core.Loader
 {
     public class LoaderStatusSegment
     {
-        public IntPool Progress { get; } = new(0);
-
+        private readonly IntPool _progress = new(0);
         private readonly List<string> _status = new();
         private readonly int _logLength;
 
@@ -14,12 +13,36 @@ namespace SpaceOpera.Core.Loader
             _logLength = logLength;
         }
 
+        public void AddWork(int amount)
+        {
+            lock (_progress)
+            {
+                _progress.ChangeMax(amount);
+            }
+        }
+
+        public void DoWork()
+        {
+            lock (_progress)
+            {
+                _progress.Change(1);
+            }
+        }
+
+        public float GetPercentDone()
+        {
+            return _progress.MaxAmount > 0 ? _progress.PercentFull() : 0;
+        }
+
         public void SetStatus(string status)
         {
-            _status.Insert(0, status);
-            if (_status.Count > _logLength)
+            lock (_status)
             {
-                _status.RemoveRange(_logLength, _status.Count - _logLength);
+                _status.Insert(0, status);
+                if (_status.Count > _logLength)
+                {
+                    _status.RemoveRange(_logLength, _status.Count - _logLength);
+                }
             }
         }
     }

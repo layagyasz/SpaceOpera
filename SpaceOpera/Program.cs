@@ -50,7 +50,7 @@ namespace SpaceOpera
                 new KeyboardListener(SimpleKeyMapper.Us, new Keys[] { Keys.Left, Keys.Right, Keys.Up, Keys.Down }));
 
             ILogger logger = new Logger(new ConsoleBackend(), LogLevel.Info);
-            var loader = new Loader(window, /* numWorkers= */ 2, /* numGLWorkers= */ 2, logger);
+            var loader = new ThreadedLoader(window, /* numWorkers= */ 2, /* numGLWorkers= */ 2, logger);
             loader.Start();
 
             var coreData = CoreData.LoadFrom("Resources/Core/CoreData.json", logger);
@@ -136,7 +136,9 @@ namespace SpaceOpera
             }
             else if (mode == RunMode.TestWorld)
             {
-                var world = WorldGenerator.Generate(worldParams, playerFaction, coreData, generatorContext);
+                var worldTask = WorldGenerator.Generate(worldParams, playerFaction, coreData, generatorContext);
+                loader.QueueTaskTree(worldTask);
+                var world = worldTask.GetPromise().Get();
                 scene = world.Galaxy;
                 driver = new(world.GetUpdater());
                 controller = new GameController(ui, world, driver, playerFaction, viewFactory, logger);
