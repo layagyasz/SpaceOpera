@@ -10,7 +10,6 @@ using OpenTK.Graphics.OpenGL4;
 using SpaceOpera.Core.Universe.Spectra;
 using Cardamom.Mathematics.Color;
 using SpaceOpera.Core.Loader;
-using SpaceOpera.Core.Economics;
 using Cardamom.Utils.Suppliers.Promises;
 
 namespace SpaceOpera.View.Game.StellarBodyViews
@@ -64,35 +63,36 @@ namespace SpaceOpera.View.Game.StellarBodyViews
             var peakColor = ToColor(HumanEyeSensitivity.GetColor(peakWavelength));
             var scatteredColor = ToColor(HumanEyeSensitivity.GetColor(new RayleighScatteredSpectrum(spectrum)));
 
-            var materialNode = 
-                new SourceLoaderTask<Material>(
-                    () => StellarBodyGenerators[stellarBody.Type]
-                        .SurfaceGenerator!
-                            .GenerateSurface(
-                                stellarBody.Orbit.GetStellarTemperature(),
-                                stellarBody.Parameters,
-                                x => BiomeRenderDetails[x].GetColor(peakColor, scatteredColor),
-                                x => BiomeRenderDetails[x].GetLighting(),
-                                highRes ? _resourcesHighRes : _resourcesLowRes,
-                                forceWait), 
-                    /* isGL= */ true);
-            return _loader.Load(materialNode).Map(
+            var materialNode =
+                _loader.Load(
+                    new SourceLoaderTask<Material>(
+                        () => StellarBodyGenerators[stellarBody.Type]
+                            .SurfaceGenerator!
+                                .GenerateSurface(
+                                    stellarBody.Orbit.GetStellarTemperature(),
+                                    stellarBody.Parameters,
+                                    x => BiomeRenderDetails[x].GetColor(peakColor, scatteredColor),
+                                    x => BiomeRenderDetails[x].GetLighting(),
+                                    highRes ? _resourcesHighRes : _resourcesLowRes,
+                                    forceWait),
+                        /* isGL= */ true));
+            var surface =
+                CreateSphere(
+                    scale * stellarBody.RadiusKm,
+                    highRes ? s_SphereSubdivisionsHighRes : s_SphereSubdivisionsLowRes,
+                    Color4.White);
+            var atmosphere =
+                CreateSphere(
+                    scale * stellarBody.Atmosphere.Radius,
+                    highRes ? s_SphereSubdivisionsHighRes : s_SphereSubdivisionsLowRes,
+                    new Color4(
+                        s_AtmosphericScattering.X,
+                        s_AtmosphericScattering.Y,
+                        s_AtmosphericScattering.Z,
+                        1f));
+            return materialNode.Map(
                 material =>
                 {
-                    var surface =
-                        CreateSphere(
-                            scale * stellarBody.RadiusKm,
-                            highRes ? s_SphereSubdivisionsHighRes : s_SphereSubdivisionsLowRes,
-                            Color4.White);
-                    var atmosphere =
-                        CreateSphere(
-                            scale * stellarBody.Atmosphere.Radius,
-                            highRes ? s_SphereSubdivisionsHighRes : s_SphereSubdivisionsLowRes,
-                            new Color4(
-                                s_AtmosphericScattering.X,
-                                s_AtmosphericScattering.Y,
-                                s_AtmosphericScattering.Z,
-                                1f));
                     return new StellarBodyModel(
                         stellarBody, scale, new(surface, SurfaceShader, material), atmosphere, AtmosphereShader);
                 });

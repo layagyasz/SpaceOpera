@@ -47,7 +47,8 @@ namespace SpaceOpera.View.Icons
                                 ColorSystem.Ntsc.Transform(
                                     StellarBodyViewFactory.HumanEyeSensitivity.GetColor(
                                         new BlackbodySpectrum(stellarBody.Orbit.Focus.TemperatureK))),
-                                s_LuminanceRange.Clamp(s_LightPower * MathF.Log(stellarBody.Orbit.Focus.LuminosityS + 1)),
+                                s_LuminanceRange.Clamp(
+                                    s_LightPower * MathF.Log(stellarBody.Orbit.Focus.LuminosityS + 1)),
                                 logDistance * logDistance / (1000 * 1000));
 
                         target.Clear();
@@ -75,6 +76,7 @@ namespace SpaceOpera.View.Icons
                         target.PopViewMatrix();
                         target.PopModelMatrix();
                         target.Display();
+                        model.Dispose();
                         return target.CopyTexture();
                     });
         }
