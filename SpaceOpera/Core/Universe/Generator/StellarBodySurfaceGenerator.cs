@@ -7,6 +7,7 @@ using Cardamom.ImageProcessing.Pipelines.Nodes;
 using Cardamom.Json;
 using Cardamom.Utils.Generators.Generic;
 using Cardamom.Utils.Suppliers;
+using Cardamom.Utils.Suppliers.Generic;
 using OpenTK.Mathematics;
 using System.Text.Json.Serialization;
 
@@ -19,7 +20,7 @@ namespace SpaceOpera.Core.Universe.Generator
         private static readonly float s_RoughnessDivisor = 4096f;
 
         private readonly Dictionary<string, IGenerator> _generators;
-        private readonly Library<Cardamom.Utils.Suppliers.Generic.IConstantSupplier> _parameters;
+        private readonly Library<IConstantSupplier> _parameters;
         private readonly List<BiomeOption> _biomes;
         private readonly Pipeline _biomeIdPipeline;
         private readonly Pipeline _surfacePipeline;
@@ -31,7 +32,7 @@ namespace SpaceOpera.Core.Universe.Generator
 
         private StellarBodySurfaceGenerator(
             Dictionary<string, IGenerator> generators,
-            Library<Cardamom.Utils.Suppliers.Generic.IConstantSupplier> parameters,
+            Library<IConstantSupplier> parameters,
             IEnumerable<BiomeOption> biomes,
             Pipeline biomeIdPipeline,
             Pipeline surfacePipeline,
@@ -64,41 +65,44 @@ namespace SpaceOpera.Core.Universe.Generator
             Vector3[] positions,
             StellarBodySurfaceGeneratorResources resources)
         {
-            var data = new Color4[resources.Resolution, resources.Resolution];
-            for (int i=0; i<positions.Length; ++i)
+            lock (this)
             {
-                var p = positions[i];
-                data[i % resources.Resolution, i / resources.Resolution] = new(p.X, p.Y, p.Z, 1);
-            }
-            var canvases = resources.GetCanvasProvider();
-            var input = canvases.Get();
-            var tex = input.GetTexture();
-            tex.Update(new(0, 0), data);
-            foreach (var parameter in parameterValues)
-            {
-                _parameters[parameter.Key].Set(parameter.Value);
-            }
-            var biome = new List<Classify.Classification>();
-            for (int i = 0; i < _biomes.Count; ++i)
-            {
-                var option = _biomes[i];
-                if (_biomes[i].ThermalRange.Contains(temperature))
+                var data = new Color4[resources.Resolution, resources.Resolution];
+                for (int i = 0; i < positions.Length; ++i)
                 {
-                    biome.Add(CreateClassification(option, new(i, i, i, 1f)));
+                    var p = positions[i];
+                    data[i % resources.Resolution, i / resources.Resolution] = new(p.X, p.Y, p.Z, 1);
                 }
-            }
-            _biomeParameter.Set(biome);
-            var output = _biomeIdPipeline.Run(canvases, input);
-            data = output[0].GetTexture().GetData();
+                var canvases = resources.GetCanvasProvider();
+                var input = canvases.Get();
+                var tex = input.GetTexture();
+                tex.Update(new(0, 0), data);
+                foreach (var parameter in parameterValues)
+                {
+                    _parameters[parameter.Key].Set(parameter.Value);
+                }
+                var biome = new List<Classify.Classification>();
+                for (int i = 0; i < _biomes.Count; ++i)
+                {
+                    var option = _biomes[i];
+                    if (_biomes[i].ThermalRange.Contains(temperature))
+                    {
+                        biome.Add(CreateClassification(option, new(i, i, i, 1f)));
+                    }
+                }
+                _biomeParameter.Set(biome);
+                var output = _biomeIdPipeline.Run(canvases, input);
+                data = output[0].GetTexture().GetData();
 
-            var result = new Biome[positions.Length];
-            for (int i=0;i<positions.Length; ++i)
-            {
-                result[i] = _biomes[(int)data[i % resources.Resolution, i / resources.Resolution].R].Biome!;
+                var result = new Biome[positions.Length];
+                for (int i = 0; i < positions.Length; ++i)
+                {
+                    result[i] = _biomes[(int)data[i % resources.Resolution, i / resources.Resolution].R].Biome!;
+                }
+                canvases.Return(input);
+                canvases.Return(output[0]);
+                return result;
             }
-            canvases.Return(input);
-            canvases.Return(output[0]);
-            return result;
         }
 
         public Material GenerateSurface(
@@ -106,31 +110,42 @@ namespace SpaceOpera.Core.Universe.Generator
             Dictionary<string, object> parameterValues, 
             Func<Biome, Color4> diffuseFn, 
             Func<Biome, Color4> lightingFn,
-            StellarBodySurfaceGeneratorResources resources)
+            StellarBodySurfaceGeneratorResources resources,
+            bool forceWait)
         {
-            foreach (var parameter in parameterValues)
+            lock (this)
             {
-                _parameters[parameter.Key].Set(parameter.Value);
-            }
-
-            var diffuse = new List<Classify.Classification>();
-            var lighting = new List<Classify.Classification>();
-            for (int i = 0; i < _biomes.Count; ++i)
-            {
-                var option = _biomes[i];
-                if (option.ThermalRange.Contains(temperature))
+                foreach (var parameter in parameterValues)
                 {
-                    diffuse.Add(CreateClassification(option, diffuseFn(option.Biome!)));
-                    lighting.Add(CreateClassification(option, lightingFn(option.Biome!)));
+                    _parameters[parameter.Key].Set(parameter.Value);
                 }
-            }
-            _surfaceDiffuseParameter.Set(diffuse);
-            _surfaceLightingParameter.Set(lighting);
-            _scaleParameter.Set(new Vector2(1f / resources.Resolution, 1f / resources.Resolution));
-            _roughnessParameter.Set(1f *  resources.Resolution / s_RoughnessDivisor);
 
-            var surface = _surfacePipeline.Run(resources.GetCanvasProvider());
-            return new(surface[0].GetTexture(), surface[2].GetTexture(), surface[1].GetTexture());
+                var diffuse = new List<Classify.Classification>();
+                var lighting = new List<Classify.Classification>();
+                for (int i = 0; i < _biomes.Count; ++i)
+                {
+                    var option = _biomes[i];
+                    if (option.ThermalRange.Contains(temperature))
+                    {
+                        diffuse.Add(CreateClassification(option, diffuseFn(option.Biome!)));
+                        lighting.Add(CreateClassification(option, lightingFn(option.Biome!)));
+                    }
+                }
+                _surfaceDiffuseParameter.Set(diffuse);
+                _surfaceLightingParameter.Set(lighting);
+                _scaleParameter.Set(new Vector2(1f / resources.Resolution, 1f / resources.Resolution));
+                _roughnessParameter.Set(1f * resources.Resolution / s_RoughnessDivisor);
+
+                var surface = _surfacePipeline.Run(resources.GetCanvasProvider());
+                if (forceWait)
+                {
+                    // Get texture data to force cpu to wait for compute to finish.
+                    surface[0].GetTexture().GetData();
+                    surface[1].GetTexture().GetData();
+                    surface[2].GetTexture().GetData();
+                }
+                return new(surface[0].GetTexture(), surface[2].GetTexture(), surface[1].GetTexture());
+            }
         }
 
         public bool IsHomogenous(float temperature)
@@ -155,7 +170,7 @@ namespace SpaceOpera.Core.Universe.Generator
         public class Builder
         {
             public Dictionary<string, IGenerator> Generators { get; set; } = new();
-            public Library<Cardamom.Utils.Suppliers.Generic.IConstantSupplier> Parameters { get; set; } 
+            public Library<IConstantSupplier> Parameters { get; set; } 
                 = new();
             public List<BiomeOption> BiomeOptions { get; set; } = new();
             public Pipeline.Builder? Pipeline { get; set; }

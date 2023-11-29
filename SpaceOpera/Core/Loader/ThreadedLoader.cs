@@ -1,7 +1,7 @@
 ﻿using Cardamom.Collections;
 using Cardamom.Graphics;
 using Cardamom.Logging;
-using Cardamom.Utils.Suppliers;
+using Cardamom.Utils.Suppliers.Promises;
 using Cardamom.Window;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
@@ -28,7 +28,7 @@ namespace SpaceOpera.Core.Loader
 
             public Worker(ILogger logger, QueueCallback queueCallback)
             {
-                _logger = logger.ForType(typeof(Worker));
+                _logger = logger.ForType(GetType());
                 _queueCallback = queueCallback;
                 _thread = new Thread(WorkThread);
             }
@@ -147,21 +147,10 @@ namespace SpaceOpera.Core.Loader
             }
         }
 
-        public Promise<T> LoadGL<T>(Func<T> loaderFn)
+        public IPromise<T> Load<T>(LoaderTaskNode<T> root)
         {
-            return Load(loaderFn, /* isGL= */ true);
-        }
-
-        public Promise<T> Load<T>(Func<T> loaderFn)
-        {
-            return Load(loaderFn, /* isGL= */ false);
-        }
-
-        public Promise<T> Load<T>(Func<T> loaderFn, bool isGL)
-        {
-            var task = new SourceLoaderTask<T>(loaderFn, isGL);
-            QueueTask(task);
-            return task.GetPromise();
+            QueueTaskTree(root);
+            return root.GetPromise();
         }
 
         public void Start()

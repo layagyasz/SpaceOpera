@@ -3,6 +3,7 @@ using Cardamom.Graphics;
 using Cardamom.Mathematics.Geometry;
 using Cardamom.Ui;
 using Cardamom.Ui.Controller.Element;
+using Cardamom.Utils.Suppliers.Promises;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 
@@ -12,33 +13,25 @@ namespace SpaceOpera.View.Icons
     {
         public CompositeKey<object, IconResolution> Key { get; }
 
+        private readonly IPromise<IconImage> _image;
+        private readonly RenderShader _shader;
+        private readonly IIconDisposer _disposer;
+
         private readonly Vertex3[] _vertices;
         private Texture? _texture;
-        private readonly RenderShader _shader;
-        private readonly IIconDisposer? _disposer;
 
         public Icon(
             CompositeKey<object, IconResolution> key, 
             Class @class, 
             IElementController controller,
-            Color4 color,
-            Texture texture,
-            Box2i textureView,
+            IPromise<IconImage> image,
             RenderShader shader,
-            IIconDisposer? disposer)
+            IIconDisposer disposer)
             : base(@class, controller)
         {
             Key = key;
+            _image = image;
             _vertices = new Vertex3[6];
-            for (int i=0; i<_vertices.Length; ++i)
-            {
-                _vertices[i] = 
-                    new(
-                        new(Utils.UnitTriangles[i]), 
-                        color, 
-                        textureView.Min + textureView.Size * Utils.UnitTriangles[i]);
-            }
-            _texture = texture;
             _shader = shader;
             _disposer = disposer;
             SetAttributes(@class.Get(Class.State.None));
@@ -46,7 +39,11 @@ namespace SpaceOpera.View.Icons
 
         public override void Draw(IRenderTarget target, IUiContext context)
         {
-            if (Visible)
+            if (_texture == null && _image.HasValue())
+            {
+                HandleRasterized();
+            }
+            if (Visible && _texture != null)
             {
                 target.PushTranslation(Position + LeftMargin);
                 context.Register(this);
@@ -84,7 +81,9 @@ namespace SpaceOpera.View.Icons
 
         protected override void DisposeImpl()
         {
-            _disposer?.Dispose(this);
+            // Make sure rasterization finishes before disposing.
+            _image.Get();
+            _disposer.Dispose(this);
             _texture = null;
         }
 
@@ -102,6 +101,20 @@ namespace SpaceOpera.View.Icons
             {
                 _vertices[i].Color.A = alpha;
             }
+        }
+
+        private void HandleRasterized()
+        {
+            var image = _image.Get();
+            for (int i = 0; i < _vertices.Length; ++i)
+            {
+                _vertices[i] =
+                    new(
+                        _vertices[i].Position,
+                        image.Color,
+                        image.TextureView.Min + image.TextureView.Size * Utils.UnitTriangles[i]);
+            }
+            _texture = image.Texture;
         }
     }
 }

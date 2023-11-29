@@ -243,7 +243,7 @@ namespace SpaceOpera.View.Game.Scenes
 
         public IGameScene Create(World? world, StellarBody stellarBody)
         {
-            var model = StellarBodyViewFactory.Create(stellarBody, 1f, true);
+            var model = StellarBodyViewFactory.Create(stellarBody, 1f, true, /* forceWait= */ false).Get();
             var stellarBodyController = StellarBodyModelController.Create(stellarBody, model.Radius);
             var interactiveModel = new InteractiveModel(model, new Sphere(new(), model.Radius), stellarBodyController);
             var orbitController = 
@@ -380,9 +380,7 @@ namespace SpaceOpera.View.Game.Scenes
                                 }))
                     .AddOutput("spot-noise")
                     .Build();
-            var output = LoaderThread.LoadGL(() => pipeline.Run(canvases)[0].GetTexture());
-
-            return new(new(vertices, PrimitiveType.Triangles), output.Get(), SkyboxShader);
+            return new(new(vertices, PrimitiveType.Triangles), pipeline.Run(canvases)[0].GetTexture(), SkyboxShader);
         }
 
         private static float GetLuminance(Star star)

@@ -3,7 +3,7 @@ using Cardamom.Logging;
 using Cardamom.Ui;
 using Cardamom.Ui.Controller;
 using Cardamom.Ui.Elements;
-using Cardamom.Utils.Suppliers;
+using Cardamom.Utils.Suppliers.Promises;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using SpaceOpera.Controller.Game.Panes;
 using SpaceOpera.Controller.Game.Subcontrollers;
@@ -247,7 +247,7 @@ namespace SpaceOpera.Controller.Game
             // Orders that require manual confirmation.
             if (e is BuildOrder)
             {
-                var promise = new Promise<FormValue>();
+                var promise = new RemotePromise<FormValue>();
                 promise.Finished += HandleOrderDecision;
                 promise.Canceled += HandleOrderDecisionCanceled;
                 OpenPane(
@@ -381,7 +381,7 @@ namespace SpaceOpera.Controller.Game
                 var @event = (IEvent)e.GetOnlyObject()!;
                 if (e.Action == ActionId.Select)
                 {
-                    var promise = new Promise<FormValue>();
+                    var promise = new RemotePromise<FormValue>();
                     promise.Finished += HandleEventDecision;
                     promise.Canceled += HandleEventDecisionCanceled;
                     OpenPane(
@@ -550,7 +550,7 @@ namespace SpaceOpera.Controller.Game
 
         private void HandleEventDecision(object? sender, EventArgs e)
         {
-            Promise<FormValue> promise = (Promise<FormValue>)sender!;
+            IPromise<FormValue> promise = (IPromise<FormValue>)sender!;
             promise.Finished -= HandleEventDecision;
             promise.Canceled -= HandleEventDecisionCanceled;
             _world!.Execute(new DecideEventOrder((IEvent)promise.Get()["event"]!, (int)promise.Get()["decisionId"]!));
@@ -558,14 +558,14 @@ namespace SpaceOpera.Controller.Game
 
         private void HandleEventDecisionCanceled(object? sender, EventArgs e)
         {
-            Promise<FormValue> promise = (Promise<FormValue>)sender!;
+            IPromise<FormValue> promise = (IPromise<FormValue>)sender!;
             promise.Finished -= HandleEventDecision;
             promise.Canceled -= HandleEventDecisionCanceled;
         }
 
         private void HandleOrderDecision(object? sender, EventArgs e)
         {
-            Promise<FormValue> promise = (Promise<FormValue>)sender!;
+            IPromise<FormValue> promise = (IPromise<FormValue>)sender!;
             promise.Finished -= HandleOrderDecision;
             promise.Canceled -= HandleOrderDecisionCanceled;
             if ((int)promise.Get()["decisionId"]! == 0)
@@ -576,7 +576,7 @@ namespace SpaceOpera.Controller.Game
 
         private void HandleOrderDecisionCanceled(object? sender, EventArgs e)
         {
-            Promise<FormValue> promise = (Promise<FormValue>)sender!;
+            IPromise<FormValue> promise = (IPromise<FormValue>)sender!;
             promise.Finished -= HandleOrderDecision;
             promise.Canceled -= HandleOrderDecisionCanceled;
         }

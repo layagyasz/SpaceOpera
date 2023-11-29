@@ -4,10 +4,12 @@ using Cardamom.Graphics;
 using Cardamom.Graphics.Camera;
 using Cardamom.Ui;
 using Cardamom.Ui.Controller.Element;
+using Cardamom.Utils.Suppliers.Promises;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 using SpaceOpera.Core.Designs;
 using SpaceOpera.Core.Economics;
+using SpaceOpera.Core.Loader;
 using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Universe;
@@ -77,9 +79,9 @@ namespace SpaceOpera.View.Icons
                                 tex.TextureView.Min + Utils.UnitTriangles[i] * tex.TextureView.Size);
                     }
                     target.Draw(
-                        vertices, 
+                        vertices,
                         PrimitiveType.Triangles,
-                        0, 
+                        0,
                         vertices.Length,
                         new(BlendMode.Alpha, _shader, tex.Texture!));
                 }
@@ -140,44 +142,7 @@ namespace SpaceOpera.View.Icons
             IconResolution resolution = IconResolution.Low)
         {
             var key = CompositeKey<object, IconResolution>.Create(GetKey(@object), resolution);
-            if (_cache.TryGetTexture(key, out var texture))
-            {
-                return new(
-                    key,
-                    @class,
-                    controller,
-                    Color4.White,
-                    texture!,
-                    new(new(), s_Resolution[resolution]),
-                    _shader,
-                    this);
-            }
-            if (key.Key1 is StellarBody stellarBody)
-            {
-                var rasterTexture = _rasterTextures[resolution];
-                rasterTexture.Clear();
-                _stellarBodyIconFactory.Rasterize(stellarBody, rasterTexture, resolution);
-                rasterTexture.Display();
-                var tex = rasterTexture.CopyTexture();
-                _cache.Put(key, tex);
-                return new(
-                    key, @class, controller, Color4.White, tex, new(new(), s_Resolution[resolution]), _shader, this);
-            }
-            var definition = GetDefinition(key.Key1).ToList();
-            if (definition.Count == 1)
-            {
-                var d = definition.First();
-                var tex = _uiElementFactory.GetTexture(d.Texture);
-                return new(key, @class, controller, d.Color, tex.Texture!, tex.TextureView, _shader, null);
-            }
-            else 
-            {
-                var tex = 
-                    Rasterize(new IconConfig(definition, _uiElementFactory, _shader), new IconCamera(), resolution);
-                _cache.Put(key, tex);
-                return new(
-                    key, @class, controller, Color4.White, tex, new(new(), s_Resolution[resolution]), _shader, this);
-            }
+            return new Icon(key, @class, controller, GetImage(key), _shader, this);
         }
 
         public void Dispose(Icon icon)
@@ -188,6 +153,41 @@ namespace SpaceOpera.View.Icons
         public IEnumerable<IconLayer> GetDefinition(object @object)
         {
             return _definitionMap[@object.GetType()](@object);
+        }
+        
+        private IPromise<IconImage> GetImage(CompositeKey<object, IconResolution> key)
+        {
+            if (_cache.TryGetTexture(key, out var texture))
+            {
+                return ImmediatePromise<IconImage>.Of(
+                    new IconImage(
+                        Color4.White, texture!, new(new(), s_Resolution[key.Key2]), /* isDisposable= */ true));
+            }
+            if (key.Key1 is StellarBody stellarBody)
+            {
+                var rasterTexture = _rasterTextures[key.Key2];
+                return _stellarBodyIconFactory.Rasterize(stellarBody, rasterTexture, key.Key2).Map(
+                    texture =>
+                    {
+                        _cache.Put(key, texture);
+                        return new IconImage(
+                            Color4.White, texture, new(new(), s_Resolution[key.Key2]), /* isDisposable= */ true);
+                    });
+            }
+            var definition = GetDefinition(key.Key1).ToList();
+            if (definition.Count == 1)
+            {
+                var d = definition.First();
+                var tex = _uiElementFactory.GetTexture(d.Texture);
+                return ImmediatePromise<IconImage>.Of(
+                    new IconImage(d.Color, tex.Texture!, tex.TextureView, /* isDisposable= */ false));
+            }
+            else
+            {
+                return ImmediatePromise<IconImage>.Of(
+                    Rasterize(
+                        key, new IconConfig(definition, _uiElementFactory, _shader), new IconCamera(), key.Key2));
+            }
         }
 
         private object GetKey(object @object)
@@ -259,19 +259,32 @@ namespace SpaceOpera.View.Icons
             return GetDefinition(recipe.Transformation.First(x => x.Value > 0).Key);
         }
 
-        private Texture Rasterize(IRenderable renderable, ICamera camera, IconResolution resolution)
+        private IconImage Rasterize(
+            CompositeKey<object, IconResolution> key,
+            IRenderable renderable,
+            ICamera camera, 
+            IconResolution resolution)
         {
             var rasterTexture = _rasterTextures[resolution];
-            rasterTexture.Clear();
-            rasterTexture.PushModelMatrix(Matrix4.Identity);
-            rasterTexture.PushViewMatrix(camera.GetViewMatrix());
-            rasterTexture.PushProjection(camera.GetProjection());
-            renderable.Draw(rasterTexture, new SimpleUiContext());
-            rasterTexture.PopProjectionMatrix();
-            rasterTexture.PopViewMatrix();
-            rasterTexture.PopModelMatrix();
-            rasterTexture.Display();
-            return rasterTexture.CopyTexture();
+            Texture texture;
+            lock (rasterTexture)
+            {
+                rasterTexture.Clear();
+                rasterTexture.PushModelMatrix(Matrix4.Identity);
+                rasterTexture.PushViewMatrix(camera.GetViewMatrix());
+                rasterTexture.PushProjection(camera.GetProjection());
+                renderable.Draw(rasterTexture, new SimpleUiContext());
+                rasterTexture.PopProjectionMatrix();
+                rasterTexture.PopViewMatrix();
+                rasterTexture.PopModelMatrix();
+                rasterTexture.Display();
+                texture = rasterTexture.CopyTexture();
+            }
+            lock (_cache)
+            {
+                _cache.Put(key, texture);
+            }
+            return new(Color4.White, texture, new(new(), s_Resolution[resolution]), /* isDisposable= */ true);
         }
     }
 }

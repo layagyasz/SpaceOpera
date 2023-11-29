@@ -1,5 +1,5 @@
 ﻿using Cardamom.Trackers;
-using Cardamom.Utils.Suppliers;
+using Cardamom.Utils.Suppliers.Promises;
 using SpaceOpera.Controller.Components;
 using SpaceOpera.Core;
 using SpaceOpera.Core.Economics;
@@ -62,7 +62,7 @@ namespace SpaceOpera.Controller.Game.Panes.DiplomacyPanes
             {
                 materialsInput.AddOption(material);
             }
-            var promise = new Promise<FormValue>();
+            var promise = new RemotePromise<FormValue>();
             promise.Canceled += HandleFormCanceled;
             promise.Finished += HandleFormComplete;
             PopupCreated?.Invoke(this, new((FormLayout)materialsInput.Complete().Build(), promise));
@@ -70,14 +70,14 @@ namespace SpaceOpera.Controller.Game.Panes.DiplomacyPanes
 
         private void HandleFormCanceled(object? sender, EventArgs e)
         {
-            var promise = (Promise<FormValue>)sender!;
+            var promise = (IPromise<FormValue>)sender!;
             promise.Canceled -= HandleFormCanceled;
             promise.Finished -= HandleFormComplete;
         }
 
         private void HandleFormComplete(object? sender, EventArgs e)
         {
-            var promise = (Promise<FormValue>)sender!;
+            var promise = (IPromise<FormValue>)sender!;
             promise.Canceled -= HandleFormCanceled;
             promise.Finished -= HandleFormComplete;
 

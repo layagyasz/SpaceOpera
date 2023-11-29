@@ -50,7 +50,7 @@ namespace SpaceOpera
                 new KeyboardListener(SimpleKeyMapper.Us, new Keys[] { Keys.Left, Keys.Right, Keys.Up, Keys.Down }));
 
             ILogger logger = new Logger(new ConsoleBackend(), LogLevel.Info);
-            var loader = new ThreadedLoader(window, /* numWorkers= */ 2, /* numGLWorkers= */ 2, logger);
+            var loader = new ThreadedLoader(window, /* numWorkers= */ 2, /* numGLWorkers= */ 1, logger);
             loader.Start();
 
             var coreData = CoreData.LoadFrom("Resources/Core/CoreData.json", logger);

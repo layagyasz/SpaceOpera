@@ -108,7 +108,8 @@ namespace SpaceOpera.View.Game.StarSystemViews
                 }
             };
             var stellarBody =
-                StellarBodyViewFactory.Create(orbit.LocalOrbit.StellarBody, s_StellarBodyScale * scale, false);
+                StellarBodyViewFactory.Create(
+                    orbit.LocalOrbit.StellarBody, s_StellarBodyScale * scale, false, /* forceWait= */ false).Get();
             var interactors = new SubRegionInteractor[]
             {
                 new(

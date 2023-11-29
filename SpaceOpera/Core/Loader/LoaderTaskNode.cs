@@ -1,4 +1,4 @@
-﻿using Cardamom.Utils.Suppliers;
+﻿using Cardamom.Utils.Suppliers.Promises;
 
 namespace SpaceOpera.Core.Loader
 {
@@ -8,7 +8,7 @@ namespace SpaceOpera.Core.Loader
 
         private readonly List<ILoaderTask> _children = new();
 
-        protected readonly Promise<T> _promise = new();
+        protected readonly RemotePromise<T> _promise = new RemotePromise<T>();
 
         protected LoaderTaskNode(bool isGL)
         {
@@ -20,7 +20,7 @@ namespace SpaceOpera.Core.Loader
             _children.Add(node);
         }
 
-        public Promise<T> GetPromise()
+        public IPromise<T> GetPromise()
         {
             return _promise;
         }

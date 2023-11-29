@@ -1,5 +1,5 @@
 ﻿using Cardamom.Ui;
-using Cardamom.Utils.Suppliers;
+using Cardamom.Utils.Suppliers.Promises;
 using SpaceOpera.Controller.Forms;
 using SpaceOpera.View.Forms;
 using SpaceOpera.View.Game.Panes.Forms;
@@ -9,7 +9,7 @@ namespace SpaceOpera.Controller.Game.Panes.Forms
     public class FormPaneController : GamePaneController
     {
         private GenericFormController? _form;
-        private Promise<FormValue>? _promise;
+        private RemotePromise<FormValue>? _promise;
 
         public override void Bind(object @object)
         {

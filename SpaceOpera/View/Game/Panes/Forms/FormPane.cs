@@ -1,7 +1,7 @@
 ﻿using Cardamom.Ui;
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
-using Cardamom.Utils.Suppliers;
+using Cardamom.Utils.Suppliers.Promises;
 using SpaceOpera.Controller.Game.Panes.Forms;
 using SpaceOpera.Core;
 using SpaceOpera.View.Components.NumericInputs;
@@ -100,7 +100,7 @@ namespace SpaceOpera.View.Game.Panes.Forms
 
         private World? _world;
         private Form? _form;
-        private Promise<FormValue>? _promise;
+        private RemotePromise<FormValue>? _promise;
 
         public FormPane(UiElementFactory uiElementFactory, IconFactory iconFactory)
             : base(
@@ -128,7 +128,7 @@ namespace SpaceOpera.View.Game.Panes.Forms
             return _form!;
         }
 
-        public Promise<FormValue> GetPromise()
+        public RemotePromise<FormValue> GetPromise()
         {
             return _promise!;
         }
@@ -144,7 +144,7 @@ namespace SpaceOpera.View.Game.Panes.Forms
             var layout = (FormLayout)args[1]!;
             _form = (Form)layout.Create(s_Style, _uiElementFactory, _iconFactory);
             _form.Initialize();
-            _promise = (Promise<FormValue>)args[2]!;
+            _promise = (RemotePromise<FormValue>)args[2]!;
             Contents.Insert(0, _form);
             Submit.Visible = !_form.AutoSubmit;
             SetTitle(_form.Name);
