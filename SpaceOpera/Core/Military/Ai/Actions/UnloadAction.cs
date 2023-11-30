@@ -20,7 +20,8 @@ namespace SpaceOpera.Core.Military.Ai.Actions
 
         public ActionStatus Progress(AtomicFormationDriver driver, World world)
         {
-            return ActionStatusMapper.ToActionStatus(EconomicZone.Unload(driver.AtomicFormation.Inventory));
+            return ActionStatusMapper.ToActionStatus(
+                driver.AtomicFormation.Inventory.MaxTransferTo(EconomicZone.GetInventory(), float.MaxValue));
         }
     }
 }

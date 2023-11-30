@@ -31,12 +31,12 @@ namespace SpaceOpera.Core.Economics.Projects
 
         protected override void CancelImpl()
         {
-            Holding.Parent.Return(Progress.PercentFull() * Cost);
+            Holding.Parent.GetInventory().TryAdd(Progress.PercentFull() * Cost);
         }
 
         protected override void TickImpl()
         {
-            var progress = Holding.Parent.Spend(Cost, 1f / Progress.MaxAmount);
+            var progress = Holding.Parent.GetInventory().MaxSpend(Cost, 1f / Progress.MaxAmount);
             Progress.Change(progress * Time);
             Status = progress > float.Epsilon ? ProjectStatus.InProgress : ProjectStatus.Blocked;
         }

@@ -44,6 +44,11 @@ namespace SpaceOpera.Core.Economics
             return _holdings.Values;
         }
 
+        public Inventory GetInventory()
+        {
+            return _inventory;
+        }
+
         public long GetPopulation()
         {
             return _holdings.Values.Sum(x => x.GetPopulation());
@@ -57,16 +62,6 @@ namespace SpaceOpera.Core.Economics
         public int GetRegionCount(bool isTraversable)
         {
             return _holdings.Values.Sum(x => x.GetRegionCount(isTraversable));
-        }
-
-        public void Return(MultiQuantity<IMaterial> materials)
-        {
-            _inventory.TryAdd(materials);
-        }
-
-        public float Spend(MultiQuantity<IMaterial> unitCost, float maxUnits)
-        {
-            return _inventory.MaxSpend(unitCost, maxUnits);
         }
 
         public void Tick()
@@ -96,18 +91,8 @@ namespace SpaceOpera.Core.Economics
         {
             foreach (var sink in MaterialSink.PopulationSink)
             {
-                Spend(sink.Materials, GetPopulation());
+                _inventory.MaxSpend(sink.Materials, GetPopulation());
             }
-        }
-
-        public Inventory.ChangeStatus Load(Inventory inventory, MultiQuantity<IMaterial> materials)
-        {
-            return inventory.MaxTransferFrom(_inventory, materials, float.MaxValue);
-        }
-
-        public Inventory.ChangeStatus Unload(Inventory inventory)
-        {
-            return inventory.MaxTransferTo(_inventory, float.MaxValue);
         }
     }
 }

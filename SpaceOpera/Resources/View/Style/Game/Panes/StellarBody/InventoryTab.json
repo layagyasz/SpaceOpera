@@ -1,0 +1,49 @@
+[
+  {
+    "$id": "stellar-body-pane-inventory-table",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 884, 580 ],
+      "DisableScissor": false
+    }
+  },
+  {
+    "$id": "stellar-body-pane-inventory-table-row",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 884, 32 ],
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "stellar-body-pane-inventory-table-row-info",
+    "Parent": "ui-element-basic",
+    "Default": {
+      "Size": [ 659, 28 ],
+      "Padding": [ 14, 0, 14, 0 ]
+    }
+  },
+  {
+    "$id": "stellar-body-pane-inventory-table-row-icon",
+    "Parent": "ui-icon",
+    "Default": {
+      "Size": [ 24, 24 ],
+      "Margin": [ 2 ]
+    }
+  },
+  {
+    "$id": "stellar-body-pane-inventory-table-row-text",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 603, 28 ],
+      "Padding": [ 8 ]
+    }
+  },
+  {
+    "$id": "stellar-body-pane-inventory-table-row-quantity",
+    "Parent": "ui-element-basic",
+    "Default": {
+      "Size": [ 217, 28 ]
+    }
+  }
+]

@@ -54,6 +54,7 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyPanes
 
         public OverviewTab OverviewTab { get; }
         public ProjectTab ProjectTab { get; }
+        public InventoryTab InventoryTab { get; }
 
         public StellarBodyPane(UiElementFactory uiElementFactory, IconFactory iconFactory)
             : base(
@@ -75,6 +76,7 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyPanes
         {
             OverviewTab = new(uiElementFactory, iconFactory);
             ProjectTab = new(uiElementFactory.GetClass(s_Body), s_ProjectTabStyle, uiElementFactory, iconFactory);
+            InventoryTab = new(uiElementFactory, iconFactory);
         }
 
         public EconomicZoneHolding GetHolding()
@@ -86,6 +88,7 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyPanes
         {
             yield return OverviewTab;
             yield return ProjectTab;
+            yield return InventoryTab;
         }
 
         public override void Populate(params object?[] args)
@@ -101,6 +104,7 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyPanes
 
             OverviewTab.SetHolding(_root!, _holding!);
             ProjectTab.SetRange(_holding == null ? null : _holding.GetProjects);
+            InventoryTab.SetInventory(_holding?.GetInventory());
             SetTitle(_stellarBody?.Name ?? "Unknown Stellar Body");
             Refresh();
             Populated?.Invoke(this, EventArgs.Empty);
@@ -116,6 +120,9 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyPanes
                     break;
                 case TabId.Projects:
                     SetBody(ProjectTab);
+                    break;
+                case TabId.Inventory:
+                    SetBody(InventoryTab);
                     break;
             }
         }

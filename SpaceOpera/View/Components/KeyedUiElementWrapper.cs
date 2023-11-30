@@ -11,7 +11,7 @@ namespace SpaceOpera.View.Components
 
         public T Key { get; }
 
-        private IUiElement _element;
+        private readonly IUiElement _element;
 
         public IElementController Controller => _element.Controller;
         public IControlledElement? Parent
@@ -63,6 +63,10 @@ namespace SpaceOpera.View.Components
 
         public void Refresh()
         {
+            if (_element is IDynamic dynamic)
+            {
+                dynamic.Refresh();
+            }
             Refreshed?.Invoke(this, EventArgs.Empty);
         }
 

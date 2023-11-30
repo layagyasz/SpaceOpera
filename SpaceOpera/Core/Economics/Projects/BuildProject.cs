@@ -26,12 +26,5 @@ namespace SpaceOpera.Core.Economics.Projects
             Holding.ReleaseStructureNodes(Construction);
             Holding.AddStructures(Construction);
         }
-
-        protected override void CancelImpl()
-        {
-            base.CancelImpl();
-            Holding.Parent.Return(Progress.PercentFull() * Cost);
-        }
-
     }
 }
