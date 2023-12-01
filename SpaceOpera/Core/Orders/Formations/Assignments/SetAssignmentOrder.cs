@@ -2,7 +2,7 @@
 using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Military.Ai.Assigments;
 
-namespace SpaceOpera.Core.Orders.Formations
+namespace SpaceOpera.Core.Orders.Formations.Assignments
 {
     public class SetAssignmentOrder : IOrder
     {
@@ -10,7 +10,7 @@ namespace SpaceOpera.Core.Orders.Formations
             new(AssignmentType.None, AssignmentType.Defend, AssignmentType.Train);
         private static readonly EnumSet<AssignmentType> s_FleetAssignments =
             new(AssignmentType.None, AssignmentType.Patrol);
-        private static readonly EnumSet<AssignmentType> s_DivisionAssignments = 
+        private static readonly EnumSet<AssignmentType> s_DivisionAssignments =
             new(AssignmentType.None, AssignmentType.Train);
 
         public IFormationDriver Driver { get; }
@@ -26,13 +26,13 @@ namespace SpaceOpera.Core.Orders.Formations
         {
             if (Driver is ArmyDriver)
             {
-                return s_ArmyAssignments.Contains(Assignment) 
-                    ? ValidationFailureReason.None 
+                return s_ArmyAssignments.Contains(Assignment)
+                    ? ValidationFailureReason.None
                     : ValidationFailureReason.IllegalOrder;
             }
             if (Driver is FleetDriver)
             {
-                return s_FleetAssignments.Contains(Assignment) 
+                return s_FleetAssignments.Contains(Assignment)
                     ? ValidationFailureReason.None : ValidationFailureReason.IllegalOrder;
             }
             if (Driver is DivisionDriver)

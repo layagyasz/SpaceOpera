@@ -1,6 +1,6 @@
 ﻿using SpaceOpera.Core.Economics.Projects;
 
-namespace SpaceOpera.Core.Orders
+namespace SpaceOpera.Core.Orders.Economics
 {
     public class CancelProjectOrder : IOrder
     {

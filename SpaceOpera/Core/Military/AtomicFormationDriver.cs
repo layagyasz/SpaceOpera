@@ -13,6 +13,7 @@ namespace SpaceOpera.Core.Military
 
         public IFormation Formation => AtomicFormation;
         public IAtomicFormation AtomicFormation { get; }
+        public IFormationDriver? Parent { get; set; }
 
         private readonly IFormationAi _ai;
         private IAction _action;

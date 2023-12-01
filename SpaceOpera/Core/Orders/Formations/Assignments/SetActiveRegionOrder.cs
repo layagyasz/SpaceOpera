@@ -1,7 +1,7 @@
 using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Universe;
 
-namespace SpaceOpera.Core.Orders.Formations
+namespace SpaceOpera.Core.Orders.Formations.Assignments
 {
     public class SetActiveRegionOrder : IOrder
     {

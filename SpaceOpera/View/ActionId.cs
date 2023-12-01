@@ -31,6 +31,7 @@
         Move,
         NoAssignment,
         Patrol,
+        Split,
         Train,
 
         // Order actions

@@ -1,4 +1,4 @@
-﻿using SpaceOpera.Core.Orders;
+﻿using SpaceOpera.Core.Orders.Economics;
 
 namespace SpaceOpera.View.Info
 {

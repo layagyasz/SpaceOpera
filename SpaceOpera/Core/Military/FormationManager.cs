@@ -12,19 +12,25 @@ namespace SpaceOpera.Core.Military
 
         private Dictionary<IFormation, IFormationDriver> _drivers = new();
 
-        public void AddArmy(Army army)
+        public ArmyDriver AddArmy(Army army)
         {
-            Add(new ArmyDriver(army, army.Divisions.Select(x => (DivisionDriver)_drivers[x])));
+            var driver = new ArmyDriver(army);
+            Add(driver);
+            return driver;
         }
 
-        public void AddDivision(Division division)
+        public DivisionDriver AddDivision(Division division)
         {
-            Add(new DivisionDriver(division));
+            var driver = new DivisionDriver(division);
+            Add(driver);
+            return driver;
         }
 
-        public void AddFleet(Fleet fleet)
+        public FleetDriver AddFleet(Fleet fleet)
         {
-            Add(new FleetDriver(fleet));
+            var driver = new FleetDriver(fleet);
+            Add(driver);
+            return driver;
         }
 
         public IEnumerable<ArmyDriver> GetArmyDrivers()

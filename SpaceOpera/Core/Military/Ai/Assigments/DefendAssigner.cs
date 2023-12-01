@@ -1,5 +1,5 @@
 ﻿using Cardamom.Graphing;
-using SpaceOpera.Core.Orders.Formations;
+using SpaceOpera.Core.Orders.Formations.Assignments;
 using SpaceOpera.Core.Universe;
 
 namespace SpaceOpera.Core.Military.Ai.Assigments

@@ -3,6 +3,8 @@ using SpaceOpera.Core.Economics;
 using SpaceOpera.Core.Economics.Projects;
 using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Orders;
+using SpaceOpera.Core.Orders.Economics;
+using SpaceOpera.Core.Orders.Formations;
 using SpaceOpera.View;
 using SpaceOpera.View.Game.Panes.MilitaryPanes;
 

@@ -15,7 +15,9 @@ using SpaceOpera.Core.Events;
 using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Military.Ai.Assigments;
 using SpaceOpera.Core.Orders;
+using SpaceOpera.Core.Orders.Economics;
 using SpaceOpera.Core.Orders.Formations;
+using SpaceOpera.Core.Orders.Formations.Assignments;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Universe;
 using SpaceOpera.View;
@@ -399,16 +401,6 @@ namespace SpaceOpera.Controller.Game
             }
             if (type.IsAssignableTo(typeof(IFormationDriver)))
             {
-                var assigment =
-                    e.Action == null ? AssignmentType.Unknown : ActionIdMapper.ToAssignmentType(e.Action.Value);
-                if (assigment != AssignmentType.Unknown)
-                {
-                    foreach (var driver in e.Objects.Cast<IFormationDriver>())
-                    {
-                        ExecuteOrder(new SetAssignmentOrder(driver, assigment));
-                    }
-                    return;
-                }
                 if (e.Action == ActionId.Select || e.Button == MouseButton.Left)
                 {
                     SelectFormations(e.Objects.Cast<IFormationDriver>());

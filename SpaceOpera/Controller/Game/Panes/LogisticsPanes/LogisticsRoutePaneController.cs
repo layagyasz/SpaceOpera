@@ -5,7 +5,7 @@ using SpaceOpera.Controller.Components;
 using SpaceOpera.Controller.Components.NumericInputs;
 using SpaceOpera.Core.Economics;
 using SpaceOpera.Core.Military;
-using SpaceOpera.Core.Orders.Formations;
+using SpaceOpera.Core.Orders.Formations.Assignments;
 using SpaceOpera.View.Game.Panes.LogisticsPanes;
 
 namespace SpaceOpera.Controller.Game.Panes.LogisticsPanes

@@ -2,7 +2,7 @@
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Orders;
-using SpaceOpera.Core.Orders.Formations;
+using SpaceOpera.Core.Orders.Formations.Assignments;
 using SpaceOpera.Core.Universe;
 
 namespace SpaceOpera.Controller.Game.Subcontrollers

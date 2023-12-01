@@ -9,20 +9,48 @@ namespace SpaceOpera.Core.Military
         public EventHandler<EventArgs>? OrderUpdated { get; set; }
         public IFormation Formation => Army;
         public Army Army { get; }
-        public List<AtomicFormationDriver> Divisions { get; }
+
+        private readonly List<AtomicFormationDriver> _divisions = new();
 
         private IAssigner _assigner;
 
-        public ArmyDriver(Army army, IEnumerable<AtomicFormationDriver> divisions)
+        public ArmyDriver(Army army)
         {
             Army = army;
-            Divisions = divisions.ToList();
             _assigner = new NoAssigner();
+        }
+
+        public bool Add(AtomicFormationDriver division)
+        {
+            if (division.Formation is Division && division.Parent == null)
+            {
+                _divisions.Add(division);
+                Army.Add((Division)division.Formation);
+                division.Parent = this;
+                return true;
+            }
+            return false;
         }
 
         public AssignmentType GetAssignment()
         {
             return _assigner.Type;
+        }
+
+        public IEnumerable<AtomicFormationDriver> GetDivisions()
+        {
+            return _divisions;
+        }
+
+        public bool Remove(AtomicFormationDriver division)
+        {
+            if (_divisions.Remove(division))
+            {
+                Army.Remove((Division)division.Formation);
+                division.Parent = null;
+                return true;
+            }
+            return false;
         }
 
         public void SetAssignment(AssignmentType type)
@@ -59,12 +87,12 @@ namespace SpaceOpera.Core.Military
 
         public void Tick(SpaceOperaContext context)
         {
-            lock (Divisions)
+            lock (_divisions)
             {
-                Divisions.RemoveAll(x => x.Formation.IsDestroyed());
+                _divisions.RemoveAll(x => x.Formation.IsDestroyed());
             }
             Army.CheckDivisions();
-            _assigner.Tick(Divisions, context);
+            _assigner.Tick(_divisions, context);
         }
 
         private void SetAssigner(IAssigner assigner)

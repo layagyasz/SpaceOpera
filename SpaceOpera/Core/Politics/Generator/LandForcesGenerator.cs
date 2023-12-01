@@ -30,8 +30,8 @@ namespace SpaceOpera.Core.Politics.Generator
 
             for (int i = 0; i < armies; ++i)
             {
-                var army = new Army(faction);
-                army.SetName(faction.NameGenerator.GenerateNameForArmy(context.Random));
+                var army = world.Formations.AddArmy(new Army(faction));
+                army.Formation.SetName(faction.NameGenerator.GenerateNameForArmy(context.Random));
                 foreach (var template in composition)
                 {
                     for (int j=0; j< template.Value; ++j)
@@ -40,11 +40,10 @@ namespace SpaceOpera.Core.Politics.Generator
                         division.Add(template.Key.Composition);
                         division.SetName(faction.NameGenerator.GenerateNameFor(template.Key, context.Random));
                         division.SetPosition(headquarters);
-                        world.Formations.AddDivision(division);
-                        army.Divisions.Add(division);
+                        var driver = world.Formations.AddDivision(division);
+                        army.Add(driver);
                     }
                 }
-                world.Formations.AddArmy(army);
             }
         }
     }

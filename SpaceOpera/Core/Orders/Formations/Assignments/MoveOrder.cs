@@ -2,7 +2,7 @@
 using SpaceOpera.Core.Military.Ai.Assigments;
 using SpaceOpera.Core.Universe;
 
-namespace SpaceOpera.Core.Orders.Formations
+namespace SpaceOpera.Core.Orders.Formations.Assignments
 {
     public class MoveOrder : IOrder
     {
@@ -20,7 +20,7 @@ namespace SpaceOpera.Core.Orders.Formations
             if (Driver is DivisionDriver)
             {
                 return Destination.NavigableNodeType == NavigableNodeType.Ground
-                    ?  ValidationFailureReason.None : ValidationFailureReason.IllegalOrder;
+                    ? ValidationFailureReason.None : ValidationFailureReason.IllegalOrder;
             }
             return ValidationFailureReason.IllegalOrder;
         }

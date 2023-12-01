@@ -1,7 +1,7 @@
 using Cardamom.Trackers;
 using SpaceOpera.Core.Economics;
 
-namespace SpaceOpera.Core.Orders
+namespace SpaceOpera.Core.Orders.Economics
 {
     class AdjustProductionOrder : IOrder
     {
@@ -28,7 +28,7 @@ namespace SpaceOpera.Core.Orders
                 {
                     return ValidationFailureReason.IllegalOrder;
                 }
-                if (productionUsage >  Holding.GetAvailableResourceNodes(production.Key.BoundResourceNode))
+                if (productionUsage > Holding.GetAvailableResourceNodes(production.Key.BoundResourceNode))
                 {
                     return ValidationFailureReason.TooFewResourceNodes;
                 }

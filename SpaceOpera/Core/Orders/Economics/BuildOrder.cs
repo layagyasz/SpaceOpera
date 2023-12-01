@@ -2,7 +2,7 @@ using Cardamom.Trackers;
 using SpaceOpera.Core.Economics;
 using SpaceOpera.Core.Economics.Projects;
 
-namespace SpaceOpera.Core.Orders
+namespace SpaceOpera.Core.Orders.Economics
 {
     class BuildOrder : IOrder
     {
@@ -34,8 +34,8 @@ namespace SpaceOpera.Core.Orders
                     return ValidationFailureReason.IllegalOrder;
                 }
             }
-            return Structures.GetTotal() <= Holding.GetAvailableStructureNodes() 
-                ? ValidationFailureReason.None 
+            return Structures.GetTotal() <= Holding.GetAvailableStructureNodes()
+                ? ValidationFailureReason.None
                 : ValidationFailureReason.TooFewStructureNodes;
         }
 

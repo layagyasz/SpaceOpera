@@ -224,7 +224,7 @@
     "$id": "formation-pane-formation-unit-grouping-row",
     "Parent": "ui-container",
     "Default": {
-      "Size": [ 438, 76 ],
+      "Size": [ 442, 76 ],
       "DisableScissor": true
     }
   },
@@ -240,7 +240,7 @@
     "$id": "formation-pane-formation-unit-grouping-row-info",
     "Parent": "ui-container",
     "Default": {
-      "Size": [ 374, 76 ],
+      "Size": [ 378, 76 ],
       "DisableScissor": true
     }
   },
@@ -248,7 +248,7 @@
     "$id": "formation-pane-formation-unit-grouping-row-text-container",
     "Parent": "ui-container",
     "Default": {
-      "Size": [ 374, 28 ],
+      "Size": [ 378, 28 ],
       "DisableScissor": true
     }
   },
@@ -273,7 +273,7 @@
     "$id": "formation-pane-formation-unit-grouping-row-status-container",
     "Parent": "ui-container",
     "Default": {
-      "Size": [ 374, 48 ],
+      "Size": [ 378, 48 ],
       "Padding": [ 4 ],
       "DisableScissor": true
     }
@@ -290,7 +290,7 @@
     "Parent": "formation-pane-formation-header-health",
     "Default": {
       "Size": [
-        [ "DynamicContents", 6, 362 ],
+        [ "DynamicContents", 6, 366 ],
         6
       ]
     }
@@ -343,7 +343,10 @@
   },
   {
     "$id": "formation-pane-army-division-row-info",
-    "Parent": "formation-pane-formation-unit-grouping-row-info"
+    "Parent": "formation-pane-formation-unit-grouping-row-info",
+    "Default": {
+      "Size": [ 358, 48 ]
+    }
   },
   {
     "$id": "formation-pane-army-division-row-text",
@@ -353,7 +356,7 @@
     "$id": "formation-pane-army-division-row-status-container",
     "Parent": "formation-pane-formation-unit-grouping-row-status-container",
     "Default": {
-      "Size": [ 374, 48 ],
+      "Size": [ 358, 48 ],
       "Padding": [ 4 ],
       "DisableScissor": true
     }
@@ -370,7 +373,7 @@
     "Parent": "formation-pane-formation-unit-grouping-row-status-health",
     "Default": {
       "Size": [
-        [ "DynamicContents", 6, 362 ],
+        [ "DynamicContents", 6, 346 ],
         6
       ]
     }
@@ -387,9 +390,25 @@
     "Parent": "formation-pane-formation-header-cohesion",
     "Default": {
       "Size": [
-        [ "DynamicContents", 6, 362 ],
+        [ "DynamicContents", 6, 346 ],
         6
       ]
+    }
+  },
+  {
+    "$id": "formation-pane-army-division-row-action-container",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 36, 76 ],
+      "Padding": [ 4, 24, 4, 24 ],
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "formation-pane-army-division-row-action-split",
+    "Parent": "pane-action-button",
+    "Default": {
+      "Texture": "icon-split"
     }
   }
 ]

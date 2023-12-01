@@ -1,6 +1,12 @@
 ﻿using Cardamom.Ui.Controller.Element;
+using SpaceOpera.Core.Military.Ai.Assigments;
+using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Orders;
+using SpaceOpera.Core.Orders.Formations.Assignments;
+using SpaceOpera.View.Game;
 using SpaceOpera.View.Game.Panes.FormationPanes;
+using SpaceOpera.View;
+using SpaceOpera.Core.Orders.Formations;
 
 namespace SpaceOpera.Controller.Game.Panes.FormationPanes
 {
@@ -38,7 +44,26 @@ namespace SpaceOpera.Controller.Game.Panes.FormationPanes
 
         private void HandleInteraction(object? sender, UiInteractionEventArgs e)
         {
-            Interacted?.Invoke(this, e);
+            var assigment =
+                e.Action == null ? AssignmentType.Unknown : ActionIdMapper.ToAssignmentType(e.Action.Value);
+            if (assigment != AssignmentType.Unknown)
+            {
+                foreach (var driver in e.Objects.Cast<IFormationDriver>())
+                {
+                    OrderCreated?.Invoke(this, new SetAssignmentOrder(driver, assigment));
+                }
+            }
+            else if (e.Action == ActionId.Split)
+            {
+                if (e.GetOnlyObject() is DivisionDriver division)
+                {
+                    OrderCreated?.Invoke(this, new LeaveArmyOrder(division));
+                }
+            }
+            else 
+            {
+                Interacted?.Invoke(this, e);
+            }
         }
     }
 }

@@ -2,7 +2,7 @@ using SpaceOpera.Core.Economics;
 using SpaceOpera.Core.Economics.Projects;
 using SpaceOpera.Core.Military;
 
-namespace SpaceOpera.Core.Orders
+namespace SpaceOpera.Core.Orders.Formations
 {
     public class CreateDivisionOrder : IOrder
     {
@@ -25,7 +25,7 @@ namespace SpaceOpera.Core.Orders
             world.Projects.Add(
                 new CreateDivisionProject(
                     Holding,
-                    Holding.Owner, 
+                    Holding.Owner,
                     Holding.Owner.NameGenerator.GenerateNameFor(Template, world.Random),
                     Template));
             return true;

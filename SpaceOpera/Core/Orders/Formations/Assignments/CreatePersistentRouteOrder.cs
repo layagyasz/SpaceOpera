@@ -2,7 +2,7 @@
 using SpaceOpera.Core.Economics;
 using SpaceOpera.Core.Politics;
 
-namespace SpaceOpera.Core.Orders.Formations
+namespace SpaceOpera.Core.Orders.Formations.Assignments
 {
     public class CreatePersistentRouteOrder : IOrder
     {

@@ -2,7 +2,7 @@ using SpaceOpera.Core.Economics;
 using SpaceOpera.Core.Economics.Projects;
 using SpaceOpera.Core.Military;
 
-namespace SpaceOpera.Core.Orders
+namespace SpaceOpera.Core.Orders.Formations
 {
     public class MobilizeDivisionOrder : IOrder
     {
@@ -17,7 +17,7 @@ namespace SpaceOpera.Core.Orders
 
         public ValidationFailureReason Validate(World world)
         {
-            return Division.StellarBodyLocation == null 
+            return Division.StellarBodyLocation == null
                 ? ValidationFailureReason.IllegalOrder : ValidationFailureReason.None;
         }
 

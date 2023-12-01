@@ -45,7 +45,8 @@ namespace SpaceOpera.View.Game.Panes.FormationPanes
         private readonly UiElementFactory _uiElementFactory;
         private readonly IconFactory _iconFactory;
 
-        public FormationComponent(AtomicFormationDriver driver, UiElementFactory uiElementFactory, IconFactory iconFactory)
+        public FormationComponent(
+            AtomicFormationDriver driver, UiElementFactory uiElementFactory, IconFactory iconFactory)
             : base(
                   new FormationComponentController(), 
                   new DynamicUiSerialContainer(

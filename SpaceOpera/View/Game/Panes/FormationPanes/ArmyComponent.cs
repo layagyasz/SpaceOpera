@@ -18,7 +18,8 @@ namespace SpaceOpera.View.Game.Panes.FormationPanes
         private static readonly ActionRowStyles.Style s_DivisionRowStyle =
             new()
             {
-                Container = "formation-pane-army-division-row"
+                Container = "formation-pane-army-division-row",
+                ActionContainer = "formation-pane-army-division-row-action-container"
             };
         private static readonly string s_DivisionIcon = "formation-pane-army-division-row-icon";
         private static readonly string s_DivisionInfo = "formation-pane-army-division-row-info";
@@ -26,8 +27,18 @@ namespace SpaceOpera.View.Game.Panes.FormationPanes
         private static readonly string s_DivisionStatus = "formation-pane-army-division-row-status-container";
         private static readonly string s_DivisionHealthText = "formation-pane-army-division-row-status-health-text";
         private static readonly string s_DivisionHealth = "formation-pane-army-division-row-status-health";
-        private static readonly string s_DivisionCohesionText = "formation-pane-army-division-row-status-cohesion-text";
+        private static readonly string s_DivisionCohesionText = 
+            "formation-pane-army-division-row-status-cohesion-text";
         private static readonly string s_DivisionCohesion = "formation-pane-army-division-row-status-cohesion";
+        private static readonly List<ActionRowStyles.ActionConfiguration> s_DivisionActions =
+            new()
+            {
+                new()
+                {
+                    Button = "formation-pane-army-division-row-action-split",
+                    Action = ActionId.Split
+                }
+            };
 
         public object Key => Driver;
         public ArmyDriver Driver { get; }
@@ -49,35 +60,37 @@ namespace SpaceOpera.View.Game.Panes.FormationPanes
             CompositionTable =
                 new DynamicUiCompoundComponent(
                     new ActionComponentController(),
-                    DynamicKeyedContainer<Division>.CreateSerial(
+                    DynamicKeyedContainer<AtomicFormationDriver>.CreateSerial(
                         uiElementFactory.GetClass(s_DivisionTable),
                         new NoOpElementController(),
                         UiSerialContainer.Orientation.Vertical,
-                        () => Driver.Army.Divisions,
-                        new SimpleKeyedElementFactory<Division>(uiElementFactory, iconFactory, CreateRow),
-                        Comparer<Division>.Create((x, y) => x.Name.CompareTo(y.Name))));
+                        Driver.GetDivisions,
+                        new SimpleKeyedElementFactory<AtomicFormationDriver>(uiElementFactory, iconFactory, CreateRow),
+                        Comparer<AtomicFormationDriver>.Create(
+                            (x, y) => x.Formation.Name.CompareTo(y.Formation.Name))));
             Add(CompositionTable);
         }
 
-        private static ActionRow<Division> CreateRow(
-            Division division, UiElementFactory uiElementFactory, IconFactory iconFactory)
+        private static ActionRow<AtomicFormationDriver> CreateRow(
+            AtomicFormationDriver driver, UiElementFactory uiElementFactory, IconFactory iconFactory)
         {
-            return ActionRow<Division>.Create(
-                division,
+            return ActionRow<AtomicFormationDriver>.Create(
+                driver,
                 ActionId.Unknown,
                 ActionId.Unknown,
                 uiElementFactory,
                 s_DivisionRowStyle,
                 new List<IUiElement>()
                 {
-                    iconFactory.Create(uiElementFactory.GetClass(s_DivisionIcon), new InlayController(), division),
+                    iconFactory.Create(
+                        uiElementFactory.GetClass(s_DivisionIcon), new InlayController(), driver.Formation),
                     new DynamicUiSerialContainer(
                         uiElementFactory.GetClass(s_DivisionInfo),
                         new NoOpElementController(),
                         UiSerialContainer.Orientation.Vertical)
                     {
                         new TextUiElement(
-                            uiElementFactory.GetClass(s_DivisionText), new InlayController(), division.Name),
+                            uiElementFactory.GetClass(s_DivisionText), new InlayController(), driver.Formation.Name),
                         new DynamicUiSerialContainer(
                             uiElementFactory.GetClass(s_DivisionStatus),
                             new NoOpElementController(),
@@ -86,23 +99,23 @@ namespace SpaceOpera.View.Game.Panes.FormationPanes
                             new DynamicTextUiElement(
                                 uiElementFactory.GetClass(s_DivisionHealthText),
                                 new InlayController(),
-                                () => division.Health.ToString("N0")),
+                                () => driver.AtomicFormation.Health.ToString("N0")),
                             new PoolBar(
                                 uiElementFactory.GetClass(s_DivisionHealth),
                                 new InlayController(),
-                                division.Health),
+                                driver.AtomicFormation.Health),
                             new DynamicTextUiElement(
                                 uiElementFactory.GetClass(s_DivisionCohesionText),
                                 new InlayController(),
-                                () => division.Cohesion.ToString("P0")),
+                                () => driver.AtomicFormation.Cohesion.ToString("P0")),
                             new PoolBar(
                                 uiElementFactory.GetClass(s_DivisionCohesion),
                                 new InlayController(),
-                                division.Cohesion)
+                                driver.AtomicFormation.Cohesion)
                         }
                     }
                 },
-                Enumerable.Empty<ActionRowStyles.ActionConfiguration>());
+                s_DivisionActions);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using SpaceOpera.Core.Events;
 using SpaceOpera.Core.Orders;
+using SpaceOpera.Core.Orders.Economics;
 using SpaceOpera.View.Forms;
 
 namespace SpaceOpera.View.Game.Panes.Forms

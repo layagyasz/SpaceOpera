@@ -1,5 +1,6 @@
 ﻿using SpaceOpera.Core.Economics.Projects;
 using SpaceOpera.Core.Orders;
+using SpaceOpera.Core.Orders.Economics;
 using SpaceOpera.View;
 using SpaceOpera.View.Game.Panes.Common;
 

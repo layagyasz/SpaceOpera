@@ -2,6 +2,7 @@
 using SpaceOpera.Controller.Components.NumericInputs;
 using SpaceOpera.Core.Economics;
 using SpaceOpera.Core.Orders;
+using SpaceOpera.Core.Orders.Economics;
 using SpaceOpera.View.Game.Panes.StellarBodyRegionPanes;
 
 namespace SpaceOpera.Controller.Game.Panes.StellarBodyRegionPanes
