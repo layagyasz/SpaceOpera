@@ -61,5 +61,164 @@
       "Size": [ 388, 48 ],
       "Padding": [ 8 ]
     }
+  },
+  {
+    "$id": "military-pane-formation-summary",
+    "Parent": "ui-element",
+    "Default": {
+      "Size": [ 430, 568 ],
+      "Margin": [ 6 ],
+      "Padding": [ 1, 12, 1, 12 ],
+      "CornerRadius": [ [ 12, 12 ] ],
+      "DisableScissor": false
+    }
+  },
+  {
+    "$id": "military-pane-formation-summary-army",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 428, "DynamicContents" ],
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "military-pane-formation-summary-army-division-table",
+    "Parent": "military-pane-formation-summary-army"
+  },
+  {
+    "$id": "military-pane-formation-summary-army-division-row",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 428, 76 ],
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "military-pane-formation-summary-army-division-row-icon",
+    "Parent": "ui-icon",
+    "Default": {
+      "Size": [ 44, 44 ],
+      "Margin": [ 2 ]
+    }
+  },
+  {
+    "$id": "military-pane-formation-summary-army-division-row-info",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 344, 76 ],
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "military-pane-formation-summary-army-division-row-text-container",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 344, 28 ],
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "military-pane-formation-summary-army-division-row-text",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 246, 28 ],
+      "Padding": [ 8 ]
+    }
+  },
+  {
+    "$id": "military-pane-formation-summary-army-division-row-status-container",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 344, 48 ],
+      "Padding": [ 4 ],
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "military-pane-formation-summary-army-division-row-status-health-text",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 158, 10 ],
+      "Margin": [ 32, 0, 32, 0 ],
+      "FontSize": 10,
+      "Color": "#00ff00cc",
+      "DisableScissor": true
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "Color": "#00ff00"
+        }
+      }
+    ]
+  },
+  {
+    "$id": "military-pane-formation-summary-army-division-row-status-health",
+    "Default": {
+      "Size": [
+        [ "DynamicContents", 6, 340 ],
+        6
+      ],
+      "Margin": [ 2 ],
+      "CornerRadius": [ [ 3, 3 ] ],
+      "BackgroundColor": [ "#00ff00cc" ],
+      "BackgroundShader": "shader-ui",
+      "DisableScissor": true
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "BackgroundColor": [ "#00ff00" ]
+        }
+      }
+    ]
+  },
+  {
+    "$id": "military-pane-formation-summary-army-division-row-status-cohesion-text",
+    "Parent": "military-pane-formation-summary-army-division-row-status-health-text",
+    "Default": {
+      "Color": "#ffff00cc"
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "Color": "#ffff00"
+        }
+      }
+    ]
+  },
+  {
+    "$id": "military-pane-formation-summary-army-division-row-status-cohesion",
+    "Parent": "military-pane-formation-summary-army-division-row-status-health",
+    "Default": {
+      "BackgroundColor": [ "#ffff00cc" ]
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "BackgroundColor": [ "#ffff00" ]
+        }
+      }
+    ]
+  },
+  {
+    "$id": "military-pane-formation-summary-army-division-row-action-container",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 36, 76 ],
+      "Padding": [ 4, 24, 4, 24 ],
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "military-pane-formation-summary-army-division-row-action-split",
+    "Parent": "pane-action-button",
+    "Default": {
+      "Texture": "icon-split"
+    }
   }
 ]

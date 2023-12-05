@@ -81,7 +81,7 @@ namespace SpaceOpera.View
                 }
                 else
                 {
-                    right = Vector3.Cross(segment.Left - segment.Right, line.GetNormal(i + 1));
+                    right = Vector3.Cross(segment.Right - segment.Left, line.GetNormal(i + 1));
                 }
                 AddVertices(vertices, CreateSegment(segment.Left, segment.Right, left, right, width, center), color);
             }

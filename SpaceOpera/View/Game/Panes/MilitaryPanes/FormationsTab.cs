@@ -6,6 +6,7 @@ using SpaceOpera.View.Components;
 using SpaceOpera.View.Components.Dynamics;
 using SpaceOpera.View.Icons;
 using SpaceOpera.Controller.Game.Panes;
+using SpaceOpera.Controller.Game.Panes.MilitaryPanes;
 
 namespace SpaceOpera.View.Game.Panes.MilitaryPanes
 {
@@ -32,26 +33,52 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
         private static readonly string s_Text = "military-pane-formation-row-text";
         private static readonly List<ActionRowStyles.ActionConfiguration> s_FormationActions = new();
 
+        private static readonly string s_SummaryContainer = "military-pane-formation-summary";
+
         public ActionTable<IFormationDriver> Formations { get; }
+        public UiCompoundComponent Summary { get; }
 
         private readonly DelegatedRange<IFormationDriver> _range;
+        private readonly IKeyedElementFactory<ArmyDriver> _armyComponentFactory;
 
         private FormationsTab(
-            Class @class, ActionTable<IFormationDriver> formations, DelegatedRange<IFormationDriver> range)
+            Class @class,
+            ActionTable<IFormationDriver> formations,
+            DynamicUiCompoundComponent summary,
+            DelegatedRange<IFormationDriver> range,
+            IKeyedElementFactory<ArmyDriver> armyComponentFactory)
             : base(
-                  new NoOpTabController(), 
+                  new FormationsTabController(),
                   new DynamicUiSerialContainer(
                       @class, new NoOpElementController(), UiSerialContainer.Orientation.Horizontal))
         {
             Formations = formations;
-            _range = range;
-
             Add(Formations);
+
+            Summary = summary;
+            Add(Summary);
+
+            _range = range;
+            _armyComponentFactory = armyComponentFactory;
         }
 
         public void SetRange(KeyRange<IFormationDriver>? range)
         {
             _range.SetRange(range);
+        }
+
+        public void SetSummary(IFormationDriver? driver)
+        {
+            Summary.Clear(/* dispose= */ true);
+            if (driver != null)
+            {
+                if (driver is ArmyDriver army)
+                {
+                    var component = _armyComponentFactory.Create(army);
+                    component.Initialize();
+                    Summary.Add(component);
+                }
+            }
         }
 
         public static FormationsTab Create(UiElementFactory uiElementFactory, IconFactory iconFactory)
@@ -81,7 +108,14 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
                         new SimpleKeyedElementFactory<IFormationDriver>(uiElementFactory, iconFactory, CreateRow),
                         Comparer<IFormationDriver>.Create((x, y) => x.Formation.Name.CompareTo(y.Formation.Name))),
                     /* isSelectable=*/ true),
-                range);
+                new DynamicUiCompoundComponent(
+                    new TabComponentController(), 
+                    new DynamicUiSerialContainer(
+                        uiElementFactory.GetClass(s_SummaryContainer),
+                        new TableController(10f),
+                        UiSerialContainer.Orientation.Vertical)),
+                range,
+                new SimpleKeyedElementFactory<ArmyDriver>(uiElementFactory, iconFactory, WrapArmySummary));
         }
 
         private static IKeyedUiElement<IFormationDriver> CreateRow(
@@ -101,5 +135,13 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
                 },
                 s_FormationActions);
         }
+
+        private static IKeyedUiElement<ArmyDriver> WrapArmySummary(
+            ArmyDriver driver, UiElementFactory uiElementFactory, IconFactory iconFactory)
+        {
+            return KeyedUiComponent<ArmyDriver>.Wrap(
+                driver, ArmySummaryComponent.Create(driver, uiElementFactory, iconFactory));
+        }
+
     }
 }
