@@ -117,14 +117,6 @@
     }
   },
   {
-    "$id": "military-pane-formation-summary-army-division-row-text-container",
-    "Parent": "ui-container",
-    "Default": {
-      "Size": [ 344, 28 ],
-      "DisableScissor": true
-    }
-  },
-  {
     "$id": "military-pane-formation-summary-army-division-row-text",
     "Parent": "ui-element-internal",
     "Default": {
@@ -234,5 +226,100 @@
     "Default": {
       "Texture": "icon-split"
     }
+  },
+  {
+    "$id": "military-pane-formation-summary-fleet",
+    "Parent": "military-pane-formation-summary-army"
+  },
+  {
+    "$id": "military-pane-formation-summary-fleet-section-header",
+    "Parent": "military-pane-formation-summary-army-section-header"
+  },
+  {
+    "$id": "military-pane-formation-summary-fleet-unit-grouping-table",
+    "Parent": "military-pane-formation-summary-army-division-table"
+  },
+  {
+    "$id": "military-pane-formation-summary-fleet-unit-grouping-row",
+    "Parent": "military-pane-formation-summary-army-division-row"
+  },
+  {
+    "$id": "military-pane-formation-summary-fleet-unit-grouping-row-icon",
+    "Parent": "military-pane-formation-summary-army-division-row-icon"
+  },
+  {
+    "$id": "military-pane-formation-summary-fleet-unit-grouping-row-info",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 378, 76 ],
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "military-pane-formation-summary-fleet-unit-grouping-row-text-container",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 378, 28 ],
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "military-pane-formation-summary-fleet-unit-grouping-row-text",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 246, 28 ],
+      "Padding": [ 8 ]
+    }
+  },
+  {
+    "$id": "military-pane-formation-summary-fleet-unit-grouping-row-count",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 128, 28 ],
+      "Padding": [ 8 ],
+      "Align": "Center"
+    }
+  },
+  {
+    "$id": "military-pane-formation-summary-fleet-unit-grouping-row-status-container",
+    "Parent": "military-pane-formation-summary-army-division-row-status-container"
+  },
+  {
+    "$id": "military-pane-formation-summary-fleet-unit-grouping-row-status-health-text",
+    "Parent": "military-pane-formation-summary-army-division-row-status-health-text"
+  },
+  {
+    "$id": "military-pane-formation-summary-fleet-unit-grouping-row-status-health",
+    "Parent": "military-pane-formation-summary-army-division-row-status-health"
+  },
+  {
+    "$id": "military-pane-formation-summary-fleet-unit-grouping-row-status-shields-text",
+    "Parent": "military-pane-formation-summary-army-division-row-status-health-text",
+    "Default": {
+      "Color": "#00ffffcc"
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "Color": "#00ffff"
+        }
+      }
+    ]
+  },
+  {
+    "$id": "military-pane-formation-summary-fleet-unit-grouping-row-status-shields",
+    "Parent": "military-pane-formation-summary-army-division-row-status-health",
+    "Default": {
+      "BackgroundColor": [ "#00ffffcc" ]
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "BackgroundColor": [ "#00ffff" ]
+        }
+      }
+    ]
   }
 ]

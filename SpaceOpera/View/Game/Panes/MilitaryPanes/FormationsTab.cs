@@ -37,15 +37,15 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
 
         private static readonly string s_SummaryContainer = "military-pane-formation-summary";
 
-        class ArmyComponentFactory : IKeyedElementFactory<ArmyDriver>
+        abstract class BaseComponentFactory<T> : IKeyedElementFactory<T>
         {
-            private UiElementFactory _uiElementFactory;
-            private IconFactory _iconFactory;
+            protected readonly UiElementFactory _uiElementFactory;
+            protected readonly IconFactory _iconFactory;
 
-            private World? _world;
-            private Faction? _faction;
+            protected World? _world;
+            protected Faction? _faction;
 
-            public ArmyComponentFactory(UiElementFactory uiElementFactory, IconFactory iconFactory)
+            protected BaseComponentFactory(UiElementFactory uiElementFactory, IconFactory iconFactory)
             {
                 _uiElementFactory = uiElementFactory;
                 _iconFactory = iconFactory;
@@ -57,10 +57,30 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
                 _faction = faction;
             }
 
-            public IKeyedUiElement<ArmyDriver> Create(ArmyDriver driver)
+            public abstract IKeyedUiElement<T> Create(T driver);
+        }
+
+        class ArmyComponentFactory : BaseComponentFactory<ArmyDriver>
+        {
+            public ArmyComponentFactory(UiElementFactory uiElementFactory, IconFactory iconFactory)
+                : base(uiElementFactory, iconFactory) { }
+
+            public override IKeyedUiElement<ArmyDriver> Create(ArmyDriver driver)
             {
                 return KeyedUiComponent<ArmyDriver>.Wrap(
                     driver, ArmySummaryComponent.Create(_world!, _faction!, driver, _uiElementFactory, _iconFactory));
+            }
+        }
+
+        class FleetComponentFactory : BaseComponentFactory<FleetDriver>
+        {
+            public FleetComponentFactory(UiElementFactory uiElementFactory, IconFactory iconFactory)
+                : base(uiElementFactory, iconFactory) { }
+
+            public override IKeyedUiElement<FleetDriver> Create(FleetDriver driver)
+            {
+                return KeyedUiComponent<FleetDriver>.Wrap(
+                    driver, FleetSummaryComponent.Create(driver, _uiElementFactory, _iconFactory));
             }
         }
 
@@ -69,13 +89,15 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
 
         private readonly DelegatedRange<IFormationDriver> _range;
         private readonly ArmyComponentFactory _armyComponentFactory;
+        private readonly FleetComponentFactory _fleetComponentFactory;
 
         private FormationsTab(
             Class @class,
             ActionTable<IFormationDriver> formations,
             DynamicUiCompoundComponent summary,
             DelegatedRange<IFormationDriver> range,
-            ArmyComponentFactory armyComponentFactory)
+            ArmyComponentFactory armyComponentFactory,
+            FleetComponentFactory fleetComponentFactory)
             : base(
                   new FormationsTabController(),
                   new DynamicUiSerialContainer(
@@ -89,11 +111,13 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
 
             _range = range;
             _armyComponentFactory = armyComponentFactory;
+            _fleetComponentFactory = fleetComponentFactory;
         }
 
         public void Populate(World? world, Faction? faction)
         {
             _armyComponentFactory.Populate(world, faction);
+            _fleetComponentFactory.Populate(world, faction);
         }
 
         public void SetRange(KeyRange<IFormationDriver>? range)
@@ -109,6 +133,12 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
                 if (driver is ArmyDriver army)
                 {
                     var component = _armyComponentFactory.Create(army);
+                    component.Initialize();
+                    Summary.Add(component);
+                }
+                else if (driver is FleetDriver fleet)
+                {
+                    var component = _fleetComponentFactory.Create(fleet);
                     component.Initialize();
                     Summary.Add(component);
                 }
@@ -149,7 +179,8 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
                         new TableController(10f),
                         UiSerialContainer.Orientation.Vertical)),
                 range,
-                new ArmyComponentFactory(uiElementFactory, iconFactory));
+                new ArmyComponentFactory(uiElementFactory, iconFactory),
+                new FleetComponentFactory(uiElementFactory, iconFactory));
         }
 
         private static IKeyedUiElement<IFormationDriver> CreateRow(

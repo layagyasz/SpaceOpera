@@ -169,9 +169,11 @@ namespace SpaceOpera.View.Components.Dynamics
 
         public void Remove(T key)
         {
-            var element = _currentRows[key];
-            _currentRows.Remove(key);
-            _container.Remove(element, /* dispose= */ true);
+            if (_currentRows.TryGetValue(key, out var element))
+            {
+                _currentRows.Remove(key);
+                _container.Remove(element, /* dispose= */ true);
+            }
         }
 
         public void Reset()
