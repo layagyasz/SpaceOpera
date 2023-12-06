@@ -15,7 +15,9 @@ namespace SpaceOpera.Core.Orders.Formations
 
         public ValidationFailureReason Validate(World world)
         {
-            return Driver.Parent == null ? ValidationFailureReason.None : ValidationFailureReason.IllegalOrder;
+            return (Driver.Parent == null && Driver is DivisionDriver) 
+                ? ValidationFailureReason.None
+                : ValidationFailureReason.IllegalOrder;
         }
 
         public bool Execute(World world)

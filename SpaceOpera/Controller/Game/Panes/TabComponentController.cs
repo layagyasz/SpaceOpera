@@ -1,6 +1,7 @@
 ﻿using Cardamom.Ui.Controller;
 using Cardamom.Ui;
 using SpaceOpera.Core.Orders;
+using Cardamom.Utils;
 
 namespace SpaceOpera.Controller.Game.Panes
 {
@@ -41,9 +42,22 @@ namespace SpaceOpera.Controller.Game.Panes
             }
         }
 
+        protected virtual Optional<IOrder> InterceptInteraction(UiInteractionEventArgs e)
+        {
+            return Optional<IOrder>.Empty();
+        }
+
         private void HandleInteraction(object? sender, UiInteractionEventArgs e)
         {
-            Interacted?.Invoke(this, e);
+            var intercepted = InterceptInteraction(e);
+            if (intercepted.HasValue)
+            {
+                OrderCreated?.Invoke(this, intercepted.OrElseDefault()!);
+            }
+            else
+            {
+                Interacted?.Invoke(this, e);
+            }
         }
 
         private void HandleOrder(object? sender, IOrder order)

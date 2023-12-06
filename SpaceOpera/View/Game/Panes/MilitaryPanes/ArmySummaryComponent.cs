@@ -1,8 +1,10 @@
 ﻿using Cardamom.Ui;
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
-using SpaceOpera.Controller.Game.Panes;
+using SpaceOpera.Controller.Game.Panes.MilitaryPanes;
+using SpaceOpera.Core;
 using SpaceOpera.Core.Military;
+using SpaceOpera.Core.Politics;
 using SpaceOpera.View.Components;
 using SpaceOpera.View.Components.Dynamics;
 using SpaceOpera.View.Game.Panes.Common;
@@ -13,6 +15,7 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
     public class ArmySummaryComponent
     {
         private static readonly string s_Container = "military-pane-formation-summary-army";
+        private static readonly string s_SectionHeader = "military-pane-formation-summary-army-section-header";
         private static readonly DivisionSummaryComponent.Style s_DivisionStyle = new()
         {
             Container = "military-pane-formation-summary-army-division-table",
@@ -32,6 +35,14 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
                 "military-pane-formation-summary-army-division-row-status-cohesion-text",
             Cohesion = "military-pane-formation-summary-army-division-row-status-cohesion"
         };
+        private static readonly List<ActionRowStyles.ActionConfiguration> s_UnassignedDivisionActions = new()
+        {
+            new()
+            {
+                Button = "military-pane-formation-summary-army-division-row-action-join",
+                Action = ActionId.Join
+            }
+        };
         private static readonly List<ActionRowStyles.ActionConfiguration> s_ComponentDivisionActions = new()
         {
             new()
@@ -42,15 +53,29 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
         };
 
         public static IUiComponent Create(
-            ArmyDriver driver, UiElementFactory uiElementFactory, IconFactory iconFactory)
+            World world,
+            Faction faction,
+            ArmyDriver driver, 
+            UiElementFactory uiElementFactory, 
+            IconFactory iconFactory)
         {
             return new DynamicUiCompoundComponent(
-                new TabComponentController(),
+                new ArmySummaryController(driver),
                 new DynamicUiSerialContainer(
                     uiElementFactory.GetClass(s_Container),
                     new NoOpElementController(), 
                     UiSerialContainer.Orientation.Vertical) 
                 {
+                    new TextUiElement(
+                        uiElementFactory.GetClass(s_SectionHeader), new InlayController(), "Available Divisions"),
+                    DivisionSummaryComponent.Create(
+                        () => world.Formations.GetDivisionDriversFor(faction).Where(x => x.Parent == null),
+                        s_UnassignedDivisionActions,
+                        s_DivisionStyle,
+                        uiElementFactory,
+                        iconFactory),
+                    new TextUiElement(
+                        uiElementFactory.GetClass(s_SectionHeader), new InlayController(), "Assigned Divisions"),
                     DivisionSummaryComponent.Create(
                         driver.GetDivisions, 
                         s_ComponentDivisionActions,

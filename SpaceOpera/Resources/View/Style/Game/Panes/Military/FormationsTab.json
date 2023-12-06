@@ -82,6 +82,13 @@
     }
   },
   {
+    "$id": "military-pane-formation-summary-army-section-header",
+    "Parent": "ui-element-basic",
+    "Default": {
+      "Size": [ 424, 28 ]
+    }
+  },
+  {
     "$id": "military-pane-formation-summary-army-division-table",
     "Parent": "military-pane-formation-summary-army"
   },
@@ -212,6 +219,13 @@
       "Size": [ 36, 76 ],
       "Padding": [ 4, 24, 4, 24 ],
       "DisableScissor": true
+    }
+  },
+  {
+    "$id": "military-pane-formation-summary-army-division-row-action-join",
+    "Parent": "pane-action-button",
+    "Default": {
+      "Texture": "icon-join"
     }
   },
   {

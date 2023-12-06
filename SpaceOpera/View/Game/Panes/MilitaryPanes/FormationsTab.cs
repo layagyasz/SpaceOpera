@@ -7,6 +7,8 @@ using SpaceOpera.View.Components.Dynamics;
 using SpaceOpera.View.Icons;
 using SpaceOpera.Controller.Game.Panes;
 using SpaceOpera.Controller.Game.Panes.MilitaryPanes;
+using SpaceOpera.Core;
+using SpaceOpera.Core.Politics;
 
 namespace SpaceOpera.View.Game.Panes.MilitaryPanes
 {
@@ -35,18 +37,45 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
 
         private static readonly string s_SummaryContainer = "military-pane-formation-summary";
 
+        class ArmyComponentFactory : IKeyedElementFactory<ArmyDriver>
+        {
+            private UiElementFactory _uiElementFactory;
+            private IconFactory _iconFactory;
+
+            private World? _world;
+            private Faction? _faction;
+
+            public ArmyComponentFactory(UiElementFactory uiElementFactory, IconFactory iconFactory)
+            {
+                _uiElementFactory = uiElementFactory;
+                _iconFactory = iconFactory;
+            }
+
+            public void Populate(World? world, Faction? faction)
+            {
+                _world = world;
+                _faction = faction;
+            }
+
+            public IKeyedUiElement<ArmyDriver> Create(ArmyDriver driver)
+            {
+                return KeyedUiComponent<ArmyDriver>.Wrap(
+                    driver, ArmySummaryComponent.Create(_world!, _faction!, driver, _uiElementFactory, _iconFactory));
+            }
+        }
+
         public ActionTable<IFormationDriver> Formations { get; }
         public UiCompoundComponent Summary { get; }
 
         private readonly DelegatedRange<IFormationDriver> _range;
-        private readonly IKeyedElementFactory<ArmyDriver> _armyComponentFactory;
+        private readonly ArmyComponentFactory _armyComponentFactory;
 
         private FormationsTab(
             Class @class,
             ActionTable<IFormationDriver> formations,
             DynamicUiCompoundComponent summary,
             DelegatedRange<IFormationDriver> range,
-            IKeyedElementFactory<ArmyDriver> armyComponentFactory)
+            ArmyComponentFactory armyComponentFactory)
             : base(
                   new FormationsTabController(),
                   new DynamicUiSerialContainer(
@@ -60,6 +89,11 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
 
             _range = range;
             _armyComponentFactory = armyComponentFactory;
+        }
+
+        public void Populate(World? world, Faction? faction)
+        {
+            _armyComponentFactory.Populate(world, faction);
         }
 
         public void SetRange(KeyRange<IFormationDriver>? range)
@@ -115,7 +149,7 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
                         new TableController(10f),
                         UiSerialContainer.Orientation.Vertical)),
                 range,
-                new SimpleKeyedElementFactory<ArmyDriver>(uiElementFactory, iconFactory, WrapArmySummary));
+                new ArmyComponentFactory(uiElementFactory, iconFactory));
         }
 
         private static IKeyedUiElement<IFormationDriver> CreateRow(
@@ -135,13 +169,5 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
                 },
                 s_FormationActions);
         }
-
-        private static IKeyedUiElement<ArmyDriver> WrapArmySummary(
-            ArmyDriver driver, UiElementFactory uiElementFactory, IconFactory iconFactory)
-        {
-            return KeyedUiComponent<ArmyDriver>.Wrap(
-                driver, ArmySummaryComponent.Create(driver, uiElementFactory, iconFactory));
-        }
-
     }
 }

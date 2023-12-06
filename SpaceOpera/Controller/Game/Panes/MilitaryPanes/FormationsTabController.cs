@@ -1,8 +1,6 @@
 ﻿using SpaceOpera.Controller.Components;
 using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Orders;
-using SpaceOpera.Core.Orders.Formations;
-using SpaceOpera.View;
 using SpaceOpera.View.Game.Panes.MilitaryPanes;
 
 namespace SpaceOpera.Controller.Game.Panes.MilitaryPanes
@@ -48,17 +46,7 @@ namespace SpaceOpera.Controller.Game.Panes.MilitaryPanes
 
         private void HandleInteraction(object? sender, UiInteractionEventArgs e)
         {
-            if (e.Action == ActionId.Split)
-            {
-                if (e.GetOnlyObject() is DivisionDriver division)
-                {
-                    OrderCreated?.Invoke(this, new LeaveArmyOrder(division));
-                }
-            }
-            else
-            {
-                Interacted?.Invoke(this, e);
-            }
+            Interacted?.Invoke(this, e);
         }
 
         private void HandleOrder(object? sender, IOrder order)

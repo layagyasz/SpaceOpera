@@ -76,6 +76,7 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
         {
             _range.World = args[0] as World;
             _range.Faction = args[1] as Faction;
+            FormationsTab.Populate(_range.World, _range.Faction);
             RecruitmentTab.Populate(_range.World, _range.Faction);
             Refresh();
             Populated?.Invoke(this, EventArgs.Empty);

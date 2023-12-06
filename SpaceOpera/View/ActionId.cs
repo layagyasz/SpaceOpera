@@ -28,6 +28,7 @@
         Defend,
         Edit,
         Ignore,
+        Join,
         Move,
         NoAssignment,
         Patrol,
