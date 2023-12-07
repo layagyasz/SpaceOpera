@@ -20,6 +20,8 @@ namespace SpaceOpera.Core.Military
         public Inventory Inventory { get; } = new(0);
         public bool InCombat { get; private set; }
 
+        private bool _isDestructable;
+
         protected BaseAtomicFormation(Faction faction)
         {
             Faction = faction;
@@ -39,6 +41,7 @@ namespace SpaceOpera.Core.Military
                 currentGrouping.Combine(unitGrouping);
             }
             Inventory.SetSize(Inventory.Size + unitGrouping.Unit.CargoSpace * unitGrouping.Count.Amount);
+            _isDestructable = true;
         }
 
         public void Add(Count<Unit> unit)
@@ -102,7 +105,7 @@ namespace SpaceOpera.Core.Military
 
         public bool IsDestroyed()
         {
-            return Health.IsEmpty();
+            return _isDestructable && Health.IsEmpty();
         }
 
         public void SetName(string name)

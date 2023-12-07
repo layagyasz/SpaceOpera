@@ -8,6 +8,7 @@ namespace SpaceOpera.Core.Military
         public Faction Faction { get; }
 
         private readonly List<Division> _divisions = new();
+        private bool _isDestructable;
 
         public Army(Faction faction)
         {
@@ -17,6 +18,7 @@ namespace SpaceOpera.Core.Military
         public void Add(Division division)
         {
             _divisions.Add(division);
+            _isDestructable = true;
         }
 
         public void CheckDivisions()
@@ -29,12 +31,16 @@ namespace SpaceOpera.Core.Military
 
         public bool IsDestroyed()
         {
-            return !_divisions.Any();
+            return _isDestructable && !_divisions.Any();
         }
 
         public void Remove(Division division)
         {
             _divisions.Remove(division);
+            if (!_divisions.Any())
+            {
+                _isDestructable = false;
+            }
         }
 
         public void SetName(string name)

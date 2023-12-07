@@ -1,6 +1,8 @@
 ﻿using SpaceOpera.Controller.Components;
+using SpaceOpera.Core.Designs;
 using SpaceOpera.Core.Military;
 using SpaceOpera.Core.Orders;
+using SpaceOpera.Core.Orders.Formations;
 using SpaceOpera.View.Game.Panes.MilitaryPanes;
 
 namespace SpaceOpera.Controller.Game.Panes.MilitaryPanes
@@ -21,6 +23,7 @@ namespace SpaceOpera.Controller.Game.Panes.MilitaryPanes
             _summary = (ITabController)_tab.Summary.ComponentController;
 
             _formations.RowSelected += HandleFormationSelected;
+            _formations.Interacted += HandleInteraction;
             _summary.Interacted += HandleInteraction;
             _summary.OrderCreated += HandleOrder;
         }
@@ -28,6 +31,7 @@ namespace SpaceOpera.Controller.Game.Panes.MilitaryPanes
         public void Unbind()
         {
             _formations!.RowSelected -= HandleFormationSelected;
+            _formations!.Interacted -= HandleInteraction;
             _summary!.Interacted -= HandleInteraction;
             _summary!.OrderCreated -= HandleOrder;
 
@@ -46,7 +50,21 @@ namespace SpaceOpera.Controller.Game.Panes.MilitaryPanes
 
         private void HandleInteraction(object? sender, UiInteractionEventArgs e)
         {
-            Interacted?.Invoke(this, e);
+            if (e.GetOnlyObject() is Type)
+            {
+                if (_tab!.GetFormationType() == typeof(ArmyDriver))
+                {
+                    OrderCreated?.Invoke(this, new CreateArmyOrder(_tab!.GetFaction()!));
+                }
+                else if (_tab!.GetFormationType() == typeof(FleetDriver))
+                {
+                    OrderCreated?.Invoke(this, new CreateFleetOrder(_tab.GetFaction()!));
+                }
+            }
+            else
+            {
+                Interacted?.Invoke(this, e);
+            }
         }
 
         private void HandleOrder(object? sender, IOrder order)

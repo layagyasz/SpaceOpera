@@ -23,8 +23,24 @@
     "$id": "military-pane-formation-header-space",
     "Parent": "ui-element-internal",
     "Default": {
-      "Size": [ 422, 48 ],
+      "Size": [ 386, 48 ],
       "Padding": [ 8 ]
+    }
+  },
+  {
+    "$id": "military-pane-formation-header-action-container",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 36, 48 ],
+      "Padding": [ 4, 10, 4, 10 ],
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "military-pane-formation-header-action-add",
+    "Parent": "pane-action-button",
+    "Default": {
+      "Texture": "icon-plus"
     }
   },
   {

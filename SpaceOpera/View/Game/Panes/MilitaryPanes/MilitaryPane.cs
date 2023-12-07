@@ -89,11 +89,11 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
             {
                 case TabId.Army:
                     SetBody(FormationsTab);
-                    FormationsTab.SetRange(() => _range.GetRange().Where(x => x is ArmyDriver));
+                    FormationsTab.SetRange(typeof(ArmyDriver));
                     break;
                 case TabId.Fleet:
                     SetBody(FormationsTab);
-                    FormationsTab.SetRange(() => _range.GetRange().Where(x => x is FleetDriver));
+                    FormationsTab.SetRange(typeof(FleetDriver));
                     break;
                 case TabId.Recruitment:
                     SetBody(RecruitmentTab);

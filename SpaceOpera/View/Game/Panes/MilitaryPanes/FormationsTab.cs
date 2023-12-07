@@ -16,26 +16,49 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
     {
         private static readonly string s_Container = "military-pane-body";
         private static readonly string s_FormationContainer = "military-pane-formation-container";
-        private static readonly ActionRowStyles.Style s_FormationHeaderStyle =
+
+        private static readonly ActionRowStyles.Style s_FormationHeaderStyle = new()
+        {
+            Container = "military-pane-formation-header",
+            ActionContainer = "military-pane-formation-header-action-container"
+        };
+        private static readonly string s_FormationHeaderSpace = "military-pane-formation-header-space";
+        private static readonly List<ActionRowStyles.ActionConfiguration> s_FormationHeaderActions = new()
+        {
             new()
             {
-                Container = "military-pane-formation-header"
-            };
-        private static readonly string s_FormationHeaderSpace = "military-pane-formation-header-space";
-        private static readonly List<ActionRowStyles.ActionConfiguration> s_FormationHeaderActions = new();
+                Button = "military-pane-formation-header-action-add",
+                Action = ActionId.Add
+            }
+        };
 
         private static readonly string s_FormationTable = "military-pane-formation-table";
-        private static readonly ActionRowStyles.Style s_FormationRowStyle =
-            new()
-            {
-                Container = "military-pane-formation-row",
-                ActionContainer = "military-pane-formation-row-action-container"
-            };
+        private static readonly ActionRowStyles.Style s_FormationRowStyle = new()
+        {
+            Container = "military-pane-formation-row",
+            ActionContainer = "military-pane-formation-row-action-container"
+        };
         private static readonly string s_Icon = "military-pane-formation-row-icon";
         private static readonly string s_Text = "military-pane-formation-row-text";
         private static readonly List<ActionRowStyles.ActionConfiguration> s_FormationActions = new();
 
         private static readonly string s_SummaryContainer = "military-pane-formation-summary";
+
+        class FormationRange
+        {
+            public World? World { get; set; }
+            public Faction? Faction { get; set; }
+            public Type? Type { get; set; }
+
+            public IEnumerable<IFormationDriver> GetRange()
+            {
+                if (World == null || Faction == null || Type == null)
+                {
+                    return Enumerable.Empty<IFormationDriver>();
+                }
+                return World.Formations.GetDrivers(Faction).Where(x => x.GetType() == Type);
+            }
+        }
 
         abstract class BaseComponentFactory<T> : IKeyedElementFactory<T>
         {
@@ -87,7 +110,7 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
         public ActionTable<IFormationDriver> Formations { get; }
         public UiCompoundComponent Summary { get; }
 
-        private readonly DelegatedRange<IFormationDriver> _range;
+        private readonly FormationRange _range;
         private readonly ArmyComponentFactory _armyComponentFactory;
         private readonly FleetComponentFactory _fleetComponentFactory;
 
@@ -95,7 +118,7 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
             Class @class,
             ActionTable<IFormationDriver> formations,
             DynamicUiCompoundComponent summary,
-            DelegatedRange<IFormationDriver> range,
+            FormationRange range,
             ArmyComponentFactory armyComponentFactory,
             FleetComponentFactory fleetComponentFactory)
             : base(
@@ -114,15 +137,27 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
             _fleetComponentFactory = fleetComponentFactory;
         }
 
+        public Faction? GetFaction()
+        {
+            return _range.Faction;
+        }
+
+        public Type? GetFormationType()
+        {
+            return _range.Type;
+        }
+
         public void Populate(World? world, Faction? faction)
         {
+            _range.World = world;
+            _range.Faction = faction;
             _armyComponentFactory.Populate(world, faction);
             _fleetComponentFactory.Populate(world, faction);
         }
 
-        public void SetRange(KeyRange<IFormationDriver>? range)
+        public void SetRange(Type type)
         {
-            _range.SetRange(range);
+            _range.Type = type;
         }
 
         public void SetSummary(IFormationDriver? driver)
@@ -147,7 +182,7 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
 
         public static FormationsTab Create(UiElementFactory uiElementFactory, IconFactory iconFactory)
         {
-            var range = new DelegatedRange<IFormationDriver>();
+            var range = new FormationRange();
             return new(
                 uiElementFactory.GetClass(s_Container),
                 new ActionTable<IFormationDriver>(
@@ -188,7 +223,7 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
         {
             return ActionRow<IFormationDriver>.Create(
                 driver,
-                ActionId.Select,
+                ActionId.Unknown,
                 ActionId.Unknown,
                 uiElementFactory,
                 s_FormationRowStyle,
