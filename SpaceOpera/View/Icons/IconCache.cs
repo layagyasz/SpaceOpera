@@ -1,5 +1,5 @@
 ﻿using Cardamom;
-using Cardamom.Graphics;
+using Cardamom.Utils.Suppliers.Promises;
 
 namespace SpaceOpera.View.Icons
 {
@@ -8,31 +8,32 @@ namespace SpaceOpera.View.Icons
         class CacheEntry
         {
             public int Count { get; set; }
-            public Texture Texture { get; }
+            public IPromise<IconImage> Image { get; }
 
-            public CacheEntry(Texture texture)
+            public CacheEntry(IPromise<IconImage> image)
             {
                 Count = 1;
-                Texture = texture;
+                Image = image;
             }
         }
 
         private readonly Dictionary<CompositeKey<object, IconResolution>, CacheEntry> _cache = new();
+        private List<IPromise<IconImage>> _toDispose = new();
 
-        public bool TryGetTexture(CompositeKey<object, IconResolution> key, out Texture? texture)
+        public bool TryGetTexture(CompositeKey<object, IconResolution> key, out IPromise<IconImage>? image)
         {
             bool result = _cache.TryGetValue(key, out var entry);
             if (entry != null)
             {
                 entry.Count++;
             }
-            texture = entry?.Texture;
+            image = entry?.Image;
             return result;
         }
 
-        public void Put(CompositeKey<object, IconResolution> key, Texture texture)
+        public void Put(CompositeKey<object, IconResolution> key, IPromise<IconImage> image)
         {
-            _cache.Add(key, new CacheEntry(texture));
+            _cache.Add(key, new CacheEntry(image));
         }
 
         public void Return(CompositeKey<object, IconResolution> key)
@@ -42,10 +43,27 @@ namespace SpaceOpera.View.Icons
                 entry.Count--;
                 if (entry.Count < 1)
                 {
-                    entry.Texture.Dispose();
+                    _toDispose.Add(entry.Image);
                     _cache.Remove(key);
                 }
             }
+        }
+
+        private void CheckDispose()
+        {
+            var newToDispose = new List<IPromise<IconImage>>();
+            foreach (var entry in _toDispose)
+            {
+                if (entry.HasValue())
+                {
+                    entry.Get().Texture.Dispose();
+                }
+                else
+                {
+                    newToDispose.Add(entry);
+                }
+            }
+            _toDispose = newToDispose;
         }
     }
 }

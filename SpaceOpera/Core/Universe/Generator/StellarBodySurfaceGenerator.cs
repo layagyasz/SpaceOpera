@@ -110,8 +110,7 @@ namespace SpaceOpera.Core.Universe.Generator
             Dictionary<string, object> parameterValues, 
             Func<Biome, Color4> diffuseFn, 
             Func<Biome, Color4> lightingFn,
-            StellarBodySurfaceGeneratorResources resources,
-            bool forceWait)
+            StellarBodySurfaceGeneratorResources resources)
         {
             lock (this)
             {
@@ -137,13 +136,6 @@ namespace SpaceOpera.Core.Universe.Generator
                 _roughnessParameter.Set(1f * resources.Resolution / s_RoughnessDivisor);
 
                 var surface = _surfacePipeline.Run(resources.GetCanvasProvider());
-                if (forceWait)
-                {
-                    // Get texture data to force cpu to wait for compute to finish.
-                    surface[0].GetTexture().GetData();
-                    surface[1].GetTexture().GetData();
-                    surface[2].GetTexture().GetData();
-                }
                 return new(surface[0].GetTexture(), surface[2].GetTexture(), surface[1].GetTexture());
             }
         }

@@ -3,7 +3,7 @@ using Cardamom.Graphics.Camera;
 using Cardamom.Mathematics;
 using Cardamom.Mathematics.Color;
 using Cardamom.Ui;
-using Cardamom.Utils.Suppliers.Promises;
+using Cardamom.Utils.Suppliers;
 using OpenTK.Mathematics;
 using SpaceOpera.Core.Loader;
 using SpaceOpera.Core.Universe;
@@ -28,11 +28,11 @@ namespace SpaceOpera.View.Icons
             StellarBodyViewFactory = stellarBodyViewFactory;
         }
 
-        public IPromise<Texture> Rasterize(
-            StellarBody stellarBody, RenderTexture target, IconResolution resolution)
+        public LoaderTaskNode<Texture> Rasterize(
+            StellarBody stellarBody, ISupplier<RenderTexture> targetSupplier, IconResolution resolution)
         {
             return StellarBodyViewFactory.Create(
-                stellarBody, 1, resolution == IconResolution.High, /* forceWait= */ true).Map(
+                stellarBody, 1, resolution == IconResolution.High).MapGL(
                     model =>
                     {
                         var camera = new SubjectiveCamera3d(s_SceneDepth);
@@ -51,6 +51,7 @@ namespace SpaceOpera.View.Icons
                                     s_LightPower * MathF.Log(stellarBody.Orbit.Focus.LuminosityS + 1)),
                                 logDistance * logDistance / (1000 * 1000));
 
+                        var target = targetSupplier.Get();
                         target.Clear();
                         target.PushModelMatrix(Matrix4.Identity);
                         // Renders upside-down by default, so flip it back.

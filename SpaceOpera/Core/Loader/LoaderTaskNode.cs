@@ -20,6 +20,21 @@ namespace SpaceOpera.Core.Loader
             _children.Add(node);
         }
 
+        public void DoNow()
+        {
+            foreach (var parent in GetParents())
+            {
+                parent.DoNow();
+            }
+            Perform();
+        }
+
+        public T GetNow()
+        {
+            DoNow();
+            return _promise.Get();
+        }
+
         public IPromise<T> GetPromise()
         {
             return _promise;

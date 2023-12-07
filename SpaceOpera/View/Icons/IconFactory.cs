@@ -4,6 +4,7 @@ using Cardamom.Graphics;
 using Cardamom.Graphics.Camera;
 using Cardamom.Ui;
 using Cardamom.Ui.Controller.Element;
+using Cardamom.Utils.Suppliers;
 using Cardamom.Utils.Suppliers.Promises;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
@@ -94,6 +95,7 @@ namespace SpaceOpera.View.Icons
             public void Update(long delta) { }
         }
 
+        private readonly ThreadedLoader _loader;
         private readonly BannerViewFactory _bannerViewFactory;
         private readonly StellarBodyIconFactory _stellarBodyIconFactory;
         private readonly Library<IconAtom> _atoms;
@@ -103,16 +105,17 @@ namespace SpaceOpera.View.Icons
         private readonly RenderShader _shader;
 
         private readonly IconCache _cache = new();
-        private readonly EnumMap<IconResolution, RenderTexture> _rasterTextures = 
-            s_Resolution.ToEnumMap(x => x.Key, x => new RenderTexture(x.Value));
+        private readonly EnumMap<IconResolution, RenderTexture> _rasterTextures = new();
 
         public IconFactory(
+            ThreadedLoader loader,
             BannerViewFactory bannerViewFactory,
             StellarBodyIconFactory stellarBodyIconFactory,
             Library<IconAtom> atoms,
             EnumMap<ComponentType, DesignedComponentIconConfig> configs,
             UiElementFactory uiElementFactory)
         {
+            _loader = loader;
             _bannerViewFactory = bannerViewFactory;
             _stellarBodyIconFactory = stellarBodyIconFactory;
             _atoms = atoms;
@@ -157,22 +160,25 @@ namespace SpaceOpera.View.Icons
         
         private IPromise<IconImage> GetImage(CompositeKey<object, IconResolution> key)
         {
-            if (_cache.TryGetTexture(key, out var texture))
+            if (_cache.TryGetTexture(key, out var image))
             {
-                return ImmediatePromise<IconImage>.Of(
-                    new IconImage(
-                        Color4.White, texture!, new(new(), s_Resolution[key.Key2]), /* isDisposable= */ true));
+                return image!;
             }
             if (key.Key1 is StellarBody stellarBody)
             {
-                var rasterTexture = _rasterTextures[key.Key2];
-                return _stellarBodyIconFactory.Rasterize(stellarBody, rasterTexture, key.Key2).Map(
-                    texture =>
-                    {
-                        _cache.Put(key, texture);
-                        return new IconImage(
-                            Color4.White, texture, new(new(), s_Resolution[key.Key2]), /* isDisposable= */ true);
-                    });
+                var promise = _loader.Load(
+                    _stellarBodyIconFactory.Rasterize(
+                        stellarBody, new FuncSupplier<RenderTexture>(() => GetRasterTexture(key.Key2)), key.Key2)).Map(
+                            texture =>
+                            {
+                                return new IconImage(
+                                    Color4.White,
+                                    texture, 
+                                    new(new(), s_Resolution[key.Key2]), 
+                                    /* isDisposable= */ true);
+                            });
+                _cache.Put(key, promise);
+                return promise;
             }
             var definition = GetDefinition(key.Key1).ToList();
             if (definition.Count == 1)
@@ -184,9 +190,16 @@ namespace SpaceOpera.View.Icons
             }
             else
             {
-                return ImmediatePromise<IconImage>.Of(
-                    Rasterize(
-                        key, new IconConfig(definition, _uiElementFactory, _shader), new IconCamera(), key.Key2));
+                var promise = _loader.Load(
+                    new SourceLoaderTask<IconImage>(
+                        () => 
+                            Rasterize(
+                                new IconConfig(definition, _uiElementFactory, _shader), 
+                                new IconCamera(),
+                                key.Key2), 
+                        /* isGL= */ true));
+                _cache.Put(key, promise);
+                return promise;
             }
         }
 
@@ -259,13 +272,9 @@ namespace SpaceOpera.View.Icons
             return GetDefinition(recipe.Transformation.First(x => x.Value > 0).Key);
         }
 
-        private IconImage Rasterize(
-            CompositeKey<object, IconResolution> key,
-            IRenderable renderable,
-            ICamera camera, 
-            IconResolution resolution)
+        private IconImage Rasterize(IRenderable renderable, ICamera camera, IconResolution resolution)
         {
-            var rasterTexture = _rasterTextures[resolution];
+            var rasterTexture = GetRasterTexture(resolution);
             Texture texture;
             lock (rasterTexture)
             {
@@ -280,11 +289,21 @@ namespace SpaceOpera.View.Icons
                 rasterTexture.Display();
                 texture = rasterTexture.CopyTexture();
             }
-            lock (_cache)
-            {
-                _cache.Put(key, texture);
-            }
             return new(Color4.White, texture, new(new(), s_Resolution[resolution]), /* isDisposable= */ true);
+        }
+
+        private RenderTexture GetRasterTexture(IconResolution resolution)
+        {
+            lock (_rasterTextures)
+            {
+                if (_rasterTextures.TryGetValue(resolution, out var rasterTexture))
+                {
+                    return rasterTexture;
+                }
+                var newTexture = new RenderTexture(s_Resolution[resolution]);
+                _rasterTextures.Add(resolution, newTexture);
+                return newTexture;
+            }
         }
     }
 }

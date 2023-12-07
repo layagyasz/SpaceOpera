@@ -61,11 +61,11 @@ namespace SpaceOpera.View
                         .ToLibrary(x => x.Key, x => x),
                     viewData.GameResources!.GetShader("shader-light3"),
                     viewData.GameResources!.GetShader("shader-atmosphere"),
-                    viewData.HumanEyeSensitivity!,
-                    loader);
+                    viewData.HumanEyeSensitivity!);
             UiElementFactory uiElementFactory = new(viewData.GameResources);
             IconFactory iconFactory =
                 new(
+                    loader,
                     viewData.Banners!,
                     new(stellarBodyViewFactory),
                     viewData.Icons,

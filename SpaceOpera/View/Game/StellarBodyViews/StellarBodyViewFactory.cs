@@ -10,7 +10,6 @@ using OpenTK.Graphics.OpenGL4;
 using SpaceOpera.Core.Universe.Spectra;
 using Cardamom.Mathematics.Color;
 using SpaceOpera.Core.Loader;
-using Cardamom.Utils.Suppliers.Promises;
 
 namespace SpaceOpera.View.Game.StellarBodyViews
 {
@@ -27,7 +26,6 @@ namespace SpaceOpera.View.Game.StellarBodyViews
         public RenderShader AtmosphereShader { get; }
         public SpectrumSensitivity HumanEyeSensitivity { get; }
 
-        private readonly ThreadedLoader _loader;
         private readonly StellarBodySurfaceGeneratorResources _resourcesHighRes;
         private readonly StellarBodySurfaceGeneratorResources _resourcesLowRes;
 
@@ -36,8 +34,7 @@ namespace SpaceOpera.View.Game.StellarBodyViews
             Library<StellarBodyGenerator> stellarBodyGenerators,
             RenderShader surfaceShader,
             RenderShader atmosphereShader,
-            SpectrumSensitivity humanEyeSensitivity,
-            ThreadedLoader loader)
+            SpectrumSensitivity humanEyeSensitivity)
         {
             BiomeRenderDetails = biomeRenderDetails;
             StellarBodyGenerators = stellarBodyGenerators;
@@ -45,12 +42,11 @@ namespace SpaceOpera.View.Game.StellarBodyViews
             AtmosphereShader = atmosphereShader;
             HumanEyeSensitivity = humanEyeSensitivity;
 
-            _loader = loader;
             _resourcesHighRes = StellarBodySurfaceGeneratorResources.CreateHighRes();
             _resourcesLowRes = StellarBodySurfaceGeneratorResources.CreateLowRes();
         }
 
-        public IPromise<StellarBodyModel> Create(StellarBody stellarBody, float scale, bool highRes, bool forceWait)
+        public LoaderTaskNode<StellarBodyModel> Create(StellarBody stellarBody, float scale, bool highRes)
         {
             scale *= MathF.Log(s_DefaultRadiusInv * stellarBody.RadiusKm + 1) / stellarBody.RadiusKm;
             var spectrum = new BlackbodySpectrum(stellarBody.Orbit.Focus.TemperatureK);
@@ -64,35 +60,33 @@ namespace SpaceOpera.View.Game.StellarBodyViews
             var scatteredColor = ToColor(HumanEyeSensitivity.GetColor(new RayleighScatteredSpectrum(spectrum)));
 
             var materialNode =
-                _loader.Load(
-                    new SourceLoaderTask<Material>(
-                        () => StellarBodyGenerators[stellarBody.Type]
-                            .SurfaceGenerator!
-                                .GenerateSurface(
-                                    stellarBody.Orbit.GetStellarTemperature(),
-                                    stellarBody.Parameters,
-                                    x => BiomeRenderDetails[x].GetColor(peakColor, scatteredColor),
-                                    x => BiomeRenderDetails[x].GetLighting(),
-                                    highRes ? _resourcesHighRes : _resourcesLowRes,
-                                    forceWait),
-                        /* isGL= */ true));
-            var surface =
-                CreateSphere(
-                    scale * stellarBody.RadiusKm,
-                    highRes ? s_SphereSubdivisionsHighRes : s_SphereSubdivisionsLowRes,
-                    Color4.White);
-            var atmosphere =
-                CreateSphere(
-                    scale * stellarBody.Atmosphere.Radius,
-                    highRes ? s_SphereSubdivisionsHighRes : s_SphereSubdivisionsLowRes,
-                    new Color4(
-                        s_AtmosphericScattering.X,
-                        s_AtmosphericScattering.Y,
-                        s_AtmosphericScattering.Z,
-                        1f));
-            return materialNode.Map(
-                material =>
-                {
+                new SourceLoaderTask<Material>(
+                    () => StellarBodyGenerators[stellarBody.Type]
+                        .SurfaceGenerator!
+                            .GenerateSurface(
+                                stellarBody.Orbit.GetStellarTemperature(),
+                                stellarBody.Parameters,
+                                x => BiomeRenderDetails[x].GetColor(peakColor, scatteredColor),
+                                x => BiomeRenderDetails[x].GetLighting(),
+                                highRes ? _resourcesHighRes : _resourcesLowRes),
+                    /* isGL= */ true);
+            return materialNode.MapGL(
+                material => 
+                { 
+                    var surface =
+                        CreateSphere(
+                            scale * stellarBody.RadiusKm,
+                            highRes ? s_SphereSubdivisionsHighRes : s_SphereSubdivisionsLowRes,
+                            Color4.White);
+                    var atmosphere =
+                        CreateSphere(
+                            scale * stellarBody.Atmosphere.Radius,
+                            highRes ? s_SphereSubdivisionsHighRes : s_SphereSubdivisionsLowRes,
+                            new Color4(
+                                s_AtmosphericScattering.X,
+                                s_AtmosphericScattering.Y,
+                                s_AtmosphericScattering.Z,
+                                1f)); 
                     return new StellarBodyModel(
                         stellarBody, scale, new(surface, SurfaceShader, material), atmosphere, AtmosphereShader);
                 });

@@ -243,7 +243,7 @@ namespace SpaceOpera.View.Game.Scenes
 
         public IGameScene Create(World? world, StellarBody stellarBody)
         {
-            var model = StellarBodyViewFactory.Create(stellarBody, 1f, true, /* forceWait= */ false).Get();
+            var model = StellarBodyViewFactory.Create(stellarBody, 1f, true).GetNow();
             var stellarBodyController = StellarBodyModelController.Create(stellarBody, model.Radius);
             var interactiveModel = new InteractiveModel(model, new Sphere(new(), model.Radius), stellarBodyController);
             var orbitController = 

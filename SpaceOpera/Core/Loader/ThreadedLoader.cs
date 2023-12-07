@@ -20,15 +20,13 @@ namespace SpaceOpera.Core.Loader
         }
 
         class Worker : IWorker
-        {
-            private readonly ILogger _logger;
+        {            
             private readonly QueueCallback _queueCallback;
             private readonly Queue<ILoaderTask> _tasks = new();
             private readonly Thread _thread;
 
-            public Worker(ILogger logger, QueueCallback queueCallback)
+            public Worker(QueueCallback queueCallback)
             {
-                _logger = logger.ForType(GetType());
                 _queueCallback = queueCallback;
                 _thread = new Thread(WorkThread);
             }
@@ -42,8 +40,7 @@ namespace SpaceOpera.Core.Loader
 
             public void QueueTask(ILoaderTask task)
             {
-                Monitor.Enter(_tasks);
-                _logger.AtInfo().With(_thread.ManagedThreadId).Log($"Received task {task.GetHashCode()}");
+                Monitor.Enter(_tasks);                
                 _tasks.Enqueue(task);
                 Monitor.Pulse(_tasks);
                 Monitor.Exit(_tasks);
@@ -95,8 +92,8 @@ namespace SpaceOpera.Core.Loader
         {
             private readonly NativeWindow _window;
 
-            public GLWorker(RenderWindow parentWindow, ILogger logger, QueueCallback queueCallback)
-                : base(logger, queueCallback)
+            public GLWorker(RenderWindow parentWindow, QueueCallback queueCallback)
+                : base(queueCallback)
             {
                 _window = new NativeWindow(
                     new NativeWindowSettings()
@@ -128,11 +125,11 @@ namespace SpaceOpera.Core.Loader
             _logger = logger.ForType(typeof(ThreadedLoader));
             for (int i=0; i<numWorkers; ++i)
             {
-                _workers.Add(new Worker(logger, QueueTask));
+                _workers.Add(new Worker(QueueTask));
             }
             for (int i=0; i<numGLWorkers; ++i)
             {
-                var worker = new GLWorker(parentWindow, logger, QueueTask);
+                var worker = new GLWorker(parentWindow, QueueTask);
                 _workers.Add(worker);
                 _glWorkers.Add(worker);
             }
