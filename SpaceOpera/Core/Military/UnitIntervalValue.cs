@@ -9,10 +9,15 @@ namespace SpaceOpera.Core.Military
         public float RawValue { get; }
         public float UnitValue { get; }
 
-        public UnitIntervalValue(float rawValue)
+        private UnitIntervalValue(float rawValue)
         {
             RawValue = rawValue;
             UnitValue = ToUnitInterval(rawValue);
+        }
+
+        public static UnitIntervalValue Of(float value)
+        {
+            return new UnitIntervalValue(value);
         }
 
         public static float ToUnitInterval(float rawValue)

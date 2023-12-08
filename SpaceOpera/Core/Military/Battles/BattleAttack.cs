@@ -81,9 +81,7 @@ namespace SpaceOpera.Core.Military.Battles
 
         private static float ComputeOnTargetImpl(Weapon weapon, Unit target)
         {
-            return
-                Math.Max(
-                    0, weapon.Accuracy.UnitValue - Math.Max(0, target.Maneuver.UnitValue - weapon.Tracking.UnitValue));
+            return Math.Max(0, weapon.Accuracy.UnitValue - target.GetManeuverModifer(weapon.Tracking));
         }
 
         public override string ToString()

@@ -103,6 +103,11 @@ namespace SpaceOpera.Core.Military
             };
         }
 
+        public float GetMilitaryPower()
+        {
+            return Composition.Sum(x => x.GetMilitaryPower());
+        }
+
         public bool IsDestroyed()
         {
             return _isDestructable && Health.IsEmpty();

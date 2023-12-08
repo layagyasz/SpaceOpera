@@ -78,6 +78,16 @@ namespace SpaceOpera.Core.Military
             return GetFleetDrivers().Where(x => x.Formation.Faction == faction);
         }
 
+        public float GetGroundForcePower(Faction faction)
+        {
+            return GetDivisionDriversFor(faction).Sum(x => x.Formation.GetMilitaryPower());
+        }
+
+        public float GetFleetPower(Faction faction)
+        {
+            return GetFleetDriversFor(faction).Sum(x => x.Formation.GetMilitaryPower());
+        }
+
         public void Tick(World world)
         {
             lock (_drivers)

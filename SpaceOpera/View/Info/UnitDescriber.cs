@@ -23,6 +23,7 @@ namespace SpaceOpera.View.Info
             {
                 infoPanel.AddValue("Threat", unit.Command.ToString("0.##"));
             }
+            infoPanel.AddValue("Military Power", unit.MilitaryPower.ToString("0.##"));
             infoPanel.AddBreak();
 
             var capabilites = GetCapabilities(unit).ToList();

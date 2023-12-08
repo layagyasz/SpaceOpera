@@ -6,6 +6,7 @@ namespace SpaceOpera.Core.Military
     {
         string Name { get; }
         Faction Faction { get; }
+        float GetMilitaryPower();
         bool IsDestroyed();
         void SetName(string name);
     }

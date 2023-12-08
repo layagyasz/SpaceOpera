@@ -51,6 +51,11 @@ namespace SpaceOpera.Core.Military
             Shielding.Change(-damage.GetTotal());
         }
 
+        public float GetMilitaryPower()
+        {
+            return Count.Amount * Unit.MilitaryPower;
+        }
+
         private void TakeCasualties(int casualties)
         {
             Count.Change(-casualties);

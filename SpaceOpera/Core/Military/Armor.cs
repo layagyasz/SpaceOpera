@@ -7,12 +7,19 @@ namespace SpaceOpera.Core.Military
         public float Thickness { get; }
         public float Protection { get; }
         public float Coverage { get; }
+        public float MilitaryPower { get; }
 
         public Armor(float thickness, float protection, float coverage)
         {
             Thickness = thickness;
             Protection = protection;
             Coverage = coverage;
+            MilitaryPower = ComputeMilitaryPower();
+        }
+
+        private float ComputeMilitaryPower()
+        {
+            return GameConstants.BattleLength * Coverage * Protection * MathF.Sqrt(Thickness);
         }
 
         public static Armor FromComponent(IComponent component)

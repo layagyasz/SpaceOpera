@@ -29,6 +29,11 @@ namespace SpaceOpera.Core.Military
             }
         }
 
+        public float GetMilitaryPower()
+        {
+            return _divisions.Sum(x => x.GetMilitaryPower());
+        }
+
         public bool IsDestroyed()
         {
             return _isDestructable && !_divisions.Any();

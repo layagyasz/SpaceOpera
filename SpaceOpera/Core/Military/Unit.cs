@@ -21,6 +21,7 @@ namespace SpaceOpera.Core.Military
         public UnitIntervalValue Evasion { get; }
         public float Hitpoints => GetAttribute(ComponentAttribute.Hitpoints);
         public UnitIntervalValue Maneuver { get; }
+        public float MilitaryPower { get; }
         public float Threat => GetAttribute(ComponentAttribute.Threat);
 
         // Equipment
@@ -32,9 +33,9 @@ namespace SpaceOpera.Core.Military
             string name, ComponentSlot slot, IEnumerable<ComponentAndSlot> components, MultiCount<ComponentTag> tags)
             : base(name, slot, components, tags)
         {
-            Detection = new UnitIntervalValue(GetAttribute(ComponentAttribute.Detection));
-            Evasion = new UnitIntervalValue(GetAttribute(ComponentAttribute.Evasion));
-            Maneuver = new UnitIntervalValue(GetAttribute(ComponentAttribute.Maneuver));
+            Detection = UnitIntervalValue.Of(GetAttribute(ComponentAttribute.Detection));
+            Evasion = UnitIntervalValue.Of(GetAttribute(ComponentAttribute.Evasion));
+            Maneuver = UnitIntervalValue.Of(GetAttribute(ComponentAttribute.Maneuver));
 
             Armor = BuildComponent(Components, s_ArmorTypes, Armor.FromComponent, Armor.Combine);
             Shield = BuildComponent(Components, s_ShieldTypes, Shield.FromComponent, Shield.Combine);
@@ -43,6 +44,22 @@ namespace SpaceOpera.Core.Military
                     .Where(x => s_WeaponTypes.Contains(x.Component.Slot.Type))
                     .GroupBy(x => x.Component)
                     .ToMultiCount(x => Weapon.FromComponent(x.Key), x => x.Count());
+
+            MilitaryPower = ComputeMilitaryPower();
+        }
+
+        public float GetManeuverModifer(UnitIntervalValue tracking)
+        {
+            return UnitIntervalValue.ToUnitInterval(Math.Max(0, Maneuver.RawValue - tracking.RawValue));
+        }
+
+        private float ComputeMilitaryPower()
+        {
+            // Assume average Tracking of 150.
+            var defenseValue = (Shield.MilitaryPower + Armor.MilitaryPower + Hitpoints) 
+                / (1f - GetManeuverModifer(UnitIntervalValue.Of(150f)));
+            var attackValue = Weapons.Sum(x => x.Value * x.Key.MilitaryPower);
+            return GameConstants.MilitaryPower * (0.125f * defenseValue + attackValue);
         }
 
         private static T BuildComponent<T>(

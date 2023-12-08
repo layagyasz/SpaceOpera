@@ -79,6 +79,11 @@ namespace SpaceOpera.Core
             return ValidationFailureReason.None;
         }
 
+        public float GetPower(Faction faction)
+        {
+            return Formations.GetGroundForcePower(faction) + Formations.GetFleetPower(faction);
+        }
+
         public IUpdateable GetUpdater()
         {
             var ticks = new List<ITickable>
