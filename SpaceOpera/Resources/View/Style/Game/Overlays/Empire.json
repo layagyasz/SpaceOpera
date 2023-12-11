@@ -68,8 +68,41 @@
     "$id": "empire-overlay-row-text",
     "Parent": "ui-element-internal",
     "Default": {
-      "Size": [ 174, 40 ],
+      "Size": [ 118, 28 ],
       "Padding": [ 8 ]
     }
+  },
+  {
+    "$id": "empire-overlay-row-military-power",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 64, 28 ]
+    }
+  },
+  {
+    "$id": "empire-overlay-row-military-power-icon",
+    "Parent": "military-power-icon",
+    "Default": {
+      "Size": [ 24, 24 ],
+      "Margin": [ 2 ]
+    }
+  },
+  {
+    "$id": "empire-overlay-row-military-power-text",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 36, 28 ],
+      "Color": "#ff8800cc",
+      "Padding": [ 2, 9, 2, 9 ],
+      "FontSize": 10
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "Color": "#ff8800"
+        }
+      }
+    ]
   }
 ]

@@ -170,6 +170,23 @@
     ]
   },
   {
+    "$id": "military-power-icon",
+    "Parent": "ui-icon",
+    "Default": {
+      "BackgroundColor": [ "#ffffff00" ],
+      "ForegroundColor": "#ff8800cc",
+      "Texture": "icon-military-power"
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "ForegroundColor": "#ff8800"
+        }
+      }
+    ]
+  },
+  {
     "$id": "move-icon",
     "Parent": "ui-icon",
     "Default": {

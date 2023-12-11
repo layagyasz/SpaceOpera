@@ -17,7 +17,9 @@ namespace SpaceOpera.View.Game.Panes.Common
             public ActionRowStyles.Style? RowContainer { get; set; }
             public string? Icon { get; set; }
             public string? Info { get; set; }
+            public string? TextContainer { get; set; }
             public string? Text { get; set; }
+            public ChipSetStyles.ChipStyle? MilitaryPower { get; set; }
             public string? Status { get; set; }
             public string? HealthText { get; set; }
             public string? Health { get; set; }
@@ -61,10 +63,18 @@ namespace SpaceOpera.View.Game.Panes.Common
                             new NoOpElementController(),
                             UiSerialContainer.Orientation.Vertical)
                         {
-                            new TextUiElement(
-                                _uiElementFactory.GetClass(_style.Text!),
-                                new InlayController(), 
-                                driver.Formation.Name),
+                            new DynamicUiSerialContainer(
+                                _uiElementFactory.GetClass(_style.TextContainer!),
+                                new NoOpElementController(),
+                                UiSerialContainer.Orientation.Horizontal)
+                            {
+                                new TextUiElement(
+                                    _uiElementFactory.GetClass(_style.Text!),
+                                    new InlayController(),
+                                    driver.Formation.Name),
+                                MilitaryPowerChip.Create(
+                                    driver.Formation.GetMilitaryPower, _style.MilitaryPower!, _uiElementFactory),
+                            },
                             new DynamicUiSerialContainer(
                                 _uiElementFactory.GetClass(_style.Status!),
                                 new NoOpElementController(),

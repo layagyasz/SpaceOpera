@@ -22,7 +22,14 @@ namespace SpaceOpera.View.Game.Panes.FormationPanes
             };
         private static readonly string s_Icon = "formation-pane-formation-header-icon";
         private static readonly string s_Info = "formation-pane-formation-header-info";
+        private static readonly string s_NameContainer = "formation-pane-formation-header-name-container";
         private static readonly string s_Name = "formation-pane-formation-header-name";
+        private static readonly ChipSetStyles.ChipStyle s_MilitaryPower = new()
+        {
+            Container = "formation-pane-formation-header-military-power",
+            Icon = "formation-pane-formation-header-military-power-icon",
+            Text = "formation-pane-formation-header-military-power-text"
+        };
         private static readonly string s_CurrentAction = "formation-pane-formation-header-current-action";
         private static readonly string s_HealthText = "formation-pane-formation-header-health-text";
         private static readonly string s_Health = "formation-pane-formation-header-health";
@@ -120,8 +127,15 @@ namespace SpaceOpera.View.Game.Panes.FormationPanes
                 new DynamicUiSerialContainer(
                     uiElementFactory.GetClass(s_Info), new InlayController(), UiSerialContainer.Orientation.Vertical)
                 {
-                    new TextUiElement(
-                        uiElementFactory.GetClass(s_Name), new InlayController(), driver.Formation.Name),
+                    new DynamicUiSerialContainer(
+                        uiElementFactory.GetClass(s_NameContainer), 
+                        new InlayController(),
+                        UiSerialContainer.Orientation.Horizontal)
+                    {
+                        new TextUiElement(
+                            uiElementFactory.GetClass(s_Name), new InlayController(), driver.Formation.Name),
+                        MilitaryPowerChip.Create(driver.Formation.GetMilitaryPower, s_MilitaryPower, uiElementFactory)
+                    },
                     new DynamicTextUiElement(
                         uiElementFactory.GetClass(s_CurrentAction), new InlayController(), GetCurrentAction)
                 };

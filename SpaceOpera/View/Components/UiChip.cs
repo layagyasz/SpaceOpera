@@ -35,7 +35,7 @@ namespace SpaceOpera.View.Components
 
         public T Key { get; }
 
-        private UiChip(Class @class, T key, Icon icon, TextUiElement text)
+        private UiChip(Class @class, T key, IUiElement icon, TextUiElement text)
             : base(@class, new ButtonController(), Orientation.Horizontal)
         {
             Key = key;

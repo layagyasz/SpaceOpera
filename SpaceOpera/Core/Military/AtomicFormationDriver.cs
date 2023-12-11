@@ -94,7 +94,7 @@ namespace SpaceOpera.Core.Military
 
         public void Tick(SpaceOperaContext context)
         {
-            AtomicFormation.Cohere();
+            AtomicFormation.Tick();
             var newAction = _ai.Execute(context.ForDriver(this)).Result!;
             if (!newAction.Equivalent(_action))
             {

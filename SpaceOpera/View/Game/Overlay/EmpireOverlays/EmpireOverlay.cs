@@ -24,6 +24,12 @@ namespace SpaceOpera.View.Game.Overlay.EmpireOverlays
         private static readonly string s_Row = "empire-overlay-row";
         private static readonly string s_Icon = "empire-overlay-row-icon";
         private static readonly string s_Text = "empire-overlay-row-text";
+        private static readonly ChipSetStyles.ChipStyle s_MilitaryPower = new()
+        {
+            Container = "empire-overlay-row-military-power",
+            Icon = "empire-overlay-row-military-power-icon",
+            Text = "empire-overlay-row-military-power-text"
+        };
 
         private World? _world;
         private Faction? _faction;
@@ -168,7 +174,8 @@ namespace SpaceOpera.View.Game.Overlay.EmpireOverlays
                     iconFactory.Create(
                         uiElementFactory.GetClass(s_Icon), new InlayController(), driver.Army),
                     new TextUiElement(
-                        uiElementFactory.GetClass(s_Text), new InlayController(), driver.Army.Name)
+                        uiElementFactory.GetClass(s_Text), new InlayController(), driver.Army.Name),
+                    MilitaryPowerChip.Create(driver.Formation.GetMilitaryPower, s_MilitaryPower, uiElementFactory)
                 },
                 Enumerable.Empty<ActionRowStyles.ActionConfiguration>());
         }
@@ -187,7 +194,8 @@ namespace SpaceOpera.View.Game.Overlay.EmpireOverlays
                     iconFactory.Create(
                         uiElementFactory.GetClass(s_Icon), new InlayController(), driver.AtomicFormation),
                     new TextUiElement(
-                        uiElementFactory.GetClass(s_Text), new InlayController(), driver.AtomicFormation.Name)
+                        uiElementFactory.GetClass(s_Text), new InlayController(), driver.AtomicFormation.Name),
+                    MilitaryPowerChip.Create(driver.Formation.GetMilitaryPower, s_MilitaryPower, uiElementFactory)
                 },
                 Enumerable.Empty<ActionRowStyles.ActionConfiguration>());
         }

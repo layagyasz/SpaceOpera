@@ -416,6 +416,9 @@
     <None Update="Resources\View\Icons\metal.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\View\Icons\military-power.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\View\Icons\military.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

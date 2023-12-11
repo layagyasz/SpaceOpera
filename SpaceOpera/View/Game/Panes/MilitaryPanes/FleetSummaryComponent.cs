@@ -27,6 +27,12 @@ namespace SpaceOpera.View.Game.Panes.MilitaryPanes
             Info = "military-pane-formation-summary-fleet-unit-grouping-row-info",
             TextContainer = "military-pane-formation-summary-fleet-unit-grouping-row-text-container",
             Text = "military-pane-formation-summary-fleet-unit-grouping-row-text",
+            MilitaryPower = new()
+            {
+                Container = "military-pane-formation-summary-fleet-unit-grouping-row-military-power",
+                Icon = "military-pane-formation-summary-fleet-unit-grouping-row-military-power-icon",
+                Text = "military-pane-formation-summary-fleet-unit-grouping-row-military-power-text"
+            },
             Count = "military-pane-formation-summary-fleet-unit-grouping-row-count",
             Status = "military-pane-formation-summary-fleet-unit-grouping-row-status-container",
             HealthText = "military-pane-formation-summary-fleet-unit-grouping-row-status-health-text",

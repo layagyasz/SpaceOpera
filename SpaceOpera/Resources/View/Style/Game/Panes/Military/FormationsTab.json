@@ -133,12 +133,53 @@
     }
   },
   {
+    "$id": "military-pane-formation-summary-army-division-row-text-container",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 344, 28 ],
+      "DisableScissor": true
+    }
+  },
+  {
     "$id": "military-pane-formation-summary-army-division-row-text",
     "Parent": "ui-element-internal",
     "Default": {
-      "Size": [ 246, 28 ],
+      "Size": [ 216, 28 ],
       "Padding": [ 8 ]
     }
+  },
+  {
+    "$id": "military-pane-formation-summary-army-division-row-military-power",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 64, 28 ]
+    }
+  },
+  {
+    "$id": "military-pane-formation-summary-army-division-row-military-power-icon",
+    "Parent": "military-power-icon",
+    "Default": {
+      "Size": [ 24, 24 ],
+      "Margin": [ 2 ]
+    }
+  },
+  {
+    "$id": "military-pane-formation-summary-army-division-row-military-power-text",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 36, 28 ],
+      "Color": "#ff8800cc",
+      "Padding": [ 2, 9, 2, 9 ],
+      "FontSize": 10
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "Color": "#ff8800"
+        }
+      }
+    ]
   },
   {
     "$id": "military-pane-formation-summary-army-division-row-status-container",
@@ -265,33 +306,33 @@
   },
   {
     "$id": "military-pane-formation-summary-fleet-unit-grouping-row-info",
-    "Parent": "ui-container",
-    "Default": {
-      "Size": [ 378, 76 ],
-      "DisableScissor": true
-    }
+    "Parent": "military-pane-formation-summary-army-division-row-info"
   },
   {
     "$id": "military-pane-formation-summary-fleet-unit-grouping-row-text-container",
-    "Parent": "ui-container",
-    "Default": {
-      "Size": [ 378, 28 ],
-      "DisableScissor": true
-    }
+    "Parent": "military-pane-formation-summary-army-division-row-text-container"
   },
   {
     "$id": "military-pane-formation-summary-fleet-unit-grouping-row-text",
-    "Parent": "ui-element-internal",
-    "Default": {
-      "Size": [ 246, 28 ],
-      "Padding": [ 8 ]
-    }
+    "Parent": "military-pane-formation-summary-army-division-row-text"
+  },
+  {
+    "$id": "military-pane-formation-summary-fleet-unit-grouping-row-military-power",
+    "Parent": "military-pane-formation-summary-army-division-row-military-power"
+  },
+  {
+    "$id": "military-pane-formation-summary-fleet-unit-grouping-row-military-power-icon",
+    "Parent": "military-pane-formation-summary-army-division-row-military-power-icon"
+  },
+  {
+    "$id": "military-pane-formation-summary-fleet-unit-grouping-row-military-power-text",
+    "Parent": "military-pane-formation-summary-army-division-row-military-power-text"
   },
   {
     "$id": "military-pane-formation-summary-fleet-unit-grouping-row-count",
     "Parent": "ui-element-internal",
     "Default": {
-      "Size": [ 128, 28 ],
+      "Size": [ 64, 28 ],
       "Padding": [ 8 ],
       "Align": "Center"
     }

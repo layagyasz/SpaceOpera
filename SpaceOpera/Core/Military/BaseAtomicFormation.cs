@@ -57,11 +57,6 @@ namespace SpaceOpera.Core.Military
             }
         }
 
-        public void Cohere()
-        {
-            Cohesion.Change((InCombat ? .1f : 1) * s_BaseRecoherence);
-        }
-
         public void CheckInventory()
         {
             Inventory.SetSize(Composition.Sum(x => x.Unit.CargoSpace * x.Count.Amount));
@@ -124,6 +119,15 @@ namespace SpaceOpera.Core.Military
             Position = position;
             position.Enter(Faction);
             Moved?.Invoke(this, MovementEventArgs.Create(temp, position));
+        }
+
+        public void Tick()
+        {
+            Cohesion.Change((InCombat ? .1f : 1) * s_BaseRecoherence);
+            foreach (var unitGrouping in Composition)
+            {
+                unitGrouping.Recharge();
+            }
         }
     }
 }

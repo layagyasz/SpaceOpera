@@ -16,7 +16,7 @@ namespace SpaceOpera.Core.Military
         bool InCombat { get; }
 
         void CheckInventory();
-        void Cohere();
+        void Tick();
         void EnterCombat();
         void ExitCombat();
         float GetCommand();

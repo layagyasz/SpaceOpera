@@ -25,7 +25,14 @@ namespace SpaceOpera.View.Game.Panes.FormationPanes
                 },
             Icon = "formation-pane-army-division-row-icon",
             Info = "formation-pane-army-division-row-info",
+            TextContainer = "formation-pane-army-division-row-text-container",
             Text = "formation-pane-army-division-row-text",
+            MilitaryPower = new()
+            {
+                Container = "formation-pane-army-division-row-military-power",
+                Icon = "formation-pane-army-division-row-military-power-icon",
+                Text = "formation-pane-army-division-row-military-power-text"
+            },
             Status = "formation-pane-army-division-row-status-container",
             HealthText = "formation-pane-army-division-row-status-health-text",
             Health = "formation-pane-army-division-row-status-health",

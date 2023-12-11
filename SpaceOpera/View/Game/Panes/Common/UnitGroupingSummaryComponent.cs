@@ -19,6 +19,7 @@ namespace SpaceOpera.View.Game.Panes.Common
             public string? Info { get; set; }
             public string? TextContainer { get; set; }
             public string? Text { get; set; }
+            public ChipSetStyles.ChipStyle? MilitaryPower { get; set; }
             public string? Count { get; set; }
             public string? Status { get; set; }
             public string? HealthText { get; set; }
@@ -72,6 +73,8 @@ namespace SpaceOpera.View.Game.Panes.Common
                                     _uiElementFactory.GetClass(_style.Text!),
                                     new InlayController(),
                                     unitGrouping.Unit.Name),
+                                MilitaryPowerChip.Create(
+                                    unitGrouping.GetMilitaryPower, _style.MilitaryPower!, _uiElementFactory),
                                 new DynamicTextUiElement(
                                     _uiElementFactory.GetClass(_style.Count!),
                                     new InlayController(),

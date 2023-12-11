@@ -30,7 +30,7 @@
     "$id": "formation-pane-formation-header",
     "Parent": "ui-element",
     "Default": {
-      "Size": [ 438, 86 ],
+      "Size": [ 438, 94 ],
       "CornerRadius": [ [ 8, 8 ] ],
       "Padding": [ 8, 0, 8, 0 ],
       "Margin": [ 2 ]
@@ -48,17 +48,57 @@
     "$id": "formation-pane-formation-header-info",
     "Parent": "ui-container",
     "Default": {
-      "Size": [ 230, 86 ],
+      "Size": [ 230, 94 ],
       "Padding": [ 4 ]
+    }
+  },
+  {
+    "$id": "formation-pane-formation-header-name-container",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 222, 28 ]
     }
   },
   {
     "$id": "formation-pane-formation-header-name",
     "Parent": "ui-element-internal",
     "Default": {
-      "Size": [ 222, 20 ],
-      "Padding": [ 4 ]
+      "Size": [ 158, 28 ],
+      "Padding": [ 8 ]
     }
+  },
+  {
+    "$id": "formation-pane-formation-header-military-power",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 64, 28 ]
+    }
+  },
+  {
+    "$id": "formation-pane-formation-header-military-power-icon",
+    "Parent": "military-power-icon",
+    "Default": {
+      "Size": [ 24, 24 ],
+      "Margin": [ 2 ]
+    }
+  },
+  {
+    "$id": "formation-pane-formation-header-military-power-text",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 36, 28 ],
+      "Color": "#ff8800cc",
+      "Padding": [ 2, 9, 2, 9 ],
+      "FontSize": 10
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "Color": "#ff8800"
+        }
+      }
+    ]
   },
   {
     "$id": "formation-pane-formation-header-current-action",
@@ -261,10 +301,22 @@
     }
   },
   {
+    "$id": "formation-pane-formation-unit-grouping-row-military-power",
+    "Parent": "formation-pane-formation-header-military-power"
+  },
+  {
+    "$id": "formation-pane-formation-unit-grouping-row-military-power-icon",
+    "Parent": "formation-pane-formation-header-military-power-icon"
+  },
+  {
+    "$id": "formation-pane-formation-unit-grouping-row-military-power-text",
+    "Parent": "formation-pane-formation-header-military-power-text"
+  },
+  {
     "$id": "formation-pane-formation-unit-grouping-row-count",
     "Parent": "ui-element-internal",
     "Default": {
-      "Size": [ 128, 28 ],
+      "Size": [ 64, 28 ],
       "Padding": [ 8 ],
       "Align": "Center"
     }
@@ -349,8 +401,24 @@
     }
   },
   {
+    "$id": "formation-pane-army-division-row-text-container",
+    "Parent": "formation-pane-formation-unit-grouping-row-text-container"
+  },
+  {
     "$id": "formation-pane-army-division-row-text",
     "Parent": "formation-pane-formation-unit-grouping-row-text"
+  },
+  {
+    "$id": "formation-pane-army-division-row-military-power",
+    "Parent": "formation-pane-formation-unit-grouping-row-military-power"
+  },
+  {
+    "$id": "formation-pane-army-division-row-military-power-icon",
+    "Parent": "formation-pane-formation-unit-grouping-row-military-power-icon"
+  },
+  {
+    "$id": "formation-pane-army-division-row-military-power-text",
+    "Parent": "formation-pane-formation-unit-grouping-row-military-power-text"
   },
   {
     "$id": "formation-pane-army-division-row-status-container",
