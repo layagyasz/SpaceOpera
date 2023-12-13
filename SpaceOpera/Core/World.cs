@@ -25,7 +25,7 @@ namespace SpaceOpera.Core
 
         public AdvancementManager Advancements { get; }
         public BattleManager Battles { get; }
-        public DiplomaticRelationGraph DiplomaticRelations { get; } = new();
+        public DiplomaticRelations DiplomaticRelations { get; } = new();
         public Economy Economy { get; }
         public EconomyGraph EconomyGraph { get; } = new();
         public EventManager Events { get; } = new();
@@ -59,7 +59,7 @@ namespace SpaceOpera.Core
             NavigationMap = navigationMap;
 
             Advancements = new(coreData.Materials.Values.Where(x => x.Type == MaterialType.Research));
-            Battles = new(DiplomaticRelations);
+            Battles = new(DiplomaticRelations, Formations);
             Economy = new(Advancements, Formations, coreData.MaterialSink!);
             EconomyGraph.AddRecipes(coreData.Recipes.Values);
             Fronts = FrontManager.Create(galaxy);

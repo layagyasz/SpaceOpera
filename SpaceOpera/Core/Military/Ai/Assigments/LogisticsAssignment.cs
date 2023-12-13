@@ -84,7 +84,8 @@ namespace SpaceOpera.Core.Military.Ai.Assigments
                     new ExchangeNode(this),
                     new MoveNode(
                         SourceNode<INavigable?, FormationContext>.Wrap(GetExchangePosition),
-                        new EnumSet<NavigableEdgeType>(NavigableEdgeType.Space, NavigableEdgeType.Jump))
+                        new EnumSet<NavigableEdgeType>(NavigableEdgeType.Space, NavigableEdgeType.Jump),
+                        autoAttack: false)
                 }.Adapt();
         }
 

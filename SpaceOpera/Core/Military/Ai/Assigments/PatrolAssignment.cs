@@ -64,15 +64,16 @@ namespace SpaceOpera.Core.Military.Ai.Assigments
                 var currentPosition = context.Driver.AtomicFormation.Position;
                 var faction = context.Driver.AtomicFormation.Faction;
                 var activeRegions = _parent.GetActiveRegion();
+                if (!activeRegions.Contains(currentPosition!))
+                {
+                    return BehaviorNodeResult<IAtomicFormation>.Incomplete();
+                }
                 if (_cachedTarget == null
                     || !activeRegions.Contains(_cachedTarget.Position!)
                     || !context.World.Battles.CanEngage(context.Driver.AtomicFormation, _cachedTarget))
                 {
                     var options =
-                        context.World.Formations.GetFleetDrivers()
-                            .Where(x => x.AtomicFormation.Position == currentPosition)
-                            .Where(x => activeRegions.Contains(x.AtomicFormation.Position!))
-                            .Where(x => x.AtomicFormation.Faction != faction)
+                        context.World.Formations.GetFormationsIn(currentPosition!)
                             .Where(x => context.World.Battles.CanEngage(
                                 context.Driver.AtomicFormation, x.AtomicFormation))
                             .Select(x => x.AtomicFormation)
@@ -123,7 +124,8 @@ namespace SpaceOpera.Core.Military.Ai.Assigments
                            targetBuffer.Transform(x => x.Position),
                            new PatrolNode(this),
                        }.Adapt(),
-                       new EnumSet<NavigableEdgeType>(NavigableEdgeType.Space, NavigableEdgeType.Jump))
+                       new EnumSet<NavigableEdgeType>(NavigableEdgeType.Space, NavigableEdgeType.Jump),
+                       autoAttack: false)
                 }.Adapt();
         }
 

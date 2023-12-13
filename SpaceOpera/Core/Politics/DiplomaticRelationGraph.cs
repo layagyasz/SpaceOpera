@@ -3,7 +3,7 @@ using SpaceOpera.Core.Politics.Diplomacy;
 
 namespace SpaceOpera.Core.Politics
 {
-    public class DiplomaticRelationGraph
+    public class DiplomaticRelations
     {
         private readonly List<Faction> _factions = new();
         private readonly Dictionary<CompositeKey<Faction, Faction>, DiplomaticRelation> _relations = new();
@@ -69,6 +69,10 @@ namespace SpaceOpera.Core.Politics
 
         public bool CanAttack(Faction faction, Faction target)
         {
+            if (faction == target)
+            {
+                return false;
+            }
             return Get(faction, target).OverallStatus == DiplomaticRelation.DiplomaticStatus.War;
         }
 

@@ -21,7 +21,9 @@ namespace SpaceOpera.Core.Military.Ai.Assigments
                     x => x.Status.Complete, BehaviorNodeResult<IAction>.NotRun())
                 {
                     new MoveNode(
-                        SourceNode<INavigable?, FormationContext>.Wrap(GetDestination), new(NavigableEdgeType.Ground)),
+                        SourceNode<INavigable?, FormationContext>.Wrap(GetDestination),
+                        new(NavigableEdgeType.Ground), 
+                        autoAttack: true),
                     SourceNode<IAction, FormationContext>.Wrap(new IdleAction(/* unassign= */ true))
                 }.Adapt();
         }

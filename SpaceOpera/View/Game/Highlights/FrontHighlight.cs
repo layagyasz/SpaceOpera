@@ -21,14 +21,13 @@ namespace SpaceOpera.View.Game.Highlights
 
         public Faction Faction { get; }
         public FrontManager FrontManager { get; }
-        public DiplomaticRelationGraph DiplomaticRelationGraph { get; }
+        public DiplomaticRelations DiplomaticRelations { get; }
 
-        public FrontHighlight(
-            Faction faction, FrontManager frontManager, DiplomaticRelationGraph diplomaticRelationGraph)
+        public FrontHighlight(Faction faction, FrontManager frontManager, DiplomaticRelations diplomaticRelations)
         {
             Faction = faction;
             FrontManager = frontManager;
-            DiplomaticRelationGraph = diplomaticRelationGraph;
+            DiplomaticRelations = diplomaticRelations;
         }
 
         public static ICompositeHighlight Create(Faction faction, World world)
@@ -55,7 +54,7 @@ namespace SpaceOpera.View.Game.Highlights
                     Color4 color =
                         front.Opponent != null 
                         && front.Opponent != front.Faction 
-                        && DiplomaticRelationGraph.CanAttack(front.Faction, front.Opponent)
+                        && DiplomaticRelations.CanAttack(front.Faction, front.Opponent)
                             ? s_EnemyColor
                             : s_DefaultColor;
                     Utils.AddVertices(

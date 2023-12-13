@@ -1,6 +1,7 @@
 using SpaceOpera.Core.Events;
 using SpaceOpera.Core.Military.Ai;
 using SpaceOpera.Core.Politics;
+using SpaceOpera.Core.Universe;
 
 namespace SpaceOpera.Core.Military
 {
@@ -86,6 +87,19 @@ namespace SpaceOpera.Core.Military
         public float GetFleetPower(Faction faction)
         {
             return GetFleetDriversFor(faction).Sum(x => x.Formation.GetMilitaryPower());
+        }
+
+        public IEnumerable<AtomicFormationDriver> GetFormationsIn(INavigable location)
+        {
+            if (location.NavigableNodeType == NavigableNodeType.Space)
+            {
+                return GetFleetDrivers().Where(x => x.AtomicFormation.Position == location);
+            }
+            if (location.NavigableNodeType == NavigableNodeType.Ground)
+            {
+                return GetDivisionDrivers().Where(x => x.AtomicFormation.Position == location);
+            }
+            return Enumerable.Empty<AtomicFormationDriver>();
         }
 
         public void Tick(World world)

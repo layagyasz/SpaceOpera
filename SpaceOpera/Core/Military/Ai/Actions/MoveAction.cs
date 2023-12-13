@@ -9,9 +9,14 @@ namespace SpaceOpera.Core.Military.Ai.Actions
 
         private double _progress;
 
-        public MoveAction(NavigationMap.Movement movement)
+        private MoveAction(NavigationMap.Movement movement)
         {
             Movement = movement;
+        }
+
+        public static MoveAction Create(NavigationMap.Movement movement)
+        {
+            return new(movement);
         }
 
         public bool Equivalent(IAction action)
