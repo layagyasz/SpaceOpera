@@ -61,6 +61,7 @@ namespace SpaceOpera.Core.Military.Ai.Assigments
             }
         }
 
+        public bool IsHighPriority => false;
         public AssignmentType Type => AssignmentType.Logistics;
 
         public PersistentRoute Route { get; }

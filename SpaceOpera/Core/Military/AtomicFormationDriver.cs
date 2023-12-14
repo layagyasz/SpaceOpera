@@ -44,9 +44,14 @@ namespace SpaceOpera.Core.Military
             return _ai.GetAssignment().Type;
         }
 
-        public void SetAssignment(AssignmentType type)
+        public void SetAssignment(AssignmentType type, bool overridePriority = false)
         {
-            if (type == _ai.GetAssignment().Type)
+            var current = _ai.GetAssignment();
+            if (current.IsHighPriority && !overridePriority)
+            {
+                return;
+            }
+            if (type == current.Type)
             {
                 return;
             }
@@ -60,6 +65,9 @@ namespace SpaceOpera.Core.Military
                     break;
                 case AssignmentType.Patrol:
                     _ai.SetAssignment(new PatrolAssignment());
+                    break;
+                case AssignmentType.Retreat:
+                    _ai.SetAssignment(new RetreatAssignment());
                     break;
                 case AssignmentType.Train:
                     _ai.SetAssignment(new TrainAssignment());

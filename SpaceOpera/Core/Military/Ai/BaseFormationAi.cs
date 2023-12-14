@@ -8,23 +8,32 @@ namespace SpaceOpera.Core.Military.Ai
 {
     public abstract class BaseFormationAi : IFormationAi
     {
-        protected readonly ISupplierNode<IAction, FormationContext> _routine;
+        protected readonly ISupplierNode<IAction, FormationContext> _preRoutine;
+        protected readonly ISupplierNode<IAction, FormationContext> _postRoutine;
         protected IAssignment _assignment;
 
-        protected BaseFormationAi(ISupplierNode<IAction, FormationContext> routine)
+        protected BaseFormationAi(
+            ISupplierNode<IAction, FormationContext> preRoutine, ISupplierNode<IAction, FormationContext> postRoutine)
         {
-            _routine = routine;
+            _preRoutine = preRoutine;
+            _postRoutine = postRoutine;
             _assignment = new NoAssignment();
         }
 
         public BehaviorNodeResult<IAction> Execute(FormationContext context)
         {
-            var result = _routine.Execute(context);
+            var result = _preRoutine.Execute(context);
             if (!result.Status.Complete)
             {
-                var assignmentResult = _assignment.Execute(context);
-                return assignmentResult.Status.Complete
-                    ? assignmentResult : BehaviorNodeResult<IAction>.Complete(new IdleAction(false));
+                result = _assignment.Execute(context);
+            }
+            if (!result.Status.Complete)
+            {
+                result = _postRoutine.Execute(context);
+            }
+            if (!result.Status.Complete)
+            {
+                result = BehaviorNodeResult<IAction>.Complete(new IdleAction(unassign: false));
             }
             return result;
         }

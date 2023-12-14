@@ -13,7 +13,7 @@ namespace SpaceOpera.Core.Military
         Pool Cohesion { get; }
         List<UnitGrouping> Composition { get; }
         Inventory Inventory { get; }
-        bool InCombat { get; }
+        int InCombat { get; }
 
         void CheckInventory();
         void Tick();

@@ -20,13 +20,13 @@ namespace SpaceOpera.Core.Military
             _assigner = new NoAssigner();
         }
 
-        public bool Add(AtomicFormationDriver division)
+        public bool Add(AtomicFormationDriver driver)
         {
-            if (division.Formation is Division && division.Parent == null)
+            if (driver.Formation is Division division && driver.Parent == null)
             {
-                _divisions.Add(division);
-                Army.Add((Division)division.Formation);
-                division.Parent = this;
+                _divisions.Add(driver);
+                Army.Add(division);
+                driver.Parent = this;
                 return true;
             }
             return false;
@@ -53,7 +53,7 @@ namespace SpaceOpera.Core.Military
             return false;
         }
 
-        public void SetAssignment(AssignmentType type)
+        public void SetAssignment(AssignmentType type, bool overridePriority = false)
         {
             if (type == _assigner.Type)
             {

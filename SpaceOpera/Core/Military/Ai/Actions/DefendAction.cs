@@ -1,21 +1,23 @@
 ﻿namespace SpaceOpera.Core.Military.Ai.Actions
 {
-    public class CombatAction : IAction
+    public class DefendAction : IAction
     {
         public ActionType Type => ActionType.Combat;
 
+        public static IAction Create()
+        {
+            return new DefendAction();
+        }
+
         public bool Equivalent(IAction action)
         {
-            if (action is CombatAction)
-            {
-                return true;
-            }
-            return false;
+            return action is DefendAction;
         }
 
         public ActionStatus Progress(AtomicFormationDriver driver, World world)
         {
-            return driver.AtomicFormation.InCombat == 0 ? ActionStatus.Done : ActionStatus.InProgress;
+            world.Battles.Defend(driver.AtomicFormation);
+            return ActionStatus.Done;
         }
     }
 }

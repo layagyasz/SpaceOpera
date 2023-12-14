@@ -7,6 +7,7 @@ namespace SpaceOpera.Core.Military.Ai.Assigments
 {
     public interface IAssignment : ISupplierNode<IAction, FormationContext>
     {
+        bool IsHighPriority { get; }
         AssignmentType Type { get; }
         ICollection<INavigable> GetActiveRegion();
         void SetActiveRegion(IEnumerable<INavigable> region);

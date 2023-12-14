@@ -26,8 +26,15 @@ namespace SpaceOpera.Core.Military.Battles
                     .FirstOrDefault(x => CanParticipate(formation, x, BattleSideType.Offense));
             if (battle == null)
             {
-                battle = new(location, isMandatory: true);
+                battle = new(location);
                 _activeBattles.Add(new(location), battle);
+                foreach (var other in Formations.GetFormationsIn(location))
+                {
+                    if (CanParticipate(other.AtomicFormation, battle, BattleSideType.Defense))
+                    {
+                        Join(other.AtomicFormation, battle, BattleSideType.Defense);
+                    }
+                }
             }
             Join(formation, battle, BattleSideType.Offense);
         }
@@ -38,6 +45,12 @@ namespace SpaceOpera.Core.Military.Battles
                 .Select(x => x.Formation.Faction)
                 .Distinct()
                 .Any(x => x != formation.Faction && DiplomaticRelations.CanAttack(formation.Faction, x));
+        }
+
+        public bool CanDefend(IAtomicFormation formation)
+        {
+            return _activeBattles[new(formation.Position!)]
+                .Any(x => !x.Contains(formation) && CanParticipate(formation, x, BattleSideType.Defense));
         }
 
         public bool CanEngage(IAtomicFormation formation, IAtomicFormation target)
@@ -76,6 +89,17 @@ namespace SpaceOpera.Core.Military.Battles
             }
             return true;
         }
+
+        public void Defend(IAtomicFormation formation)
+        {
+            foreach (var battle in _activeBattles[new(formation.Position!)])
+            {
+                if (!battle.Contains(formation) && CanParticipate(formation, battle, BattleSideType.Defense))
+                {
+                    Join(formation, battle, BattleSideType.Defense);
+                }
+            }
+        }
         
         public void Engage(IAtomicFormation formation, IAtomicFormation target)
         {
@@ -85,7 +109,7 @@ namespace SpaceOpera.Core.Military.Battles
             if (currentBattle == null)
             {
                 target.EnterCombat();
-                var newBattle = new Battle(key.Position, isMandatory: false);
+                var newBattle = new Battle(key.Position);
                 newBattle.Add(formation, BattleSideType.Offense);
                 newBattle.Add(target, BattleSideType.Defense);
                 _activeBattles.Add(key, newBattle);
@@ -98,7 +122,7 @@ namespace SpaceOpera.Core.Military.Battles
 
         public Battle? GetBattle(IAtomicFormation formation)
         {
-            if (!formation.InCombat)
+            if (formation.InCombat == 0)
             {
                 return null;
             }
@@ -116,34 +140,7 @@ namespace SpaceOpera.Core.Military.Battles
             {
                 foreach (var battle in battlesAndKey.Value.ToList())
                 {
-                    if (battle.IsMandatory)
-                    {
-                        foreach (var formation in Formations.GetFormationsIn(battle.Location))
-                        {
-                            if (!battle.Contains(formation.AtomicFormation)
-                                && CanParticipate(formation.AtomicFormation, battle, BattleSideType.Defense))
-                            {
-                                Join(formation.AtomicFormation, battle, BattleSideType.Offense);
-                            }
-                        }
-                    }
                     battle.Tick(random);
-                    foreach (var formation in battle.GetFormations(BattleSideType.Offense).ToList())
-                    {
-                        formation.CheckInventory();
-                        if (formation.Cohesion.IsEmpty())
-                        {
-                            Leave(formation, battle, BattleSideType.Offense);
-                        }
-                    }
-                    foreach (var formation in battle.GetFormations(BattleSideType.Defense).ToList())
-                    {
-                        formation.CheckInventory();
-                        if (formation.Cohesion.IsEmpty())
-                        {
-                            Leave(formation, battle, BattleSideType.Defense);
-                        }
-                    }
                     if (!battle.GetFormations(BattleSideType.Offense).Any()
                         || !battle.GetFormations(BattleSideType.Defense).Any())
                     {
@@ -165,9 +162,20 @@ namespace SpaceOpera.Core.Military.Battles
             _activeBattles = newActiveBattles;
         }
 
+        public void Withdraw(IAtomicFormation formation)
+        {
+            foreach (var battle in _activeBattles.Values.SelectMany(x => x))
+            {
+                if (battle.Contains(formation))
+                {
+                    Leave(formation, battle);
+                }
+            }
+        }
+
         private BattleParticipation? GetCurrentBattle(IAtomicFormation formation, BattleKey key)
         {
-            if (!formation.InCombat)
+            if (formation.InCombat == 0)
             {
                 return null;
             }
@@ -188,10 +196,14 @@ namespace SpaceOpera.Core.Military.Battles
             return null;
         }
 
-        private static void Leave(IAtomicFormation formation, Battle battle, BattleSideType side)
+        private static void Leave(IAtomicFormation formation, Battle battle)
         {
-            formation.ExitCombat();
-            battle.Remove(formation, side);
+            var side = battle.GetBattleSide(formation);
+            if (side != BattleSideType.None)
+            {
+                formation.ExitCombat();
+                battle.Remove(formation, side);
+            }
         }
 
         private static void Join(IAtomicFormation formation, Battle battle, BattleSideType side)

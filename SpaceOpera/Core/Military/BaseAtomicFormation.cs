@@ -18,7 +18,7 @@ namespace SpaceOpera.Core.Military
         public Pool Cohesion { get; } = new(1);
         public List<UnitGrouping> Composition { get; } = new();
         public Inventory Inventory { get; } = new(0);
-        public bool InCombat { get; private set; }
+        public int InCombat { get; private set; }
 
         private bool _isDestructable;
 
@@ -64,12 +64,12 @@ namespace SpaceOpera.Core.Military
 
         public void EnterCombat()
         {
-            InCombat = true;
+            InCombat++;
         }
 
         public void ExitCombat()
         {
-            InCombat = false;
+            InCombat--;
         }
 
         public float GetCommand()
@@ -123,7 +123,8 @@ namespace SpaceOpera.Core.Military
 
         public void Tick()
         {
-            Cohesion.Change((InCombat ? .1f : 1) * s_BaseRecoherence);
+            CheckInventory();
+            Cohesion.Change((InCombat > 0 ? .1f : 1) * s_BaseRecoherence);
             foreach (var unitGrouping in Composition)
             {
                 unitGrouping.Recharge();

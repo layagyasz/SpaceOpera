@@ -9,6 +9,7 @@
         Move,
         None,
         Patrol,
+        Retreat,
         Train
     }
 }

@@ -10,11 +10,13 @@ namespace SpaceOpera.Core.Military.Ai
             : base(new SelectorNode<BehaviorNodeResult<IAction>, FormationContext>(
                     x => x.Status.Complete, BehaviorNodeResult<IAction>.Incomplete())
                     {
-                        new CheckContextNode<FormationContext>(x => x.Driver.AtomicFormation.InCombat)
+                        new CheckContextNode<FormationContext>(x => x.Driver.AtomicFormation.InCombat > 0)
                             .AndThen(SourceNode<IAction, FormationContext>.Wrap(new CombatAction())),
                         new CheckContextNode<FormationContext>(x => !x.Driver.AtomicFormation.Cohesion.IsFull())
                             .AndThen(SourceNode<IAction, FormationContext>.Wrap(new RegroupAction())),
-                    }.Adapt())
+                    }.Adapt(),
+                  new SelectorNode<BehaviorNodeResult<IAction>, FormationContext>(
+                    x => x.Status.Complete, BehaviorNodeResult<IAction>.Incomplete()).Adapt())
         { }
     }
 }

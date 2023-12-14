@@ -24,7 +24,7 @@
         {
             if (Unassign)
             {
-                driver.SetAssignment(Assigments.AssignmentType.None);
+                driver.SetAssignment(Assigments.AssignmentType.None, overridePriority: true);
             }
             return ActionStatus.InProgress;
         }

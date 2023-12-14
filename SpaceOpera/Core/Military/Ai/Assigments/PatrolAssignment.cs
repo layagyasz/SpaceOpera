@@ -97,6 +97,7 @@ namespace SpaceOpera.Core.Military.Ai.Assigments
             }
         }
 
+        public bool IsHighPriority => false;
         public AssignmentType Type => AssignmentType.Patrol;
 
         private readonly ISupplierNode<IAction, FormationContext> _routine;

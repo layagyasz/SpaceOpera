@@ -8,6 +8,7 @@ namespace SpaceOpera.Core.Military.Ai.Assigments
 {
     public class MoveAssignment : IAssignment
     {
+        public bool IsHighPriority => false;
         public AssignmentType Type => AssignmentType.Move;
 
         private readonly ISupplierNode<IAction, FormationContext> _routine;
@@ -24,7 +25,7 @@ namespace SpaceOpera.Core.Military.Ai.Assigments
                         SourceNode<INavigable?, FormationContext>.Wrap(GetDestination),
                         new(NavigableEdgeType.Ground), 
                         autoAttack: true),
-                    SourceNode<IAction, FormationContext>.Wrap(new IdleAction(/* unassign= */ true))
+                    SourceNode<IAction, FormationContext>.Wrap(new IdleAction(unassign: true))
                 }.Adapt();
         }
 

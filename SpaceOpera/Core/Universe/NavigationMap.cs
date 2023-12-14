@@ -173,6 +173,11 @@ namespace SpaceOpera.Core.Universe
             return HeuristicDistance(_nodes[left], _nodes[right]);
         }
 
+        public IEnumerable<INavigable> GetNeighbors(INavigable location, ISet<NavigableEdgeType> allowedEdges)
+        {
+            return _nodes[location].Edges.Where(x => allowedEdges.Contains(x.Type)).Select(x => x.End.Navigable);
+        }
+
         public int GetSize()
         {
             return _nodes.Count;

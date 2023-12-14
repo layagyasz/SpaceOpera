@@ -7,6 +7,7 @@ namespace SpaceOpera.Core.Military.Ai.Assigments
 {
     public class NoAssignment : IAssignment
     {
+        public bool IsHighPriority => false;
         public AssignmentType Type => AssignmentType.None;
 
         public void SetActiveRegion(IEnumerable<INavigable> region) { }

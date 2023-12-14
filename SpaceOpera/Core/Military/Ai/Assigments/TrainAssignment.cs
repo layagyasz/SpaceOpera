@@ -7,6 +7,7 @@ namespace SpaceOpera.Core.Military.Ai.Assigments
 {
     public class TrainAssignment : IAssignment
     {
+        public bool IsHighPriority => false;
         public AssignmentType Type => AssignmentType.Train;
 
         public void SetActiveRegion(IEnumerable<INavigable> region) { }

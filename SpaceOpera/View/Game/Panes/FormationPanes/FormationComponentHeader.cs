@@ -213,9 +213,17 @@ namespace SpaceOpera.View.Game.Panes.FormationPanes
                 return string.Empty;
             }
             var action = ((AtomicFormationDriver)Key).GetCurrentAction();
+            if (action is AttackAction)
+            {
+                return "Attacking";
+            }
             if (action is CombatAction)
             {
                 return "In combat";
+            }
+            if (action is DefendAction)
+            {
+                return "Defending";
             }
             if (action is EngageAction engage)
             {
@@ -236,6 +244,10 @@ namespace SpaceOpera.View.Game.Panes.FormationPanes
             if (action is RegroupAction)
             {
                 return "Regrouping";
+            }
+            if (action is RetreatAction)
+            {
+                return "Retreating";
             }
             if (action is SpotAction spot)
             {

@@ -5,16 +5,14 @@ namespace SpaceOpera.Core.Military.Battles
     public class Battle
     {
         public INavigable Location { get; }
-        public bool IsMandatory { get; }
 
         private readonly BattleReport.Builder _report = new();
         private readonly BattleSide _offense = new(BattleSideType.Offense);
         private readonly BattleSide _defense = new(BattleSideType.Defense);
 
-        public Battle(INavigable location, bool isMandatory)
+        public Battle(INavigable location)
         {
             Location = location;
-            IsMandatory = isMandatory;
         }
 
         public void Add(IAtomicFormation formation, BattleSideType side)

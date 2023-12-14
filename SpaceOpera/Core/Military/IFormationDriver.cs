@@ -9,7 +9,7 @@ namespace SpaceOpera.Core.Military
         EventHandler<EventArgs>? OrderUpdated { get; set; }
         IFormation Formation { get; }
         AssignmentType GetAssignment();
-        void SetAssignment(AssignmentType type);
+        void SetAssignment(AssignmentType type, bool overridePriority = false);
         ICollection<INavigable> GetActiveRegion();
         void SetActiveRegion(IEnumerable<INavigable> activeRegion);
         void Tick(SpaceOperaContext context);
