@@ -40,8 +40,8 @@ namespace SpaceOpera.Core.Military
         public int DamageHitpoints(float damage)
         {
             Hitpoints.Change(-damage);
-            var p = Hitpoints.Amount / (Count.MaxAmount * Unit.Hitpoints);
-            int losses = (int)(Count.MaxAmount * (1 - p * p));
+            var p = 1 - Hitpoints.Amount / (Count.MaxAmount * Unit.Hitpoints);
+            int losses = Count.Amount - (int)(Count.MaxAmount * (1 - p * p));
             TakeCasualties(losses);
             return losses;
         }

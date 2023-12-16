@@ -1,6 +1,7 @@
 using Cardamom.Collections;
 using SpaceOpera.Core.Politics;
 using SpaceOpera.Core.Universe;
+using System.Linq;
 
 namespace SpaceOpera.Core.Military.Battles
 {
@@ -120,6 +121,12 @@ namespace SpaceOpera.Core.Military.Battles
             }
         }
 
+        public bool IsDefending(IAtomicFormation formation)
+        {
+            return _activeBattles[new(formation.Position!)]
+                .Any(x => x.GetBattleSide(formation) == BattleSideType.Defense);
+        }
+
         public Battle? GetBattle(IAtomicFormation formation)
         {
             if (formation.InCombat == 0)
@@ -130,7 +137,7 @@ namespace SpaceOpera.Core.Military.Battles
             {
                 return battle.FirstOrDefault(x => x.Contains(formation));
             }
-            return null;
+            return _activeBattles.Values.SelectMany(x => x).FirstOrDefault(x => x.Contains(formation));
         }
 
         public void Tick(Random random)
@@ -140,7 +147,20 @@ namespace SpaceOpera.Core.Military.Battles
             {
                 foreach (var battle in battlesAndKey.Value.ToList())
                 {
-                    battle.Tick(random);
+                    foreach (var formation in battle.GetFormations(BattleSideType.Offense).ToList())
+                    {
+                        if (formation.IsDestroyed())
+                        {
+                            battle.Remove(formation, BattleSideType.Offense);
+                        }
+                    }
+                    foreach (var formation in battle.GetFormations(BattleSideType.Defense).ToList())
+                    {
+                        if (formation.IsDestroyed())
+                        {
+                            battle.Remove(formation, BattleSideType.Defense);
+                        }
+                    }
                     if (!battle.GetFormations(BattleSideType.Offense).Any()
                         || !battle.GetFormations(BattleSideType.Defense).Any())
                     {
@@ -155,6 +175,7 @@ namespace SpaceOpera.Core.Military.Battles
                     }
                     else
                     {
+                        battle.Tick(random);
                         newActiveBattles.Add(battlesAndKey);
                     }
                 }

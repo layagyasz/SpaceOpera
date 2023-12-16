@@ -12,7 +12,7 @@ namespace SpaceOpera.Core.Military.Ai
                     {
                         new CheckContextNode<FormationContext>(
                             x => x.Driver.AtomicFormation.Cohesion.IsEmpty() 
-                            && x.World.Battles.CanDefend(x.Driver.AtomicFormation))
+                                && x.World.Battles.IsDefending(x.Driver.AtomicFormation))
                             .AndThen(SourceNode<IAction, FormationContext>.Wrap(RetreatAction.Create())),
                         new CheckContextNode<FormationContext>(x => x.Driver.AtomicFormation.InCombat > 0)
                             .AndThen(SourceNode<IAction, FormationContext>.Wrap(new CombatAction())),

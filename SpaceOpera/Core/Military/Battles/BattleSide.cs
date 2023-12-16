@@ -1,3 +1,4 @@
+using Cardamom;
 using Cardamom.Trackers;
 
 namespace SpaceOpera.Core.Military.Battles
@@ -51,6 +52,7 @@ namespace SpaceOpera.Core.Military.Battles
                         var onTarget = attack.ComputeOnTarget();
                         var onTargetSum = onTarget.GetTotal();
                         var effective = attack.ComputeFinal(1 - abs).GetTotal();
+                        Precondition.Check(!float.IsNaN(effective));
                         totalOutput += raw;
                         totalOnTarget += onTarget;
                         totalEffective += effective;
@@ -75,6 +77,8 @@ namespace SpaceOpera.Core.Military.Battles
                         .AddInputHullDamage((1 - abs) * totalOnTarget.GetTotal())
                         .AddInputEffectiveDamage(totalEffective);
                 }
+                Precondition.Check(!float.IsNaN(lostCommand));
+                Precondition.Check(!float.IsNaN(currentCommand));
                 formation.Key.Cohesion.Change(-10 * lostCommand / currentCommand);
             }
         }

@@ -6,10 +6,16 @@
       "Type": "InfantryPlatform"
     },
     "Attributes": {
+      "Command": {
+        "Constant": 0.002
+      },
       "ProductionCost": {
         "Constant": 200
       },
       "Hitpoints": {
+        "Constant": 1
+      },
+      "Threat": {
         "Constant": 1
       }
     }
