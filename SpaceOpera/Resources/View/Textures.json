@@ -4,7 +4,7 @@
     "ElementSize": [ 64, 64 ],
     "Textures": {
       "Prefix": "icon-",
-      "Implicit": [ "Resources/View/Icons/*.png" ]
+      "Implicit": [ "Resources/View/Icons::*.png" ]
     }
   },
   {

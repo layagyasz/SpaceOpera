@@ -170,379 +170,379 @@
     <None Update="Resources\Core\Recipes.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\ammunition-beam.png">
+    <None Update="Resources\View\Icons\Weapons\ammunition-beam.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\ammunition-pulse.png">
+    <None Update="Resources\View\Icons\Weapons\ammunition-pulse.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\ammunition-shell.png">
+    <None Update="Resources\View\Icons\Weapons\ammunition-shell.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\anti-air.png">
+    <None Update="Resources\View\Icons\Units\anti-air.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\anti-armor.png">
+    <None Update="Resources\View\Icons\Units\anti-armor.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\artillery.png">
+    <None Update="Resources\View\Icons\Units\artillery.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\combat.png">
+    <None Update="Resources\View\Icons\Actions\combat.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\View\Icons\blank.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\brick.png">
+    <None Update="Resources\View\Icons\Materials\brick.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\damage.png">
+    <None Update="Resources\View\Icons\Ui\damage.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\diplomacy.png">
+    <None Update="Resources\View\Icons\Ui\diplomacy.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\View\Icons\empty.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\cargo.png">
+    <None Update="Resources\View\Icons\Components\cargo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\chemical-plant.png">
+    <None Update="Resources\View\Icons\Structures\chemical-plant.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\chemical.png">
+    <None Update="Resources\View\Icons\Materials\chemical.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\construction-material.png">
+    <None Update="Resources\View\Icons\Materials\construction-material.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\craft.png">
+    <None Update="Resources\View\Icons\Components\craft.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\crystal.png">
+    <None Update="Resources\View\Icons\Materials\crystal.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\designer.png">
+    <None Update="Resources\View\Icons\Ui\designer.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\edit.png">
+    <None Update="Resources\View\Icons\Ui\edit.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\electronics.png">
+    <None Update="Resources\View\Icons\Materials\electronics.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\energy.png">
+    <None Update="Resources\View\Icons\Components\energy.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\engineer.png">
+    <None Update="Resources\View\Icons\Units\engineer.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\factory.png">
+    <None Update="Resources\View\Icons\Structures\factory.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\farming-equipment.png">
+    <None Update="Resources\View\Icons\Materials\farming-equipment.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\food.png">
+    <None Update="Resources\View\Icons\Materials\food.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\gas-harvester.png">
+    <None Update="Resources\View\Icons\Structures\gas-harvester.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\gas.png">
+    <None Update="Resources\View\Icons\Materials\gas.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\glass.png">
+    <None Update="Resources\View\Icons\Materials\glass.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\heavy-weapon-assembly-combat.png">
+    <None Update="Resources\View\Icons\Weapons\heavy-weapon-assembly-combat.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\heavy-weapon-assembly-magnum.png">
+    <None Update="Resources\View\Icons\Weapons\heavy-weapon-assembly-magnum.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\heavy-weapon-assembly-precision.png">
+    <None Update="Resources\View\Icons\Weapons\heavy-weapon-assembly-precision.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\heavy-weapon-assembly-rail.png">
+    <None Update="Resources\View\Icons\Weapons\heavy-weapon-assembly-rail.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\heavy-weapon-assembly-rotary.png">
+    <None Update="Resources\View\Icons\Weapons\heavy-weapon-assembly-rotary.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\heavy-weapon-fire-control-precision.png">
+    <None Update="Resources\View\Icons\Weapons\heavy-weapon-fire-control-precision.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\heavy-weapon-fire-control-targeting.png">
+    <None Update="Resources\View\Icons\Weapons\heavy-weapon-fire-control-targeting.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\heavy-weapon-fire-control-tracking.png">
+    <None Update="Resources\View\Icons\Weapons\heavy-weapon-fire-control-tracking.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\heavy-weapon-mount-double.png">
+    <None Update="Resources\View\Icons\Weapons\heavy-weapon-mount-double.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\heavy-weapon-mount-quad.png">
+    <None Update="Resources\View\Icons\Weapons\heavy-weapon-mount-quad.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\heavy-weapon-mount-single.png">
+    <None Update="Resources\View\Icons\Weapons\heavy-weapon-mount-single.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\heavy-weapon-mount-triple.png">
+    <None Update="Resources\View\Icons\Weapons\heavy-weapon-mount-triple.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\heavy-weapon-weight-heavy.png">
+    <None Update="Resources\View\Icons\Weapons\heavy-weapon-weight-heavy.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\heavy-weapon-weight-medium.png">
+    <None Update="Resources\View\Icons\Weapons\heavy-weapon-weight-medium.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\heavy.png">
+    <None Update="Resources\View\Icons\Units\heavy.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\hitpoints.png">
+    <None Update="Resources\View\Icons\Ui\hitpoints.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\infantry.png">
+    <None Update="Resources\View\Icons\Units\infantry.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\infrastructure.png">
+    <None Update="Resources\View\Icons\Materials\infrastructure.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\institute.png">
+    <None Update="Resources\View\Icons\Structures\institute.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\join.png">
+    <None Update="Resources\View\Icons\Actions\join.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\kiln.png">
+    <None Update="Resources\View\Icons\Structures\kiln.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\letter-a-left.png">
+    <None Update="Resources\View\Icons\Letters\letter-a-left.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\letter-a-right.png">
+    <None Update="Resources\View\Icons\Letters\letter-a-right.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\letter-b-left.png">
+    <None Update="Resources\View\Icons\Letters\letter-b-left.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\letter-b-right.png">
+    <None Update="Resources\View\Icons\Letters\letter-b-right.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\letter-c-left.png">
+    <None Update="Resources\View\Icons\Letters\letter-c-left.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\letter-c-right.png">
+    <None Update="Resources\View\Icons\Letters\letter-c-right.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\letter-d-left.png">
+    <None Update="Resources\View\Icons\Letters\letter-d-left.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\letter-d-right.png">
+    <None Update="Resources\View\Icons\Letters\letter-d-right.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\letter-e-left.png">
+    <None Update="Resources\View\Icons\Letters\letter-e-left.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\letter-e-right.png">
+    <None Update="Resources\View\Icons\Letters\letter-e-right.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\letter-f-left.png">
+    <None Update="Resources\View\Icons\Letters\letter-f-left.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\letter-f-right.png">
+    <None Update="Resources\View\Icons\Letters\letter-f-right.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\letter-h-right.png">
+    <None Update="Resources\View\Icons\Letters\letter-h-right.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\letter-k-left.png">
+    <None Update="Resources\View\Icons\Letters\letter-k-left.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\letter-k-right.png">
+    <None Update="Resources\View\Icons\Letters\letter-k-right.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\letter-l-right.png">
+    <None Update="Resources\View\Icons\Letters\letter-l-right.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\letter-p-left.png">
+    <None Update="Resources\View\Icons\Letters\letter-p-left.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\letter-p-right.png">
+    <None Update="Resources\View\Icons\Letters\letter-p-right.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\letter-t-left.png">
+    <None Update="Resources\View\Icons\Letters\letter-t-left.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\letter-t-right.png">
+    <None Update="Resources\View\Icons\Letters\letter-t-right.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\letter-v-left.png">
+    <None Update="Resources\View\Icons\Letters\letter-v-left.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\letter-v-right.png">
+    <None Update="Resources\View\Icons\Letters\letter-v-right.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\light.png">
+    <None Update="Resources\View\Icons\Units\light.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\liquid-storage.png">
+    <None Update="Resources\View\Icons\Materials\liquid-storage.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\liquid.png">
+    <None Update="Resources\View\Icons\Materials\liquid.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\load.png">
+    <None Update="Resources\View\Icons\Actions\load.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\logistics.png">
+    <None Update="Resources\View\Icons\Ui\logistics.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\manufacturing-equipment.png">
+    <None Update="Resources\View\Icons\Materials\manufacturing-equipment.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\mechanized.png">
+    <None Update="Resources\View\Icons\Units\mechanized.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\medium.png">
+    <None Update="Resources\View\Icons\Units\medium.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\metal-plate.png">
+    <None Update="Resources\View\Icons\Materials\metal-plate.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\metal.png">
+    <None Update="Resources\View\Icons\Materials\metal.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\military-power.png">
+    <None Update="Resources\View\Icons\Ui\military-power.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\military.png">
+    <None Update="Resources\View\Icons\Ui\military.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\mine.png">
+    <None Update="Resources\View\Icons\Structures\mine.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\mining-equipment.png">
+    <None Update="Resources\View\Icons\Materials\mining-equipment.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\missile.png">
+    <None Update="Resources\View\Icons\Components\missile.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\molecule.png">
+    <None Update="Resources\View\Icons\Materials\molecule.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\motorized.png">
+    <None Update="Resources\View\Icons\Units\motorized.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\move.png">
+    <None Update="Resources\View\Icons\Actions\move.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\View\Icons\none.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\open.png">
+    <None Update="Resources\View\Icons\Ui\open.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\ore.png">
+    <None Update="Resources\View\Icons\Materials\ore.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\organization.png">
+    <None Update="Resources\View\Icons\Ui\organization.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\patrol.png">
+    <None Update="Resources\View\Icons\Actions\patrol.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\peace.png">
+    <None Update="Resources\View\Icons\Ui\peace.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\person.png">
+    <None Update="Resources\View\Icons\Components\person.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\personal-armor.png">
+    <None Update="Resources\View\Icons\Components\personal-armor.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\skull.png">
+    <None Update="Resources\View\Icons\Ui\skull.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\small-arm.png">
+    <None Update="Resources\View\Icons\Components\small-arm.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\plus.png">
+    <None Update="Resources\View\Icons\Ui\plus.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\powder.png">
+    <None Update="Resources\View\Icons\Materials\powder.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\power.png">
+    <None Update="Resources\View\Icons\Materials\power.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\random.png">
+    <None Update="Resources\View\Icons\Ui\random.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\refinery.png">
+    <None Update="Resources\View\Icons\Structures\refinery.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\regroup.png">
+    <None Update="Resources\View\Icons\Actions\regroup.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\research.png">
+    <None Update="Resources\View\Icons\Ui\research.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\self-propelled.png">
+    <None Update="Resources\View\Icons\Units\self-propelled.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\shield-capacitor-flux-field.png">
+    <None Update="Resources\View\Icons\Shields\shield-capacitor-flux-field.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\shield-capacitor-flux-mesh.png">
+    <None Update="Resources\View\Icons\Shields\shield-capacitor-flux-mesh.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\shield-capacitor-flux-shell.png">
+    <None Update="Resources\View\Icons\Shields\shield-capacitor-flux-shell.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\shield-capacitor-hyper-mesh.png">
+    <None Update="Resources\View\Icons\Shields\shield-capacitor-hyper-mesh.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\shield-capacitor-hyper-shell.png">
+    <None Update="Resources\View\Icons\Shields\shield-capacitor-hyper-shell.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\shield-capacitor-quantum-field.png">
+    <None Update="Resources\View\Icons\Shields\shield-capacitor-quantum-field.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\shield-capacitor-quantum-shell.png">
+    <None Update="Resources\View\Icons\Shields\shield-capacitor-quantum-shell.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\shield-mount-double.png">
+    <None Update="Resources\View\Icons\Shields\shield-mount-double.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\shield-mount-octal.png">
+    <None Update="Resources\View\Icons\Shields\shield-mount-octal.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\shield-mount-quad.png">
+    <None Update="Resources\View\Icons\Shields\shield-mount-quad.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\shield-mount-single.png">
+    <None Update="Resources\View\Icons\Shields\shield-mount-single.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\shield-power-supply-balanced.png">
+    <None Update="Resources\View\Icons\Shields\shield-power-supply-balanced.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\shield-power-supply-overcharged.png">
+    <None Update="Resources\View\Icons\Shields\shield-power-supply-overcharged.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\shield-power-supply-regenerative.png">
+    <None Update="Resources\View\Icons\Shields\shield-power-supply-regenerative.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\shield-weight-heavy.png">
+    <None Update="Resources\View\Icons\Shields\shield-weight-heavy.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\shield-weight-medium.png">
+    <None Update="Resources\View\Icons\Shields\shield-weight-medium.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\shield.png">
+    <None Update="Resources\View\Icons\Ui\shield.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\View\Icons\heavy-gun-assembly-combat.png">
@@ -587,55 +587,55 @@
     <None Update="Resources\View\Icons\heavy-gun-weight-medium.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\ship.png">
+    <None Update="Resources\View\Icons\Units\ship.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\shipyard.png">
+    <None Update="Resources\View\Icons\Structures\shipyard.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\spaceport.png">
+    <None Update="Resources\View\Icons\Structures\spaceport.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\speed-fast.png">
+    <None Update="Resources\View\Icons\Ui\speed-fast.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\speed-normal.png">
+    <None Update="Resources\View\Icons\Ui\speed-normal.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\speed-pause.png">
+    <None Update="Resources\View\Icons\Ui\speed-pause.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\split.png">
+    <None Update="Resources\View\Icons\Actions\split.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\stone-pile.png">
+    <None Update="Resources\View\Icons\Materials\stone-pile.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\stone.png">
+    <None Update="Resources\View\Icons\Materials\stone.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\targeting.png">
+    <None Update="Resources\View\Icons\Ui\targeting.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\trade.png">
+    <None Update="Resources\View\Icons\Ui\trade.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\train.png">
+    <None Update="Resources\View\Icons\Actions\train.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\training-facility.png">
+    <None Update="Resources\View\Icons\Structures\training-facility.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\transport.png">
+    <None Update="Resources\View\Icons\Units\transport.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\unload.png">
+    <None Update="Resources\View\Icons\Actions\unload.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\war.png">
+    <None Update="Resources\View\Icons\Ui\war.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\x.png">
+    <None Update="Resources\View\Icons\Ui\x.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\View\Materials.json">
