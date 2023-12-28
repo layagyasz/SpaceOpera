@@ -98,7 +98,7 @@ namespace SpaceOpera.View.Icons
         private readonly ThreadedLoader _loader;
         private readonly BannerViewFactory _bannerViewFactory;
         private readonly StellarBodyIconFactory _stellarBodyIconFactory;
-        private readonly Library<IconAtom> _atoms;
+        private readonly Library<StaticIconConfig> _atoms;
         private readonly EnumMap<ComponentType, DesignedComponentIconConfig> _configs;
         private readonly Dictionary<Type, Func<object, IEnumerable<IconLayer>>> _definitionMap;
         private readonly UiElementFactory _uiElementFactory;
@@ -111,7 +111,7 @@ namespace SpaceOpera.View.Icons
             ThreadedLoader loader,
             BannerViewFactory bannerViewFactory,
             StellarBodyIconFactory stellarBodyIconFactory,
-            Library<IconAtom> atoms,
+            Library<StaticIconConfig> atoms,
             EnumMap<ComponentType, DesignedComponentIconConfig> configs,
             UiElementFactory uiElementFactory)
         {
@@ -235,7 +235,7 @@ namespace SpaceOpera.View.Icons
         private IEnumerable<IconLayer> GetAtomicDefinition(object @object)
         {
             var key = @object as IKeyed;
-            yield return _atoms[key!.Key].ToDefinition();
+            return _atoms[key!.Key].ToDefinition();
         }
 
         private IEnumerable<IconLayer> GetBannerDefinition(object @object)

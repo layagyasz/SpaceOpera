@@ -1,317 +1,569 @@
 [
   {
     "$id": "material-alkalite-ore",
-    "Texture": "icon-ore",
-    "Color": "#ff00ff"
+    "Layers": [
+      {
+        "Texture": "icon-ore",
+        "Color": "#ff00ff"
+      }
+    ]
   },
   {
     "$id": "material-alkalite-metal",
-    "Texture": "icon-metal",
-    "Color": "#ff00ff"
+    "Layers": [
+      {
+        "Texture": "icon-metal",
+        "Color": "#ff00ff"
+      }
+    ]
   },
   {
     "$id": "material-alkane-fuel",
-    "Texture": "icon-gas",
-    "Color": "#8800ff"
+    "Layers": [
+      {
+        "Texture": "icon-gas",
+        "Color": "#8800ff"
+      }
+    ]
   },
   {
     "$id": "material-alkane-gas",
-    "Texture": "icon-gas",
-    "Color": "#0000ff"
+    "Layers": [
+      {
+        "Texture": "icon-gas",
+        "Color": "#0000ff"
+      }
+    ]
   },
   {
     "$id": "material-alumite-ore",
-    "Texture": "icon-ore",
-    "Color": "#ffffff"
+    "Layers": [
+      {
+        "Texture": "icon-ore",
+        "Color": "#ffffff"
+      }
+    ]
   },
   {
     "$id": "material-alumite-metal",
-    "Texture": "icon-metal",
-    "Color": "#ffffff"
+    "Layers": [
+      {
+        "Texture": "icon-metal",
+        "Color": "#ffffff"
+      }
+    ]
   },
   {
     "$id": "material-argentite-ore",
-    "Texture": "icon-ore",
-    "Color": "#888888"
+    "Layers": [
+      {
+        "Texture": "icon-ore",
+        "Color": "#888888"
+      }
+    ]
   },
   {
     "$id": "material-argentite-metal",
-    "Texture": "icon-metal",
-    "Color": "#888888"
+    "Layers": [
+      {
+        "Texture": "icon-metal",
+        "Color": "#888888"
+      }
+    ]
   },
   {
     "$id": "material-aurite-ore",
-    "Texture": "icon-ore",
-    "Color": "#ffff00"
+    "Layers": [
+      {
+        "Texture": "icon-ore",
+        "Color": "#ffff00"
+      }
+    ]
   },
   {
     "$id": "material-aurite-metal",
-    "Texture": "icon-metal",
-    "Color": "#ffff00"
+    "Layers": [
+      {
+        "Texture": "icon-metal",
+        "Color": "#ffff00"
+      }
+    ]
   },
   {
     "$id": "material-carbon-ignic",
-    "Texture": "icon-stone-pile",
-    "Color": "#404040"
+    "Layers": [
+      {
+        "Texture": "icon-stone-pile",
+        "Color": "#404040"
+      }
+    ]
   },
   {
     "$id": "material-carbon-attenic",
-    "Texture": "icon-powder",
-    "Color": "#888888"
+    "Layers": [
+      {
+        "Texture": "icon-powder",
+        "Color": "#888888"
+      }
+    ]
   },
   {
     "$id": "material-carbox-gas",
-    "Texture": "icon-gas",
-    "Color": "#ff0000"
+    "Layers": [
+      {
+        "Texture": "icon-gas",
+        "Color": "#ff0000"
+      }
+    ]
   },
   {
     "$id": "material-catalyst",
-    "Texture": "icon-chemical",
-    "Color": "#00ffff"
+    "Layers": [
+      {
+        "Texture": "icon-chemical",
+        "Color": "#00ffff"
+      }
+    ]
   },
   {
     "$id": "material-clay",
-    "Texture": "icon-stone-pile",
-    "Color": "#c06600"
+    "Layers": [
+      {
+        "Texture": "icon-stone-pile",
+        "Color": "#c06600"
+      }
+    ]
   },
   {
     "$id": "material-ceramic",
-    "Texture": "icon-stone",
-    "Color": "#c0a080"
+    "Layers": [
+      {
+        "Texture": "icon-stone",
+        "Color": "#c0a080"
+      }
+    ]
   },
   {
     "$id": "material-construction-material",
-    "Texture": "icon-construction-material",
-    "Color": "#888888"
+    "Layers": [
+      {
+        "Texture": "icon-construction-material",
+        "Color": "#888888"
+      }
+    ]
   },
   {
     "$id": "material-crystal",
-    "Texture": "icon-crystal",
-    "Color": "#00ffff"
+    "Layers": [
+      {
+        "Texture": "icon-crystal",
+        "Color": "#00ffff"
+      }
+    ]
   },
   {
     "$id": "material-cuprite-ore",
-    "Texture": "icon-ore",
-    "Color": "#ff8800"
+    "Layers": [
+      {
+        "Texture": "icon-ore",
+        "Color": "#ff8800"
+      }
+    ]
   },
   {
     "$id": "material-cuprite-metal",
-    "Texture": "icon-metal",
-    "Color": "#ff8800"
+    "Layers": [
+      {
+        "Texture": "icon-metal",
+        "Color": "#ff8800"
+      }
+    ]
   },
   {
     "$id": "material-duracrete",
-    "Texture": "icon-stone",
-    "Color": "#888888"
+    "Layers": [
+      {
+        "Texture": "icon-stone",
+        "Color": "#888888"
+      }
+    ]
   },
   {
     "$id": "material-duralumin-metal",
-    "Texture": "icon-metal",
-    "Color": "#88ff88"
+    "Layers": [
+      {
+        "Texture": "icon-metal",
+        "Color": "#88ff88"
+      }
+    ]
   },
   {
     "$id": "material-durasteel-metal",
-    "Texture": "icon-metal",
-    "Color": "#884488"
+    "Layers": [
+      {
+        "Texture": "icon-metal",
+        "Color": "#884488"
+      }
+    ]
   },
   {
     "$id": "material-electronics",
-    "Texture": "icon-electronics",
-    "Color": "#00ff00"
+    "Layers": [
+      {
+        "Texture": "icon-electronics",
+        "Color": "#00ff00"
+      }
+    ]
   },
   {
     "$id": "material-farming-equipment",
-    "Texture": "icon-farming-equipment",
-    "Color": "#4ce64c"
+    "Layers": [
+      {
+        "Texture": "icon-farming-equipment",
+        "Color": "#4ce64c"
+      }
+    ]
   },
   {
     "$id": "material-ferrite-ore",
-    "Texture": "icon-ore",
-    "Color": "#ff0000"
+    "Layers": [
+      {
+        "Texture": "icon-ore",
+        "Color": "#ff0000"
+      }
+    ]
   },
   {
     "$id": "material-ferrite-metal",
-    "Texture": "icon-metal",
-    "Color": "#ff0000"
+    "Layers": [
+      {
+        "Texture": "icon-metal",
+        "Color": "#ff0000"
+      }
+    ]
   },
   {
     "$id": "material-food",
-    "Texture": "icon-food",
-    "Color": "#ffff00"
+    "Layers": [
+      {
+        "Texture": "icon-food",
+        "Color": "#ffff00"
+      }
+    ]
   },
   {
     "$id": "material-graphite",
-    "Texture": "icon-molecule",
-    "Color": "#404040"
+    "Layers": [
+      {
+        "Texture": "icon-molecule",
+        "Color": "#404040"
+      }
+    ]
   },
   {
     "$id": "material-gravel",
-    "Texture": "icon-stone-pile",
-    "Color": "#888888"
+    "Layers": [
+      {
+        "Texture": "icon-stone-pile",
+        "Color": "#888888"
+      }
+    ]
   },
   {
     "$id": "material-gravite-ore",
-    "Texture": "icon-ore",
-    "Color": "#0000ff"
+    "Layers": [
+      {
+        "Texture": "icon-ore",
+        "Color": "#0000ff"
+      }
+    ]
   },
   {
     "$id": "material-gravite-metal",
-    "Texture": "icon-metal",
-    "Color": "#0000ff"
+    "Layers": [
+      {
+        "Texture": "icon-metal",
+        "Color": "#0000ff"
+      }
+    ]
   },
   {
     "$id": "material-halics",
-    "Texture": "icon-crystal",
-    "Color": "#ffffff"
+    "Layers": [
+      {
+        "Texture": "icon-crystal",
+        "Color": "#ffffff"
+      }
+    ]
   },
   {
     "$id": "material-infrastructure-material",
-    "Texture": "icon-infrastructure",
-    "Color": "#888888"
+    "Layers": [
+      {
+        "Texture": "icon-infrastructure",
+        "Color": "#888888"
+      }
+    ]
   },
   {
     "$id": "material-ingenon-gas",
-    "Texture": "icon-gas",
-    "Color": "#ff00ff"
+    "Layers": [
+      {
+        "Texture": "icon-gas",
+        "Color": "#ff00ff"
+      }
+    ]
   },
   {
     "$id": "material-kiln-material",
-    "Texture": "icon-brick",
-    "Color": "#c0a080"
+    "Layers": [
+      {
+        "Texture": "icon-brick",
+        "Color": "#c0a080"
+      }
+    ]
   },
   {
     "$id": "material-liquid-storage-equipment",
-    "Texture": "icon-liquid-storage",
-    "Color": "#888888"
+    "Layers": [
+      {
+        "Texture": "icon-liquid-storage",
+        "Color": "#888888"
+      }
+    ]
   },
   {
     "$id": "material-manufacturing-equipment-heavy",
-    "Texture": "icon-manufacturing-equipment",
-    "Color": "#1919b3"
+    "Layers": [
+      {
+        "Texture": "icon-manufacturing-equipment",
+        "Color": "#1919b3"
+      }
+    ]
   },
   {
     "$id": "material-manufacturing-equipment-light",
-    "Texture": "icon-manufacturing-equipment",
-    "Color": "#4c4ce6"
+    "Layers": [
+      {
+        "Texture": "icon-manufacturing-equipment",
+        "Color": "#4c4ce6"
+      }
+    ]
   },
   {
     "$id": "material-merite-ore",
-    "Texture": "icon-ore",
-    "Color": "#00ffff"
+    "Layers": [
+      {
+        "Texture": "icon-ore",
+        "Color": "#00ffff"
+      }
+    ]
   },
   {
     "$id": "material-merite-metal",
-    "Texture": "icon-metal",
-    "Color": "#00ffff"
+    "Layers": [
+      {
+        "Texture": "icon-metal",
+        "Color": "#00ffff"
+      }
+    ]
   },
   {
     "$id": "material-mining-equipment",
-    "Texture": "icon-mining-equipment",
-    "Color": "#b34d19"
+    "Layers": [
+      {
+        "Texture": "icon-mining-equipment",
+        "Color": "#b34d19"
+      }
+    ]
   },
   {
     "$id": "material-ossic-stone",
-    "Texture": "icon-stone-pile",
-    "Color": "#ffffff"
+    "Layers": [
+      {
+        "Texture": "icon-stone-pile",
+        "Color": "#ffffff"
+      }
+    ]
   },
   {
     "$id": "material-personal-armor-alumite",
-    "Texture": "icon-personal-armor",
-    "Color": "#ffffff"
+    "Layers": [
+      {
+        "Texture": "icon-personal-armor",
+        "Color": "#ffffff"
+      }
+    ]
   },
   {
     "$id": "material-personal-armor-duralumin",
-    "Texture": "icon-personal-armor",
-    "Color": "#88ff88"
+    "Layers": [
+      {
+        "Texture": "icon-personal-armor",
+        "Color": "#88ff88"
+      }
+    ]
   },
   {
     "$id": "material-personal-armor-durasteel",
-    "Texture": "icon-personal-armor",
-    "Color": "#ff0000"
+    "Layers": [
+      {
+        "Texture": "icon-personal-armor",
+        "Color": "#ff0000"
+      }
+    ]
   },
   {
     "$id": "material-personal-shield-energy-field",
-    "Texture": "icon-shield-capacitor-flux-field",
-    "Color": "#00ffff"
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-flux-field",
+        "Color": "#00ffff"
+      }
+    ]
   },
   {
     "$id": "material-personal-shield-energy-shell",
-    "Texture": "icon-shield-capacitor-hyper-mesh",
-    "Color": "#00ffff"
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-hyper-mesh",
+        "Color": "#00ffff"
+      }
+    ]
   },
   {
     "$id": "material-personal-shield-energy-shield",
-    "Texture": "icon-shield-capacitor-quantum-shell",
-    "Color": "#00ffff"
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-quantum-shell",
+        "Color": "#00ffff"
+      }
+    ]
   },
   {
     "$id": "material-small-arm-kinetic",
-    "Texture": "icon-small-arm",
-    "Color": "#0000ff"
+    "Layers": [
+      {
+        "Texture": "icon-small-arm",
+        "Color": "#0000ff"
+      }
+    ]
   },
   {
     "$id": "material-small-arm-laser",
-    "Texture": "icon-small-arm",
-    "Color": "#ff0000"
+    "Layers": [
+      {
+        "Texture": "icon-small-arm",
+        "Color": "#ff0000"
+      }
+    ]
   },
   {
     "$id": "material-small-arm-plasma",
-    "Texture": "icon-small-arm",
-    "Color": "#ff00ff"
+    "Layers": [
+      {
+        "Texture": "icon-small-arm",
+        "Color": "#ff00ff"
+      }
+    ]
   },
   {
     "$id": "material-polymer",
-    "Texture": "icon-molecule",
-    "Color": "#8800ff"
+    "Layers": [
+      {
+        "Texture": "icon-molecule",
+        "Color": "#8800ff"
+      }
+    ]
   },
   {
     "$id": "material-power-cells",
-    "Texture": "icon-power",
-    "Color": "#ff00ff"
+    "Layers": [
+      {
+        "Texture": "icon-power",
+        "Color": "#ff00ff"
+      }
+    ]
   },
   {
     "$id": "material-research-military",
-    "Texture": "icon-research",
-    "Color": "#ffff00"
+    "Layers": [
+      {
+        "Texture": "icon-research",
+        "Color": "#ffff00"
+      }
+    ]
   },
   {
     "$id": "material-research-society",
-    "Texture": "icon-research",
-    "Color": "#00ff00"
+    "Layers": [
+      {
+        "Texture": "icon-research",
+        "Color": "#00ff00"
+      }
+    ]
   },
   {
     "$id": "material-research-technology",
-    "Texture": "icon-research",
-    "Color": "#00ffff"
+    "Layers": [
+      {
+        "Texture": "icon-research",
+        "Color": "#00ffff"
+      }
+    ]
   },
   {
     "$id": "material-valentulite-ore",
-    "Texture": "icon-ore",
-    "Color": "#00ff00"
+    "Layers": [
+      {
+        "Texture": "icon-ore",
+        "Color": "#00ff00"
+      }
+    ]
   },
   {
     "$id": "material-valentulite-metal",
-    "Texture": "icon-metal",
-    "Color": "#00ff00"
+    "Layers": [
+      {
+        "Texture": "icon-metal",
+        "Color": "#00ff00"
+      }
+    ]
   },
   {
     "$id": "material-vitraglass",
-    "Texture": "icon-glass",
-    "Color": "#ffffff"
+    "Layers": [
+      {
+        "Texture": "icon-glass",
+        "Color": "#ffffff"
+      }
+    ]
   },
   {
     "$id": "material-water-fresh",
-    "Texture": "icon-liquid",
-    "Color": "#0000ff"
+    "Layers": [
+      {
+        "Texture": "icon-liquid",
+        "Color": "#0000ff"
+      }
+    ]
   },
   {
     "$id": "material-wulframite-ore",
-    "Texture": "icon-ore",
-    "Color": "#404040"
+    "Layers": [
+      {
+        "Texture": "icon-ore",
+        "Color": "#404040"
+      }
+    ]
   },
   {
     "$id": "material-wulframite-metal",
-    "Texture": "icon-metal",
-    "Color": "#404040"
+    "Layers": [
+      {
+        "Texture": "icon-metal",
+        "Color": "#404040"
+      }
+    ]
   }
 ]

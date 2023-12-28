@@ -1,257 +1,461 @@
 [
   {
     "$id": "component-ship-shield-emitter-energy",
-    "Texture": "icon-energy",
-    "Color": "#ff0000"
+    "Layers": [
+      {
+        "Texture": "icon-energy",
+        "Color": "#ff0000"
+      }
+    ]
   },
   {
     "$id": "component-ship-shield-emitter-magnetic",
-    "Texture": "icon-energy",
-    "Color": "#00ff00"
+    "Layers": [
+      {
+        "Texture": "icon-energy",
+        "Color": "#00ff00"
+      }
+    ]
   },
   {
     "$id": "component-ship-shield-emitter-particle",
-    "Texture": "icon-energy",
-    "Color": "#888888"
+    "Layers": [
+      {
+        "Texture": "icon-energy",
+        "Color": "#888888"
+      }
+    ]
   },
   {
     "$id": "component-ship-shield-emitter-plasma",
-    "Texture": "icon-energy",
-    "Color": "#ff00ff"
+    "Layers": [
+      {
+        "Texture": "icon-energy",
+        "Color": "#ff00ff"
+      }
+    ]
   },
   {
     "$id": "component-ship-shield-capacitor-flux-mesh-i",
-    "Texture": "icon-shield-capacitor-flux-mesh",
-    "Color": "#ffffff"
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-flux-mesh",
+        "Color": "#ffffff"
+      }
+    ]
   },
   {
     "$id": "component-ship-shield-capacitor-flux-mesh-ii",
-    "Texture": "icon-shield-capacitor-flux-mesh",
-    "Color": "#ffffff"
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-flux-mesh",
+        "Color": "#ffffff"
+      }
+    ]
   },
   {
     "$id": "component-ship-shield-capacitor-flux-mesh-iii",
-    "Texture": "icon-shield-capacitor-flux-mesh",
-    "Color": "#ffffff"
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-flux-mesh",
+        "Color": "#ffffff"
+      }
+    ]
   },
   {
     "$id": "component-ship-shield-capacitor-flux-mesh-iv",
-    "Texture": "icon-shield-capacitor-flux-mesh",
-    "Color": "#ffffff"
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-flux-mesh",
+        "Color": "#ffffff"
+      }
+    ]
   },
   {
     "$id": "component-ship-shield-capacitor-flux-field-i",
-    "Texture": "icon-shield-capacitor-flux-field",
-    "Color": "#ffffff"
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-flux-field",
+        "Color": "#ffffff"
+      }
+    ]
   },
   {
     "$id": "component-ship-shield-capacitor-flux-field-ii",
-    "Texture": "icon-shield-capacitor-flux-field",
-    "Color": "#ffffff"
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-flux-field",
+        "Color": "#ffffff"
+      }
+    ]
   },
   {
     "$id": "component-ship-shield-capacitor-flux-field-iii",
-    "Texture": "icon-shield-capacitor-flux-field",
-    "Color": "#ffffff"
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-flux-field",
+        "Color": "#ffffff"
+      }
+    ]
   },
   {
     "$id": "component-ship-shield-capacitor-flux-field-iv",
-    "Texture": "icon-shield-capacitor-flux-field",
-    "Color": "#ffffff"
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-flux-field",
+        "Color": "#ffffff"
+      }
+    ]
   },
   {
     "$id": "component-ship-shield-capacitor-flux-shell-i",
-    "Texture": "icon-shield-capacitor-flux-shell",
-    "Color": "#ffffff"
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-flux-shell",
+        "Color": "#ffffff"
+      }
+    ]
   },
   {
     "$id": "component-ship-shield-capacitor-flux-shell-ii",
-    "Texture": "icon-shield-capacitor-flux-shell",
-    "Color": "#ffffff"
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-flux-shell",
+        "Color": "#ffffff"
+      }
+    ]
   },
   {
     "$id": "component-ship-shield-capacitor-flux-shell-iii",
-    "Texture": "icon-shield-capacitor-flux-shell",
-    "Color": "#ffffff"
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-flux-shell",
+        "Color": "#ffffff"
+      }
+    ]
   },
   {
     "$id": "component-ship-shield-capacitor-flux-shell-iv",
-    "Texture": "icon-shield-capacitor-flux-shell",
-    "Color": "#ffffff"
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-flux-shell",
+        "Color": "#ffffff"
+      }
+    ]
   },
   {
     "$id": "component-ship-shield-capacitor-quantum-shell-i",
-    "Texture": "icon-shield-capacitor-quantum-shell",
-    "Color": "#ffffff"
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-quantum-shell",
+        "Color": "#ffffff"
+      }
+    ]
   },
   {
     "$id": "component-ship-shield-capacitor-quantum-shell-ii",
-    "Texture": "icon-shield-capacitor-quantum-shell",
-    "Color": "#ffffff"
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-quantum-shell",
+        "Color": "#ffffff"
+      }
+    ]
   },
   {
     "$id": "component-ship-shield-capacitor-quantum-shell-iii",
-    "Texture": "icon-shield-capacitor-quantum-shell",
-    "Color": "#ffffff"
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-quantum-shell",
+        "Color": "#ffffff"
+      }
+    ]
   },
   {
     "$id": "component-ship-shield-capacitor-quantum-shell-iv",
-    "Texture": "icon-shield-capacitor-quantum-shell",
-    "Color": "#ffffff"
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-quantum-shell",
+        "Color": "#ffffff"
+      }
+    ]
   },
   {
     "$id": "component-ship-shield-capacitor-quantum-field-i",
-    "Texture": "icon-shield-capacitor-quantum-field",
-    "Color": "#ffffff"
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-quantum-field",
+        "Color": "#ffffff"
+      }
+    ]
   },
   {
     "$id": "component-ship-shield-capacitor-quantum-field-ii",
-    "Texture": "icon-shield-capacitor-quantum-field",
-    "Color": "#ffffff"
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-quantum-field",
+        "Color": "#ffffff"
+      }
+    ]
   },
   {
     "$id": "component-ship-shield-capacitor-quantum-field-iii",
-    "Texture": "icon-shield-capacitor-quantum-field",
-    "Color": "#ffffff"
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-quantum-field",
+        "Color": "#ffffff"
+      }
+    ]
   },
   {
     "$id": "component-ship-shield-capacitor-quantum-field-iv",
-    "Texture": "icon-shield-capacitor-quantum-field",
-    "Color": "#ffffff"
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-quantum-field",
+        "Color": "#ffffff"
+      }
+    ]
   },
   {
     "$id": "component-ship-shield-capacitor-hyper-shell-i",
-    "Texture": "icon-shield-capacitor-hyper-shell",
-    "Color": "#ffffff"
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-hyper-shell",
+        "Color": "#ffffff"
+      }
+    ]
   },
   {
     "$id": "component-ship-shield-capacitor-hyper-shell-ii",
-    "Texture": "icon-shield-capacitor-hyper-shell",
-    "Color": "#ffffff"
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-hyper-shell",
+        "Color": "#ffffff"
+      }
+    ]
   },
   {
     "$id": "component-ship-shield-capacitor-hyper-shell-iii",
-    "Texture": "icon-shield-capacitor-hyper-shell",
-    "Color": "#ffffff"
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-hyper-shell",
+        "Color": "#ffffff"
+      }
+    ]
   },
   {
     "$id": "component-ship-shield-capacitor-hyper-shell-iv",
-    "Texture": "icon-shield-capacitor-hyper-shell",
-    "Color": "#ffffff"
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-hyper-shell",
+        "Color": "#ffffff"
+      }
+    ]
   },
   {
     "$id": "component-ship-shield-capacitor-hyper-mesh-i",
-    "Texture": "icon-shield-capacitor-hyper-mesh",
-    "Color": "#ffffff"
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-hyper-mesh",
+        "Color": "#ffffff"
+      }
+    ]
   },
   {
     "$id": "component-ship-shield-capacitor-hyper-mesh-ii",
-    "Texture": "icon-shield-capacitor-hyper-mesh",
-    "Color": "#ffffff"
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-hyper-mesh",
+        "Color": "#ffffff"
+      }
+    ]
   },
   {
     "$id": "component-ship-shield-capacitor-hyper-mesh-iii",
-    "Texture": "icon-shield-capacitor-hyper-mesh",
-    "Color": "#ffffff"
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-hyper-mesh",
+        "Color": "#ffffff"
+      }
+    ]
   },
   {
     "$id": "component-ship-shield-capacitor-hyper-mesh-iv",
-    "Texture": "icon-shield-capacitor-hyper-mesh",
-    "Color": "#ffffff"
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-hyper-mesh",
+        "Color": "#ffffff"
+      }
+    ]
   },
   {
     "$id": "component-ship-shield-power-supply-balanced-i",
-    "Texture": "icon-shield-power-supply-balanced",
-    "Color": "#ffffff"
+    "Layers": [
+      {
+        "Texture": "icon-shield-power-supply-balanced",
+        "Color": "#ffffff"
+      }
+    ]
   },
   {
     "$id": "component-ship-shield-power-supply-balanced-ii",
-    "Texture": "icon-shield-power-supply-balanced",
-    "Color": "#ffffff"
+    "Layers": [
+      {
+        "Texture": "icon-shield-power-supply-balanced",
+        "Color": "#ffffff"
+      }
+    ]
   },
   {
     "$id": "component-ship-shield-power-supply-balanced-iii",
-    "Texture": "icon-shield-power-supply-balanced",
-    "Color": "#ffffff"
+    "Layers": [
+      {
+        "Texture": "icon-shield-power-supply-balanced",
+        "Color": "#ffffff"
+      }
+    ]
   },
   {
     "$id": "component-ship-shield-power-supply-balanced-iv",
-    "Texture": "icon-shield-power-supply-balanced",
-    "Color": "#ffffff"
+    "Layers": [
+      {
+        "Texture": "icon-shield-power-supply-balanced",
+        "Color": "#ffffff"
+      }
+    ]
   },
   {
     "$id": "component-ship-shield-power-supply-overcharged-i",
-    "Texture": "icon-shield-power-supply-overcharged",
-    "Color": "#ff0000"
+    "Layers": [
+      {
+        "Texture": "icon-shield-power-supply-overcharged",
+        "Color": "#ff0000"
+      }
+    ]
   },
   {
     "$id": "component-ship-shield-power-supply-overcharged-ii",
-    "Texture": "icon-shield-power-supply-overcharged",
-    "Color": "#ff0000"
+    "Layers": [
+      {
+        "Texture": "icon-shield-power-supply-overcharged",
+        "Color": "#ff0000"
+      }
+    ]
   },
   {
     "$id": "component-ship-shield-power-supply-overcharged-iii",
-    "Texture": "icon-shield-power-supply-overcharged",
-    "Color": "#ff0000"
+    "Layers": [
+      {
+        "Texture": "icon-shield-power-supply-overcharged",
+        "Color": "#ff0000"
+      }
+    ]
   },
   {
     "$id": "component-ship-shield-power-supply-overcharged-iv",
-    "Texture": "icon-shield-power-supply-overcharged",
-    "Color": "#ff0000"
+    "Layers": [
+      {
+        "Texture": "icon-shield-power-supply-overcharged",
+        "Color": "#ff0000"
+      }
+    ]
   },
   {
     "$id": "component-ship-shield-power-supply-regenerative-i",
-    "Texture": "icon-shield-power-supply-regenerative",
-    "Color": "#00ff00"
+    "Layers": [
+      {
+        "Texture": "icon-shield-power-supply-regenerative",
+        "Color": "#00ff00"
+      }
+    ]
   },
   {
     "$id": "component-ship-shield-power-supply-regenerative-ii",
-    "Texture": "icon-shield-power-supply-regenerative",
-    "Color": "#00ff00"
+    "Layers": [
+      {
+        "Texture": "icon-shield-power-supply-regenerative",
+        "Color": "#00ff00"
+      }
+    ]
   },
   {
     "$id": "component-ship-shield-power-supply-regenerative-iii",
-    "Texture": "icon-shield-power-supply-regenerative",
-    "Color": "#00ff00"
+    "Layers": [
+      {
+        "Texture": "icon-shield-power-supply-regenerative",
+        "Color": "#00ff00"
+      }
+    ]
   },
   {
     "$id": "component-ship-shield-power-supply-regenerative-iv",
-    "Texture": "icon-shield-power-supply-regenerative",
-    "Color": "#00ff00"
+    "Layers": [
+      {
+        "Texture": "icon-shield-power-supply-regenerative",
+        "Color": "#00ff00"
+      }
+    ]
   },
   {
     "$id": "component-ship-shield-mount-single",
-    "Texture": "icon-shield-mount-single",
-    "Color": "#ffffff"
+    "Layers": [
+      {
+        "Texture": "icon-shield-mount-single",
+        "Color": "#ffffff"
+      }
+    ]
   },
   {
     "$id": "component-ship-shield-mount-double",
-    "Texture": "icon-shield-mount-double",
-    "Color": "#ffffff"
+    "Layers": [
+      {
+        "Texture": "icon-shield-mount-double",
+        "Color": "#ffffff"
+      }
+    ]
   },
   {
     "$id": "component-ship-shield-mount-quad",
-    "Texture": "icon-shield-mount-quad",
-    "Color": "#ffffff"
+    "Layers": [
+      {
+        "Texture": "icon-shield-mount-quad",
+        "Color": "#ffffff"
+      }
+    ]
   },
   {
     "$id": "component-ship-shield-mount-octal",
-    "Texture": "icon-shield-mount-octal",
-    "Color": "#ffffff"
+    "Layers": [
+      {
+        "Texture": "icon-shield-mount-octal",
+        "Color": "#ffffff"
+      }
+    ]
   },
   {
     "$id": "component-ship-shield-weight-light",
-    "Texture": "icon-empty",
-    "Color": "#ffffff"
+    "Layers": [
+      {
+        "Texture": "icon-empty",
+        "Color": "#ffffff"
+      }
+    ]
   },
   {
     "$id": "component-ship-shield-weight-medium",
-    "Texture": "icon-shield-weight-medium",
-    "Color": "#ffffff"
+    "Layers": [
+      {
+        "Texture": "icon-shield-weight-medium",
+        "Color": "#ffffff"
+      }
+    ]
   },
   {
     "$id": "component-ship-shield-weight-heavy",
-    "Texture": "icon-shield-weight-heavy",
-    "Color": "#ffffff"
+    "Layers": [
+      {
+        "Texture": "icon-shield-weight-heavy",
+        "Color": "#ffffff"
+      }
+    ]
   }
 ]

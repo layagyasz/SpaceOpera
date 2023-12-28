@@ -28,7 +28,7 @@ namespace SpaceOpera.View
         public SpectrumSensitivity? HumanEyeSensitivity { get; set; }
 
         [JsonConverter(typeof(FromMultipleFileJsonConverter))]
-        public Library<IconAtom> Icons { get; set; } = new();
+        public Library<StaticIconConfig> Icons { get; set; } = new();
 
         [JsonConverter(typeof(FromMultipleFileJsonConverter))]
         public List<DesignedComponentIconConfig> DesignedComponentIconConfigs { get; set; } = new();

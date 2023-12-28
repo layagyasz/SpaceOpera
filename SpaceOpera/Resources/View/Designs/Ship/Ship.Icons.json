@@ -1,57 +1,101 @@
 [
   {
     "$id": "component-ship-armor-alumite-light",
-    "Texture": "icon-metal-plate",
-    "Color": "#ffffff"
+    "Layers": [
+      {
+        "Texture": "icon-metal-plate",
+        "Color": "#ffffff"
+      }
+    ]
   },
   {
     "$id": "component-ship-armor-alumite-medium",
-    "Texture": "icon-metal-plate",
-    "Color": "#ffffff"
+    "Layers": [
+      {
+        "Texture": "icon-metal-plate",
+        "Color": "#ffffff"
+      }
+    ]
   },
   {
     "$id": "component-ship-armor-alumite-heavy",
-    "Texture": "icon-metal-plate",
-    "Color": "#ffffff"
+    "Layers": [
+      {
+        "Texture": "icon-metal-plate",
+        "Color": "#ffffff"
+      }
+    ]
   },
   {
     "$id": "component-ship-cargo-s",
-    "Texture": "icon-cargo",
-    "Color": "#00ff00"
+    "Layers": [
+      {
+        "Texture": "icon-cargo",
+        "Color": "#00ff00"
+      }
+    ]
   },
   {
     "$id": "component-ship-cargo-m",
-    "Texture": "icon-cargo",
-    "Color": "#00ff00"
+    "Layers": [
+      {
+        "Texture": "icon-cargo",
+        "Color": "#00ff00"
+      }
+    ]
   },
   {
     "$id": "component-ship-cargo-l",
-    "Texture": "icon-cargo",
-    "Color": "#00ff00"
+    "Layers": [
+      {
+        "Texture": "icon-cargo",
+        "Color": "#00ff00"
+      }
+    ]
   },
   {
     "$id": "component-ship-construction-alumite",
-    "Texture": "icon-construction-material",
-    "Color": "#ffffff"
+    "Layers": [
+      {
+        "Texture": "icon-construction-material",
+        "Color": "#ffffff"
+      }
+    ]
   },
   {
     "$id": "component-ship-hangar-s",
-    "Texture": "icon-craft",
-    "Color": "#ffff00"
+    "Layers": [
+      {
+        "Texture": "icon-craft",
+        "Color": "#ffff00"
+      }
+    ]
   },
   {
     "$id": "component-ship-hangar-m",
-    "Texture": "icon-craft",
-    "Color": "#ffff00"
+    "Layers": [
+      {
+        "Texture": "icon-craft",
+        "Color": "#ffff00"
+      }
+    ]
   },
   {
     "$id": "component-ship-hangar-l",
-    "Texture": "icon-craft",
-    "Color": "#ffff00"
+    "Layers": [
+      {
+        "Texture": "icon-craft",
+        "Color": "#ffff00"
+      }
+    ]
   },
   {
     "$id": "component-heavy-missile",
-    "Texture": "icon-missile",
-    "Color": "#ff0000"
+    "Layers": [
+      {
+        "Texture": "icon-missile",
+        "Color": "#ff0000"
+      }
+    ]
   }
 ]

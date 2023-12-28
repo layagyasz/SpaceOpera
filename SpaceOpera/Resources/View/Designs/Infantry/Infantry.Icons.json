@@ -1,62 +1,110 @@
 [
   {
     "$id": "component-infantry-platform-human",
-    "Texture": "icon-person",
-    "Color": "#ffffff"
+    "Layers": [
+      {
+        "Texture": "icon-person",
+        "Color": "#ffffff"
+      }
+    ]
   },
   {
     "$id": "component-small-arm-kinetic",
-    "Texture": "icon-small-arm",
-    "Color": "#0000ff"
+    "Layers": [
+      {
+        "Texture": "icon-small-arm",
+        "Color": "#0000ff"
+      }
+    ]
   },
   {
     "$id": "component-small-arm-laser",
-    "Texture": "icon-small-arm",
-    "Color": "#ff0000"
+    "Layers": [
+      {
+        "Texture": "icon-small-arm",
+        "Color": "#ff0000"
+      }
+    ]
   },
   {
     "$id": "component-small-arm-plasma",
-    "Texture": "icon-small-arm",
-    "Color": "#ff00ff"
+    "Layers": [
+      {
+        "Texture": "icon-small-arm",
+        "Color": "#ff00ff"
+      }
+    ]
   },
   {
     "$id": "component-personal-armor-alumite",
-    "Texture": "icon-personal-armor",
-    "Color": "#ffffff"
+    "Layers": [
+      {
+        "Texture": "icon-personal-armor",
+        "Color": "#ffffff"
+      }
+    ]
   },
   {
     "$id": "component-personal-armor-duralumin",
-    "Texture": "icon-personal-armor",
-    "Color": "#88ff88"
+    "Layers": [
+      {
+        "Texture": "icon-personal-armor",
+        "Color": "#88ff88"
+      }
+    ]
   },
   {
     "$id": "component-personal-armor-durasteel",
-    "Texture": "icon-personal-armor",
-    "Color": "#ff0000"
+    "Layers": [
+      {
+        "Texture": "icon-personal-armor",
+        "Color": "#ff0000"
+      }
+    ]
   },
   {
     "$id": "component-personal-armor-none",
-    "Texture": "icon-none",
-    "Color": "#ffffff88"
+    "Layers": [
+      {
+        "Texture": "icon-none",
+        "Color": "#ffffff88"
+      }
+    ]
   },
   {
     "$id": "component-personal-shield-energy-field",
-    "Texture": "icon-shield-capacitor-flux-field",
-    "Color": "#00ffff"
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-flux-field",
+        "Color": "#00ffff"
+      }
+    ]
   },
   {
     "$id": "component-personal-shield-energy-shell",
-    "Texture": "icon-shield-capacitor-hyper-mesh",
-    "Color": "#00ffff"
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-hyper-mesh",
+        "Color": "#00ffff"
+      }
+    ]
   },
   {
     "$id": "component-personal-shield-energy-shield",
-    "Texture": "icon-shield-capacitor-quantum-shell",
-    "Color": "#00ffff"
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-quantum-shell",
+        "Color": "#00ffff"
+      }
+    ]
   },
   {
     "$id": "component-personal-shield-none",
-    "Texture": "icon-none",
-    "Color": "#ffffff88"
+    "Layers": [
+      {
+        "Texture": "icon-none",
+        "Color": "#ffffff88"
+      }
+    ]
   }
 ]
