@@ -41,6 +41,11 @@
       {
         "Texture": "icon-shield-capacitor-flux-mesh",
         "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-i",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -50,6 +55,11 @@
       {
         "Texture": "icon-shield-capacitor-flux-mesh",
         "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-ii",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -59,6 +69,11 @@
       {
         "Texture": "icon-shield-capacitor-flux-mesh",
         "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iii",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -68,6 +83,11 @@
       {
         "Texture": "icon-shield-capacitor-flux-mesh",
         "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iv",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -77,6 +97,11 @@
       {
         "Texture": "icon-shield-capacitor-flux-field",
         "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-i",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -86,6 +111,11 @@
       {
         "Texture": "icon-shield-capacitor-flux-field",
         "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-ii",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -95,6 +125,11 @@
       {
         "Texture": "icon-shield-capacitor-flux-field",
         "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iii",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -104,6 +139,11 @@
       {
         "Texture": "icon-shield-capacitor-flux-field",
         "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iv",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -113,6 +153,11 @@
       {
         "Texture": "icon-shield-capacitor-flux-shell",
         "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-i",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -122,6 +167,11 @@
       {
         "Texture": "icon-shield-capacitor-flux-shell",
         "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-ii",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -131,6 +181,11 @@
       {
         "Texture": "icon-shield-capacitor-flux-shell",
         "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iii",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -140,6 +195,11 @@
       {
         "Texture": "icon-shield-capacitor-flux-shell",
         "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iv",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -149,6 +209,11 @@
       {
         "Texture": "icon-shield-capacitor-quantum-shell",
         "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-i",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -158,6 +223,11 @@
       {
         "Texture": "icon-shield-capacitor-quantum-shell",
         "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-ii",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -167,6 +237,11 @@
       {
         "Texture": "icon-shield-capacitor-quantum-shell",
         "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iii",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -176,6 +251,11 @@
       {
         "Texture": "icon-shield-capacitor-quantum-shell",
         "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iv",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -185,6 +265,11 @@
       {
         "Texture": "icon-shield-capacitor-quantum-field",
         "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-i",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -194,6 +279,11 @@
       {
         "Texture": "icon-shield-capacitor-quantum-field",
         "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-ii",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -203,6 +293,11 @@
       {
         "Texture": "icon-shield-capacitor-quantum-field",
         "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iii",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -212,6 +307,11 @@
       {
         "Texture": "icon-shield-capacitor-quantum-field",
         "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iv",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -221,6 +321,11 @@
       {
         "Texture": "icon-shield-capacitor-hyper-shell",
         "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-i",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -230,6 +335,11 @@
       {
         "Texture": "icon-shield-capacitor-hyper-shell",
         "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-ii",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -239,6 +349,11 @@
       {
         "Texture": "icon-shield-capacitor-hyper-shell",
         "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iii",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -248,6 +363,11 @@
       {
         "Texture": "icon-shield-capacitor-hyper-shell",
         "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iv",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -257,6 +377,11 @@
       {
         "Texture": "icon-shield-capacitor-hyper-mesh",
         "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-i",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -266,6 +391,11 @@
       {
         "Texture": "icon-shield-capacitor-hyper-mesh",
         "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-ii",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -275,6 +405,11 @@
       {
         "Texture": "icon-shield-capacitor-hyper-mesh",
         "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iii",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -284,6 +419,11 @@
       {
         "Texture": "icon-shield-capacitor-hyper-mesh",
         "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iv",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -293,6 +433,11 @@
       {
         "Texture": "icon-shield-power-supply-balanced",
         "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-i",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -302,6 +447,11 @@
       {
         "Texture": "icon-shield-power-supply-balanced",
         "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-ii",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -311,6 +461,11 @@
       {
         "Texture": "icon-shield-power-supply-balanced",
         "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iii",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -320,6 +475,11 @@
       {
         "Texture": "icon-shield-power-supply-balanced",
         "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iv",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -329,6 +489,11 @@
       {
         "Texture": "icon-shield-power-supply-overcharged",
         "Color": "#ff0000"
+      },
+      {
+        "Texture": "icon-i",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -338,6 +503,11 @@
       {
         "Texture": "icon-shield-power-supply-overcharged",
         "Color": "#ff0000"
+      },
+      {
+        "Texture": "icon-ii",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -347,6 +517,11 @@
       {
         "Texture": "icon-shield-power-supply-overcharged",
         "Color": "#ff0000"
+      },
+      {
+        "Texture": "icon-iii",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -356,6 +531,11 @@
       {
         "Texture": "icon-shield-power-supply-overcharged",
         "Color": "#ff0000"
+      },
+      {
+        "Texture": "icon-iv",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -365,6 +545,11 @@
       {
         "Texture": "icon-shield-power-supply-regenerative",
         "Color": "#00ff00"
+      },
+      {
+        "Texture": "icon-i",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -374,6 +559,11 @@
       {
         "Texture": "icon-shield-power-supply-regenerative",
         "Color": "#00ff00"
+      },
+      {
+        "Texture": "icon-ii",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -383,6 +573,11 @@
       {
         "Texture": "icon-shield-power-supply-regenerative",
         "Color": "#00ff00"
+      },
+      {
+        "Texture": "icon-iii",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -392,6 +587,11 @@
       {
         "Texture": "icon-shield-power-supply-regenerative",
         "Color": "#00ff00"
+      },
+      {
+        "Texture": "icon-iv",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },

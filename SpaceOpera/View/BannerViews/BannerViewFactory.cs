@@ -15,14 +15,15 @@ namespace SpaceOpera.View.BannerViews
         public IEnumerable<IconLayer> Create(Banner banner)
         {
             var colors = Get(banner);
-            yield return new(colors.Primary, BaseTexture);
-            yield return new(colors.Secondary, PatternPrefix + banner.Pattern.ToString());
+            yield return new(null, colors.Primary, BaseTexture, false);
+            yield return new(null, colors.Secondary, PatternPrefix + banner.Pattern.ToString(), false);
             var min = 0.5f - 0.5f * s_SymbolSize;
             var max = 1 - min;
             yield return new(
                 Utils.CreateRect(new(new(min, min), new(max, max))), 
                 colors.Symbol, 
-                SymbolPrefix + banner.Symbol.ToString());
+                SymbolPrefix + banner.Symbol.ToString(),
+                false);
         }
 
         public BannerColorSet Get(Banner banner)

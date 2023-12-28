@@ -68,6 +68,11 @@
       {
         "Texture": "icon-heavy-weapon-assembly-combat",
         "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-i",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -77,6 +82,11 @@
       {
         "Texture": "icon-heavy-weapon-assembly-combat",
         "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-ii",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -86,6 +96,11 @@
       {
         "Texture": "icon-heavy-weapon-assembly-combat",
         "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iii",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -95,6 +110,11 @@
       {
         "Texture": "icon-heavy-weapon-assembly-combat",
         "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iv",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -104,6 +124,11 @@
       {
         "Texture": "icon-heavy-weapon-assembly-magnum",
         "Color": "#ff0000"
+      },
+      {
+        "Texture": "icon-i",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -113,6 +138,11 @@
       {
         "Texture": "icon-heavy-weapon-assembly-magnum",
         "Color": "#ff0000"
+      },
+      {
+        "Texture": "icon-ii",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -122,6 +152,11 @@
       {
         "Texture": "icon-heavy-weapon-assembly-magnum",
         "Color": "#ff0000"
+      },
+      {
+        "Texture": "icon-iii",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -131,6 +166,11 @@
       {
         "Texture": "icon-heavy-weapon-assembly-magnum",
         "Color": "#ff0000"
+      },
+      {
+        "Texture": "icon-iv",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -140,6 +180,11 @@
       {
         "Texture": "icon-heavy-weapon-assembly-precision",
         "Color": "#00ff00"
+      },
+      {
+        "Texture": "icon-i",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -149,6 +194,11 @@
       {
         "Texture": "icon-heavy-weapon-assembly-precision",
         "Color": "#00ff00"
+      },
+      {
+        "Texture": "icon-ii",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -158,6 +208,11 @@
       {
         "Texture": "icon-heavy-weapon-assembly-precision",
         "Color": "#00ff00"
+      },
+      {
+        "Texture": "icon-iii",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -167,6 +222,11 @@
       {
         "Texture": "icon-heavy-weapon-assembly-precision",
         "Color": "#00ff00"
+      },
+      {
+        "Texture": "icon-iv",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -176,6 +236,11 @@
       {
         "Texture": "icon-heavy-weapon-assembly-rail",
         "Color": "#00ffff"
+      },
+      {
+        "Texture": "icon-i",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -185,6 +250,11 @@
       {
         "Texture": "icon-heavy-weapon-assembly-rail",
         "Color": "#00ffff"
+      },
+      {
+        "Texture": "icon-ii",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -194,6 +264,11 @@
       {
         "Texture": "icon-heavy-weapon-assembly-rail",
         "Color": "#00ffff"
+      },
+      {
+        "Texture": "icon-iii",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -203,6 +278,11 @@
       {
         "Texture": "icon-heavy-weapon-assembly-rail",
         "Color": "#00ffff"
+      },
+      {
+        "Texture": "icon-iv",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -212,6 +292,11 @@
       {
         "Texture": "icon-heavy-weapon-assembly-rotary",
         "Color": "#0000ff"
+      },
+      {
+        "Texture": "icon-i",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -221,6 +306,11 @@
       {
         "Texture": "icon-heavy-weapon-assembly-rotary",
         "Color": "#0000ff"
+      },
+      {
+        "Texture": "icon-ii",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -230,6 +320,11 @@
       {
         "Texture": "icon-heavy-weapon-assembly-rotary",
         "Color": "#0000ff"
+      },
+      {
+        "Texture": "icon-iii",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -239,6 +334,11 @@
       {
         "Texture": "icon-heavy-weapon-assembly-rotary",
         "Color": "#0000ff"
+      },
+      {
+        "Texture": "icon-iv",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -248,6 +348,11 @@
       {
         "Texture": "icon-heavy-weapon-fire-control-precision",
         "Color": "#00ff00"
+      },
+      {
+        "Texture": "icon-i",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -257,6 +362,11 @@
       {
         "Texture": "icon-heavy-weapon-fire-control-precision",
         "Color": "#00ff00"
+      },
+      {
+        "Texture": "icon-ii",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -266,6 +376,11 @@
       {
         "Texture": "icon-heavy-weapon-fire-control-precision",
         "Color": "#00ff00"
+      },
+      {
+        "Texture": "icon-iii",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -275,6 +390,11 @@
       {
         "Texture": "icon-heavy-weapon-fire-control-precision",
         "Color": "#00ff00"
+      },
+      {
+        "Texture": "icon-iv",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -284,6 +404,11 @@
       {
         "Texture": "icon-heavy-weapon-fire-control-targeting",
         "Color": "#ff0000"
+      },
+      {
+        "Texture": "icon-i",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -293,6 +418,11 @@
       {
         "Texture": "icon-heavy-weapon-fire-control-targeting",
         "Color": "#ff0000"
+      },
+      {
+        "Texture": "icon-ii",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -302,6 +432,11 @@
       {
         "Texture": "icon-heavy-weapon-fire-control-targeting",
         "Color": "#ff0000"
+      },
+      {
+        "Texture": "icon-iii",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -311,6 +446,11 @@
       {
         "Texture": "icon-heavy-weapon-fire-control-targeting",
         "Color": "#ff0000"
+      },
+      {
+        "Texture": "icon-iv",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -320,6 +460,11 @@
       {
         "Texture": "icon-heavy-weapon-fire-control-tracking",
         "Color": "#0000ff"
+      },
+      {
+        "Texture": "icon-i",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -329,6 +474,11 @@
       {
         "Texture": "icon-heavy-weapon-fire-control-tracking",
         "Color": "#0000ff"
+      },
+      {
+        "Texture": "icon-ii",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -338,6 +488,11 @@
       {
         "Texture": "icon-heavy-weapon-fire-control-tracking",
         "Color": "#0000ff"
+      },
+      {
+        "Texture": "icon-iii",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -347,6 +502,11 @@
       {
         "Texture": "icon-heavy-weapon-fire-control-tracking",
         "Color": "#0000ff"
+      },
+      {
+        "Texture": "icon-iv",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },

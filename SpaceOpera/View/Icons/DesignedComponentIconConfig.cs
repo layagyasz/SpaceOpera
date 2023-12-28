@@ -17,6 +17,7 @@ namespace SpaceOpera.View.Icons
 
         [JsonDerivedType(typeof(ComponentLayerConfig), "FromComponent")]
         [JsonDerivedType(typeof(TagLayerConfig), "FromTag")]
+        [JsonDerivedType(typeof(SizeLayerConfig), "FromSize")]
         [JsonDerivedType(typeof(StaticLayerConfig), "Static")]
         public interface ILayerConfig
         {
@@ -34,7 +35,7 @@ namespace SpaceOpera.View.Icons
                 DesignedComponent component, Color4 color, IconFactory iconFactory)
             {
                 var c = component.Components.Where(x => x.Slot.Type.Contains(Component)).FirstOrDefault()!.Component;
-                return iconFactory.GetDefinition(c).Select(x => x.WithColor(color));
+                return iconFactory.GetDefinition(c).Where(x => !x.IsInfo).Select(x => x.WithColor(color));
             }
         }
 
@@ -42,13 +43,43 @@ namespace SpaceOpera.View.Icons
         {
             public ColorConfig Color { get; set; }
             public List<string> Textures { get; set; } = new();
+            public bool IsInfo { get; set; }
 
             public IEnumerable<IconLayer> CreateLayers(
                 DesignedComponent component, Color4 color, IconFactory iconFactory)
             {
                 foreach (var texture in Textures)
                 {
-                    yield return new(color, texture);
+                    yield return new(null, color, texture, IsInfo);
+                }
+            }
+        }
+
+        public class SizeLayerConfig : ILayerConfig
+        {
+            public class SizeLayerOption
+            {
+                public EnumSet<ComponentSize> Sizes { get; set; } = new();
+                public List<string> Textures { get; set; } = new();
+            }
+
+            public ColorConfig Color { get; set; }
+            public List<SizeLayerOption> Options { get; set; } = new();
+            public bool IsInfo { get; set; }
+
+            public IEnumerable<IconLayer> CreateLayers(
+                DesignedComponent component, Color4 color, IconFactory iconFactory)
+            {
+                foreach (var option in Options)
+                {
+                    if (option.Sizes.Contains(component.Slot.Size))
+                    {
+                        foreach (var texture in option.Textures)
+                        {
+                            yield return new(null, color, texture, IsInfo);
+                        }
+                        break;
+                    }
                 }
             }
         }
@@ -63,6 +94,7 @@ namespace SpaceOpera.View.Icons
 
             public ColorConfig Color { get; set; }
             public List<TagLayerOption> Options { get; set; } = new();
+            public bool IsInfo { get; set; }
 
             public IEnumerable<IconLayer> CreateLayers(
                 DesignedComponent component, Color4 color, IconFactory iconFactory)
@@ -73,7 +105,7 @@ namespace SpaceOpera.View.Icons
                     {
                         foreach (var texture in option.Textures)
                         {
-                            yield return new(color, texture);
+                            yield return new(null, color, texture, IsInfo);
                         }
                         break;
                     }

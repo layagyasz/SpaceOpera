@@ -32,6 +32,11 @@
       {
         "Texture": "icon-cargo",
         "Color": "#00ff00"
+      },
+      {
+        "Texture": "icon-s",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -41,6 +46,11 @@
       {
         "Texture": "icon-cargo",
         "Color": "#00ff00"
+      },
+      {
+        "Texture": "icon-m",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -50,6 +60,11 @@
       {
         "Texture": "icon-cargo",
         "Color": "#00ff00"
+      },
+      {
+        "Texture": "icon-l",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -68,6 +83,11 @@
       {
         "Texture": "icon-craft",
         "Color": "#ffff00"
+      },
+      {
+        "Texture": "icon-s",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -77,6 +97,11 @@
       {
         "Texture": "icon-craft",
         "Color": "#ffff00"
+      },
+      {
+        "Texture": "icon-m",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },
@@ -86,6 +111,11 @@
       {
         "Texture": "icon-craft",
         "Color": "#ffff00"
+      },
+      {
+        "Texture": "icon-l",
+        "Color": "#ffffff",
+        "IsInfo": true
       }
     ]
   },

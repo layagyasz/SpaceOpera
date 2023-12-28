@@ -29,6 +29,31 @@
           "FromComponent": "HeavyGunAmmunition"
         },
         "Component": "HeavyGunWeight"
+      },
+      {
+        "$type": "FromSize",
+        "IsInfo": true,
+        "Color": {
+          "Constant": "#ffffff"
+        },
+        "Options": [
+          {
+            "Sizes": [ "PointDefense" ],
+            "Textures": [ "icon-p" ]
+          },
+          {
+            "Sizes": [ "Small" ],
+            "Textures": [ "icon-s" ]
+          },
+          {
+            "Sizes": [ "Medium" ],
+            "Textures": [ "icon-m" ]
+          },
+          {
+            "Sizes": [ "Large" ],
+            "Textures": [ "icon-l" ]
+          }
+        ]
       }
     ]
   }

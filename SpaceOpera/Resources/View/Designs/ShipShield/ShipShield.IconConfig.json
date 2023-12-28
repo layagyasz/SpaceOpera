@@ -29,6 +29,27 @@
           "FromComponent": "ShieldEmitter"
         },
         "Component": "ShieldWeight"
+      },
+      {
+        "$type": "FromSize",
+        "IsInfo": true,
+        "Color": {
+          "Constant": "#ffffff"
+        },
+        "Options": [
+          {
+            "Sizes": [ "Small" ],
+            "Textures": [ "icon-s" ]
+          },
+          {
+            "Sizes": [ "Medium" ],
+            "Textures": [ "icon-m" ]
+          },
+          {
+            "Sizes": [ "Large" ],
+            "Textures": [ "icon-l" ]
+          }
+        ]
       }
     ]
   }

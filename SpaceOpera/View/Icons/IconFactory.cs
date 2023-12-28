@@ -70,12 +70,13 @@ namespace SpaceOpera.View.Icons
                 foreach (var layer in _layers)
                 {
                     var tex = _uiElementFactory.GetTexture(layer.Texture);
-                    var vertices = new Vertex3[layer.Vertices.Length];
+                    var points = layer.Vertices ?? Utils.UnitTriangles;
+                    var vertices = new Vertex3[points.Length];
                     for (int i = 0; i < vertices.Length; ++i)
                     {
                         vertices[i] =
                             new(
-                                new(layer.Vertices[i]),
+                                new(points[i]),
                                 layer.Color,
                                 tex.TextureView.Min + Utils.UnitTriangles[i] * tex.TextureView.Size);
                     }
@@ -235,7 +236,7 @@ namespace SpaceOpera.View.Icons
         private IEnumerable<IconLayer> GetAtomicDefinition(object @object)
         {
             var key = @object as IKeyed;
-            return _atoms[key!.Key].ToDefinition();
+            return _atoms[key!.Key].Layers;
         }
 
         private IEnumerable<IconLayer> GetBannerDefinition(object @object)
@@ -246,7 +247,7 @@ namespace SpaceOpera.View.Icons
         private IEnumerable<IconLayer> GetDesignDefinition(object @object)
         {
             var design = (Design)@object;
-            return GetDefinition(design.Components.First());
+            return GetDefinition(design.Components.First()).Where(x => !x.IsInfo);
         }
 
         private IEnumerable<IconLayer> GetDesignedComponentDefinition(object @object)
