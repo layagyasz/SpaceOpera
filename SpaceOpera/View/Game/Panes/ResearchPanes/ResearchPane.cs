@@ -2,57 +2,160 @@
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
 using SpaceOpera.Controller.Game.Panes;
+using SpaceOpera.Core;
+using SpaceOpera.Core.Advancement;
+using SpaceOpera.Core.Politics;
+using SpaceOpera.View.Components;
+using SpaceOpera.View.Components.Dynamics;
+using SpaceOpera.View.Icons;
 
 namespace SpaceOpera.View.Game.Panes.ResearchPanes
 {
-    public class ResearchPane : MultiTabGamePane
+    public class ResearchPane : SimpleGamePane
     {
-        public enum TabId
+        private static readonly string s_Container = "research-pane";
+        private static readonly string s_Title = "research-pane-title";
+        private static readonly string s_Close = "research-pane-close";
+        private static readonly string s_Body = "research-pane-body";
+
+        private static readonly string s_SlotTable = "research-pane-slot-table";
+        private static readonly string s_AdvancementTable = "research-pane-advancement-table";
+        private static readonly AdvancementComponent.Style s_AdvancementStyle = new();
+        private static readonly AdvancementSlotComponent.Style s_SlotStyle = new()
         {
-            Current
+            Container = "research-pane-slot-table-slot-row",
+            EmptyText = "research-pane-slot-table-slot-row-empty",
+            Advancement = s_AdvancementStyle
+        };
+
+        record class SlotKey(AdvancementSlot Slot, FactionAdvancementManager AdvancementManager);
+        record class AdvancementKey(IAdvancement Advancement, FactionAdvancementManager AdvancementManager);
+
+        class AdvancementRange
+        {
+            private World? _world;
+            private Faction? _faction;
+            private FactionAdvancementManager? _advancementManager;
+
+            public IEnumerable<AdvancementKey> GetResearchableAdvancements()
+            {
+                if (_world == null || _faction == null || _advancementManager == null)
+                {
+                    return Enumerable.Empty<AdvancementKey>();
+                }
+                else
+                {
+                    return _world.Advancements.GetResearchableAdvancements(_faction)
+                        .Select(x => new AdvancementKey(x, _advancementManager));
+                }
+            }
+
+            public IEnumerable<SlotKey> GetSlots()
+            {
+                return _advancementManager?.GetAdvancementSlots().Select(x => new SlotKey(x, _advancementManager)) 
+                    ?? Enumerable.Empty<SlotKey>();
+            }
+
+            public void Populate(World? world, Faction? faction)
+            {
+                _world = world;
+                _faction = faction;
+                if (_world == null || _faction == null)
+                {
+                    _advancementManager = null;
+                }
+                else
+                {
+                    _advancementManager = _world.Advancements.Get(_faction);
+                }
+            }
         }
 
-        private static readonly string s_Container = "pane-standard";
-        private static readonly string s_Title = "pane-standard-title";
-        private static readonly string s_Close = "pane-standard-close";
-        private static readonly string s_TabContainer = "pane-tab-container";
-        private static readonly string s_TabOption = "pane-tab-option";
-        private static readonly string s_Body = "pane-body";
-
-        public ResearchPane(
-            IElementController controller,
-            Class @class,
-            TextUiElement header,
-            IUiElement closeButton,
-            UiCompoundComponent tabs)
-            : base(controller, @class, header, closeButton, tabs) { }
-
-        public override IEnumerable<IUiComponent> GetTabs()
+        class AdvancementSlotComponentFactory : IKeyedElementFactory<SlotKey>
         {
-            yield break;
+            private readonly AdvancementSlotComponent.Style _style;
+            private readonly UiElementFactory _uiElementFactory;
+            private readonly IconFactory _iconFactory;
+
+            public AdvancementSlotComponentFactory(
+                AdvancementSlotComponent.Style style, UiElementFactory uiElementFactory, IconFactory iconFactory)
+            {
+                _style = style;
+                _uiElementFactory = uiElementFactory;
+                _iconFactory = iconFactory;
+            }
+
+            public IKeyedUiElement<SlotKey> Create(SlotKey key)
+            {
+                return KeyedUiElementWrapper<SlotKey>.Wrap(
+                    key,
+                    new AdvancementSlotComponent(
+                        key.Slot, key.AdvancementManager, _style, _uiElementFactory, _iconFactory));
+            }
+        }
+
+        class AdvancementComponentFactory : IKeyedElementFactory<AdvancementKey>
+        {
+            private readonly AdvancementComponent.Style _style;
+            private readonly UiElementFactory _uiElementFactory;
+            private readonly IconFactory _iconFactory;
+
+            public AdvancementComponentFactory(
+                AdvancementComponent.Style style, UiElementFactory uiElementFactory, IconFactory iconFactory)
+            {
+                _style = style;
+                _uiElementFactory = uiElementFactory;
+                _iconFactory = iconFactory;
+            }
+
+            public IKeyedUiElement<AdvancementKey> Create(AdvancementKey key)
+            {
+                return KeyedUiElementWrapper<AdvancementKey>.Wrap(
+                    key, 
+                    AdvancementComponent.Create(
+                        key.Advancement, key.AdvancementManager, _style, _uiElementFactory, _iconFactory));
+            }
+        }
+
+        private readonly AdvancementRange _range = new();
+
+        public ResearchPane(UiElementFactory uiElementFactory, IconFactory iconFactory)
+            : base(
+                  new GamePaneController(),
+                  uiElementFactory.GetClass(s_Container),
+                  new TextUiElement(uiElementFactory.GetClass(s_Title), new ButtonController(), "Research"),
+                  uiElementFactory.CreateSimpleButton(s_Close).Item1)
+        {
+            var body =
+                new DynamicUiSerialContainer(
+                    uiElementFactory.GetClass(s_Body),
+                    new NoOpElementController(),
+                    UiSerialContainer.Orientation.Horizontal)
+                {
+                    DynamicKeyedContainer<SlotKey>.CreateSerial(
+                        uiElementFactory.GetClass(s_SlotTable), 
+                        new TableController(10f), 
+                        UiSerialContainer.Orientation.Vertical, 
+                        _range.GetSlots, 
+                        new AdvancementSlotComponentFactory(s_SlotStyle, uiElementFactory, iconFactory),
+                        Comparer<SlotKey>.Create((x, y) => x.Slot.Id.CompareTo(y.Slot.Id))),
+                    DynamicKeyedContainer<AdvancementKey>.CreateSerial(
+                        uiElementFactory.GetClass(s_AdvancementTable), 
+                        new TableController(10f), 
+                        UiSerialContainer.Orientation.Vertical,
+                        _range.GetResearchableAdvancements,
+                        new AdvancementComponentFactory(s_AdvancementStyle, uiElementFactory, iconFactory),
+                        Comparer<AdvancementKey>.Create((x, y) => x.Advancement.Cost.CompareTo(y.Advancement.Cost)))
+                };
+            SetBody(body);
         }
 
         public override void Populate(params object?[] args)
         {
+            var world = args[0] as World;
+            var faction = args[1] as Faction;
+            _range.Populate(world, faction);
             Populated?.Invoke(this, EventArgs.Empty);
-        }
-
-        public override void SetTab(object id) { }
-
-        public static ResearchPane Create(UiElementFactory uiElementFactory)
-        {
-            return new(
-                new GamePaneController(),
-                uiElementFactory.GetClass(s_Container),
-                new TextUiElement(uiElementFactory.GetClass(s_Title), new ButtonController(), "Research"), 
-                uiElementFactory.CreateSimpleButton(s_Close).Item1,
-                TabBar<TabId>.Create(
-                    new List<TabBar<TabId>.Definition>()
-                    { 
-                        new(TabId.Current, "Current")
-                    },
-                    uiElementFactory.GetClass(s_TabContainer),
-                    uiElementFactory.GetClass(s_TabOption)));
         }
     }
 }

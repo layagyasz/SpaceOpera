@@ -833,6 +833,9 @@
     <None Update="Resources\View\Style\Game\Panes\Military\RecruitmentTab.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\View\Style\Game\Panes\Research.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\View\Style\Game\Panes\StellarBodyRegion\Pane.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

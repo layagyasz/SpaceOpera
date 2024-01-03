@@ -134,7 +134,7 @@ namespace SpaceOpera.View.Game.Panes
                 /* logisticsRoute= */ new LogisticsRoutePane(uiElementFactory, iconFactory),
                 /* military= */ new MilitaryPane(uiElementFactory, iconFactory),
                 /* militaryOrganization= */ new MilitaryOrganizationPane(uiElementFactory, iconFactory),
-                /* research= */ ResearchPane.Create(uiElementFactory),
+                /* research= */ new ResearchPane(uiElementFactory, iconFactory),
                 /* stellarBody= */ new StellarBodyPane(uiElementFactory, iconFactory),
                 /* stellarBodyRegion= */ new StellarBodyRegionPane(uiElementFactory, iconFactory));
         }

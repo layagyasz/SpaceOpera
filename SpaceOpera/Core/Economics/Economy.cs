@@ -122,7 +122,7 @@ namespace SpaceOpera.Core.Economics
             foreach (var root in _holdings.Values)
             {
                 var advancement = AdvancementManager.Get(root.Owner);
-                foreach (var research in AdvancementManager.Research)
+                foreach (var research in AdvancementManager.ResearchTypes)
                 {
                     advancement.AddResearch(research, root.Extract(research));
                 }

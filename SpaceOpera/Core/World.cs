@@ -116,7 +116,7 @@ namespace SpaceOpera.Core
         public void AddAllFactions(Faction playerFaction, IEnumerable<Faction> factions)
         {
             _factions.Add(playerFaction);
-            Advancements.Add(playerFaction);
+            Advancements.AddFaction(playerFaction);
             DiplomaticRelations.Add(playerFaction);
             Economy.Add(playerFaction);
             Intelligence.Add(playerFaction);
@@ -125,7 +125,7 @@ namespace SpaceOpera.Core
             _factions.AddRange(factions);
             foreach (var faction in factions)
             {
-                Advancements.Add(faction);
+                Advancements.AddFaction(faction);
                 DiplomaticRelations.Add(faction);
                 Economy.Add(faction);
                 Intelligence.Add(faction);
@@ -170,12 +170,6 @@ namespace SpaceOpera.Core
         public IEnumerable<Faction> GetFactions()
         {
             return _factions;
-        }
-
-        public IEnumerable<IAdvancement> GetResearchableAdvancementsFor(Faction faction)
-        {
-            var advancements = Advancements.Get(faction);
-            return CoreData.Advancements.Select(x => x.Value).Where(advancements.HasPrerequisiteResearch);
         }
 
         public IEnumerable<Recipe> GetRecipesFor(Faction? faction)

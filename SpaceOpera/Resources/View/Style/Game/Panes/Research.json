@@ -1,0 +1,45 @@
+[
+  {
+    "$id": "research-pane",
+    "Parent": "pane-standard",
+    "Default": {
+      "Size": [ 900, 700 ]
+    }
+  },
+  {
+    "$id": "research-pane-title",
+    "Parent": "pane-standard-title"
+  },
+  {
+    "$id": "research-pane-close",
+    "Parent": "pane-standard-close"
+  },
+  {
+    "$id": "research-pane-body",
+    "Parent": "pane-body",
+    "Default": {
+      "Size": [ 892, 620 ]
+    }
+  },
+  {
+    "$id": "research-pane-slot-table",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 438, 612 ],
+      "Margin": [ 4 ],
+      "Padding": [ 0 ],
+      "DisableScissor": false
+    }
+  },
+  {
+    "$id": "research-pane-advancement-table",
+    "Parent": "ui-element",
+    "Default": {
+      "Size": [ 438, 612 ],
+      "Margin": [ 4 ],
+      "Padding": [ 4 ],
+      "CornerRadius": [ [ 12, 12 ] ],
+      "DisableScissor": false
+    }
+  }
+]
