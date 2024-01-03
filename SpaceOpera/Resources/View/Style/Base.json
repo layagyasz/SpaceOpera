@@ -10,7 +10,8 @@
     "$id": "ui-icon",
     "Default": {
       "BackgroundColor": [ "#ffffffcc" ],
-      "BackgroundShader": "shader-ui"
+      "BackgroundShader": "shader-ui",
+      "DisableScissor": true
     },
     "States": [
       {

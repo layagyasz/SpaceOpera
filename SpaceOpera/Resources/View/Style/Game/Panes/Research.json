@@ -28,18 +28,110 @@
       "Size": [ 438, 612 ],
       "Margin": [ 4 ],
       "Padding": [ 0 ],
-      "DisableScissor": false
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "research-pane-slot-table-slot-row",
+    "Parent": "ui-element",
+    "Default": {
+      "Size": [ 434, 56 ],
+      "Margin": [ 2 ],
+      "Padding": [ 4 ],
+      "CornerRadius": [ [ 12, 12 ] ]
+    }
+  },
+  {
+    "$id": "research-pane-slot-table-slot-row-empty",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 426, 48 ],
+      "Align": "Center",
+      "VerticalAlign": "Center",
+      "DisableScissor": true
     }
   },
   {
     "$id": "research-pane-advancement-table",
     "Parent": "ui-element",
     "Default": {
-      "Size": [ 438, 612 ],
-      "Margin": [ 4 ],
+      "Size": [ 434, 608 ],
+      "Margin": [ 6 ],
       "Padding": [ 4 ],
-      "CornerRadius": [ [ 12, 12 ] ],
-      "DisableScissor": false
+      "CornerRadius": [ [ 12, 12 ] ]
     }
+  },
+  {
+    "$id": "research-pane-advancement-container",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 426, 48 ],
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "research-pane-advancement-icon",
+    "Parent": "ui-icon",
+    "Default": {
+      "Size": [ 44, 44 ],
+      "Margin": [ 2 ]
+    }
+  },
+  {
+    "$id": "research-pane-advancement-info",
+    "Parent": "ui-container",
+    "Default": {
+      "Size": [ 378, 48 ],
+      "DisableScissor": true
+    }
+  },
+  {
+    "$id": "research-pane-advancement-text",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 378, 28 ],
+      "Padding": [ 8 ]
+    }
+  },
+  {
+    "$id": "research-pane-advancement-progress-text",
+    "Parent": "ui-element-internal",
+    "Default": {
+      "Size": [ 158, 10 ],
+      "Margin": [ 32, 0, 32, 0 ],
+      "FontSize": 10,
+      "Color": "#00ff00cc",
+      "DisableScissor": true
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "Color": "#00ff00"
+        }
+      }
+    ]
+  },
+  {
+    "$id": "research-pane-advancement-progress",
+    "Default": {
+      "Size": [
+        [ "DynamicContents", 6, 374 ],
+        6
+      ],
+      "Margin": [ 2 ],
+      "CornerRadius": [ [ 3, 3 ] ],
+      "BackgroundColor": [ "#0000ffcc" ],
+      "BackgroundShader": "shader-ui",
+      "DisableScissor": true
+    },
+    "States": [
+      {
+        "State": [ "Hover" ],
+        "Attributes": {
+          "BackgroundColor": [ "#0000ff" ]
+        }
+      }
+    ]
   }
 ]

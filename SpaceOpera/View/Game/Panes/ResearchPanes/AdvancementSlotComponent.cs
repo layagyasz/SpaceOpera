@@ -44,6 +44,8 @@ namespace SpaceOpera.View.Game.Panes.ResearchPanes
             _style = style;
             _uiElementFactory = uiElementFactory;
             _iconFactory = iconFactory;
+
+            SetEmpty();
         }
 
         public override void Refresh()
@@ -51,22 +53,33 @@ namespace SpaceOpera.View.Game.Panes.ResearchPanes
             if (Slot.Advancement != _advancement)
             {
                 var newAdvancement = Slot.Advancement;
-                Clear(dispose: true);
                 if (newAdvancement == null)
                 {
-                    Add(
-                        new TextUiElement(
-                            _uiElementFactory.GetClass(_style.EmptyText!), new InlayController(), "Select Research"));
+                    SetEmpty();
                 }
                 else
                 {
-                    Add(
-                        AdvancementComponent.Create(
-                            newAdvancement, AdvancementManager, _style.Advancement!, _uiElementFactory, _iconFactory));
+                    SetAdvancement(newAdvancement);
                 }
                 _advancement = newAdvancement;
             }
             base.Refresh();
+        }
+
+        private void SetEmpty()
+        {
+            Clear(dispose: true);
+            Add(
+                new TextUiElement(
+                    _uiElementFactory.GetClass(_style.EmptyText!), new InlayController(), "Select Research"));
+        }
+
+        private void SetAdvancement(IAdvancement advancement)
+        {
+            Clear(dispose: true);
+            Add(
+                AdvancementComponent.Create(
+                    advancement, AdvancementManager, _style.Advancement!, _uiElementFactory, _iconFactory));
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using Cardamom.Ui;
+using Cardamom.Ui.Controller;
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
+using SpaceOpera.Controller.Components;
 using SpaceOpera.Controller.Game.Panes;
 using SpaceOpera.Core;
 using SpaceOpera.Core.Advancement;
@@ -20,7 +22,15 @@ namespace SpaceOpera.View.Game.Panes.ResearchPanes
 
         private static readonly string s_SlotTable = "research-pane-slot-table";
         private static readonly string s_AdvancementTable = "research-pane-advancement-table";
-        private static readonly AdvancementComponent.Style s_AdvancementStyle = new();
+        private static readonly AdvancementComponent.Style s_AdvancementStyle = new()
+        {
+            Container = "research-pane-advancement-container",
+            Icon = "research-pane-advancement-icon",
+            Info = "research-pane-advancement-info",
+            Text = "research-pane-advancement-text",
+            ProgressText = "research-pane-advancement-progress-text",
+            Progress = "research-pane-advancement-progress"
+        };
         private static readonly AdvancementSlotComponent.Style s_SlotStyle = new()
         {
             Container = "research-pane-slot-table-slot-row",
@@ -112,8 +122,10 @@ namespace SpaceOpera.View.Game.Panes.ResearchPanes
             {
                 return KeyedUiElementWrapper<AdvancementKey>.Wrap(
                     key, 
-                    AdvancementComponent.Create(
-                        key.Advancement, key.AdvancementManager, _style, _uiElementFactory, _iconFactory));
+                    new DynamicUiCompoundComponent(
+                        new StaticAdderController<IAdvancement>(key.Advancement), 
+                        AdvancementComponent.Create(
+                            key.Advancement, key.AdvancementManager, _style, _uiElementFactory, _iconFactory)));
             }
         }
 
@@ -132,20 +144,25 @@ namespace SpaceOpera.View.Game.Panes.ResearchPanes
                     new NoOpElementController(),
                     UiSerialContainer.Orientation.Horizontal)
                 {
-                    DynamicKeyedContainer<SlotKey>.CreateSerial(
-                        uiElementFactory.GetClass(s_SlotTable), 
-                        new TableController(10f), 
-                        UiSerialContainer.Orientation.Vertical, 
-                        _range.GetSlots, 
-                        new AdvancementSlotComponentFactory(s_SlotStyle, uiElementFactory, iconFactory),
-                        Comparer<SlotKey>.Create((x, y) => x.Slot.Id.CompareTo(y.Slot.Id))),
-                    DynamicKeyedContainer<AdvancementKey>.CreateSerial(
-                        uiElementFactory.GetClass(s_AdvancementTable), 
-                        new TableController(10f), 
-                        UiSerialContainer.Orientation.Vertical,
-                        _range.GetResearchableAdvancements,
-                        new AdvancementComponentFactory(s_AdvancementStyle, uiElementFactory, iconFactory),
-                        Comparer<AdvancementKey>.Create((x, y) => x.Advancement.Cost.CompareTo(y.Advancement.Cost)))
+                    new DynamicUiCompoundComponent(
+                        new RadioController<AdvancementSlot>(),
+                        DynamicKeyedContainer<SlotKey>.CreateSerial(
+                            uiElementFactory.GetClass(s_SlotTable), 
+                            new TableController(10f), 
+                            UiSerialContainer.Orientation.Vertical, 
+                            _range.GetSlots, 
+                            new AdvancementSlotComponentFactory(s_SlotStyle, uiElementFactory, iconFactory),
+                            Comparer<SlotKey>.Create((x, y) => x.Slot.Id.CompareTo(y.Slot.Id)))),
+                    new DynamicUiCompoundComponent(
+                        new AdderComponentController<IAdvancement>(),
+                        DynamicKeyedContainer<AdvancementKey>.CreateSerial(
+                            uiElementFactory.GetClass(s_AdvancementTable), 
+                            new TableController(10f), 
+                            UiSerialContainer.Orientation.Vertical,
+                            _range.GetResearchableAdvancements,
+                            new AdvancementComponentFactory(s_AdvancementStyle, uiElementFactory, iconFactory),
+                            Comparer<AdvancementKey>.Create(
+                                (x, y) => x.Advancement.Cost.CompareTo(y.Advancement.Cost))))
                 };
             SetBody(body);
         }
@@ -155,6 +172,7 @@ namespace SpaceOpera.View.Game.Panes.ResearchPanes
             var world = args[0] as World;
             var faction = args[1] as Faction;
             _range.Populate(world, faction);
+            Refresh();
             Populated?.Invoke(this, EventArgs.Empty);
         }
     }
