@@ -100,14 +100,14 @@
       "Size": [ 158, 10 ],
       "Margin": [ 32, 0, 32, 0 ],
       "FontSize": 10,
-      "Color": "#00ff00cc",
+      "Color": "#00ffffcc",
       "DisableScissor": true
     },
     "States": [
       {
         "State": [ "Hover" ],
         "Attributes": {
-          "Color": "#00ff00"
+          "Color": "#00ffff"
         }
       }
     ]
@@ -121,7 +121,7 @@
       ],
       "Margin": [ 2 ],
       "CornerRadius": [ [ 3, 3 ] ],
-      "BackgroundColor": [ "#0000ffcc" ],
+      "BackgroundColor": [ "#00ffffcc" ],
       "BackgroundShader": "shader-ui",
       "DisableScissor": true
     },
@@ -129,7 +129,7 @@
       {
         "State": [ "Hover" ],
         "Attributes": {
-          "BackgroundColor": [ "#0000ff" ]
+          "BackgroundColor": [ "#00ffff" ]
         }
       }
     ]

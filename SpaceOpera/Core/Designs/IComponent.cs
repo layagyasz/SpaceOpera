@@ -19,7 +19,7 @@ namespace SpaceOpera.Core.Designs
         EnumMap<DamageType, Modifier> Damage { get; }
 
         EnumMap<DamageType, Modifier> DamageResist { get; }
-        IAdvancement[] Prerequisites { get; }
+        List<IAdvancement> Prerequisites { get; }
 
         bool FitsSlot(DesignSlot slot);
         float GetAttribute(ComponentAttribute attribute);

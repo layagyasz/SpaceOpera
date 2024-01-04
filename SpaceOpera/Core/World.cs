@@ -66,6 +66,11 @@ namespace SpaceOpera.Core
 
             DesignBuilder = new(new ComponentClassifier(coreData.ComponentClassifiers));
             AutoDesigner = new(coreData.DesignTemplates.Values);
+
+            foreach (var advancement in coreData.Advancements.Values)
+            {
+                Advancements.AddAdvancement(advancement);
+            }
         }
 
         public ValidationFailureReason Execute(IOrder order)
@@ -149,10 +154,6 @@ namespace SpaceOpera.Core
 
         public IEnumerable<IComponent> GetComponentsFor(Faction faction)
         {
-            if (faction == null)
-            {
-                return Enumerable.Empty<IComponent>();
-            }
             var advancements = Advancements.Get(faction);
             return GetDesignsFor(faction).SelectMany(x => x.Components).Cast<IComponent>().Concat(
                 CoreData.Components.Values).Where(advancements.HasPrerequisiteResearch);

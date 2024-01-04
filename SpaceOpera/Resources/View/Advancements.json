@@ -1,0 +1,338 @@
+[
+  {
+    "$id": "advancement-heavy-gun-assembly-combat-ii",
+    "Layers": [
+      {
+        "Texture": "icon-heavy-weapon-assembly-combat",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-ii",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-gun-assembly-combat-iii",
+    "Layers": [
+      {
+        "Texture": "icon-heavy-weapon-assembly-combat",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iii",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-gun-assembly-combat-iv",
+    "Layers": [
+      {
+        "Texture": "icon-heavy-weapon-assembly-combat",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iv",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-gun-assembly-magnum-ii",
+    "Layers": [
+      {
+        "Texture": "icon-heavy-weapon-assembly-magnum",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-ii",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-gun-assembly-magnum-iii",
+    "Layers": [
+      {
+        "Texture": "icon-heavy-weapon-assembly-magnum",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iii",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-gun-assembly-magnum-iv",
+    "Layers": [
+      {
+        "Texture": "icon-heavy-weapon-assembly-magnum",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iv",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-gun-assembly-precision-ii",
+    "Layers": [
+      {
+        "Texture": "icon-heavy-weapon-assembly-precision",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-ii",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-gun-assembly-precision-iii",
+    "Layers": [
+      {
+        "Texture": "icon-heavy-weapon-assembly-precision",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iii",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-gun-assembly-precision-iv",
+    "Layers": [
+      {
+        "Texture": "icon-heavy-weapon-assembly-precision",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iv",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-gun-assembly-rail-ii",
+    "Layers": [
+      {
+        "Texture": "icon-heavy-weapon-assembly-rail",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-ii",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-gun-assembly-rail-iii",
+    "Layers": [
+      {
+        "Texture": "icon-heavy-weapon-assembly-rail",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iii",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-gun-assembly-rail-iv",
+    "Layers": [
+      {
+        "Texture": "icon-heavy-weapon-assembly-rail",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iv",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-gun-assembly-rotary-ii",
+    "Layers": [
+      {
+        "Texture": "icon-heavy-weapon-assembly-rotary",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-ii",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-gun-assembly-rotary-iii",
+    "Layers": [
+      {
+        "Texture": "icon-heavy-weapon-assembly-rotary",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iii",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-gun-assembly-rotary-iv",
+    "Layers": [
+      {
+        "Texture": "icon-heavy-weapon-assembly-rotary",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iv",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-gun-fire-control-precision-ii",
+    "Layers": [
+      {
+        "Texture": "icon-heavy-weapon-fire-control-precision",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-ii",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-gun-fire-control-precision-iii",
+    "Layers": [
+      {
+        "Texture": "icon-heavy-weapon-fire-control-precision",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iii",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-gun-fire-control-precision-iv",
+    "Layers": [
+      {
+        "Texture": "icon-heavy-weapon-fire-control-precision",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iv",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-gun-fire-control-targeting-ii",
+    "Layers": [
+      {
+        "Texture": "icon-heavy-weapon-fire-control-targeting",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-ii",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-gun-fire-control-targeting-iii",
+    "Layers": [
+      {
+        "Texture": "icon-heavy-weapon-fire-control-targeting",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iii",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-gun-fire-control-targeting-iv",
+    "Layers": [
+      {
+        "Texture": "icon-heavy-weapon-fire-control-targeting",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iv",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-gun-fire-control-tracking-ii",
+    "Layers": [
+      {
+        "Texture": "icon-heavy-weapon-fire-control-tracking",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-ii",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-gun-fire-control-tracking-iii",
+    "Layers": [
+      {
+        "Texture": "icon-heavy-weapon-fire-control-tracking",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iii",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-gun-fire-control-tracking-iv",
+    "Layers": [
+      {
+        "Texture": "icon-heavy-weapon-fire-control-tracking",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iv",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  }
+]

@@ -1,1 +1,170 @@
-[]
+[
+  {
+    "$id": "advancement-heavy-gun-assembly-combat-ii",
+    "Name": "Combat Assembly II",
+    "Type": "advancement-type-technology",
+    "Cost": 100,
+    "Prerequisites": []
+  },
+  {
+    "$id": "advancement-heavy-gun-assembly-combat-iii",
+    "Name": "Combat Assembly III",
+    "Type": "advancement-type-technology",
+    "Cost": 200,
+    "Prerequisites": [ "advancement-heavy-gun-assembly-combat-ii" ]
+  },
+  {
+    "$id": "advancement-heavy-gun-assembly-combat-iv",
+    "Name": "Combat Assembly IV",
+    "Type": "advancement-type-technology",
+    "Cost": 400,
+    "Prerequisites": [ "advancement-heavy-gun-assembly-combat-iii" ]
+  },
+  {
+    "$id": "advancement-heavy-gun-assembly-magnum-ii",
+    "Name": "Magnum Assembly II",
+    "Type": "advancement-type-technology",
+    "Cost": 100,
+    "Prerequisites": []
+  },
+  {
+    "$id": "advancement-heavy-gun-assembly-magnum-iii",
+    "Name": "Magnum Assembly III",
+    "Type": "advancement-type-technology",
+    "Cost": 200,
+    "Prerequisites": [ "advancement-heavy-gun-assembly-magnum-ii" ]
+  },
+  {
+    "$id": "advancement-heavy-gun-assembly-magnum-iv",
+    "Name": "Magnum Assembly IV",
+    "Type": "advancement-type-technology",
+    "Cost": 400,
+    "Prerequisites": [ "advancement-heavy-gun-assembly-magnum-iii" ]
+  },
+  {
+    "$id": "advancement-heavy-gun-assembly-precision-ii",
+    "Name": "Precision Assembly II",
+    "Type": "advancement-type-technology",
+    "Cost": 100,
+    "Prerequisites": []
+  },
+  {
+    "$id": "advancement-heavy-gun-assembly-precision-iii",
+    "Name": "Precision Assembly III",
+    "Type": "advancement-type-technology",
+    "Cost": 200,
+    "Prerequisites": [ "advancement-heavy-gun-assembly-precision-ii" ]
+  },
+  {
+    "$id": "advancement-heavy-gun-assembly-precision-iv",
+    "Name": "Precision Assembly IV",
+    "Type": "advancement-type-technology",
+    "Cost": 400,
+    "Prerequisites": [ "advancement-heavy-gun-assembly-precision-iii" ]
+  },
+  {
+    "$id": "advancement-heavy-gun-assembly-rail-ii",
+    "Name": "Rail Assembly II",
+    "Type": "advancement-type-technology",
+    "Cost": 100,
+    "Prerequisites": []
+  },
+  {
+    "$id": "advancement-heavy-gun-assembly-rail-iii",
+    "Name": "Rail Assembly III",
+    "Type": "advancement-type-technology",
+    "Cost": 200,
+    "Prerequisites": [ "advancement-heavy-gun-assembly-rail-ii" ]
+  },
+  {
+    "$id": "advancement-heavy-gun-assembly-rail-iv",
+    "Name": "Rail Assembly IV",
+    "Type": "advancement-type-technology",
+    "Cost": 400,
+    "Prerequisites": [ "advancement-heavy-gun-assembly-rail-iii" ]
+  },
+  {
+    "$id": "advancement-heavy-gun-assembly-rotary-ii",
+    "Name": "Rotary Assembly II",
+    "Type": "advancement-type-technology",
+    "Cost": 100,
+    "Prerequisites": []
+  },
+  {
+    "$id": "advancement-heavy-gun-assembly-rotary-iii",
+    "Name": "Rotary Assembly III",
+    "Type": "advancement-type-technology",
+    "Cost": 200,
+    "Prerequisites": [ "advancement-heavy-gun-assembly-rotary-ii" ]
+  },
+  {
+    "$id": "advancement-heavy-gun-assembly-rotary-iv",
+    "Name": "Rotary Assembly IV",
+    "Type": "advancement-type-technology",
+    "Cost": 400,
+    "Prerequisites": [ "advancement-heavy-gun-assembly-rotary-iii" ]
+  },
+  {
+    "$id": "advancement-heavy-gun-fire-control-precision-ii",
+    "Name": "Precision Fire Control II",
+    "Type": "advancement-type-technology",
+    "Cost": 100,
+    "Prerequisites": []
+  },
+  {
+    "$id": "advancement-heavy-gun-fire-control-precision-iii",
+    "Name": "Precision Fire Control III",
+    "Type": "advancement-type-technology",
+    "Cost": 200,
+    "Prerequisites": [ "advancement-heavy-gun-fire-control-precision-ii" ]
+  },
+  {
+    "$id": "advancement-heavy-gun-fire-control-precision-iv",
+    "Name": "Precision Fire Control IV",
+    "Type": "advancement-type-technology",
+    "Cost": 400,
+    "Prerequisites": [ "advancement-heavy-gun-fire-control-precision-iii" ]
+  },
+  {
+    "$id": "advancement-heavy-gun-fire-control-targeting-ii",
+    "Name": "Targeting Fire Control II",
+    "Type": "advancement-type-technology",
+    "Cost": 100,
+    "Prerequisites": []
+  },
+  {
+    "$id": "advancement-heavy-gun-fire-control-targeting-iii",
+    "Name": "Targeting Fire Control III",
+    "Type": "advancement-type-technology",
+    "Cost": 200,
+    "Prerequisites": [ "advancement-heavy-gun-fire-control-targeting-ii" ]
+  },
+  {
+    "$id": "advancement-heavy-gun-fire-control-targeting-iv",
+    "Name": "Targeting Fire Control IV",
+    "Type": "advancement-type-technology",
+    "Cost": 400,
+    "Prerequisites": [ "advancement-heavy-gun-fire-control-targeting-iii" ]
+  },
+  {
+    "$id": "advancement-heavy-gun-fire-control-tracking-ii",
+    "Name": "Tracking Fire Control II",
+    "Type": "advancement-type-technology",
+    "Cost": 100,
+    "Prerequisites": []
+  },
+  {
+    "$id": "advancement-heavy-gun-fire-control-tracking-iii",
+    "Name": "Tracking Fire Control III",
+    "Type": "advancement-type-technology",
+    "Cost": 200,
+    "Prerequisites": [ "advancement-heavy-gun-fire-control-tracking-ii" ]
+  },
+  {
+    "$id": "advancement-heavy-gun-fire-control-tracking-iv",
+    "Name": "Tracking Fire Control IV",
+    "Type": "advancement-type-technology",
+    "Cost": 400,
+    "Prerequisites": [ "advancement-heavy-gun-fire-control-tracking-iii" ]
+  }
+]

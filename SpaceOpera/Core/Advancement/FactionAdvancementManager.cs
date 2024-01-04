@@ -42,8 +42,7 @@ namespace SpaceOpera.Core.Advancement
 
         public bool HasPrerequisiteResearch(IAdvancement advancement)
         {
-            return advancement.Prerequisites == null
-                || advancement.Prerequisites.Count == 0 
+            return advancement.Prerequisites.Count == 0 
                 || advancement.Prerequisites.All(_researchedAdvancements.Contains);
         }
 
@@ -96,7 +95,7 @@ namespace SpaceOpera.Core.Advancement
         {
             if (!_advancementProgress.TryGetValue(advancement, out var progress))
             {
-                progress = new(advancement.Cost);
+                progress = new(advancement.Cost, startFull: false);
                 _advancementProgress.Add(advancement, progress);
             }
             return progress;

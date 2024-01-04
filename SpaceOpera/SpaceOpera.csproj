@@ -83,6 +83,9 @@
     <None Update="Resources\View\Abel-Regular.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\View\Advancements.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\View\Banners.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

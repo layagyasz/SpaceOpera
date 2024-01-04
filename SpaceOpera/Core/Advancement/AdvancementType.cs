@@ -9,6 +9,7 @@ namespace SpaceOpera.Core.Advancement
     {
         public string Key { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
+
         [JsonConverter(typeof(ReferenceJsonConverter))]
         public IMaterial? Research { get; set; }
     }

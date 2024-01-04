@@ -16,13 +16,16 @@ namespace SpaceOpera.Core.Designs
         public MultiCount<ComponentTag> Tags { get; set; } = new();
         public EnumMap<MaterialReference, MultiQuantity<IMaterial>> ReferenceMaterial { get; set; } = new();
         public Dictionary<MaterialReference, Modifier> ReferenceMaterialCost { get; set; } = new();
+
         [JsonConverter(typeof(ReferenceDictionaryJsonConverter))]
         public Dictionary<IMaterial, Modifier> MaterialCost { get; set; } = new();
         public EnumMap<ComponentAttribute, Modifier> Attributes { get; set; } = new();
         public EnumMap<DamageType, Modifier> Damage { get; set; } = new();
 
         public EnumMap<DamageType, Modifier> DamageResist { get; set; } = new();
-        public IAdvancement[] Prerequisites { get; set; } = Array.Empty<IAdvancement>();
+
+        [JsonConverter(typeof(ReferenceCollectionJsonConverter))]
+        public List<IAdvancement> Prerequisites { get; set; } = new();
 
         public float GetAttribute(ComponentAttribute attribute)
         {
@@ -43,6 +46,11 @@ namespace SpaceOpera.Core.Designs
         {
             return slot.Type.Contains(Slot.Type)
                 && (Slot.Size == ComponentSize.Unknown || slot.Size.Count == 0 || slot.Size.Contains(Slot.Size));
+        }
+
+        public override string ToString()
+        {
+            return $"[Component: Key={Key}]";
         }
 
         private static EnumMap<TKey, float> TotalModifiers<TKey>(EnumMap<TKey, Modifier> map) where TKey : Enum

@@ -8,6 +8,7 @@ using Cardamom.Utils.Suppliers;
 using Cardamom.Utils.Suppliers.Promises;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
+using SpaceOpera.Core.Advancement;
 using SpaceOpera.Core.Designs;
 using SpaceOpera.Core.Economics;
 using SpaceOpera.Core.Loader;
@@ -124,6 +125,7 @@ namespace SpaceOpera.View.Icons
             _definitionMap = new()
             {
                 { typeof(Banner), GetBannerDefinition },
+                { typeof(BaseAdvancement), GetAtomicDefinition },
                 { typeof(BaseComponent),  GetAtomicDefinition },
                 { typeof(BaseMaterial), GetAtomicDefinition },
                 { typeof(BattalionTemplate), GetDesignedComponentDefinition },

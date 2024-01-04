@@ -4,6 +4,7 @@
   "Biomes": "Resources/View/Biomes.json",
   "HumanEyeSensitivity": "Resources/View/HumanEyeSensitivity.json",
   "Icons": [
+    "Resources/View/Advancements.json",
     "Resources/View/Materials.json",
     "Resources/View/Structures.json",
     "Resources/View/Designs::*.Icons.json"

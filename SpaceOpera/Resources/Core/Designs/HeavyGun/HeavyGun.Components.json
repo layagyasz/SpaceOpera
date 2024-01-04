@@ -205,7 +205,8 @@
       "MaterialCost": {
         "Bonus": -0.1
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-gun-assembly-combat-ii" ]
   },
   {
     "$id": "component-heavy-gun-assembly-combat-iii",
@@ -217,7 +218,8 @@
       "MaterialCost": {
         "Bonus": -0.15
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-gun-assembly-combat-iii" ]
   },
   {
     "$id": "component-heavy-gun-assembly-combat-iv",
@@ -229,7 +231,8 @@
       "MaterialCost": {
         "Bonus": -0.2
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-gun-assembly-combat-iv" ]
   },
   {
     "$id": "component-heavy-gun-assembly-magnum-i",

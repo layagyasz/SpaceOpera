@@ -5,9 +5,9 @@ namespace SpaceOpera.Core.Advancement
         public int Id { get; set; }
         public IAdvancement? Advancement { get; set; }
 
-        public AdvancementSlot(int slotId)
+        public AdvancementSlot(int id)
         {
-            Id = slotId;
+            Id = id;
         }
     }
 }
