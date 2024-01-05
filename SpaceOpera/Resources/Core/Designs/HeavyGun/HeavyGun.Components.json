@@ -256,7 +256,8 @@
       "WeaponDamage": {
         "Bonus": 0.1
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-gun-assembly-magnum-ii" ]
   },
   {
     "$id": "component-heavy-gun-assembly-magnum-iii",
@@ -268,7 +269,8 @@
       "WeaponDamage": {
         "Bonus": 0.15
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-gun-assembly-magnum-iii" ]
   },
   {
     "$id": "component-heavy-gun-assembly-magnum-iv",
@@ -280,7 +282,8 @@
       "WeaponDamage": {
         "Bonus": 0.2
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-gun-assembly-magnum-iv" ]
   },
   {
     "$id": "component-heavy-gun-assembly-precision-i",
@@ -304,7 +307,8 @@
       "WeaponAccuracy": {
         "Bonus": 1
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-gun-assembly-precision-ii" ]
   },
   {
     "$id": "component-heavy-gun-assembly-precision-iii",
@@ -316,7 +320,8 @@
       "WeaponAccuracy": {
         "Bonus": 1.5
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-gun-assembly-precision-iii" ]
   },
   {
     "$id": "component-heavy-gun-assembly-precision-iv",
@@ -328,7 +333,8 @@
       "WeaponAccuracy": {
         "Bonus": 2
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-gun-assembly-precision-iv" ]
   },
   {
     "$id": "component-heavy-gun-assembly-rail-i",
@@ -370,7 +376,8 @@
       "WeaponTracking": {
         "Bonus": -0.35
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-gun-assembly-rail-ii" ]
   },
   {
     "$id": "component-heavy-gun-assembly-rail-iii",
@@ -391,7 +398,8 @@
       "WeaponTracking": {
         "Bonus": -0.3
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-gun-assembly-rail-iii" ]
   },
   {
     "$id": "component-heavy-gun-assembly-rail-iv",
@@ -412,7 +420,8 @@
       "WeaponTracking": {
         "Bonus": -0.25
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-gun-assembly-rail-iv" ]
   },
   {
     "$id": "component-heavy-gun-assembly-rotary-i",
@@ -454,7 +463,8 @@
       "WeaponTracking": {
         "Bonus": 1
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-gun-assembly-rotary-ii" ]
   },
   {
     "$id": "component-heavy-gun-assembly-rotary-iii",
@@ -475,7 +485,8 @@
       "WeaponTracking": {
         "Bonus": 1.5
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-gun-assembly-rotary-iii" ]
   },
   {
     "$id": "component-heavy-gun-assembly-rotary-iv",
@@ -496,7 +507,8 @@
       "WeaponTracking": {
         "Bonus": 2
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-gun-assembly-rotary-iv" ]
   },
 
   {
@@ -521,7 +533,8 @@
       "WeaponAccuracy": {
         "Bonus": 1
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-gun-fire-control-precision-ii" ]
   },
   {
     "$id": "component-heavy-gun-fire-control-precision-iii",
@@ -533,7 +546,8 @@
       "WeaponAccuracy": {
         "Bonus": 1.5
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-gun-fire-control-precision-iii" ]
   },
   {
     "$id": "component-heavy-gun-fire-control-precision-iv",
@@ -545,7 +559,8 @@
       "WeaponAccuracy": {
         "Bonus": 2
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-gun-fire-control-precision-iv" ]
   },
   {
     "$id": "component-heavy-gun-fire-control-targeting-i",
@@ -569,7 +584,8 @@
       "WeaponDamage": {
         "Bonus": 0.1
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-gun-fire-control-targeting-ii" ]
   },
   {
     "$id": "component-heavy-gun-fire-control-targeting-iii",
@@ -581,7 +597,8 @@
       "WeaponDamage": {
         "Bonus": 0.15
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-gun-fire-control-targeting-iii" ]
   },
   {
     "$id": "component-heavy-gun-fire-control-targeting-iv",
@@ -593,7 +610,8 @@
       "WeaponDamage": {
         "Bonus": 0.2
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-gun-fire-control-targeting-iv" ]
   },
   {
     "$id": "component-heavy-gun-fire-control-tracking-i",
@@ -617,7 +635,8 @@
       "WeaponTracking": {
         "Bonus": 1
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-gun-fire-control-tracking-ii" ]
   },
   {
     "$id": "component-heavy-gun-fire-control-tracking-iii",
@@ -629,7 +648,8 @@
       "WeaponTracking": {
         "Bonus": 1.5
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-gun-fire-control-tracking-iii" ]
   },
   {
     "$id": "component-heavy-gun-fire-control-tracking-iv",
@@ -641,7 +661,8 @@
       "WeaponTracking": {
         "Bonus": 2
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-gun-fire-control-tracking-iv" ]
   },
 
   {

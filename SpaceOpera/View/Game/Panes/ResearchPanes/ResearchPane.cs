@@ -2,6 +2,7 @@
 using Cardamom.Ui.Controller;
 using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
+using Cardamom.Utils;
 using SpaceOpera.Controller.Components;
 using SpaceOpera.Controller.Game.Panes;
 using SpaceOpera.Core;
@@ -161,8 +162,8 @@ namespace SpaceOpera.View.Game.Panes.ResearchPanes
                             UiSerialContainer.Orientation.Vertical,
                             _range.GetResearchableAdvancements,
                             new AdvancementComponentFactory(s_AdvancementStyle, uiElementFactory, iconFactory),
-                            Comparer<AdvancementKey>.Create(
-                                (x, y) => x.Advancement.Cost.CompareTo(y.Advancement.Cost))))
+                            FluentComparator<AdvancementKey>.Comparing(x => x.Advancement.Cost)
+                                .Then(x => x.Advancement.Name)))
                 };
             SetBody(body);
         }

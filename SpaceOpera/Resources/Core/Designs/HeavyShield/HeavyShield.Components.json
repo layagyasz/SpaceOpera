@@ -99,7 +99,8 @@
       "ShieldRecharge": {
         "Bonus": 0.2
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-shield-capacitor-flux-mesh-ii" ]
   },
   {
     "$id": "component-heavy-shield-capacitor-flux-mesh-iii",
@@ -114,7 +115,8 @@
       "ShieldRecharge": {
         "Bonus": 0.3
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-shield-capacitor-flux-mesh-iii" ]
   },
   {
     "$id": "component-heavy-shield-capacitor-flux-mesh-iv",
@@ -129,7 +131,8 @@
       "ShieldRecharge": {
         "Bonus": 0.4
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-shield-capacitor-flux-mesh-iv" ]
   },
   {
     "$id": "component-heavy-shield-capacitor-flux-field-i",
@@ -159,7 +162,8 @@
       "ShieldRecharge": {
         "Bonus": 0.2
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-shield-capacitor-flux-field-ii" ]
   },
   {
     "$id": "component-heavy-shield-capacitor-flux-field-iii",
@@ -174,7 +178,8 @@
       "ShieldRecharge": {
         "Bonus": 0.3
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-shield-capacitor-flux-field-iii" ]
   },
   {
     "$id": "component-heavy-shield-capacitor-flux-field-iv",
@@ -189,7 +194,8 @@
       "ShieldRecharge": {
         "Bonus": 0.4
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-shield-capacitor-flux-field-iv" ]
   },
   {
     "$id": "component-heavy-shield-capacitor-flux-shell-i",
@@ -219,7 +225,8 @@
       "ShieldRecharge": {
         "Bonus": 0.1
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-shield-capacitor-flux-shell-ii" ]
   },
   {
     "$id": "component-heavy-shield-capacitor-flux-shell-iii",
@@ -234,7 +241,8 @@
       "ShieldRecharge": {
         "Bonus": 0.15
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-shield-capacitor-flux-shell-iii" ]
   },
   {
     "$id": "component-heavy-shield-capacitor-flux-shell-iv",
@@ -249,7 +257,8 @@
       "ShieldRecharge": {
         "Bonus": 0.2
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-shield-capacitor-flux-shell-iv" ]
   },
   {
     "$id": "component-heavy-shield-capacitor-quantum-shell-i",
@@ -279,7 +288,8 @@
       "ShieldRecharge": {
         "Bonus": -0.075
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-shield-capacitor-quantum-shell-ii" ]
   },
   {
     "$id": "component-heavy-shield-capacitor-quantum-shell-iii",
@@ -294,7 +304,8 @@
       "ShieldRecharge": {
         "Bonus": -0.05
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-shield-capacitor-quantum-shell-iii" ]
   },
   {
     "$id": "component-heavy-shield-capacitor-quantum-shell-iv",
@@ -309,7 +320,8 @@
       "ShieldRecharge": {
         "Bonus": -0.025
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-shield-capacitor-quantum-shell-iv" ]
   },
   {
     "$id": "component-heavy-shield-capacitor-quantum-field-i",
@@ -339,7 +351,8 @@
       "ShieldAbsorption": {
         "Bonus": 0.2
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-shield-capacitor-quantum-field-ii" ]
   },
   {
     "$id": "component-heavy-shield-capacitor-quantum-field-iii",
@@ -354,7 +367,8 @@
       "ShieldAbsorption": {
         "Bonus": 0.3
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-shield-capacitor-quantum-field-iii" ]
   },
   {
     "$id": "component-heavy-shield-capacitor-quantum-field-iv",
@@ -369,7 +383,8 @@
       "ShieldAbsorption": {
         "Bonus": 0.4
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-shield-capacitor-quantum-field-iv" ]
   },
   {
     "$id": "component-heavy-shield-capacitor-hyper-shell-i",
@@ -399,7 +414,8 @@
       "ShieldRecharge": {
         "Bonus": -0.075
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-shield-capacitor-hyper-shell-ii" ]
   },
   {
     "$id": "component-heavy-shield-capacitor-hyper-shell-iii",
@@ -414,7 +430,8 @@
       "ShieldRecharge": {
         "Bonus": -0.05
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-shield-capacitor-hyper-shell-iii" ]
   },
   {
     "$id": "component-heavy-shield-capacitor-hyper-shell-iv",
@@ -429,7 +446,8 @@
       "ShieldRecharge": {
         "Bonus": -0.025
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-shield-capacitor-hyper-shell-iv" ]
   },
   {
     "$id": "component-heavy-shield-capacitor-hyper-mesh-i",
@@ -459,7 +477,8 @@
       "ShieldAbsorption": {
         "Constant": -0.075
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-shield-capacitor-hyper-mesh-ii" ]
   },
   {
     "$id": "component-heavy-shield-capacitor-hyper-mesh-iii",
@@ -474,7 +493,8 @@
       "ShieldAbsorption": {
         "Constant": -0.05
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-shield-capacitor-hyper-mesh-iii" ]
   },
   {
     "$id": "component-heavy-shield-capacitor-hyper-mesh-iv",
@@ -489,11 +509,12 @@
       "ShieldAbsorption": {
         "Constant": -0.025
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-shield-capacitor-hyper-mesh-iv" ]
   },
   {
     "$id": "component-heavy-shield-power-supply-balanced-i",
-    "Name": "Balance Power Supply I",
+    "Name": "Balanced Power Supply I",
     "Slot": {
       "Type": "HeavyShieldPowerSupply"
     },
@@ -508,7 +529,7 @@
   },
   {
     "$id": "component-heavy-shield-power-supply-balanced-ii",
-    "Name": "Balance Power Supply II",
+    "Name": "Balanced Power Supply II",
     "Slot": {
       "Type": "HeavyShieldPowerSupply"
     },
@@ -519,11 +540,12 @@
       "ShieldRecharge": {
         "Bonus": 0.1
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-shield-power-supply-balanced-ii" ]
   },
   {
     "$id": "component-heavy-shield-power-supply-balanced-iii",
-    "Name": "Balance Power Supply III",
+    "Name": "Balanced Power Supply III",
     "Slot": {
       "Type": "HeavyShieldPowerSupply"
     },
@@ -534,11 +556,12 @@
       "ShieldRecharge": {
         "Bonus": 0.15
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-shield-power-supply-balanced-iii" ]
   },
   {
     "$id": "component-heavy-shield-power-supply-balanced-iv",
-    "Name": "Balance Power Supply IV",
+    "Name": "Balanced Power Supply IV",
     "Slot": {
       "Type": "HeavyShieldPowerSupply"
     },
@@ -549,7 +572,8 @@
       "ShieldRecharge": {
         "Bonus": 0.2
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-shield-power-supply-balanced-iv" ]
   },
   {
     "$id": "component-heavy-shield-power-supply-overcharged-i",
@@ -579,7 +603,8 @@
       "ShieldRecharge": {
         "Bonus": -0.075
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-shield-power-supply-overcharged-ii" ]
   },
   {
     "$id": "component-heavy-shield-power-supply-overcharged-iii",
@@ -594,7 +619,8 @@
       "ShieldRecharge": {
         "Bonus": -0.05
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-shield-power-supply-overcharged-iii" ]
   },
   {
     "$id": "component-heavy-shield-power-supply-overcharged-iv",
@@ -609,7 +635,8 @@
       "ShieldRecharge": {
         "Bonus": -0.025
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-shield-power-supply-overcharged-iv" ]
   },
   {
     "$id": "component-heavy-shield-power-supply-regenerative-i",
@@ -639,7 +666,8 @@
       "ShieldRecharge": {
         "Bonus": 0.2
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-shield-power-supply-regenerative-ii" ]
   },
   {
     "$id": "component-heavy-shield-power-supply-regenerative-iii",
@@ -654,7 +682,8 @@
       "ShieldRecharge": {
         "Bonus": 0.3
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-shield-power-supply-regenerative-iii" ]
   },
   {
     "$id": "component-heavy-shield-power-supply-regenerative-iv",
@@ -669,7 +698,8 @@
       "ShieldRecharge": {
         "Bonus": 0.4
       }
-    }
+    },
+    "Prerequisites": [ "advancement-heavy-shield-power-supply-regenerative-iv" ]
   },
   {
     "$id": "component-heavy-shield-mount-single",

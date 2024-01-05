@@ -58,7 +58,8 @@
       "Size": [ 434, 608 ],
       "Margin": [ 6 ],
       "Padding": [ 4 ],
-      "CornerRadius": [ [ 12, 12 ] ]
+      "CornerRadius": [ [ 12, 12 ] ],
+      "DisableScissor": false
     }
   },
   {

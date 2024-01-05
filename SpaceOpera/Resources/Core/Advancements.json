@@ -166,5 +166,215 @@
     "Type": "advancement-type-technology",
     "Cost": 400,
     "Prerequisites": [ "advancement-heavy-gun-fire-control-tracking-iii" ]
+  },
+  {
+    "$id": "advancement-heavy-shield-capacitor-flux-mesh-ii",
+    "Name": "Flux Mesh II",
+    "Type": "advancement-type-technology",
+    "Cost": 100,
+    "Prerequisites": []
+  },
+  {
+    "$id": "advancement-heavy-shield-capacitor-flux-mesh-iii",
+    "Name": "Flux Mesh III",
+    "Type": "advancement-type-technology",
+    "Cost": 200,
+    "Prerequisites": [ "advancement-heavy-shield-capacitor-flux-mesh-ii" ]
+  },
+  {
+    "$id": "advancement-heavy-shield-capacitor-flux-mesh-iv",
+    "Name": "Flux Mesh IV",
+    "Type": "advancement-type-technology",
+    "Cost": 400,
+    "Prerequisites": [ "advancement-heavy-shield-capacitor-flux-mesh-iii" ]
+  },
+  {
+    "$id": "advancement-heavy-shield-capacitor-flux-field-ii",
+    "Name": "Flux Field II",
+    "Type": "advancement-type-technology",
+    "Cost": 100,
+    "Prerequisites": []
+  },
+  {
+    "$id": "advancement-heavy-shield-capacitor-flux-field-iii",
+    "Name": "Flux Field III",
+    "Type": "advancement-type-technology",
+    "Cost": 200,
+    "Prerequisites": [ "advancement-heavy-shield-capacitor-flux-field-ii" ]
+  },
+  {
+    "$id": "advancement-heavy-shield-capacitor-flux-field-iv",
+    "Name": "Flux Field IV",
+    "Type": "advancement-type-technology",
+    "Cost": 400,
+    "Prerequisites": [ "advancement-heavy-shield-capacitor-flux-field-iii" ]
+  },
+  {
+    "$id": "advancement-heavy-shield-capacitor-flux-shell-ii",
+    "Name": "Flux Shell II",
+    "Type": "advancement-type-technology",
+    "Cost": 100,
+    "Prerequisites": []
+  },
+  {
+    "$id": "advancement-heavy-shield-capacitor-flux-shell-iii",
+    "Name": "Flux Shell III",
+    "Type": "advancement-type-technology",
+    "Cost": 200,
+    "Prerequisites": [ "advancement-heavy-shield-capacitor-flux-shell-ii" ]
+  },
+  {
+    "$id": "advancement-heavy-shield-capacitor-flux-shell-iv",
+    "Name": "Flux Shell IV",
+    "Type": "advancement-type-technology",
+    "Cost": 400,
+    "Prerequisites": [ "advancement-heavy-shield-capacitor-flux-shell-iii" ]
+  },
+  {
+    "$id": "advancement-heavy-shield-capacitor-quantum-shell-ii",
+    "Name": "Quantum Shell II",
+    "Type": "advancement-type-technology",
+    "Cost": 100,
+    "Prerequisites": []
+  },
+  {
+    "$id": "advancement-heavy-shield-capacitor-quantum-shell-iii",
+    "Name": "Quantum Shell III",
+    "Type": "advancement-type-technology",
+    "Cost": 200,
+    "Prerequisites": [ "advancement-heavy-shield-capacitor-quantum-shell-ii" ]
+  },
+  {
+    "$id": "advancement-heavy-shield-capacitor-quantum-shell-iv",
+    "Name": "Quantum Shell IV",
+    "Type": "advancement-type-technology",
+    "Cost": 400,
+    "Prerequisites": [ "advancement-heavy-shield-capacitor-quantum-shell-iii" ]
+  },
+  {
+    "$id": "advancement-heavy-shield-capacitor-quantum-field-ii",
+    "Name": "Quantum Field II",
+    "Type": "advancement-type-technology",
+    "Cost": 100,
+    "Prerequisites": []
+  },
+  {
+    "$id": "advancement-heavy-shield-capacitor-quantum-field-iii",
+    "Name": "Quantum Field III",
+    "Type": "advancement-type-technology",
+    "Cost": 200,
+    "Prerequisites": [ "advancement-heavy-shield-capacitor-quantum-field-ii" ]
+  },
+  {
+    "$id": "advancement-heavy-shield-capacitor-quantum-field-iv",
+    "Name": "Quantum Field IV",
+    "Type": "advancement-type-technology",
+    "Cost": 400,
+    "Prerequisites": [ "advancement-heavy-shield-capacitor-quantum-field-iii" ]
+  },
+  {
+    "$id": "advancement-heavy-shield-capacitor-hyper-shell-ii",
+    "Name": "Hyper Shell II",
+    "Type": "advancement-type-technology",
+    "Cost": 100,
+    "Prerequisites": []
+  },
+  {
+    "$id": "advancement-heavy-shield-capacitor-hyper-shell-iii",
+    "Name": "Hyper Shell III",
+    "Type": "advancement-type-technology",
+    "Cost": 200,
+    "Prerequisites": [ "advancement-heavy-shield-capacitor-hyper-shell-ii" ]
+  },
+  {
+    "$id": "advancement-heavy-shield-capacitor-hyper-shell-iv",
+    "Name": "Hyper Shell IV",
+    "Type": "advancement-type-technology",
+    "Cost": 400,
+    "Prerequisites": [ "advancement-heavy-shield-capacitor-hyper-shell-iii" ]
+  },
+  {
+    "$id": "advancement-heavy-shield-capacitor-hyper-mesh-ii",
+    "Name": "Hyper Shell II",
+    "Type": "advancement-type-technology",
+    "Cost": 100,
+    "Prerequisites": []
+  },
+  {
+    "$id": "advancement-heavy-shield-capacitor-hyper-mesh-iii",
+    "Name": "Hyper Mesh III",
+    "Type": "advancement-type-technology",
+    "Cost": 200,
+    "Prerequisites": [ "advancement-heavy-shield-capacitor-hyper-mesh-ii" ]
+  },
+  {
+    "$id": "advancement-heavy-shield-capacitor-hyper-mesh-iv",
+    "Name": "Hyper Mesh IV",
+    "Type": "advancement-type-technology",
+    "Cost": 400,
+    "Prerequisites": [ "advancement-heavy-shield-capacitor-hyper-mesh-iii" ]
+  },
+  {
+    "$id": "advancement-heavy-shield-power-supply-balanced-ii",
+    "Name": "Balanced Shielding II",
+    "Type": "advancement-type-technology",
+    "Cost": 100,
+    "Prerequisites": []
+  },
+  {
+    "$id": "advancement-heavy-shield-power-supply-balanced-iii",
+    "Name": "Balanced Shielding III",
+    "Type": "advancement-type-technology",
+    "Cost": 200,
+    "Prerequisites": [ "advancement-heavy-shield-power-supply-balanced-ii" ]
+  },
+  {
+    "$id": "advancement-heavy-shield-power-supply-balanced-iv",
+    "Name": "Balanced Shielding IV",
+    "Type": "advancement-type-technology",
+    "Cost": 400,
+    "Prerequisites": [ "advancement-heavy-shield-power-supply-balanced-iii" ]
+  },
+  {
+    "$id": "advancement-heavy-shield-power-supply-overcharged-ii",
+    "Name": "Overcharged Shielding II",
+    "Type": "advancement-type-technology",
+    "Cost": 100,
+    "Prerequisites": []
+  },
+  {
+    "$id": "advancement-heavy-shield-power-supply-overcharged-iii",
+    "Name": "Overcharged Shielding III",
+    "Type": "advancement-type-technology",
+    "Cost": 200,
+    "Prerequisites": [ "advancement-heavy-shield-power-supply-overcharged-ii" ]
+  },
+  {
+    "$id": "advancement-heavy-shield-power-supply-overcharged-iv",
+    "Name": "Overcharged Shielding IV",
+    "Type": "advancement-type-technology",
+    "Cost": 400,
+    "Prerequisites": [ "advancement-heavy-shield-power-supply-overcharged-iii" ]
+  },
+  {
+    "$id": "advancement-heavy-shield-power-supply-regenerative-ii",
+    "Name": "Regenerative Shielding II",
+    "Type": "advancement-type-technology",
+    "Cost": 100,
+    "Prerequisites": []
+  },
+  {
+    "$id": "advancement-heavy-shield-power-supply-regenerative-iii",
+    "Name": "Regenerative Shielding III",
+    "Type": "advancement-type-technology",
+    "Cost": 200,
+    "Prerequisites": [ "advancement-heavy-shield-power-supply-regenerative-ii" ]
+  },
+  {
+    "$id": "advancement-heavy-shield-power-supply-regenerative-iv",
+    "Name": "Regenerative Shielding IV",
+    "Type": "advancement-type-technology",
+    "Cost": 400,
+    "Prerequisites": [ "advancement-heavy-shield-power-supply-regenerative-iii" ]
   }
 ]

@@ -32,18 +32,17 @@ namespace SpaceOpera.Core.Advancement
 
         public bool HasPrerequisiteResearch(IComponent component)
         {
-            return component.Prerequisites.All(HasPrerequisiteResearch);
+            return component.Prerequisites.All(HasResearched);
         }
 
         public bool HasPrerequisiteResearch(Recipe recipe)
         {
-            return recipe.Prerequisites.All(HasPrerequisiteResearch);
+            return recipe.Prerequisites.All(HasResearched);
         }
 
         public bool HasPrerequisiteResearch(IAdvancement advancement)
         {
-            return advancement.Prerequisites.Count == 0 
-                || advancement.Prerequisites.All(_researchedAdvancements.Contains);
+            return advancement.Prerequisites.All(HasResearched);
         }
 
         public void AddResearch(IMaterial Material, float Quantity)
@@ -99,6 +98,11 @@ namespace SpaceOpera.Core.Advancement
                 _advancementProgress.Add(advancement, progress);
             }
             return progress;
+        }
+
+        private bool HasResearched(IAdvancement advancement)
+        {
+            return _researchedAdvancements.Contains(advancement);
         }
     }
 }

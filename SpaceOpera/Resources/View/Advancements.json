@@ -334,5 +334,425 @@
         "IsInfo": true
       }
     ]
+  },
+  {
+    "$id": "advancement-heavy-shield-capacitor-flux-mesh-ii",
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-flux-mesh",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-ii",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-shield-capacitor-flux-mesh-iii",
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-flux-mesh",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iii",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-shield-capacitor-flux-mesh-iv",
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-flux-mesh",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iv",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-shield-capacitor-flux-field-ii",
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-flux-field",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-ii",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-shield-capacitor-flux-field-iii",
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-flux-field",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iii",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-shield-capacitor-flux-field-iv",
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-flux-field",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iv",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-shield-capacitor-flux-shell-ii",
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-flux-shell",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-ii",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-shield-capacitor-flux-shell-iii",
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-flux-shell",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iii",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-shield-capacitor-flux-shell-iv",
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-flux-shell",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iv",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-shield-capacitor-quantum-shell-ii",
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-quantum-shell",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-ii",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-shield-capacitor-quantum-shell-iii",
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-quantum-shell",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iii",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-shield-capacitor-quantum-shell-iv",
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-quantum-shell",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iv",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-shield-capacitor-quantum-field-ii",
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-quantum-field",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-ii",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-shield-capacitor-quantum-field-iii",
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-quantum-field",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iii",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-shield-capacitor-quantum-field-iv",
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-quantum-field",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iv",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-shield-capacitor-hyper-shell-ii",
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-hyper-shell",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-ii",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-shield-capacitor-hyper-shell-iii",
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-hyper-shell",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iii",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-shield-capacitor-hyper-shell-iv",
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-hyper-shell",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iv",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-shield-capacitor-hyper-mesh-ii",
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-hyper-mesh",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-ii",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-shield-capacitor-hyper-mesh-iii",
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-hyper-mesh",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iii",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-shield-capacitor-hyper-mesh-iv",
+    "Layers": [
+      {
+        "Texture": "icon-shield-capacitor-hyper-mesh",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iv",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-shield-power-supply-balanced-ii",
+    "Layers": [
+      {
+        "Texture": "icon-shield-power-supply-balanced",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-ii",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-shield-power-supply-balanced-iii",
+    "Layers": [
+      {
+        "Texture": "icon-shield-power-supply-balanced",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iii",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-shield-power-supply-balanced-iv",
+    "Layers": [
+      {
+        "Texture": "icon-shield-power-supply-balanced",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iv",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-shield-power-supply-overcharged-ii",
+    "Layers": [
+      {
+        "Texture": "icon-shield-power-supply-overcharged",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-ii",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-shield-power-supply-overcharged-iii",
+    "Layers": [
+      {
+        "Texture": "icon-shield-power-supply-overcharged",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iii",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-shield-power-supply-overcharged-iv",
+    "Layers": [
+      {
+        "Texture": "icon-shield-power-supply-overcharged",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iv",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-shield-power-supply-regenerative-ii",
+    "Layers": [
+      {
+        "Texture": "icon-shield-power-supply-regenerative",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-ii",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-shield-power-supply-regenerative-iii",
+    "Layers": [
+      {
+        "Texture": "icon-shield-power-supply-regenerative",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iii",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "advancement-heavy-shield-power-supply-regenerative-iv",
+    "Layers": [
+      {
+        "Texture": "icon-shield-power-supply-regenerative",
+        "Color": "#ffffff"
+      },
+      {
+        "Texture": "icon-iv",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
   }
 ]
