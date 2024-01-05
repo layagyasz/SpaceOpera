@@ -26,11 +26,12 @@ namespace SpaceOpera.Core.Designs
 
         PersonalShield,
 
-        ShieldCapacitor,
-        ShieldEmitter,
-        ShieldPowerSupply,
-        ShieldMount,
-        ShieldWeight,
+        HeavyShield,
+        HeavyShieldCapacitor,
+        HeavyShieldEmitter,
+        HeavyShieldPowerSupply,
+        HeavyShieldMount,
+        HeavyShieldWeight,
 
         HeavyGun,
         HeavyGunAmmunition,
@@ -48,7 +49,6 @@ namespace SpaceOpera.Core.Designs
         ShipInternal,
         ShipJumpDrive,
         ShipPowercore,
-        ShipShield,
         ShipThruster,
     }
 }

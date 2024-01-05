@@ -10,7 +10,7 @@ namespace SpaceOpera.Core.Military
         private static readonly EnumSet<ComponentType> s_ArmorTypes = 
             new(ComponentType.PersonalArmor, ComponentType.ShipArmor);
         private static readonly EnumSet<ComponentType> s_ShieldTypes = 
-            new(ComponentType.PersonalShield, ComponentType.ShipShield);
+            new(ComponentType.PersonalShield, ComponentType.HeavyShield);
         private static readonly EnumSet<ComponentType> s_WeaponTypes =
             new(ComponentType.SmallArm, ComponentType.HeavyGun, ComponentType.HeavyMissile);
 

@@ -1,7 +1,7 @@
 [
   {
-    "$id": "design-template-ship-shield",
-    "Type": "ShipShield",
+    "$id": "design-template-heavy-shield",
+    "Type": "HeavyShield",
     "Sizes": {
       "Small": {
         "Attributes": {
@@ -63,11 +63,11 @@
     },
     "Segments": [
       {
-        "$id": "design-template-segment-ship-shield-components",
+        "$id": "design-template-segment-heavy-shield-components",
         "Name": "Components",
         "ConfigurationOptions": [
           {
-            "$id": "design-template-segment-ship-shield-components-standard",
+            "$id": "design-template-segment-heavy-shield-components-standard",
             "Name": "Standard",
             "IntrinsicComponent": {
               "Attributes": {
@@ -81,31 +81,31 @@
             },
             "Slots": [
               {
-                "Type": [ "ShieldEmitter" ],
+                "Type": [ "HeavyShieldEmitter" ],
                 "Size": [],
                 "Count": 1,
                 "Weight": 1
               },
               {
-                "Type": [ "ShieldCapacitor" ],
+                "Type": [ "HeavyShieldCapacitor" ],
                 "Size": [],
                 "Count": 1,
                 "Weight": 1
               },
               {
-                "Type": [ "ShieldPowerSupply" ],
+                "Type": [ "HeavyShieldPowerSupply" ],
                 "Size": [],
                 "Count": 1,
                 "Weight": 1
               },
               {
-                "Type": [ "ShieldMount" ],
+                "Type": [ "HeavyShieldMount" ],
                 "Size": [],
                 "Count": 1,
                 "Weight": 1
               },
               {
-                "Type": [ "ShieldWeight" ],
+                "Type": [ "HeavyShieldWeight" ],
                 "Size": [],
                 "Count": 1,
                 "Weight": 1

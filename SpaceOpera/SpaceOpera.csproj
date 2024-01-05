@@ -26,10 +26,10 @@
     <None Update="Resources\Core\Designs\Infantry\Infantry.Template.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Core\Designs\ShipShield\ShipShield.Components.json">
+    <None Update="Resources\Core\Designs\HeavyShield\HeavyShield.Components.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\Core\Designs\ShipShield\ShipShield.Template.json">
+    <None Update="Resources\Core\Designs\HeavyShield\HeavyShield.Template.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Core\Designs\HeavyGun\HeavyGun.Components.json">
@@ -101,10 +101,10 @@
     <None Update="Resources\View\Designs\Infantry\Infantry.Icons.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Designs\ShipShield\ShipShield.IconConfig.json">
+    <None Update="Resources\View\Designs\HeavyShield\HeavyShield.IconConfig.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Designs\ShipShield\ShipShield.Icons.json">
+    <None Update="Resources\View\Designs\HeavyShield\HeavyShield.Icons.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\View\Designs\HeavyGun\HeavyGun.IconConfig.json">
@@ -1603,11 +1603,9 @@
   <ItemGroup>
     <Folder Include="Resources\Core\Designs\BattalionTemplate\" />
     <Folder Include="Resources\Core\Designs\DivisionTemplate\" />
-    <Folder Include="Resources\Core\Designs\ShipShield\" />
     <Folder Include="Resources\Core\Designs\Ship\" />
     <Folder Include="Resources\View\Designs\Infantry\" />
     <Folder Include="Resources\View\Designs\Ship\" />
-    <Folder Include="Resources\View\Designs\ShipShield\" />
     <Folder Include="Resources\View\Style\GameSetup\" />
     <Folder Include="Resources\View\Style\Loader\" />
   </ItemGroup>

@@ -129,7 +129,8 @@ namespace SpaceOpera.Core.Politics
                 ComponentType.HeavyGun 
                     or ComponentType.HeavyMissile 
                     or ComponentType.SmallArm => NameType.Weapon,
-                ComponentType.ShipShield => NameType.Shield,
+                ComponentType.PersonalShield
+                    or ComponentType.HeavyShield => NameType.Shield,
                 _ => throw new ArgumentException($"Unsupported ComponentType: [{type}]."),
             };
         }

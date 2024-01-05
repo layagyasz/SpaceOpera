@@ -14,7 +14,7 @@ namespace SpaceOpera.View.Game.Panes.DesignPanes
                   {
                       ComponentType.Ship,
                       ComponentType.HeavyGun,
-                      ComponentType.ShipShield
+                      ComponentType.HeavyShield
                   }) { }
     }
 }

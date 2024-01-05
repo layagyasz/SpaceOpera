@@ -1,34 +1,34 @@
 [
   {
-    "ComponentType": "ShipShield",
+    "ComponentType": "HeavyShield",
     "Layers": [
       {
         "$type": "FromComponent",
         "Color": {
-          "FromComponent": "ShieldEmitter"
+          "FromComponent": "HeavyShieldEmitter"
         },
-        "Component": "ShieldCapacitor"
+        "Component": "HeavyShieldCapacitor"
       },
       {
         "$type": "FromComponent",
         "Color": {
-          "FromComponent": "ShieldEmitter"
+          "FromComponent": "HeavyShieldEmitter"
         },
-        "Component": "ShieldPowerSupply"
+        "Component": "HeavyShieldPowerSupply"
       },
       {
         "$type": "FromComponent",
         "Color": {
-          "FromComponent": "ShieldEmitter"
+          "FromComponent": "HeavyShieldEmitter"
         },
-        "Component": "ShieldMount"
+        "Component": "HeavyShieldMount"
       },
       {
         "$type": "FromComponent",
         "Color": {
-          "FromComponent": "ShieldEmitter"
+          "FromComponent": "HeavyShieldEmitter"
         },
-        "Component": "ShieldWeight"
+        "Component": "HeavyShieldWeight"
       },
       {
         "$type": "FromSize",

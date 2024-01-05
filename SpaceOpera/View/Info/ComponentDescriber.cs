@@ -42,7 +42,7 @@ namespace SpaceOpera.View.Info
                     new WeaponDescriber()
                         .DescribeAll(objects.Cast<IComponent>().Select(Weapon.FromComponent).ToList(), infoPanel);
                     break;
-                case ComponentType.ShipShield:
+                case ComponentType.HeavyShield:
                     new ShieldDescriber()
                         .DescribeAll(objects.Cast<IComponent>().Select(Shield.FromComponent).ToList(), infoPanel);
                     break;
