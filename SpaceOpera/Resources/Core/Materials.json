@@ -280,18 +280,28 @@
     "Mass": 2.1
   },
   {
+    "$id": "material-research-government",
+    "Name": "Government Research",
+    "Type": "RESEARCH"
+  },
+  {
+    "$id": "material-research-material",
+    "Name": "Materials Research",
+    "Type": "RESEARCH"
+  },
+  {
     "$id": "material-research-military",
     "Name": "Military Research",
     "Type": "RESEARCH"
   },
   {
-    "$id": "material-research-society",
-    "Name": "Society Research",
+    "$id": "material-research-social",
+    "Name": "Social Research",
     "Type": "RESEARCH"
   },
   {
-    "$id": "material-research-technology",
-    "Name": "Technology Research",
+    "$id": "material-research-theory",
+    "Name": "Theory Research",
     "Type": "RESEARCH"
   },
   {

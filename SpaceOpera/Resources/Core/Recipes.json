@@ -350,6 +350,51 @@
     "BoundResourceNode": "material-ingenon-gas"
   },
   {
+    "$id": "recipe-institute-government",
+    "Name": "Government Institute",
+    "Structure": "structure-institute",
+    "Coefficient": 1,
+    "Transformation": {
+      "material-research-government": 1
+    }
+  },
+  {
+    "$id": "recipe-institute-material",
+    "Name": "Materials Institute",
+    "Structure": "structure-institute",
+    "Coefficient": 1,
+    "Transformation": {
+      "material-research-material": 1
+    }
+  },
+  {
+    "$id": "recipe-institute-military",
+    "Name": "Military Institute",
+    "Structure": "structure-institute",
+    "Coefficient": 1,
+    "Transformation": {
+      "material-research-military": 1
+    }
+  },
+  {
+    "$id": "recipe-institute-social",
+    "Name": "Social Institute",
+    "Structure": "structure-institute",
+    "Coefficient": 1,
+    "Transformation": {
+      "material-research-social": 1
+    }
+  },
+  {
+    "$id": "recipe-institute-theory",
+    "Name": "Theory Institute",
+    "Structure": "structure-institute",
+    "Coefficient": 1,
+    "Transformation": {
+      "material-research-theory": 1
+    }
+  },
+  {
     "$id": "recipe-kiln-material-factory",
     "Name": "Kiln Material Factory",
     "Structure": "structure-light-factory",
@@ -407,15 +452,6 @@
     "Transformation": {
       "material-merite-ore": -2,
       "material-merite-metal": 1
-    }
-  },
-  {
-    "$id": "recipe-military-institute",
-    "Name": "Military Institute",
-    "Structure": "structure-institute",
-    "Coefficient": 1,
-    "Transformation": {
-      "material-research-military": 1
     }
   },
   {
@@ -560,24 +596,6 @@
       "material-alkalite-metal": -0.45,
       "material-cuprite-metal": -0.1,
       "material-power-cells": 1
-    }
-  },
-  {
-    "$id": "recipe-society-institute",
-    "Name": "Society Institute",
-    "Structure": "structure-institute",
-    "Coefficient": 1,
-    "Transformation": {
-      "material-research-society": 1
-    }
-  },
-  {
-    "$id": "recipe-technology-institute",
-    "Name": "Technology Institute",
-    "Structure": "structure-institute",
-    "Coefficient": 1,
-    "Transformation": {
-      "material-research-technology": 1
     }
   },
   {

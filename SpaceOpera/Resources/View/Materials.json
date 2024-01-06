@@ -486,16 +486,34 @@
     ]
   },
   {
-    "$id": "material-research-military",
+    "$id": "material-research-government",
     "Layers": [
       {
         "Texture": "icon-research",
-        "Color": "#ffff00"
+        "Color": "#884488"
       }
     ]
   },
   {
-    "$id": "material-research-society",
+    "$id": "material-research-material",
+    "Layers": [
+      {
+        "Texture": "icon-research",
+        "Color": "#ff8800"
+      }
+    ]
+  },
+  {
+    "$id": "material-research-military",
+    "Layers": [
+      {
+        "Texture": "icon-research",
+        "Color": "#ff0000"
+      }
+    ]
+  },
+  {
+    "$id": "material-research-social",
     "Layers": [
       {
         "Texture": "icon-research",
@@ -504,7 +522,7 @@
     ]
   },
   {
-    "$id": "material-research-technology",
+    "$id": "material-research-theory",
     "Layers": [
       {
         "Texture": "icon-research",
