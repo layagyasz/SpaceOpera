@@ -29,9 +29,6 @@ namespace SpaceOpera.Core
         public Library<GameModifier> Modifiers { get; set; } = new();
 
         [JsonConverter(typeof(FromFileJsonConverter))]
-        public Library<AdvancementType> AdvancementTypes { get; set; } = new();
-
-        [JsonConverter(typeof(FromFileJsonConverter))]
         public Library<BaseAdvancement> Advancements { get; set; } = new();
 
         [JsonConverter(typeof(FromFileJsonConverter))]
@@ -84,7 +81,6 @@ namespace SpaceOpera.Core
             logger = logger.ForType(typeof(CoreData)).AtInfo();
             logger.Log("Loaded");
             logger.Log($"\t{data.Advancements.Count} Advancements");
-            logger.Log($"\t{data.AdvancementTypes.Count} AdvancementTypes");
             logger.Log($"\t{data.Biomes.Count} Biomes");
             logger.Log($"\t{data.ComponentClassifiers.Count} ComponentClassifiers");
             logger.Log($"\t{data.Components.Count} Components");

@@ -65,7 +65,7 @@ namespace SpaceOpera.Core.Advancement
             Dictionary<IMaterial, int> counts = 
                 _advancementSlots
                     .Where(x => x.Advancement != null)
-                    .GroupBy(x => x.Advancement?.Type!.Research!)
+                    .GroupBy(x => x.Advancement!.Type!)
                     .ToDictionary(x => x.Key, x => x.Count());
             foreach (var advancement in _advancementSlots)
             {
@@ -73,7 +73,7 @@ namespace SpaceOpera.Core.Advancement
                 {
                     continue;
                 }
-                var material = advancement.Advancement?.Type!.Research!;
+                var material = advancement.Advancement?.Type!;
                 AddProgress(advancement.Advancement!, _backlogProgress[material] / counts[material]);
             }
 

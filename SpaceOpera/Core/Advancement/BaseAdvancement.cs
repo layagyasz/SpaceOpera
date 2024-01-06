@@ -1,5 +1,6 @@
 ﻿using Cardamom.Json;
 using Cardamom.Json.Collections;
+using SpaceOpera.Core.Economics;
 using System.Text.Json.Serialization;
 
 namespace SpaceOpera.Core.Advancement
@@ -10,7 +11,7 @@ namespace SpaceOpera.Core.Advancement
         public string Name { get; set; } = string.Empty;
 
         [JsonConverter(typeof(ReferenceJsonConverter))]
-        public AdvancementType? Type { get; set; }
+        public IMaterial? Type { get; set; }
         public float Cost { get; set; }
 
         [JsonConverter(typeof(ReferenceCollectionJsonConverter))]

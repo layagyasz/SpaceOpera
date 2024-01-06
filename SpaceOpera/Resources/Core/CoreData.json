@@ -2,7 +2,6 @@
   "Materials": "Resources/Core/Materials.json",
   "MaterialSink": "Resources/Core/MaterialSink.json",
   "Modifiers": "Resources/Core/Modifiers.json",
-  "AdvancementTypes": "Resources/Core/AdvancementTypes.json",
   "Advancements": "Resources/Core/Advancements.json",
   "Structures": "Resources/Core/Structures.json",
   "Recipes": "Resources/Core/Recipes.json",

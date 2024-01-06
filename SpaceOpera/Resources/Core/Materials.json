@@ -282,27 +282,27 @@
   {
     "$id": "material-research-government",
     "Name": "Government Research",
-    "Type": "RESEARCH"
+    "Type": "Research"
   },
   {
     "$id": "material-research-material",
     "Name": "Materials Research",
-    "Type": "RESEARCH"
+    "Type": "Research"
   },
   {
     "$id": "material-research-military",
     "Name": "Military Research",
-    "Type": "RESEARCH"
+    "Type": "Research"
   },
   {
     "$id": "material-research-social",
     "Name": "Social Research",
-    "Type": "RESEARCH"
+    "Type": "Research"
   },
   {
     "$id": "material-research-theory",
     "Name": "Theory Research",
-    "Type": "RESEARCH"
+    "Type": "Research"
   },
   {
     "$id": "material-valentulite-ore",
