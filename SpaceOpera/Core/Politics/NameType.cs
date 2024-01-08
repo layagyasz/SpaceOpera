@@ -18,6 +18,7 @@ namespace SpaceOpera.Core.Politics
         StarSystem,
         StellarBody,
         StellarBodyRegion,
+        Vehicle,
         Weapon
     }
 }

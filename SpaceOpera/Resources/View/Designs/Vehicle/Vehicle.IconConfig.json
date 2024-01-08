@@ -1,0 +1,21 @@
+[
+  {
+    "ComponentType": "Vehicle",
+    "Layers": [
+      {
+        "$type": "FromComponent",
+        "Color": {
+          "FromComponent": "VehicleArmor"
+        },
+        "Component": "VehicleSuspension"
+      },
+      {
+        "$type": "FromComponent",
+        "Color": {
+          "FromComponent": "HeavyGun"
+        },
+        "Component": "HeavyGun"
+      }
+    ]
+  }
+]

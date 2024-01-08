@@ -50,5 +50,10 @@ namespace SpaceOpera.Core.Designs
         ShipJumpDrive,
         ShipPowercore,
         ShipThruster,
+
+        Vehicle,
+        VehicleArmor,
+        VehicleConstruction,
+        VehicleSuspension
     }
 }

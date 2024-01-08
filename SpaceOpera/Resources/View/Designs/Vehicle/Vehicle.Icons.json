@@ -1,0 +1,65 @@
+[
+  {
+    "$id": "component-vehicle-armor-alumite-light",
+    "Layers": [
+      {
+        "Texture": "icon-metal-plate",
+        "Color": "#ffffff"
+      }
+    ]
+  },
+  {
+    "$id": "component-vehicle-armor-alumite-medium",
+    "Layers": [
+      {
+        "Texture": "icon-metal-plate",
+        "Color": "#ffffff"
+      }
+    ]
+  },
+  {
+    "$id": "component-vehicle-armor-alumite-heavy",
+    "Layers": [
+      {
+        "Texture": "icon-metal-plate",
+        "Color": "#ffffff"
+      }
+    ]
+  },
+  {
+    "$id": "component-vehicle-construction-alumite",
+    "Layers": [
+      {
+        "Texture": "icon-construction-material",
+        "Color": "#ffffff"
+      }
+    ]
+  },
+  {
+    "$id": "component-vehicle-suspension-legged",
+    "Layers": [
+      {
+        "Texture": "icon-vehicle-suspension-legged",
+        "Color": "#ffffff"
+      }
+    ]
+  },
+  {
+    "$id": "component-vehicle-suspension-tracked",
+    "Layers": [
+      {
+        "Texture": "icon-vehicle-suspension-tracked",
+        "Color": "#ffffff"
+      }
+    ]
+  },
+  {
+    "$id": "component-vehicle-suspension-wheeled",
+    "Layers": [
+      {
+        "Texture": "icon-vehicle-suspension-wheeled",
+        "Color": "#ffffff"
+      }
+    ]
+  }
+]

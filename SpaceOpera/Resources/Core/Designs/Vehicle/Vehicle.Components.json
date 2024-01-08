@@ -1,0 +1,130 @@
+[
+  {
+    "$id": "component-vehicle-armor-alumite-light",
+    "Name": "Alumite Armor (L)",
+    "Tags": {
+      "Light": 4
+    },
+    "Slot": {
+      "Type": "VehicleArmor"
+    },
+    "Attributes": {
+      "ArmorCoverage": {
+        "Constant": 1
+      },
+      "ArmorProtection": {
+        "Constant": 320
+      },
+      "ArmorThickness": {
+        "Constant": 9.6
+      }
+    },
+    "ReferenceMaterial": {
+      "MaterialReference1": {
+        "material-alumite-metal": 0.5
+      }
+    }
+  },
+  {
+    "$id": "component-vehicle-armor-alumite-medium",
+    "Name": "Alumite Armor",
+    "Tags": {
+      "Medium": 4
+    },
+    "Slot": {
+      "Type": "VehicleArmor"
+    },
+    "Attributes": {
+      "ArmorCoverage": {
+        "Constant": 1
+      },
+      "ArmorProtection": {
+        "Constant": 640
+      },
+      "ArmorThickness": {
+        "Constant": 19.2
+      }
+    },
+    "ReferenceMaterial": {
+      "MaterialReference1": {
+        "material-alumite-metal": 1
+      }
+    }
+  },
+  {
+    "$id": "component-vehicle-armor-alumite-heavy",
+    "Name": "Alumite Armor (H)",
+    "Tags": {
+      "Heavy": 4
+    },
+    "Slot": {
+      "Type": "VehicleArmor"
+    },
+    "Attributes": {
+      "ArmorCoverage": {
+        "Constant": 1
+      },
+      "ArmorProtection": {
+        "Constant": 1280
+      },
+      "ArmorThickness": {
+        "Constant": 38.4
+      }
+    },
+    "ReferenceMaterial": {
+      "MaterialReference1": {
+        "material-alumite-metal": 2
+      }
+    }
+  },
+  {
+    "$id": "component-vehicle-construction-alumite",
+    "Name": "Alumite Construction",
+    "Slot": {
+      "Type": "VehicleConstruction"
+    },
+    "Attributes": {
+      "Hitpoints": {
+        "Bonus": -0.2
+      }
+    },
+    "ReferenceMaterial": {
+      "MaterialReference0": {
+        "material-alumite-metal": 1
+      }
+    }
+  },
+  {
+    "$id": "component-vehicle-suspension-legged",
+    "Name": "Legged",
+    "Slot": {
+      "Type": "VehicleSuspension"
+    },
+    "Attributes": {},
+    "ReferenceMaterial": {
+      "MaterialReference2": {}
+    }
+  },
+  {
+    "$id": "component-vehicle-suspension-tracked",
+    "Name": "Tracked",
+    "Slot": {
+      "Type": "VehicleSuspension"
+    },
+    "Attributes": {},
+    "ReferenceMaterial": {
+      "MaterialReference2": {}
+    }
+  },
+  {
+    "$id": "component-vehicle-suspension-wheeled",
+    "Name": "Wheeled",
+    "Slot": {
+      "Type": "VehicleSuspension"
+    },
+    "Attributes": {},
+    "ReferenceMaterial": {
+      "MaterialReference2": {}
+    }
+  }
+]

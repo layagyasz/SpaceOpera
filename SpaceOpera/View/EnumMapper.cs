@@ -48,6 +48,10 @@ namespace SpaceOpera.View
                 ComponentType.SmallArmAmmunition => "Small Arm Ammunition",
                 ComponentType.SmallArmOptics => "Small Arm Optics",
                 ComponentType.SmallArmAssembly => "Small Arm Assembly",
+                ComponentType.Vehicle => "Vehicle",
+                ComponentType.VehicleArmor => "Vehicle Armor",
+                ComponentType.VehicleConstruction => "Vehicle Construction",
+                ComponentType.VehicleSuspension => "Vehicle Suspension",
                 _ => throw new ArgumentException($"Unsupported component type [{componentType}]"),
             };
         }

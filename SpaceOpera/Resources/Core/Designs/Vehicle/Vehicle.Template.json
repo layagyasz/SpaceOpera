@@ -1,0 +1,90 @@
+[
+  {
+    "$id": "design-template-vehicle",
+    "Type": "Vehicle",
+    "Structure": "structure-heavy-factory",
+    "Tags": {},
+    "Segments": [
+      {
+        "$id": "design-template-vehicle-construction",
+        "Name": "Construction",
+        "ConfigurationOptions": [
+          {
+            "$id": "design-template-vehicle-construction-standard",
+            "Name": "Standard",
+            "IntrinsicComponent": {
+              "Attributes": {
+                "MaterialCost": {
+                  "Constant": 1
+                },
+                "ProductionCost": {
+                  "Constant": 1
+                }
+              }
+            },
+            "Slots": [
+              {
+                "Type": [ "VehicleConstruction" ],
+                "Size": [],
+                "Count": 1,
+                "Weight": 1
+              },
+              {
+                "Type": [ "VehicleArmor" ],
+                "Size": [],
+                "Count": 1,
+                "Weight": 1
+              },
+              {
+                "Type": [ "VehicleSuspension" ],
+                "Size": [],
+                "Count": 1,
+                "Weight": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "$id": "design-template-vehicle-configuration",
+        "Name": "Configuration",
+        "ConfigurationOptions": [
+          {
+            "$id": "design-template-vehicle-configuration-battle",
+            "Name": "Battle",
+            "IntrinsicComponent": {
+              "Tags": {},
+              "Attributes": {
+                "Command": {
+                  "Constant": 0.01
+                },
+                "Threat": {
+                  "Constant": 0.01
+                },
+                "Hitpoints": {
+                  "Constant": 65
+                }
+              },
+              "ReferenceMaterialCost": {
+                "MaterialReference0": {
+                  "Constant": 0.625
+                },
+                "MaterialReference1": {
+                  "Constant": 2.5
+                }
+              }
+            },
+            "Slots": [
+              {
+                "Type": [ "HeavyGun" ],
+                "Size": [ "Small" ],
+                "Count": 1,
+                "Weight": 1
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

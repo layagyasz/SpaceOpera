@@ -14,7 +14,8 @@
         "Color": {
           "FromComponent": "HeavyGunAmmunition"
         },
-        "Component": "HeavyGunFireControl"
+        "Component": "HeavyGunFireControl",
+        "IsInfo": true
       },
       {
         "$type": "FromComponent",
@@ -28,7 +29,8 @@
         "Color": {
           "FromComponent": "HeavyGunAmmunition"
         },
-        "Component": "HeavyGunWeight"
+        "Component": "HeavyGunWeight",
+        "IsInfo": true
       },
       {
         "$type": "FromSize",

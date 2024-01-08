@@ -122,12 +122,13 @@ namespace SpaceOpera.Core.Politics
         {
             return type switch
             {
+                ComponentType.Vehicle => NameType.Vehicle,
                 ComponentType.Ship => NameType.Ship,
                 ComponentType.Infantry => NameType.Infantry,
                 ComponentType.BattalionTemplate => NameType.BattalionTemplate,
                 ComponentType.DivisionTemplate => NameType.DivisionTemplate,
-                ComponentType.HeavyGun 
-                    or ComponentType.HeavyMissile 
+                ComponentType.HeavyGun
+                    or ComponentType.HeavyMissile
                     or ComponentType.SmallArm => NameType.Weapon,
                 ComponentType.PersonalShield
                     or ComponentType.HeavyShield => NameType.Shield,

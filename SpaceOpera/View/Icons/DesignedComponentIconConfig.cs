@@ -30,12 +30,14 @@ namespace SpaceOpera.View.Icons
         {
             public ColorConfig Color { get; set; }
             public ComponentType Component { get; set; }
+            public bool IsInfo { get; set; }
 
             public IEnumerable<IconLayer> CreateLayers(
                 DesignedComponent component, Color4 color, IconFactory iconFactory)
             {
                 var c = component.Components.Where(x => x.Slot.Type.Contains(Component)).FirstOrDefault()!.Component;
-                return iconFactory.GetDefinition(c).Where(x => !x.IsInfo).Select(x => x.WithColor(color));
+                return iconFactory.GetDefinition(c)
+                    .Where(x => !x.IsInfo).Select(x => x.WithColor(color)).Select(x => x.WithInfo(IsInfo));
             }
         }
 

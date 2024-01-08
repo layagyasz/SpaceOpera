@@ -63,6 +63,7 @@
         "StarSystem",
         "StellarBody",
         "StellarBodyRegion",
+        "Vehicle",
         "Weapon"
       ],
       "NameParts": {
@@ -265,14 +266,14 @@
         {
           "Frequency": 0.25,
           "Value": {
-            "SupportedTypes": [ "Ship" ],
+            "SupportedTypes": [ "Ship", "Vehicle" ],
             "Pattern": [ "model", "model-number", "name-short", "classification" ]
           }
         },
         {
           "Frequency": 0.15,
           "Value": {
-            "SupportedTypes": [ "Ship" ],
+            "SupportedTypes": [ "Ship", "Vehicle" ],
             "Pattern": [ "model", "model-number", "classification" ]
           }
         },
@@ -366,6 +367,12 @@
         "Value": 1,
         "Key": {
           "Type": "Infantry"
+        }
+      },
+      {
+        "Value": 4,
+        "Key": {
+          "Type": "Vehicle"
         }
       },
       {

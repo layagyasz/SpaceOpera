@@ -8,5 +8,10 @@ namespace SpaceOpera.View.Icons
         {
             return new(Vertices, color, Texture, IsInfo);
         }
+
+        public IconLayer WithInfo(bool isInfo)
+        {
+            return new(Vertices, Color, Texture, isInfo);
+        }
     }
 }
