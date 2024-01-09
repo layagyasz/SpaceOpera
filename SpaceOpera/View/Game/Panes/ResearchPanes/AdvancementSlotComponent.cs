@@ -77,9 +77,16 @@ namespace SpaceOpera.View.Game.Panes.ResearchPanes
         private void SetAdvancement(IAdvancement advancement)
         {
             Clear(dispose: true);
-            Add(
+            var element =
                 AdvancementComponent.Create(
-                    advancement, AdvancementManager, _style.Advancement!, _uiElementFactory, _iconFactory));
+                    advancement,
+                    AdvancementManager,
+                    new InlayController(),
+                    _style.Advancement!,
+                    _uiElementFactory,
+                    _iconFactory);
+            element.Initialize();
+            Add(element);
         }
     }
 }

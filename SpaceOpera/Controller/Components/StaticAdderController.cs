@@ -1,5 +1,4 @@
 ﻿using Cardamom.Ui;
-using SpaceOpera.Core.Politics.Diplomacy;
 
 namespace SpaceOpera.Controller.Components
 {

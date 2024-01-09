@@ -172,7 +172,7 @@ namespace SpaceOpera.View.Game.Panes.StellarBodyPanes
         private IKeyedUiElement<EconomicZoneHolding> CreateHoldingDescription(
             EconomicZoneHolding holding, UiElementFactory uiElementFactory, IconFactory iconFactory)
         {
-            return KeyedUiElementWrapper<EconomicZoneHolding>.Wrap(
+            return KeyedUiElement<EconomicZoneHolding>.Wrap(
                 holding, 
                 new DynamicUiSerialContainer(
                     uiElementFactory.GetClass(s_HoldingContainer),

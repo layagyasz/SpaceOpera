@@ -26,7 +26,7 @@ namespace SpaceOpera.Core.Orders
             {
                 return ValidationFailureReason.PrerequisiteResearch;
             }
-            if (AdvancementManager.GetAdvancementSlots().Any(x => x.Advancement == Advancement))
+            if (AdvancementManager.IsResearching(Advancement))
             {
                 return ValidationFailureReason.DuplicateResearch;
             }

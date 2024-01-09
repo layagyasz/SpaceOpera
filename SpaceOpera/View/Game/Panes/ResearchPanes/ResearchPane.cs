@@ -4,7 +4,7 @@ using Cardamom.Ui.Controller.Element;
 using Cardamom.Ui.Elements;
 using Cardamom.Utils;
 using SpaceOpera.Controller.Components;
-using SpaceOpera.Controller.Game.Panes;
+using SpaceOpera.Controller.Game.Panes.ResearchPanes;
 using SpaceOpera.Core;
 using SpaceOpera.Core.Advancement;
 using SpaceOpera.Core.Politics;
@@ -57,6 +57,7 @@ namespace SpaceOpera.View.Game.Panes.ResearchPanes
                 else
                 {
                     return _world.Advancements.GetResearchableAdvancements(_faction)
+                        .Where(x => !_advancementManager!.IsResearching(x))
                         .Select(x => new AdvancementKey(x, _advancementManager));
                 }
             }
@@ -65,6 +66,11 @@ namespace SpaceOpera.View.Game.Panes.ResearchPanes
             {
                 return _advancementManager?.GetAdvancementSlots().Select(x => new SlotKey(x, _advancementManager)) 
                     ?? Enumerable.Empty<SlotKey>();
+            }
+
+            public FactionAdvancementManager GetAdvancementManager()
+            {
+                return _advancementManager!;
             }
 
             public void Populate(World? world, Faction? faction)
@@ -98,7 +104,7 @@ namespace SpaceOpera.View.Game.Panes.ResearchPanes
 
             public IKeyedUiElement<SlotKey> Create(SlotKey key)
             {
-                return KeyedUiElementWrapper<SlotKey>.Wrap(
+                return KeyedUiElement<SlotKey>.Wrap(
                     key,
                     new AdvancementSlotComponent(
                         key.Slot, key.AdvancementManager, _style, _uiElementFactory, _iconFactory));
@@ -121,51 +127,68 @@ namespace SpaceOpera.View.Game.Panes.ResearchPanes
 
             public IKeyedUiElement<AdvancementKey> Create(AdvancementKey key)
             {
-                return KeyedUiElementWrapper<AdvancementKey>.Wrap(
+                return KeyedUiComponent<AdvancementKey>.Wrap(
                     key, 
                     new DynamicUiCompoundComponent(
                         new StaticAdderController<IAdvancement>(key.Advancement), 
                         AdvancementComponent.Create(
-                            key.Advancement, key.AdvancementManager, _style, _uiElementFactory, _iconFactory)));
+                            key.Advancement,
+                            key.AdvancementManager, 
+                            new ButtonController(),
+                            _style,
+                            _uiElementFactory, 
+                            _iconFactory)));
             }
         }
+
+        public IUiComponent AdvancementSlots { get; }
+        public IUiComponent Advancements { get; }
 
         private readonly AdvancementRange _range = new();
 
         public ResearchPane(UiElementFactory uiElementFactory, IconFactory iconFactory)
             : base(
-                  new GamePaneController(),
+                  new ResearchPaneController(),
                   uiElementFactory.GetClass(s_Container),
                   new TextUiElement(uiElementFactory.GetClass(s_Title), new ButtonController(), "Research"),
                   uiElementFactory.CreateSimpleButton(s_Close).Item1)
         {
+            AdvancementSlots = 
+                new DynamicUiCompoundComponent(
+                    new RadioController<AdvancementSlot>(),
+                    DynamicKeyedContainer<SlotKey>.CreateSerial(
+                        uiElementFactory.GetClass(s_SlotTable),
+                        new TableController(10f),
+                        UiSerialContainer.Orientation.Vertical,
+                        _range.GetSlots,
+                        new AdvancementSlotComponentFactory(s_SlotStyle, uiElementFactory, iconFactory),
+                        Comparer<SlotKey>.Create((x, y) => x.Slot.Id.CompareTo(y.Slot.Id))));
+            Advancements =
+                new DynamicUiCompoundComponent(
+                        new AdderComponentController<IAdvancement>(),
+                        DynamicKeyedContainer<AdvancementKey>.CreateSerial(
+                            uiElementFactory.GetClass(s_AdvancementTable),
+                            new TableController(10f),
+                            UiSerialContainer.Orientation.Vertical,
+                            _range.GetResearchableAdvancements,
+                            new AdvancementComponentFactory(s_AdvancementStyle, uiElementFactory, iconFactory),
+                            FluentComparator<AdvancementKey>.Comparing(x => x.Advancement.Cost)
+                                .Then(x => x.Advancement.Name)));
             var body =
                 new DynamicUiSerialContainer(
                     uiElementFactory.GetClass(s_Body),
                     new NoOpElementController(),
                     UiSerialContainer.Orientation.Horizontal)
                 {
-                    new DynamicUiCompoundComponent(
-                        new RadioController<AdvancementSlot>(),
-                        DynamicKeyedContainer<SlotKey>.CreateSerial(
-                            uiElementFactory.GetClass(s_SlotTable), 
-                            new TableController(10f), 
-                            UiSerialContainer.Orientation.Vertical, 
-                            _range.GetSlots, 
-                            new AdvancementSlotComponentFactory(s_SlotStyle, uiElementFactory, iconFactory),
-                            Comparer<SlotKey>.Create((x, y) => x.Slot.Id.CompareTo(y.Slot.Id)))),
-                    new DynamicUiCompoundComponent(
-                        new AdderComponentController<IAdvancement>(),
-                        DynamicKeyedContainer<AdvancementKey>.CreateSerial(
-                            uiElementFactory.GetClass(s_AdvancementTable), 
-                            new TableController(10f), 
-                            UiSerialContainer.Orientation.Vertical,
-                            _range.GetResearchableAdvancements,
-                            new AdvancementComponentFactory(s_AdvancementStyle, uiElementFactory, iconFactory),
-                            FluentComparator<AdvancementKey>.Comparing(x => x.Advancement.Cost)
-                                .Then(x => x.Advancement.Name)))
+                    AdvancementSlots,
+                    Advancements
                 };
             SetBody(body);
+        }
+
+        public FactionAdvancementManager GetAdvancementManager()
+        {
+            return _range.GetAdvancementManager();
         }
 
         public override void Populate(params object?[] args)

@@ -23,13 +23,14 @@ namespace SpaceOpera.View.Game.Panes.ResearchPanes
         public static IUiContainer Create(
             IAdvancement advancement,
             FactionAdvancementManager advancementManager,
+            IElementController controller,
             Style style,
             UiElementFactory uiElementFactory,
             IconFactory iconFactory)
         {
             return new DynamicUiSerialContainer(
                 uiElementFactory.GetClass(style.Container!),
-                new NoOpElementController(), 
+                controller, 
                 UiSerialContainer.Orientation.Horizontal)
             {
                 iconFactory.Create(uiElementFactory.GetClass(style.Icon!), new InlayController(), advancement),

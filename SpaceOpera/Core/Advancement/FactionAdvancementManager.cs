@@ -45,6 +45,11 @@ namespace SpaceOpera.Core.Advancement
             return advancement.Prerequisites.All(HasResearched);
         }
 
+        public bool IsResearching(IAdvancement advancement)
+        {
+            return GetAdvancementSlots().Any(x => x.Advancement == advancement);
+        }
+
         public void AddResearch(IMaterial Material, float Quantity)
         {
             _backlogProgress.Add(Material, Quantity);

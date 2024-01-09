@@ -57,7 +57,7 @@ namespace SpaceOpera.View.Game.Panes.Common
             public IKeyedUiElement<InventoryKey> Create(InventoryKey key)
             {
                 var material = key.Material;
-                return KeyedUiElementWrapper<InventoryKey>.Wrap(
+                return KeyedUiElement<InventoryKey>.Wrap(
                     key, 
                     new DynamicUiSerialContainer(
                         _uiElementFactory.GetClass(_style.RowContainer!),

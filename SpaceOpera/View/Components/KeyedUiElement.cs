@@ -5,7 +5,7 @@ using OpenTK.Mathematics;
 
 namespace SpaceOpera.View.Components
 {
-    public class KeyedUiElementWrapper<T> : GraphicsResource, IKeyedUiElement<T>
+    public class KeyedUiElement<T> : GraphicsResource, IKeyedUiElement<T>
     {
         public EventHandler<EventArgs>? Refreshed { get; set; }
 
@@ -40,13 +40,13 @@ namespace SpaceOpera.View.Components
             set => _element.Visible = value;
         }
 
-        private KeyedUiElementWrapper(T key, IUiElement element)
+        private KeyedUiElement(T key, IUiElement element)
         {
             Key = key;
             _element = element;
         }
 
-        public static KeyedUiElementWrapper<T> Wrap(T key, IUiElement element)
+        public static KeyedUiElement<T> Wrap(T key, IUiElement element)
         {
             return new(key, element);
         }
