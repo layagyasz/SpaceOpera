@@ -58,7 +58,7 @@ namespace SpaceOpera.Core
             Galaxy = galaxy;
             NavigationMap = navigationMap;
 
-            Advancements = new(coreData.Materials.Values.Where(x => x.Type == MaterialType.Research));
+            Advancements = new(coreData.Materials.Values.Where(x => x.Type == MaterialType.Research), random);
             Battles = new(DiplomaticRelations, Formations);
             Economy = new(Advancements, Formations, coreData.MaterialSink!);
             EconomyGraph.AddRecipes(coreData.Recipes.Values);

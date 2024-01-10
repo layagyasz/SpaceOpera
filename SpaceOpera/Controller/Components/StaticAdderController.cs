@@ -5,7 +5,6 @@ namespace SpaceOpera.Controller.Components
     public class StaticAdderController<T> : IAdderController<T>
     {
         public EventHandler<T>? Added { get; set; }
-        public EventHandler<PopupEventArgs>? PopupCreated { get; set; }
 
         private IUiComponent? _component;
         private readonly T _value;

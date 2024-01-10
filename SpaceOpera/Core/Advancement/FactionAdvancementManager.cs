@@ -1,15 +1,20 @@
+using Cardamom;
 using Cardamom.Trackers;
 using SpaceOpera.Core.Advanceable;
 using SpaceOpera.Core.Designs;
 using SpaceOpera.Core.Economics;
+using SpaceOpera.Core.Politics;
 
 namespace SpaceOpera.Core.Advancement
 {
     public class FactionAdvancementManager : ITickable
     {
-        private readonly HashSet<IAdvancement> _researchedAdvancements = new();
+        public Faction Faction { get; }
 
+        private readonly List<IAdvancement> _researchOptions = new();
+        private readonly HashSet<IAdvancement> _researchedAdvancements = new();
         private readonly Dictionary<IAdvancement, Pool> _advancementProgress = new();
+
         private readonly List<AdvancementSlot> _advancementSlots = 
             new()
             {
@@ -19,6 +24,11 @@ namespace SpaceOpera.Core.Advancement
             };
 
         private readonly MultiQuantity<IMaterial> _backlogProgress = new();
+
+        public FactionAdvancementManager(Faction faction)
+        {
+            Faction = faction;
+        }
 
         public IEnumerable<IAdvancement> GetResearchedAdvancements()
         {
@@ -57,12 +67,29 @@ namespace SpaceOpera.Core.Advancement
 
         public Pool GetResearchProgress(IAdvancement advancement)
         {
-            return GetOrCreateProgress(advancement);
+            return GetOrCreateProgress(advancement, addIfMissing: false);
         }
 
         public IEnumerable<AdvancementSlot> GetAdvancementSlots()
         {
             return _advancementSlots;
+        }
+
+        public IEnumerable<IAdvancement> GetResearchInProgress()
+        {
+            return _advancementProgress.Keys.Concat(
+                _advancementSlots.Select(x => x.Advancement).Where(x => x != null)).Cast<IAdvancement>().Distinct();
+        }
+
+        public IEnumerable<IAdvancement> GetResearchOptions()
+        {
+            return _researchOptions;
+        }
+
+        public void SetResearchOptions(IEnumerable<IAdvancement> options)
+        {
+            _researchOptions.Clear();
+            _researchOptions.AddRange(options);
         }
 
         public void Tick()
@@ -87,20 +114,28 @@ namespace SpaceOpera.Core.Advancement
 
         public void AddProgress(IAdvancement advancement, float progress)
         {
-            var pool = GetOrCreateProgress(advancement);
+            if (HasResearched(advancement))
+            {
+                return;
+            }
+            var pool = GetOrCreateProgress(advancement, addIfMissing: true);
             pool.Change(progress);
             if (pool.IsFull())
             {
                 _researchedAdvancements.Add(advancement);
+                _advancementProgress.Remove(advancement);
             }
         }
 
-        private Pool GetOrCreateProgress(IAdvancement advancement)
+        private Pool GetOrCreateProgress(IAdvancement advancement, bool addIfMissing)
         {
             if (!_advancementProgress.TryGetValue(advancement, out var progress))
             {
                 progress = new(advancement.Cost, startFull: false);
-                _advancementProgress.Add(advancement, progress);
+                if (addIfMissing)
+                {
+                    _advancementProgress.Add(advancement, progress);
+                }
             }
             return progress;
         }

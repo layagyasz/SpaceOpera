@@ -26,7 +26,8 @@
       "SpaceForcesCommand": 120,
       "FleetCommand": 40,
       "LandForcesCommand": 180,
-      "ArmyCommand": 90
+      "ArmyCommand": 90,
+      "ResearchOptions": 8
     },
     "GovernmentForms": [
       "government-form-absolute-monarchy",

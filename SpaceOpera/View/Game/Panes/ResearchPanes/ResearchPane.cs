@@ -56,7 +56,7 @@ namespace SpaceOpera.View.Game.Panes.ResearchPanes
                 }
                 else
                 {
-                    return _world.Advancements.GetResearchableAdvancements(_faction)
+                    return _advancementManager!.GetResearchOptions()
                         .Where(x => !_advancementManager!.IsResearching(x))
                         .Select(x => new AdvancementKey(x, _advancementManager));
                 }

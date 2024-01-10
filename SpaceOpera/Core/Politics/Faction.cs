@@ -51,6 +51,11 @@ namespace SpaceOpera.Core.Politics
             return _attributes[FactionAttribute.ArmyCommand];
         }
 
+        public int GetResearchOptions()
+        {
+            return (int)_attributes[FactionAttribute.ResearchOptions];
+        }
+
         public override string ToString()
         {
             return Name;

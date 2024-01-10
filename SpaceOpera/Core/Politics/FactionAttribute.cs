@@ -8,6 +8,8 @@
         FleetCommand,
         
         LandForcesCommand,
-        ArmyCommand
+        ArmyCommand,
+
+        ResearchOptions
     }
 }
