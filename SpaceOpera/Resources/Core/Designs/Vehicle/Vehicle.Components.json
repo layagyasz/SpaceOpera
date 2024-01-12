@@ -3,7 +3,7 @@
     "$id": "component-vehicle-armor-alumite-light",
     "Name": "Alumite Armor (L)",
     "Tags": {
-      "Light": 4
+      "Light": 1
     },
     "Slot": {
       "Type": "VehicleArmor"
@@ -29,7 +29,7 @@
     "$id": "component-vehicle-armor-alumite-medium",
     "Name": "Alumite Armor",
     "Tags": {
-      "Medium": 4
+      "Medium": 1
     },
     "Slot": {
       "Type": "VehicleArmor"
@@ -55,7 +55,7 @@
     "$id": "component-vehicle-armor-alumite-heavy",
     "Name": "Alumite Armor (H)",
     "Tags": {
-      "Heavy": 4
+      "Heavy": 1
     },
     "Slot": {
       "Type": "VehicleArmor"
@@ -97,6 +97,9 @@
   {
     "$id": "component-vehicle-suspension-legged",
     "Name": "Legged",
+    "Tags": {
+      "Legged": 1
+    },
     "Slot": {
       "Type": "VehicleSuspension"
     },
@@ -108,6 +111,9 @@
   {
     "$id": "component-vehicle-suspension-tracked",
     "Name": "Tracked",
+    "Tags": {
+      "Tracked": 1
+    },
     "Slot": {
       "Type": "VehicleSuspension"
     },
@@ -119,6 +125,9 @@
   {
     "$id": "component-vehicle-suspension-wheeled",
     "Name": "Wheeled",
+    "Tags": {
+      "Wheeled": 1
+    },
     "Slot": {
       "Type": "VehicleSuspension"
     },

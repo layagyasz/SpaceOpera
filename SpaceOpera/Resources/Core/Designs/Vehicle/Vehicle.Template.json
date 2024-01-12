@@ -53,7 +53,9 @@
             "$id": "design-template-vehicle-configuration-battle",
             "Name": "Battle",
             "IntrinsicComponent": {
-              "Tags": {},
+              "Tags": {
+                "Tank": 1
+              },
               "Attributes": {
                 "Command": {
                   "Constant": 0.01

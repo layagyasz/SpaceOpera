@@ -112,9 +112,9 @@ namespace SpaceOpera.View.Game.Panes.DesignPanes
                 {
                     var segmentRow = new DesignerSegmentRow(segment, _uiElementFactory, _iconFactory);
                     segmentRow.Initialize();
-                    var configuration = 
-                        ((SelectController<SegmentConfiguration>)segmentRow.ConfigurationSelect.ComponentController)
-                            .GetValue();
+                    var configuration = segment.ConfigurationOptions.First();
+                    ((SelectController<SegmentConfiguration>)segmentRow.ConfigurationSelect.ComponentController)
+                        .SetValue(configuration);
                     SetSegmentConfiguration(segmentRow, configuration!);
                     SegmentTable.Add(segmentRow);
                 }

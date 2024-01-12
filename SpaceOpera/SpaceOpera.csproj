@@ -11,7 +11,13 @@
     <None Update="Resources\Core\Advancements.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\Core\Designs\BattalionTemplate\BattalionTemplate.Classification.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\Core\Designs\BattalionTemplate\BattalionTemplate.Template.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Core\Designs\DivisionTemplate\DivisionTemplate.Classification.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Core\Designs\DivisionTemplate\DivisionTemplate.Template.json">
@@ -42,6 +48,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Core\Designs\Ship\Ship.Template.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Core\Designs\Vehicle\Vehicle.Classification.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Core\Designs\Vehicle\Vehicle.Components.json">

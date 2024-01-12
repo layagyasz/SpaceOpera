@@ -19,6 +19,10 @@ namespace SpaceOpera.Core.Designs
         Mechanized,
         SelfPropelled,
 
+        Legged,
+        Wheeled,
+        Tracked,
+
         AntiAir,
         AntiArmor,
         Artillery,
