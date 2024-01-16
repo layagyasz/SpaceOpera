@@ -105,67 +105,67 @@
     "Prerequisites": [ "advancement-heavy-gun-assembly-rotary-iii" ]
   },
   {
-    "$id": "advancement-heavy-gun-fire-control-precision-ii",
+    "$id": "advancement-heavy-gun-optic-precision-ii",
     "Name": "Precision Fire Control II",
     "Type": "material-research-material",
     "Cost": 100,
     "Prerequisites": []
   },
   {
-    "$id": "advancement-heavy-gun-fire-control-precision-iii",
+    "$id": "advancement-heavy-gun-optic-precision-iii",
     "Name": "Precision Fire Control III",
     "Type": "material-research-material",
     "Cost": 200,
-    "Prerequisites": [ "advancement-heavy-gun-fire-control-precision-ii" ]
+    "Prerequisites": [ "advancement-heavy-gun-optic-precision-ii" ]
   },
   {
-    "$id": "advancement-heavy-gun-fire-control-precision-iv",
+    "$id": "advancement-heavy-gun-optic-precision-iv",
     "Name": "Precision Fire Control IV",
     "Type": "material-research-material",
     "Cost": 400,
-    "Prerequisites": [ "advancement-heavy-gun-fire-control-precision-iii" ]
+    "Prerequisites": [ "advancement-heavy-gun-optic-precision-iii" ]
   },
   {
-    "$id": "advancement-heavy-gun-fire-control-targeting-ii",
+    "$id": "advancement-heavy-gun-optic-targeting-ii",
     "Name": "Targeting Fire Control II",
     "Type": "material-research-material",
     "Cost": 100,
     "Prerequisites": []
   },
   {
-    "$id": "advancement-heavy-gun-fire-control-targeting-iii",
+    "$id": "advancement-heavy-gun-optic-targeting-iii",
     "Name": "Targeting Fire Control III",
     "Type": "material-research-material",
     "Cost": 200,
-    "Prerequisites": [ "advancement-heavy-gun-fire-control-targeting-ii" ]
+    "Prerequisites": [ "advancement-heavy-gun-optic-targeting-ii" ]
   },
   {
-    "$id": "advancement-heavy-gun-fire-control-targeting-iv",
+    "$id": "advancement-heavy-gun-optic-targeting-iv",
     "Name": "Targeting Fire Control IV",
     "Type": "material-research-material",
     "Cost": 400,
-    "Prerequisites": [ "advancement-heavy-gun-fire-control-targeting-iii" ]
+    "Prerequisites": [ "advancement-heavy-gun-optic-targeting-iii" ]
   },
   {
-    "$id": "advancement-heavy-gun-fire-control-tracking-ii",
+    "$id": "advancement-heavy-gun-optic-tracking-ii",
     "Name": "Tracking Fire Control II",
     "Type": "material-research-material",
     "Cost": 100,
     "Prerequisites": []
   },
   {
-    "$id": "advancement-heavy-gun-fire-control-tracking-iii",
+    "$id": "advancement-heavy-gun-optic-tracking-iii",
     "Name": "Tracking Fire Control III",
     "Type": "material-research-material",
     "Cost": 200,
-    "Prerequisites": [ "advancement-heavy-gun-fire-control-tracking-ii" ]
+    "Prerequisites": [ "advancement-heavy-gun-optic-tracking-ii" ]
   },
   {
-    "$id": "advancement-heavy-gun-fire-control-tracking-iv",
+    "$id": "advancement-heavy-gun-optic-tracking-iv",
     "Name": "Tracking Fire Control IV",
     "Type": "material-research-material",
     "Cost": 400,
-    "Prerequisites": [ "advancement-heavy-gun-fire-control-tracking-iii" ]
+    "Prerequisites": [ "advancement-heavy-gun-optic-tracking-iii" ]
   },
   {
     "$id": "advancement-heavy-shield-capacitor-flux-mesh-ii",

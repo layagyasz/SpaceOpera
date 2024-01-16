@@ -14,7 +14,7 @@
         "Color": {
           "FromComponent": "HeavyGunAmmunition"
         },
-        "Component": "HeavyGunFireControl",
+        "Component": "HeavyGunOptic",
         "IsInfo": true
       },
       {

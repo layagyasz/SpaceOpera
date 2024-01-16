@@ -210,10 +210,10 @@
     ]
   },
   {
-    "$id": "advancement-heavy-gun-fire-control-precision-ii",
+    "$id": "advancement-heavy-gun-optic-precision-ii",
     "Layers": [
       {
-        "Texture": "icon-heavy-weapon-fire-control-precision",
+        "Texture": "icon-heavy-weapon-optic-precision",
         "Color": "#ffffff"
       },
       {
@@ -224,10 +224,10 @@
     ]
   },
   {
-    "$id": "advancement-heavy-gun-fire-control-precision-iii",
+    "$id": "advancement-heavy-gun-optic-precision-iii",
     "Layers": [
       {
-        "Texture": "icon-heavy-weapon-fire-control-precision",
+        "Texture": "icon-heavy-weapon-optic-precision",
         "Color": "#ffffff"
       },
       {
@@ -238,10 +238,10 @@
     ]
   },
   {
-    "$id": "advancement-heavy-gun-fire-control-precision-iv",
+    "$id": "advancement-heavy-gun-optic-precision-iv",
     "Layers": [
       {
-        "Texture": "icon-heavy-weapon-fire-control-precision",
+        "Texture": "icon-heavy-weapon-optic-precision",
         "Color": "#ffffff"
       },
       {
@@ -252,10 +252,10 @@
     ]
   },
   {
-    "$id": "advancement-heavy-gun-fire-control-targeting-ii",
+    "$id": "advancement-heavy-gun-optic-targeting-ii",
     "Layers": [
       {
-        "Texture": "icon-heavy-weapon-fire-control-targeting",
+        "Texture": "icon-heavy-weapon-optic-targeting",
         "Color": "#ffffff"
       },
       {
@@ -266,10 +266,10 @@
     ]
   },
   {
-    "$id": "advancement-heavy-gun-fire-control-targeting-iii",
+    "$id": "advancement-heavy-gun-optic-targeting-iii",
     "Layers": [
       {
-        "Texture": "icon-heavy-weapon-fire-control-targeting",
+        "Texture": "icon-heavy-weapon-optic-targeting",
         "Color": "#ffffff"
       },
       {
@@ -280,10 +280,10 @@
     ]
   },
   {
-    "$id": "advancement-heavy-gun-fire-control-targeting-iv",
+    "$id": "advancement-heavy-gun-optic-targeting-iv",
     "Layers": [
       {
-        "Texture": "icon-heavy-weapon-fire-control-targeting",
+        "Texture": "icon-heavy-weapon-optic-targeting",
         "Color": "#ffffff"
       },
       {
@@ -294,10 +294,10 @@
     ]
   },
   {
-    "$id": "advancement-heavy-gun-fire-control-tracking-ii",
+    "$id": "advancement-heavy-gun-optic-tracking-ii",
     "Layers": [
       {
-        "Texture": "icon-heavy-weapon-fire-control-tracking",
+        "Texture": "icon-heavy-weapon-optic-tracking",
         "Color": "#ffffff"
       },
       {
@@ -308,10 +308,10 @@
     ]
   },
   {
-    "$id": "advancement-heavy-gun-fire-control-tracking-iii",
+    "$id": "advancement-heavy-gun-optic-tracking-iii",
     "Layers": [
       {
-        "Texture": "icon-heavy-weapon-fire-control-tracking",
+        "Texture": "icon-heavy-weapon-optic-tracking",
         "Color": "#ffffff"
       },
       {
@@ -322,10 +322,10 @@
     ]
   },
   {
-    "$id": "advancement-heavy-gun-fire-control-tracking-iv",
+    "$id": "advancement-heavy-gun-optic-tracking-iv",
     "Layers": [
       {
-        "Texture": "icon-heavy-weapon-fire-control-tracking",
+        "Texture": "icon-heavy-weapon-optic-tracking",
         "Color": "#ffffff"
       },
       {

@@ -512,10 +512,10 @@
   },
 
   {
-    "$id": "component-heavy-gun-fire-control-precision-i",
-    "Name": "Precision Fire Control I",
+    "$id": "component-heavy-gun-optic-precision-i",
+    "Name": "Precision Optic I",
     "Slot": {
-      "Type": "HeavyGunFireControl"
+      "Type": "HeavyGunOptic"
     },
     "Attributes": {
       "WeaponAccuracy": {
@@ -524,49 +524,49 @@
     }
   },
   {
-    "$id": "component-heavy-gun-fire-control-precision-ii",
-    "Name": "Precision Fire Control II",
+    "$id": "component-heavy-gun-optic-precision-ii",
+    "Name": "Precision Optic II",
     "Slot": {
-      "Type": "HeavyGunFireControl"
+      "Type": "HeavyGunOptic"
     },
     "Attributes": {
       "WeaponAccuracy": {
         "Bonus": 1
       }
     },
-    "Prerequisites": [ "advancement-heavy-gun-fire-control-precision-ii" ]
+    "Prerequisites": [ "advancement-heavy-gun-optic-precision-ii" ]
   },
   {
-    "$id": "component-heavy-gun-fire-control-precision-iii",
-    "Name": "Precision Fire Control III",
+    "$id": "component-heavy-gun-optic-precision-iii",
+    "Name": "Precision Optic III",
     "Slot": {
-      "Type": "HeavyGunFireControl"
+      "Type": "HeavyGunOptic"
     },
     "Attributes": {
       "WeaponAccuracy": {
         "Bonus": 1.5
       }
     },
-    "Prerequisites": [ "advancement-heavy-gun-fire-control-precision-iii" ]
+    "Prerequisites": [ "advancement-heavy-gun-optic-precision-iii" ]
   },
   {
-    "$id": "component-heavy-gun-fire-control-precision-iv",
-    "Name": "Precision Fire Control IV",
+    "$id": "component-heavy-gun-optic-precision-iv",
+    "Name": "Precision Optic IV",
     "Slot": {
-      "Type": "HeavyGunFireControl"
+      "Type": "HeavyGunOptic"
     },
     "Attributes": {
       "WeaponAccuracy": {
         "Bonus": 2
       }
     },
-    "Prerequisites": [ "advancement-heavy-gun-fire-control-precision-iv" ]
+    "Prerequisites": [ "advancement-heavy-gun-optic-precision-iv" ]
   },
   {
-    "$id": "component-heavy-gun-fire-control-targeting-i",
-    "Name": "Targeting Fire Control I",
+    "$id": "component-heavy-gun-optic-targeting-i",
+    "Name": "Targeting Optic I",
     "Slot": {
-      "Type": "HeavyGunFireControl"
+      "Type": "HeavyGunOptic"
     },
     "Attributes": {
       "WeaponDamage": {
@@ -575,49 +575,49 @@
     }
   },
   {
-    "$id": "component-heavy-gun-fire-control-targeting-ii",
-    "Name": "Targeting Fire Control II",
+    "$id": "component-heavy-gun-optic-targeting-ii",
+    "Name": "Targeting Optic II",
     "Slot": {
-      "Type": "HeavyGunFireControl"
+      "Type": "HeavyGunOptic"
     },
     "Attributes": {
       "WeaponDamage": {
         "Bonus": 0.1
       }
     },
-    "Prerequisites": [ "advancement-heavy-gun-fire-control-targeting-ii" ]
+    "Prerequisites": [ "advancement-heavy-gun-optic-targeting-ii" ]
   },
   {
-    "$id": "component-heavy-gun-fire-control-targeting-iii",
-    "Name": "Targeting Fire Control III",
+    "$id": "component-heavy-gun-optic-targeting-iii",
+    "Name": "Targeting Optic III",
     "Slot": {
-      "Type": "HeavyGunFireControl"
+      "Type": "HeavyGunOptic"
     },
     "Attributes": {
       "WeaponDamage": {
         "Bonus": 0.15
       }
     },
-    "Prerequisites": [ "advancement-heavy-gun-fire-control-targeting-iii" ]
+    "Prerequisites": [ "advancement-heavy-gun-optic-targeting-iii" ]
   },
   {
-    "$id": "component-heavy-gun-fire-control-targeting-iv",
-    "Name": "Targeting Fire Control IV",
+    "$id": "component-heavy-gun-optic-targeting-iv",
+    "Name": "Targeting Optic IV",
     "Slot": {
-      "Type": "HeavyGunFireControl"
+      "Type": "HeavyGunOptic"
     },
     "Attributes": {
       "WeaponDamage": {
         "Bonus": 0.2
       }
     },
-    "Prerequisites": [ "advancement-heavy-gun-fire-control-targeting-iv" ]
+    "Prerequisites": [ "advancement-heavy-gun-optic-targeting-iv" ]
   },
   {
-    "$id": "component-heavy-gun-fire-control-tracking-i",
-    "Name": "Tracking Fire Control I",
+    "$id": "component-heavy-gun-optic-tracking-i",
+    "Name": "Tracking Optic I",
     "Slot": {
-      "Type": "HeavyGunFireControl"
+      "Type": "HeavyGunOptic"
     },
     "Attributes": {
       "WeaponTracking": {
@@ -626,43 +626,43 @@
     }
   },
   {
-    "$id": "component-heavy-gun-fire-control-tracking-ii",
-    "Name": "Tracking Fire Control II",
+    "$id": "component-heavy-gun-optic-tracking-ii",
+    "Name": "Tracking Optic II",
     "Slot": {
-      "Type": "HeavyGunFireControl"
+      "Type": "HeavyGunOptic"
     },
     "Attributes": {
       "WeaponTracking": {
         "Bonus": 1
       }
     },
-    "Prerequisites": [ "advancement-heavy-gun-fire-control-tracking-ii" ]
+    "Prerequisites": [ "advancement-heavy-gun-optic-tracking-ii" ]
   },
   {
-    "$id": "component-heavy-gun-fire-control-tracking-iii",
-    "Name": "Tracking Fire Control III",
+    "$id": "component-heavy-gun-optic-tracking-iii",
+    "Name": "Tracking Optic III",
     "Slot": {
-      "Type": "HeavyGunFireControl"
+      "Type": "HeavyGunOptic"
     },
     "Attributes": {
       "WeaponTracking": {
         "Bonus": 1.5
       }
     },
-    "Prerequisites": [ "advancement-heavy-gun-fire-control-tracking-iii" ]
+    "Prerequisites": [ "advancement-heavy-gun-optic-tracking-iii" ]
   },
   {
-    "$id": "component-heavy-gun-fire-control-tracking-iv",
-    "Name": "Tracking Fire Control IV",
+    "$id": "component-heavy-gun-optic-tracking-iv",
+    "Name": "Tracking Optic IV",
     "Slot": {
-      "Type": "HeavyGunFireControl"
+      "Type": "HeavyGunOptic"
     },
     "Attributes": {
       "WeaponTracking": {
         "Bonus": 2
       }
     },
-    "Prerequisites": [ "advancement-heavy-gun-fire-control-tracking-iv" ]
+    "Prerequisites": [ "advancement-heavy-gun-optic-tracking-iv" ]
   },
 
   {

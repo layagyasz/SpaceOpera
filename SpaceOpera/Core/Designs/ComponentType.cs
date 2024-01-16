@@ -36,8 +36,8 @@ namespace SpaceOpera.Core.Designs
         HeavyGun,
         HeavyGunAmmunition,
         HeavyGunAssembly,
-        HeavyGunFireControl,
         HeavyGunMount,
+        HeavyGunOptic,
         HeavyGunWeight,
 
         HeavyMissile,

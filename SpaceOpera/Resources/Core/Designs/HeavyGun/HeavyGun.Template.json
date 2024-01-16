@@ -115,7 +115,7 @@
                 "Weight": 1
               },
               {
-                "Type": [ "HeavyGunFireControl" ],
+                "Type": [ "HeavyGunOptic" ],
                 "Size": [],
                 "Count": 1,
                 "Weight": 1

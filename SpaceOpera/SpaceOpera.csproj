@@ -326,13 +326,13 @@
     <None Update="Resources\View\Icons\Weapons\heavy-weapon-assembly-rotary.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\Weapons\heavy-weapon-fire-control-precision.png">
+    <None Update="Resources\View\Icons\Weapons\heavy-weapon-optic-precision.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\Weapons\heavy-weapon-fire-control-targeting.png">
+    <None Update="Resources\View\Icons\Weapons\heavy-weapon-optic-targeting.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\Weapons\heavy-weapon-fire-control-tracking.png">
+    <None Update="Resources\View\Icons\Weapons\heavy-weapon-optic-tracking.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\View\Icons\Weapons\heavy-weapon-mount-double.png">
@@ -614,13 +614,13 @@
     <None Update="Resources\View\Icons\heavy-gun-assembly-rotary.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\heavy-gun-fire-control-precision.png">
+    <None Update="Resources\View\Icons\heavy-gun-optic-precision.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\heavy-gun-fire-control-targeting.png">
+    <None Update="Resources\View\Icons\heavy-gun-optic-targeting.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Resources\View\Icons\heavy-gun-fire-control-tracking.png">
+    <None Update="Resources\View\Icons\heavy-gun-optic-tracking.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\View\Icons\heavy-gun-mount-double.png">
