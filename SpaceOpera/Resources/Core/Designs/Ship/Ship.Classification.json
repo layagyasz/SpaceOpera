@@ -22,61 +22,67 @@
         {
           "Tags": [ "Light" ],
           "Fit": {
-            "Light": 3,
-            "Medium": 0,
-            "Heavy": -3,
-            "SmallSize": 2,
-            "MediumSize": 0,
-            "LargeSize": -2,
-            "Battleship": 1,
-            "Carrier": 1,
-            "Cruiser": 0,
-            "Destroyer": 0,
-            "Escort": -1,
-            "Freighter": 0.5,
-            "Frigate": 0,
-            "Patrol": -1,
-            "Transport": 0.5
+            "Tags": {
+              "Light": 3,
+              "Medium": 0,
+              "Heavy": -3,
+              "SmallSize": 2,
+              "MediumSize": 0,
+              "LargeSize": -2,
+              "Battleship": 1,
+              "Carrier": 1,
+              "Cruiser": 0,
+              "Destroyer": 0,
+              "Escort": -1,
+              "Freighter": 0.5,
+              "Frigate": 0,
+              "Patrol": -1,
+              "Transport": 0.5
+            }
           }
         },
         {
           "Tags": [ "Medium" ],
           "Fit": {
-            "Light": 0,
-            "Medium": 3,
-            "Heavy": 0,
-            "SmallSize": 0,
-            "MediumSize": 2,
-            "LargeSize": 0,
-            "Battleship": 1,
-            "Carrier": 1,
-            "Cruiser": 0.5,
-            "Escort": 1,
-            "Destroyer": 0.5,
-            "Freighter": 0,
-            "Frigate": 0,
-            "Patrol": 1,
-            "Transport": 0
+            "Tags": {
+              "Light": 0,
+              "Medium": 3,
+              "Heavy": 0,
+              "SmallSize": 0,
+              "MediumSize": 2,
+              "LargeSize": 0,
+              "Battleship": 1,
+              "Carrier": 1,
+              "Cruiser": 0.5,
+              "Escort": 1,
+              "Destroyer": 0.5,
+              "Freighter": 0,
+              "Frigate": 0,
+              "Patrol": 1,
+              "Transport": 0
+            }
           }
         },
         {
           "Tags": [ "Heavy" ],
           "Fit": {
-            "Light": -3,
-            "Medium": 0,
-            "Heavy": 3,
-            "SmallSize": 0,
-            "MediumSize": 0,
-            "LargeSize": -6,
-            "Battleship": -1,
-            "Carrier": -1,
-            "Cruiser": 0,
-            "Destroyer": 0.5,
-            "Escort": 1,
-            "Freighter": -0.5,
-            "Frigate": 0,
-            "Patrol": 1,
-            "Transport": -0.5
+            "Tags": {
+              "Light": -3,
+              "Medium": 0,
+              "Heavy": 3,
+              "SmallSize": 0,
+              "MediumSize": 0,
+              "LargeSize": -6,
+              "Battleship": -1,
+              "Carrier": -1,
+              "Cruiser": 0,
+              "Destroyer": 0.5,
+              "Escort": 1,
+              "Freighter": -0.5,
+              "Frigate": 0,
+              "Patrol": 1,
+              "Transport": -0.5
+            }
           }
         }
       ],
@@ -84,181 +90,199 @@
         {
           "Tags": [ "Battleship" ],
           "Fit": {
-            "Light": -1,
-            "Medium": 0,
-            "Heavy": 1,
-            "SmallSize": -2,
-            "MediumSize": 0,
-            "LargeSize": 2,
-            "Battleship": 1,
-            "Carrier": -1,
-            "Cruiser": -0.5,
-            "Destroyer": -0.5,
-            "Escort": -1,
-            "Freighter": -1,
-            "Frigate": -0.5,
-            "Patrol": -1,
-            "Transport": -1
+            "Tags": {
+              "Light": -1,
+              "Medium": 0,
+              "Heavy": 1,
+              "SmallSize": -2,
+              "MediumSize": 0,
+              "LargeSize": 2,
+              "Battleship": 1,
+              "Carrier": -1,
+              "Cruiser": -0.5,
+              "Destroyer": -0.5,
+              "Escort": -1,
+              "Freighter": -1,
+              "Frigate": -0.5,
+              "Patrol": -1,
+              "Transport": -1
+            }
           }
         },
         {
           "Tags": [ "Carrier" ],
           "Fit": {
-            "Light": 0,
-            "Medium": 0,
-            "Heavy": 0,
-            "SmallSize": 0,
-            "MediumSize": 0,
-            "LargeSize": 0,
-            "Battleship": -1,
-            "Carrier": 3,
-            "Cruiser": 0,
-            "Destroyer": 0,
-            "Escort": -0.5,
-            "Freighter": 0,
-            "Frigate": -0.5,
-            "Patrol": -1,
-            "Transport": 0
+            "Tags": {
+              "Light": 0,
+              "Medium": 0,
+              "Heavy": 0,
+              "SmallSize": 0,
+              "MediumSize": 0,
+              "LargeSize": 0,
+              "Battleship": -1,
+              "Carrier": 3,
+              "Cruiser": 0,
+              "Destroyer": 0,
+              "Escort": -0.5,
+              "Freighter": 0,
+              "Frigate": -0.5,
+              "Patrol": -1,
+              "Transport": 0
+            }
           }
         },
         {
           "Tags": [ "Cruiser" ],
           "Fit": {
-            "Light": 0,
-            "Medium": 0,
-            "Heavy": 0,
-            "SmallSize": 0,
-            "MediumSize": 2,
-            "LargeSize": 0,
-            "Battleship": 0.25,
-            "Carrier": 0,
-            "Cruiser": 1,
-            "Escort": 0,
-            "Destroyer": 0.25,
-            "Freighter": 0.125,
-            "Frigate": 0.25,
-            "Patrol": 0,
-            "Transport": -0.5
+            "Tags": {
+              "Light": 0,
+              "Medium": 0,
+              "Heavy": 0,
+              "SmallSize": 0,
+              "MediumSize": 2,
+              "LargeSize": 0,
+              "Battleship": 0.25,
+              "Carrier": 0,
+              "Cruiser": 1,
+              "Escort": 0,
+              "Destroyer": 0.25,
+              "Freighter": 0.125,
+              "Frigate": 0.25,
+              "Patrol": 0,
+              "Transport": -0.5
+            }
           }
         },
         {
           "Tags": [ "Destroyer" ],
           "Fit": {
-            "Light": 0,
-            "Medium": 1,
-            "Heavy": 0,
-            "SmallSize": 0,
-            "MediumSize": 2,
-            "LargeSize": 0,
-            "Battleship": 0,
-            "Carrier": -3,
-            "Cruiser": 0,
-            "Destroyer": 2,
-            "Escort": -0.5,
-            "Freighter": -1,
-            "Frigate": 0,
-            "Patrol": -0.5,
-            "Transport": -1
+            "Tags": {
+              "Light": 0,
+              "Medium": 1,
+              "Heavy": 0,
+              "SmallSize": 0,
+              "MediumSize": 2,
+              "LargeSize": 0,
+              "Battleship": 0,
+              "Carrier": -3,
+              "Cruiser": 0,
+              "Destroyer": 2,
+              "Escort": -0.5,
+              "Freighter": -1,
+              "Frigate": 0,
+              "Patrol": -0.5,
+              "Transport": -1
+            }
           }
         },
         {
           "Tags": [ "Escort" ],
           "Fit": {
-            "Light": 1,
-            "Medium": 0,
-            "Heavy": -1,
-            "SmallSize": 2,
-            "MediumSize": 0,
-            "LargeSize": -2,
-            "Battleship": -1,
-            "Carrier": -1,
-            "Cruiser": -0.5,
-            "Destroyer": 0,
-            "Escort": 1,
-            "Freighter": -0.5,
-            "Frigate": -0.5,
-            "Patrol": 0.5,
-            "Transport": -0.5
+            "Tags": {
+              "Light": 1,
+              "Medium": 0,
+              "Heavy": -1,
+              "SmallSize": 2,
+              "MediumSize": 0,
+              "LargeSize": -2,
+              "Battleship": -1,
+              "Carrier": -1,
+              "Cruiser": -0.5,
+              "Destroyer": 0,
+              "Escort": 1,
+              "Freighter": -0.5,
+              "Frigate": -0.5,
+              "Patrol": 0.5,
+              "Transport": -0.5
+            }
           }
         },
         {
           "Tags": [ "Freighter" ],
           "Fit": {
-            "Light": 0,
-            "Medium": 0,
-            "Heavy": 0,
-            "SmallSize": 0,
-            "MediumSize": 0,
-            "LargeSize": 0,
-            "Battleship": -1,
-            "Carrier": -1,
-            "Cruiser": -1,
-            "Destroyer": -1,
-            "Escort": -1,
-            "Freighter": 0.5,
-            "Frigate": -1,
-            "Patrol": -1,
-            "Transport": 0
+            "Tags": {
+              "Light": 0,
+              "Medium": 0,
+              "Heavy": 0,
+              "SmallSize": 0,
+              "MediumSize": 0,
+              "LargeSize": 0,
+              "Battleship": -1,
+              "Carrier": -1,
+              "Cruiser": -1,
+              "Destroyer": -1,
+              "Escort": -1,
+              "Freighter": 0.5,
+              "Frigate": -1,
+              "Patrol": -1,
+              "Transport": 0
+            }
           }
         },
         {
           "Tags": [ "Frigate" ],
           "Fit": {
-            "Light": 0,
-            "Medium": 0,
-            "Heavy": 0,
-            "SmallSize": 0,
-            "MediumSize": 0,
-            "LargeSize": 0,
-            "Battleship": 0.5,
-            "Carrier": -0.5,
-            "Cruiser": 0.5,
-            "Escort": 0.5,
-            "Destroyer": 0.5,
-            "Freighter": 0,
-            "Frigate": 1.0,
-            "Patrol": 0.5,
-            "Transport": -0.5
+            "Tags": {
+              "Light": 0,
+              "Medium": 0,
+              "Heavy": 0,
+              "SmallSize": 0,
+              "MediumSize": 0,
+              "LargeSize": 0,
+              "Battleship": 0.5,
+              "Carrier": -0.5,
+              "Cruiser": 0.5,
+              "Escort": 0.5,
+              "Destroyer": 0.5,
+              "Freighter": 0,
+              "Frigate": 1.0,
+              "Patrol": 0.5,
+              "Transport": -0.5
+            }
           }
         },
         {
           "Tags": [ "Patrol" ],
           "Fit": {
-            "Light": 1,
-            "Medium": 0,
-            "Heavy": -1,
-            "SmallSize": 2,
-            "MediumSize": 0,
-            "LargeSize": -2,
-            "Battleship": -1,
-            "Carrier": -1,
-            "Cruiser": -0.5,
-            "Destroyer": 0,
-            "Escort": 0.5,
-            "Freighter": -0.5,
-            "Frigate": -0.5,
-            "Patrol": 1,
-            "Transport": -0.5
+            "Tags": {
+              "Light": 1,
+              "Medium": 0,
+              "Heavy": -1,
+              "SmallSize": 2,
+              "MediumSize": 0,
+              "LargeSize": -2,
+              "Battleship": -1,
+              "Carrier": -1,
+              "Cruiser": -0.5,
+              "Destroyer": 0,
+              "Escort": 0.5,
+              "Freighter": -0.5,
+              "Frigate": -0.5,
+              "Patrol": 1,
+              "Transport": -0.5
+            }
           }
         },
         {
           "Tags": [ "Transport" ],
           "Fit": {
-            "Light": 0,
-            "Medium": 0,
-            "Heavy": 0,
-            "SmallSize": 0,
-            "MediumSize": 0,
-            "LargeSize": 0,
-            "Battleship": -1,
-            "Carrier": -1,
-            "Cruiser": -1,
-            "Destroyer": -1,
-            "Escort": -1,
-            "Freighter": 0.5,
-            "Frigate": -1,
-            "Patrol": -1,
-            "Transport": 1
+            "Tags": {
+              "Light": 0,
+              "Medium": 0,
+              "Heavy": 0,
+              "SmallSize": 0,
+              "MediumSize": 0,
+              "LargeSize": 0,
+              "Battleship": -1,
+              "Carrier": -1,
+              "Cruiser": -1,
+              "Destroyer": -1,
+              "Escort": -1,
+              "Freighter": 0.5,
+              "Frigate": -1,
+              "Patrol": -1,
+              "Transport": 1
+            }
           }
         }
       ]

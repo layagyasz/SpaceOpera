@@ -359,9 +359,58 @@
         }
       },
       {
-        "Value": 4,
+        "Value": 1,
         "Key": {
-          "Type": "Ship"
+          "Type": "Ship",
+          "Fitness": {
+            "Tags": {
+              "Freighter": 1
+            }
+          }
+        }
+      },
+      {
+        "Value": 1,
+        "Key": {
+          "Type": "Ship",
+          "Fitness": {
+            "Tags": {
+              "Patrol": 1
+            }
+          }
+        }
+      },
+      {
+        "Value": 1,
+        "Key": {
+          "Type": "Ship",
+          "Fitness": {
+            "Tags": {
+              "Destroyer": 1
+            }
+          }
+        }
+      },
+      {
+        "Value": 1,
+        "Key": {
+          "Type": "Ship",
+          "Fitness": {
+            "Tags": {
+              "Battleship": 1
+            }
+          }
+        }
+      },
+      {
+        "Value": 1,
+        "Key": {
+          "Type": "Ship",
+          "Fitness": {
+            "Tags": {
+              "Carrier": 1
+            }
+          }
         }
       },
       {
@@ -377,15 +426,47 @@
         }
       },
       {
-        "Value": 2,
+        "Value": 1,
         "Key": {
-          "Type": "BattalionTemplate"
+          "Type": "BattalionTemplate",
+          "Fitness": {
+            "Tags": {
+              "Infantry": 1
+            }
+          }
         }
       },
       {
-        "Value": 2,
+        "Value": 1,
         "Key": {
-          "Type": "DivisionTemplate"
+          "Type": "BattalionTemplate",
+          "Fitness": {
+            "Tags": {
+              "Tank": 1
+            }
+          }
+        }
+      },
+      {
+        "Value": 1,
+        "Key": {
+          "Type": "DivisionTemplate",
+          "Fitness": {
+            "Tags": {
+              "Infantry": 1
+            }
+          }
+        }
+      },
+      {
+        "Value": 1,
+        "Key": {
+          "Type": "DivisionTemplate",
+          "Fitness": {
+            "Tags": {
+              "Tank": 1
+            }
+          }
         }
       }
     ]

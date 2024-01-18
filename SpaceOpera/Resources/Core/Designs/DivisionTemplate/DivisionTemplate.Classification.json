@@ -16,7 +16,9 @@
         {
           "Tags": [ "Formation" ],
           "Fit": {
-            "Formation": 1
+            "Tags": {
+              "Formation": 1
+            }
           }
         }
       ],
@@ -24,25 +26,31 @@
         {
           "Tags": [ "Light" ],
           "Fit": {
-            "Light": 1,
-            "Medium": 0,
-            "Heavy": -1
+            "Tags": {
+              "Light": 1,
+              "Medium": 0,
+              "Heavy": -1
+            }
           }
         },
         {
           "Tags": [ "Medium" ],
           "Fit": {
-            "Light": 0,
-            "Medium": 1,
-            "Heavy": 0
+            "Tags": {
+              "Light": 0,
+              "Medium": 1,
+              "Heavy": 0
+            }
           }
         },
         {
           "Tags": [ "Heavy" ],
           "Fit": {
-            "Light": -1,
-            "Medium": 0,
-            "Heavy": 1
+            "Tags": {
+              "Light": -1,
+              "Medium": 0,
+              "Heavy": 1
+            }
           }
         }
       ],
@@ -50,15 +58,19 @@
         {
           "Tags": [ "Infantry" ],
           "Fit": {
-            "Infantry": 1,
-            "Tank": 0
+            "Tags": {
+              "Infantry": 1,
+              "Tank": 0
+            }
           }
         },
         {
           "Tags": [ "Tank" ],
           "Fit": {
-            "Infantry": 0,
-            "Tank": 4
+            "Tags": {
+              "Infantry": 0,
+              "Tank": 4
+            }
           }
         }
       ]

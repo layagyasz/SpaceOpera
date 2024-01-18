@@ -9,16 +9,15 @@ namespace SpaceOpera.Core.Designs
             Classifiers = classifiers.ToArray();
         }
 
-        public IEnumerable<ComponentTag> Classify(DesignConfiguration design)
+        public IEnumerable<ComponentTag> Classify(IComponent component)
         {
-            var classifier = Classifiers.FirstOrDefault(x => x.Supports(design));
-            var designTags = design.GetTags().Select(x => x.Key);
+            var classifier = Classifiers.FirstOrDefault(x => x.Supports(component));
+            var designTags = component.Tags;
             if (classifier == null)
             {
-                return designTags;
+                return component.Tags.Select(x => x.Key);
             }
-            var tags = classifier.GetTags(design);
-            return classifier.ReduceTags(designTags).Concat(tags);
+            return classifier.Classify(component);
         }
     }
 }

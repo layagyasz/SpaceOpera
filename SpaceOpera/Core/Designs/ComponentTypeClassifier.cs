@@ -1,5 +1,4 @@
 using Cardamom.Collections;
-using Cardamom.Trackers;
 
 namespace SpaceOpera.Core.Designs
 {
@@ -8,11 +7,11 @@ namespace SpaceOpera.Core.Designs
         public class ClassificationOption
         {
             public ComponentTag[] Tags { get; set; } = Array.Empty<ComponentTag>();
-            public EnumMap<ComponentTag, float> Fit { get; set; } = new();
+            public DesignFitness Fit { get; set; } = new();
 
-            public float GetFit(MultiCount<ComponentTag> tags)
+            public float GetFit(IComponent component)
             {
-                return tags.Select(x => x.Value * Fit[x.Key]).DefaultIfEmpty(0).Sum();
+                return Fit.Get(component);
             }
         }
 
@@ -20,22 +19,17 @@ namespace SpaceOpera.Core.Designs
         public EnumSet<ComponentTag> ReducedTags { get; set; } = new();
         public ClassificationOption[][] ClassificationOptions { get; set; } = Array.Empty<ClassificationOption[]>();
 
-        public IEnumerable<ComponentTag> GetTags(DesignConfiguration design)
+        public IEnumerable<ComponentTag> Classify(IComponent component)
         {
-            var tags = design.GetTags();
-            return ClassificationOptions
-                .SelectMany(x => x.ArgMax(y => y.GetFit(tags))!.Tags)
+            var newTags = ClassificationOptions
+                .SelectMany(x => x.ArgMax(y => y.GetFit(component))!.Tags)
                 .Distinct();
+            return component.Tags.Select(x => x.Key).Where(x => !ReducedTags.Contains(x)).Concat(newTags);
         }
 
-        public IEnumerable<ComponentTag> ReduceTags(IEnumerable<ComponentTag> tags)
+        public bool Supports(IComponent component)
         {
-            return tags.Where(x => !ReducedTags.Contains(x));
-        }
-
-        public bool Supports(DesignConfiguration design)
-        {
-            return SupportedTypes.Contains(design.Template.Type);
+            return SupportedTypes.Contains(component.Slot.Type);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace SpaceOpera.Core.Designs
 
         public Design Build(DesignConfiguration design)
         {
-            var tags = UnitClassifier.Classify(design).ToArray();
+            var tags = UnitClassifier.Classify(BuildExemplar(design)).ToArray();
             var components = BuildComponents(design, tags.ToMultiCount(x => x, _ => 1)).ToList();
             var recipes = 
                 components
@@ -24,6 +24,15 @@ namespace SpaceOpera.Core.Designs
                     .Select(x => Recipe.ForDesignedMaterial(x, design.Template.Structure!))
                     .ToList();
             return new Design(design, tags, components, recipes);
+        }
+
+        private static DesignedComponent BuildExemplar(DesignConfiguration design)
+        {
+            return BuildComponent(
+                string.Empty,
+                new ComponentSlot() { Size = ComponentSize.Unknown, Type = design.Template.Type },
+                design.GetComponents(),
+                design.GetTags());
         }
 
         private static IEnumerable<DesignedComponent> BuildComponents(

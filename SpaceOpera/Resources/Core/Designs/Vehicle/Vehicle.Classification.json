@@ -11,25 +11,31 @@
         {
           "Tags": [ "Light" ],
           "Fit": {
-            "Light": 3,
-            "Medium": 0,
-            "Heavy": -3
+            "Tags": {
+              "Light": 3,
+              "Medium": 0,
+              "Heavy": -3
+            }
           }
         },
         {
           "Tags": [ "Medium" ],
           "Fit": {
-            "Light": 0,
-            "Medium": 3,
-            "Heavy": 0
+            "Tags": {
+              "Light": 0,
+              "Medium": 3,
+              "Heavy": 0
+            }
           }
         },
         {
           "Tags": [ "Heavy" ],
           "Fit": {
-            "Light": -3,
-            "Medium": 0,
-            "Heavy": 3
+            "Tags": {
+              "Light": -3,
+              "Medium": 0,
+              "Heavy": 3
+            }
           }
         }
       ]

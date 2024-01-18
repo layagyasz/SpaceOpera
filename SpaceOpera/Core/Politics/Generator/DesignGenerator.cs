@@ -17,20 +17,18 @@ namespace SpaceOpera.Core.Politics.Generator
             _designOrder ??= world.AutoDesigner.GetDesignOrder();
             foreach (var component in _designOrder)
             {
-                var parameters = DesignParameters.FirstOrDefault(x => x.Key.Type == component);
-                if (parameters.Key == null)
+                foreach (var parameters in DesignParameters.Where(x => x.Key.Type == component))
                 {
-                    continue;
-                }
-                for (int i = 0; i < parameters.Value; ++i)
-                {
-                    var designConfig =
-                        world.AutoDesigner.CreateSeries(
-                            parameters.Key, world.GetComponentsFor(faction), context.Random);
-                    var design = world.DesignBuilder.Build(designConfig);
-                    design.SetName(faction.NameGenerator.GenerateNameFor(design, context.Random));
-                    world.AddDesign(design);
-                    world.AddLicense(new(faction, design));
+                    for (int i = 0; i < parameters.Value; ++i)
+                    {
+                        var designConfig =
+                            world.AutoDesigner.CreateSeries(
+                                parameters.Key, world.GetComponentsFor(faction), context.Random);
+                        var design = world.DesignBuilder.Build(designConfig);
+                        design.SetName(faction.NameGenerator.GenerateNameFor(design, context.Random));
+                        world.AddDesign(design);
+                        world.AddLicense(new(faction, design));
+                    }
                 }
             }
         }

@@ -63,7 +63,8 @@ namespace SpaceOpera.Core.Designs
         {
             var template = _templates[parameters.Type];
             return new DesignConfiguration(
-                template, template.Segments.Select(x => DesignSegment(x, parameters, availableComponents, random)));
+                template,
+                template.Segments.Select(x => DesignSegment(x, parameters.Fitness, availableComponents, random)));
         }
 
         public static DesignConfiguration ContinueSeries(
@@ -75,20 +76,20 @@ namespace SpaceOpera.Core.Designs
 
         private static Segment DesignSegment(
             SegmentTemplate template, 
-            AutoDesignerParameters parameters, 
+            DesignFitness fitness, 
             IEnumerable<IComponent> availableComponents,
             Random random)
         {
             return
                 template.ConfigurationOptions
-                    .Select(x => DesignSegmentWithConfiguration(template, x, parameters, availableComponents, random))
-                    .ArgMaxRandomlySelecting(parameters.GetFitness, random)!;
+                    .Select(x => DesignSegmentWithConfiguration(template, x, fitness, availableComponents, random))
+                    .ArgMaxRandomlySelecting(fitness.Get, random)!;
         }
 
         private static Segment DesignSegmentWithConfiguration(
             SegmentTemplate template,
             SegmentConfiguration configuration,
-            AutoDesignerParameters parameters,
+            DesignFitness fitness,
             IEnumerable<IComponent> availableComponents, 
             Random random)
         {
@@ -99,7 +100,7 @@ namespace SpaceOpera.Core.Designs
                     slot, 
                     Enumerable.Repeat(
                         availableComponents
-                            .Where(x => x.FitsSlot(slot)).ArgMaxRandomlySelecting(parameters.GetFitness, random)!,
+                            .Where(x => x.FitsSlot(slot)).ArgMaxRandomlySelecting(fitness.Get, random)!,
                         slot.Count)!);
             }
             return new Segment(template, configuration, components);
