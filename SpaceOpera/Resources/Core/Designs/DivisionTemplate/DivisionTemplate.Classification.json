@@ -2,6 +2,8 @@
   {
     "SupportedTypes": [ "DivisionTemplate" ],
     "ReducedTags": [
+      "Formation",
+
       "Light",
       "Medium",
       "Heavy",
@@ -10,6 +12,14 @@
       "Tank"
     ],
     "ClassificationOptions": [
+      [
+        {
+          "Tags": [ "Formation" ],
+          "Fit": {
+            "Formation": 1
+          }
+        }
+      ],
       [
         {
           "Tags": [ "Light" ],

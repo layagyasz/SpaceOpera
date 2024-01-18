@@ -2,13 +2,16 @@
   {
     "$id": "design-template-battalion-template",
     "Type": "BattalionTemplate",
+    "Tags": {
+      "Formation": 1
+    },
     "Segments": [
       {
-        "$id": "design-template-segment-battalion-core",
+        "$id": "design-template-battalion-template-core",
         "Name": "Core",
         "ConfigurationOptions": [
           {
-            "$id": "design-template-segment-battalion-infantry",
+            "$id": "design-template-battalion-core-infantry",
             "Name": "Infantry",
             "IntrinsicComponent": {
               "Attributes": {
@@ -23,6 +26,25 @@
                 "Size": [],
                 "Count": 1,
                 "Weight": 500
+              }
+            ]
+          },
+          {
+            "$id": "design-template-battalion-core-vehicle",
+            "Name": "Vehicle",
+            "IntrinsicComponent": {
+              "Attributes": {
+                "MaterialCost": {
+                  "Constant": 1
+                }
+              }
+            },
+            "Slots": [
+              {
+                "Type": [ "Vehicle" ],
+                "Size": [],
+                "Count": 1,
+                "Weight": 40
               }
             ]
           }

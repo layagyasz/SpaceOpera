@@ -2,6 +2,9 @@
   {
     "$id": "design-template-division-template",
     "Type": "DivisionTemplate",
+    "Tags": {
+      "Formation": 1
+    },
     "Segments": [
       {
         "$id": "design-template-segment-division-core",

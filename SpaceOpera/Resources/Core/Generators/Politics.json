@@ -347,13 +347,13 @@
   "Design": {
     "DesignParameters": [
       {
-        "Value": 4,
+        "Value": 1,
         "Key": {
           "Type": "HeavyShield"
         }
       },
       {
-        "Value": 4,
+        "Value": 1,
         "Key": {
           "Type": "HeavyGun"
         }
@@ -371,19 +371,19 @@
         }
       },
       {
-        "Value": 4,
+        "Value": 1,
         "Key": {
           "Type": "Vehicle"
         }
       },
       {
-        "Value": 1,
+        "Value": 2,
         "Key": {
           "Type": "BattalionTemplate"
         }
       },
       {
-        "Value": 1,
+        "Value": 2,
         "Key": {
           "Type": "DivisionTemplate"
         }

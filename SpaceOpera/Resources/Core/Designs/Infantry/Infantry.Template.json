@@ -4,7 +4,8 @@
     "Type": "Infantry",
     "Structure": "structure-training-facility",
     "Tags": {
-      "Infantry": 1
+      "Infantry": 1,
+      "Unit": 1
     },
     "Segments": [
       {

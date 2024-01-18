@@ -57,7 +57,8 @@ namespace SpaceOpera.Core.Designs
         {
             return slot.Type switch
             {
-                ComponentType.Infantry or ComponentType.Ship => new Unit(name, slot, components, tags),
+                ComponentType.Infantry or ComponentType.Ship or ComponentType.Vehicle => 
+                    new Unit(name, slot, components, tags),
                 ComponentType.BattalionTemplate => new BattalionTemplate(name, slot, components, tags),
                 ComponentType.DivisionTemplate => new DivisionTemplate(name, slot, components, tags),
                 _ => new DesignedComponent(name, slot, components, tags),

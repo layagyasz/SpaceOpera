@@ -3,7 +3,9 @@
     "$id": "design-template-vehicle",
     "Type": "Vehicle",
     "Structure": "structure-heavy-factory",
-    "Tags": {},
+    "Tags": {
+      "Unit": 1
+    },
     "Segments": [
       {
         "$id": "design-template-vehicle-construction",

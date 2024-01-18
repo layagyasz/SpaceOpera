@@ -8,8 +8,9 @@
 
       "Legged",
       "Tracked",
-      "Wheeled"
-      
+      "Wheeled",
+    
+      "Unit"
     ],
     "ClassificationOptions": [
       [

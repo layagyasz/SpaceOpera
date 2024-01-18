@@ -7,6 +7,9 @@ namespace SpaceOpera.Core.Designs
     {
         Unknown,
 
+        Formation,
+        Unit,
+
         Light,
         Medium,
         Heavy,

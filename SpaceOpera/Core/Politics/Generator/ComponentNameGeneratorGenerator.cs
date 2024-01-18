@@ -101,10 +101,19 @@ namespace SpaceOpera.Core.Politics.Generator
                     new ComponentTagName(new EnumSet<ComponentTag>(ComponentTag.Transport), "transport"),
 
                     new ComponentTagName(new EnumSet<ComponentTag>(ComponentTag.Infantry), "infantry"),
-                    new ComponentTagName(new EnumSet<ComponentTag>(ComponentTag.Tank, ComponentTag.Legged), "walker"),
-                    new ComponentTagName(new EnumSet<ComponentTag>(ComponentTag.Tank, ComponentTag.Tracked), "tank"),
                     new ComponentTagName(
-                        new EnumSet<ComponentTag>(ComponentTag.Tank, ComponentTag.Wheeled), "armored car")
+                        new EnumSet<ComponentTag>(
+                            ComponentTag.Unit, ComponentTag.Tank, ComponentTag.Legged),
+                        "walker"),
+                    new ComponentTagName(
+                        new EnumSet<ComponentTag>(ComponentTag.Unit, ComponentTag.Tank, ComponentTag.Tracked), "tank"),
+                    new ComponentTagName(
+                        new EnumSet<ComponentTag>(
+                            ComponentTag.Unit, ComponentTag.Tank, ComponentTag.Wheeled), 
+                        "armored car"),
+
+                    new ComponentTagName(
+                        new EnumSet<ComponentTag>(ComponentTag.Formation, ComponentTag.Tank), "armored"),
                 });
         }
     }

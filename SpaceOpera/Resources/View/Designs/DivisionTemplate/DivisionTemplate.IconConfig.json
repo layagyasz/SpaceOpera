@@ -77,7 +77,7 @@
           },
           {
             "Tags": [ "Tank" ],
-            "Textures": [ "icon-mechanized" ]
+            "Textures": [ "icon-self-propelled" ]
           }
         ]
       }

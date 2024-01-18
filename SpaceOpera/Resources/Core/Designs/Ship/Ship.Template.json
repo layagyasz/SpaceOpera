@@ -40,7 +40,7 @@
         ]
       },
       {
-        "$id": "design-template-ship-ship-fore",
+        "$id": "design-template-ship-fore",
         "Name": "Fore",
         "ConfigurationOptions": [
           {
@@ -195,7 +195,7 @@
             ]
           },
           {
-            "$id": "design-template-ship-ship-fore-carrier-m",
+            "$id": "design-template-ship-fore-carrier-m",
             "Name": "Carrier Fore (M)",
             "IntrinsicComponent": {
               "Tags": {
@@ -238,7 +238,7 @@
             ]
           },
           {
-            "$id": "design-template-ship-ship-fore-carrier-l",
+            "$id": "design-template-ship-fore-carrier-l",
             "Name": "Carrier Fore (L)",
             "IntrinsicComponent": {
               "Tags": {
@@ -713,7 +713,7 @@
         ]
       },
       {
-        "$id": "design-template-ship-ship-core",
+        "$id": "design-template-ship-core",
         "Name": "Core",
         "ConfigurationOptions": [
           {
@@ -1582,7 +1582,7 @@
         ]
       },
       {
-        "$id": "design-template-ship-ship-aft",
+        "$id": "design-template-ship-aft",
         "Name": "Aft",
         "ConfigurationOptions": [
           {
@@ -1737,7 +1737,7 @@
             ]
           },
           {
-            "$id": "design-template-ship-ship-aft-carrier-m",
+            "$id": "design-template-ship-aft-carrier-m",
             "Name": "Carrier Aft (M)",
             "IntrinsicComponent": {
               "Tags": {
@@ -1780,7 +1780,7 @@
             ]
           },
           {
-            "$id": "design-template-ship-ship-aft-carrier-l",
+            "$id": "design-template-ship-aft-carrier-l",
             "Name": "Carrier Aft (L)",
             "IntrinsicComponent": {
               "Tags": {
