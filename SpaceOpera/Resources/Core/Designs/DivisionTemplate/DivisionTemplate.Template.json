@@ -24,14 +24,20 @@
               {
                 "Type": [ "BattalionTemplate" ],
                 "Size": [],
-                "Count": 1,
-                "Weight": 3
+                "Weight": {
+                  "Target": {
+                    "Coefficient": 3
+                  }
+                }
               },
               {
                 "Type": [ "BattalionTemplate" ],
                 "Size": [],
-                "Count": 1,
-                "Weight": 3
+                "Weight": {
+                  "Target": {
+                    "Coefficient": 3
+                  }
+                }
               }
             ]
           },
@@ -49,14 +55,20 @@
               {
                 "Type": [ "BattalionTemplate" ],
                 "Size": [],
-                "Count": 1,
-                "Weight": 3
+                "Weight": {
+                  "Target": {
+                    "Coefficient": 3
+                  }
+                }
               },
               {
                 "Type": [ "BattalionTemplate" ],
                 "Size": [],
-                "Count": 1,
-                "Weight": 6
+                "Weight": {
+                  "Target": {
+                    "Coefficient": 6
+                  }
+                }
               }
             ]
           },
@@ -74,14 +86,20 @@
               {
                 "Type": [ "BattalionTemplate" ],
                 "Size": [],
-                "Count": 1,
-                "Weight": 3
+                "Weight": {
+                  "Target": {
+                    "Coefficient": 3
+                  }
+                }
               },
               {
                 "Type": [ "BattalionTemplate" ],
                 "Size": [],
-                "Count": 1,
-                "Weight": 9
+                "Weight": {
+                  "Target": {
+                    "Coefficient": 9
+                  }
+                }
               }
             ]
           }

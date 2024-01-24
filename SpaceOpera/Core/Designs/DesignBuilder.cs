@@ -51,7 +51,7 @@ namespace SpaceOpera.Core.Designs
                 foreach (var size in design.Template.Sizes)
                 {
                     var components = design.GetComponents().ToList();
-                    components.Add(new ComponentAndSlot(new DesignSlot() { Count = 1, Weight = 1 }, size.Value));
+                    components.Add(new(1, size.Value));
                     yield return BuildComponent(
                         string.Format("{0} ({1})", design.Name, StringUtils.FormatEnumChar(size.Key.ToString())),
                         new ComponentSlot() { Size = size.Key, Type = design.Template.Type },
@@ -62,7 +62,7 @@ namespace SpaceOpera.Core.Designs
         }
 
         private static DesignedComponent BuildComponent(
-            string name, ComponentSlot slot, IEnumerable<ComponentAndSlot> components, MultiCount<ComponentTag> tags)
+            string name, ComponentSlot slot, IEnumerable<ComponentAndWeight> components, MultiCount<ComponentTag> tags)
         {
             return slot.Type switch
             {

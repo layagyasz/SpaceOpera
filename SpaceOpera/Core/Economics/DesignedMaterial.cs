@@ -11,7 +11,7 @@ namespace SpaceOpera.Core.Economics
         public float ProductionCost { get; }
 
         public DesignedMaterial(
-            string name, ComponentSlot slot, IEnumerable<ComponentAndSlot> components, MultiCount<ComponentTag> tags)
+            string name, ComponentSlot slot, IEnumerable<ComponentAndWeight> components, MultiCount<ComponentTag> tags)
             : base(name, slot, components, tags)
         {
             Mass = ComputeMass();

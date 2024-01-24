@@ -35,7 +35,8 @@ namespace SpaceOpera.View.Icons
             public IEnumerable<IconLayer> CreateLayers(
                 DesignedComponent component, Color4 color, IconFactory iconFactory)
             {
-                var c = component.Components.Where(x => x.Slot.Type.Contains(Component)).FirstOrDefault()!.Component;
+                var c = 
+                    component.Components.Where(x => x.Component.Slot.Type == Component).FirstOrDefault()!.Component;
                 return iconFactory.GetDefinition(c)
                     .Where(x => !x.IsInfo).Select(x => x.WithColor(color)).Select(x => x.WithInfo(IsInfo));
             }
@@ -142,7 +143,7 @@ namespace SpaceOpera.View.Icons
             {
                 return iconFactory.GetDefinition(
                     component.Components.Where(
-                        x => x.Slot.Type.Contains(config.FromComponent)).FirstOrDefault()!.Component)
+                        x => x.Component.Slot.Type == config.FromComponent).FirstOrDefault()!.Component)
                     .Select(x => x.Color)
                     .First();
             }

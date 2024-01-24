@@ -1,14 +1,10 @@
 ﻿namespace SpaceOpera.Core.Designs
 {
-    public class ComponentAndSlot
+    public record class ComponentAndSlot(DesignSlot Slot, IComponent Component)
     {
-        public DesignSlot Slot { get; }
-        public IComponent Component { get; }
-
-        public ComponentAndSlot(DesignSlot slot, IComponent component)
+        public ComponentAndWeight Resolve(IEnumerable<ComponentAndSlot> components)
         {
-            Slot = slot;
-            Component = component;
+            return new(Slot.Weight.Evaluate(Component, components), Component);
         }
     }
 }

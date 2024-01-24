@@ -82,33 +82,23 @@
             "Slots": [
               {
                 "Type": [ "HeavyShieldEmitter" ],
-                "Size": [],
-                "Count": 1,
-                "Weight": 1
+                "Size": []
               },
               {
                 "Type": [ "HeavyShieldCapacitor" ],
-                "Size": [],
-                "Count": 1,
-                "Weight": 1
+                "Size": []
               },
               {
                 "Type": [ "HeavyShieldPowerSupply" ],
-                "Size": [],
-                "Count": 1,
-                "Weight": 1
+                "Size": []
               },
               {
                 "Type": [ "HeavyShieldMount" ],
-                "Size": [],
-                "Count": 1,
-                "Weight": 1
+                "Size": []
               },
               {
                 "Type": [ "HeavyShieldWeight" ],
-                "Size": [],
-                "Count": 1,
-                "Weight": 1
+                "Size": []
               }
             ]
           }

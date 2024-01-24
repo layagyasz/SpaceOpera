@@ -104,33 +104,23 @@
             "Slots": [
               {
                 "Type": [ "HeavyGunAmmunition" ],
-                "Size": [],
-                "Count": 1,
-                "Weight": 1
+                "Size": []
               },
               {
                 "Type": [ "HeavyGunAssembly" ],
-                "Size": [],
-                "Count": 1,
-                "Weight": 1
+                "Size": []
               },
               {
                 "Type": [ "HeavyGunOptic" ],
-                "Size": [],
-                "Count": 1,
-                "Weight": 1
+                "Size": []
               },
               {
                 "Type": [ "HeavyGunMount" ],
-                "Size": [],
-                "Count": 1,
-                "Weight": 1
+                "Size": []
               },
               {
                 "Type": [ "HeavyGunWeight" ],
-                "Size": [],
-                "Count": 1,
-                "Weight": 1
+                "Size": []
               }
             ]
           }

@@ -44,8 +44,7 @@ namespace SpaceOpera.Core.Designs
 
         public bool FitsSlot(DesignSlot slot)
         {
-            return slot.Type.Contains(Slot.Type)
-                && (Slot.Size == ComponentSize.Unknown || slot.Size.Count == 0 || slot.Size.Contains(Slot.Size));
+            return slot.Accepts(Slot);
         }
 
         public override string ToString()

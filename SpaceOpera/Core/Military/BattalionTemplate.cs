@@ -8,7 +8,7 @@ namespace SpaceOpera.Core.Military
         public MultiCount<Unit> Composition { get; }
 
         public BattalionTemplate(
-            string name, ComponentSlot slot, IEnumerable<ComponentAndSlot> components, MultiCount<ComponentTag> tags)
+            string name, ComponentSlot slot, IEnumerable<ComponentAndWeight> components, MultiCount<ComponentTag> tags)
             : base(name, slot, components, tags)
         {
             Composition = MaterialCost

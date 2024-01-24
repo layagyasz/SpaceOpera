@@ -24,8 +24,11 @@
               {
                 "Type": [ "Infantry" ],
                 "Size": [],
-                "Count": 1,
-                "Weight": 500
+                "Weight": {
+                  "Target": {
+                    "Coefficient": 500
+                  }
+                }
               }
             ]
           },
@@ -43,8 +46,11 @@
               {
                 "Type": [ "Vehicle" ],
                 "Size": [],
-                "Count": 1,
-                "Weight": 40
+                "Weight": {
+                  "Target": {
+                    "Coefficient": 40
+                  }
+                }
               }
             ]
           }

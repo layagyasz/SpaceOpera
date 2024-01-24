@@ -27,21 +27,15 @@
             "Slots": [
               {
                 "Type": [ "VehicleConstruction" ],
-                "Size": [],
-                "Count": 1,
-                "Weight": 1
+                "Size": []
               },
               {
                 "Type": [ "VehicleArmor" ],
-                "Size": [],
-                "Count": 1,
-                "Weight": 1
+                "Size": []
               },
               {
                 "Type": [ "VehicleSuspension" ],
-                "Size": [],
-                "Count": 1,
-                "Weight": 1
+                "Size": []
               }
             ]
           }
@@ -81,9 +75,7 @@
             "Slots": [
               {
                 "Type": [ "HeavyGun" ],
-                "Size": [ "Small" ],
-                "Count": 1,
-                "Weight": 1
+                "Size": [ "Small" ]
               }
             ]
           }

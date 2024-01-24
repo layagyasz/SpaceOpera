@@ -30,7 +30,7 @@ namespace SpaceOpera.Core.Military
         public MultiCount<Weapon> Weapons { get; }
 
         public Unit(
-            string name, ComponentSlot slot, IEnumerable<ComponentAndSlot> components, MultiCount<ComponentTag> tags)
+            string name, ComponentSlot slot, IEnumerable<ComponentAndWeight> components, MultiCount<ComponentTag> tags)
             : base(name, slot, components, tags)
         {
             Detection = UnitIntervalValue.Of(GetAttribute(ComponentAttribute.Detection));
@@ -63,15 +63,14 @@ namespace SpaceOpera.Core.Military
         }
 
         private static T BuildComponent<T>(
-            IEnumerable<ComponentAndSlot> components, 
+            IEnumerable<ComponentAndWeight> components, 
             EnumSet<ComponentType> componentTypes,
             Func<IComponent, T> builder, 
             Func<IEnumerable<T>, T> aggregator)
         {
             return aggregator(
                 components
-                    .Where(x => componentTypes.Contains(x.Component.Slot.Type))
-                    .SelectMany(x => Enumerable.Repeat(builder(x.Component), x.Slot.Count)));
+                    .Where(x => componentTypes.Contains(x.Component.Slot.Type)).Select(x => builder(x.Component)));
         }
     }
 }

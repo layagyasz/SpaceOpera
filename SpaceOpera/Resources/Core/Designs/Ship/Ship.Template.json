@@ -25,15 +25,11 @@
             "Slots": [
               {
                 "Type": [ "ShipConstruction" ],
-                "Size": [],
-                "Count": 1,
-                "Weight": 1
+                "Size": []
               },
               {
                 "Type": [ "ShipArmor" ],
-                "Size": [],
-                "Count": 1,
-                "Weight": 1
+                "Size": []
               }
             ]
           }
@@ -74,8 +70,7 @@
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
                 "Size": [ "Small" ],
-                "Count": 2,
-                "Weight": 1
+                "Count": 2
               }
             ]
           },
@@ -110,8 +105,7 @@
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
                 "Size": [ "Medium" ],
-                "Count": 2,
-                "Weight": 1
+                "Count": 2
               }
             ]
           },
@@ -146,8 +140,7 @@
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
                 "Size": [ "Large" ],
-                "Count": 2,
-                "Weight": 1
+                "Count": 2
               }
             ]
           },
@@ -182,15 +175,11 @@
             "Slots": [
               {
                 "Type": [ "HeavyGun" ],
-                "Size": [ "Large" ],
-                "Count": 1,
-                "Weight": 1
+                "Size": [ "Large" ]
               },
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
-                "Size": [ "Large" ],
-                "Count": 1,
-                "Weight": 1
+                "Size": [ "Large" ]
               }
             ]
           },
@@ -225,15 +214,11 @@
             "Slots": [
               {
                 "Type": [ "ShipHangar" ],
-                "Size": [ "Small" ],
-                "Count": 1,
-                "Weight": 1
+                "Size": [ "Small" ]
               },
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
-                "Size": [ "Medium" ],
-                "Count": 1,
-                "Weight": 1
+                "Size": [ "Medium" ]
               }
             ]
           },
@@ -268,15 +253,11 @@
             "Slots": [
               {
                 "Type": [ "ShipHangar" ],
-                "Size": [ "Medium" ],
-                "Count": 1,
-                "Weight": 1
+                "Size": [ "Medium" ]
               },
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
-                "Size": [ "Large" ],
-                "Count": 1,
-                "Weight": 1
+                "Size": [ "Large" ]
               }
             ]
           },
@@ -311,15 +292,11 @@
             "Slots": [
               {
                 "Type": [ "HeavyMissile" ],
-                "Size": [],
-                "Count": 1,
-                "Weight": 1
+                "Size": []
               },
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
-                "Size": [ "Medium" ],
-                "Count": 1,
-                "Weight": 1
+                "Size": [ "Medium" ]
               }
             ]
           },
@@ -355,14 +332,11 @@
               {
                 "Type": [ "HeavyMissile" ],
                 "Size": [],
-                "Count": 2,
-                "Weight": 1
+                "Count": 2
               },
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
-                "Size": [ "Large" ],
-                "Count": 1,
-                "Weight": 1
+                "Size": [ "Large" ]
               }
             ]
           },
@@ -397,15 +371,11 @@
             "Slots": [
               {
                 "Type": [ "HeavyGun" ],
-                "Size": [ "PointDefense" ],
-                "Count": 1,
-                "Weight": 1
+                "Size": [ "PointDefense" ]
               },
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
-                "Size": [ "Small" ],
-                "Count": 1,
-                "Weight": 1
+                "Size": [ "Small" ]
               }
             ]
           },
@@ -441,14 +411,11 @@
               {
                 "Type": [ "HeavyGun" ],
                 "Size": [ "PointDefense" ],
-                "Count": 2,
-                "Weight": 1
+                "Count": 2
               },
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
-                "Size": [ "Medium" ],
-                "Count": 1,
-                "Weight": 1
+                "Size": [ "Medium" ]
               }
             ]
           },
@@ -484,14 +451,11 @@
               {
                 "Type": [ "HeavyGun" ],
                 "Size": [ "PointDefense" ],
-                "Count": 4,
-                "Weight": 1
+                "Count": 4
               },
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
-                "Size": [ "Large" ],
-                "Count": 1,
-                "Weight": 1
+                "Size": [ "Large" ]
               }
             ]
           },
@@ -526,15 +490,11 @@
             "Slots": [
               {
                 "Type": [ "HeavyGun" ],
-                "Size": [ "Medium" ],
-                "Count": 1,
-                "Weight": 1
+                "Size": [ "Medium" ]
               },
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
-                "Size": [ "Medium" ],
-                "Count": 1,
-                "Weight": 1
+                "Size": [ "Medium" ]
               }
             ]
           },
@@ -570,14 +530,11 @@
               {
                 "Type": [ "HeavyGun" ],
                 "Size": [ "Medium" ],
-                "Count": 4,
-                "Weight": 1
+                "Count": 4
               },
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
-                "Size": [ "Large" ],
-                "Count": 1,
-                "Weight": 1
+                "Size": [ "Large" ]
               }
             ]
           },
@@ -612,15 +569,11 @@
             "Slots": [
               {
                 "Type": [ "HeavyGun" ],
-                "Size": [ "Small" ],
-                "Count": 1,
-                "Weight": 1
+                "Size": [ "Small" ]
               },
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
-                "Size": [ "Small" ],
-                "Count": 1,
-                "Weight": 1
+                "Size": [ "Small" ]
               }
             ]
           },
@@ -656,14 +609,11 @@
               {
                 "Type": [ "HeavyGun" ],
                 "Size": [ "Small" ],
-                "Count": 2,
-                "Weight": 1
+                "Count": 2
               },
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
-                "Size": [ "Medium" ],
-                "Count": 1,
-                "Weight": 1
+                "Size": [ "Medium" ]
               }
             ]
           },
@@ -699,14 +649,11 @@
               {
                 "Type": [ "HeavyGun" ],
                 "Size": [ "Small" ],
-                "Count": 4,
-                "Weight": 1
+                "Count": 4
               },
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
-                "Size": [ "Large" ],
-                "Count": 1,
-                "Weight": 1
+                "Size": [ "Large" ]
               }
             ]
           }
@@ -747,8 +694,7 @@
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
                 "Size": [ "Small" ],
-                "Count": 4,
-                "Weight": 1
+                "Count": 4
               }
             ]
           },
@@ -783,8 +729,7 @@
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
                 "Size": [ "Medium" ],
-                "Count": 4,
-                "Weight": 1
+                "Count": 4
               }
             ]
           },
@@ -819,8 +764,7 @@
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
                 "Size": [ "Large" ],
-                "Count": 4,
-                "Weight": 1
+                "Count": 4
               }
             ]
           },
@@ -855,15 +799,12 @@
             "Slots": [
               {
                 "Type": [ "HeavyGun" ],
-                "Size": [ "Large" ],
-                "Count": 1,
-                "Weight": 1
+                "Size": [ "Large" ]
               },
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
                 "Size": [ "Medium" ],
-                "Count": 2,
-                "Weight": 1
+                "Count": 2
               }
             ]
           },
@@ -899,14 +840,12 @@
               {
                 "Type": [ "HeavyGun" ],
                 "Size": [ "Large" ],
-                "Count": 2,
-                "Weight": 1
+                "Count": 2
               },
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
                 "Size": [ "Large" ],
-                "Count": 2,
-                "Weight": 1
+                "Count": 2
               }
             ]
           },
@@ -941,15 +880,12 @@
             "Slots": [
               {
                 "Type": [ "ShipHangar" ],
-                "Size": [ "Small" ],
-                "Count": 1,
-                "Weight": 1
+                "Size": [ "Small" ]
               },
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
                 "Size": [ "Small" ],
-                "Count": 2,
-                "Weight": 1
+                "Count": 2
               }
             ]
           },
@@ -984,15 +920,12 @@
             "Slots": [
               {
                 "Type": [ "ShipHangar" ],
-                "Size": [ "Medium" ],
-                "Count": 1,
-                "Weight": 1
+                "Size": [ "Medium" ]
               },
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
                 "Size": [ "Medium" ],
-                "Count": 2,
-                "Weight": 1
+                "Count": 2
               }
             ]
           },
@@ -1027,15 +960,12 @@
             "Slots": [
               {
                 "Type": [ "ShipHangar" ],
-                "Size": [ "Large" ],
-                "Count": 1,
-                "Weight": 1
+                "Size": [ "Large" ]
               },
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
                 "Size": [ "Large" ],
-                "Count": 2,
-                "Weight": 1
+                "Count": 2
               }
             ]
           },
@@ -1070,15 +1000,12 @@
             "Slots": [
               {
                 "Type": [ "HeavyMissile" ],
-                "Size": [],
-                "Count": 1,
-                "Weight": 1
+                "Size": []
               },
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
                 "Size": [ "Small" ],
-                "Count": 2,
-                "Weight": 1
+                "Count": 2
               }
             ]
           },
@@ -1114,14 +1041,12 @@
               {
                 "Type": [ "HeavyMissile" ],
                 "Size": [],
-                "Count": 2,
-                "Weight": 1
+                "Count": 2
               },
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
                 "Size": [ "Medium" ],
-                "Count": 2,
-                "Weight": 1
+                "Count": 2
               }
             ]
           },
@@ -1157,14 +1082,12 @@
               {
                 "Type": [ "HeavyMissile" ],
                 "Size": [],
-                "Count": 4,
-                "Weight": 1
+                "Count": 4
               },
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
                 "Size": [ "Large" ],
-                "Count": 2,
-                "Weight": 1
+                "Count": 2
               }
             ]
           },
@@ -1199,21 +1122,16 @@
             "Slots": [
               {
                 "Type": [ "HeavyGun" ],
-                "Size": [ "PointDefense" ],
-                "Count": 1,
-                "Weight": 1
+                "Size": [ "PointDefense" ]
               },
               {
                 "Type": [ "HeavyGun" ],
-                "Size": [ "Small" ],
-                "Count": 1,
-                "Weight": 1
+                "Size": [ "Small" ]
               },
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
                 "Size": [ "Small" ],
-                "Count": 2,
-                "Weight": 1
+                "Count": 2
               }
             ]
           },
@@ -1249,20 +1167,17 @@
               {
                 "Type": [ "HeavyGun" ],
                 "Size": [ "PointDefense" ],
-                "Count": 2,
-                "Weight": 1
+                "Count": 2
               },
               {
                 "Type": [ "HeavyGun" ],
                 "Size": [ "Small" ],
-                "Count": 2,
-                "Weight": 1
+                "Count": 2
               },
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
                 "Size": [ "Medium" ],
-                "Count": 2,
-                "Weight": 1
+                "Count": 2
               }
             ]
           },
@@ -1298,20 +1213,17 @@
               {
                 "Type": [ "HeavyGun" ],
                 "Size": [ "PointDefense" ],
-                "Count": 4,
-                "Weight": 1
+                "Count": 4
               },
               {
                 "Type": [ "HeavyGun" ],
                 "Size": [ "Small" ],
-                "Count": 4,
-                "Weight": 1
+                "Count": 4
               },
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
                 "Size": [ "Small" ],
-                "Count": 2,
-                "Weight": 1
+                "Count": 2
               }
             ]
           },
@@ -1346,15 +1258,12 @@
             "Slots": [
               {
                 "Type": [ "HeavyGun" ],
-                "Size": [ "Medium" ],
-                "Count": 1,
-                "Weight": 1
+                "Size": [ "Medium" ]
               },
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
                 "Size": [ "Small" ],
-                "Count": 2,
-                "Weight": 1
+                "Count": 2
               }
             ]
           },
@@ -1390,14 +1299,12 @@
               {
                 "Type": [ "HeavyGun" ],
                 "Size": [ "Medium" ],
-                "Count": 2,
-                "Weight": 1
+                "Count": 2
               },
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
                 "Size": [ "Medium" ],
-                "Count": 2,
-                "Weight": 1
+                "Count": 2
               }
             ]
           },
@@ -1433,14 +1340,12 @@
               {
                 "Type": [ "HeavyGun" ],
                 "Size": [ "Medium" ],
-                "Count": 4,
-                "Weight": 1
+                "Count": 4
               },
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
                 "Size": [ "Large" ],
-                "Count": 2,
-                "Weight": 1
+                "Count": 2
               }
             ]
           },
@@ -1476,14 +1381,12 @@
               {
                 "Type": [ "HeavyGun" ],
                 "Size": [ "Small" ],
-                "Count": 2,
-                "Weight": 1
+                "Count": 2
               },
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
                 "Size": [ "Small" ],
-                "Count": 2,
-                "Weight": 1
+                "Count": 2
               }
             ]
           },
@@ -1519,14 +1422,12 @@
               {
                 "Type": [ "HeavyGun" ],
                 "Size": [ "Small" ],
-                "Count": 4,
-                "Weight": 1
+                "Count": 4
               },
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
                 "Size": [ "Medium" ],
-                "Count": 2,
-                "Weight": 1
+                "Count": 2
               }
             ]
           },
@@ -1562,20 +1463,17 @@
               {
                 "Type": [ "HeavyGun" ],
                 "Size": [ "Small" ],
-                "Count": 4,
-                "Weight": 1
+                "Count": 4
               },
               {
                 "Type": [ "HeavyGun" ],
                 "Size": [ "Medium" ],
-                "Count": 2,
-                "Weight": 1
+                "Count": 2
               },
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
                 "Size": [ "Large" ],
-                "Count": 2,
-                "Weight": 1
+                "Count": 2
               }
             ]
           }
@@ -1616,8 +1514,7 @@
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
                 "Size": [ "Small" ],
-                "Count": 2,
-                "Weight": 1
+                "Count": 2
               }
             ]
           },
@@ -1652,8 +1549,7 @@
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
                 "Size": [ "Medium" ],
-                "Count": 2,
-                "Weight": 1
+                "Count": 2
               }
             ]
           },
@@ -1688,8 +1584,7 @@
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
                 "Size": [ "Large" ],
-                "Count": 2,
-                "Weight": 1
+                "Count": 2
               }
             ]
           },
@@ -1724,15 +1619,11 @@
             "Slots": [
               {
                 "Type": [ "HeavyGun" ],
-                "Size": [ "Large" ],
-                "Count": 1,
-                "Weight": 1
+                "Size": [ "Large" ]
               },
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
-                "Size": [ "Large" ],
-                "Count": 1,
-                "Weight": 1
+                "Size": [ "Large" ]
               }
             ]
           },
@@ -1767,15 +1658,11 @@
             "Slots": [
               {
                 "Type": [ "ShipHangar" ],
-                "Size": [ "Small" ],
-                "Count": 1,
-                "Weight": 1
+                "Size": [ "Small" ]
               },
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
-                "Size": [ "Medium" ],
-                "Count": 1,
-                "Weight": 1
+                "Size": [ "Medium" ]
               }
             ]
           },
@@ -1810,15 +1697,11 @@
             "Slots": [
               {
                 "Type": [ "ShipHangar" ],
-                "Size": [ "Medium" ],
-                "Count": 1,
-                "Weight": 1
+                "Size": [ "Medium" ]
               },
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
-                "Size": [ "Large" ],
-                "Count": 1,
-                "Weight": 1
+                "Size": [ "Large" ]
               }
             ]
           },
@@ -1853,15 +1736,11 @@
             "Slots": [
               {
                 "Type": [ "HeavyMissile" ],
-                "Size": [],
-                "Count": 1,
-                "Weight": 1
+                "Size": []
               },
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
-                "Size": [ "Medium" ],
-                "Count": 1,
-                "Weight": 1
+                "Size": [ "Medium" ]
               }
             ]
           },
@@ -1897,14 +1776,11 @@
               {
                 "Type": [ "HeavyMissile" ],
                 "Size": [],
-                "Count": 2,
-                "Weight": 1
+                "Count": 2
               },
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
-                "Size": [ "Large" ],
-                "Count": 1,
-                "Weight": 1
+                "Size": [ "Large" ]
               }
             ]
           },
@@ -1939,15 +1815,11 @@
             "Slots": [
               {
                 "Type": [ "HeavyGun" ],
-                "Size": [ "PointDefense" ],
-                "Count": 1,
-                "Weight": 1
+                "Size": [ "PointDefense" ]
               },
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
-                "Size": [ "Small" ],
-                "Count": 1,
-                "Weight": 1
+                "Size": [ "Small" ]
               }
             ]
           },
@@ -1983,14 +1855,11 @@
               {
                 "Type": [ "HeavyGun" ],
                 "Size": [ "PointDefense" ],
-                "Count": 2,
-                "Weight": 1
+                "Count": 2
               },
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
-                "Size": [ "Medium" ],
-                "Count": 1,
-                "Weight": 1
+                "Size": [ "Medium" ]
               }
             ]
           },
@@ -2026,14 +1895,11 @@
               {
                 "Type": [ "HeavyGun" ],
                 "Size": [ "PointDefense" ],
-                "Count": 4,
-                "Weight": 1
+                "Count": 4
               },
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
-                "Size": [ "Large" ],
-                "Count": 1,
-                "Weight": 1
+                "Size": [ "Large" ]
               }
             ]
           },
@@ -2068,15 +1934,11 @@
             "Slots": [
               {
                 "Type": [ "HeavyGun" ],
-                "Size": [ "Medium" ],
-                "Count": 1,
-                "Weight": 1
+                "Size": [ "Medium" ]
               },
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
-                "Size": [ "Medium" ],
-                "Count": 1,
-                "Weight": 1
+                "Size": [ "Medium" ]
               }
             ]
           },
@@ -2112,14 +1974,11 @@
               {
                 "Type": [ "HeavyGun" ],
                 "Size": [ "Medium" ],
-                "Count": 4,
-                "Weight": 1
+                "Count": 4
               },
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
-                "Size": [ "Large" ],
-                "Count": 1,
-                "Weight": 1
+                "Size": [ "Large" ]
               }
             ]
           },
@@ -2154,15 +2013,11 @@
             "Slots": [
               {
                 "Type": [ "HeavyGun" ],
-                "Size": [ "Small" ],
-                "Count": 1,
-                "Weight": 1
+                "Size": [ "Small" ]
               },
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
-                "Size": [ "Small" ],
-                "Count": 1,
-                "Weight": 1
+                "Size": [ "Small" ]
               }
             ]
           },
@@ -2198,14 +2053,11 @@
               {
                 "Type": [ "HeavyGun" ],
                 "Size": [ "Small" ],
-                "Count": 2,
-                "Weight": 1
+                "Count": 2
               },
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
-                "Size": [ "Medium" ],
-                "Count": 1,
-                "Weight": 1
+                "Size": [ "Medium" ]
               }
             ]
           },
@@ -2241,14 +2093,11 @@
               {
                 "Type": [ "HeavyGun" ],
                 "Size": [ "Small" ],
-                "Count": 4,
-                "Weight": 1
+                "Count": 4
               },
               {
                 "Type": [ "ShipInternal", "HeavyShield" ],
-                "Size": [ "Large" ],
-                "Count": 1,
-                "Weight": 1
+                "Size": [ "Large" ]
               }
             ]
           }

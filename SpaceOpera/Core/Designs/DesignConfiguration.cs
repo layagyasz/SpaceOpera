@@ -15,10 +15,11 @@ namespace SpaceOpera.Core.Designs
             _segments = segments.ToList();
         }
 
-        public IEnumerable<ComponentAndSlot> GetComponents()
+        public IEnumerable<ComponentAndWeight> GetComponents()
         {
-            return _segments.SelectMany(x => x.GetComponents())
-                .SelectMany(x => x.Value.Select(y => new ComponentAndSlot(x.Key, y)));
+            var components = _segments.SelectMany(x => x.GetComponents())
+                .SelectMany(x => x.Value.Select(y => new ComponentAndSlot(x.Key, y))).ToList();
+            return components.Select(x => x.Resolve(components));
         }
 
         public IEnumerable<Segment> GetSegments()

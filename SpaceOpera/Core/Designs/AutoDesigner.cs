@@ -1,3 +1,4 @@
+using Cardamom;
 using Cardamom.Collections;
 
 namespace SpaceOpera.Core.Designs
@@ -96,12 +97,10 @@ namespace SpaceOpera.Core.Designs
             var components = new MultiMap<DesignSlot, IComponent>();
             foreach (var slot in configuration.Slots)
             {
-                components.Add(
-                    slot, 
-                    Enumerable.Repeat(
-                        availableComponents
-                            .Where(x => x.FitsSlot(slot)).ArgMaxRandomlySelecting(fitness.Get, random)!,
-                        slot.Count)!);
+                var component =
+                    availableComponents.Where(x => x.FitsSlot(slot)).ArgMaxRandomlySelecting(fitness.Get, random);
+                Precondition.Check(component != null);
+                components.Add(slot, Enumerable.Repeat(component!, slot.Count));
             }
             return new Segment(template, configuration, components);
         }

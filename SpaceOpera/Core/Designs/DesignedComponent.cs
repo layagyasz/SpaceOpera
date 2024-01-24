@@ -7,20 +7,20 @@ namespace SpaceOpera.Core.Designs
 {
     public class DesignedComponent : ComponentBase
     {
-        public List<ComponentAndSlot> Components { get; }
+        public List<ComponentAndWeight> Components { get; }
 
         public DesignedComponent(
-            string name, ComponentSlot slot, IEnumerable<ComponentAndSlot> components, MultiCount<ComponentTag> tags)
+            string name, ComponentSlot slot, IEnumerable<ComponentAndWeight> components, MultiCount<ComponentTag> tags)
         {
             Name = name;
             Slot = slot;
             Tags = tags;
 
             Components = components.ToList();
-            Attributes = ComputeAttributes(components);
-            MaterialCost = ComputeMaterialCosts(GetAttribute(ComponentAttribute.MaterialCost), components);
-            Damage = ComputeDamage(GetAttribute(ComponentAttribute.WeaponDamage), components);
-            DamageResist = ComputeDamageResist(GetAttribute(ComponentAttribute.DamageResist), components);
+            Attributes = ComputeAttributes(Components);
+            MaterialCost = ComputeMaterialCosts(GetAttribute(ComponentAttribute.MaterialCost), Components);
+            Damage = ComputeDamage(GetAttribute(ComponentAttribute.WeaponDamage), Components);
+            DamageResist = ComputeDamageResist(GetAttribute(ComponentAttribute.DamageResist), Components);
             // Override consumed attributes
             Attributes[ComponentAttribute.MaterialCost] = Modifier.Zero;
             Attributes[ComponentAttribute.WeaponDamage] = Modifier.Zero;
@@ -38,7 +38,7 @@ namespace SpaceOpera.Core.Designs
         }
 
         protected virtual Dictionary<IMaterial, Modifier> ComputeMaterialCosts(
-            float modifier, IEnumerable<ComponentAndSlot> components)
+            float modifier, IEnumerable<ComponentAndWeight> components)
         {
             Dictionary<MaterialReference, MultiQuantity<IMaterial>> referenceMaterials = new();
             foreach (var component in components.Select(x => x.Component))
@@ -64,13 +64,13 @@ namespace SpaceOpera.Core.Designs
                     AddCost(
                         materials, 
                         (IMaterial)component.Component, 
-                        new Modifier() { Constant = component.Slot.Weight });
+                        new Modifier() { Constant = component.Weight });
                 }
                 else
                 {
                     foreach (var cost in component.Component.MaterialCost)
                     {
-                        AddCost(materials, cost.Key, component.Slot.Weight * cost.Value);
+                        AddCost(materials, cost.Key, component.Weight * cost.Value);
                     }
                 }
             }
@@ -84,21 +84,21 @@ namespace SpaceOpera.Core.Designs
         }
 
         private static EnumMap<ComponentAttribute, Modifier> ComputeAttributes(
-            IEnumerable<ComponentAndSlot> components)
+            IEnumerable<ComponentAndWeight> components)
         {
-            return CombineModifiers(1, components.Select(x => (x.Slot.Weight, x.Component.Attributes)));
+            return CombineModifiers(1, components.Select(x => (x.Weight, x.Component.Attributes)));
         }
 
         private static EnumMap<DamageType, Modifier> ComputeDamage(
-            float modifier, IEnumerable<ComponentAndSlot> components)
+            float modifier, IEnumerable<ComponentAndWeight> components)
         {
-            return CombineModifiers(modifier, components.Select(x => (x.Slot.Weight, x.Component.Damage)));
+            return CombineModifiers(modifier, components.Select(x => (x.Weight, x.Component.Damage)));
         }
 
         private static EnumMap<DamageType, Modifier> ComputeDamageResist(
-            float modifier, IEnumerable<ComponentAndSlot> components)
+            float modifier, IEnumerable<ComponentAndWeight> components)
         {
-            return CombineModifiers(modifier, components.Select(x =>  (x.Slot.Weight, x.Component.DamageResist)));
+            return CombineModifiers(modifier, components.Select(x =>  (x.Weight, x.Component.DamageResist)));
         }
 
         private static void AddCost(Dictionary<IMaterial, Modifier> materials, IMaterial material, Modifier modifier)
