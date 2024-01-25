@@ -38,6 +38,14 @@
         },
         "Options": [
           {
+            "Sizes": [ "Tiny" ],
+            "Textures": [ "icon-s" ]
+          },
+          {
+            "Sizes": [ "ExtraSmall" ],
+            "Textures": [ "icon-xs" ]
+          },
+          {
             "Sizes": [ "Small" ],
             "Textures": [ "icon-s" ]
           },

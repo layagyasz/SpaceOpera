@@ -1,12 +1,7 @@
 namespace SpaceOpera
 {
-    class StringUtils
+    public static class StringUtils
     {
-        public static char FormatEnumChar(string EnumString)
-        {
-            return char.ToUpper(EnumString[0]);
-        }
-
         public static string FormatEnumString(string EnumString)
         {
             return string.Join(" ", EnumString.Split('_').Select(FormatCase));

@@ -89,7 +89,7 @@
     },
     "Attributes": {
       "CargoSpace": {
-        "Constant": 1000
+        "Constant": 200
       }
     }
   },
@@ -105,7 +105,7 @@
     },
     "Attributes": {
       "CargoSpace": {
-        "Constant": 2000
+        "Constant": 400
       }
     }
   },
@@ -121,7 +121,7 @@
     },
     "Attributes": {
       "CargoSpace": {
-        "Constant": 4000
+        "Constant": 800
       }
     }
   },
@@ -178,6 +178,54 @@
     "Attributes": {
       "HangarSpace": {
         "Constant": 16
+      }
+    }
+  },
+  {
+    "$id": "component-ship-transport-s",
+    "Name": "Transport Hold (S)",
+    "Tags": {
+      "Transport": 1
+    },
+    "Slot": {
+      "Type": "ShipInternal",
+      "Size": "Small"
+    },
+    "Attributes": {
+      "PassengerSpace": {
+        "Constant": 50
+      }
+    }
+  },
+  {
+    "$id": "component-ship-transport-m",
+    "Name": "Transport Hold (M)",
+    "Tags": {
+      "Freighter": 2
+    },
+    "Slot": {
+      "Type": "ShipInternal",
+      "Size": "Medium"
+    },
+    "Attributes": {
+      "PassengerSpace": {
+        "Constant": 100
+      }
+    }
+  },
+  {
+    "$id": "component-ship-transport-l",
+    "Name": "Transport Hold (L)",
+    "Tags": {
+      "Freighter": 4
+    },
+    "Slot": {
+      "Type": "ShipInternal",
+      "Size": "Large"
+    },
+    "Attributes": {
+      "PassengerSpace": {
+        "Constant": 200
       }
     }
   },

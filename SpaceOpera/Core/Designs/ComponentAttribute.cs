@@ -34,8 +34,9 @@ namespace SpaceOpera.Core.Designs
         WeaponTracking,
         WeaponPenetration,
            
-        // Ship
+        // Vehicle
         CargoSpace,
-        HangarSpace
+        HangarSpace,
+        PassengerSpace
     }
 }

@@ -375,6 +375,17 @@
           "Type": "Ship",
           "Fitness": {
             "Tags": {
+              "Transport": 1
+            }
+          }
+        }
+      },
+      {
+        "Value": 1,
+        "Key": {
+          "Type": "Ship",
+          "Fitness": {
+            "Tags": {
               "Patrol": 1
             }
           }

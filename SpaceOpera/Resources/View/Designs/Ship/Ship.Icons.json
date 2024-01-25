@@ -120,6 +120,48 @@
     ]
   },
   {
+    "$id": "component-ship-transport-s",
+    "Layers": [
+      {
+        "Texture": "icon-passenger",
+        "Color": "#ffff00"
+      },
+      {
+        "Texture": "icon-s",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "component-ship-transport-m",
+    "Layers": [
+      {
+        "Texture": "icon-passenger",
+        "Color": "#ffff00"
+      },
+      {
+        "Texture": "icon-m",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "component-ship-transport-l",
+    "Layers": [
+      {
+        "Texture": "icon-passenger",
+        "Color": "#ffff00"
+      },
+      {
+        "Texture": "icon-l",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
     "$id": "component-heavy-missile",
     "Layers": [
       {

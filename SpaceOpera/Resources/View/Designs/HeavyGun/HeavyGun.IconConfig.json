@@ -40,8 +40,16 @@
         },
         "Options": [
           {
+            "Sizes": [ "Tiny" ],
+            "Textures": [ "icon-s" ]
+          },
+          {
+            "Sizes": [ "ExtraSmall" ],
+            "Textures": [ "icon-xs" ]
+          },
+          {
             "Sizes": [ "PointDefense" ],
-            "Textures": [ "icon-p" ]
+            "Textures": [ "icon-pd" ]
           },
           {
             "Sizes": [ "Small" ],

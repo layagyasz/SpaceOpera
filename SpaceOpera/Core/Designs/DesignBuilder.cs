@@ -53,7 +53,7 @@ namespace SpaceOpera.Core.Designs
                     var components = design.GetComponents().ToList();
                     components.Add(new(1, size.Value));
                     yield return BuildComponent(
-                        string.Format("{0} ({1})", design.Name, StringUtils.FormatEnumChar(size.Key.ToString())),
+                        $"{design.Name} ({Design.ToSizeString(size.Key)})",
                         new ComponentSlot() { Size = size.Key, Type = design.Template.Type },
                         components,
                         tags);

@@ -33,13 +33,33 @@ namespace SpaceOpera.Core.Designs
                 } 
                 else
                 {
-                    component.Name =
-                        string.Format("{0} ({1})", name, StringUtils.FormatEnumChar(component.Slot.Size.ToString()));
+                    component.Name = $"{name} ({ToSizeString(component.Slot.Size)})";
                 }
             }
             foreach (var recipe in Recipes)
             {
                 recipe.Name = name;
+            }
+        }
+
+        public static string ToSizeString(ComponentSize size)
+        {
+            switch (size)
+            {
+                case ComponentSize.Tiny:
+                    return "T";
+                case ComponentSize.ExtraSmall:
+                    return "XS";
+                case ComponentSize.PointDefense:
+                    return "PD";
+                case ComponentSize.Small:
+                    return "S";
+                case ComponentSize.Medium:
+                    return "M";
+                case ComponentSize.Large:
+                    return "L";
+                default:
+                    throw new ArgumentException($"Unsupported ComponentSize: [{size}]");
             }
         }
     }

@@ -65,6 +65,11 @@ namespace SpaceOpera.View.Info
                 yield return new KeyValuePair<string, string>(
                     "Cargo Space", Unit.GetAttribute(ComponentAttribute.CargoSpace).ToString("0.##"));
             }
+            if (Unit.GetAttribute(ComponentAttribute.PassengerSpace) > 0)
+            {
+                yield return new KeyValuePair<string, string>(
+                    "Passenger Space", Unit.GetAttribute(ComponentAttribute.PassengerSpace).ToString("0.##"));
+            }
         }
     }
 }
