@@ -124,7 +124,7 @@
     "Layers": [
       {
         "Texture": "icon-passenger",
-        "Color": "#ffff00"
+        "Color": "#ff8800"
       },
       {
         "Texture": "icon-s",
@@ -138,7 +138,7 @@
     "Layers": [
       {
         "Texture": "icon-passenger",
-        "Color": "#ffff00"
+        "Color": "#ff8800"
       },
       {
         "Texture": "icon-m",
@@ -152,7 +152,7 @@
     "Layers": [
       {
         "Texture": "icon-passenger",
-        "Color": "#ffff00"
+        "Color": "#ff8800"
       },
       {
         "Texture": "icon-l",

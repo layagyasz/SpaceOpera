@@ -68,7 +68,7 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Small" ],
                 "Count": 2
               }
@@ -103,7 +103,7 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Medium" ],
                 "Count": 2
               }
@@ -138,7 +138,7 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Large" ],
                 "Count": 2
               }
@@ -178,7 +178,7 @@
                 "Size": [ "Large" ]
               },
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Large" ]
               }
             ]
@@ -217,7 +217,7 @@
                 "Size": [ "Small" ]
               },
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Medium" ]
               }
             ]
@@ -256,7 +256,7 @@
                 "Size": [ "Medium" ]
               },
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Large" ]
               }
             ]
@@ -295,7 +295,7 @@
                 "Size": []
               },
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Medium" ]
               }
             ]
@@ -335,7 +335,7 @@
                 "Count": 2
               },
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Large" ]
               }
             ]
@@ -374,7 +374,7 @@
                 "Size": [ "PointDefense" ]
               },
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Small" ]
               }
             ]
@@ -414,7 +414,7 @@
                 "Count": 2
               },
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Medium" ]
               }
             ]
@@ -454,7 +454,7 @@
                 "Count": 4
               },
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Large" ]
               }
             ]
@@ -493,7 +493,7 @@
                 "Size": [ "Medium" ]
               },
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Medium" ]
               }
             ]
@@ -533,7 +533,7 @@
                 "Count": 4
               },
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Large" ]
               }
             ]
@@ -572,7 +572,7 @@
                 "Size": [ "Small" ]
               },
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Small" ]
               }
             ]
@@ -612,7 +612,7 @@
                 "Count": 2
               },
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Medium" ]
               }
             ]
@@ -652,7 +652,7 @@
                 "Count": 4
               },
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Large" ]
               }
             ]
@@ -692,7 +692,7 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Small" ],
                 "Count": 4
               }
@@ -727,7 +727,7 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Medium" ],
                 "Count": 4
               }
@@ -762,7 +762,7 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Large" ],
                 "Count": 4
               }
@@ -802,7 +802,7 @@
                 "Size": [ "Large" ]
               },
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Medium" ],
                 "Count": 2
               }
@@ -843,7 +843,7 @@
                 "Count": 2
               },
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Large" ],
                 "Count": 2
               }
@@ -883,7 +883,7 @@
                 "Size": [ "Small" ]
               },
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Small" ],
                 "Count": 2
               }
@@ -923,7 +923,7 @@
                 "Size": [ "Medium" ]
               },
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Medium" ],
                 "Count": 2
               }
@@ -963,7 +963,7 @@
                 "Size": [ "Large" ]
               },
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Large" ],
                 "Count": 2
               }
@@ -1003,7 +1003,7 @@
                 "Size": []
               },
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Small" ],
                 "Count": 2
               }
@@ -1044,7 +1044,7 @@
                 "Count": 2
               },
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Medium" ],
                 "Count": 2
               }
@@ -1085,7 +1085,7 @@
                 "Count": 4
               },
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Large" ],
                 "Count": 2
               }
@@ -1129,7 +1129,7 @@
                 "Size": [ "Small" ]
               },
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Small" ],
                 "Count": 2
               }
@@ -1175,7 +1175,7 @@
                 "Count": 2
               },
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Medium" ],
                 "Count": 2
               }
@@ -1221,7 +1221,7 @@
                 "Count": 4
               },
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Small" ],
                 "Count": 2
               }
@@ -1261,7 +1261,7 @@
                 "Size": [ "Medium" ]
               },
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Small" ],
                 "Count": 2
               }
@@ -1302,7 +1302,7 @@
                 "Count": 2
               },
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Medium" ],
                 "Count": 2
               }
@@ -1343,7 +1343,7 @@
                 "Count": 4
               },
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Large" ],
                 "Count": 2
               }
@@ -1384,7 +1384,7 @@
                 "Count": 2
               },
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Small" ],
                 "Count": 2
               }
@@ -1425,7 +1425,7 @@
                 "Count": 4
               },
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Medium" ],
                 "Count": 2
               }
@@ -1471,7 +1471,7 @@
                 "Count": 2
               },
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Large" ],
                 "Count": 2
               }
@@ -1512,7 +1512,7 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Small" ],
                 "Count": 2
               }
@@ -1547,7 +1547,7 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Medium" ],
                 "Count": 2
               }
@@ -1582,7 +1582,7 @@
             },
             "Slots": [
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Large" ],
                 "Count": 2
               }
@@ -1622,7 +1622,7 @@
                 "Size": [ "Large" ]
               },
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Large" ]
               }
             ]
@@ -1661,7 +1661,7 @@
                 "Size": [ "Small" ]
               },
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Medium" ]
               }
             ]
@@ -1700,7 +1700,7 @@
                 "Size": [ "Medium" ]
               },
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Large" ]
               }
             ]
@@ -1739,7 +1739,7 @@
                 "Size": []
               },
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Medium" ]
               }
             ]
@@ -1779,7 +1779,7 @@
                 "Count": 2
               },
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Large" ]
               }
             ]
@@ -1818,7 +1818,7 @@
                 "Size": [ "PointDefense" ]
               },
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Small" ]
               }
             ]
@@ -1858,7 +1858,7 @@
                 "Count": 2
               },
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Medium" ]
               }
             ]
@@ -1898,7 +1898,7 @@
                 "Count": 4
               },
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Large" ]
               }
             ]
@@ -1937,7 +1937,7 @@
                 "Size": [ "Medium" ]
               },
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Medium" ]
               }
             ]
@@ -1977,7 +1977,7 @@
                 "Count": 4
               },
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Large" ]
               }
             ]
@@ -2016,7 +2016,7 @@
                 "Size": [ "Small" ]
               },
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Small" ]
               }
             ]
@@ -2056,7 +2056,7 @@
                 "Count": 2
               },
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Medium" ]
               }
             ]
@@ -2096,7 +2096,7 @@
                 "Count": 4
               },
               {
-                "Type": [ "ShipInternal", "HeavyShield" ],
+                "Type": [ "Internal", "HeavyShield" ],
                 "Size": [ "Large" ]
               }
             ]

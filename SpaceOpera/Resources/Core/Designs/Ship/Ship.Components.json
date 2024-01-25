@@ -84,7 +84,7 @@
       "Freighter": 1
     },
     "Slot": {
-      "Type": "ShipInternal",
+      "Type": "Internal",
       "Size": "Small"
     },
     "Attributes": {
@@ -100,7 +100,7 @@
       "Freighter": 2
     },
     "Slot": {
-      "Type": "ShipInternal",
+      "Type": "Internal",
       "Size": "Medium"
     },
     "Attributes": {
@@ -116,7 +116,7 @@
       "Freighter": 4
     },
     "Slot": {
-      "Type": "ShipInternal",
+      "Type": "Internal",
       "Size": "Large"
     },
     "Attributes": {
@@ -188,7 +188,7 @@
       "Transport": 1
     },
     "Slot": {
-      "Type": "ShipInternal",
+      "Type": "Internal",
       "Size": "Small"
     },
     "Attributes": {
@@ -204,7 +204,7 @@
       "Freighter": 2
     },
     "Slot": {
-      "Type": "ShipInternal",
+      "Type": "Internal",
       "Size": "Medium"
     },
     "Attributes": {
@@ -220,7 +220,7 @@
       "Freighter": 4
     },
     "Slot": {
-      "Type": "ShipInternal",
+      "Type": "Internal",
       "Size": "Large"
     },
     "Attributes": {

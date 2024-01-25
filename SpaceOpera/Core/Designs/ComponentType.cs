@@ -41,12 +41,12 @@ namespace SpaceOpera.Core.Designs
         HeavyGunWeight,
 
         HeavyMissile,
+        Internal,
 
         Ship,
         ShipArmor,
         ShipConstruction,
         ShipHangar,
-        ShipInternal,
         ShipJumpDrive,
         ShipPowercore,
         ShipThruster,
