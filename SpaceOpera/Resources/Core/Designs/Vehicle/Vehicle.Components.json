@@ -135,5 +135,37 @@
     "ReferenceMaterial": {
       "MaterialReference2": {}
     }
+  },
+  {
+    "$id": "component-vehicle-transport-t",
+    "Name": "Transport (T)",
+    "Tags": {
+      "Transport": 1
+    },
+    "Slot": {
+      "Type": "Internal",
+      "Size": "Tiny"
+    },
+    "Attributes": {
+      "PassengerSpace": {
+        "Constant": 12.5
+      }
+    }
+  },
+  {
+    "$id": "component-vehicle-transport-xs",
+    "Name": "Transport (XS)",
+    "Tags": {
+      "Transport": 2
+    },
+    "Slot": {
+      "Type": "Internal",
+      "Size": "ExtraSmall"
+    },
+    "Attributes": {
+      "PassengerSpace": {
+        "Constant": 25
+      }
+    }
   }
 ]

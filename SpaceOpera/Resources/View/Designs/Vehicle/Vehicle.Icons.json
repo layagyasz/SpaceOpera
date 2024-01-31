@@ -61,5 +61,33 @@
         "Color": "#ffffff"
       }
     ]
+  },
+  {
+    "$id": "component-vehicle-transport-t",
+    "Layers": [
+      {
+        "Texture": "icon-passenger",
+        "Color": "#ff8800"
+      },
+      {
+        "Texture": "icon-t",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
+  },
+  {
+    "$id": "component-vehicle-transport-xs",
+    "Layers": [
+      {
+        "Texture": "icon-passenger",
+        "Color": "#ff8800"
+      },
+      {
+        "Texture": "icon-t",
+        "Color": "#ffffff",
+        "IsInfo": true
+      }
+    ]
   }
 ]

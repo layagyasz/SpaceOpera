@@ -147,8 +147,7 @@ namespace SpaceOpera.View.Game.Panes.DesignPanes
             {
                 defaultComponents.Add(
                     slot,
-                    Enumerable.Repeat(
-                        _world!.GetComponentsFor(_faction!).Where(x => x.FitsSlot(slot)).First(), slot.Count));
+                    Enumerable.Repeat(_world!.GetComponentsFor(_faction!).Where(slot.Accepts).First(), slot.Count));
             }
             segmentRow.Populate(configuration, defaultComponents);
         }
@@ -158,7 +157,7 @@ namespace SpaceOpera.View.Game.Panes.DesignPanes
             ComponentOptionTable.Clear(true);
             if (slot != null)
             {
-                foreach (var component in _world!.GetComponentsFor(_faction!).Where(x => x.FitsSlot(slot.Value)))
+                foreach (var component in _world!.GetComponentsFor(_faction!).Where(slot.Value.Accepts))
                 {
                     var option = DesignerComponentOption.Create(component, _uiElementFactory, _iconFactory);
                     option.Initialize();

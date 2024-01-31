@@ -42,11 +42,6 @@ namespace SpaceOpera.Core.Designs
             return TotalModifiers(DamageResist);
         }
 
-        public bool FitsSlot(DesignSlot slot)
-        {
-            return slot.Accepts(Slot);
-        }
-
         public override string ToString()
         {
             return $"[Component: Key={Key}]";

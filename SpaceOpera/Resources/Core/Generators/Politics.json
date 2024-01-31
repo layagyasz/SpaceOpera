@@ -433,7 +433,23 @@
       {
         "Value": 1,
         "Key": {
-          "Type": "Vehicle"
+          "Type": "Vehicle",
+          "Fitness": {
+            "Tags": {
+              "Tank": 1
+            }
+          }
+        }
+      },
+      {
+        "Value": 1,
+        "Key": {
+          "Type": "Vehicle",
+          "Fitness": {
+            "Tags": {
+              "Transport": 1
+            }
+          }
         }
       },
       {

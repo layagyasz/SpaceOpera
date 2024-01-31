@@ -97,8 +97,7 @@ namespace SpaceOpera.Core.Designs
             var components = new MultiMap<DesignSlot, IComponent>();
             foreach (var slot in configuration.Slots)
             {
-                var component =
-                    availableComponents.Where(x => x.FitsSlot(slot)).ArgMaxRandomlySelecting(fitness.Get, random);
+                var component = availableComponents.Where(slot.Accepts).ArgMaxRandomlySelecting(fitness.Get, random);
                 Precondition.Check(component != null);
                 components.Add(slot, Enumerable.Repeat(component!, slot.Count));
             }
@@ -116,7 +115,7 @@ namespace SpaceOpera.Core.Designs
                     .SelectMany(x => x.Value.Slots)
                     .Select(x => x)
                     .Distinct()
-                    .ToDictionary(x => x, x => availableComponents.Where(y => y.FitsSlot(x)).ToList());
+                    .ToDictionary(x => x, x => availableComponents.Where(x.Accepts).ToList());
             var selectedComponents = components.ToDictionary(x => x.Key, x => x.Value[random.Next(0, x.Value.Count)]);
 
             var segments = new List<Segment>();

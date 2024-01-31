@@ -19,6 +19,9 @@
               "Attributes": {
                 "MaterialCost": {
                   "Constant": 1
+                },
+                "Size": {
+                  "Constant": 2
                 }
               }
             },

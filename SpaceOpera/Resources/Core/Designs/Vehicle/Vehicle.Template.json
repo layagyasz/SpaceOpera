@@ -8,11 +8,11 @@
     },
     "Segments": [
       {
-        "$id": "design-template-vehicle-construction",
-        "Name": "Construction",
+        "$id": "design-template-vehicle-hull",
+        "Name": "Hull",
         "ConfigurationOptions": [
           {
-            "$id": "design-template-vehicle-construction-standard",
+            "$id": "design-template-vehicle-hull-standard",
             "Name": "Standard",
             "IntrinsicComponent": {
               "Attributes": {
@@ -76,6 +76,43 @@
               {
                 "Type": [ "HeavyGun" ],
                 "Size": [ "Small" ]
+              },
+              {
+                "Type": [ "Internal", "HeavyShield" ],
+                "Size": [ "Tiny" ]
+              }
+            ]
+          },
+          {
+            "$id": "design-template-vehicle-configuration-support",
+            "Name": "Support",
+            "IntrinsicComponent": {
+              "Tags": {},
+              "Attributes": {
+                "Command": {
+                  "Constant": 0.01
+                },
+                "Threat": {
+                  "Constant": 0.01
+                },
+                "Hitpoints": {
+                  "Constant": 65
+                }
+              },
+              "ReferenceMaterialCost": {
+                "MaterialReference0": {
+                  "Constant": 0.625
+                },
+                "MaterialReference1": {
+                  "Constant": 2.5
+                }
+              }
+            },
+            "Slots": [
+              {
+                "Type": [ "Internal", "HeavyShield" ],
+                "Size": [ "Tiny" ],
+                "Count": 2
               }
             ]
           }

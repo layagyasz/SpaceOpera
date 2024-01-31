@@ -3,6 +3,44 @@
     "$id": "design-template-heavy-shield",
     "Type": "HeavyShield",
     "Sizes": {
+      "Tiny": {
+        "Attributes": {
+          "MaterialCost": {
+            "Bonus": -0.75
+          },
+          "ProductionCost": {
+            "Bonus": -0.75
+          },
+          "ShieldAbsorption": {
+            "Bonus": 0
+          },
+          "ShieldCapacity": {
+            "Bonus": -0.75
+          },
+          "ShieldRecharge": {
+            "Bonus": -0.75
+          }
+        }
+      },
+      "ExtraSmall": {
+        "Attributes": {
+          "MaterialCost": {
+            "Bonus": -0.5
+          },
+          "ProductionCost": {
+            "Bonus": -0.5
+          },
+          "ShieldAbsorption": {
+            "Bonus": 0
+          },
+          "ShieldCapacity": {
+            "Bonus": -0.5
+          },
+          "ShieldRecharge": {
+            "Bonus": -0.5
+          }
+        }
+      },
       "Small": {
         "Attributes": {
           "MaterialCost": {

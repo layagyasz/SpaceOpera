@@ -9,7 +9,9 @@
       "Heavy",
 
       "Infantry",
-      "Tank"
+      "Tank",
+
+      "Mechanized"
     ],
     "ClassificationOptions": [
       [
@@ -70,6 +72,23 @@
             "Tags": {
               "Infantry": 0,
               "Tank": 4
+            }
+          }
+        }
+      ],
+      [
+        {
+          "Tags": [],
+          "Fit": {
+            "Tags": {}
+          }
+        },
+        {
+          "Tags": [ "Mechanized" ],
+          "Fit": {
+            "Tags": {
+              "Tank": -4,
+              "Mechanized": 1
             }
           }
         }

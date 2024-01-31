@@ -21,7 +21,6 @@ namespace SpaceOpera.Core.Designs
         EnumMap<DamageType, Modifier> DamageResist { get; }
         List<IAdvancement> Prerequisites { get; }
 
-        bool FitsSlot(DesignSlot slot);
         float GetAttribute(ComponentAttribute attribute);
         EnumMap<DamageType, float> GetDamage();
     }

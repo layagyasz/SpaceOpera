@@ -50,7 +50,7 @@ namespace SpaceOpera.Core.Designs
                 }
                 foreach (var component in slot.Value)
                 {
-                    if (!component.FitsSlot(slot.Key))
+                    if (slot.Key.Accepts(component))
                     {
                         return false;
                     }

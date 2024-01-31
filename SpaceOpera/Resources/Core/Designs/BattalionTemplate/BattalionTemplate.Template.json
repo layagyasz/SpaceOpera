@@ -33,6 +33,44 @@
             ]
           },
           {
+            "$id": "design-template-battalion-core-mechanized-infantry",
+            "Name": "Mechanized Infantry",
+            "IntrinsicComponent": {
+              "Attributes": {
+                "MaterialCost": {
+                  "Constant": 1
+                }
+              }
+            },
+            "Slots": [
+              {
+                "Type": [ "Infantry" ],
+                "Size": [],
+                "Weight": {
+                  "Target": {
+                    "Coefficient": 500
+                  }
+                }
+              },
+              {
+                "Type": [ "Vehicle" ],
+                "Size": [],
+                "RequiredTags": [ "Transport" ],
+                "Weight": {
+                  "TargetSlot": {
+                    "Type": "Infantry"
+                  },
+                  "Target": {
+                    "Attribute": "Size"
+                  },
+                  "Divisor": {
+                    "Attribute": "PassengerSpace"
+                  }
+                }
+              }
+            ]
+          },
+          {
             "$id": "design-template-battalion-core-vehicle",
             "Name": "Vehicle",
             "IntrinsicComponent": {

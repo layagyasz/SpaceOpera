@@ -4,7 +4,10 @@
     "ReducedTags": [
       "Light",
       "Medium",
-      "Heavy"
+      "Heavy",
+
+      "Tank",
+      "Transport"
     ],
     "ClassificationOptions": [
       [
@@ -35,6 +38,26 @@
               "Light": -3,
               "Medium": 0,
               "Heavy": 3
+            }
+          }
+        }
+      ],
+      [
+        {
+          "Tags": [ "Tank" ],
+          "Fit": {
+            "Tags": {
+              "Tank": 1,
+              "Transport": 0
+            }
+          }
+        },
+        {
+          "Tags": [ "Transport" ],
+          "Fit": {
+            "Tags": {
+              "Tank": 0,
+              "Transport": 1
             }
           }
         }

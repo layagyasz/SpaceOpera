@@ -29,7 +29,7 @@
             var target = 
                 TargetSlot.Type == ComponentType.Unknown 
                 ? Target.Coefficient 
-                : designComponents.Where(x => x.Component.Slot == targetSlot)
+                : Target.Coefficient * designComponents.Where(x => x.Component.Slot == targetSlot)
                     .Sum(x => x.Resolve(designComponents).Weight * targetPart.Evaluate(x.Component));
             return (int)Math.Ceiling(target / Divisor.Evaluate(component));
         }

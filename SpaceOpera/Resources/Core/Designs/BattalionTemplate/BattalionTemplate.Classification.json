@@ -10,6 +10,7 @@
       "Tracked",
       "Wheeled",
 
+      "Transport",
       "Unit"
     ],
     "ClassificationOptions": [
@@ -41,6 +42,22 @@
               "Light": -1,
               "Medium": 0,
               "Heavy": 1
+            }
+          }
+        }
+      ],
+      [
+        {
+          "Tags": [],
+          "Fit": {
+            "Tags": {}
+          }
+        },
+        {
+          "Tags": [ "Mechanized" ],
+          "Fit": {
+            "Tags": {
+              "Transport": 1
             }
           }
         }
